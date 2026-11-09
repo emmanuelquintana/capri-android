@@ -125,8 +125,22 @@ jobs:
 
       # every build of main is published as the release of its version (a direct download link),
       # only when signed with the release key: the app updates itself from these
+      # una versión ya publicada no se vuelve a publicar (p. ej. un push a main que solo cambia la web o el README)
+      - name: ¿Ya está publicada?
+        id: published
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.apk.outputs.version }}
+        run: |
+          if gh release view "v$VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "v$VERSION ya está publicada: no se toca"
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publicar la versión
-        if: steps.key.outputs.signed == 'true' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+        if: steps.key.outputs.signed == 'true' && steps.published.outputs.exists != 'true' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.apk.outputs.version }}
