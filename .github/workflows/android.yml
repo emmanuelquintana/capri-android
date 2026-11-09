@@ -4,7 +4,9 @@ on:
   push:
     branches: [main]
     tags: ['v*']
+    paths-ignore: ['web/**'] # la web no cambia la app: no se vuelve a publicar la versión por ella
   pull_request:
+    paths-ignore: ['web/**']
   workflow_dispatch:
 
 permissions:

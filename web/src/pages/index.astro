@@ -1,0 +1,406 @@
+---
+import { getImage, Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { getReleases, RELEASES_URL, REPO_URL, mb, fecha } from '../lib/releases';
+
+import grab from '../assets/capri/intro-grab.webp';
+import mouth1 from '../assets/capri/intro-mouth1.webp';
+import mouth2 from '../assets/capri/intro-mouth2.webp';
+import mouth3 from '../assets/capri/intro-mouth3.webp';
+import wave1 from '../assets/capri/intro-wave1.webp';
+import wave2 from '../assets/capri/intro-wave2.webp';
+import wave3 from '../assets/capri/intro-wave3.webp';
+import smear from '../assets/capri/intro-smear.webp';
+import happy from '../assets/capri/intro-happy.webp';
+import capriFull from '../assets/capri/capri-full.png';
+import icon from '../assets/capri/icon.png';
+import faceCalm from '../assets/capri/face-calm.png';
+import faceSmug from '../assets/capri/face-smug.png';
+import faceWide from '../assets/capri/face-wide.png';
+import faceLaugh from '../assets/capri/face-laugh.png';
+import cutinGrin from '../assets/capri/cutin-grin.png';
+import cutinLaugh from '../assets/capri/cutin-laugh.png';
+
+const DISCORD = 'https://discord.gg/d8tsTKMhN';
+const PAYPAL = 'https://paypal.me/Joseemmanuelq';
+const TIKTOK = 'https://www.tiktok.com/@emma180516_';
+const DESKTOP = 'https://github.com/mochiiwuff/capri-desktop';
+
+const releases = await getReleases();
+const latest = releases[0];
+const older = releases.slice(1, 4);
+const download = latest.apk ?? `${RELEASES_URL}/latest`;
+const size = mb(latest.apkSize);
+
+// Su intro, cuadro a cuadro: los mismos dibujos que usa la app
+const frameSrc = { grab, mouth1, mouth2, mouth3, wave1, wave2, wave3, smear, happy };
+const frames = await Promise.all(
+  Object.entries(frameSrc).map(async ([name, src]) => {
+    const img = await getImage({ src, widths: [820, 1240, 1672], format: 'webp', quality: 82 });
+    return { name, src: img.src, srcset: img.srcSet.attribute };
+  }),
+);
+const framesSizes = '(max-width: 720px) 190vw, max(100vw, 1100px)';
+
+// La melena detrás de ella (la app la dibuja igual, en los píxeles del dibujo: fx.js GRAB.mane)
+const MANE = [
+  [531, 480], [322, 472], [240, 444], [192, 440], [62, 415], [337, 371], [339, 299], [245, 245],
+  [222, 229], [132, 170], [381, 214], [380, 137], [326, 62], [311, 39], [249, -47], [471, 81],
+  [344, -142], [331, -256], [302, -321], [297, -435], [516, -153], [609, -203], [647, -286],
+  [653, -328], [682, -459], [757, -155], [857, -288], [934, -360], [959, -396], [1049, -510],
+  [989, -203], [1124, -240], [1226, -280], [1282, -330], [1403, -388], [1214, -121], [1208, 15],
+  [1318, -8], [1382, -34], [1491, -47], [1247, 108], [1277, 174], [1350, 196], [1382, 200],
+  [1493, 215], [1256, 268], [1278, 331], [1329, 372], [1380, 387], [1468, 435], [1243, 410],
+  [1129, 480], [1030, 590], [630, 590],
+];
+const TOP = 520;
+const manePoints = MANE.map(([x, y]) => `${x},${y + TOP}`).join(' ');
+const lockPoints = [[926, 20], [983, 20], [978, -48]].map(([x, y]) => `${x},${y + TOP}`).join(' ');
+// motas de su melena, siempre las mismas
+const specks = Array.from({ length: 70 }, (_, i) => {
+  const r = (n: number) => {
+    const v = Math.sin(i * 127.1 + n * 311.7) * 43758.5453;
+    return v - Math.floor(v);
+  };
+  return { x: 120 + r(1) * 1400, y: r(2) * 1000, s: 3 + r(3) * 7, c: ['#fc288c', '#fc40a0', '#f00038', '#fc146e'][i % 4] };
+});
+
+const moods = [
+  { face: faceCalm, line: 'Conexión establecida. Hola, choom.', note: 'Así te saluda cada vez que la inicias, con su intro de siempre.' },
+  { face: faceSmug, line: 'Me lanzas por todas partes ¿y ahora quieres hablar?', note: 'Recuerda cómo la tratas. Si la avientas mucho, se enoja contigo.' },
+  { face: faceWide, line: 'Aún veo estrellas. Adelante.', note: 'Tiene caras, sonidos y frases para todo: caer, dormir, asomarse o teletransportarse.' },
+  { face: faceLaugh, line: '¡Listo! Eso es preem.', note: 'Y si programas con Claude Code o Codex, te cuenta cómo va tu IA y te avisa cuando termina.' },
+];
+const moodFaces = await Promise.all(moods.map((m) => getImage({ src: m.face, width: 460, format: 'webp' })));
+
+const features = [
+  { icon: 'layers', title: 'Vive encima de tus apps', text: 'Camina, salta, se asoma por los bordes y se teletransporta mientras usas el teléfono. Tus toques pasan a la app de abajo.' },
+  { icon: 'music', title: 'Se sube a tu música', text: 'Cuando algo suena sale su tarjeta para pausar o cambiar de canción, y ella se sienta encima. Tus avisos también: solo la app y el título, nunca el texto.' },
+  { icon: 'message-circle', title: 'Platica contigo', text: 'Con IA gratis y sin cuenta desde el primer toque, o con tu clave gratis de Gemini o Groq. Dile «Capri…» en voz alta y te contesta.' },
+  { icon: 'gamepad-2', title: 'Modo gamer y modo fantasma', text: 'Cuando juegas se hace chiquita en una esquina y te echa porras. En modo fantasma ni la tocas: sigue ahí sin estorbar.' },
+  { icon: 'refresh-cw', title: 'Se actualiza sola', text: 'Te avisa cuando hay versión nueva y la instala encima con un toque, sin desinstalar ni perder nada.' },
+];
+
+const site = Astro.site!;
+const title = 'Capri para Android: tu compañera animada en la pantalla';
+const description = `Descarga Capri ${latest.version} gratis: una compañera animada que vive encima de tus apps, se sube a tu música, platica contigo con IA y te echa porras cuando juegas. APK para Android 8 o más nuevo.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Capri para Android',
+    alternateName: 'Capri',
+    description,
+    url: site.href,
+    image: new URL('/og.jpg', site).href,
+    operatingSystem: 'Android 8.0+',
+    applicationCategory: 'EntertainmentApplication',
+    softwareVersion: latest.version,
+    datePublished: latest.date,
+    downloadUrl: download,
+    installUrl: download,
+    fileSize: size || undefined,
+    inLanguage: 'es',
+    isAccessibleForFree: true,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Emma', url: 'https://github.com/emmanuelquintana' },
+    isBasedOn: DESKTOP,
+    license: 'https://polyformproject.org/licenses/noncommercial/1.0.0/',
+    releaseNotes: latest.url,
+    sameAs: [REPO_URL],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Capri para Android',
+    url: site.href,
+    inLanguage: 'es-MX',
+  },
+];
+---
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <link slot="head" rel="preload" as="image" href={frames[0].src} imagesrcset={frames[0].srcset} imagesizes={framesSizes} fetchpriority="high" />
+
+  <header class="nav" data-nav>
+    <div class="wrap">
+      <a class="mark" href="#inicio" aria-label="Capri, inicio">
+        <Image src={icon} alt="" width={32} height={32} loading="eager" />
+        Capri
+      </a>
+      <nav aria-label="Secciones">
+        <ul class="nav__links">
+          <li><a href="#que-hace">Qué hace</a></li>
+          <li><a href="#novedades">Novedades</a></li>
+          <li><a href="#instalar">Instalar</a></li>
+          <li><a href="#comunidad">Comunidad</a></li>
+        </ul>
+      </nav>
+      <a class="btn" href={download} data-download>
+        <Icon name="download" />
+        Descargar
+      </a>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" id="inicio" aria-labelledby="hero-title" data-enter>
+      <div class="wrap hero__copy">
+        <h1 id="hero-title" data-hero-title>
+          <span class="line"><span>Capri vive</span></span>
+          <span class="line"><span>en tu <span class="accent-green">Android</span></span></span>
+        </h1>
+        <p class="lead" data-hero-fade>
+          Una compañera animada que se pasea encima de tus apps, se sienta en tu música, platica contigo y te
+          echa porras cuando juegas. <strong>Gratis, sin anuncios y sin cuenta.</strong>
+        </p>
+        <div class="hero__actions" data-hero-fade>
+          <a class="btn" href={download} data-download>
+            <Icon name="download" />
+            <span>Descargar la <span data-version>{latest.version}</span></span>
+          </a>
+          <a class="btn btn--ghost" href={DISCORD} rel="noopener">
+            <Icon name="discord" brand />
+            Unirme al Discord
+          </a>
+        </div>
+        <ul class="facts" data-hero-fade>
+          <li><span>Versión <span data-version>{latest.version}</span></span></li>
+          <li><span>APK de <span data-size>{size || '3 MB'}</span></span></li>
+          <li>Android 8 o más nuevo</li>
+        </ul>
+      </div>
+
+      <div class="hero__art" aria-hidden="true">
+        <div class="capri-grab" data-capri title="Tócala">
+          <svg class="capri-grab__mane" viewBox="0 0 1672 1461" preserveAspectRatio="xMidYMax meet" data-mane>
+            <defs>
+              <filter id="grain" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n" />
+                <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 0.2  0 0 0 0 0.55  0 0 0 0.55 -0.2" result="g" />
+                <feComposite in="g" in2="SourceGraphic" operator="in" result="gg" />
+                <feMerge><feMergeNode in="SourceGraphic" /><feMergeNode in="gg" /></feMerge>
+              </filter>
+            </defs>
+            <g filter="url(#grain)">
+              <polygon points={manePoints} fill="#fa0448" />
+            </g>
+            <g>
+              {specks.map((p) => <rect x={p.x} y={p.y} width={p.s} height={p.s} fill={p.c} transform={`rotate(45 ${p.x} ${p.y})`} />)}
+            </g>
+            <polygon points={lockPoints} fill="#010207" />
+          </svg>
+          <div class="capri-grab__frames" data-frames>
+            {frames.map((f, i) => (
+              <img
+                src={f.src}
+                srcset={f.srcset}
+                sizes={framesSizes}
+                alt=""
+                width="1672"
+                height="941"
+                decoding="async"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : undefined}
+                data-frame={f.name}
+                class={i === 0 ? 'is-on' : undefined}
+              />
+            ))}
+          </div>
+          <span class="capri-grab__hi" data-hi>¡hola!</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="que-hace" aria-labelledby="que-hace-title">
+      <div class="wrap features">
+        <div>
+          <div class="section-head">
+            <h2 id="que-hace-title">Lo que hace en tu teléfono</h2>
+            <p class="lead">Es la misma Capri de la PC, con su arte, sus animaciones y sus frases, hecha para el teléfono.</p>
+          </div>
+          <ul class="feature-list">
+            {features.map((f) => (
+              <li>
+                <Icon name={f.icon} />
+                <h3>{f.title}</h3>
+                <p>{f.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="phone" aria-label="Capri sentada sobre su tarjeta de música en un teléfono" role="img">
+          <div class="phone__screen">
+            <div class="phone__status"><span>9:41</span><span>5G · 82%</span></div>
+            <div class="phone__apps">{Array.from({ length: 12 }, () => <span />)}</div>
+            <div class="bubble">Hola, <b>choom</b>. ¿Qué tienes en mente?</div>
+            <Image class="phone__capri" src={capriFull} alt="" width={240} height={420} />
+            <div class="music">
+              <div class="music__cover"></div>
+              <div class="music__title"><span class="music__tag">SONANDO</span> I Really Want to Stay at Your House</div>
+              <div class="music__artist">Rosa Walton</div>
+              <div class="music__bar"><i></i></div>
+              <div class="music__controls">
+                <Icon name="skip-back" />
+                <Icon name="pause" />
+                <Icon name="skip-forward" />
+              </div>
+            </div>
+            <div class="notice">
+              <Image src={icon} alt="" width={28} height={28} />
+              <div><strong>Capri</strong> <span>· Toca aquí para abrir mi menú</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="moods" id="caracter" aria-labelledby="caracter-title" data-moods>
+      <div class="moods__stage">
+        <div class="wrap">
+          <div class="moods__grid">
+            <div class="moods__faces">
+              {moodFaces.map((f, i) => (
+                <img src={f.src} alt={i === 0 ? 'La cara de Capri, con su máscara verde y sus ojos azules' : ''} width="460" height="460" loading="lazy" decoding="async" data-face />
+              ))}
+            </div>
+            <div>
+              <h2 id="caracter-title" class="section-head" style="margin-bottom:28px">Tiene su carácter</h2>
+              <div class="moods__lines">
+                {moods.map((m) => (
+                  <div class="mood" data-mood>
+                    <q>{m.line}</q>
+                    <p>{m.note}</p>
+                  </div>
+                ))}
+              </div>
+              <div class="moods__count" aria-hidden="true">{moods.map((_, i) => <i class={i === 0 ? 'is-on' : undefined} data-dot />)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="novedades" aria-labelledby="novedades-title">
+      <div class="wrap release">
+        <div>
+          <h2 id="novedades-title">Lo nuevo</h2>
+          <p class="release__version" aria-label={`Versión ${latest.version}`}>{latest.version}</p>
+          <p class="release__meta">Publicada el <time datetime={latest.date}>{fecha(latest.date)}</time></p>
+          <a class="link-arrow" href={RELEASES_URL} rel="noopener">Todas las versiones <Icon name="arrow-right" /></a>
+        </div>
+        <div>
+          <ul class="release__notes">
+            {latest.notes.map((n) => <li set:html={n} />)}
+          </ul>
+          {older.length > 0 && (
+            <div class="older">
+              {older.map((r) => (
+                <details>
+                  <summary>
+                    <div>
+                      Versión {r.version} <span>· {fecha(r.date)}</span>
+                    </div>
+                    <Icon name="plus" />
+                  </summary>
+                  <ul class="release__notes">
+                    {r.notes.map((n) => <li set:html={n} />)}
+                  </ul>
+                </details>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <section class="install" id="instalar" aria-labelledby="instalar-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="instalar-title">Instálala en un minuto</h2>
+          <p class="lead">No está en Play Store: se instala con su APK, firmado siempre con la misma llave para que cada actualización entre encima.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <h3>Descarga el APK</h3>
+            <p>Desde el teléfono, con el botón de abajo. Pesa <span data-size>{size || '3 MB'}</span>.</p>
+          </li>
+          <li>
+            <h3>Ábrelo y permite instalar</h3>
+            <p>Android te pregunta si confías en esa fuente (tu navegador o tus archivos). Dile que sí, solo para esto.</p>
+          </li>
+          <li>
+            <h3>Dale sus permisos e iníciala</h3>
+            <p>Mostrarse sobre otras apps y su notificación. Ver tus notificaciones es opcional. Luego toca <em>Iniciar Capri</em>.</p>
+          </li>
+        </ol>
+        <div class="install__cta">
+          <a class="btn" href={download} data-download>
+            <Icon name="download" />
+            <span>Descargar Capri <span data-version>{latest.version}</span></span>
+          </a>
+          <a class="btn btn--ghost" href={REPO_URL} rel="noopener">
+            <Icon name="github" brand />
+            Ver el código
+          </a>
+          <p>Después se actualiza sola: te avisa con una notificación y la instala encima con un toque.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="community" id="comunidad" aria-labelledby="comunidad-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="comunidad-title">Únete a la banda</h2>
+          <p class="lead">Ideas, errores, capturas de Capri haciendo de las suyas. Todo pasa en el Discord.</p>
+        </div>
+        <div class="panels">
+          <a class="panel panel--discord" href={DISCORD} rel="noopener">
+            <div>
+              <h3>Entra al Discord</h3>
+              <p>Pide funciones, reporta errores y entérate primero de cada versión nueva.</p>
+            </div>
+            <span class="panel__go"><Icon name="discord" brand /> discord.gg/d8tsTKMhN <Icon name="arrow-right" /></span>
+            <span class="panel__art" aria-hidden="true"><Image src={cutinGrin} alt="" width={260} /></span>
+          </a>
+          <a class="panel panel--donate" href={PAYPAL} rel="noopener">
+            <div>
+              <h3>Apoya a Capri</h3>
+              <p>Capri es gratis y así se queda. Si te gusta, una donación ayuda a que siga creciendo.</p>
+            </div>
+            <span class="panel__go"><Icon name="paypal" brand /> Donar con PayPal <Icon name="arrow-right" /></span>
+            <span class="panel__art" aria-hidden="true"><Image src={cutinLaugh} alt="" width={260} /></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__legal">
+        <p>
+          Capri para Android la hace <a href="https://github.com/emmanuelquintana" rel="noopener">Emma</a> a partir de{' '}
+          <a href={DESKTOP} rel="noopener">capri-desktop</a>, de mochiiwuff. Gratis, nunca a la venta
+          (<a href="https://polyformproject.org/licenses/noncommercial/1.0.0/" rel="noopener">PolyForm Noncommercial 1.0.0</a>).
+        </p>
+        <p>Required Notice: Copyright (c) 2026 mochiiwuff (https://github.com/mochiiwuff/capri-desktop)</p>
+        <p>Capri es un personaje de <em>Cyberpunk: Edgerunners</em>. Proyecto de fans, sin relación con CD PROJEKT RED ni Studio Trigger.</p>
+      </div>
+      <ul class="footer__links">
+        <li><a href={RELEASES_URL} rel="noopener">Versiones</a></li>
+        <li><a href={REPO_URL} rel="noopener">GitHub</a></li>
+        <li><a href={DISCORD} rel="noopener">Discord</a></li>
+        <li><a href={TIKTOK} rel="noopener">TikTok</a></li>
+        <li><a href={PAYPAL} rel="noopener">Donar</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    import './../scripts/motion';
+    import './../scripts/latest';
+  </script>
+</Base>

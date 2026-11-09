@@ -6,6 +6,7 @@ name: Capturas de la app
 on:
   push:
     branches-ignore: [main]
+    paths-ignore: ['web/**']
   workflow_dispatch:
 
 jobs:

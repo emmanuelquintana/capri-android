@@ -1,0 +1,20 @@
+---
+// Íconos dibujados: Lucide para la interfaz, Simple Icons para las marcas (Discord, PayPal, GitHub, TikTok).
+import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+
+interface Props {
+  name: string;
+  brand?: boolean;
+  class?: string;
+}
+const { name, brand = false, class: cls } = Astro.props;
+const require = createRequire(import.meta.url);
+const file = brand ? require.resolve(`simple-icons/icons/${name}.svg`) : require.resolve(`lucide-static/icons/${name}.svg`);
+let svg = readFileSync(file, 'utf8').replace(/<!--[\s\S]*?-->/g, '').trim();
+svg = svg
+  .replace(/<svg[^>]*>/, (tag) => tag.replace(/\s(class|width|height)="[^"]*"/g, ''))
+  .replace('<svg', `<svg aria-hidden="true" focusable="false"${cls ? ` class="${cls}"` : ''}${brand ? ' fill="currentColor"' : ''}`)
+  .replace(/<title>.*?<\/title>/, '');
+---
+<Fragment set:html={svg} />
