@@ -419,13 +419,51 @@ const FRIENDLY = {
     [/abort|signal|cancel/i, 'the connection dropped, try again'],
     [/network|fetch|resolve|offline|connect|socket|host/i, 'no internet, or the service isn’t answering'],
   ],
+  fr: [
+    [/must be a string|image_url|vision|multimodal|modalit/i, 'cette IA ne voit pas les images'],
+    [/^not allowed/i, 'tu ne m’as pas laissée voir ton écran'],
+    [/screen off/i, 'l’écran est éteint'],
+    [/no picture|picture is gone/i, 'l’image ne m’est pas arrivée, réessaie'],
+    [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'la clé de l’IA ne marche pas ; vérifie-la dans Réglages'],
+    [/402|429|rate|limit|quota|too many/i, 'l’IA est saturée, attends un petit moment'],
+    [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'le service de l’IA est en panne, réessaie plus tard'],
+    [/timeout|timed out/i, 'l’IA a mis trop de temps à répondre'],
+    [/abort|signal|cancel/i, 'la connexion a coupé, réessaie'],
+    [/network|fetch|resolve|offline|connect|socket|host/i, 'pas d’internet, ou le service ne répond pas'],
+  ],
+  pt: [
+    [/must be a string|image_url|vision|multimodal|modalit/i, 'essa IA não enxerga imagens'],
+    [/^not allowed/i, 'você não me deixou ver sua tela'],
+    [/screen off/i, 'a tela está desligada'],
+    [/no picture|picture is gone/i, 'a imagem não chegou, tenta de novo'],
+    [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'a chave da IA não funciona; confira em Ajustes'],
+    [/402|429|rate|limit|quota|too many/i, 'a IA está lotada, espera um pouquinho'],
+    [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'o serviço da IA caiu, tenta daqui a pouco'],
+    [/timeout|timed out/i, 'a IA demorou demais para responder'],
+    [/abort|signal|cancel/i, 'a conexão caiu, tenta de novo'],
+    [/network|fetch|resolve|offline|connect|socket|host/i, 'sem internet, ou o serviço não responde'],
+  ],
+  ru: [
+    [/must be a string|image_url|vision|multimodal|modalit/i, 'этот ИИ не видит картинки'],
+    [/^not allowed/i, 'ты не разрешил мне видеть экран'],
+    [/screen off/i, 'экран выключен'],
+    [/no picture|picture is gone/i, 'картинка до меня не дошла, попробуй ещё раз'],
+    [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'ключ ИИ не работает; проверь его в Настройках'],
+    [/402|429|rate|limit|quota|too many/i, 'ИИ перегружен, подожди немного'],
+    [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'сервис ИИ не работает, попробуй позже'],
+    [/timeout|timed out/i, 'ИИ слишком долго отвечал'],
+    [/abort|signal|cancel/i, 'соединение оборвалось, попробуй ещё раз'],
+    [/network|fetch|resolve|offline|connect|socket|host/i, 'нет интернета, или сервис не отвечает'],
+  ],
 };
+const SOMETHING = { es: 'algo falló, intenta otra vez', en: 'something went wrong, try again', fr: 'quelque chose a raté, réessaie', pt: 'algo deu errado, tenta de novo', ru: 'что-то пошло не так, попробуй ещё раз' };
+const FREE_AI = { es: 'La IA gratis', en: 'The free AI', fr: 'L’IA gratuite', pt: 'A IA grátis', ru: 'Бесплатный ИИ' };
 function friendly(message) {
   const raw = String(message || '');
   send('log', { level: 'W', text: `AI: ${raw.slice(0, 300)}` });
-  const lang = resolveLang(cfg.lang) === 'es' ? 'es' : 'en';
+  const lang = FRIENDLY[resolveLang(cfg.lang)] ? resolveLang(cfg.lang) : 'en';
   const hit = FRIENDLY[lang].find(([re]) => re.test(raw));
-  return hit ? hit[1] : lang === 'es' ? 'algo falló, intenta otra vez' : 'something went wrong, try again';
+  return hit ? hit[1] : SOMETHING[lang];
 }
 
 // her AI can't look at pictures: why, before Android asks you to share your screen for nothing
@@ -435,7 +473,7 @@ async function cantSee() {
   if (!model) return { ok: false, code: 'noai' };
   if (cfg.provider === 'claude') return { ok: false, code: 'novision', model: 'Claude Code' };
   if (cfg.provider === 'ollama' && !(await ollama.canSee(model))) return { ok: false, code: 'novision', model };
-  if (cfg.provider === 'pollinations' && !(await freeSees(model))) return { ok: false, code: 'novision', model: brainLang() === 'es' ? 'La IA gratis' : 'The free AI' };
+  if (cfg.provider === 'pollinations' && !(await freeSees(model))) return { ok: false, code: 'novision', model: FREE_AI[brainLang()] || FREE_AI.en };
   if (!['ollama', 'pollinations', 'custom'].includes(cfg.provider) && !lookModel()) return { ok: false, code: 'novision', model };
   return null;
 }
@@ -456,7 +494,7 @@ function lookModel() {
   const rank = (m) => (/preview|exp/i.test(m) ? 2 : 0) + (/mini|lite|small|scout|flash/i.test(m) ? 0 : 1);
   return list.sort((a, b) => rank(a) - rank(b))[0] || null;
 }
-const brainLang = () => (window.dev?.brain?.lang === 'es' ? 'es' : 'en');
+const brainLang = () => window.dev?.brain?.lang || 'en';
 
 // the free AI's models say whether they take pictures (its list has vision / input_modalities);
 // one that can't would answer about a picture it never saw
@@ -543,6 +581,24 @@ const PHONE_LABELS = {
     motionAuto: 'Like the phone', restTaskbar: 'Sitting on the bottom edge', theme: 'Her panels’ style',
     soundsDir: 'Where to put my own sounds',
     lookNow: 'Look at my screen', lookAuto: 'Watch my screen live', ghost: 'Ghost mode (can’t be touched)',
+  },
+  fr: {
+    possess: 'Posséder ses cartes', gamer: 'Mode gamer', icon: 'Mode icône (juste son masque)', float: 'Sans gravité (reste où tu la poses)', community: 'Rejoins la communauté', startup: 'Démarrer avec le téléphone', pcReact: 'Réagir à mon téléphone',
+    motionAuto: 'Comme le téléphone', restTaskbar: 'Assise en bas, sur le bord', theme: 'Style de ses panneaux',
+    soundsDir: 'Où mettre mes propres sons',
+    lookNow: 'Regarde mon écran', lookAuto: 'Voir mon écran en direct', ghost: 'Mode fantôme (intouchable)',
+  },
+  pt: {
+    possess: 'Possuir os cartões', gamer: 'Modo gamer', icon: 'Modo ícone (só a máscara)', float: 'Sem gravidade (fica onde você colocar)', community: 'Entre na comunidade', startup: 'Iniciar com o celular', pcReact: 'Reagir ao meu celular',
+    motionAuto: 'Como o celular', restTaskbar: 'Sentada embaixo, na borda', theme: 'Estilo dos painéis',
+    soundsDir: 'Onde pôr meus próprios sons',
+    lookNow: 'Olha minha tela', lookAuto: 'Ver minha tela ao vivo', ghost: 'Modo fantasma (não pode ser tocada)',
+  },
+  ru: {
+    possess: 'Захватывать карточки', gamer: 'Игровой режим', icon: 'Режим иконки (только маска)', float: 'Без гравитации (остаётся, где поставишь)', community: 'Сообщество', startup: 'Запускать с телефоном', pcReact: 'Реагировать на телефон',
+    motionAuto: 'Как на телефоне', restTaskbar: 'Сидя внизу, на краю', theme: 'Стиль её панелей',
+    soundsDir: 'Куда класть свои звуки',
+    lookNow: 'Посмотри на мой экран', lookAuto: 'Смотреть мой экран вживую', ghost: 'Режим призрака (нельзя трогать)',
   },
 };
 
@@ -930,6 +986,9 @@ let pulling = null;
 const GAMER_LINES = {
   es: { on: ['Modo gamer. Me hago chiquita aquí, tú dale.', 'Modo gamer activado. No te estorbo, choom.'], off: ['¿Qué tal la partida?', 'Se acabó el modo gamer. ¿Ganaste?'] },
   en: { on: ['Gamer mode. I’ll stay small over here, go get them.', 'Gamer mode on. I won’t get in your way, choom.'], off: ['How was the game?', 'Gamer mode off. Did you win?'] },
+  fr: { on: ['Mode gamer. Je me fais toute petite ici, vas-y.', 'Mode gamer activé. Je ne te gêne pas, choom.'], off: ['Alors, cette partie ?', 'Fin du mode gamer. T’as gagné ?'] },
+  pt: { on: ['Modo gamer. Fico pequenininha aqui, manda ver.', 'Modo gamer ligado. Não vou te atrapalhar, choom.'], off: ['Como foi a partida?', 'Acabou o modo gamer. Ganhou?'] },
+  ru: { on: ['Игровой режим. Я тут маленькая посижу, давай.', 'Игровой режим включён. Не мешаю, чум.'], off: ['Как игра?', 'Игровой режим выключен. Победил?'] },
 };
 function gamerMode(on) {
   const dev = window.dev;

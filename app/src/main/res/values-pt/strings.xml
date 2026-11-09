@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_name">Capri na sua tela</string>
+    <string name="channel_desc">Mantém a Capri ligada e guarda o menu dela.</string>
+    <string name="notify_title">Capri está online</string>
+    <string name="notify_text">Na sua tela. Toque aqui para abrir meu menu.</string>
+    <string name="notify_text_hidden">Guardada no biochip dela</string>
+    <string name="action_menu">Menu</string>
+    <string name="action_hide">Guardar</string>
+    <string name="action_show">Trazer de volta</string>
+    <string name="action_quit">Sair</string>
+    <string name="main_intro">A Capri vive por cima dos seus apps e te conta o que o Claude Code, o Codex ou o Antigravity estão fazendo (no Termux deste celular, ou no seu PC pelo Wi-Fi).</string>
+    <string name="main_start">Ligar a Capri</string>
+    <string name="main_stop">Desligar a Capri</string>
+    <string name="main_ok">Pronto</string>
+    <string name="main_license">Versão Android do capri-desktop, de mochiiwuff. Grátis, nunca à venda (PolyForm Noncommercial 1.0.0). Capri, Cyberpunk e Cyberpunk: Edgerunners pertencem à CD PROJEKT RED, ao Studio Trigger e à Netflix.</string>
+    <string name="hooks_copied">Comando copiado. Cole no Termux e aperte Enter.</string>
+    <string name="main_overlay">Mostrar sobre outros apps</string>
+    <string name="main_notify">Mostrar a notificação dela</string>
+    <string name="main_running">Ela está na sua tela. Toque e segure nela para o menu.</string>
+    <string name="main_status_on">ONLINE</string>
+    <string name="main_status_off">OFFLINE</string>
+    <string name="main_idle">Dê as duas permissões e depois ligue ela.</string>
+    <string name="main_granted">CONCEDIDA</string>
+    <string name="main_grant">CONCEDER</string>
+    <string name="main_log">Registro</string>
+    <string name="main_log_empty">Nada ainda. Se ela não aparecer, o que deu errado aparece aqui.</string>
+    <string name="main_copy">Copiar</string>
+    <string name="main_copied">Registro copiado</string>
+    <string name="main_ai">A IA dela</string>
+    <string name="main_ai_pick">Escolher a IA dela</string>
+    <string name="main_ai_free">Grátis online, sem conta</string>
+    <string name="main_ai_pc">Ollama no seu PC</string>
+    <string name="main_ai_custom">Seu próprio servidor</string>
+    <string name="main_ai_how">Abre o painel dela na sua tela: grátis sem conta, uma chave (Groq e Gemini são grátis) ou o Ollama do seu PC pelo Wi-Fi. Sem terminal.</string>
+    <string name="main_notes">Ver suas notificações e sua música (opcional): ela pula nelas</string>
+    <string name="update_head">Atualizações</string>
+    <string name="update_checking">Procurando uma versão nova…</string>
+    <string name="update_latest">Atualizada · v%1$s</string>
+    <string name="update_offline">Não deu para verificar (sem internet?) · v%1$s</string>
+    <string name="update_new">Nova: v%1$s (você tem a v%2$s)</string>
+    <string name="update_go">Atualizar</string>
+    <string name="update_downloading">Baixando… %1$d %%</string>
+    <string name="update_installing">Confirme na tela que o Android mostrar</string>
+    <string name="update_allow">Permita que a Capri instale apps, depois volte e toque em Atualizar.</string>
+    <string name="update_failed">A atualização não funcionou daqui: a página dela abre para você baixar.</string>
+    <string name="update_conflict">Esta versão foi assinada de outro jeito: desinstale a Capri uma vez e instale de novo. Depois disso, as atualizações instalam por cima.</string>
+    <string name="update_channel">Atualizações</string>
+    <string name="update_title">Saiu a Capri %1$s</string>
+    <string name="update_text">Toque para atualizar, sem desinstalar.</string>
+    <string name="ob_linking">Conectando ao biochip dela…</string>
+    <string name="ob_hello">E aí, choom. Eu sou a Capri. Vou viver por cima dos seus apps, conversar com você e te contar o que a sua IA está fazendo. Primeiro, quatro coisinhas.</string>
+    <string name="ob_start">Começar</string>
+    <string name="ob_name_line">Como eu te chamo?</string>
+    <string name="ob_name_how">Seu nome ou um apelido. Vou usar de vez em quando. Dá para mudar depois em Ajustes.</string>
+    <string name="ob_name_hint">Seu nome ou apelido</string>
+    <string name="ob_next">Próximo</string>
+    <string name="ob_skip">Agora não</string>
+    <string name="ob_back">Voltar</string>
+    <string name="ob_ai_line">Para conversar com você, preciso de uma IA, %1$s.</string>
+    <string name="ob_ai_how">Escolha uma. Dá para trocar quando quiser em Ajustes.</string>
+    <string name="ai_free_title">Grátis, sem conta</string>
+    <string name="ai_free_how">Um toque e pronto. Vai pela internet (Pollinations).</string>
+    <string name="ai_key_title">Com uma chave</string>
+    <string name="ai_key_how">Groq e Gemini são grátis: abra a página deles, crie uma chave, copie e cole aqui.</string>
+    <string name="ai_pc_title">O Ollama do seu PC</string>
+    <string name="ai_pc_how">Seu PC vira o cérebro dela pelo Wi-Fi. No Ollama, ative “Expose Ollama to the network” e escreva o IP do PC aqui.</string>
+    <string name="ai_key_hint">Cole sua chave</string>
+    <string name="ai_paste">Colar chave</string>
+    <string name="ai_paste_none">Nada copiado.</string>
+    <string name="ai_get_key">Pegar uma chave</string>
+    <string name="ai_ip_hint">IP do PC, ex. 192.168.1.20</string>
+    <string name="ai_use">Usar esta</string>
+    <string name="ai_checking">Verificando…</string>
+    <string name="ai_ok">Pronto: agora %1$s responde por ela.</string>
+    <string name="ai_bad_key">Essa chave não funciona. Confira se copiou ela inteira.</string>
+    <string name="ai_fail">Sem resposta (%1$s). Confira o endereço ou sua conexão.</string>
+    <string name="ob_perm_line">Agora as permissões. Eu te digo para que serve cada uma.</string>
+    <string name="ob_perm_how">As necessárias primeiro. As opcionais você pode dar quando quiser na aba Permissões.</string>
+    <string name="perm_overlay_title">Mostrar sobre outros apps</string>
+    <string name="perm_overlay_why">É assim que eu existo no seu celular: sem isso não consigo aparecer em cima de nada. Seus toques continuam chegando aos seus apps; só eu e meus painéis podem ser tocados.</string>
+    <string name="perm_notify_title">A notificação dela</string>
+    <string name="perm_notify_why">O Android precisa de uma notificação fixa para não me fechar. Ela também é meu painel: Menu, Guardar e Sair, e minhas piscadinhas.</string>
+    <string name="perm_notes_title">Ver suas notificações</string>
+    <string name="perm_notes_why">Para eu sentar na sua música com os controles e pular nos seus avisos. Só vejo o app e o título, nunca a mensagem, e nada sai do celular. Atenção: com isso ligado, alguns apps de banco te bloqueiam; se você usa um, melhor deixar desligado.</string>
+    <string name="perm_install_title">Instalar as atualizações dela</string>
+    <string name="perm_install_why">Para eu me atualizar pelo GitHub sem desinstalar. O Android ainda pede para você confirmar toda vez.</string>
+    <string name="perm_required">NECESSÁRIA</string>
+    <string name="perm_optional">OPCIONAL</string>
+    <string name="ob_done_line">Tudo pronto, %1$s. A gente se vê por cima dos seus apps.</string>
+    <string name="ob_done_how">Toque e segure em mim para o menu, me arraste para me jogar e me faça carinho com dois dedos.</string>
+    <string name="ob_need_overlay">Primeiro deixe ela aparecer sobre outros apps.</string>
+    <string name="tab_news">Novidades</string>
+    <string name="tab_perms">Permissões</string>
+    <string name="tab_community">Comunidade</string>
+    <string name="tab_settings">Ajustes</string>
+    <string name="news_head">Novo</string>
+    <string name="perms_intro">O que a Capri pode fazer no seu celular e por que ela precisa disso.</string>
+    <string name="settings_name">Como ela te chama</string>
+    <string name="settings_name_saved">Agora vou te chamar de %1$s.</string>
+    <string name="settings_save">Salvar</string>
+    <string name="settings_ai">A IA dela</string>
+    <string name="settings_ai_now">Agora: %1$s</string>
+    <string name="settings_ai_panel">Escolher no painel dela</string>
+    <string name="settings_intro_again">Ver as boas-vindas de novo</string>
+    <string name="choom">choom</string>
+    <string name="update_browser">Baixa no seu navegador. Quando terminar, abra e toque em Atualizar: instala por cima desta, sem perder nada.</string>
+    <string name="perms_bank_head">Apps de banco</string>
+    <string name="perms_bank">Alguns apps de banco te bloqueiam se outro app aparece por cima ou pode ver notificações, mesmo que não leia nada deles. Eu nunca leio nada do seu banco nem mando seus dados para lugar nenhum. Se o seu banco reclamar: desligue “Ver suas notificações” e me guarde (“Guardar”, na minha notificação) antes de abrir ele.</string>
+    <string name="dev_on">Modo desenvolvedor: o registro aparece em Ajustes.</string>
+    <string name="dev_off">Modo desenvolvedor desligado.</string>
+    <string name="perm_mic_title">Te ouvir dizer “Capri”</string>
+    <string name="perm_mic_why">Só se você ligar “Fale com ela” em Ajustes, e só com a tela ligada. O reconhecimento de voz do seu celular transforma o que você diz em palavras; eu só guardo o que vem depois do meu nome e nunca gravo áudio. O Android mostra o pontinho do microfone enquanto eu escuto. Atenção: alguns apps de banco e antivírus desconfiam de apps com microfone; se o seu reclamar, desligue.</string>
+    <string name="settings_voice">Fale com ela</string>
+    <string name="settings_voice_how">Diga “Capri” e depois o que quiser: “Capri, que horas são?”, “Capri, abre o Spotify”, “Capri, próxima música”, “Capri, liga a lanterna”, “Capri, põe um timer de 10 minutos”, “Capri, se esconde”. O resto vai para a IA dela, e ela responde em voz alta. Só com a tela ligada.</string>
+    <string name="settings_voice_on">Ligado: ela está esperando o nome dela.</string>
+    <string name="settings_voice_off">Desligado.</string>
+    <string name="settings_voice_turn_on">Ligar</string>
+    <string name="settings_voice_turn_off">Desligar</string>
+    <string name="settings_voice_nomic">Sem o microfone ela não consegue te ouvir.</string>
+    <string name="settings_voice_none">Este celular não tem reconhecimento de voz (instale ou atualize o app do Google).</string>
+    <string name="voice_listening">● Escutando. Diga “Capri…”</string>
+    <string name="voice_heard">✓ Ouviu o nome dela: “%1$s”</string>
+    <string name="voice_other">Ouviu “%1$s”, mas não “Capri”.</string>
+    <string name="voice_busy">O microfone está ocupado (uma ligação ou outro app).</string>
+    <string name="voice_media">Em pausa enquanto toca um vídeo ou música: escutar pausaria. Volta sozinho quando acabar.</string>
+    <string name="voice_nomic">Sem permissão de microfone: dê em Permissões.</string>
+    <string name="voice_screenoff">Descansando: a tela está desligada.</string>
+    <string name="voice_norecognizer">Este celular não tem reconhecimento de voz (instale ou atualize o app do Google).</string>
+    <string name="voice_error">O reconhecimento de voz falhou (erro %1$s). Tentando de novo…</string>
+    <string name="voice_starting">Iniciando… (a Capri está ligada?)</string>
+    <string name="tab_cmds">Comandos</string>
+    <string name="cmds_intro">O que você pode pedir para ela, em voz alta ou escrevendo no chat dela.</string>
+    <string-array name="cmds">
+        <item>#Fale com ela</item>
+        <item>Ligue em Ajustes → Fale com ela. Diga “Capri” e o que quiser; se disser só “Capri”, ela escuta por alguns segundos. Tudo isso também funciona escrito no chat dela.</item>
+        <item>#Hora e data</item>
+        <item>“Capri, que horas são?”</item>
+        <item>“Capri, que dia é hoje?”</item>
+        <item>#Música</item>
+        <item>“Capri, toca Bad Bunny no Spotify”</item>
+        <item>“Capri, toca Never Fade Away no YouTube”</item>
+        <item>“Capri, pausa” · “próxima” · “anterior”</item>
+        <item>Enquanto algo toca ela não escuta (pausaria): use a barra de música dela ou escreva no chat dela.</item>
+        <item>“Capri, aumenta o volume” · “abaixa o volume”</item>
+        <item>“Capri, volume 30” · “silencia”</item>
+        <item>#Apps</item>
+        <item>“Capri, abre o WhatsApp”</item>
+        <item>“Capri, abre youtube.com”</item>
+        <item>#Seu celular</item>
+        <item>“Capri, liga a lanterna” · “desliga a lanterna”</item>
+        <item>“Capri, quanta bateria eu tenho?”</item>
+        <item>“Capri, quanto espaço livre sobrou?”</item>
+        <item>“Capri, abre os ajustes de wifi” (ou bluetooth, som, tela…)</item>
+        <item>#Tempo</item>
+        <item>“Capri, põe um timer de 10 minutos”</item>
+        <item>“Capri, me lembra de ligar para a minha mãe em 1 hora”</item>
+        <item>“Capri, me lembra amanhã às 9 de tirar o lixo”</item>
+        <item>#Ela</item>
+        <item>“Capri, se esconde” · “Capri, volta”</item>
+        <item>“Capri, modo gamer” (desliga em Ajustes ou no menu dela)</item>
+        <item>“Capri, modo ícone” / “Capri, sai do ícone”</item>
+        <item>“Capri, abre o chat”</item>
+        <item>“Capri, me chama de Emma”</item>
+        <item>“Capri, lembra que eu gosto de café”</item>
+        <item>“Capri, para de escutar”</item>
+        <item>#Sua tela</item>
+        <item>“Capri, olha minha tela” (o Android te pergunta antes; precisa de uma IA que veja imagens, como o Gemini)</item>
+        <item>Ao vivo: Ajustes → Deixar ela ver sua tela → Ver ao vivo</item>
+        <item>#Todo o resto</item>
+        <item>Todo o resto vai para a IA dela e ela responde em voz alta: “Capri, me conta uma piada”, “Capri, como se diz gato em japonês?”</item>
+    </string-array>
+    <plurals name="news_changes">
+        <item quantity="one">%d mudança · toque para ver</item>
+        <item quantity="many">%d mudanças · toque para ver</item>
+        <item quantity="other">%d mudanças · toque para ver</item>
+    </plurals>
+    <string name="settings_her">Capri na sua tela</string>
+    <string name="settings_size">Tamanho</string>
+    <string name="size_xs">Mini</string>
+    <string name="size_s">Pequena</string>
+    <string name="size_m">Normal</string>
+    <string name="size_l">Grande</string>
+    <string name="size_xl">Enorme</string>
+    <string name="community_title">Entre na comunidade</string>
+    <string name="community_how">Novidades da Capri antes de todo mundo, ideias, bugs e gente que também tem ela no celular. Vem pro Discord e me segue no TikTok.</string>
+    <string name="community_discord">Entrar no Discord</string>
+    <string name="community_tiktok">Seguir no TikTok</string>
+    <string name="community_later">Agora não</string>
+    <string name="settings_lang">Idioma · Language</string>
+    <string name="lang_auto">Automático</string>
+    <string name="settings_float">Sem gravidade</string>
+    <string name="settings_float_how">Ela fica exatamente onde você colocar, mesmo no ar: você solta e ela flutua ali. Não sai passeando sozinha, não pula nas suas notificações e, se você jogar ela, não sai voando, então nunca fica brava. Coloque ela num canto ou do lado dos seus chats e ela fica.</string>
+    <string name="settings_icon">Modo ícone</string>
+    <string name="settings_icon_how">Na tela fica só a máscara verde dela, de olhos abertos, e dali ela continua comentando (sua tela, seus jogos, o chat dela). Arraste com o dedo para onde atrapalhar menos; toque nela para abrir o menu. Útil se você gosta dela grande: fora ela é grande, como ícone quase não ocupa espaço.</string>
+    <string name="settings_gamer">Modo gamer</string>
+    <string name="settings_gamer_how">Para quando você joga: ela fica pequenininha num canto, não pode ser tocada, os cartões dela somem, ela para de escutar e de vez em quando torce por você. Também no menu dela ou dizendo “Capri, modo gamer”. Desliga tocando de novo ou reiniciando ela.</string>
+    <string name="settings_gamer_auto">Sozinho ao abrir um jogo</string>
+    <string name="settings_gamer_auto_how">Liga quando você abre um jogo e desliga quando você sai. Precisa do “Acesso ao uso” nos ajustes do Android (ela só vê qual app está aberto, nada do que tem dentro). Atenção: alguns apps de banco e antivírus desconfiam dessa permissão; se o seu reclamar, deixe desligado.</string>
+    <string name="settings_gamer_auto_grant">Procure a Capri na lista e ative “Permitir acesso ao uso”.</string>
+    <string name="voice_gamer">Em pausa: modo gamer.</string>
+    <string name="settings_music">Barra de música</string>
+    <string name="music_always">Sempre</string>
+    <string name="music_while">Um tempo</string>
+    <string name="music_off">Nunca</string>
+    <string name="settings_lively">Movimento</string>
+    <string name="lively_calm">Calma</string>
+    <string name="lively_normal">Normal</string>
+    <string name="lively_restless">Agitada</string>
+    <string name="settings_ghost">Modo fantasma</string>
+    <string name="settings_ghost_how">Ela fica na sua tela, mas seus toques atravessam ela e chegam aos seus apps. Para desligar: aqui, ou no menu dela (toque na notificação dela).</string>
+    <string name="on">Ligado</string>
+    <string name="off">Desligado</string>
+    <string name="settings_look">Deixar ela ver sua tela</string>
+    <string name="settings_look_how">“Capri, olha minha tela” (ou o botão) deixa ela olhar uma vez e comentar. Ao vivo, ela olha de vez em quando e quando você troca de app ou de vídeo, até você parar. O Android pergunta toda vez que começa e mostra o aviso de gravação enquanto ela pode ver. A imagem só vai para a IA do chat dela; apps de banco aparecem pretos. Precisa de uma IA que veja imagens, como o Gemini (a chave é grátis): a IA grátis da Capri não enxerga.</string>
+    <string name="settings_look_now">Olhar minha tela agora</string>
+    <string name="settings_look_live_on">Ver ao vivo</string>
+    <string name="settings_look_live_off">Parar de ver ao vivo</string>
+    <string name="settings_need_on">Ligue a Capri primeiro (em Novidades).</string>
+</resources>

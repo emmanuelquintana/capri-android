@@ -14,9 +14,9 @@ object Lang {
     /**
      * The languages the app is translated into. Another one: its res/values-<code>/strings.xml,
      * its code here, and it shows up in Ajustes with its own name. (Her own lines, in her page,
-     * already come in es, en, fr, pt and ru.)
+     * come in the same five, from the desktop's lines.js.)
      */
-    val LANGS = listOf("es", "en")
+    val LANGS = listOf("es", "en", "fr", "pt", "ru")
 
     /** A language in its own words: "Español", "English", "Français"… */
     fun name(code: String): String {

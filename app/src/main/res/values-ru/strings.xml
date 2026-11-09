@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_name">Капри на твоём экране</string>
+    <string name="channel_desc">Держит Капри включённой и хранит её меню.</string>
+    <string name="notify_title">Капри в сети</string>
+    <string name="notify_text">На твоём экране. Нажми сюда, чтобы открыть моё меню.</string>
+    <string name="notify_text_hidden">Спрятана в своём биочипе</string>
+    <string name="action_menu">Меню</string>
+    <string name="action_hide">Спрятать</string>
+    <string name="action_show">Вернуть</string>
+    <string name="action_quit">Выйти</string>
+    <string name="main_intro">Капри живёт поверх твоих приложений и рассказывает, что делает Claude Code, Codex или Antigravity (в Termux на этом телефоне или на твоём ПК по Wi-Fi).</string>
+    <string name="main_start">Включить Капри</string>
+    <string name="main_stop">Выключить Капри</string>
+    <string name="main_ok">Готово</string>
+    <string name="main_license">Android-версия capri-desktop от mochiiwuff. Бесплатно, никогда не продаётся (PolyForm Noncommercial 1.0.0). Капри, Cyberpunk и Cyberpunk: Edgerunners принадлежат CD PROJEKT RED, Studio Trigger и Netflix.</string>
+    <string name="hooks_copied">Команда скопирована. Вставь её в Termux и нажми Enter.</string>
+    <string name="main_overlay">Поверх других приложений</string>
+    <string name="main_notify">Показывать её уведомление</string>
+    <string name="main_running">Она на твоём экране. Удерживай её, чтобы открыть меню.</string>
+    <string name="main_status_on">В СЕТИ</string>
+    <string name="main_status_off">НЕ В СЕТИ</string>
+    <string name="main_idle">Дай два разрешения, потом включи её.</string>
+    <string name="main_granted">ЕСТЬ</string>
+    <string name="main_grant">РАЗРЕШИТЬ</string>
+    <string name="main_log">Журнал</string>
+    <string name="main_log_empty">Пока ничего. Если она не появится, здесь будет видно, что пошло не так.</string>
+    <string name="main_copy">Копировать</string>
+    <string name="main_copied">Журнал скопирован</string>
+    <string name="main_ai">Её ИИ</string>
+    <string name="main_ai_pick">Выбрать её ИИ</string>
+    <string name="main_ai_free">Бесплатно онлайн, без аккаунта</string>
+    <string name="main_ai_pc">Ollama на твоём ПК</string>
+    <string name="main_ai_custom">Свой сервер</string>
+    <string name="main_ai_how">Открывает её панель поверх экрана: бесплатно без аккаунта, ключ (Groq и Gemini бесплатны) или Ollama твоего ПК по Wi-Fi. Без терминала.</string>
+    <string name="main_notes">Видеть твои уведомления и музыку (по желанию): она на них запрыгивает</string>
+    <string name="update_head">Обновления</string>
+    <string name="update_checking">Ищу новую версию…</string>
+    <string name="update_latest">Актуальная · v%1$s</string>
+    <string name="update_offline">Не удалось проверить (нет сети?) · v%1$s</string>
+    <string name="update_new">Новая: v%1$s (у тебя v%2$s)</string>
+    <string name="update_go">Обновить</string>
+    <string name="update_downloading">Загрузка… %1$d %%</string>
+    <string name="update_installing">Подтверди на экране, который покажет Android</string>
+    <string name="update_allow">Разреши Капри устанавливать приложения, потом вернись и нажми «Обновить».</string>
+    <string name="update_failed">Обновление отсюда не сработало: откроется его страница, чтобы ты скачал его.</string>
+    <string name="update_conflict">Эта версия подписана по-другому: удали Капри один раз и установи заново. После этого обновления ставятся поверх.</string>
+    <string name="update_channel">Обновления</string>
+    <string name="update_title">Вышла Капри %1$s</string>
+    <string name="update_text">Нажми, чтобы обновить, без удаления.</string>
+    <string name="ob_linking">Подключаюсь к её биочипу…</string>
+    <string name="ob_hello">Привет, чум. Я Капри. Я буду жить поверх твоих приложений, болтать с тобой и рассказывать, что делает твой ИИ. Сначала четыре быстрых вопроса.</string>
+    <string name="ob_start">Начать</string>
+    <string name="ob_name_line">Как мне тебя называть?</string>
+    <string name="ob_name_how">Имя или прозвище. Буду иногда так тебя звать. Потом можно поменять в Настройках.</string>
+    <string name="ob_name_hint">Имя или прозвище</string>
+    <string name="ob_next">Далее</string>
+    <string name="ob_skip">Не сейчас</string>
+    <string name="ob_back">Назад</string>
+    <string name="ob_ai_line">Чтобы говорить с тобой, мне нужен ИИ, %1$s.</string>
+    <string name="ob_ai_how">Выбери один. Поменять можно в любой момент в Настройках.</string>
+    <string name="ai_free_title">Бесплатно, без аккаунта</string>
+    <string name="ai_free_how">Одно нажатие, и готово. Работает через интернет (Pollinations).</string>
+    <string name="ai_key_title">С ключом</string>
+    <string name="ai_key_how">Groq и Gemini бесплатны: открой их страницу, создай ключ, скопируй и вставь сюда.</string>
+    <string name="ai_pc_title">Ollama твоего ПК</string>
+    <string name="ai_pc_how">Твой ПК становится её мозгом по Wi-Fi. В Ollama включи «Expose Ollama to the network» и впиши сюда IP ПК.</string>
+    <string name="ai_key_hint">Вставь ключ</string>
+    <string name="ai_paste">Вставить ключ</string>
+    <string name="ai_paste_none">Ничего не скопировано.</string>
+    <string name="ai_get_key">Получить ключ</string>
+    <string name="ai_ip_hint">IP ПК, напр. 192.168.1.20</string>
+    <string name="ai_use">Использовать</string>
+    <string name="ai_checking">Проверяю…</string>
+    <string name="ai_ok">Готово: теперь за неё отвечает %1$s.</string>
+    <string name="ai_bad_key">Этот ключ не работает. Проверь, что скопировал его целиком.</string>
+    <string name="ai_fail">Нет ответа (%1$s). Проверь адрес или подключение.</string>
+    <string name="ob_perm_line">Теперь разрешения. Я скажу, зачем нужно каждое.</string>
+    <string name="ob_perm_how">Сначала обязательные. Необязательные можно дать в любой момент на вкладке «Разрешения».</string>
+    <string name="perm_overlay_title">Поверх других приложений</string>
+    <string name="perm_overlay_why">Так я существую на твоём телефоне: без этого я не могу появиться поверх чего-либо. Твои нажатия по-прежнему доходят до приложений; нажимать можно только меня и мои панели.</string>
+    <string name="perm_notify_title">Её уведомление</string>
+    <string name="perm_notify_why">Android нужно закреплённое уведомление, чтобы меня не закрыть. Это ещё и моя панель: Меню, Спрятать и Выйти, и мои подмигивания.</string>
+    <string name="perm_notes_title">Видеть твои уведомления</string>
+    <string name="perm_notes_why">Чтобы я садилась на твою музыку с её кнопками и прыгала на уведомления. Я вижу только приложение и заголовок, никогда сам текст, и ничего не уходит с телефона. Внимание: с этим некоторые банковские приложения тебя блокируют; если пользуешься таким, лучше не включай.</string>
+    <string name="perm_install_title">Ставить её обновления</string>
+    <string name="perm_install_why">Чтобы я обновлялась с GitHub без удаления. Android всё равно каждый раз просит подтвердить.</string>
+    <string name="perm_required">НУЖНО</string>
+    <string name="perm_optional">ПО ЖЕЛАНИЮ</string>
+    <string name="ob_done_line">Всё готово, %1$s. Увидимся поверх твоих приложений.</string>
+    <string name="ob_done_how">Удерживай меня для меню, тащи, чтобы бросить, и гладь двумя пальцами.</string>
+    <string name="ob_need_overlay">Сначала разреши ей показываться поверх других приложений.</string>
+    <string name="tab_news">Новое</string>
+    <string name="tab_perms">Разрешения</string>
+    <string name="tab_community">Сообщество</string>
+    <string name="tab_settings">Настройки</string>
+    <string name="news_head">Новое</string>
+    <string name="perms_intro">Что Капри может делать на твоём телефоне и зачем ей это нужно.</string>
+    <string name="settings_name">Как она тебя зовёт</string>
+    <string name="settings_name_saved">Теперь буду звать тебя %1$s.</string>
+    <string name="settings_save">Сохранить</string>
+    <string name="settings_ai">Её ИИ</string>
+    <string name="settings_ai_now">Сейчас: %1$s</string>
+    <string name="settings_ai_panel">Выбрать в её панели</string>
+    <string name="settings_intro_again">Показать приветствие снова</string>
+    <string name="choom">чум</string>
+    <string name="update_browser">Скачается в браузере. Когда закончится, открой файл и нажми «Обновить»: встанет поверх этой версии, ничего не потеряется.</string>
+    <string name="perms_bank_head">Банковские приложения</string>
+    <string name="perms_bank">Некоторые банковские приложения блокируют тебя, если другое приложение показывается поверх или видит уведомления, даже если ничего из них не читает. Я никогда ничего не читаю из твоего банка и никуда не отправляю твои данные. Если банк ругается: выключи «Видеть твои уведомления» и спрячь меня («Спрятать» в моём уведомлении) перед тем, как его открыть.</string>
+    <string name="dev_on">Режим разработчика: журнал виден в Настройках.</string>
+    <string name="dev_off">Режим разработчика выключен.</string>
+    <string name="perm_mic_title">Слышать, как ты говоришь «Капри»</string>
+    <string name="perm_mic_why">Только если ты включишь «Говорить с ней» в Настройках, и только при включённом экране. Распознавание речи твоего телефона превращает сказанное в слова; я оставляю только то, что идёт после моего имени, и никогда не записываю звук. Пока я слушаю, Android показывает точку микрофона. Внимание: некоторые банковские приложения и антивирусы настороженно относятся к приложениям с микрофоном; если твоё жалуется, выключи это.</string>
+    <string name="settings_voice">Говорить с ней</string>
+    <string name="settings_voice_how">Скажи «Капри» и потом, что хочешь: «Капри, который час?», «Капри, открой Spotify», «Капри, следующая песня», «Капри, включи фонарик», «Капри, поставь таймер на 10 минут», «Капри, спрячься». Всё остальное идёт её ИИ, и она отвечает вслух. Только при включённом экране.</string>
+    <string name="settings_voice_on">Включено: она ждёт своё имя.</string>
+    <string name="settings_voice_off">Выключено.</string>
+    <string name="settings_voice_turn_on">Включить</string>
+    <string name="settings_voice_turn_off">Выключить</string>
+    <string name="settings_voice_nomic">Без микрофона она тебя не услышит.</string>
+    <string name="settings_voice_none">На этом телефоне нет распознавания речи (установи или обнови приложение Google).</string>
+    <string name="voice_listening">● Слушаю. Скажи «Капри…»</string>
+    <string name="voice_heard">✓ Услышала своё имя: «%1$s»</string>
+    <string name="voice_other">Услышала «%1$s», но не «Капри».</string>
+    <string name="voice_busy">Микрофон занят (звонок или другое приложение).</string>
+    <string name="voice_media">На паузе, пока играет видео или музыка: слушание поставило бы их на паузу. Включится само, когда закончится.</string>
+    <string name="voice_nomic">Нет разрешения на микрофон: дай его в «Разрешениях».</string>
+    <string name="voice_screenoff">Отдыхает: экран выключен.</string>
+    <string name="voice_norecognizer">На этом телефоне нет распознавания речи (установи или обнови приложение Google).</string>
+    <string name="voice_error">Распознавание речи не сработало (ошибка %1$s). Пробую ещё раз…</string>
+    <string name="voice_starting">Запуск… (Капри включена?)</string>
+    <string name="tab_cmds">Команды</string>
+    <string name="cmds_intro">Что можно у неё попросить вслух или написать в её чате.</string>
+    <string-array name="cmds">
+        <item>#Говорить с ней</item>
+        <item>Включи в Настройки → Говорить с ней. Скажи «Капри» и что хочешь; если скажешь только «Капри», она послушает несколько секунд. Всё это работает и письменно в её чате.</item>
+        <item>#Время и дата</item>
+        <item>«Капри, который час?»</item>
+        <item>«Капри, какое сегодня число?»</item>
+        <item>#Музыка</item>
+        <item>«Капри, включи Bad Bunny в Spotify»</item>
+        <item>«Капри, включи Never Fade Away на YouTube»</item>
+        <item>«Капри, пауза» · «следующая» · «предыдущая»</item>
+        <item>Пока что-то играет, она не слушает (это поставило бы на паузу): пользуйся её музыкальной панелью или пиши в чат.</item>
+        <item>«Капри, громче» · «тише»</item>
+        <item>«Капри, громкость 30» · «без звука»</item>
+        <item>#Приложения</item>
+        <item>«Капри, открой WhatsApp»</item>
+        <item>«Капри, открой youtube.com»</item>
+        <item>#Твой телефон</item>
+        <item>«Капри, включи фонарик» · «выключи фонарик»</item>
+        <item>«Капри, сколько у меня заряда?»</item>
+        <item>«Капри, сколько осталось свободного места?»</item>
+        <item>«Капри, открой настройки wifi» (или bluetooth, звук, экран…)</item>
+        <item>#Время</item>
+        <item>«Капри, поставь таймер на 10 минут»</item>
+        <item>«Капри, напомни позвонить маме через 1 час»</item>
+        <item>«Капри, напомни завтра в 9 вынести мусор»</item>
+        <item>#Она</item>
+        <item>«Капри, спрячься» · «Капри, вернись»</item>
+        <item>«Капри, игровой режим» (выключается в Настройках или в её меню)</item>
+        <item>«Капри, режим иконки» / «Капри, выйди из иконки»</item>
+        <item>«Капри, открой чат»</item>
+        <item>«Капри, зови меня Эмма»</item>
+        <item>«Капри, запомни, что я люблю кофе»</item>
+        <item>«Капри, перестань слушать»</item>
+        <item>#Твой экран</item>
+        <item>«Капри, посмотри на мой экран» (Android сначала спросит; нужен ИИ, который видит картинки, например Gemini)</item>
+        <item>В прямом эфире: Настройки → Дать ей видеть экран → Смотреть вживую</item>
+        <item>#Всё остальное</item>
+        <item>Всё остальное идёт её ИИ, и она отвечает вслух: «Капри, расскажи анекдот», «Капри, как сказать кот по-японски?»</item>
+    </string-array>
+    <plurals name="news_changes">
+        <item quantity="one">%d изменение · нажми, чтобы посмотреть</item>
+        <item quantity="few">%d изменения · нажми, чтобы посмотреть</item>
+        <item quantity="many">%d изменений · нажми, чтобы посмотреть</item>
+        <item quantity="other">%d изменения · нажми, чтобы посмотреть</item>
+    </plurals>
+    <string name="settings_her">Капри на твоём экране</string>
+    <string name="settings_size">Размер</string>
+    <string name="size_xs">Мини</string>
+    <string name="size_s">Маленькая</string>
+    <string name="size_m">Обычная</string>
+    <string name="size_l">Большая</string>
+    <string name="size_xl">Огромная</string>
+    <string name="community_title">Присоединяйся к сообществу</string>
+    <string name="community_how">Новости Капри раньше всех, идеи, баги и люди, у которых она тоже есть на телефоне. Заходи в Discord и подписывайся на мой TikTok.</string>
+    <string name="community_discord">Зайти в Discord</string>
+    <string name="community_tiktok">Подписаться в TikTok</string>
+    <string name="community_later">Не сейчас</string>
+    <string name="settings_lang">Idioma · Language</string>
+    <string name="lang_auto">Автоматически</string>
+    <string name="settings_float">Без гравитации</string>
+    <string name="settings_float_how">Она остаётся ровно там, куда ты её поставишь, даже в воздухе: отпускаешь, и она там парит. Не уходит гулять сама, не прыгает на уведомления, а если её бросить, не улетает, так что никогда не злится. Поставь её в угол или рядом с чатами, и она там останется.</string>
+    <string name="settings_icon">Режим иконки</string>
+    <string name="settings_icon_how">На экране остаётся только её зелёная маска с открытыми глазами, и оттуда она продолжает комментировать (твой экран, игры, её чат). Перетащи её пальцем туда, где она меньше мешает; нажми, чтобы открыть меню. Удобно, если любишь её большой: снаружи она большая, а иконкой почти не занимает места.</string>
+    <string name="settings_gamer">Игровой режим</string>
+    <string name="settings_gamer_how">Для игры: она становится крошечной в углу, её нельзя трогать, её карточки не появляются, она перестаёт слушать и иногда тебя подбадривает. Также в её меню или словами «Капри, игровой режим». Выключается повторным нажатием или перезапуском.</string>
+    <string name="settings_gamer_auto">Сам при запуске игры</string>
+    <string name="settings_gamer_auto_how">Включается, когда ты открываешь игру, и выключается, когда выходишь. Нужен «Доступ к истории использования» в настройках Android (она видит только, какое приложение открыто, ничего внутри). Внимание: некоторые банковские приложения и антивирусы не доверяют этому разрешению; если твоё жалуется, не включай.</string>
+    <string name="settings_gamer_auto_grant">Найди Капри в списке и включи «Разрешить доступ к истории использования».</string>
+    <string name="voice_gamer">На паузе: игровой режим.</string>
+    <string name="settings_music">Музыкальная панель</string>
+    <string name="music_always">Всегда</string>
+    <string name="music_while">Ненадолго</string>
+    <string name="music_off">Никогда</string>
+    <string name="settings_lively">Движение</string>
+    <string name="lively_calm">Спокойно</string>
+    <string name="lively_normal">Обычно</string>
+    <string name="lively_restless">Непоседа</string>
+    <string name="settings_ghost">Режим призрака</string>
+    <string name="settings_ghost_how">Она остаётся на экране, но твои нажатия проходят сквозь неё к приложениям. Выключить: здесь или в её меню (нажми на её уведомление).</string>
+    <string name="on">Вкл.</string>
+    <string name="off">Выкл.</string>
+    <string name="settings_look">Дать ей видеть экран</string>
+    <string name="settings_look_how">«Капри, посмотри на мой экран» (или кнопка) даёт ей посмотреть один раз и прокомментировать. Вживую она смотрит время от времени и когда ты меняешь приложение или видео, пока ты не остановишь. Android спрашивает при каждом запуске и показывает уведомление о записи, пока она может видеть. Картинка уходит только ИИ её чата; банковские приложения выглядят чёрными. Нужен ИИ, который видит картинки, например Gemini (ключ бесплатный): бесплатный ИИ Капри не видит.</string>
+    <string name="settings_look_now">Посмотри на мой экран сейчас</string>
+    <string name="settings_look_live_on">Смотреть вживую</string>
+    <string name="settings_look_live_off">Перестать смотреть вживую</string>
+    <string name="settings_need_on">Сначала включи Капри (на вкладке «Новое»).</string>
+</resources>

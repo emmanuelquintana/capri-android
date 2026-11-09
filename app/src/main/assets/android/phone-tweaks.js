@@ -3,7 +3,7 @@
 // talks when she chats, and her look at your screen.
 
 import { call } from './native.js';
-import { GAMER_ASK, ICON_ASK, iconOff } from './listen.js';
+import { GAMER_ASK, ICON_ASK, OFF_ASK, iconOff } from './listen.js';
 
 const rand = (a, b) => a + Math.random() * (b - a);
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
@@ -36,7 +36,13 @@ export function tweak({ cfg, onConfig }) {
   // ---------- "Pegar" for her key box: a long-press doesn't paste in her panel ----------
   const guide = dev.guide;
   if (guide?.askText) {
-    const PASTE = { es: ['Pegar', 'No veo nada copiado. Copia la clave y vuelve a tocar «Pegar».'], en: ['Paste', 'Nothing copied that I can see. Copy the key and tap “Paste” again.'] };
+    const PASTE = {
+      es: ['Pegar', 'No veo nada copiado. Copia la clave y vuelve a tocar «Pegar».'],
+      en: ['Paste', 'Nothing copied that I can see. Copy the key and tap “Paste” again.'],
+      fr: ['Coller', 'Je ne vois rien de copié. Copie la clé et touche encore « Coller ».'],
+      pt: ['Colar', 'Não vejo nada copiado. Copie a chave e toque em “Colar” de novo.'],
+      ru: ['Вставить', 'Ничего не скопировано. Скопируй ключ и снова нажми «Вставить».'],
+    };
     const askText = guide.askText.bind(guide);
     guide.askText = (o = {}) => {
       if (!o.secret) return askText(o);
@@ -122,17 +128,23 @@ export function tweak({ cfg, onConfig }) {
     const THINKING = {
       es: ['Déjame pensarlo…', 'Sigo pensando… ya casi.'],
       en: ['Let me think…', 'Still thinking… almost there.'],
+      fr: ['Laisse-moi réfléchir…', 'Je réfléchis encore… presque.'],
+      pt: ['Deixa eu pensar…', 'Ainda pensando… quase lá.'],
+      ru: ['Дай подумать…', 'Ещё думаю… почти всё.'],
     };
     // the free AI lets each phone have one answer every 45 seconds: said plainly
     const FREE = {
       es: ['Déjame pensarlo…', 'La IA gratis solo me deja contestar una vez cada 45 segundos… ya casi. Con una clave gratis de Gemini respondo al instante.'],
       en: ['Let me think…', 'The free AI only lets me answer once every 45 seconds… almost there. With a free Gemini key I answer right away.'],
+      fr: ['Laisse-moi réfléchir…', 'L’IA gratuite ne me laisse répondre qu’une fois toutes les 45 secondes… presque. Avec une clé Gemini gratuite, je réponds tout de suite.'],
+      pt: ['Deixa eu pensar…', 'A IA grátis só me deixa responder uma vez a cada 45 segundos… quase lá. Com uma chave grátis do Gemini eu respondo na hora.'],
+      ru: ['Дай подумать…', 'Бесплатный ИИ даёт мне отвечать раз в 45 секунд… почти всё. С бесплатным ключом Gemini я отвечаю сразу.'],
     };
     const send = chat.send.bind(chat);
     chat.send = (text) => {
       // "modo gamer" typed to her: on (or off, "sin modo gamer" / "quita el modo gamer")
       if (GAMER_ASK.test(String(text || ''))) {
-        const off = /quita|apaga|sin |desactiva|salir|sal del|off|stop/i.test(text);
+        const off = OFF_ASK.test(text);
         chat.close();
         dev.panel?.hide?.();
         window.host.setConfig({ gamer: !off });
@@ -185,6 +197,9 @@ export function tweak({ cfg, onConfig }) {
   const CHEERS = {
     es: ['¡Tú puedes!', 'Uff, esa estuvo cerca.', 'Vas bien, choom.', 'No te distraigo… bueno, solo un poquito.', 'GG en camino.', 'Respira. Ahora sí, dale.'],
     en: ['You got this!', 'Ooh, that was close.', 'Looking good, choom.', 'Not distracting you… well, just a little.', 'GG incoming.', 'Breathe. Now go.'],
+    fr: ['Tu peux le faire !', 'Ouh, c’était moins une.', 'Tu gères, choom.', 'Je ne te déconcentre pas… bon, juste un peu.', 'GG en approche.', 'Respire. Allez, vas-y.'],
+    pt: ['Você consegue!', 'Uff, essa foi por pouco.', 'Mandando bem, choom.', 'Não vou te distrair… bom, só um pouquinho.', 'GG chegando.', 'Respira. Agora vai.'],
+    ru: ['Ты справишься!', 'Ух, чуть не попал.', 'Хорошо идёшь, чум.', 'Не отвлекаю… ну, совсем чуть-чуть.', 'GG на подходе.', 'Выдохни. А теперь вперёд.'],
   };
   let nextCheer = 0;
   setInterval(() => {

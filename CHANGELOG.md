@@ -12,8 +12,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Sin gravedad:** se queda justo donde la pongas, aunque sea en el aire. No se va a pasear sola, no brinca a tus
   notificaciones y si la avientas no sale volando, así que ya no se enoja. Ideal para dejarla en una esquina o junto
   a tus chats. En *Ajustes* o en su menú; recuerda dónde la dejaste.
-- **Idioma de la app:** en *Ajustes → Idioma · Language* eliges Automático, Español o English, para la app y para lo
-  que dice ella.
+- **Más idiomas:** en *Ajustes → Idioma · Language* eliges Automático, Español, English, Français, Português o Русский,
+  para la app y para lo que dice ella. Los comandos de voz («Capri, …») también funcionan en esos idiomas.
 - **Nueva pestaña Comunidad** en la barra de abajo de la app: ahí están ahora el Discord y el TikTok (antes estaban al
   final de *Ajustes*), y ahí irá lo nuevo de la comunidad.
 - **Comenta lo que ves:** con «Ver mi pantalla en vivo» encendido, cuando cambias de video en TikTok, Reels o

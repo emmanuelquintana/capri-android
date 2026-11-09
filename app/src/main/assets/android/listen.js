@@ -40,25 +40,78 @@ const WORDS = {
     wait: ['Let me think…', 'Almost there, the AI is slow right now.'],
     failed: "I couldn't answer you right now.",
   },
+  fr: {
+    yes: ['Oui ?', 'Je t’écoute.', 'Je suis là.', 'Qu’est-ce qu’il te faut, choom ?'],
+    time: 'Il est {time}.',
+    date: 'On est {date}.',
+    torchOn: 'Lampe allumée.',
+    torchOff: 'Lampe éteinte.',
+    noTorch: 'Ce téléphone ne me laisse pas utiliser la lampe.',
+    back: 'Je suis là.',
+    iconOn: 'Je me mets en icône. Je continue à te parler d’ici.',
+    iconOff: 'Me revoilà !',
+    bye: 'Je me cache. Dis « Capri, reviens » et je reviens.',
+    deaf: 'J’arrête d’écouter. Tu le réactives dans Réglages.',
+    thinking: '…',
+    wait: ['Laisse-moi réfléchir…', 'Presque, l’IA est lente en ce moment.'],
+    failed: 'Je n’ai pas pu te répondre là.',
+  },
+  pt: {
+    yes: ['Sim?', 'Fala.', 'Tô aqui.', 'O que você precisa, choom?'],
+    time: 'São {time}.',
+    date: 'Hoje é {date}.',
+    torchOn: 'Lanterna ligada.',
+    torchOff: 'Lanterna desligada.',
+    noTorch: 'Este celular não me deixa usar a lanterna.',
+    back: 'Tô aqui.',
+    iconOn: 'Virei ícone. Daqui continuo falando com você.',
+    iconOff: 'Saí!',
+    bye: 'Vou me esconder. Diz “Capri, volta” e eu volto.',
+    deaf: 'Parei de escutar. Liga de novo em Ajustes.',
+    thinking: '…',
+    wait: ['Deixa eu pensar…', 'Quase lá, a IA tá lenta agora.'],
+    failed: 'Não consegui te responder agora.',
+  },
+  ru: {
+    yes: ['Да?', 'Слушаю.', 'Я здесь.', 'Что нужно, чум?'],
+    time: 'Сейчас {time}.',
+    date: 'Сегодня {date}.',
+    torchOn: 'Фонарик включён.',
+    torchOff: 'Фонарик выключен.',
+    noTorch: 'Этот телефон не даёт мне включить фонарик.',
+    back: 'Я здесь.',
+    iconOn: 'Становлюсь иконкой. Отсюда тоже буду с тобой говорить.',
+    iconOff: 'Я вернулась!',
+    bye: 'Прячусь. Скажи «Капри, вернись», и я вернусь.',
+    deaf: 'Перестаю слушать. Включить снова можно в Настройках.',
+    thinking: '…',
+    wait: ['Дай подумать…', 'Почти всё, ИИ сейчас медленный.'],
+    failed: 'Не смогла ответить сейчас.',
+  },
 };
+const LOCALES = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU' };
 
-// the phone's own quick things, in Spanish and English
-const TIME_ASK = /qu[eé] hora|la hora|what time|the time/i;
-const DATE_ASK = /qu[eé] d[ií]a|qu[eé] fecha|la fecha|what day|the date|what's the date/i;
-const TORCH = /linterna|l[aá]mpara|flash|torch|flashlight/i;
-const OFF = /apaga|desactiva|quita|turn off|switch off|\boff\b/i;
-const ON = /enciende|prende|activa|pon|turn on|switch on|\bon\b/i;
-const HIDE_ASK = /^(?:esc[oó]ndete|vete|desaparece|ocúltate|ocultate|hide|go away|get lost)\b/i;
-const SHOW_ASK = /^(?:ven|aparece|regresa|vuelve|mu[eé]strate|sal|come back|come here|show up|appear)\b/i;
-const DEAF_ASK = /deja de escuchar|no me escuches|stop listening/i;
-export const GAMER_ASK = /modo gamer|modo juego|voy a jugar|gamer mode|gaming mode/i;
+// the phone's own quick things, in each of her languages (Spanish, English, French, Portuguese,
+// Russian). \b doesn't see Cyrillic or accents: (?![\p{L}]) does
+const TIME_ASK = /qu[eé] hora|la hora|what time|the time|quelle heure|que horas|котор(?:ый|ого) час|сколько времени/iu;
+const DATE_ASK = /qu[eé] d[ií]a|qu[eé] fecha|la fecha|what day|the date|what's the date|quel jour|quelle date|que dia|qual (?:é )?a data|какое (?:сегодня )?число|какой (?:сегодня )?день/iu;
+const TORCH = /linterna|l[aá]mpara|flash|torch|flashlight|lampe|torche|lanterna|фонар/iu;
+const OFF = /apaga|desactiva|quita|turn off|switch off|\boff\b|[ée]teins|d[ée]sactive|desliga|выключи|погаси/iu;
+const ON = /enciende|prende|activa|pon|turn on|switch on|\bon\b|allume|active|liga|acende|включи/iu;
+const HIDE_ASK = /^(?:esc[oó]ndete|vete|desaparece|ocúltate|ocultate|hide|go away|get lost|cache-toi|va-t[’']en|dispara[iî]s|(?:se )?esconde|some daqui|спрячься|уйди|исчезни)(?![\p{L}])/iu;
+const SHOW_ASK = /^(?:ven|aparece|regresa|vuelve|mu[eé]strate|sal|come back|come here|show up|appear|reviens|viens|appara[iî]s|volta|vem|вернись|появись|иди сюда)(?![\p{L}])/iu;
+const DEAF_ASK = /deja de escuchar|no me escuches|stop listening|arr[êe]te d[’']?[ée]couter|para de (?:escutar|ouvir)|не слушай|перестань слушать/iu;
+export const GAMER_ASK = /modo gamer|modo juego|voy a jugar|gamer mode|gaming mode|mode gamer|mode jeu|vou jogar|игровой режим|режим игры/iu;
 // her icon mode (icon.js): on, or off ("sal del ícono", "quita el modo ícono")
-export const ICON_ASK = /modo [ií]cono|hazte (?:un )?[ií]cono|en (?:tu )?[ií]cono|del [ií]cono|icon mode|as an icon/i;
-export const iconOff = (text) => /quita|apaga|sin |desactiva|salir|sal |sal$|off|stop|leave|exit/i.test(text);
-const CHAT_ASK = /^(?:abre (?:el |tu )?chat|hablemos|quiero hablar|platiquemos|open (?:the |your )?chat|let'?s talk)\b/i;
-// what's left of her name at the start, as the recognizer may write it
+export const ICON_ASK = /modo [ií]cono|hazte (?:un )?[ií]cono|en (?:tu )?[ií]cono|del [ií]cono|icon mode|as an icon|mode ic[ôo]ne|du mode ic[ôo]ne|modo [ií]cone|do [ií]cone|режим[а-я]* (?:иконки|значка)|из иконки|иконкой/iu;
+// "off" for gamer and icon mode, in her languages
+export const OFF_ASK = /quita|apaga|sin |desactiva|salir|sal |sal$|sal del|off|stop|leave|exit|d[ée]sactive|quitte|sors|desativa|desliga|sai |sai$|sai do|выключи|выйди|убери/iu;
+export const iconOff = (text) => OFF_ASK.test(text);
+const CHAT_ASK = /^(?:abre (?:el |tu )?chat|hablemos|quiero hablar|platiquemos|open (?:the |your )?chat|let'?s talk|ouvre (?:le |ton )?chat|parlons|abre o chat|vamos conversar|открой чат|давай поговорим)(?![\p{L}])/iu;
+const LOOK_ASK = /mira (?:mi|la) pantalla|qu[ée] (?:ves|hay en mi pantalla)|look at my screen|what do you see|regarde (?:mon|l[’']) ?[ée]cran|olha (?:minha|a) tela|посмотри на (?:мой )?экран/iu;
+// what's left of her name at the start, as the recognizer may write it (Капри in Russian)
 // (and whatever came before it: "oye Capri", "ok Kapri")
-const NAME = /^.*?(?<![\p{L}])[ck]a[pb]r[iíy]s?(?![\p{L}])[\s,.!?:]*/iu;
+const NAME = /^.*?(?<![\p{L}])(?:[ck]a[pb]r[iíy]s?|ка[пб]р[иы])(?![\p{L}])[\s,.!?:]*/iu;
 
 let busy = 0;
 
@@ -79,9 +132,9 @@ const fill = (line, vars) => line.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '')
 async function handle(text, { toggleVisible, visible }) {
   const dev = window.dev;
   const { capri, panel, chat, brain } = dev;
-  const lang = brain.lang === 'es' ? 'es' : brain.lang === 'en' ? 'en' : 'es';
+  const lang = WORDS[brain.lang] ? brain.lang : 'en';
   const t = WORDS[lang];
-  const locale = lang === 'es' ? 'es-MX' : 'en-US';
+  const locale = LOCALES[lang];
 
   // her answer: in her panel, and out loud
   const answer = (line, face = 'smug', quote = text, aloud = true) => {
@@ -146,7 +199,7 @@ async function handle(text, { toggleVisible, visible }) {
   // what her chat does right away when you ask it plainly (music, volume, an app, a timer…)
   const asked = chat.asked(text);
   // "Capri, mira mi pantalla": her look (Android asks first)
-  if (asked?.kind === 'look' || /mira (?:mi|la) pantalla|qu[ée] (?:ves|hay en mi pantalla)|look at my screen|what do you see/i.test(text)) {
+  if (asked?.kind === 'look' || LOOK_ASK.test(text)) {
     return dev.look?.once();
   }
   if (asked && !['look', 'close', 'files', 'shot'].includes(asked.kind)) {

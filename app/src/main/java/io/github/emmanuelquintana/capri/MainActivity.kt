@@ -424,13 +424,16 @@ class MainActivity : Activity() {
         // the app's language, and hers (written in both, so it's found whatever the app is in)
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_lang)))
-            // "Automático", then each language in its own name (a new one: Lang.LANGS + its strings)
-            addView(choiceText(listOf(getString(R.string.lang_auto) to "auto") + Lang.LANGS.map { Lang.name(it) to it },
-                { Lang.get(this@MainActivity) }, { a, b -> a == b }) {
-                if (it == Lang.get(this@MainActivity)) return@choiceText
-                Lang.set(this@MainActivity, it)
-                postDelayed({ recreate() }, 350)
-            }, ui.block(8))
+            // "Automático", then each language in its own name (a new one: Lang.LANGS + its strings),
+            // three to a row so the names fit
+            val langs = listOf(getString(R.string.lang_auto) to "auto") + Lang.LANGS.map { Lang.name(it) to it }
+            for ((n, row) in langs.chunked(3).withIndex()) {
+                addView(choiceText(row, { Lang.get(this@MainActivity) }, { a, b -> a == b }) {
+                    if (it == Lang.get(this@MainActivity)) return@choiceText
+                    Lang.set(this@MainActivity, it)
+                    postDelayed({ recreate() }, 350)
+                }, ui.block(if (n == 0) 8 else 4))
+            }
         }, ui.block(0))
 
         // what she calls you

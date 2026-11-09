@@ -273,8 +273,8 @@ class Ears(private val service: CapriService) {
     }
 
     companion object {
-        // her name as recognizers write it: Capri, Kapri, Capry, Cabri, Caprí, Capris…
-        private val NAME = Regex("(?<![a-z])[ck]a[pb]r[iy]s?(?![a-z])")
+        // her name as recognizers write it: Capri, Kapri, Capry, Cabri, Caprí, Capris… (Капри in Russian)
+        private val NAME = Regex("(?<![a-zа-я])(?:[ck]a[pb]r[iy]s?|ка[пб]р[иы])(?![a-zа-я])")
         private const val GOOGLE = "com.google.android.googlequicksearchbox"
 
         /** What her ears are doing, for the app's Settings: "", listening, heard, other, busy, media, nomic, screenoff, error:N */

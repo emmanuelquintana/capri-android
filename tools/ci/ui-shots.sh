@@ -80,6 +80,14 @@ tap "permisos"
 shot 13-perms-tab 2
 tap "ajustes"
 shot 14-settings-tab 2
+# the app in another language, then back to the phone's
+tap "français"
+shot 14f-french 4
+tap "nouveautés"
+shot 14g-french-news 2
+tap "réglages"
+tap "automatique"
+sleep 4
 tap "comunidad"
 shot 14a-community-tab 2
 tap "comandos"
