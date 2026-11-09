@@ -359,10 +359,21 @@ class MainActivity : Activity() {
         return ui.text(s, 14f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.18f) }
     }
 
-    /** CHANGELOG.md, from the APK: [(version, [items])], newest first. */
-    private fun changelog(): List<Pair<String, List<String>>> = runCatching {
+    /**
+     * CHANGELOG.md, from the APK: [(version, [items])], newest first. In the app's language when
+     * changelog/<lang>.md has that version (Spanish, the original, otherwise).
+     */
+    private fun changelog(): List<Pair<String, List<String>>> {
+        val spanish = changelog("CHANGELOG.md")
+        val lang = Lang.current(this)
+        if (lang == "es") return spanish
+        val mine = changelog("changelog/$lang.md").toMap()
+        return spanish.map { (v, items) -> v to (mine[v]?.takeIf { it.isNotEmpty() } ?: items) }
+    }
+
+    private fun changelog(file: String): List<Pair<String, List<String>>> = runCatching {
         val out = mutableListOf<Pair<String, MutableList<String>>>()
-        assets.open("CHANGELOG.md").bufferedReader().useLines { lines ->
+        assets.open(file).bufferedReader().useLines { lines ->
             for (raw in lines) {
                 val line = raw.trimEnd()
                 when {
@@ -673,7 +684,7 @@ class MainActivity : Activity() {
         if (downloading) return
         if (release == null) updateText.text = getString(R.string.update_checking)
         Thread {
-            val r = Updater.latest()
+            val r = Updater.latest(this)
             runOnUiThread { showUpdate(r) }
         }.start()
     }

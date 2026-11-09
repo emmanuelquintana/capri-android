@@ -66,19 +66,25 @@ android {
     }
 }
 
-// CHANGELOG.md (the repo's root) inside the APK too: the app's What's new tab reads it
+// CHANGELOG.md (the repo's root) inside the APK too, with its translations (changelog/<lang>.md):
+// the app's What's new tab reads the one in its language
 abstract class CopyChangelog : DefaultTask() {
     @get:InputFile abstract val source: RegularFileProperty
+    @get:InputDirectory abstract val translations: DirectoryProperty
     @get:OutputDirectory abstract val out: DirectoryProperty
 
     @TaskAction
     fun run() {
         source.get().asFile.copyTo(out.get().file("CHANGELOG.md").asFile, overwrite = true)
+        translations.get().asFile.listFiles { f -> f.name.endsWith(".md") }?.forEach {
+            it.copyTo(out.get().file("changelog/${it.name}").asFile, overwrite = true)
+        }
     }
 }
 
 val copyChangelog = tasks.register<CopyChangelog>("copyChangelog") {
     source.set(rootProject.layout.projectDirectory.file("CHANGELOG.md"))
+    translations.set(rootProject.layout.projectDirectory.dir("changelog"))
 }
 androidComponents {
     onVariants { variant -> variant.sources.assets?.addGeneratedSourceDirectory(copyChangelog, CopyChangelog::out) }

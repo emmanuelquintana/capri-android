@@ -1,0 +1,134 @@
+# Journal des modifications (français)
+
+Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
+
+## 1.7.0
+
+- **Mode icône :** il ne reste à l’écran que son masque vert, les yeux ouverts, et elle continue à commenter de là
+  (ce qu’elle voit sur ton écran, des encouragements en mode gamer, son chat, une phrase de temps en temps). Fais-le
+  glisser du doigt là où il te gêne le moins ; touche-le pour ouvrir son menu. Tu peux ainsi la garder grande et,
+  quand tu veux, qu’elle ne prenne presque pas de place. S’active dans *Réglages*, dans son menu ou en disant
+  « Capri, mode icône » (et « Capri, quitte le mode icône »).
+- **Sans gravité :** elle reste exactement là où tu la poses, même en l’air. Elle ne part pas se promener, ne saute
+  pas sur tes notifications, et si tu la lances elle ne s’envole pas, donc elle ne se fâche plus. Idéal pour la
+  laisser dans un coin ou à côté de tes chats. Dans *Réglages* ou son menu ; elle se souvient d’où tu l’as laissée.
+- **Plus de langues :** dans *Réglages → Idioma · Language* choisis Automatique, Español, English, Français, Português
+  ou Русский, pour l’appli et pour ce qu’elle dit. Les commandes vocales (« Capri, … ») marchent aussi dans ces
+  langues.
+- **Nouvel onglet Communauté** dans la barre du bas de l’appli : le Discord et le TikTok y sont maintenant (avant, ils
+  étaient à la fin des *Réglages*), et c’est là qu’iront les nouveautés de la communauté.
+- **Elle commente ce que tu regardes :** avec « Voir mon écran en direct » activé, quand tu changes de vidéo sur
+  TikTok, Reels ou YouTube, elle donne son avis sur ce qu’elle voit (au plus une fois toutes les 50 secondes).
+- **Elle voit ton écran avec plus d’IA :** si ta clé vient d’un service dont le modèle de chat ne voit pas les images
+  (Groq, par exemple), elle regarde avec un modèle du même service qui, lui, voit.
+- **Elle ne disparaît plus quand une notification arrive :** elle saute là où la carte s’arrête, pas là où son
+  animation commence.
+- **Le clavier ne se ferme plus tout seul** quand tu lui écris : elle ne bouge pas tant que son chat est ouvert.
+- **Des erreurs compréhensibles :** au lieu de messages techniques comme « messages content must be a string » ou
+  « signal perdu », elle te dit avec des mots simples ce qui s’est passé.
+- **Chat vocal :** si l’IA met du temps à répondre, elle dit à voix haute qu’elle réfléchit, au lieu de rester muette.
+
+## 1.6.2
+
+- **Rejoins la communauté :** le Discord de la communauté et le TikTok d’Emma, à la fin des *Réglages* et à la fin du
+  menu de Capri. La première fois que tu ouvres l’appli, elle te les montre une seule fois.
+
+## 1.6.1
+
+- **Le mode gamer automatique remarque enfin quand tu quittes le jeu :** avant, il attendait 20 secondes et parfois
+  ne s’en rendait pas compte (par exemple si, en sortant, le téléphone ne disait pas quelle appli restait devant, ou
+  avec les outils de jeu de Samsung). Maintenant il remarque aussi quand le jeu s’en va, ignore les panneaux flottants
+  comme le volet des notifications ou Game Booster, et se désactive 10 secondes après ta sortie.
+- *Réglages → Journal* note quelle appli elle voit devant et quand le mode gamer s’active ou se désactive, au cas où
+  un jeu ne serait pas bien détecté.
+
+## 1.6.0
+
+- **Mode gamer (une idée de Capri elle-même) :** pour quand tu joues. Elle se fait toute petite dans un coin, ne se
+  touche plus (tes touchers vont au jeu), ses alertes et sa barre de musique restent à l’écart, elle n’écoute plus et
+  ne se promène plus. De temps en temps, elle t’encourage. Active-le dans *Réglages → Mode gamer*, dans son menu, en
+  disant « Capri, mode gamer » ou en l’écrivant dans son chat. Il se désactive pareil (dans son chat : « désactive
+  le mode gamer ») ou en la redémarrant, et quand tu as fini, elle te demande comment ça s’est passé.
+- **Mode gamer automatique (facultatif) :** dans *Réglages → Mode gamer → Toute seule quand un jeu s’ouvre*, il
+  s’active quand tu ouvres un jeu et se désactive quand tu le quittes (si tu le désactives en pleine partie, elle
+  respecte ton choix). Il faut l’autorisation « Accès aux données d’utilisation » d’Android, qui montre seulement
+  quelle appli est ouverte. Désactivé par défaut : certaines applis bancaires et antivirus se méfient de cette
+  autorisation.
+
+## 1.5.1
+
+- **Tes vidéos et ta musique ne se mettent plus en pause :** avec « Lui parler » activé, chaque fois que Capri se
+  remettait à écouter, le téléphone lui donnait le son et mettait en pause ce que tu regardais. Maintenant, pendant
+  une vidéo ou de la musique, elle n’écoute pas (*Réglages → Lui parler* l’indique) et reprend toute seule à la fin.
+  Pour la musique, utilise sa barre ou écris-lui.
+- **Bouton « Coller » pour ta clé d’IA :** dans son panneau, l’appui long ne permet pas de coller. Maintenant il y a
+  un bouton *Coller* qui met ce que tu as copié et le vérifie aussitôt. Dans l’appli, il y a aussi *Coller la clé*.
+- **Une clé mise depuis l’appli ne redemande plus d’en mettre une :** si son panneau te demandait la clé et que tu
+  l’as mise depuis l’appli, le panneau disparaît tout seul.
+- **Barre de musique à ton goût :** dans *Réglages → Barre de musique* choisis *Toujours* (elle reste pendant la
+  musique), *Un moment* (comme avant) ou *Jamais*.
+- **Alertes plus haut :** les cartes de tes notifications n’apparaissent plus au milieu de l’écran, mais en haut,
+  juste là où Capri peut encore grimper.
+- **Capri ne se perd plus :** parfois, elle se penchait depuis le bord du haut, que la barre d’état cache sur un
+  téléphone, et on croyait qu’elle avait disparu. Maintenant elle ne se penche que sur les côtés, et ne reste jamais
+  cachée.
+- **Sa notification, plus propre :** elle ne répète plus chaque notification ou chanson que tu reçois (Android les
+  affiche déjà), elle dit « Sur ton écran. Touche ici pour ouvrir mon menu. », et sa dernière phrase disparaît au
+  bout de 10 minutes.
+
+## 1.5.0
+
+- **Capri ne part plus en flèche :** quand tu la touchais ou la lâchais après l’avoir déplacée, elle s’envolait
+  parfois comme si tu l’avais lancée. Maintenant, elle n’est lancée que si tu la jettes vraiment d’un geste rapide ;
+  si tu la lâches simplement, elle tombe en douceur. Et quand tu la lances, c’est avec moins de force.
+- **Choisis sa taille :** dans *Réglages → Capri sur ton écran*, de mini à énorme.
+- **Mode fantôme :** Capri reste sur ton écran mais ne se touche pas et ne gêne pas : tes touchers passent à l’appli
+  d’en dessous, comme un shimeji fantôme. S’active dans *Réglages* ou son menu.
+- **Plus de mouvement :** elle ne reste plus plantée là. Choisis à quel point elle est agitée dans *Réglages →
+  Mouvement* : calme (comme avant), normale ou agitée. Elle marche, saute, tourne, s’étire et regarde autour d’elle
+  toute seule.
+- **Capri voit ton écran :** dis-lui « Capri, regarde mon écran » (ou touche *Regarde mon écran maintenant* dans
+  Réglages, ou dans son menu) et elle commente ce qu’elle voit. Avec *Regarder en direct*, elle continue de regarder
+  et réagit toute seule de temps en temps, ou quand tu changes d’appli, jusqu’à ce que tu l’arrêtes. Android te
+  demande à chaque fois qu’elle commence à regarder, et tu verras l’icône de diffusion pendant qu’elle regarde. Les
+  captures ne sont pas enregistrées : elles vont seulement à son IA. Les applis protégées (banques, mots de passe)
+  lui apparaissent en noir. Il faut une IA qui voit les images, comme Gemini (sa clé est gratuite) ; l’IA gratuite
+  ne voit pas, et Capri te le dit.
+- **Le chat ne gèle plus :** on sait enfin pourquoi c’était lent : l’IA gratuite ne permet qu’une réponse toutes les
+  45 secondes par téléphone, et si tu écrivais avant, elle attendait ou échouait. Maintenant, Capri attend son tour
+  et redemande toute seule, demande à l’IA de moins réfléchir pour répondre plus vite, et en attendant te dit qu’elle
+  réfléchit au lieu de rester muette. Si tu veux des réponses instantanées, donne-lui une clé Gemini gratuite.
+- **Elle choisit seule un meilleur modèle :** elle préfère les modèles rapides et vraiment faits pour discuter, et
+  garde la liste quelques minutes en mémoire pour ne pas redemander à chaque fois.
+- **Ta clé d’IA ne s’efface plus :** parfois, si l’IA était lente ou échouait une fois, Capri jetait la clé et disait
+  qu’elle n’avait pas d’IA. Maintenant, elle ne l’enlève que si elle est vraiment invalide.
+- **Elle parle plus comme Capri :** dans le chat, elle répond comme quelqu’un avec qui tu discutes, pas comme une
+  assistante : elle réagit, plaisante, donne son avis et répond à ce que tu lui as vraiment dit. En espagnol, elle
+  parle comme une Latina, avec un peu d’argot mexicain.
+
+## 1.4.1
+
+- **Plus de zones mortes à côté de Capri :** après une téléportation, toucher près d’elle (pas sur elle) ne faisait
+  rien, ni Capri ni l’appli d’en dessous, jusqu’à ce que tu la déplaces. Sa zone tactile suit maintenant la silhouette
+  de son corps au lieu d’un grand carré autour d’elle, et pendant qu’elle se téléporte, elle ne bloque rien.
+- **Mise à jour depuis l’appli sur plus de téléphones :** sur certains (comme Samsung avec Android 16), l’installation
+  échouait avec « Self update is blocked ». Maintenant la nouvelle version s’ouvre sur l’écran d’installation
+  d’Android, comme si tu l’ouvrais depuis le navigateur. Si ça échoue encore, sa page s’ouvre pour la télécharger.
+
+## 1.4.0
+
+- **Cartes animées :** les cartes de tes notifications arrivent en glissant avec un glitch et repartent pareil, au
+  lieu d’apparaître et disparaître d’un coup. Une petite barre rouge en bas montre combien de temps il leur reste.
+- **La barre de musique n’est plus toujours là :** elle apparaît quand une chanson commence, change, ou que tu la mets
+  en pause ou la relances, et s’en va toute seule au bout de 15 secondes. Si tu la touches, elle reste un peu plus.
+  En pause, elle part au bout de 12 secondes.
+- **Nouvel onglet « Commandes » :** tout ce que tu peux demander à Capri, à voix haute ou par écrit dans son chat, avec
+  des exemples.
+- **Mise à jour depuis l’appli, à nouveau :** *Mettre à jour* télécharge et installe la nouvelle version sur place,
+  sans passer par le navigateur (Android te demande de confirmer). La première fois, il te demande de laisser Capri
+  installer des applis.
+- **Avis du système quand il y a une nouvelle version :** l’appli vérifie toutes les 3 heures, même Capri éteinte, et
+  t’envoie une notification. En la touchant, l’appli s’ouvre et la mise à jour commence.
+- **Nouveautés repliées :** chaque version s’affiche fermée, avec son nombre de changements ; touche-la pour la lire.
+- **« Lui parler » plus fluide :** quand tu dis seulement « Capri », elle te répond dans son panneau sans parler, pour
+  ne pas couvrir ce que tu dis ensuite, et elle attend un peu plus que tu finisses ta phrase.

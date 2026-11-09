@@ -36,8 +36,33 @@ object Updater {
         .map { it.trim().replace(Regex("\\*\\*|`|\\*"), "").replace(Regex("^- "), "• ") }
         .joinToString("\n").replace(Regex("\n(?!•)"), " ").trim()
 
-    /** The latest release, or null when offline or there's none with an APK. Network: not on the main thread. */
-    fun latest(): Release? = try {
+    /**
+     * The latest release, or null when offline or there's none with an APK, with its notes in the
+     * language the app speaks (changelog/<lang>.md at that release; Spanish when it has none).
+     * Network: not on the main thread.
+     */
+    fun latest(context: Context): Release? = latestSpanish()?.let { r -> localNotes(context, r)?.let { r.copy(notes = it) } ?: r }
+
+    private fun localNotes(context: Context, release: Release): String? = try {
+        val lang = Lang.current(context)
+        if (lang == "es" || lang !in Lang.LANGS) null
+        else {
+            val conn = URL("https://raw.githubusercontent.com/$REPO/${release.tag}/changelog/$lang.md").openConnection() as HttpURLConnection
+            conn.setRequestProperty("User-Agent", "Capri-Android")
+            conn.connectTimeout = 10000
+            conn.readTimeout = 15000
+            if (conn.responseCode != 200) null
+            else {
+                val md = conn.inputStream.bufferedReader().use { it.readText() }
+                val section = md.lines().dropWhile { it.trim() != "## ${release.version}" }.drop(1).takeWhile { !it.startsWith("## ") }.joinToString("\n").trim()
+                section.ifEmpty { null }?.let { plain(it) }
+            }
+        }
+    } catch (e: Exception) {
+        null
+    }
+
+    private fun latestSpanish(): Release? = try {
         val conn = URL("https://api.github.com/repos/$REPO/releases/latest").openConnection() as HttpURLConnection
         conn.setRequestProperty("Accept", "application/vnd.github+json")
         conn.setRequestProperty("User-Agent", "Capri-Android")
@@ -155,7 +180,7 @@ object Updater {
         if (now - prefs.getLong("checked", 0) < if (force) 30 * 60 * 1000L else CHECK_EVERY) return done()
         Thread {
             try {
-                val release = latest() ?: return@Thread
+                val release = latest(context) ?: return@Thread
                 prefs.edit().putLong("checked", now).apply()
                 if (!isNewer(release.tag) || prefs.getString("told", null) == release.tag) return@Thread
                 prefs.edit().putString("told", release.tag).apply()

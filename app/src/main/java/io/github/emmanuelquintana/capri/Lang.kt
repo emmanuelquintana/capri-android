@@ -32,6 +32,9 @@ object Lang {
         CapriSettings.set(context, "lang", lang) // her too
     }
 
+    /** The language that context speaks now: "es", "en"… (the one picked, or the phone's). */
+    fun current(context: Context): String = context.resources.configuration.locales[0].language
+
     /** A screen's (or her service's) context, in the language picked. */
     fun wrap(base: Context): Context {
         val lang = get(base)

@@ -111,6 +111,10 @@ jobs:
             echo "::error::CHANGELOG.md no tiene un apartado '## $VERSION': cada versión explica qué cambia"
             [ "$GITHUB_REF" = "refs/heads/main" ] && exit 1
           fi
+          # the same notes in the app's other languages (changelog/<lang>.md): the app shows those
+          for f in changelog/*.md; do
+            grep -qx "## $VERSION" "$f" || echo "::warning::$f no tiene el apartado '## $VERSION': en ese idioma la app mostrará las notas en español"
+          done
           {
             echo
             echo "---"
