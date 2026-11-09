@@ -84,6 +84,7 @@ shot 14-settings-tab 2
 tap "français"
 shot 14f-french 4
 tap "nouveautés"
+tap "changements"
 shot 14g-french-news 2
 tap "réglages"
 tap "automatique"
