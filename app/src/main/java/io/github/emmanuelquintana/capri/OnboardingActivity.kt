@@ -338,7 +338,7 @@ class OnboardingActivity : Activity() {
         checking = true
         aiStatus?.setTextColor(Hud.GREEN)
         aiStatus?.text = getString(R.string.ai_checking)
-        Thread {
+        Threads.make {
             val why = CapriSettings.setAi(this, provider, key, ip)
             runOnUiThread {
                 checking = false

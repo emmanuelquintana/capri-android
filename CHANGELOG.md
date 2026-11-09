@@ -30,6 +30,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   ejemplo Groq), para mirar usa uno del mismo servicio que sí ve.
 - **Ya no desaparece al llegar una notificación:** salta a donde queda la tarjeta, no a donde empieza su animación.
 - **El teclado ya no se cierra solo** mientras le escribes: no se mueve de lugar mientras su chat está abierto.
+- **Se conecta en teléfonos más viejos:** en algunos con Android 8 (como el Sony Xperia XA1) su configuración de IA
+  fallaba con «Can't create handler inside thread that has not called Looper.prepare()». Ya no.
 - **Errores entendibles:** en vez de mensajes técnicos como «messages content must be a string» o «signal perdido»,
   te dice con palabras normales qué pasó.
 - **Chat de voz:** si la IA tarda en contestar, te dice en voz alta que lo está pensando, en vez de quedarse callada.

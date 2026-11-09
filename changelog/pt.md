@@ -29,6 +29,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   Groq, por exemplo), para olhar ela usa um do mesmo serviço que enxerga.
 - **Ela não some mais quando chega uma notificação:** pula para onde o cartão fica, não para onde a animação começa.
 - **O teclado não fecha mais sozinho** enquanto você escreve para ela: ela não sai do lugar com o chat aberto.
+- **Ela conecta em celulares mais antigos:** em alguns com Android 8 (como o Sony Xperia XA1), configurar a IA dela
+  falhava com “Can't create handler inside thread that has not called Looper.prepare()”. Não mais.
 - **Erros que dá para entender:** em vez de mensagens técnicas como “messages content must be a string” ou “sinal
   perdido”, ela te diz com palavras normais o que aconteceu.
 - **Chat de voz:** se a IA demora para responder, ela diz em voz alta que está pensando, em vez de ficar calada.

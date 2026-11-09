@@ -26,7 +26,7 @@ class HookServer(
     private val onEvent: (String) -> Unit,
 ) {
     private var server: ServerSocket? = null
-    private val pool = Executors.newCachedThreadPool()
+    private val pool = Executors.newCachedThreadPool(Threads.factory)
 
     fun start() {
         if (server != null) return

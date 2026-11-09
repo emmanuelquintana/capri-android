@@ -16,9 +16,9 @@ class HostBridge(private val service: CapriService) {
     val log = Diag
     private val actions = Actions(service, store)
     private val fetch = NativeFetch { channel, json -> service.overlay?.emit(channel, json) }
-    private val worker = Executors.newSingleThreadExecutor()
+    private val worker = Executors.newSingleThreadExecutor(Threads.factory)
     // her eyes wait on Android's dialog (up to a minute or so): never in the way of everything else
-    private val slow = Executors.newSingleThreadExecutor()
+    private val slow = Executors.newSingleThreadExecutor(Threads.factory)
 
     @JavascriptInterface
     fun invoke(id: String, method: String, argsJson: String) {

@@ -728,7 +728,7 @@ class MainActivity : Activity() {
     private fun checkUpdate() {
         if (downloading) return
         if (release == null) updateText.text = getString(R.string.update_checking)
-        Thread {
+        Threads.make {
             val r = Updater.latest(this)
             runOnUiThread { showUpdate(r) }
         }.start()
@@ -770,7 +770,7 @@ class MainActivity : Activity() {
         }
         downloading = true
         updateBtn.isEnabled = false
-        Thread {
+        Threads.make {
             try {
                 var shown = -1
                 val apk = Updater.download(this, r) { k ->

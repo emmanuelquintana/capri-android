@@ -30,6 +30,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **She no longer vanishes when a notification arrives:** she jumps to where the card ends up, not where its
   animation starts.
 - **The keyboard no longer closes on its own** while you type to her: she doesn’t move while her chat is open.
+- **She connects on older phones:** on some with Android 8 (like the Sony Xperia XA1) setting up her AI failed with
+  “Can't create handler inside thread that has not called Looper.prepare()”. Not anymore.
 - **Errors you can understand:** instead of technical messages like “messages content must be a string” or “signal
   lost”, she tells you in plain words what happened.
 - **Voice chat:** if the AI takes a while to answer, she says out loud that she’s thinking, instead of going silent.

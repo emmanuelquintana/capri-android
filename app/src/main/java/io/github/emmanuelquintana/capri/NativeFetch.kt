@@ -13,7 +13,7 @@ import java.util.concurrent.Executors
  * arrives, for her answers to stream in like on the desktop.
  */
 class NativeFetch(private val emit: (channel: String, json: String) -> Unit) {
-    private val pool = Executors.newCachedThreadPool()
+    private val pool = Executors.newCachedThreadPool(Threads.factory)
     private val open = ConcurrentHashMap<String, HttpURLConnection>()
 
     fun start(id: String, url: String, method: String, headersJson: String, body: String) {

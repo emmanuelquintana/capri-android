@@ -33,6 +33,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Elle ne disparaît plus quand une notification arrive :** elle saute là où la carte s’arrête, pas là où son
   animation commence.
 - **Le clavier ne se ferme plus tout seul** quand tu lui écris : elle ne bouge pas tant que son chat est ouvert.
+- **Elle se branche sur les téléphones plus anciens :** sur certains sous Android 8 (comme le Sony Xperia XA1), la
+  configuration de son IA échouait avec « Can't create handler inside thread that has not called Looper.prepare() ».
+  C’est réglé.
 - **Des erreurs compréhensibles :** au lieu de messages techniques comme « messages content must be a string » ou
   « signal perdu », elle te dit avec des mots simples ce qui s’est passé.
 - **Chat vocal :** si l’IA met du temps à répondre, elle dit à voix haute qu’elle réfléchit, au lieu de rester muette.

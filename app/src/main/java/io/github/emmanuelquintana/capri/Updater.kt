@@ -178,11 +178,11 @@ object Updater {
         val now = System.currentTimeMillis()
         // her service and the job both ask: not twice within half an hour
         if (now - prefs.getLong("checked", 0) < if (force) 30 * 60 * 1000L else CHECK_EVERY) return done()
-        Thread {
+        Threads.make {
             try {
-                val release = latest(context) ?: return@Thread
+                val release = latest(context) ?: return@make
                 prefs.edit().putLong("checked", now).apply()
-                if (!isNewer(release.tag) || prefs.getString("told", null) == release.tag) return@Thread
+                if (!isNewer(release.tag) || prefs.getString("told", null) == release.tag) return@make
                 prefs.edit().putString("told", release.tag).apply()
                 notifyNew(context, release)
                 onNew(release)
