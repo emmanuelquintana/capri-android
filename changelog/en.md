@@ -11,6 +11,14 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **No gravity:** she stays right where you put her, even in the air. She doesn’t wander off on her own, doesn’t jump
   onto your notifications, and if you fling her she doesn’t fly away, so she doesn’t get mad anymore. Great for
   leaving her in a corner or next to your chats. In *Settings* or her menu; she remembers where you left her.
+- **She remembers you:** after a chat, Capri notes down what matters about you (what you like, the people you tell
+  her about, what’s going on with you, how things went) and remembers it next time, so you pick up where you left
+  off instead of starting from scratch. See it and delete it in *Settings → What she remembers about you* (one thing
+  or everything), and turn it off there too. It stays only on your phone; to note it down she asks her AI once per
+  chat, once you’re no longer talking with her (with the free AI she waits her turn so you don’t have to wait).
+- **NVIDIA AI:** you can now give her a free NVIDIA key (build.nvidia.com), with lots of models to pick from. She
+  picks a fast one to chat and, to see your screen, an NVIDIA one that can see pictures. If a model is gone, she
+  moves on to the next one by herself.
 - **More languages:** in *Settings → Idioma · Language* pick Automatic, Español, English, Français, Português or
   Русский, for the app and for what she says. Voice commands (“Capri, …”) work in those languages too.
 - **New Community tab** in the app’s bottom bar: the Discord and the TikTok are there now (they used to be at the

@@ -12,6 +12,15 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Sans gravité :** elle reste exactement là où tu la poses, même en l’air. Elle ne part pas se promener, ne saute
   pas sur tes notifications, et si tu la lances elle ne s’envole pas, donc elle ne se fâche plus. Idéal pour la
   laisser dans un coin ou à côté de tes chats. Dans *Réglages* ou son menu ; elle se souvient d’où tu l’as laissée.
+- **Elle se souvient de toi :** après une discussion, Capri note ce qui compte pour toi (ce que tu aimes, les gens dont
+  tu lui parles, ce qui t’arrive, comment ça s’est passé) et s’en souvient la fois suivante : vous reprenez là où vous
+  en étiez au lieu de repartir de zéro. Tu le vois et l’effaces dans *Réglages → Ce qu’elle retient de toi* (une
+  chose ou tout), et tu peux aussi le désactiver là. Ça reste seulement sur ton téléphone ; pour le noter, elle
+  demande à son IA une fois par discussion, quand tu ne lui parles plus (avec l’IA gratuite, elle attend son tour pour
+  ne pas te faire attendre).
+- **IA de NVIDIA :** tu peux maintenant lui donner une clé NVIDIA gratuite (build.nvidia.com), avec plein de modèles
+  au choix. Elle en prend un rapide pour discuter et, pour voir ton écran, un modèle NVIDIA qui voit les images. Si un
+  modèle n’existe plus, elle passe toute seule au suivant.
 - **Plus de langues :** dans *Réglages → Idioma · Language* choisis Automatique, Español, English, Français, Português
   ou Русский, pour l’appli et pour ce qu’elle dit. Les commandes vocales (« Capri, … ») marchent aussi dans ces
   langues.

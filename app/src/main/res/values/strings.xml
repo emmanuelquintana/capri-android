@@ -34,7 +34,7 @@
     <string name="main_ai_free">Free online, no account</string>
     <string name="main_ai_pc">Ollama on your PC</string>
     <string name="main_ai_custom">Your own server</string>
-    <string name="main_ai_how">Opens her panel over your screen: free with no account, a key (Groq and Gemini are free), or your PC\'s Ollama over Wi-Fi. No terminal.</string>
+    <string name="main_ai_how">Opens her panel over your screen: free with no account, a key (Groq, Gemini and NVIDIA are free), or your PC\'s Ollama over Wi-Fi. No terminal.</string>
     <string name="main_notes">See your notifications and music (optional): she jumps on them</string>
     <string name="update_head">Updates</string>
     <string name="update_checking">Looking for a new version…</string>
@@ -64,7 +64,7 @@
     <string name="ai_free_title">Free, no account</string>
     <string name="ai_free_how">One tap and done. Goes through the internet (Pollinations).</string>
     <string name="ai_key_title">With a key</string>
-    <string name="ai_key_how">Groq and Gemini are free: open their page, make a key, copy it and paste it here.</string>
+    <string name="ai_key_how">Groq, Gemini and NVIDIA are free: open their page, make a key, copy it and paste it here.</string>
     <string name="ai_pc_title">Your PC’s Ollama</string>
     <string name="ai_pc_how">Your PC is her brain over Wi-Fi. In Ollama turn on “Expose Ollama to the network” and type the PC’s IP here.</string>
     <string name="ai_key_hint">Paste your key</string>
@@ -218,4 +218,10 @@
     <string name="settings_look_live_on">Watch live</string>
     <string name="settings_look_live_off">Stop watching live</string>
     <string name="settings_need_on">Start Capri first (in What\'s new).</string>
+    <string name="settings_memory">What she remembers about you</string>
+    <string name="settings_memory_how">After a chat, Capri notes down what matters (what you like, the people you talk about, what’s going on with you) so she remembers it next time. It stays only on this phone; to note it down she asks her AI once per chat.</string>
+    <string name="settings_memory_none">She doesn’t remember anything yet. Chat with her for a while.</string>
+    <string name="settings_memory_forget">Forget everything</string>
+    <string name="settings_memory_forget_one">Forget this</string>
+    <string name="settings_memory_forgot">Forgotten.</string>
 </resources>

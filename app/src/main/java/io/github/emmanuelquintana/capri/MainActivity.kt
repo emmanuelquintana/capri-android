@@ -54,6 +54,8 @@ class MainActivity : Activity() {
     // Settings
     private lateinit var nameField: android.widget.EditText
     private lateinit var aiText: TextView
+    private lateinit var memoryBox: LinearLayout
+    private var shownFacts: List<String>? = null
     private lateinit var voiceText: TextView
     private lateinit var voiceBtn: TextView
     private lateinit var voiceState: TextView
@@ -471,6 +473,16 @@ class MainActivity : Activity() {
             addView(ui.button(getString(R.string.settings_ai_panel) + " ›", Ui.Kind.LINE) { pickAi() }, ui.block(8))
         }, ui.block(16))
 
+        // what she remembers about you from her chats (memory.js): on or off, and each thing, to forget
+        addView(ui.card(Hud.MANE).apply {
+            addView(ui.label(getString(R.string.settings_memory)))
+            addView(ui.text(getString(R.string.settings_memory_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { Store(this@MainActivity).configFlag("longMemory", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "longMemory", it) }, ui.block(8))
+            memoryBox = ui.col()
+            addView(memoryBox, ui.block(12))
+        }, ui.block(16))
+
         // her ears: "Capri, …"
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_voice)))
@@ -610,8 +622,41 @@ class MainActivity : Activity() {
 
     // ---------- state ----------
 
+    // the things she remembers about you, each with a ✕ to forget it, and "forget everything"
+    private fun showMemory(fresh: Boolean = false) {
+        val facts = CapriSettings.facts(this)
+        if (!fresh && facts == shownFacts) return
+        shownFacts = facts
+        memoryBox.removeAllViews()
+        if (facts.isEmpty()) {
+            memoryBox.addView(ui.text(getString(R.string.settings_memory_none), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) })
+            return
+        }
+        val later = { memoryBox.postDelayed({ showMemory(true) }, 500) } // her page saves it first
+        for (fact in facts) {
+            val row = ui.row()
+            row.addView(ui.text("• $fact", 13f, Hud.PAPER, ui.body).apply { setLineSpacing(0f, 1.15f) }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+            row.addView(ui.text("✕", 15f, Hud.RED, ui.mono).apply {
+                setPadding(ui.dpi(14), ui.dpi(6), ui.dpi(4), ui.dpi(6))
+                contentDescription = getString(R.string.settings_memory_forget_one)
+                setOnClickListener {
+                    CapriSettings.forget(this@MainActivity, fact)
+                    row.alpha = 0.3f
+                    later()
+                }
+            })
+            memoryBox.addView(row, ui.block(6))
+        }
+        memoryBox.addView(ui.button(getString(R.string.settings_memory_forget), Ui.Kind.LINE) {
+            CapriSettings.forget(this, null)
+            Toast.makeText(this, R.string.settings_memory_forgot, Toast.LENGTH_SHORT).show()
+            later()
+        }, ui.block(12))
+    }
+
     private fun refresh() {
         if (!::ui.isInitialized) return
+        showMemory()
         val running = CapriService.running
         statusDot.background = Hud.Plate(if (running) Hud.GREEN else Hud.RED, 0, cut = 0f, stroke = 0f, offset = 0f)
         statusWord.text = getString(if (running) R.string.main_status_on else R.string.main_status_off)

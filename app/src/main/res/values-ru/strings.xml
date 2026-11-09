@@ -32,7 +32,7 @@
     <string name="main_ai_free">Бесплатно онлайн, без аккаунта</string>
     <string name="main_ai_pc">Ollama на твоём ПК</string>
     <string name="main_ai_custom">Свой сервер</string>
-    <string name="main_ai_how">Открывает её панель поверх экрана: бесплатно без аккаунта, ключ (Groq и Gemini бесплатны) или Ollama твоего ПК по Wi-Fi. Без терминала.</string>
+    <string name="main_ai_how">Открывает её панель поверх экрана: бесплатно без аккаунта, ключ (Groq, Gemini и NVIDIA бесплатны) или Ollama твоего ПК по Wi-Fi. Без терминала.</string>
     <string name="main_notes">Видеть твои уведомления и музыку (по желанию): она на них запрыгивает</string>
     <string name="update_head">Обновления</string>
     <string name="update_checking">Ищу новую версию…</string>
@@ -62,7 +62,7 @@
     <string name="ai_free_title">Бесплатно, без аккаунта</string>
     <string name="ai_free_how">Одно нажатие, и готово. Работает через интернет (Pollinations).</string>
     <string name="ai_key_title">С ключом</string>
-    <string name="ai_key_how">Groq и Gemini бесплатны: открой их страницу, создай ключ, скопируй и вставь сюда.</string>
+    <string name="ai_key_how">Groq, Gemini и NVIDIA бесплатны: открой их страницу, создай ключ, скопируй и вставь сюда.</string>
     <string name="ai_pc_title">Ollama твоего ПК</string>
     <string name="ai_pc_how">Твой ПК становится её мозгом по Wi-Fi. В Ollama включи «Expose Ollama to the network» и впиши сюда IP ПК.</string>
     <string name="ai_key_hint">Вставь ключ</string>
@@ -218,4 +218,10 @@
     <string name="settings_look_live_on">Смотреть вживую</string>
     <string name="settings_look_live_off">Перестать смотреть вживую</string>
     <string name="settings_need_on">Сначала включи Капри (на вкладке «Новое»).</string>
+    <string name="settings_memory">Что она помнит о тебе</string>
+    <string name="settings_memory_how">После разговора Капри записывает важное (что тебе нравится, о ком ты рассказываешь, что у тебя происходит), чтобы помнить это в следующий раз. Это остаётся только на этом телефоне; чтобы записать, она один раз за разговор спрашивает свой ИИ.</string>
+    <string name="settings_memory_none">Она пока ничего не помнит. Поболтай с ней немного.</string>
+    <string name="settings_memory_forget">Забыть всё</string>
+    <string name="settings_memory_forget_one">Забыть это</string>
+    <string name="settings_memory_forgot">Забыто.</string>
 </resources>

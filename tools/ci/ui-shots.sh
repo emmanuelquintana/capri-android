@@ -89,6 +89,9 @@ shot 14g-french-news 2
 tap "réglages"
 tap "automatique"
 sleep 4
+# what she remembers about you (empty on a fresh install), under her AI
+adb shell input swipe 500 1800 500 900 300
+shot 14m-memory 3
 tap "comunidad"
 shot 14a-community-tab 2
 tap "comandos"

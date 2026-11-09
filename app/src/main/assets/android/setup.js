@@ -7,10 +7,15 @@
 // this only swaps the steps that would need a terminal, and the lines that talk about a PC.
 
 import { Setup } from '../capri/src/renderer/js/setup.js';
+import { fmt } from '../capri/src/renderer/js/util.js';
+
+// the services that take a key: the desktop's, and NVIDIA's (free too, many models)
+const KEYED = ['groq', 'gemini', 'nvidia', 'openrouter', 'openai', 'mistral', 'deepseek'];
+const NAMES = { groq: 'Groq', gemini: 'Gemini', nvidia: 'NVIDIA', openrouter: 'OpenRouter', openai: 'OpenAI', mistral: 'Mistral', deepseek: 'DeepSeek' };
 
 const LINES = {
   es: {
-    whoHow: 'Lo más fácil: en línea, gratis y sin cuenta. Un toque y listo.\nSi quieres algo mejor: una clave gratis de Groq o Gemini, o el Ollama de tu PC por Wi-Fi.',
+    whoHow: 'Lo más fácil: en línea, gratis y sin cuenta. Un toque y listo.\nSi quieres algo mejor: una clave gratis de Groq, Gemini o NVIDIA, o el Ollama de tu PC por Wi-Fi.',
     why: { noOllama: 'No encuentro el Ollama de tu PC.', asleep: 'No encuentro el Ollama de tu PC.', noModel: 'El Ollama de tu PC aún no tiene ningún modelo.' },
     online: 'Gratis, sin cuenta', local: 'Ollama de mi PC',
     pasteHow: 'Toca «¿Dónde la consigo?», crea la clave en el navegador, cópiala y pégala aquí. La guardo cifrada en este teléfono.',
@@ -19,9 +24,10 @@ const LINES = {
     pcHow: 'En tu PC: abre Ollama, en sus ajustes activa «Expose Ollama to the network», y escribe aquí la IP del PC. Los dos en el mismo Wi-Fi.',
     pcNote: 'La IP sale en el PC en Configuración › Red. Algo como 192.168.1.20.',
     pcBad: 'No contesta en esa dirección.',
+    whichHow: 'Groq, Gemini y NVIDIA tienen opción gratis: una cuenta, una clave, y listo. NVIDIA tiene muchos modelos para elegir.',
   },
   en: {
-    whoHow: 'Easiest: online, free, no account. One tap and done.\nFor something better: a free key from Groq or Gemini, or your PC’s Ollama over Wi-Fi.',
+    whoHow: 'Easiest: online, free, no account. One tap and done.\nFor something better: a free key from Groq, Gemini or NVIDIA, or your PC’s Ollama over Wi-Fi.',
     why: { noOllama: 'I can’t find your PC’s Ollama.', asleep: 'I can’t find your PC’s Ollama.', noModel: 'Your PC’s Ollama has no model yet.' },
     online: 'Free, no account', local: 'My PC’s Ollama',
     pasteHow: 'Tap “Where do I get one?”, make the key in the browser, copy it and paste it here. I keep it encrypted on this phone.',
@@ -30,9 +36,10 @@ const LINES = {
     pcHow: 'On your PC: open Ollama, turn on “Expose Ollama to the network” in its settings, and type the PC’s IP here. Both on the same Wi-Fi.',
     pcNote: 'The PC shows its IP in Settings › Network. Something like 192.168.1.20.',
     pcBad: 'Nothing answers at that address.',
+    whichHow: 'Groq, Gemini and NVIDIA have a free tier: an account, a key, and you’re set. NVIDIA has lots of models to pick from.',
   },
   pt: {
-    whoHow: 'O mais fácil: online, grátis e sem conta. Um toque e pronto.\nPra algo melhor: uma chave grátis do Groq ou do Gemini, ou o Ollama do seu PC pelo Wi-Fi.',
+    whoHow: 'O mais fácil: online, grátis e sem conta. Um toque e pronto.\nPra algo melhor: uma chave grátis do Groq, do Gemini ou da NVIDIA, ou o Ollama do seu PC pelo Wi-Fi.',
     why: { noOllama: 'Não encontro o Ollama do seu PC.', asleep: 'Não encontro o Ollama do seu PC.', noModel: 'O Ollama do seu PC ainda não tem nenhum modelo.' },
     online: 'Grátis, sem conta', local: 'Ollama do meu PC',
     pasteHow: 'Toque em “Onde eu consigo?”, crie a chave no navegador, copie e cole aqui. Eu guardo ela criptografada neste celular.',
@@ -41,9 +48,10 @@ const LINES = {
     pcHow: 'No seu PC: abra o Ollama, ative “Expose Ollama to the network” nas configurações dele e digite aqui o IP do PC. Os dois no mesmo Wi-Fi.',
     pcNote: 'O IP aparece no PC em Configurações › Rede. Algo como 192.168.1.20.',
     pcBad: 'Nada responde nesse endereço.',
+    whichHow: 'O Groq, o Gemini e a NVIDIA têm plano grátis: uma conta, uma chave, e pronto. A NVIDIA tem muitos modelos para escolher.',
   },
   fr: {
-    whoHow: 'Le plus simple : en ligne, gratuit et sans compte. Un geste et c’est fait.\nPour mieux : une clé gratuite de Groq ou Gemini, ou l’Ollama de ton PC par le Wi-Fi.',
+    whoHow: 'Le plus simple : en ligne, gratuit et sans compte. Un geste et c’est fait.\nPour mieux : une clé gratuite de Groq, Gemini ou NVIDIA, ou l’Ollama de ton PC par le Wi-Fi.',
     why: { noOllama: 'Je ne trouve pas l’Ollama de ton PC.', asleep: 'Je ne trouve pas l’Ollama de ton PC.', noModel: 'L’Ollama de ton PC n’a pas encore de modèle.' },
     online: 'Gratuit, sans compte', local: 'L’Ollama de mon PC',
     pasteHow: 'Touche « Où la trouver ? », crée la clé dans le navigateur, copie-la et colle-la ici. Je la garde chiffrée sur ce téléphone.',
@@ -52,9 +60,10 @@ const LINES = {
     pcHow: 'Sur ton PC : ouvre Ollama, active « Expose Ollama to the network » dans ses réglages, et tape ici l’IP du PC. Les deux sur le même Wi-Fi.',
     pcNote: 'Le PC affiche son IP dans Paramètres › Réseau. Quelque chose comme 192.168.1.20.',
     pcBad: 'Rien ne répond à cette adresse.',
+    whichHow: 'Groq, Gemini et NVIDIA ont une offre gratuite : un compte, une clé, et c’est parti. NVIDIA a plein de modèles au choix.',
   },
   ru: {
-    whoHow: 'Проще всего: онлайн, бесплатно и без аккаунта. Одно касание, и готово.\nЕсли хочешь лучше: бесплатный ключ Groq или Gemini, или Ollama на твоём ПК по Wi-Fi.',
+    whoHow: 'Проще всего: онлайн, бесплатно и без аккаунта. Одно касание, и готово.\nЕсли хочешь лучше: бесплатный ключ Groq, Gemini или NVIDIA, или Ollama на твоём ПК по Wi-Fi.',
     why: { noOllama: 'Не нахожу Ollama на твоём ПК.', asleep: 'Не нахожу Ollama на твоём ПК.', noModel: 'В Ollama на твоём ПК пока нет модели.' },
     online: 'Бесплатно, без аккаунта', local: 'Ollama на моём ПК',
     pasteHow: 'Нажми «Где его взять?», создай ключ в браузере, скопируй и вставь сюда. Я храню его зашифрованным на этом телефоне.',
@@ -63,6 +72,7 @@ const LINES = {
     pcHow: 'На ПК: открой Ollama, включи в настройках «Expose Ollama to the network» и введи здесь IP ПК. Оба в одной сети Wi-Fi.',
     pcNote: 'IP видно на ПК в Параметры › Сеть. Что-то вроде 192.168.1.20.',
     pcBad: 'По этому адресу никто не отвечает.',
+    whichHow: 'У Groq, Gemini и NVIDIA есть бесплатный вариант: аккаунт, ключ, и готово. У NVIDIA много моделей на выбор.',
   },
 };
 
@@ -125,4 +135,48 @@ Setup.prototype.ollamaUp = async function ollamaUp(error = '') {
   this.working(t.checking);
   const state = await this.host.setOllamaHost(got.text);
   return state.running ? true : this.ollamaUp(state.host);
+};
+
+// The key steps, with NVIDIA among the services (the desktop's list doesn't have it).
+Setup.prototype.key = async function key() {
+  let ready = false;
+  await this.guide.scene(async () => {
+    const { provider } = await this.host.getConfig();
+    if (KEYED.includes(provider)) ready = await this.paste(provider);
+    else if (provider === 'custom') ready = await this.address();
+    else ready = await this.pickKeyed();
+  });
+  if (ready) this.onReady?.();
+};
+
+Setup.prototype.pickKeyed = async function pickKeyed() {
+  const t = this.t;
+  const id = await this.guide.ask({
+    face: 'smug',
+    line: t.which,
+    quote: t.whichHow,
+    actions: [...KEYED.map((p, i) => ({ id: p, label: NAMES[p], primary: i === 0 })), { id: 'back', label: t.back }],
+  });
+  if (id === 'back') return this.choose(null);
+  return KEYED.includes(id) ? this.paste(id) : false;
+};
+
+Setup.prototype.paste = async function paste(provider, error = '') {
+  const t = this.t;
+  const got = await this.guide.askText({
+    face: error ? 'wide' : 'look',
+    line: fmt(t.paste, { name: NAMES[provider] || provider }),
+    quote: error ? `${t.keyBad} ${error}` : t.pasteHow,
+    secret: true,
+    placeholder: t.placeholder,
+    tag: t.keyTag,
+    note: t.keyNote,
+    actions: [{ id: 'page', label: t.where }, { id: 'other', label: t.other }],
+    onAction: (id) => id === 'page' && (this.host.keyPage(provider), true),
+  });
+  if (got?.action === 'other') return this.choose(null);
+  if (!got?.text) return false;
+  this.working(t.checking);
+  const res = await this.host.useProvider({ provider, key: got.text });
+  return res.ok ? this.done() : this.paste(provider, res.error);
 };

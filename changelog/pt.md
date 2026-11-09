@@ -11,6 +11,14 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Sem gravidade:** ela fica exatamente onde você colocar, mesmo no ar. Não sai passeando sozinha, não pula nas suas
   notificações e, se você jogar ela, não sai voando, então não fica mais brava. Ótimo para deixar ela num canto ou do
   lado dos seus chats. Em *Ajustes* ou no menu dela; ela lembra onde você deixou.
+- **Ela lembra de você:** depois de uma conversa, a Capri anota o que importa sobre você (do que você gosta, as
+  pessoas de quem você fala, o que está acontecendo com você, como foi) e lembra na próxima vez, então vocês continuam
+  de onde pararam em vez de começar do zero. Você vê e apaga em *Ajustes → O que ela lembra de você* (cada coisa ou
+  tudo), e também desliga ali. Fica só no seu celular; para anotar, ela pergunta para a IA dela uma vez por conversa,
+  quando você já não está falando com ela (com a IA grátis ela espera a vez dela para não te fazer esperar).
+- **IA da NVIDIA:** agora você pode colocar uma chave grátis da NVIDIA (build.nvidia.com), com muitos modelos para
+  escolher. Ela escolhe um rápido para conversar e, para ver sua tela, um da NVIDIA que enxerga imagens. Se um modelo
+  não existe mais, ela passa sozinha para o próximo.
 - **Mais idiomas:** em *Ajustes → Idioma · Language* escolha Automático, Español, English, Français, Português ou
   Русский, para o app e para o que ela diz. Os comandos de voz (“Capri, …”) também funcionam nesses idiomas.
 - **Nova aba Comunidade** na barra de baixo do app: o Discord e o TikTok agora ficam ali (antes ficavam no fim de

@@ -12,6 +12,14 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Sin gravedad:** se queda justo donde la pongas, aunque sea en el aire. No se va a pasear sola, no brinca a tus
   notificaciones y si la avientas no sale volando, así que ya no se enoja. Ideal para dejarla en una esquina o junto
   a tus chats. En *Ajustes* o en su menú; recuerda dónde la dejaste.
+- **Te recuerda:** después de una charla, Capri apunta lo importante de ti (lo que te gusta, la gente de la que le
+  hablas, lo que te está pasando, cómo te fue) y la próxima vez se acuerda, así que sigue donde se quedaron en vez de
+  empezar de cero. Lo ves y lo borras en *Ajustes → Lo que recuerda de ti* (cada cosa o todo), y ahí también lo
+  apagas. Se guarda solo en tu teléfono; para apuntarlo le pregunta a su IA una vez por charla, cuando ya no estás
+  platicando con ella (con la IA gratis espera su turno para no hacerte esperar).
+- **IA de NVIDIA:** ahora puedes ponerle una clave gratis de NVIDIA (build.nvidia.com), con muchos modelos para
+  escoger. Ella elige uno rápido para platicar y, para ver tu pantalla, uno de NVIDIA que sí ve imágenes. Si un modelo
+  ya no está, se pasa sola al siguiente.
 - **Más idiomas:** en *Ajustes → Idioma · Language* eliges Automático, Español, English, Français, Português o Русский,
   para la app y para lo que dice ella. Los comandos de voz («Capri, …») también funcionan en esos idiomas.
 - **Nueva pestaña Comunidad** en la barra de abajo de la app: ahí están ahora el Discord y el TikTok (antes estaban al

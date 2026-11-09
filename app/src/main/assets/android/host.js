@@ -26,8 +26,12 @@ import { listen } from './listen.js';
 import { tweak } from './phone-tweaks.js';
 import { iconMode } from './icon.js';
 import { floatMode } from './float.js';
+import { longMemory } from './memory.js';
 
 const llm = load('llm');
+// NVIDIA's (build.nvidia.com): a free key and many models to choose from. The desktop doesn't have
+// it, so it's added here (llm.js talks to any OpenAI-style server the same way).
+llm.PROVIDERS.nvidia ??= { label: 'NVIDIA', url: 'https://integrate.api.nvidia.com/v1', env: 'NVIDIA_API_KEY' };
 const ollama = load('ollama');
 const { TRAY, LANGS } = load('labels');
 const demoSteps = load('demo-sequence');
@@ -57,6 +61,7 @@ const DEFAULTS = {
   iconAt: null,                  // where you left it, { x, y } as parts of the screen
   float: false,                  // without gravity: she stays where you put her (float.js)
   floatAt: null,                 // where that was, { x, y } as parts of the screen
+  longMemory: true,              // she notes down what matters about you after a chat (memory.js)
 };
 
 // setup.js's
@@ -71,6 +76,7 @@ const KEY_PAGES = {
   openai: 'https://platform.openai.com/api-keys',
   mistral: 'https://console.mistral.ai/api-keys',
   deepseek: 'https://platform.deepseek.com/api_keys',
+  nvidia: 'https://build.nvidia.com/settings/api-keys',
 };
 const ASSISTANTS = {
   claude: { name: 'Claude Code', help: 'https://code.claude.com/docs/en/quickstart' },
@@ -179,7 +185,7 @@ function saveMemory(patch) {
 }
 function forgetChats() {
   llm.resetClaude();
-  saveMemory({ history: [], claude: null });
+  saveMemory({ history: [], claude: null, facts: [], last: null, seen: null });
   sendCommand('forget');
 }
 
@@ -222,10 +228,18 @@ const chats = new Map();
 const NOT_CHAT = /whisper|tts|speech|audio|transcri|guard|embed|moderation|image|imagen|dall|vision-only|search|roblox|evil|uncensored|bidara|midijourney|rtist|compound/i;
 const SLOW = /reason|think|r1\b|-r1|o1|o3|o4|qwq|deepseek-r|gpt-oss-120|large|405b|pro\b|opus/i;
 const QUICK = [/^openai-fast$/, /^openai$/, /llama-3\.3-70b/, /llama-3\.1-8b-instant/, /gemini-[\d.]+-flash(?!-lite)/, /gemini.*flash/, /gpt-4o-mini|gpt-4\.1-mini|gpt-4\.1-nano/, /mistral-small|mistral$/, /deepseek-chat|deepseek-v3/, /llama/i];
+// NVIDIA lists 80-odd models, most of them not to chat with (search, safety filters, code, pictures,
+// translating…): only the ones to chat with stay, and the ones that see pictures (to look with).
+// Its quick, good ones for chatting first.
+const NV_SKIP = /embed|guard|safety|reward|parse|nvclip|retriever|rerank|detector|calibration|riva|translate|deplot|kosmos|fuyu|\bvila\b|neva|cosmos|code|coder|starcoder|chatqa|palmyra-(fin|med)|diffusion|omni|recurrent|gemma-2b|llama2|muse|bolt|reasoning/i;
+const NV_QUICK = [/deepseek-v[\d.]+-flash/, /glm-[\d.]+-flash/, /gemma-4/, /kimi-k2/, /minimax-.*flash/, /nemotron-[\d.]+-lightning/, /mistral-large-4/, /nemotron-3-super/, /gemma-3-12b/, /llama-3\.1-nemotron-70b/, /mistral-nemo/, /gpt-oss/];
+const NV_SEES = [/llama-3\.2-90b-vision/, /nemotron-[\d.]+-super-vl/, /gemma-3-12b/, /phi-3-vision/, /gemma-3-4b/];
+const nvidiaModels = (list) => list.filter((m) => !NV_SKIP.test(m));
 function rankModels(list) {
-  const usable = list.filter((m) => !NOT_CHAT.test(m));
+  const nv = cfg.provider === 'nvidia';
+  const usable = list.filter((m) => !NOT_CHAT.test(m) && !(nv && /vision|[-_]vl\b|phi-3-vision/i.test(m)));
   const score = (m) => {
-    const q = QUICK.findIndex((re) => re.test(m));
+    const q = (nv ? NV_QUICK : QUICK).findIndex((re) => re.test(m));
     return (SLOW.test(m) ? 100 : 0) + (q < 0 ? 50 : q);
   };
   return (usable.length ? usable : list).slice().sort((a, b) => score(a) - score(b));
@@ -267,8 +281,8 @@ async function refreshModels({ fresh = false } = {}) {
     chatModels = modelsFor.list;
     return chatModels;
   }
-  chatModels = list;
-  if (list?.length) modelsFor = { key, at: Date.now(), list };
+  chatModels = list && cfg.provider === 'nvidia' ? nvidiaModels(list) : list;
+  if (chatModels?.length) modelsFor = { key, at: Date.now(), list: chatModels };
   if (cfg.provider === 'ollama' && chatModels) refreshCloud();
   return chatModels;
 }
@@ -314,6 +328,8 @@ async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
       if (model !== pickModel(c)) updateConfig({ chatModel: model });
       return text;
     } catch (err) {
+      // a model the service retired, still on its list (NVIDIA says 410 Gone): the next one
+      if (err.status === 410 || /end of life|no longer available/i.test(err.message || '')) err.code = 'gone';
       // the free AI answers one message every 45 s per phone (and sometimes it's full): it says how
       // long to wait, so she waits and asks again instead of giving up
       const after = Number(/retry after (\d+)\s*s/i.exec(err.message || '')?.[1]);
@@ -489,6 +505,12 @@ function lookModel() {
   if (cfg.provider === 'deepseek') return null;
   const ok = (m) => SEES.test(m) && !BLIND.test(m);
   if (model && ok(model)) return model;
+  if (cfg.provider === 'nvidia') {
+    for (const re of NV_SEES) {
+      const m = (chatModels || []).find((n) => re.test(n));
+      if (m) return m;
+    }
+  }
   const list = (chatModels || []).filter(ok);
   // the newest-looking, non-preview one first (the lists come in no useful order)
   const rank = (m) => (/preview|exp/i.test(m) ? 2 : 0) + (/mini|lite|small|scout|flash/i.test(m) ? 0 : 1);
@@ -509,13 +531,35 @@ async function freeSees(model) {
   }
   return freeVision.sees.has(model);
 }
+// A JPEG (base64) made smaller until its text is at most `max` long: narrower and a bit rougher.
+async function shrink(b64, max) {
+  if (!b64 || b64.length <= max) return b64;
+  try {
+    const img = new Image();
+    img.src = `data:image/jpeg;base64,${b64}`;
+    await img.decode();
+    let out = b64;
+    for (let scale = 0.8, q = 0.6; out.length > max && scale > 0.2; scale *= 0.8) {
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.naturalWidth * scale);
+      c.height = Math.round(img.naturalHeight * scale);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      out = c.toDataURL('image/jpeg', q).split(',')[1];
+    }
+    return out;
+  } catch {
+    return b64;
+  }
+}
 async function sayAboutSnap({ id, persona, prompt, history = [] }) {
-  const image = snaps.get(id);
+  let image = snaps.get(id);
   snaps.delete(id);
   const blind = await cantSee();
   if (blind) return blind;
   if (!image) return { ok: false, error: 'the picture is gone' };
   const model = lookModel();
+  // NVIDIA takes a picture inside the message only if it's small: a smaller copy goes
+  if (cfg.provider === 'nvidia') image = await shrink(image, 170000);
   // on a phone it's often a video, a reel or a post: she reacts to it like a friend watching with you
   prompt = `${prompt}\n(On a phone: if it's a video, a reel or a post, TikTok, Instagram, YouTube or the like, react to what happens in it or what it says, like a friend watching it with them. Never describe the phone's own buttons or bars.)`;
   const user = cfg.provider === 'ollama'
@@ -535,6 +579,29 @@ async function sayAboutSnap({ id, persona, prompt, history = [] }) {
       const novision = /image|vision|multimodal|modalit|image_url|content.*(part|type)|must be a string|content.*string/i.test(err.message);
       return { ok: false, error: friendly(err.message), code: novision ? 'novision' : err.code || null, model };
     }
+  }
+}
+
+// NVIDIA lists its models to anyone, key or not, so that doesn't say whether a key works: a
+// one-word question does. Why it doesn't, or null (also when it can't tell: the key stays).
+async function nvidiaKeyBad(key) {
+  if (!/^nvapi-/.test(key)) return 'invalid API key (NVIDIA keys start with nvapi-)';
+  const { nativeFetch } = await import('./fetch.js');
+  const url = llm.PROVIDERS.nvidia.url;
+  try {
+    const body = await nativeFetch(`${url}/models`, { signal: AbortSignal.timeout(8000) }).then((r) => r.json());
+    const names = nvidiaModels((body?.data || []).map((m) => m.id).filter(Boolean));
+    const model = NV_QUICK.map((re) => names.find((n) => re.test(n))).find(Boolean);
+    if (!model) return null;
+    const res = await nativeFetch(`${url}/chat/completions`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
+      body: JSON.stringify({ model, messages: [{ role: 'user', content: 'hi' }], max_tokens: 1 }),
+      signal: AbortSignal.timeout(20000),
+    });
+    return res.status === 401 || res.status === 403 ? `invalid API key (${res.status})` : null;
+  } catch {
+    return null;
   }
 }
 
@@ -870,7 +937,7 @@ window.host = {
   }),
   lookSay: after((request) => sayAboutSnap(request || {})),
   lookWhere: after(() => {
-    const model = pickModel(cfg);
+    const model = ['ollama', 'pollinations', 'custom'].includes(cfg.provider) ? pickModel(cfg) : lookModel() || pickModel(cfg);
     const provider = cfg.provider === 'ollama' && ollama.isCloud(model) ? 'Ollama' : llm.PROVIDERS[cfg.provider]?.label || cfg.provider;
     return { local: llm.isLocal(cfg.provider, cfg, model), provider, model };
   }),
@@ -930,6 +997,10 @@ window.host = {
   cancelSetup: () => pulling?.abort(),
   useProvider: after(async ({ provider, key, url }) => {
     if (!llm.PROVIDERS[provider]) return { ok: false, error: 'unknown provider' };
+    if (provider === 'nvidia' && key) {
+      const bad = await nvidiaKeyBad(String(key).trim());
+      if (bad) return { ok: false, error: bad };
+    }
     const before = { provider: cfg.provider, apiKeys: cfg.apiKeys, customUrl: cfg.customUrl, ollamaHost: cfg.ollamaHost };
     const patch = { provider };
     if (key) patch.apiKeys = { ...before.apiKeys, [provider]: await call('keys:seal', { value: String(key).trim() }) };
@@ -1013,6 +1084,14 @@ on('settings:apply', async (p = {}) => {
   if ('gamer' in p) updateConfig({ gamer: Boolean(p.gamer) });
   if (typeof p.lang === 'string') updateConfig({ lang: p.lang }); // Ajustes › Idioma (Lang.kt)
   if ('float' in p) updateConfig({ float: Boolean(p.float) });
+  if ('longMemory' in p) updateConfig({ longMemory: Boolean(p.longMemory) });
+  // the app's Settings: one thing she remembers about you, or all of it, forgotten
+  if (typeof p.forgetFact === 'string') saveMemory({ facts: (readMemory().facts || []).filter((f) => f !== p.forgetFact) });
+  if (p.forgetFacts) {
+    // and what you'd talked about so far isn't noted down again
+    const said = (readMemory().history || []).at(-1)?.content;
+    saveMemory({ facts: [], last: null, seen: said ? String(said).slice(0, 200) : null });
+  }
   if ('icon' in p) updateConfig({ icon: Boolean(p.icon), ...(p.icon && { visible: true }) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
   if (p.musicStay) updateConfig({ musicStay: String(p.musicStay) });
@@ -1056,6 +1135,7 @@ ready.then(() => {
     tweak({ cfg: () => cfg, onConfig: (fn) => listeners.config.add(fn) });
     iconMode({ cfg: () => cfg, onConfig: (fn) => listeners.config.add(fn), setConfig: updateConfig });
     floatMode({ cfg: () => cfg, setConfig: updateConfig });
+    longMemory({ cfg: () => cfg, readMemory, saveMemory });
   }, 300);
 });
 

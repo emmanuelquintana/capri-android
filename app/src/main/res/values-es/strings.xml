@@ -32,7 +32,7 @@
     <string name="main_ai_free">Gratis en línea, sin cuenta</string>
     <string name="main_ai_pc">Ollama de tu PC</string>
     <string name="main_ai_custom">Tu propio servidor</string>
-    <string name="main_ai_how">Abre su panel sobre tu pantalla: gratis sin cuenta, con una clave (Groq y Gemini son gratis) o el Ollama de tu PC por Wi-Fi. Sin terminal.</string>
+    <string name="main_ai_how">Abre su panel sobre tu pantalla: gratis sin cuenta, con una clave (Groq, Gemini y NVIDIA son gratis) o el Ollama de tu PC por Wi-Fi. Sin terminal.</string>
     <string name="main_notes">Ver tus notificaciones y tu música (opcional): se sube encima</string>
     <string name="update_head">Actualizaciones</string>
     <string name="update_checking">Buscando una versión nueva…</string>
@@ -62,7 +62,7 @@
     <string name="ai_free_title">Gratis, sin cuenta</string>
     <string name="ai_free_how">Un toque y listo. Va por internet (Pollinations).</string>
     <string name="ai_key_title">Con una clave</string>
-    <string name="ai_key_how">Groq y Gemini son gratis: abre su página, crea la clave, cópiala y pégala aquí.</string>
+    <string name="ai_key_how">Groq, Gemini y NVIDIA son gratis: abre su página, crea la clave, cópiala y pégala aquí.</string>
     <string name="ai_pc_title">Ollama de tu PC</string>
     <string name="ai_pc_how">Tu PC hace de cerebro por Wi-Fi. En Ollama activa «Expose Ollama to the network» y escribe aquí la IP del PC.</string>
     <string name="ai_key_hint">Pega tu clave</string>
@@ -217,4 +217,10 @@
     <string name="settings_look_live_on">Ver en vivo</string>
     <string name="settings_look_live_off">Dejar de ver en vivo</string>
     <string name="settings_need_on">Primero enciende a Capri (en Novedades).</string>
+    <string name="settings_memory">Lo que recuerda de ti</string>
+    <string name="settings_memory_how">Después de una charla, Capri apunta lo importante (lo que te gusta, la gente de la que hablas, lo que te pasa) para acordarse la próxima vez. Se queda solo en este teléfono; para apuntarlo le pregunta a su IA una vez por charla.</string>
+    <string name="settings_memory_none">Aún no recuerda nada. Charla con ella un rato.</string>
+    <string name="settings_memory_forget">Olvidar todo</string>
+    <string name="settings_memory_forget_one">Olvidar esto</string>
+    <string name="settings_memory_forgot">Olvidado.</string>
 </resources>
