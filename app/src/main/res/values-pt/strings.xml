@@ -208,7 +208,7 @@
     <string name="lively_normal">Normal</string>
     <string name="lively_restless">Agitada</string>
     <string name="settings_ghost">Modo fantasma</string>
-    <string name="settings_ghost_how">Ela fica na sua tela, mas seus toques atravessam ela e chegam aos seus apps. Para desligar: aqui, ou no menu dela (toque na notificação dela).</string>
+    <string name="settings_ghost_how">Ela fica na sua tela, mas seus toques atravessam ela e chegam aos seus apps. O rosto dela ainda se toca: arraste por ali ou segure para abrir o menu.</string>
     <string name="on">Ligado</string>
     <string name="off">Desligado</string>
     <string name="settings_look">Deixar ela ver sua tela</string>
@@ -223,4 +223,14 @@
     <string name="settings_memory_forget">Esquecer tudo</string>
     <string name="settings_memory_forget_one">Esquecer isto</string>
     <string name="settings_memory_forgot">Esquecido.</string>
+    <string name="ai_key_saved_hint">Deixe vazio para continuar com a chave que você já salvou</string>
+    <string name="settings_intro_again_how">Só repete a apresentação dela. Sua IA, sua chave e os ajustes dela continuam iguais; no passo da IA, é só tocar em Próximo.</string>
+    <string name="settings_intro_again_go">Repetir</string>
+    <string name="settings_care">Ela cuida de você</string>
+    <string name="settings_battery">Avisos de bateria</string>
+    <string name="settings_battery_how">Ela avisa quando seu celular carrega até a porcentagem que você escolher e quando a bateria está acabando. O Android diz a bateria pra ela; não precisa de permissão.</string>
+    <string name="settings_battery_full">Me avisar ao carregar até</string>
+    <string name="settings_battery_low">Me avisar quando cair para</string>
+    <string name="settings_breaks">Pausas</string>
+    <string name="settings_breaks_how">Depois desse tempo no celular sem largar, ela diz pra você descansar a vista. Desligar a tela cinco minutos conta como pausa.</string>
 </resources>

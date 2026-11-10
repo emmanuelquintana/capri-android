@@ -303,7 +303,8 @@ class OnboardingActivity : Activity() {
                 }, LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply { rightMargin = ui.dpi(8) })
             }
             card.addView(HorizontalScrollView(this).apply { isHorizontalScrollBarEnabled = false; addView(chips) }, ui.block(12))
-            val f = ui.field(getString(R.string.ai_key_hint), secret = true)
+            val saved = CapriSettings.hasKey(this, aiKeyed.id)
+            val f = ui.field(getString(if (saved) R.string.ai_key_saved_hint else R.string.ai_key_hint), secret = true)
             keyField?.text?.let { if (it.isNotEmpty()) f.setText(it) }
             keyField = f
             card.addView(f, ui.block(8))
@@ -335,6 +336,14 @@ class OnboardingActivity : Activity() {
         val provider = aiChoice
         val key = keyField?.text?.toString().orEmpty()
         val ip = ipField?.text?.toString().orEmpty()
+        // its key is saved already (the welcome again): she keeps it, nothing to paste
+        if (isKeyed(provider) && key.isBlank() && CapriSettings.hasKey(this, provider)) {
+            CapriSettings.useSaved(this, provider)
+            aiStatus?.setTextColor(Hud.GREEN)
+            aiStatus?.text = getString(R.string.ai_ok, aiName(provider))
+            aiStatus?.postDelayed({ if (at == 2) go(3) }, 700)
+            return
+        }
         checking = true
         aiStatus?.setTextColor(Hud.GREEN)
         aiStatus?.text = getString(R.string.ai_checking)

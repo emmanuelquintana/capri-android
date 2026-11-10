@@ -208,7 +208,7 @@
     <string name="lively_normal">Normal</string>
     <string name="lively_restless">Agitée</string>
     <string name="settings_ghost">Mode fantôme</string>
-    <string name="settings_ghost_how">Elle reste sur ton écran mais tes touchers la traversent jusqu’à tes applis. Pour le désactiver : ici, ou dans son menu (touche sa notification).</string>
+    <string name="settings_ghost_how">Elle reste sur ton écran mais tes touchers la traversent jusqu’à tes applis. Son visage, lui, se touche : traîne-la par là ou reste appuyé pour son menu.</string>
     <string name="on">Activé</string>
     <string name="off">Désactivé</string>
     <string name="settings_look">La laisser voir ton écran</string>
@@ -223,4 +223,14 @@
     <string name="settings_memory_forget">Tout oublier</string>
     <string name="settings_memory_forget_one">Oublier ça</string>
     <string name="settings_memory_forgot">Oublié.</string>
+    <string name="ai_key_saved_hint">Laisse vide pour garder la clé déjà enregistrée</string>
+    <string name="settings_intro_again_how">Ça rejoue juste son accueil. Ton IA, ta clé et ses réglages restent comme ils sont ; à l’étape de l’IA, touche juste Suivant.</string>
+    <string name="settings_intro_again_go">Rejouer</string>
+    <string name="settings_care">Elle prend soin de toi</string>
+    <string name="settings_battery">Alertes de batterie</string>
+    <string name="settings_battery_how">Elle te prévient quand ton téléphone est chargé au pourcentage que tu choisis, et quand il n’a presque plus de batterie. Android lui donne la batterie ; aucune autorisation.</string>
+    <string name="settings_battery_full">Me prévenir à</string>
+    <string name="settings_battery_low">Me prévenir quand elle descend à</string>
+    <string name="settings_breaks">Pauses</string>
+    <string name="settings_breaks_how">Après ce temps sur ton téléphone sans le lâcher, elle te dit de reposer tes yeux. Éteindre l’écran cinq minutes compte comme une pause.</string>
 </resources>

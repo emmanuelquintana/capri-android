@@ -24,6 +24,14 @@
     'look:snap': () => ({ image: 'iVBORw0KGgo=' }),
     'look:live': () => true,
     'look:changed': () => 0,
+    'apps:list': () => [],
+    'apps:media': () => true,
+    'open:url': () => true,
+    'apps:launchables': () => [{ name: 'WhatsApp', kind: 'app', id: 'com.whatsapp' }, { name: 'Spotify', kind: 'app', id: 'com.spotify.music' }, { name: 'YouTube', kind: 'app', id: 'com.google.android.youtube' }],
+    'apps:launch': () => true,
+    'pc:do': (r) => (r.action === 'info' ? ({ battery: { percent: 64, charging: false }, disk: { drive: 'Android', free: 21e9, total: 64e9 }, ram: { total: 6e9, used: 3e9 } }[r.what] ?? null) : r.action === 'settings' ? true : r.action === 'volume' ? true : null),
+    'voice:say': () => true,
+    'voice:torch': ({ on }) => on !== false,
   };
   const aborts = new Map();
   window.CapriNative = {

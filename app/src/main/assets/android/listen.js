@@ -10,7 +10,7 @@ import { clean, mood } from '../capri/src/renderer/js/chat.js';
 const WORDS = {
   es: {
     yes: ['¿Sí?', 'Dime.', 'Aquí estoy.', '¿Qué se te ofrece, choom?'],
-    time: 'Son las {time}.',
+    time: ["Son las {time}.", "Son las {time}, choom.", "Mi reloj dice {time}."],
     date: 'Hoy es {date}.',
     torchOn: 'Linterna encendida.',
     torchOff: 'Linterna apagada.',
@@ -23,10 +23,23 @@ const WORDS = {
     thinking: '…',
     wait: ['Déjame pensarlo…', 'Ya casi, la IA va lenta ahorita.'],
     failed: 'No pude contestarte ahora.',
+    late: "Ya es tarde, ¿no deberías dormir?",
+    moves: ["¡Mira esto!", "¡Ahí va!", "Tú pediste show."],
+    dance: "¡A bailar!",
+    sleepy: "Me echo una siestita. Tócame para despertarme.",
+    awake: "¡Ya desperté!",
+    play: "Le doy play.",
+    weather: "Te abro el clima de hoy.",
+    shot: "Para una captura: botón de encendido + bajar volumen a la vez. Yo me quito de en medio.",
+    radio: "Android no deja que las apps prendan o apaguen eso solas: te abro el panel, es un toque.",
+    settings: "Te abro los ajustes.",
+    call: "Te abro el teléfono{who}.",
+    cant: "Eso no lo pude hacer en tu teléfono.",
+    help: "Puedo decirte la hora, poner música, abrir apps, poner temporizadores y recordatorios, mirar tu pantalla, bailar… La lista completa está en la app, pestaña Comandos.",
   },
   en: {
     yes: ['Yes?', 'Go on.', 'Right here.', 'What do you need, choom?'],
-    time: "It's {time}.",
+    time: ["It's {time}.", "It's {time}, choom.", "My clock says {time}."],
     date: 'Today is {date}.',
     torchOn: 'Flashlight on.',
     torchOff: 'Flashlight off.',
@@ -39,10 +52,23 @@ const WORDS = {
     thinking: '…',
     wait: ['Let me think…', 'Almost there, the AI is slow right now.'],
     failed: "I couldn't answer you right now.",
+    late: "It's late, shouldn't you sleep?",
+    moves: ["Watch this!", "Here goes!", "You asked for a show."],
+    dance: "Let's dance!",
+    sleepy: "Taking a little nap. Tap me to wake me up.",
+    awake: "I'm up!",
+    play: "Hitting play.",
+    weather: "Opening today's weather.",
+    shot: "For a screenshot: power + volume down together. I'll get out of the way.",
+    radio: "Android doesn't let apps switch that on their own: here's its panel, one tap.",
+    settings: "Opening the settings.",
+    call: "Opening your phone app{who}.",
+    cant: "I couldn't do that on your phone.",
+    help: "I can tell you the time, play music, open apps, set timers and reminders, look at your screen, dance… The full list is in the app, Commands tab.",
   },
   fr: {
     yes: ['Oui ?', 'Je t’écoute.', 'Je suis là.', 'Qu’est-ce qu’il te faut, choom ?'],
-    time: 'Il est {time}.',
+    time: ["Il est {time}.", "Il est {time}, choom.", "Mon horloge dit {time}."],
     date: 'On est {date}.',
     torchOn: 'Lampe allumée.',
     torchOff: 'Lampe éteinte.',
@@ -55,10 +81,23 @@ const WORDS = {
     thinking: '…',
     wait: ['Laisse-moi réfléchir…', 'Presque, l’IA est lente en ce moment.'],
     failed: 'Je n’ai pas pu te répondre là.',
+    late: "Il est tard, tu ne devrais pas dormir ?",
+    moves: ["Regarde ça !", "C’est parti !", "Tu voulais un show."],
+    dance: "On danse !",
+    sleepy: "Je fais une petite sieste. Touche-moi pour me réveiller.",
+    awake: "Je suis réveillée !",
+    play: "J’appuie sur play.",
+    weather: "Je t’ouvre la météo du jour.",
+    shot: "Pour une capture : bouton marche + volume bas en même temps. Je me pousse.",
+    radio: "Android ne laisse pas les applis changer ça toutes seules : voilà son panneau, un toucher suffit.",
+    settings: "Je t’ouvre les réglages.",
+    call: "Je t’ouvre le téléphone{who}.",
+    cant: "Je n’ai pas pu le faire sur ton téléphone.",
+    help: "Je peux te dire l’heure, mettre de la musique, ouvrir des applis, lancer des minuteurs et des rappels, regarder ton écran, danser… La liste complète est dans l’appli, onglet Commandes.",
   },
   pt: {
     yes: ['Sim?', 'Fala.', 'Tô aqui.', 'O que você precisa, choom?'],
-    time: 'São {time}.',
+    time: ["São {time}.", "São {time}, choom.", "Meu relógio diz {time}."],
     date: 'Hoje é {date}.',
     torchOn: 'Lanterna ligada.',
     torchOff: 'Lanterna desligada.',
@@ -71,10 +110,23 @@ const WORDS = {
     thinking: '…',
     wait: ['Deixa eu pensar…', 'Quase lá, a IA tá lenta agora.'],
     failed: 'Não consegui te responder agora.',
+    late: "Já tá tarde, não devia dormir?",
+    moves: ["Olha isso!", "Lá vai!", "Você pediu show."],
+    dance: "Bora dançar!",
+    sleepy: "Vou tirar um cochilo. Toca em mim pra me acordar.",
+    awake: "Acordei!",
+    play: "Dando play.",
+    weather: "Abrindo o tempo de hoje.",
+    shot: "Pra print: botão de ligar + abaixar volume juntos. Eu saio da frente.",
+    radio: "O Android não deixa os apps ligarem ou desligarem isso sozinhos: abri o painel, é só um toque.",
+    settings: "Abrindo os ajustes.",
+    call: "Abrindo o telefone{who}.",
+    cant: "Não consegui fazer isso no seu celular.",
+    help: "Posso dizer as horas, tocar música, abrir apps, pôr timers e lembretes, olhar sua tela, dançar… A lista completa está no app, aba Comandos.",
   },
   ru: {
     yes: ['Да?', 'Слушаю.', 'Я здесь.', 'Что нужно, чум?'],
-    time: 'Сейчас {time}.',
+    time: ["Сейчас {time}.", "Сейчас {time}, чум.", "Мои часы говорят {time}."],
     date: 'Сегодня {date}.',
     torchOn: 'Фонарик включён.',
     torchOff: 'Фонарик выключен.',
@@ -87,6 +139,19 @@ const WORDS = {
     thinking: '…',
     wait: ['Дай подумать…', 'Почти всё, ИИ сейчас медленный.'],
     failed: 'Не смогла ответить сейчас.',
+    late: "Уже поздно, тебе не пора спать?",
+    moves: ["Смотри!", "Поехали!", "Ты хотел шоу."],
+    dance: "Танцуем!",
+    sleepy: "Немного вздремну. Коснись, чтобы разбудить.",
+    awake: "Я проснулась!",
+    play: "Включаю.",
+    weather: "Открываю погоду на сегодня.",
+    shot: "Для скриншота: кнопка питания + громкость вниз вместе. Я отойду.",
+    radio: "Android не даёт приложениям переключать это самим: открыла панель, одно касание.",
+    settings: "Открываю настройки.",
+    call: "Открываю звонилку{who}.",
+    cant: "Не получилось сделать это на телефоне.",
+    help: "Могу сказать время, включить музыку, открыть приложения, поставить таймер и напоминание, посмотреть на экран, потанцевать… Полный список в приложении, вкладка «Команды».",
   },
 };
 const LOCALES = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU' };
@@ -109,6 +174,30 @@ export const OFF_ASK = /quita|apaga|sin |desactiva|salir|sal |sal$|sal del|off|s
 export const iconOff = (text) => OFF_ASK.test(text);
 const CHAT_ASK = /^(?:abre (?:el |tu )?chat|hablemos|quiero hablar|platiquemos|open (?:the |your )?chat|let'?s talk|ouvre (?:le |ton )?chat|parlons|abre o chat|vamos conversar|открой чат|давай поговорим)(?![\p{L}])/iu;
 const LOOK_ASK = /mira (?:mi|la) pantalla|qu[ée] (?:ves|hay en mi pantalla)|look at my screen|what do you see|regarde (?:mon|l[’']) ?[ée]cran|olha (?:minha|a) tela|посмотри на (?:мой )?экран/iu;
+// her own moves, asked plainly ("Capri, baila"): only when that's about all you said
+const MOVES = [
+  ['dance', /^(?:baila|bailemos|ponte a bailar|dance|let'?s dance|danse|dan[çc]a|танцуй|потанцуй)(?![\p{L}])/iu],
+  ['hop', /^(?:salta|brinca|da un brinco|jump|hop|saute|pula|прыгни|подпрыгни)(?![\p{L}])/iu],
+  ['spin', /^(?:gira|da (?:una )?vuelta|date (?:una )?vuelta|spin|turn around|tourne|fais un tour|gire|d[aá] uma volta|покружись|крутись)(?![\p{L}])/iu],
+  ['stretch', /^(?:est[ií]rate|stretch|[ée]tire-toi|alongue-se|espregui[çc]a|потянись)(?![\p{L}])/iu],
+  ['victory', /^(?:celebra|victoria|festeja|celebrate|victory|c[ée]l[èe]bre|victoire|comemora|vit[óo]ria|победа|отпразднуй)(?![\p{L}])/iu],
+  ['zap', /^(?:(?:lanza|tira|echa) (?:un )?rayo|rayo|zap|lightning|[ée]clair|lance un [ée]clair|raio|solta um raio|молния|ударь молнией)(?![\p{L}])/iu],
+  ['split', /^(?:(?:haz|has) (?:un |el )?split|split|do (?:a|the) split|fais le grand [ée]cart|grand [ée]cart|faz (?:um )?espacate|espacate|шпагат|сделай шпагат)(?![\p{L}])/iu],
+  ['plop', /^(?:si[ée]ntate|sit(?: down)?|assieds-toi|senta|sente-se|сядь|присядь)(?![\p{L}])/iu],
+  ['teleport', /^(?:teletransp[oó]rtate|teleport(?:ate)?|t[ée]l[ée]porte-toi|teletransporta-te|se teletransporta|телепортируйся)(?![\p{L}])/iu],
+  ['satellite', /^(?:(?:mira|busca) el sat[ée]lite|sat[ée]lite|satellite|look at the satellite|regarde le satellite|olha o sat[ée]lite|спутник)(?![\p{L}])/iu],
+  ['sleep', /^(?:du[ée]rmete|a dormir|ve a dormir|go to sleep|sleep|dors|va dormir|dorme|vai dormir|спи|засыпай|иди спать)(?![\p{L}])/iu],
+  ['wake', /^(?:despierta|desp[ií]ertate|wake up|r[ée]veille-toi|acorda|просыпайся|проснись)(?![\p{L}])/iu],
+];
+const PLAY_SOMETHING = /^(?:pon|ponme|reproduce|play|put on|mets|joue|coloca|toca|bota|включи|поставь)\s+(?:(?:algo de|some|de la|un peu de|uma|um pouco de|alguma)\s+)?(?:m[uú]sica|music|musique|музыку|una canci[oó]n|a song|une chanson|uma m[uú]sica)(?:\s+(?:por favor|please|s'il te pla[iî]t|пожалуйста))?[.!]?$/iu;
+const WEATHER_ASK = /qu[ée] tiempo hace|el clima|va a llover|how'?s the weather|what'?s the weather|weather|will it rain|quel temps|la m[ée]t[ée]o|va-t-il pleuvoir|como est[aá] o tempo|previs[ãa]o do tempo|vai chover|какая погода|погод[аы]|будет дождь/iu;
+const SHOT_VOICE = /captura(?: de pantalla)?|pantallazo|screenshot|capture d['’]?[ée]cran|print(?: da tela)?|скриншот|снимок экрана/iu;
+const RADIO_ASK = /(?:wi-?fi|wifi|bluetooth|datos(?: m[oó]viles)?|mobile data|donn[ée]es mobiles|dados m[oó]veis|modo avi[oó]n|airplane mode|mode avion|modo avi[aã]o|ubicaci[oó]n|location|localisation|localiza[çc][ãa]o|gps|nfc|вай-?фай|блютуз|мобильн\p{L}* данн\p{L}*|режим полёта|геолокаци\p{L}*)/iu;
+const RADIO_PAGE = [['bluetooth', /bluetooth|блютуз/i], ['data', /datos|data|donn[ée]es|dados|данн/i], ['airplane', /avi[oó]n|airplane|avion|avi[aã]o|полёт/i], ['location', /ubicaci|location|localis|localiza|gps|геолок/i], ['nfc', /nfc/i], ['wifi', /./]];
+const RADIO_VERB = /prende|enciende|activa|apaga|desactiva|quita|pon|turn|switch|enable|disable|allume|[ée]teins|active|d[ée]sactive|liga|desliga|ativa|desativa|включи|выключи|ajustes|settings|r[ée]glages|configura|настройк/iu;
+const CALL_ASK = /^(?:llama(?:le)? a|marca(?:le)? a|call|phone|appelle|liga(?: para| pra)?|позвони)\s*(.*)$/iu;
+const HELP_ASK = /^(?:qu[ée] (?:puedes|sabes) hacer|ayuda|comandos|what can you do|help|commands|qu['’]est-ce que tu sais faire|aide|commandes|o que voc[êe] (?:pode|sabe) fazer|ajuda|comandos|что ты умеешь|помощь|команды)(?![\p{L}])/iu;
+
 // what's left of her name at the start, as the recognizer may write it (Капри in Russian)
 // (and whatever came before it: "oye Capri", "ok Kapri")
 const NAME = /^.*?(?<![\p{L}])(?:[ck]a[pb]r[iíy]s?|ка[пб]р[иы])(?![\p{L}])[\s,.!?:]*/iu;
@@ -175,8 +264,10 @@ async function handle(text, { toggleVisible, visible }) {
     return;
   }
   if (TIME_ASK.test(text) && text.split(/\s+/).length <= 8) {
-    const time = new Intl.DateTimeFormat(locale, { hour: 'numeric', minute: '2-digit' }).format(new Date());
-    return answer(fill(t.time, { time }).replace(/\.\.$/, '.'), 'look');
+    const now = new Date();
+    const time = new Intl.DateTimeFormat(locale, { hour: 'numeric', minute: '2-digit' }).format(now);
+    const late = now.getHours() >= 0 && now.getHours() < 5 ? ` ${t.late}` : '';
+    return answer(fill(pick(t.time), { time }).replace(/\.\.$/, '.') + late, late ? 'aside' : 'look');
   }
   if (DATE_ASK.test(text) && text.split(/\s+/).length <= 8) {
     const date = new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
@@ -190,6 +281,34 @@ async function handle(text, { toggleVisible, visible }) {
     return answer(res ? t.torchOn : t.torchOff, 'smug');
   }
   if (CHAT_ASK.test(text)) return chat.start();
+  if (HELP_ASK.test(text)) return answer(t.help, 'smug');
+
+  // her own moves
+  const words = text.split(/\s+/).length;
+  const move = words <= 5 && !/canci|song|chanson|m[uú]sica|music|faixa|песн|трек|v[ií]deo/iu.test(text) && MOVES.find(([, re]) => re.test(text))?.[0];
+  if (move) return moveFor(move, { capri, answer, t });
+
+  // the phone's own things, said plainly
+  if (PLAY_SOMETHING.test(text)) {
+    const ok = await window.host.media('play').catch(() => false);
+    return answer(ok ? t.play : t.cant, ok ? 'laugh' : 'aside');
+  }
+  if (WEATHER_ASK.test(text) && words <= 10) {
+    send('open:url', { url: `https://www.google.com/search?q=${encodeURIComponent(WEATHER_SEARCH[lang])}` });
+    return answer(t.weather, 'smug');
+  }
+  if (SHOT_VOICE.test(text) && words <= 8 && !LOOK_ASK.test(text)) return answer(t.shot, 'aside');
+  if (RADIO_ASK.test(text) && RADIO_VERB.test(text) && words <= 10) {
+    const page = RADIO_PAGE.find(([, re]) => re.test(text))[0];
+    const ok = await call('pc:do', { action: 'settings', page }).catch(() => false);
+    return answer(ok ? (ON.test(text) || OFF.test(text) ? t.radio : t.settings) : t.cant, 'smug');
+  }
+  const calling = words <= 6 && CALL_ASK.exec(text);
+  if (calling) {
+    const who = calling[1].replace(/[.!?]+$/, '').trim();
+    send('open:url', { url: 'tel:' });
+    return answer(fill(t.call, { who: who ? ` (${who})` : '' }), 'smug');
+  }
   // gamer mode: she says so herself (host.js gamerMode), and her ears rest until it's off
   if (GAMER_ASK.test(text)) return window.host.setConfig({ gamer: true });
 
@@ -206,6 +325,8 @@ async function handle(text, { toggleVisible, visible }) {
     chat.listApps();
     const done = await chat.doNow(asked).catch(() => null);
     if (done?.line) return answer(done.line, done.face || 'smug');
+    // something to do on the phone that didn't work: said so, not a long wait for her AI
+    if (['media', 'music', 'youtube', 'pc'].includes(asked.kind)) return answer(t.cant, 'aside');
   }
 
   // anything else: a question for her AI, answered short, to be said out loud
@@ -228,6 +349,34 @@ async function handle(text, { toggleVisible, visible }) {
   chat.history.push({ role: 'user', content: text });
   chat.remember({ role: 'assistant', content: said });
   answer(said, mood(said));
+}
+
+const WEATHER_SEARCH = { es: 'clima hoy', en: 'weather today', fr: 'météo aujourd’hui', pt: 'previsão do tempo hoje', ru: 'погода сегодня' };
+
+// one of her moves, by name, with a word about it
+async function moveFor(move, { capri, answer, t }) {
+  const host = window.host;
+  const side = capri.towardCenter?.() || 1;
+  if (move === 'teleport' || move === 'satellite') {
+    host.command?.(move);
+    return;
+  }
+  if (move === 'sleep') {
+    answer(t.sleepy, 'calm');
+    setTimeout(() => capri.doze?.(), 2500);
+    return;
+  }
+  if (move === 'wake') {
+    await capri.rouse?.();
+    return answer(t.awake, 'laugh');
+  }
+  if (move === 'dance') {
+    answer(t.dance, 'laugh');
+    for (const [act, ms] of [['spin', 0], ['hop', 1300], ['split', 2300], ['victory', 3700]]) setTimeout(() => capri.perform?.(act, side), ms);
+    return;
+  }
+  answer(pick(t.moves), 'laugh', '', false);
+  setTimeout(() => capri.perform?.(move, side), 300);
 }
 
 // what TTS reads: no tags, no markdown, no emoji

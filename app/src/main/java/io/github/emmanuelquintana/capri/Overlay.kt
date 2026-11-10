@@ -204,6 +204,14 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
      * Her menus up: the screen behind them blurred, where the phone can (Android 12 and later, with
      * window blur on: not in battery saver, not on every phone). Her page dims it either way.
      */
+    /** A little buzz under the finger (holding her long enough for her menu). No permission needed. */
+    fun haptic() = main.post {
+        webView?.performHapticFeedback(
+            android.view.HapticFeedbackConstants.LONG_PRESS,
+            android.view.HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING,
+        )
+    }
+
     fun setBlur(on: Boolean) = main.post {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return@post
         val web = webView ?: return@post

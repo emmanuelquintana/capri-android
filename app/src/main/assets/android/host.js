@@ -28,6 +28,7 @@ import { tweak } from './phone-tweaks.js';
 import { iconMode } from './icon.js';
 import { floatMode } from './float.js';
 import { longMemory } from './memory.js';
+import { phoneCare } from './phone-care.js';
 
 const llm = load('llm');
 // NVIDIA's (build.nvidia.com): a free key and many models to choose from. The desktop doesn't have
@@ -59,6 +60,11 @@ const DEFAULTS = {
   lively: 'normal',              // how often she moves on her own: calm, normal, restless
   lan: false,                    // the hook server also listens on your Wi-Fi (a PC's Claude Code can reach her)
   icon: false,                   // icon mode: only her mask on screen, still talking (icon.js)
+  batteryAlerts: true,           // she tells you when it's charged (to batteryFull %) or low (batteryLow %): phone-care.js
+  batteryFull: 100,
+  batteryLow: 15,
+  breaks: true,                  // a break after breakHours on the phone without putting it down
+  breakHours: 2,
   iconAt: null,                  // where you left it, { x, y } as parts of the screen
   float: false,                  // without gravity: she stays where you put her (float.js)
   floatAt: null,                 // where that was, { x, y } as parts of the screen
@@ -308,9 +314,34 @@ function refreshCloud(force = false) {
 const FIRST_WORD_MS = 40000;
 const FIRST_WORD_FREE_MS = 80000;
 
+// Models that ran out for now (429: too many asks a minute, or the free quota of the day, as
+// Gemini's free keys do after a few dozen): rested until they can answer again, the service's
+// other models tried meanwhile. Each Gemini model has its own quota, so another one often still answers.
+const tired = new Map(); // model -> until (ms)
+function rest(model, err) {
+  if (!model) return;
+  const msg = String(err?.message || '');
+  const retry = Number(/retry(?:[ _-]?delay|[ _-]?after| in)["'\s:]*([\d.]+)\s*s/i.exec(msg)?.[1]);
+  const daily = /per ?day|daily|PerDay|RPD|quota|exhausted|insufficient/i.test(msg);
+  const ms = retry > 0 ? retry * 1000 + 2000 : daily ? 3 * 3600 * 1000 : 90 * 1000;
+  tired.set(model, Date.now() + Math.min(ms, 6 * 3600 * 1000));
+}
+const isTired = (m) => (tired.get(m) || 0) > Date.now();
+// until when everything she could look or talk with is resting (0: something can answer)
+function aiResting(models) {
+  const list = models.filter(Boolean);
+  if (!list.length || list.some((m) => !isTired(m))) return 0;
+  return Math.min(...list.map((m) => tired.get(m)));
+}
+
 async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
   let model = pickModel(c);
   const tried = new Set();
+  // her model is resting (it ran out a moment ago): another of the service's first, if one isn't
+  if (isTired(model) && c.provider !== 'ollama' && c.provider !== 'claude') {
+    const fresh = rankModels(chatModels || []).find((m) => !isTired(m));
+    if (fresh) model = fresh;
+  }
   let busy = 0;
   let waited = 0;
   const watched = c.provider !== 'ollama' && c.provider !== 'claude';
@@ -326,7 +357,8 @@ async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
     }, c.provider === 'pollinations' ? FIRST_WORD_FREE_MS : FIRST_WORD_MS);
     try {
       const text = await llm.chat(c.provider, await llmConfig(c), { model, messages }, sendDelta, inner.signal);
-      if (model !== pickModel(c)) updateConfig({ chatModel: model });
+      // (one that's only resting stays her model: it's back later)
+      if (model !== pickModel(c) && !isTired(pickModel(c))) updateConfig({ chatModel: model });
       return text;
     } catch (err) {
       // a model the service retired, still on its list (NVIDIA says 410 Gone): the next one
@@ -348,9 +380,11 @@ async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
         await new Promise((r) => setTimeout(r, 1500));
         continue;
       }
+      if (err.code === 'busy' && !stuck) rest(model, err);
       tried.add(model);
       const ranked = c.provider === 'ollama' ? chatModels || [] : rankModels(chatModels || []);
-      const next = ranked.find((m) => !tried.has(m) && !ollama.isCloud(m)) || ranked.find((m) => !tried.has(m));
+      const fresh = (m) => !tried.has(m) && !isTired(m);
+      const next = ranked.find((m) => fresh(m) && !ollama.isCloud(m)) || ranked.find(fresh);
       if (!next || tried.size >= 3) throw err;
       model = next;
       busy = 0;
@@ -418,6 +452,7 @@ const FRIENDLY = {
     [/screen off/i, 'la pantalla está apagada'],
     [/no picture|picture is gone/i, 'no me llegó la imagen, intenta otra vez'],
     [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'la clave de la IA no funciona; revísala en Ajustes'],
+    [/quota|per ?day|exhausted/i, 'la IA llegó a su límite gratis por ahora; prueba más tarde o elige otro modelo en Ajustes'],
     [/402|429|rate|limit|quota|too many/i, 'la IA está saturada, espera un momentito'],
     [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'el servicio de la IA está caído, intenta en un rato'],
     [/timeout|timed out|tardó/i, 'la IA tardó demasiado en contestar'],
@@ -430,6 +465,7 @@ const FRIENDLY = {
     [/screen off/i, 'the screen is off'],
     [/no picture|picture is gone/i, 'the picture didn’t reach me, try again'],
     [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'the AI key doesn’t work; check it in Settings'],
+    [/quota|per ?day|exhausted/i, 'the AI hit its free limit for now; try later or pick another model in Settings'],
     [/402|429|rate|limit|quota|too many/i, 'the AI is busy, give it a moment'],
     [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'the AI service is down, try again later'],
     [/timeout|timed out/i, 'the AI took too long to answer'],
@@ -442,6 +478,7 @@ const FRIENDLY = {
     [/screen off/i, 'l’écran est éteint'],
     [/no picture|picture is gone/i, 'l’image ne m’est pas arrivée, réessaie'],
     [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'la clé de l’IA ne marche pas ; vérifie-la dans Réglages'],
+    [/quota|per ?day|exhausted/i, 'l’IA a atteint sa limite gratuite pour l’instant ; réessaie plus tard ou choisis un autre modèle dans Réglages'],
     [/402|429|rate|limit|quota|too many/i, 'l’IA est saturée, attends un petit moment'],
     [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'le service de l’IA est en panne, réessaie plus tard'],
     [/timeout|timed out/i, 'l’IA a mis trop de temps à répondre'],
@@ -454,6 +491,7 @@ const FRIENDLY = {
     [/screen off/i, 'a tela está desligada'],
     [/no picture|picture is gone/i, 'a imagem não chegou, tenta de novo'],
     [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'a chave da IA não funciona; confira em Ajustes'],
+    [/quota|per ?day|exhausted/i, 'a IA chegou ao limite grátis por agora; tente mais tarde ou escolha outro modelo em Ajustes'],
     [/402|429|rate|limit|quota|too many/i, 'a IA está lotada, espera um pouquinho'],
     [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'o serviço da IA caiu, tenta daqui a pouco'],
     [/timeout|timed out/i, 'a IA demorou demais para responder'],
@@ -466,6 +504,7 @@ const FRIENDLY = {
     [/screen off/i, 'экран выключен'],
     [/no picture|picture is gone/i, 'картинка до меня не дошла, попробуй ещё раз'],
     [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'ключ ИИ не работает; проверь его в Настройках'],
+    [/quota|per ?day|exhausted/i, 'ИИ пока исчерпал бесплатный лимит; попробуй позже или выбери другую модель в настройках'],
     [/402|429|rate|limit|quota|too many/i, 'ИИ перегружен, подожди немного'],
     [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'сервис ИИ не работает, попробуй позже'],
     [/timeout|timed out/i, 'ИИ слишком долго отвечал'],
@@ -501,21 +540,44 @@ async function cantSee() {
 const SEES = /vision|[-_ ]vl\b|llama-4|scout|maverick|gpt-4o|gpt-4\.1|gpt-5|chatgpt-4o|\bo[34]\b|gemini|pixtral|claude|llava|gemma-?3|qwen.*vl|mistral-(small|medium)|grok-.*vision/i;
 const BLIND = /embed|tts|audio|whisper|guard|moderation|image-gen|dall|imagen|-tts|transcri|search|nano-banana/i;
 function lookModel() {
+  return lookModels()[0] || null;
+}
+// Every model she could look with, the best first: her chat's own if it sees, then the service's
+// others that do. Not the ones that turned out blind, nor (while others are left) resting ones.
+const blindModels = new Set();
+function lookModels() {
   const model = pickModel(cfg);
-  if (['ollama', 'pollinations', 'custom'].includes(cfg.provider)) return model;
-  if (cfg.provider === 'deepseek') return null;
-  const ok = (m) => SEES.test(m) && !BLIND.test(m);
-  if (model && ok(model)) return model;
+  if (['ollama', 'pollinations', 'custom'].includes(cfg.provider)) return model ? [model] : [];
+  if (cfg.provider === 'deepseek') return [];
+  const ok = (m) => SEES.test(m) && !BLIND.test(m) && !blindModels.has(m) && !(cfg.blindModels || []).includes(m);
+  const out = [];
+  if (model && ok(model)) out.push(model);
   if (cfg.provider === 'nvidia') {
     for (const re of NV_SEES) {
-      const m = (chatModels || []).find((n) => re.test(n));
-      if (m) return m;
+      const m = (chatModels || []).find((n) => re.test(n) && ok(n));
+      if (m) out.push(m);
     }
   }
-  const list = (chatModels || []).filter(ok);
   // the newest-looking, non-preview one first (the lists come in no useful order)
   const rank = (m) => (/preview|exp/i.test(m) ? 2 : 0) + (/mini|lite|small|scout|flash/i.test(m) ? 0 : 1);
-  return list.sort((a, b) => rank(a) - rank(b))[0] || null;
+  out.push(...(chatModels || []).filter(ok).sort((a, b) => rank(a) - rank(b)));
+  const all = [...new Set(out)];
+  const fresh = all.filter((m) => !isTired(m));
+  return fresh.length ? [...fresh, ...all.filter(isTired)] : all;
+}
+// a model's answer said it can't take pictures: never asked to look again (kept in her config)
+function markBlind(model) {
+  if (!model || ['ollama', 'pollinations', 'custom'].includes(cfg.provider)) return;
+  blindModels.add(model);
+  updateConfig({ blindModels: [...new Set([...(cfg.blindModels || []), model])].slice(-40) });
+}
+// can this model (of her service) see pictures? for her menu and the app's list: true, false or null (can't tell)
+function modelSees(model, provider = cfg.provider) {
+  if (!model) return null;
+  if (provider === 'claude' || provider === 'deepseek') return false;
+  if (['ollama', 'pollinations', 'custom'].includes(provider)) return null;
+  if ((cfg.blindModels || []).includes(model) || blindModels.has(model)) return false;
+  return SEES.test(model) && !BLIND.test(model);
 }
 const brainLang = () => window.dev?.brain?.lang || 'en';
 
@@ -552,35 +614,95 @@ async function shrink(b64, max) {
     return b64;
   }
 }
+// Her own drawing, her panel and her words painted out of the screenshot (each spot filled with
+// the color around it): she never comments on herself, her chat or her own lines as if they were
+// something on your screen.
+async function hideSelf(b64, rects) {
+  if (!b64 || !rects?.length) return b64;
+  try {
+    const img = new Image();
+    img.src = `data:image/jpeg;base64,${b64}`;
+    await img.decode();
+    const c = document.createElement('canvas');
+    c.width = img.naturalWidth;
+    c.height = img.naturalHeight;
+    const g = c.getContext('2d', { willReadFrequently: true });
+    g.drawImage(img, 0, 0);
+    const k = c.width / innerWidth; // the overlay covers the whole screen: same scale both ways
+    for (const [l, t, r, b] of rects) {
+      const x = Math.max(0, Math.floor(l * k)), y = Math.max(0, Math.floor(t * k));
+      const w = Math.min(c.width, Math.ceil(r * k)) - x, h = Math.min(c.height, Math.ceil(b * k)) - y;
+      if (w <= 0 || h <= 0) continue;
+      // the average color of a ring just around it
+      const ring = Math.max(4, Math.round(8 * k));
+      let R = 0, G = 0, B = 0, n = 0;
+      const add = (sx, sy, sw, sh) => {
+        sx = Math.max(0, sx); sy = Math.max(0, sy);
+        sw = Math.min(c.width - sx, sw); sh = Math.min(c.height - sy, sh);
+        if (sw <= 0 || sh <= 0) return;
+        const d = g.getImageData(sx, sy, sw, sh).data;
+        for (let i = 0; i < d.length; i += 16) { R += d[i]; G += d[i + 1]; B += d[i + 2]; n++; }
+      };
+      add(x - ring, y - ring, w + 2 * ring, ring);
+      add(x - ring, y + h, w + 2 * ring, ring);
+      add(x - ring, y, ring, h);
+      add(x + w, y, ring, h);
+      g.fillStyle = n ? `rgb(${Math.round(R / n)},${Math.round(G / n)},${Math.round(B / n)})` : '#808080';
+      g.fillRect(x, y, w, h);
+    }
+    return c.toDataURL('image/jpeg', 0.8).split(',')[1];
+  } catch {
+    return b64;
+  }
+}
+
 async function sayAboutSnap({ id, persona, prompt, history = [] }) {
-  let image = snaps.get(id);
+  const snap = snaps.get(id);
   snaps.delete(id);
   const blind = await cantSee();
   if (blind) return blind;
-  if (!image) return { ok: false, error: 'the picture is gone' };
-  const model = lookModel();
-  // NVIDIA takes a picture inside the message only if it's small: a smaller copy goes
-  if (cfg.provider === 'nvidia') image = await shrink(image, 170000);
+  if (!snap?.image) return { ok: false, error: 'the picture is gone' };
+  const image = await hideSelf(snap.image, snap.self);
+  // she isn't in the picture anymore: nothing to tell her about herself in it
+  prompt = String(prompt).replace(/If you see a small figure[^.]*\.\s*/i, '');
   // on a phone it's often a video, a reel or a post: she reacts to it like a friend watching with you
-  prompt = `${prompt}\n(On a phone: if it's a video, a reel or a post, TikTok, Instagram, YouTube or the like, react to what happens in it or what it says, like a friend watching it with them. Never describe the phone's own buttons or bars.)`;
-  const user = cfg.provider === 'ollama'
-    ? { role: 'user', content: prompt, images: [image] }
-    : { role: 'user', content: [{ type: 'text', text: prompt }, { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${image}` } }] };
-  const before = (Array.isArray(history) ? history : []).filter((m) => typeof m?.content === 'string' && ['user', 'assistant'].includes(m.role));
-  const messages = [{ role: 'system', content: persona }, ...before, user];
-  for (let attempt = 0; ; attempt++) {
-    try {
-      const text = await llm.chat(cfg.provider, await llmConfig(), { model, messages }, noop, AbortSignal.timeout(120000));
-      return { ok: true, text, model };
-    } catch (err) {
-      if (err.code === 'busy' && attempt === 0) {
-        await new Promise((r) => setTimeout(r, 1500));
-        continue;
+  prompt = `${prompt}\n(On a phone: if it's a video, a reel or a post, TikTok, Instagram, YouTube or the like, react to what happens in it or what it says, like a friend watching it with them. Never describe the phone's own buttons or bars, nor flat patches of color.)`;
+  const before = (Array.isArray(history) ? history : []).filter((m) => typeof m?.content === 'string' && ['user', 'assistant'].includes(m.role)).slice(-12);
+  const models = lookModels();
+  if (!models.length) return { ok: false, code: 'novision', model: pickModel(cfg) };
+  const resting = aiResting(models);
+  if (resting) return { ok: false, code: 'busy', error: friendly('429 quota'), until: resting, model: models[0] };
+  let last = null;
+  for (const model of models.slice(0, 3)) {
+    // NVIDIA takes a picture inside the message only if it's small: a smaller copy goes
+    const pic = cfg.provider === 'nvidia' ? await shrink(image, 170000) : image;
+    const user = cfg.provider === 'ollama'
+      ? { role: 'user', content: prompt, images: [pic] }
+      : { role: 'user', content: [{ type: 'text', text: prompt }, { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${pic}` } }] };
+    const messages = [{ role: 'system', content: persona }, ...before, user];
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const text = await llm.chat(cfg.provider, await llmConfig(), { model, messages }, noop, AbortSignal.timeout(120000));
+        return { ok: true, text, model };
+      } catch (err) {
+        const novision = /image|vision|multimodal|modalit|image_url|content.*(part|type)|must be a string|content.*string/i.test(err.message);
+        last = { ok: false, error: friendly(err.message), code: novision ? 'novision' : err.code || null, model };
+        if (novision) {
+          markBlind(model); // and the next one that sees
+          break;
+        }
+        if (err.code === 'busy' && attempt === 0 && !/quota|per ?day|exhausted/i.test(err.message || '')) {
+          await new Promise((r) => setTimeout(r, 1500));
+          continue;
+        }
+        if (err.code === 'busy') rest(model, err);
+        if (!['busy', 'gone'].includes(err.code)) return last;
+        break;
       }
-      const novision = /image|vision|multimodal|modalit|image_url|content.*(part|type)|must be a string|content.*string/i.test(err.message);
-      return { ok: false, error: friendly(err.message), code: novision ? 'novision' : err.code || null, model };
     }
   }
+  if (last?.code === 'busy') last.until = aiResting(models) || Date.now() + 90000;
+  return last;
 }
 
 // NVIDIA lists its models to anyone, key or not, so that doesn't say whether a key works: a
@@ -639,44 +761,49 @@ const COMMUNITY = { discord: 'https://discord.gg/d8tsTKMhN', tiktok: 'https://ww
 
 const PHONE_LABELS = {
   es: {
+    battery: 'Avisos de batería', batteryOn: 'Avisarme', batteryFull: 'Cuando se cargue al', batteryLow: 'Cuando baje al', breaks: 'Recordarme descansar', breakEvery: 'Después de', hours: '{n} h',
     possess: 'Poseer sus tarjetas', gamer: 'Modo gamer', icon: 'Modo ícono (solo su máscara)', float: 'Sin gravedad (se queda donde la pongas)', community: 'Únete a la comunidad', startup: 'Iniciar con el teléfono', pcReact: 'Reaccionar a mi teléfono',
     motionAuto: 'Como el teléfono', restTaskbar: 'Sentada abajo, en el borde', theme: 'Estilo de sus paneles',
     soundsDir: 'Dónde poner sonidos propios',
     provOllama: 'Ollama de tu PC', provFree: 'Gratis, sin cuenta (Pollinations)', provCustom: 'Servidor propio (dirección)',
     secHer: 'Ella', secAi: 'Su IA', secPhone: 'Tu teléfono', secMore: 'Más', service: 'Servicio', model: 'Modelo', noModels: 'Sin modelos todavía',
-    lookNow: 'Mira mi pantalla', lookAuto: 'Ver mi pantalla en vivo', ghost: 'Modo fantasma (no se puede tocar)',
+    lookNow: 'Mira mi pantalla', lookAuto: 'Ver mi pantalla en vivo', ghost: 'Modo fantasma (solo se toca su cara)',
   },
   en: {
+    battery: 'Battery alerts', batteryOn: 'Tell me', batteryFull: 'When it charges to', batteryLow: 'When it drops to', breaks: 'Remind me to take breaks', breakEvery: 'After', hours: '{n} h',
     possess: 'Possess her cards', gamer: 'Gamer mode', icon: 'Icon mode (just her mask)', float: 'No gravity (stays where you put her)', community: 'Join the community', startup: 'Start with the phone', pcReact: 'React to my phone',
     motionAuto: 'Like the phone', restTaskbar: 'Sitting on the bottom edge', theme: 'Her panels’ style',
     soundsDir: 'Where to put my own sounds',
     provOllama: 'Your PC’s Ollama', provFree: 'Free, no account (Pollinations)', provCustom: 'Your own server (address)',
     secHer: 'Her', secAi: 'Her AI', secPhone: 'Your phone', secMore: 'More', service: 'Service', model: 'Model', noModels: 'No models yet',
-    lookNow: 'Look at my screen', lookAuto: 'Watch my screen live', ghost: 'Ghost mode (can’t be touched)',
+    lookNow: 'Look at my screen', lookAuto: 'Watch my screen live', ghost: 'Ghost mode (only her face takes touches)',
   },
   fr: {
+    battery: 'Alertes de batterie', batteryOn: 'Me prévenir', batteryFull: 'Quand elle est chargée à', batteryLow: 'Quand elle descend à', breaks: 'Me rappeler de faire des pauses', breakEvery: 'Après', hours: '{n} h',
     possess: 'Posséder ses cartes', gamer: 'Mode gamer', icon: 'Mode icône (juste son masque)', float: 'Sans gravité (reste où tu la poses)', community: 'Rejoins la communauté', startup: 'Démarrer avec le téléphone', pcReact: 'Réagir à mon téléphone',
     motionAuto: 'Comme le téléphone', restTaskbar: 'Assise en bas, sur le bord', theme: 'Style de ses panneaux',
     soundsDir: 'Où mettre mes propres sons',
     provOllama: 'L’Ollama de ton PC', provFree: 'Gratuit, sans compte (Pollinations)', provCustom: 'Ton propre serveur (adresse)',
     secHer: 'Elle', secAi: 'Son IA', secPhone: 'Ton téléphone', secMore: 'Plus', service: 'Service', model: 'Modèle', noModels: 'Pas encore de modèles',
-    lookNow: 'Regarde mon écran', lookAuto: 'Voir mon écran en direct', ghost: 'Mode fantôme (intouchable)',
+    lookNow: 'Regarde mon écran', lookAuto: 'Voir mon écran en direct', ghost: 'Mode fantôme (seul son visage se touche)',
   },
   pt: {
+    battery: 'Avisos de bateria', batteryOn: 'Me avisar', batteryFull: 'Quando carregar até', batteryLow: 'Quando cair para', breaks: 'Me lembrar de descansar', breakEvery: 'Depois de', hours: '{n} h',
     possess: 'Possuir os cartões', gamer: 'Modo gamer', icon: 'Modo ícone (só a máscara)', float: 'Sem gravidade (fica onde você colocar)', community: 'Entre na comunidade', startup: 'Iniciar com o celular', pcReact: 'Reagir ao meu celular',
     motionAuto: 'Como o celular', restTaskbar: 'Sentada embaixo, na borda', theme: 'Estilo dos painéis',
     soundsDir: 'Onde pôr meus próprios sons',
     provOllama: 'Ollama do seu PC', provFree: 'Grátis, sem conta (Pollinations)', provCustom: 'Servidor próprio (endereço)',
     secHer: 'Ela', secAi: 'A IA dela', secPhone: 'Seu celular', secMore: 'Mais', service: 'Serviço', model: 'Modelo', noModels: 'Nenhum modelo ainda',
-    lookNow: 'Olha minha tela', lookAuto: 'Ver minha tela ao vivo', ghost: 'Modo fantasma (não pode ser tocada)',
+    lookNow: 'Olha minha tela', lookAuto: 'Ver minha tela ao vivo', ghost: 'Modo fantasma (só o rosto se toca)',
   },
   ru: {
+    battery: 'Уведомления о батарее', batteryOn: 'Сообщать', batteryFull: 'Когда зарядится до', batteryLow: 'Когда упадёт до', breaks: 'Напоминать о перерывах', breakEvery: 'Через', hours: '{n} ч',
     possess: 'Захватывать карточки', gamer: 'Игровой режим', icon: 'Режим иконки (только маска)', float: 'Без гравитации (остаётся, где поставишь)', community: 'Сообщество', startup: 'Запускать с телефоном', pcReact: 'Реагировать на телефон',
     motionAuto: 'Как на телефоне', restTaskbar: 'Сидя внизу, на краю', theme: 'Стиль её панелей',
     soundsDir: 'Куда класть свои звуки',
     provOllama: 'Ollama на твоём ПК', provFree: 'Бесплатно, без аккаунта (Pollinations)', provCustom: 'Свой сервер (адрес)',
     secHer: 'Она', secAi: 'Её ИИ', secPhone: 'Твой телефон', secMore: 'Ещё', service: 'Сервис', model: 'Модель', noModels: 'Пока нет моделей',
-    lookNow: 'Посмотри на мой экран', lookAuto: 'Смотреть мой экран вживую', ghost: 'Режим призрака (нельзя трогать)',
+    lookNow: 'Посмотри на мой экран', lookAuto: 'Смотреть мой экран вживую', ghost: 'Режим призрака (трогается только лицо)',
   },
 };
 
@@ -807,6 +934,27 @@ function menuTemplate() {
     { label: t.possess, type: 'checkbox', checked: cfg.possess, click: (item) => updateConfig({ possess: item.checked }) },
     ...(notes ? [notes.menu(updateConfig)] : []),
     { label: t.pcReact, type: 'checkbox', checked: cfg.pcReact !== false, click: (item) => updateConfig({ pcReact: item.checked }) },
+    {
+      label: t.battery,
+      submenu: [
+        { label: t.batteryOn, type: 'checkbox', checked: cfg.batteryAlerts !== false, click: (item) => updateConfig({ batteryAlerts: item.checked }) },
+        { type: 'separator' },
+        { label: t.batteryFull, enabled: false },
+        ...[80, 85, 90, 95, 100].map((n) => ({ label: `${n}%`, type: 'radio', checked: Number(cfg.batteryFull || 100) === n, click: () => updateConfig({ batteryFull: n, batteryAlerts: true }) })),
+        { type: 'separator' },
+        { label: t.batteryLow, enabled: false },
+        ...[5, 10, 15, 20, 30].map((n) => ({ label: `${n}%`, type: 'radio', checked: Number(cfg.batteryLow || 15) === n, click: () => updateConfig({ batteryLow: n, batteryAlerts: true }) })),
+      ],
+    },
+    {
+      label: t.breaks,
+      submenu: [
+        { label: t.batteryOn, type: 'checkbox', checked: cfg.breaks !== false, click: (item) => updateConfig({ breaks: item.checked }) },
+        { type: 'separator' },
+        { label: t.breakEvery, enabled: false },
+        ...[1, 2, 3].map((n) => ({ label: t.hours.replace('{n}', n), type: 'radio', checked: Number(cfg.breakHours || 2) === n, click: () => updateConfig({ breakHours: n, breaks: true }) })),
+      ],
+    },
     {
       label: t.startup, type: 'checkbox', checked: Boolean(cfg.startOnBoot),
       click: (item) => updateConfig({ startOnBoot: item.checked }),
@@ -983,9 +1131,10 @@ window.host = {
   lookSnap: after(async () => {
     try {
       if (await cantSee()) return { ok: true, id: 'blind' }; // she says why when she'd comment (lookSay)
+      const self = touch.selfRects(); // where she is right as it's taken
       const res = await call('look:snap');
       const id = crypto.randomUUID();
-      snaps.set(id, res.image);
+      snaps.set(id, { image: res.image, self });
       setTimeout(() => snaps.delete(id), 120000);
       return { ok: true, id };
     } catch (err) {
@@ -993,6 +1142,8 @@ window.host = {
     }
   }),
   lookSay: after((request) => sayAboutSnap(request || {})),
+  // until when every model she looks with is resting (ran out): her live looks wait till then
+  lookResting: () => aiResting(lookModels()),
   lookWhere: after(() => {
     const model = ['ollama', 'pollinations', 'custom'].includes(cfg.provider) ? pickModel(cfg) : lookModel() || pickModel(cfg);
     const provider = cfg.provider === 'ollama' && ollama.isCloud(model) ? 'Ollama' : llm.PROVIDERS[cfg.provider]?.label || cfg.provider;
@@ -1142,6 +1293,11 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.lang === 'string') updateConfig({ lang: p.lang }); // Ajustes › Idioma (Lang.kt)
   if ('float' in p) updateConfig({ float: Boolean(p.float) });
   if ('longMemory' in p) updateConfig({ longMemory: Boolean(p.longMemory) });
+  // her battery alerts and breaks (the app's Settings)
+  for (const key of ['batteryAlerts', 'breaks']) if (key in p) updateConfig({ [key]: Boolean(p[key]) });
+  if (typeof p.batteryFull === 'number') updateConfig({ batteryFull: Math.min(100, Math.max(50, Math.round(p.batteryFull))) });
+  if (typeof p.batteryLow === 'number') updateConfig({ batteryLow: Math.min(50, Math.max(5, Math.round(p.batteryLow))) });
+  if (typeof p.breakHours === 'number') updateConfig({ breakHours: Math.min(6, Math.max(0.5, p.breakHours)) });
   // the app's Settings: one thing she remembers about you, or all of it, forgotten
   if (typeof p.forgetFact === 'string') saveMemory({ facts: (readMemory().facts || []).filter((f) => f !== p.forgetFact) });
   if (p.forgetFacts) {
@@ -1193,6 +1349,7 @@ ready.then(() => {
     iconMode({ cfg: () => cfg, onConfig: (fn) => listeners.config.add(fn), setConfig: updateConfig });
     floatMode({ cfg: () => cfg, setConfig: updateConfig });
     longMemory({ cfg: () => cfg, readMemory, saveMemory });
+    phoneCare({ cfg: () => cfg });
   }, 300);
 });
 

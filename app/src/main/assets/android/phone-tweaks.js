@@ -180,10 +180,12 @@ export function tweak({ cfg, onConfig }) {
   // ---------- her look at your screen, live ----------
   if (look) {
     look.active = () => 0; // a phone's screen is on: you're there
-    const LIVE_EVERY = 4 * 60 * 1000; // a look this often while live…
-    const SOONEST = 50 * 1000;        // …or sooner when the screen changed a lot (a new video), but not more often
+    const LIVE_EVERY = 5 * 60 * 1000; // a look this often while live…
+    const SOONEST = 90 * 1000;        // …or sooner when the screen changed a lot (a new video), but not more often
+    // (free keys run out after a few dozen looks a day: when they all have, she waits till they're back)
     look.tick = function tick() {
       if (!this.auto || !this.asked || this.looking || !this.free()) return;
+      if (window.host.lookResting?.() > Date.now()) return;
       const since = Date.now() - this.lastAt;
       if (since < SOONEST) return;
       if (since > LIVE_EVERY) return this.now();

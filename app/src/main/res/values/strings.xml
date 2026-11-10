@@ -209,7 +209,7 @@
     <string name="lively_normal">Normal</string>
     <string name="lively_restless">Restless</string>
     <string name="settings_ghost">Ghost mode</string>
-    <string name="settings_ghost_how">She stays on your screen but your touches go through her to your apps. To turn it off: here, or in her menu (tap her notification).</string>
+    <string name="settings_ghost_how">She stays on your screen but your touches go through her to your apps. Her face still takes touches: drag her by it, or hold it for her menu.</string>
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="settings_look">Let her see your screen</string>
@@ -224,4 +224,14 @@
     <string name="settings_memory_forget">Forget everything</string>
     <string name="settings_memory_forget_one">Forget this</string>
     <string name="settings_memory_forgot">Forgotten.</string>
+    <string name="ai_key_saved_hint">Leave it empty to keep the key you already saved</string>
+    <string name="settings_intro_again_how">This only replays her welcome. Your AI, your key and her settings stay as they are; on the AI step, just tap Next.</string>
+    <string name="settings_intro_again_go">Replay</string>
+    <string name="settings_care">She looks after you</string>
+    <string name="settings_battery">Battery alerts</string>
+    <string name="settings_battery_how">She tells you when your phone is charged to the percent you choose, and when it’s running low. Android tells her the battery; no permission needed.</string>
+    <string name="settings_battery_full">Tell me when it charges to</string>
+    <string name="settings_battery_low">Tell me when it drops to</string>
+    <string name="settings_breaks">Breaks</string>
+    <string name="settings_breaks_how">After this long on your phone without putting it down, she tells you to rest your eyes. Turning the screen off five minutes counts as a break.</string>
 </resources>

@@ -34,14 +34,50 @@ class CapriService : Service() {
     val eyes by lazy { eyesMade = true; Eyes(this) } // her look at your screen, only when you ask (Eyes.kt)
     private var eyesMade = false
 
+    private var screenOffAt = 0L
     private val screen = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
-                Intent.ACTION_SCREEN_OFF -> overlay?.pause()
-                Intent.ACTION_SCREEN_ON, Intent.ACTION_USER_PRESENT -> overlay?.resume()
+                Intent.ACTION_SCREEN_OFF -> {
+                    screenOffAt = System.currentTimeMillis()
+                    overlay?.pause()
+                }
+                Intent.ACTION_SCREEN_ON, Intent.ACTION_USER_PRESENT -> {
+                    overlay?.resume()
+                    // how long the phone was put down (her breaks: phone-care.js)
+                    if (screenOffAt > 0) {
+                        val off = System.currentTimeMillis() - screenOffAt
+                        screenOffAt = 0L
+                        overlay?.emit("screen:on", JSONObject().put("offMs", off).toString())
+                    }
+                }
             }
             ears?.update() // her ears only with the screen on
         }
+    }
+
+    // the battery, as Android tells every app (no permission): her alerts when it's charged or low
+    private var lastBattery = ""
+    private val battery = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val level = intent.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1)
+            val scale = intent.getIntExtra(android.os.BatteryManager.EXTRA_SCALE, 100)
+            if (level < 0 || scale <= 0) return
+            val status = intent.getIntExtra(android.os.BatteryManager.EXTRA_STATUS, -1)
+            val plugged = intent.getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED, 0) != 0
+            val percent = Math.round(level * 100f / scale)
+            val charging = plugged || status == android.os.BatteryManager.BATTERY_STATUS_CHARGING
+            val key = "$percent/$charging"
+            if (key == lastBattery) return
+            lastBattery = key
+            overlay?.emit("battery:update", JSONObject().put("percent", percent).put("charging", charging)
+                .put("full", status == android.os.BatteryManager.BATTERY_STATUS_FULL).toString())
+        }
+    }
+    /** The battery right now, for her page when it's (re)loaded. */
+    fun batteryNow() {
+        lastBattery = ""
+        registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.let { battery.onReceive(this, it) }
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -90,6 +126,9 @@ class CapriService : Service() {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) registerReceiver(screen, filter, RECEIVER_NOT_EXPORTED)
         else registerReceiver(screen, filter)
+        val power = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) registerReceiver(battery, power, RECEIVER_NOT_EXPORTED)
+        else registerReceiver(battery, power)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -153,6 +192,7 @@ class CapriService : Service() {
         if (current === this) current = null
         Diag.add("I", "service stopped")
         try { unregisterReceiver(screen) } catch (_: Exception) {}
+        try { unregisterReceiver(battery) } catch (_: Exception) {}
         hooks?.stop()
         ears?.destroy()
         ears = null

@@ -549,6 +549,29 @@ class MainActivity : Activity() {
             }, ui.block(6))
         }, ui.block(16))
 
+        // she looks after you: the battery (charged, low) and a break now and then (phone-care.js)
+        addView(ui.card(Hud.YELLOW).apply {
+            val store = Store(this@MainActivity)
+            addView(ui.label(getString(R.string.settings_care)))
+            addView(ui.text(getString(R.string.settings_battery), 14f, Hud.PAPER, ui.head), ui.block(10))
+            addView(ui.text(getString(R.string.settings_battery_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { store.configFlag("batteryAlerts", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "batteryAlerts", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.settings_battery_full), 13f, Hud.PAPER_2, ui.mono), ui.block(10))
+            addView(choiceText(listOf(80, 85, 90, 95, 100).map { "$it%" to it.toDouble() },
+                { store.configNumber("batteryFull", 100.0) }, { a, b -> Math.abs(a - b) < 0.5 }) { CapriSettings.set(this@MainActivity, "batteryFull", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.settings_battery_low), 13f, Hud.PAPER_2, ui.mono), ui.block(10))
+            addView(choiceText(listOf(5, 10, 15, 20, 30).map { "$it%" to it.toDouble() },
+                { store.configNumber("batteryLow", 15.0) }, { a, b -> Math.abs(a - b) < 0.5 }) { CapriSettings.set(this@MainActivity, "batteryLow", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.settings_breaks), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.settings_breaks_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choiceText(listOf(getString(R.string.off) to 0.0, "1 h" to 1.0, "2 h" to 2.0, "3 h" to 3.0),
+                { if (!store.configFlag("breaks", true)) 0.0 else store.configNumber("breakHours", 2.0) }, { a, b -> Math.abs(a - b) < 0.1 }) {
+                CapriSettings.set(this@MainActivity, "breaks", it > 0)
+                if (it > 0) CapriSettings.set(this@MainActivity, "breakHours", it)
+            }, ui.block(6))
+        }, ui.block(16))
+
         // her look at your screen
         addView(ui.card(Hud.GREEN).apply {
             addView(ui.label(getString(R.string.settings_look)))
@@ -566,9 +589,17 @@ class MainActivity : Activity() {
         }, ui.block(16))
 
         addView(ui.button(getString(R.string.settings_intro_again), Ui.Kind.LINE) {
-            getSharedPreferences("app", MODE_PRIVATE).edit().putBoolean("welcomed", false).apply()
-            startActivity(Intent(this@MainActivity, OnboardingActivity::class.java))
-            finish()
+            // only her welcome again: her AI, its key and her settings stay as they are
+            android.app.AlertDialog.Builder(this@MainActivity)
+                .setTitle(R.string.settings_intro_again)
+                .setMessage(R.string.settings_intro_again_how)
+                .setPositiveButton(R.string.settings_intro_again_go) { _, _ ->
+                    getSharedPreferences("app", MODE_PRIVATE).edit().putBoolean("welcomed", false).apply()
+                    startActivity(Intent(this@MainActivity, OnboardingActivity::class.java))
+                    finish()
+                }
+                .setNegativeButton(android.R.string.cancel, null)
+                .show()
         }, ui.block(16))
 
         // the log: what went wrong lately (the developer's, not for everyone: debug builds, or seven

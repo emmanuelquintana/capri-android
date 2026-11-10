@@ -209,7 +209,7 @@
     <string name="lively_normal">Обычно</string>
     <string name="lively_restless">Непоседа</string>
     <string name="settings_ghost">Режим призрака</string>
-    <string name="settings_ghost_how">Она остаётся на экране, но твои нажатия проходят сквозь неё к приложениям. Выключить: здесь или в её меню (нажми на её уведомление).</string>
+    <string name="settings_ghost_how">Она остаётся на экране, но твои нажатия проходят сквозь неё к приложениям. Лицо всё равно трогается: тащи её за него или удерживай для меню.</string>
     <string name="on">Вкл.</string>
     <string name="off">Выкл.</string>
     <string name="settings_look">Дать ей видеть экран</string>
@@ -224,4 +224,14 @@
     <string name="settings_memory_forget">Забыть всё</string>
     <string name="settings_memory_forget_one">Забыть это</string>
     <string name="settings_memory_forgot">Забыто.</string>
+    <string name="ai_key_saved_hint">Оставь пустым, чтобы оставить уже сохранённый ключ</string>
+    <string name="settings_intro_again_how">Это только повторит её приветствие. Твой ИИ, ключ и её настройки останутся как есть; на шаге с ИИ просто нажми «Далее».</string>
+    <string name="settings_intro_again_go">Повторить</string>
+    <string name="settings_care">Она заботится о тебе</string>
+    <string name="settings_battery">Уведомления о батарее</string>
+    <string name="settings_battery_how">Она скажет, когда телефон зарядится до выбранного процента и когда батарея садится. Android сообщает ей заряд; разрешения не нужны.</string>
+    <string name="settings_battery_full">Сообщить при заряде до</string>
+    <string name="settings_battery_low">Сообщить, когда упадёт до</string>
+    <string name="settings_breaks">Перерывы</string>
+    <string name="settings_breaks_how">Если столько времени не выпускать телефон из рук, она предложит дать глазам отдых. Выключенный на пять минут экран считается перерывом.</string>
 </resources>

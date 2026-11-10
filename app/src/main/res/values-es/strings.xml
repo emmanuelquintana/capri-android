@@ -208,7 +208,7 @@
     <string name="lively_normal">Normal</string>
     <string name="lively_restless">Inquieta</string>
     <string name="settings_ghost">Modo fantasma</string>
-    <string name="settings_ghost_how">Se queda en tu pantalla pero tus toques la atraviesan y llegan a tus apps. Para quitarlo: aquí, o en su menú (toca su notificación).</string>
+    <string name="settings_ghost_how">Se queda en tu pantalla pero tus toques la atraviesan y llegan a tus apps. Su cara sí se puede tocar: arrástrala de ahí o mantenla presionada para su menú.</string>
     <string name="on">Activado</string>
     <string name="off">Desactivado</string>
     <string name="settings_look">Que vea tu pantalla</string>
@@ -223,4 +223,14 @@
     <string name="settings_memory_forget">Olvidar todo</string>
     <string name="settings_memory_forget_one">Olvidar esto</string>
     <string name="settings_memory_forgot">Olvidado.</string>
+    <string name="ai_key_saved_hint">Déjalo vacío para seguir con la clave que ya guardaste</string>
+    <string name="settings_intro_again_how">Solo repite su presentación. Tu IA, tu clave y sus ajustes se quedan igual; en el paso de la IA, solo dale a Siguiente.</string>
+    <string name="settings_intro_again_go">Repetir</string>
+    <string name="settings_care">Te cuida</string>
+    <string name="settings_battery">Avisos de batería</string>
+    <string name="settings_battery_how">Te avisa cuando tu teléfono se carga al porcentaje que elijas y cuando se está quedando sin pila. Android le dice la batería; no necesita permisos.</string>
+    <string name="settings_battery_full">Avisarme al cargar hasta</string>
+    <string name="settings_battery_low">Avisarme cuando baje a</string>
+    <string name="settings_breaks">Descansos</string>
+    <string name="settings_breaks_how">Después de este rato en el teléfono sin soltarlo, te dice que descanses la vista. Apagar la pantalla cinco minutos cuenta como descanso.</string>
 </resources>

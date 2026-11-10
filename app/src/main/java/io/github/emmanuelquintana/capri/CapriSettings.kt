@@ -28,6 +28,16 @@ object CapriSettings {
     fun provider(context: Context): String = Store(context).configString("provider") ?: "pollinations"
     fun ollamaHost(context: Context): String = Store(context).configString("ollamaHost") ?: ""
 
+    /** A key for this service already saved (the welcome again: no need to paste it twice). */
+    fun hasKey(context: Context, provider: String): Boolean = runCatching {
+        JSONObject(Store(context).read(Store.CONFIG) ?: "{}").optJSONObject("apiKeys")?.optString(provider).orEmpty().isNotEmpty()
+    }.getOrDefault(false)
+
+    /** Back to a service whose key is already saved: nothing to check again. */
+    fun useSaved(context: Context, provider: String) {
+        apply(context, JSONObject().put("provider", provider)) { it.put("provider", provider) }
+    }
+
     fun setName(context: Context, name: String) {
         val clean = name.trim().take(24)
         apply(context, JSONObject().put("userName", clean)) { it.put("userName", clean) }

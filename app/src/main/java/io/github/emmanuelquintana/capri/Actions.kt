@@ -140,7 +140,10 @@ class Actions(private val context: Context, private val store: Store) {
     fun media(action: String): Boolean {
         val audio = context.getSystemService(AudioManager::class.java)!!
         val key = when (action) {
-            "pause", "play" -> KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
+            // (play and pause apart: "pause" twice doesn't start it again)
+            "pause" -> KeyEvent.KEYCODE_MEDIA_PAUSE
+            "play" -> KeyEvent.KEYCODE_MEDIA_PLAY
+            "toggle" -> KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
             "next" -> KeyEvent.KEYCODE_MEDIA_NEXT
             "previous" -> KeyEvent.KEYCODE_MEDIA_PREVIOUS
             "volup" -> {
@@ -181,8 +184,19 @@ class Actions(private val context: Context, private val store: Store) {
         val action = when (page) {
             "bluetooth" -> Settings.ACTION_BLUETOOTH_SETTINGS
             "sound" -> Settings.ACTION_SOUND_SETTINGS
-            "wifi" -> Settings.ACTION_WIFI_SETTINGS
-            "network" -> Settings.ACTION_WIRELESS_SETTINGS
+            // Android 10+ lets no app switch Wi-Fi or data itself: its quick panel, over what you were doing
+            "wifi" -> if (Build.VERSION.SDK_INT >= 29) Settings.Panel.ACTION_WIFI else Settings.ACTION_WIFI_SETTINGS
+            "network", "data" -> if (Build.VERSION.SDK_INT >= 29) Settings.Panel.ACTION_INTERNET_CONNECTIVITY else Settings.ACTION_WIRELESS_SETTINGS
+            "nfc" -> Settings.ACTION_NFC_SETTINGS
+            "airplane" -> Settings.ACTION_AIRPLANE_MODE_SETTINGS
+            "location" -> Settings.ACTION_LOCATION_SOURCE_SETTINGS
+            "hotspot" -> Settings.ACTION_WIRELESS_SETTINGS
+            "apps" -> Settings.ACTION_APPLICATION_SETTINGS
+            "language" -> Settings.ACTION_LOCALE_SETTINGS
+            "date" -> Settings.ACTION_DATE_SETTINGS
+            "accessibility" -> Settings.ACTION_ACCESSIBILITY_SETTINGS
+            "security" -> Settings.ACTION_SECURITY_SETTINGS
+            "all" -> Settings.ACTION_SETTINGS
             "update" -> "android.settings.SYSTEM_UPDATE_SETTINGS"
             "display" -> Settings.ACTION_DISPLAY_SETTINGS
             "notifications" -> if (Build.VERSION.SDK_INT >= 26) Settings.ACTION_APP_NOTIFICATION_SETTINGS else Settings.ACTION_SETTINGS

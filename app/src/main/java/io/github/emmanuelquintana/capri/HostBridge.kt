@@ -76,6 +76,8 @@ class HostBridge(private val service: CapriService) {
         "log" -> log.add(obj(args).optString("level", "E"), obj(args).optString("text"))
         "overlay:focus" -> service.overlay?.setFocusable(obj(args).optBoolean("on"))
         "overlay:blur" -> service.overlay?.setBlur(obj(args).optBoolean("on"))
+        "overlay:haptic" -> service.overlay?.haptic()
+        "battery:now" -> service.batteryNow()
         "touch:regions" -> service.overlay?.setRegions(obj(args).optJSONArray("rects") ?: JSONArray(), obj(args).optDouble("dpr", 1.0))
         "notify:update" -> service.refreshNotification()
         "notify:wink" -> service.wink(obj(args).optString("line"), obj(args).optString("face"))
