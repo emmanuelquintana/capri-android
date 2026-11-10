@@ -4,6 +4,14 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 
 ## 1.7.1
 
+- **Menu rapide :** en la gardant appuyée, un menu court s’ouvre avec ce que tu utilises le plus : parler, regarder
+  ton écran, téléport, satellite, la ranger, quelques mouvements (sauter, tourner, s’étirer…) et ses modes en
+  interrupteurs (en direct, fantôme, icône, sans gravité, gamer). De là, *Tous les réglages*.
+- **Des réglages plus clairs :** le menu complet est rangé par sections (son IA, elle, ton téléphone, plus) et
+  l’écran derrière s’assombrit (et se floute sous Android 12 ou plus récent), pour se lire au-dessus de n’importe
+  quelle appli.
+- **Modèle d’IA en deux étapes :** d’abord le service (Gemini, Groq, NVIDIA…), puis son modèle à l’intérieur, sans
+  la longue liste mélangée.
 - **Son panneau n’apparaît plus sans fond sur les téléphones plus anciens :** sur certains (avec un WebView Android
   antérieur à la version 111), ses panneaux et ses cartes étaient transparents, avec le texte noir sur ton fond
   d’écran. Maintenant ses couleurs s’affichent partout.

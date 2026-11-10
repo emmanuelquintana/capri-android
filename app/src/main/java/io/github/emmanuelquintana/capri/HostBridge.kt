@@ -75,6 +75,7 @@ class HostBridge(private val service: CapriService) {
         "overlay:ready" -> { service.overlay?.ready(); service.onPageReady() }
         "log" -> log.add(obj(args).optString("level", "E"), obj(args).optString("text"))
         "overlay:focus" -> service.overlay?.setFocusable(obj(args).optBoolean("on"))
+        "overlay:blur" -> service.overlay?.setBlur(obj(args).optBoolean("on"))
         "touch:regions" -> service.overlay?.setRegions(obj(args).optJSONArray("rects") ?: JSONArray(), obj(args).optDouble("dpr", 1.0))
         "notify:update" -> service.refreshNotification()
         "notify:wink" -> service.wink(obj(args).optString("line"), obj(args).optString("face"))
@@ -96,6 +97,7 @@ class HostBridge(private val service: CapriService) {
         "sounds:list" -> actions.sounds()
         "sounds:open" -> actions.toast(store.soundsDir.absolutePath)
         "open:url" -> actions.openUrl(obj(args).optString("url"))
+        "app:open" -> actions.openApp()
 
         // the phone itself
         "pc:cpu" -> actions.cpu()

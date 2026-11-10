@@ -4,6 +4,13 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.7.1
 
+- **Quick menu:** holding her now opens a short menu with what you use most: talk, look at your screen, teleport,
+  satellite, put her away, a few moves (hop, spin, stretch…) and her modes as switches (live, ghost, icon, no
+  gravity, gamer). From there, *All settings*.
+- **Clearer settings:** the full menu is sorted into sections (her AI, her, your phone, more) and the screen behind
+  dims (and blurs on Android 12 or newer), so it reads over any app.
+- **AI model in two steps:** first you pick the service (Gemini, Groq, NVIDIA…), then its model inside it, without
+  the long mixed-up list.
 - **Her panel no longer shows up without a background on older phones:** on some (with an Android WebView older than
   version 111) her panels and cards came out transparent, with black text over your wallpaper. Now her colors show
   on all of them.

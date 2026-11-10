@@ -200,6 +200,27 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
         setIme(maxOf(imeInsets, imeFrame))
     }
 
+    /**
+     * Her menus up: the screen behind them blurred, where the phone can (Android 12 and later, with
+     * window blur on: not in battery saver, not on every phone). Her page dims it either way.
+     */
+    fun setBlur(on: Boolean) = main.post {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return@post
+        val web = webView ?: return@post
+        val p = params ?: return@post
+        val flag = WindowManager.LayoutParams.FLAG_BLUR_BEHIND
+        val want = on && wm.isCrossWindowBlurEnabled
+        if (want == (p.flags and flag != 0)) return@post
+        if (want) {
+            p.flags = p.flags or flag
+            p.blurBehindRadius = (context.resources.displayMetrics.density * 18).toInt()
+        } else {
+            p.flags = p.flags and flag.inv()
+            p.blurBehindRadius = 0
+        }
+        try { wm.updateViewLayout(web, p) } catch (_: Exception) {}
+    }
+
     /** While she has the keyboard: a finger down outside all she can be touched by closes her chat. */
     private fun outside(ev: MotionEvent): Boolean {
         if (!typing || ev.actionMasked != MotionEvent.ACTION_DOWN) return false

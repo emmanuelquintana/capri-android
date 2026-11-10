@@ -6,7 +6,9 @@
 const ARROW = '›';
 
 export class Menu {
-  constructor() {
+  // `onToggle(open)`: the screen behind blurred while it's up (Overlay.kt)
+  constructor(onToggle = () => {}) {
+    this.onToggle = onToggle;
     this.el = document.createElement('nav');
     this.el.className = 'cmenu';
     this.el.hidden = true;
@@ -34,12 +36,15 @@ export class Menu {
     this.render();
     this.el.hidden = false;
     this.shade.hidden = false;
+    this.onToggle(true);
   }
 
   close() {
+    if (this.el.hidden) return;
     this.el.hidden = true;
     this.shade.hidden = true;
     this.stack = [];
+    this.onToggle(false);
   }
 
   render() {
@@ -56,6 +61,15 @@ export class Menu {
       list.append(back);
     }
     for (const item of level.items) {
+      // a section's name: what the rows under it are about
+      if (item.type === 'header') {
+        const head = document.createElement('li');
+        head.className = 'cmenu__head';
+        head.setAttribute('role', 'presentation');
+        head.textContent = item.label;
+        list.append(head);
+        continue;
+      }
       if (item.type === 'separator') {
         const sep = document.createElement('li');
         sep.className = 'cmenu__sep';
@@ -98,7 +112,7 @@ export class Menu {
 
   async pick(item) {
     if (item.submenu) {
-      this.stack.push({ items: item.submenu, title: item.label, source: item });
+      this.stack.push({ items: item.submenu, title: item.title || item.label, source: item });
       this.render();
       if (item.open) {
         // something to look up first (her models): drawn again once it's there
@@ -118,7 +132,7 @@ export class Menu {
     let items = this.build();
     const stack = [{ items }];
     for (const title of titles) {
-      const sub = items.find((i) => i.submenu && i.label === title);
+      const sub = items.find((i) => i.submenu && (i.title || i.label) === title);
       if (!sub) break;
       items = sub.submenu;
       stack.push({ items, title, source: sub });

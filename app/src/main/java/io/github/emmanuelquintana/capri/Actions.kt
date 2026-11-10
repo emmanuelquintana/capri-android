@@ -53,6 +53,11 @@ class Actions(private val context: Context, private val store: Store) {
     }
 
     /** A link, in whatever app handles it (throws when nothing does: launch.js falls back to the web). */
+    /** Her app, in front (her quick menu's "Open the app"). */
+    fun openApp() {
+        context.startActivity(Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+    }
+
     fun openUrl(url: String) {
         val uri = Uri.parse(url)
         if (uri.scheme.isNullOrEmpty() || uri.scheme == "javascript" || uri.scheme == "file" || uri.scheme == "content") {

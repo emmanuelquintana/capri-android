@@ -16,6 +16,7 @@ import './upstream/labels.js';
 import './upstream/demo-sequence.js';
 import './upstream/launch.js';
 import { Menu } from './menu.js';
+import { QuickMenu } from './quick.js';
 import { Touch } from './touch.js';
 import './phone-lines.js'; // her desktop words said the phone's way (before her page reads them)
 import './setup.js'; // her setup without a terminal (before app.js builds it)
@@ -641,30 +642,40 @@ const PHONE_LABELS = {
     possess: 'Poseer sus tarjetas', gamer: 'Modo gamer', icon: 'Modo ícono (solo su máscara)', float: 'Sin gravedad (se queda donde la pongas)', community: 'Únete a la comunidad', startup: 'Iniciar con el teléfono', pcReact: 'Reaccionar a mi teléfono',
     motionAuto: 'Como el teléfono', restTaskbar: 'Sentada abajo, en el borde', theme: 'Estilo de sus paneles',
     soundsDir: 'Dónde poner sonidos propios',
+    provOllama: 'Ollama de tu PC', provFree: 'Gratis, sin cuenta (Pollinations)', provCustom: 'Servidor propio (dirección)',
+    secHer: 'Ella', secAi: 'Su IA', secPhone: 'Tu teléfono', secMore: 'Más', service: 'Servicio', model: 'Modelo', noModels: 'Sin modelos todavía',
     lookNow: 'Mira mi pantalla', lookAuto: 'Ver mi pantalla en vivo', ghost: 'Modo fantasma (no se puede tocar)',
   },
   en: {
     possess: 'Possess her cards', gamer: 'Gamer mode', icon: 'Icon mode (just her mask)', float: 'No gravity (stays where you put her)', community: 'Join the community', startup: 'Start with the phone', pcReact: 'React to my phone',
     motionAuto: 'Like the phone', restTaskbar: 'Sitting on the bottom edge', theme: 'Her panels’ style',
     soundsDir: 'Where to put my own sounds',
+    provOllama: 'Your PC’s Ollama', provFree: 'Free, no account (Pollinations)', provCustom: 'Your own server (address)',
+    secHer: 'Her', secAi: 'Her AI', secPhone: 'Your phone', secMore: 'More', service: 'Service', model: 'Model', noModels: 'No models yet',
     lookNow: 'Look at my screen', lookAuto: 'Watch my screen live', ghost: 'Ghost mode (can’t be touched)',
   },
   fr: {
     possess: 'Posséder ses cartes', gamer: 'Mode gamer', icon: 'Mode icône (juste son masque)', float: 'Sans gravité (reste où tu la poses)', community: 'Rejoins la communauté', startup: 'Démarrer avec le téléphone', pcReact: 'Réagir à mon téléphone',
     motionAuto: 'Comme le téléphone', restTaskbar: 'Assise en bas, sur le bord', theme: 'Style de ses panneaux',
     soundsDir: 'Où mettre mes propres sons',
+    provOllama: 'L’Ollama de ton PC', provFree: 'Gratuit, sans compte (Pollinations)', provCustom: 'Ton propre serveur (adresse)',
+    secHer: 'Elle', secAi: 'Son IA', secPhone: 'Ton téléphone', secMore: 'Plus', service: 'Service', model: 'Modèle', noModels: 'Pas encore de modèles',
     lookNow: 'Regarde mon écran', lookAuto: 'Voir mon écran en direct', ghost: 'Mode fantôme (intouchable)',
   },
   pt: {
     possess: 'Possuir os cartões', gamer: 'Modo gamer', icon: 'Modo ícone (só a máscara)', float: 'Sem gravidade (fica onde você colocar)', community: 'Entre na comunidade', startup: 'Iniciar com o celular', pcReact: 'Reagir ao meu celular',
     motionAuto: 'Como o celular', restTaskbar: 'Sentada embaixo, na borda', theme: 'Estilo dos painéis',
     soundsDir: 'Onde pôr meus próprios sons',
+    provOllama: 'Ollama do seu PC', provFree: 'Grátis, sem conta (Pollinations)', provCustom: 'Servidor próprio (endereço)',
+    secHer: 'Ela', secAi: 'A IA dela', secPhone: 'Seu celular', secMore: 'Mais', service: 'Serviço', model: 'Modelo', noModels: 'Nenhum modelo ainda',
     lookNow: 'Olha minha tela', lookAuto: 'Ver minha tela ao vivo', ghost: 'Modo fantasma (não pode ser tocada)',
   },
   ru: {
     possess: 'Захватывать карточки', gamer: 'Игровой режим', icon: 'Режим иконки (только маска)', float: 'Без гравитации (остаётся, где поставишь)', community: 'Сообщество', startup: 'Запускать с телефоном', pcReact: 'Реагировать на телефон',
     motionAuto: 'Как на телефоне', restTaskbar: 'Сидя внизу, на краю', theme: 'Стиль её панелей',
     soundsDir: 'Куда класть свои звуки',
+    provOllama: 'Ollama на твоём ПК', provFree: 'Бесплатно, без аккаунта (Pollinations)', provCustom: 'Свой сервер (адрес)',
+    secHer: 'Она', secAi: 'Её ИИ', secPhone: 'Твой телефон', secMore: 'Ещё', service: 'Сервис', model: 'Модель', noModels: 'Пока нет моделей',
     lookNow: 'Посмотри на мой экран', lookAuto: 'Смотреть мой экран вживую', ghost: 'Режим призрака (нельзя трогать)',
   },
 };
@@ -685,16 +696,61 @@ function menuTemplate() {
   };
   const cancelReminder = (id) => updateConfig({ reminders: (cfg.reminders || []).filter((r) => r.id !== id) });
 
+  const short = (name) => String(name || '').replace(/^models\//, '');
+  // her AI in two steps: the service, then (in it) its model
+  const services = Object.entries(llm.PROVIDERS)
+    // not Claude Code (the terminal agent), nor the servers that only run on a computer's own 127.0.0.1
+    .filter(([id]) => !['claude', 'lmstudio', 'llamacpp'].includes(id))
+    .map(([provider, p]) => {
+      const current = cfg.provider === provider;
+      const name = { ollama: t.provOllama, pollinations: t.provFree, custom: t.provCustom }[provider] || p.label;
+      const models = current && chatModels?.length
+        ? chatModels.map((name) => ({
+          label: cloud.free.includes(name) ? `${short(name)} · ${t.cloudFree}` : short(name),
+          type: 'radio', checked: name === pickModel(cfg), click: () => updateConfig({ chatModel: name }),
+        }))
+        : [{ label: current && chatError ? chatError.slice(0, 80) : t.noModels, enabled: false }];
+      return {
+        title: name,
+        label: current && pickModel(cfg) && provider !== 'pollinations' ? `${name} · ${short(pickModel(cfg))}` : name,
+        type: 'radio',
+        checked: current,
+        submenu: [
+          { type: 'header', label: t.model },
+          ...models,
+          ...(provider === 'ollama' && current && chatModels ? [
+            ...cloud.free.filter((name) => !chatModels.includes(name)).map((name) => ({
+              label: `${name} · ${t.cloudFree}`, type: 'radio', checked: false, click: () => fetchModel(name).catch(noop),
+            })),
+            ...(cloud.account?.signin ? [{ label: t.cloudSignin, click: () => send('open:url', { url: cloud.account.signin }) }] : []),
+          ] : []),
+          ...(provider in KEY_PAGES || provider === 'custom' ? [{ type: 'separator' }, { label: t.apiKey, click: () => sendCommand('setupKey') }] : []),
+        ],
+        // picked: she switches to it, and its models show here (or she asks for its key)
+        open: async () => {
+          if (!current) await pickProvider(provider);
+          else await refreshModels();
+          if (chatErrorCode === 'nokey' || chatErrorCode === 'nourl') menu.close();
+        },
+      };
+    });
+
   return [
     { label: t.online(PORT), enabled: false },
     { label: t.sync(Math.min(100, Math.floor(xp / 10)), t.stages[stage]), enabled: false },
-    { type: 'separator' },
-    { label: t.teleport, click: () => sendCommand('teleport') },
-    { label: t.satellite, click: () => sendCommand('satellite') },
-    { label: t.demo, click: playDemo },
-    { label: t.help, click: () => sendCommand('welcome') },
-    ...(cfg.claude ? [{ label: t.report, click: () => sendCommand('report') }] : []),
-    { label: t.talk, click: () => sendCommand('chat') },
+
+    { type: 'header', label: t.secAi },
+    {
+      label: t.chatModel,
+      submenu: [
+        { label: t.aiSetup, click: () => sendCommand('setupChat') },
+        { type: 'header', label: t.service },
+        ...services,
+        { type: 'separator' },
+        { label: t.forget, click: forgetChats },
+      ],
+      open: () => refreshModels(),
+    },
     {
       label: t.reminders,
       submenu: reminders.length
@@ -705,8 +761,8 @@ function menuTemplate() {
         : [{ label: t.noReminders, enabled: false }],
     },
     { label: t.custom, click: () => sendCommand('customize') },
-    { label: cfg.visible ? t.hide : t.show, click: () => toggleVisible() },
-    { type: 'separator' },
+
+    { type: 'header', label: t.secHer },
     {
       label: t.size,
       submenu: [[t.small, 0.45], [t.medium, 0.6], [t.large, 0.8]].map(([label, scale]) => ({
@@ -721,65 +777,12 @@ function menuTemplate() {
         { label: t.soundsDir, click: () => send('sounds:open') },
       ],
     },
-    {
-      label: t.chatModel,
-      submenu: [
-        { label: t.aiSetup, click: () => sendCommand('setupChat') },
-        { type: 'separator' },
-        ...Object.entries(llm.PROVIDERS).filter(([id]) => id !== 'claude').map(([provider, p]) => ({
-          label: p.label, type: 'radio', checked: cfg.provider === provider, click: () => pickProvider(provider),
-        })),
-        { type: 'separator' },
-        ...(chatModels?.length
-          ? chatModels.map((name) => ({
-            label: cloud.free.includes(name) ? `${name} · ${t.cloudFree}` : name,
-            type: 'radio', checked: name === pickModel(cfg), click: () => updateConfig({ chatModel: name }),
-          }))
-          : [{ label: (chatError || t.noOllama).slice(0, 80), enabled: false }]),
-        ...(cfg.provider === 'ollama' && chatModels ? [
-          ...cloud.free.filter((name) => !chatModels.includes(name)).map((name) => ({
-            label: `${name} · ${t.cloudFree}`, type: 'radio', checked: false, click: () => fetchModel(name).catch(noop),
-          })),
-          ...(cloud.account?.signin ? [{ label: t.cloudSignin, click: () => send('open:url', { url: cloud.account.signin }) }] : []),
-        ] : []),
-        { type: 'separator' },
-        { label: t.forget, click: forgetChats },
-        { label: t.apiKey, click: () => sendCommand('setupKey') },
-      ],
-      // the models, as they are now, when the menu opens on it
-      open: () => refreshModels(),
-    },
-    { label: t.lookNow, click: () => sendCommand('look') },
-    { label: t.lookAuto, type: 'checkbox', checked: Boolean(cfg.watchScreen), click: (item) => sendCommand('watchScreen', { on: item.checked }) },
-    { label: t.ghost || 'Ghost mode', type: 'checkbox', checked: Boolean(cfg.ghost), click: (item) => updateConfig({ ghost: item.checked }) },
-    { label: t.icon || 'Icon mode', type: 'checkbox', checked: Boolean(cfg.icon), click: (item) => updateConfig({ icon: item.checked, ...(item.checked && { visible: true }) }) },
-    { label: t.float || 'No gravity', type: 'checkbox', checked: Boolean(cfg.float), click: (item) => updateConfig({ float: item.checked }) },
-    { label: t.gamer || 'Gamer mode', type: 'checkbox', checked: Boolean(cfg.gamer), click: (item) => updateConfig({ gamer: item.checked }) },
     { label: t.wander, type: 'checkbox', checked: cfg.wander, click: (item) => updateConfig({ wander: item.checked }) },
-    { label: t.possess, type: 'checkbox', checked: cfg.possess, click: (item) => updateConfig({ possess: item.checked }) },
-    ...(notes ? [notes.menu(updateConfig)] : []),
-    { label: t.pcReact, type: 'checkbox', checked: cfg.pcReact !== false, click: (item) => updateConfig({ pcReact: item.checked }) },
     {
       label: t.rest,
       submenu: [['corner', t.restCorner], ['taskbar', t.restTaskbar]].map(([rest, label]) => ({
         label, type: 'radio', checked: cfg.rest === rest, click: () => updateConfig({ rest }),
       })),
-    },
-    {
-      label: t.watch,
-      submenu: [
-        ...Object.entries(ASSISTANTS).map(([id, { name }]) => ({
-          label: name,
-          type: 'radio',
-          checked: cfg.claude && watched.id === id,
-          click: () => {
-            const other = watched.id !== id;
-            updateConfig({ claude: true, assistant: id, ...(other && { linked: false, welcomed: false, hooksCopied: false }) });
-            if (other) sendCommand('assistantChanged');
-          },
-        })),
-        { label: t.watchNone, type: 'radio', checked: !cfg.claude, click: () => updateConfig({ claude: false }) },
-      ],
     },
     {
       label: t.theme,
@@ -799,18 +802,42 @@ function menuTemplate() {
         label, type: 'radio', checked: cfg.lang === lang, click: () => updateConfig({ lang }),
       })),
     },
+
+    { type: 'header', label: t.secPhone },
+    { label: t.possess, type: 'checkbox', checked: cfg.possess, click: (item) => updateConfig({ possess: item.checked }) },
+    ...(notes ? [notes.menu(updateConfig)] : []),
+    { label: t.pcReact, type: 'checkbox', checked: cfg.pcReact !== false, click: (item) => updateConfig({ pcReact: item.checked }) },
     {
       label: t.startup, type: 'checkbox', checked: Boolean(cfg.startOnBoot),
       click: (item) => updateConfig({ startOnBoot: item.checked }),
     },
+
+    { type: 'header', label: t.secMore },
+    { label: t.help, click: () => sendCommand('welcome') },
+    { label: t.demo, click: playDemo },
+    ...(cfg.claude ? [{ label: t.report, click: () => sendCommand('report') }] : []),
+    {
+      label: t.watch,
+      submenu: [
+        ...Object.entries(ASSISTANTS).map(([id, { name }]) => ({
+          label: name,
+          type: 'radio',
+          checked: cfg.claude && watched.id === id,
+          click: () => {
+            const other = watched.id !== id;
+            updateConfig({ claude: true, assistant: id, ...(other && { linked: false, welcomed: false, hooksCopied: false }) });
+            if (other) sendCommand('assistantChanged');
+          },
+        })),
+        { label: t.watchNone, type: 'radio', checked: !cfg.claude, click: () => updateConfig({ claude: false }) },
+      ],
+    },
     ...(cfg.claude ? [
-      { type: 'separator' },
       hookState.installed
         ? { label: t.hooksOn, enabled: false }
         : { label: t.hooksOff, click: () => runHooks('install') },
       ...(hookState.installed ? [{ label: t.hooksRemove, click: () => runHooks('uninstall') }] : []),
     ] : []),
-    { type: 'separator' },
     {
       label: t.community || 'Join the community',
       submenu: [
@@ -822,8 +849,38 @@ function menuTemplate() {
   ];
 }
 
-const menu = new Menu();
-const openMenu = (at) => menu.open(menuTemplate, at);
+// her menus: the quick one when you hold her (quick.js), all her settings from it (menu.js); the
+// screen behind blurred while either is up
+let blurred = false;
+const blur = () => {
+  const on = Boolean(menu?.isOpen || quick?.isOpen);
+  if (on === blurred) return;
+  blurred = on;
+  send('overlay:blur', { on });
+};
+const menu = new Menu(() => setTimeout(blur, 0));
+const syncLine = () => {
+  const t = { ...TRAY[resolveLang(cfg.lang)], ...(PHONE_LABELS[resolveLang(cfg.lang)] || {}) };
+  const xp = cfg.bond?.xp || 0;
+  const stage = [0, 100, 300, 550, 850].filter((at) => xp >= at).length - 1;
+  return t.sync(Math.min(100, Math.floor(xp / 10)), t.stages[stage]);
+};
+const quick = new QuickMenu({
+  cfg: () => cfg,
+  lang: () => resolveLang(cfg.lang),
+  sync: syncLine,
+  setConfig: updateConfig,
+  command: (name, payload) => sendCommand(name, payload),
+  perform: (name) => window.dev?.capri?.perform(name, window.dev.capri.towardCenter?.() || 1),
+  toggleVisible: () => toggleVisible(),
+  full: (at) => menu.open(menuTemplate, at),
+  openApp: () => send('app:open'),
+  blur: () => setTimeout(blur, 0),
+});
+const openMenu = (at) => {
+  if (menu.isOpen) menu.close();
+  quick.open(at);
+};
 
 // ---------- the touch layer: the finger as her mouse, and where she can be touched ----------
 

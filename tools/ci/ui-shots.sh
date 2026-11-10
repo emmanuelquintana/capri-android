@@ -112,6 +112,16 @@ tap "iniciar capri"
 shot 15-capri-on 14
 adb shell input keyevent KEYCODE_HOME
 shot 16-capri-home 6
+# her quick menu (as holding her, or her notification's "menu"), all her settings, her AI in two steps
+adb shell am start-foreground-service -n $PKG/.CapriService -a capri.MENU
+shot 16b-quick-menu 4
+tap "todos los ajustes"
+shot 16c-all-settings 3
+tap "modelo de ia"
+shot 16d-ai-model 4
+adb shell input tap 20 200
+sleep 2
+adb shell input tap 20 200
 # her chat (as "Talk to her" in her menu: a debug build lets adb ask her service), then typing
 adb shell am start-foreground-service -n $PKG/.CapriService -a capri.CHAT
 shot 17-chat 12

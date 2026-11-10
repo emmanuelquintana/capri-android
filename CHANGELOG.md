@@ -5,6 +5,13 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 1.7.1
 
+- **Menú rápido:** al mantenerla presionada ahora sale un menú corto con lo que más usas: hablar, que mire tu
+  pantalla, teletransporte, satélite, guardarla, algunos movimientos (brincar, girar, estirarse…) y sus modos como
+  interruptores (en vivo, fantasma, ícono, sin gravedad, gamer). Desde ahí, *Todos los ajustes*.
+- **Ajustes más claros:** el menú completo está ordenado por secciones (su IA, ella, tu teléfono, más) y el fondo se
+  oscurece (y se difumina en Android 12 o más nuevo), así se lee encima de cualquier app.
+- **Modelo de IA en dos pasos:** primero eliges el servicio (Gemini, Groq, NVIDIA…) y luego, dentro, su modelo, sin
+  la lista larga revuelta.
 - **Su panel ya no sale sin fondo en teléfonos más viejos:** en algunos (con un WebView de Android anterior a la
   versión 111) sus paneles y tarjetas salían transparentes, con el texto negro encima del fondo de pantalla. Ahora sus
   colores se ven en todos.

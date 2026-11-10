@@ -60,7 +60,7 @@ export class Touch {
       }
       this.pet = false;
       // on her panel or her menu, the finger scrolls and taps them as any page: nothing to make up
-      if (e.target.closest?.('#panel, .cmenu, .anote')) {
+      if (e.target.closest?.('#panel, .cmenu, .cmenu-shade, .anote')) {
         this.drag = null;
         return;
       }
@@ -159,7 +159,9 @@ export class Touch {
         rectOf(document.getElementById('panel')),
         rectOf(document.getElementById('chip')),
         ghost ? null : rectOf(document.getElementById('mask')),
-        rectOf(document.querySelector('.cmenu:not([hidden])')),
+        ...[...document.querySelectorAll('.cmenu:not([hidden])')].map(rectOf),
+        // a menu up: the whole (dimmed) screen is hers, a tap beside it closes it
+        ...[...document.querySelectorAll('.cmenu-shade:not([hidden])')].map(rectOf),
         ...(ghost ? [] : [...document.querySelectorAll('.anote:not([hidden])')].map(rectOf)),
       ].filter(Boolean);
       // (a finger already on her keeps her: Android sends the whole gesture to where it began)

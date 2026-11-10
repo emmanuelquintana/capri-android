@@ -4,6 +4,13 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 
 ## 1.7.1
 
+- **Menu rápido:** segurando ela, agora abre um menu curto com o que você mais usa: conversar, olhar sua tela,
+  teleporte, satélite, guardar, alguns movimentos (pular, girar, espreguiçar…) e os modos dela como interruptores
+  (ao vivo, fantasma, ícone, sem gravidade, gamer). Dali, *Todos os ajustes*.
+- **Ajustes mais claros:** o menu completo está organizado por seções (a IA dela, ela, seu celular, mais) e o fundo
+  escurece (e desfoca no Android 12 ou mais novo), para dar para ler em cima de qualquer app.
+- **Modelo de IA em dois passos:** primeiro você escolhe o serviço (Gemini, Groq, NVIDIA…) e depois, dentro dele, o
+  modelo, sem a lista longa misturada.
 - **O painel dela não aparece mais sem fundo em celulares mais antigos:** em alguns (com um WebView do Android anterior
   à versão 111) os painéis e cartões dela ficavam transparentes, com o texto preto em cima do seu papel de parede.
   Agora as cores dela aparecem em todos.
