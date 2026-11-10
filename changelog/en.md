@@ -2,6 +2,14 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.7.1
+
+- **Her panel no longer shows up without a background on older phones:** on some (with an Android WebView older than
+  version 111) her panels and cards came out transparent, with black text over your wallpaper. Now her colors show
+  on all of them.
+- **With a Gemini key she answers much faster:** Gemini’s Flash models “think” before answering, sometimes so long
+  that she sat on “Let me think…” and her chat gave up. Now she asks them to think less, like with the free AI.
+
 ## 1.7.0
 
 - **Icon mode:** only her green mask stays on screen, eyes open, and she keeps commenting from there (what she sees

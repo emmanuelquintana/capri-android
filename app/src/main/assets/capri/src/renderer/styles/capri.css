@@ -56,15 +56,15 @@
 
 :root {
   /* Night City: warm near-black, the neon yellow, cyan data, red for danger (cyberpunk.net) */
-  --ink: oklch(0.155 0.006 100);
-  --ink-2: oklch(0.215 0.01 100);
-  --paper: oklch(0.96 0.012 100);
-  --paper-2: oklch(0.84 0.012 100);
-  --paper-3: oklch(0.64 0.012 100);
-  --yellow: oklch(0.931 0.197 105.3);
-  --cyan: oklch(0.87 0.148 202.9);
-  --red: oklch(0.632 0.254 21.8);
-  --line: oklch(0.96 0.012 100 / 0.1);
+  --ink: #0d0c09;
+  --ink-2: #1a1a14;
+  --paper: #f3f2e9;
+  --paper-2: #cccbc2;
+  --paper-3: #8e8c84;
+  --yellow: #fcee08;
+  --cyan: #02f0ff;
+  --red: #ff023c;
+  --line: rgba(243, 242, 233, 0.1);
 
   --font-display: 'Chakra Petch', 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
@@ -800,7 +800,7 @@ html[data-motion='reduced'] .panel__bar {
 }
 
 .panel__input:focus {
-  background-color: oklch(0.255 0.012 100);
+  background-color: #24231c;
 }
 
 .panel__input:disabled {

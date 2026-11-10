@@ -2,6 +2,15 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.7.1
+
+- **Son panneau n’apparaît plus sans fond sur les téléphones plus anciens :** sur certains (avec un WebView Android
+  antérieur à la version 111), ses panneaux et ses cartes étaient transparents, avec le texte noir sur ton fond
+  d’écran. Maintenant ses couleurs s’affichent partout.
+- **Avec une clé Gemini, elle répond bien plus vite :** les modèles Flash de Gemini « réfléchissent » avant de
+  répondre, parfois si longtemps qu’elle restait sur « Laisse-moi réfléchir… » et que son chat abandonnait.
+  Maintenant elle leur demande de moins réfléchir, comme avec l’IA gratuite.
+
 ## 1.7.0
 
 - **Mode icône :** il ne reste à l’écran que son masque vert, les yeux ouverts, et elle continue à commenter de là

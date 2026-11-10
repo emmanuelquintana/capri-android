@@ -11,6 +11,8 @@
 // Patched, and only this:
 //   index.html gets two extra tags before app.js: the Android host (window.host) and its stylesheet.
 //   fx.js: one robustness fix, see `patch(...)` below.
+//   styles/*.css: oklch() colors written as plain sRGB (tools/oklch.mjs): older Android WebViews
+//   drop them, and her panels came out with no background.
 // Wrapped, not edited:
 //   src/main/{llm,ollama,labels,launch}.js and scripts/demo-sequence.js become CommonJS factories the
 //   Android host loads in the WebView (assets/android/upstream/*.js).
@@ -19,6 +21,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { plainColors } from './oklch.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(here, '..');
@@ -96,6 +99,13 @@ const patch = (rel, from, to, why) => {
 // landing and she never appears. Landing when it ends too (resolving twice does nothing).
 patch('src/renderer/js/fx.js', 'onCue, land, cued: -1 });', 'onCue, land, done: land, cued: -1 });',
   'the intro lands even when its last frames are skipped');
+
+// her colors, in a way every WebView knows (tools/oklch.mjs)
+const styles = path.join(OUT, 'src', 'renderer', 'styles');
+for (const f of fs.readdirSync(styles).filter((n) => n.endsWith('.css'))) {
+  const file = path.join(styles, f);
+  fs.writeFileSync(file, plainColors(fs.readFileSync(file, 'utf8')));
+}
 
 // main-process modules that need no Electron: wrapped as CommonJS factories (cjs.js runs them)
 fs.mkdirSync(WRAPPED, { recursive: true });

@@ -3,6 +3,14 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.7.1
+
+- **Su panel ya no sale sin fondo en teléfonos más viejos:** en algunos (con un WebView de Android anterior a la
+  versión 111) sus paneles y tarjetas salían transparentes, con el texto negro encima del fondo de pantalla. Ahora sus
+  colores se ven en todos.
+- **Con clave de Gemini contesta mucho más rápido:** los modelos Flash de Gemini «piensan» antes de responder, a veces
+  tanto que se quedaba en «Déjame pensarlo…» y su chat se rendía. Ahora les pide pensar poco, como con la IA gratis.
+
 ## 1.7.0
 
 - **Modo ícono:** en la pantalla solo queda su máscara verde, con los ojos abiertos, y desde ahí sigue comentando (lo

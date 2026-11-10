@@ -68,8 +68,8 @@ body {
 }
 
 [data-theme='classic'] .cmenu {
-  --frame: oklch(0.62 0.2 300);
-  --echo: oklch(0.4 0.18 300);
+  --frame: #9b61ea;
+  --echo: #591f97;
 }
 
 @keyframes cmenu-in {
@@ -211,8 +211,8 @@ body {
 }
 
 [data-theme='classic'] .anote {
-  --frame: oklch(0.62 0.2 300);
-  --echo: oklch(0.4 0.18 300);
+  --frame: #9b61ea;
+  --echo: #591f97;
 }
 
 .anote__body { flex: 1; min-width: 0; }

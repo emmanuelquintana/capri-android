@@ -18,20 +18,40 @@ function abortError() {
   return Object.assign(new Error('This operation was aborted'), { name: 'AbortError' });
 }
 
-// The free online AI's only model "thinks" before it answers, out of sight, for a long while on a
-// long message (40 s and more): asked to think little, she answers sooner.
-function quick(url, body) {
-  if (!/text\.pollinations\.ai\/openai\/chat\/completions/.test(url)) return body;
+// Models that "think" first, out of sight, before their first word: asked to think little, she
+// answers sooner instead of sitting on "let me think…" (and her chat giving up on them after 40 s).
+// The free online AI's only model; Gemini, whose Flash models think by default (Gemini 3: a lot).
+// The tries, best first: a server that doesn't take one says so (400), and the next one goes.
+// The last is always the request as it was.
+function variants(url, body) {
+  if (body == null) return [body];
+  const plain = String(body);
+  let json;
   try {
-    const json = JSON.parse(body);
-    if (!json.reasoning_effort) json.reasoning_effort = 'low';
-    return JSON.stringify(json);
+    json = JSON.parse(plain);
   } catch {
-    return body;
+    return [plain];
+  }
+  if (!json || typeof json !== 'object' || json.reasoning_effort) return [plain];
+  let efforts = [];
+  if (/text\.pollinations\.ai\/openai\/chat\/completions/.test(url)) efforts = ['low'];
+  else if (/generativelanguage\.googleapis\.com\/.*\/chat\/completions/.test(url)) {
+    const model = String(json.model || '');
+    efforts = /2\.5-flash/.test(model) ? ['none', 'low'] : /flash/.test(model) ? ['minimal', 'low'] : ['low'];
+  }
+  return [...efforts.map((reasoning_effort) => JSON.stringify({ ...json, reasoning_effort })), plain];
+}
+
+export async function nativeFetch(url, init = {}) {
+  const tries = variants(String(url), init.body);
+  for (let i = 0; ; i++) {
+    const res = await rawFetch(url, { ...init, body: tries[i] });
+    if (i === tries.length - 1 || ![400, 422].includes(res.status)) return res;
+    await res.text().catch(() => '');
   }
 }
 
-export function nativeFetch(url, init = {}) {
+function rawFetch(url, init = {}) {
   const id = `f${++seq}`;
   const signal = init.signal;
   if (signal?.aborted) return Promise.reject(abortError());
@@ -130,7 +150,7 @@ export function nativeFetch(url, init = {}) {
 
     try {
       window.CapriNative.fetchStart(id, String(url), String(init.method || 'GET'), JSON.stringify(headers),
-        init.body == null ? '' : quick(String(url), String(init.body)));
+        init.body == null ? '' : String(init.body));
     } catch (err) {
       streams.get(id)?.fail(err);
     }

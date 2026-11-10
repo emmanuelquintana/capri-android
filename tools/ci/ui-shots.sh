@@ -46,6 +46,7 @@ shot() {
   echo "===SHOT $1==="; base64 -w0 "shots/$1.small.png"; echo; echo "===END $1==="
 }
 
+echo "Android $(adb shell getprop ro.build.version.release) · WebView: $(adb shell dumpsys webviewupdate | grep -m1 -o 'Current WebView package.*')"
 adb shell am start -n $PKG/.MainActivity >/dev/null
 shot 01-boot-early 2
 shot 02-boot 7

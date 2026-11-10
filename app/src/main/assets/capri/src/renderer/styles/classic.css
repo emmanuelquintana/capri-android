@@ -8,16 +8,16 @@
 ------------------------------------------------------------------- */
 
 html[data-theme='classic'] {
-  --ink: oklch(0.17 0.035 300);
-  --ink-2: oklch(0.23 0.045 300);
-  --paper: oklch(0.97 0.012 350);
-  --paper-2: oklch(0.84 0.025 340);
-  --paper-3: oklch(0.66 0.035 320);
-  --red: oklch(0.65 0.245 15);
-  --green: oklch(0.88 0.24 148);
-  --violet: oklch(0.55 0.255 292);
-  --blue: oklch(0.6 0.2 260);
-  --line: oklch(0.97 0.012 350 / 0.08);
+  --ink: #120c1c;
+  --ink-2: #20182f;
+  --paper: #fcf2f6;
+  --paper-2: #d6c5d0;
+  --paper-3: #9c8ca0;
+  --red: #ff245d;
+  --green: #36ff73;
+  --violet: #7d3af5;
+  --blue: #2e79f5;
+  --line: rgba(252, 242, 246, 0.08);
   --cut: 14px;
 }
 
@@ -173,7 +173,7 @@ html[data-theme='classic'] {
 }
 
 :where(html[data-theme='classic']) .snap-plate {
-  background: oklch(0.12 0.03 300);
+  background: #07040f;
 }
 
 :where(html[data-theme='classic']) .panel__line.is-glitching {
@@ -197,7 +197,7 @@ html[data-theme='classic'] {
 }
 
 :where(html[data-theme='classic']) .panel__input:focus {
-  background: oklch(0.27 0.05 300);
+  background: #2a203b;
 }
 
 :where(html[data-theme='classic']) .panel__note b {

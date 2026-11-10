@@ -2,6 +2,15 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.7.1
+
+- **O painel dela não aparece mais sem fundo em celulares mais antigos:** em alguns (com um WebView do Android anterior
+  à versão 111) os painéis e cartões dela ficavam transparentes, com o texto preto em cima do seu papel de parede.
+  Agora as cores dela aparecem em todos.
+- **Com chave do Gemini ela responde bem mais rápido:** os modelos Flash do Gemini “pensam” antes de responder, às
+  vezes tanto que ela ficava em “Deixa eu pensar…” e o chat desistia. Agora ela pede para pensarem menos, como com a
+  IA grátis.
+
 ## 1.7.0
 
 - **Modo ícone:** na tela fica só a máscara verde dela, de olhos abertos, e dali ela continua comentando (o que vê
