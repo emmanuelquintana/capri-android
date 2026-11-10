@@ -30,11 +30,13 @@ tap() {
 import re, sys
 want = sys.argv[1].lower()
 xml = open('/tmp/ui.xml', encoding='utf-8').read()
-for m in re.finditer(r'<node [^>]*?text="([^"]*)"[^>]*?content-desc="([^"]*)"[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml):
-    if want in m.group(1).lower() or want in m.group(2).lower():
-        x1, y1, x2, y2 = map(int, m.groups()[2:])
-        print((x1 + x2) // 2, (y1 + y2) // 2)
-        break
+nodes = list(re.finditer(r'<node [^>]*?text="([^"]*)"[^>]*?content-desc="([^"]*)"[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml))
+# a node that says exactly that first (a tab), else one that has it in its text
+exact = [m for m in nodes if want in (m.group(1).lower().strip(), m.group(2).lower().strip())]
+some = [m for m in nodes if want in m.group(1).lower() or want in m.group(2).lower()]
+for m in (exact or some)[:1]:
+    x1, y1, x2, y2 = map(int, m.groups()[2:])
+    print((x1 + x2) // 2, (y1 + y2) // 2)
 PY
 )
   if [ -n "$xy" ]; then adb shell input tap $xy; echo "tapped '$1' at $xy"; else echo "no '$1' on screen"; fi
