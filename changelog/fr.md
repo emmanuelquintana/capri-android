@@ -2,6 +2,46 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.8.0
+
+- **Sa garde-robe :** nouveau bouton *L’habiller* dans le menu rapide (aussi dans *Réglages → Garde-robe* ou en lui
+  disant « Capri, habille-toi »). Là, tu lui mets des accessoires (couronne, oreilles de chat, cornes, auréole, nœud,
+  fleur, bonnet de Noël, chapeau de sorcière, casque audio, lunettes, visière, écharpe, ras-du-cou), tu changes la
+  couleur de ses cheveux et de son masque, tu lui donnes une aura et tu la rends plus ou moins transparente. Tout se
+  voit sur elle tout de suite et reste enregistré. Les tenues complètes (jockey de l’Ouest, uniforme scolaire, pilote
+  de mecha, chasseuse de démons, ninja, netrunner et plus) ont déjà leur place et arrivent dans les prochaines
+  versions.
+- **Un mode gamer plus confortable :** quand tu l’actives, elle va dans son coin et s’assoit pour te regarder jouer,
+  et tu peux la rendre semi-transparente seulement pendant que tu joues (*Garde-robe → Effets*).
+- **Plus vivante :** son visage change selon ce qu’elle dit et ce qu’elle fait, elle s’ennuie si tu la laisses seule
+  un moment (et elle jette un œil depuis le bord ou fait quelque chose pour attirer ton attention), partage une pensée
+  de temps en temps et a beaucoup plus de phrases et de mouvements, donc elle se répète bien moins.
+- **Elle prend soin de toi et de ton téléphone :** elle te prévient quand ton téléphone est chargé et quand la
+  batterie est faible, au pourcentage que tu choisis (*Réglages → Elle prend soin de toi* ou son menu → *Ton
+  téléphone*). Et si tu es collé à l’écran depuis des heures, elle te dit de reposer tes yeux (toutes les 1, 2 ou 3
+  heures, ou jamais).
+- **Elle ne parle plus d’elle-même quand elle regarde ton écran :** avant d’envoyer la capture, elle s’efface, elle,
+  son panneau et ses textes, donc elle ne commente que ce qu’il y a sur ton écran.
+- **Quelle IA peut voir ton écran :** les services et modèles qui voient les images ont maintenant un 👁 dans l’appli
+  et dans son menu. Si celui que tu as choisi ne voit pas, ou n’a plus de quota, elle en essaie toute seule un autre
+  qui voit.
+- **« L’IA est saturée », beaucoup moins :** quand un modèle n’a plus de quota, elle le laisse se reposer et en
+  utilise un autre au lieu d’insister. S’ils se reposent tous, elle te dit jusqu’à quand.
+- **Des commandes vocales qui font vraiment quelque chose :** l’heure et la date, mettre en pause ou lancer la
+  musique, la météo, les captures, les réglages (Wi‑Fi, données, Bluetooth, localisation…), appeler quelqu’un, ses
+  mouvements (« Capri, danse », « saute », « tourne »…) et « Capri, qu’est-ce que tu sais faire ». Si quelque chose
+  n’est pas possible, elle le dit au lieu de rester à réfléchir.
+- **Sa voix et ses oreilles, à ton goût :** dans *Réglages → Lui parler*, tu choisis son filtre anti-bruit (utile avec
+  du bruit de fond : au plus strict, elle ne réagit que si tu dis « Capri » d’abord et clairement), combien de temps
+  elle attend que tu finisses de parler, et le ton et la vitesse de sa voix.
+- **L’attraper ne rate plus :** quand tu la maintiens, un anneau apparaît et ça vibre ; si tu lâches, le menu rapide
+  s’ouvre, et si tu bouges le doigt, tu la déplaces (avant, le menu du système apparaissait parfois ou tu ne pouvais
+  pas la bouger sans toucher *Parler*). En modes fantôme et gamer, son visage répond toujours au toucher.
+- **« Revoir l’accueil » ne casse plus rien :** il demande confirmation et garde l’IA et la clé que tu avais déjà.
+- **Corrigé :** l’erreur « messages… content must be a string » en regardant ton écran avec un modèle Groq qui ne voit
+  pas les images.
+- Et un secret. Demande-lui quelque chose que tu ne lui as jamais demandé. 💍
+
 ## 1.7.1
 
 - **Menu rapide :** en la gardant appuyée, un menu court s’ouvre avec ce que tu utilises le plus : parler, regarder

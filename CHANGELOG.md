@@ -3,6 +3,42 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.8.0
+
+- **Su vestuario:** nuevo botón *Vestirla* en el menú rápido (también en *Ajustes → Vestuario* o diciéndole «Capri,
+  vístete»). Ahí le pones accesorios (corona, orejas de gato, cuernos, aureola, moño, flor, gorro navideño, sombrero
+  de bruja, audífonos, lentes, visor, bufanda, gargantilla), le cambias el color del cabello y de la máscara, le das
+  un aura y la haces más o menos transparente. Todo se ve en ella al momento y se queda guardado. Los conjuntos
+  completos (jinete del Oeste, uniforme escolar, piloto de mecha, cazadora de demonios, ninja, netrunner y más) ya
+  tienen su lugar y van llegando en las próximas versiones.
+- **Modo gamer más cómodo:** al activarlo se va a su esquina y se sienta a verte jugar, y puedes hacerla
+  semitransparente solo mientras juegas (*Vestuario → Efectos*).
+- **Más viva:** cambia de cara según lo que dice y lo que hace, se aburre si la dejas sola un rato (y se asoma desde
+  la orilla o hace algo para llamar tu atención), suelta pensamientos de vez en cuando y tiene muchas más frases y
+  movimientos, así que ya no repite tanto.
+- **Te cuida a ti y a tu teléfono:** te avisa cuando tu teléfono ya se cargó y cuando le queda poca batería, con el
+  porcentaje que tú elijas (*Ajustes → Te cuida* o su menú → *Tu teléfono*). Y si llevas horas pegado a la pantalla,
+  te dice que descanses la vista (cada 1, 2 o 3 horas, o nunca).
+- **Ya no habla de sí misma cuando mira tu pantalla:** antes de mandar la captura se borra ella, su panel y sus
+  textos, así que solo comenta lo que hay en tu pantalla.
+- **Qué IA puede ver tu pantalla:** los servicios y modelos que sí ven imágenes ahora tienen un 👁 en la app y en su
+  menú. Si el que elegiste no ve, o se le acabó la cuota, prueba sola con otro que sí.
+- **«La IA está saturada», mucho menos:** cuando un modelo se queda sin cuota lo deja descansar y usa otro, en vez de
+  insistir con el mismo. Si de plano todos están descansando, te dice hasta cuándo.
+- **Comandos de voz que sí hacen algo:** la hora y la fecha, pausar o poner música, el clima, capturas, ajustes (wifi,
+  datos, bluetooth, ubicación…), llamar a alguien, sus movimientos («Capri, baila», «brinca», «gira»…) y «Capri, qué
+  sabes hacer». Si algo no se puede, te lo dice en vez de quedarse pensando.
+- **Su voz y sus oídos, a tu gusto:** en *Ajustes → Háblale* eliges su filtro de ruido (útil con ruido de fondo: en lo
+  más estricto solo reacciona si dices «Capri» al principio y claro), cuánto espera a que termines de hablar, y el
+  tono y la velocidad de su voz.
+- **Agarrarla ya no falla:** al mantenerla presionada sale un anillo y vibra; si sueltas, se abre el menú rápido, y si
+  mueves el dedo, la arrastras (antes a veces salía el menú del sistema o no la podías mover sin darle a *Hablar*). En
+  los modos fantasma y gamer su cara sigue respondiendo al toque.
+- **«Repetir la bienvenida» ya no rompe nada:** ahora pide confirmación y respeta la IA y la clave que ya tenías.
+- **Arreglado:** el error «messages… content must be a string» al mirar tu pantalla con un modelo de Groq que no ve
+  imágenes.
+- Y un secreto. Pregúntale algo que nunca le hayas preguntado. 💍
+
 ## 1.7.1
 
 - **Menú rápido:** al mantenerla presionada ahora sale un menú corto con lo que más usas: hablar, que mire tu

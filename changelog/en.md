@@ -2,6 +2,42 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.8.0
+
+- **Her wardrobe:** a new *Dress her* button in the quick menu (also in *Settings → Wardrobe* or by saying “Capri, get
+  dressed”). There you give her accessories (crown, cat ears, horns, halo, bow, flower, Santa hat, witch hat,
+  headphones, glasses, visor, scarf, choker), change the color of her hair and her mask, give her an aura and make her
+  more or less see-through. It all shows on her right away and stays saved. Full outfits (Western jockey, school
+  uniform, mecha pilot, demon hunter, ninja, netrunner and more) already have their spot and arrive in the next
+  versions.
+- **A comfier gamer mode:** when you turn it on she goes to her corner and sits down to watch you play, and you can
+  make her see-through only while you play (*Wardrobe → Effects*).
+- **More alive:** her face changes with what she says and does, she gets bored if you leave her alone for a while (and
+  peeks from the edge or does something to get your attention), shares a thought now and then, and has many more lines
+  and moves, so she repeats herself much less.
+- **She looks after you and your phone:** she tells you when your phone is charged and when its battery is low, at the
+  percent you choose (*Settings → She looks after you* or her menu → *Your phone*). And if you’ve been glued to the
+  screen for hours, she tells you to rest your eyes (every 1, 2 or 3 hours, or never).
+- **She no longer talks about herself when she looks at your screen:** before sending the screenshot she erases
+  herself, her panel and her texts, so she only comments on what’s on your screen.
+- **Which AI can see your screen:** the services and models that can see images now have a 👁 in the app and in her
+  menu. If the one you picked can’t see, or ran out of quota, she tries another one that can by herself.
+- **“The AI is busy”, much less:** when a model runs out of quota she lets it rest and uses another, instead of
+  insisting on the same one. If they’re all resting, she tells you until when.
+- **Voice commands that actually do something:** time and date, pausing or playing music, the weather, screenshots,
+  settings (Wi‑Fi, data, Bluetooth, location…), calling someone, her moves (“Capri, dance”, “hop”, “spin”…) and
+  “Capri, what can you do”. If something can’t be done, she says so instead of sitting there thinking.
+- **Her voice and her ears, your way:** in *Settings → Talk to her* you pick her noise filter (useful with background
+  noise: at its strictest she only reacts if you say “Capri” first and clearly), how long she waits for you to finish
+  talking, and the pitch and speed of her voice.
+- **Grabbing her no longer fails:** holding her shows a ring and vibrates; let go and the quick menu opens, move your
+  finger and you drag her (before, the system menu sometimes popped up or you couldn’t move her without tapping
+  *Talk*). In ghost and gamer modes her face still responds to touch.
+- **“Replay the welcome” no longer breaks anything:** it now asks first and keeps the AI and key you already had.
+- **Fixed:** the “messages… content must be a string” error when looking at your screen with a Groq model that can’t
+  see images.
+- And a secret. Ask her something you’ve never asked her. 💍
+
 ## 1.7.1
 
 - **Quick menu:** holding her now opens a short menu with what you use most: talk, look at your screen, teleport,
