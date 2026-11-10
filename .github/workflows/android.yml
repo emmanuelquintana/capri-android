@@ -33,7 +33,11 @@ jobs:
         run: for f in app/src/main/assets/android/*.js app/src/main/assets/android/upstream/*.js; do node --check --input-type=module < "$f" || exit 1; done
       # older Android WebViews drop oklch() colors (her panels lose their background): plain sRGB only
       - name: Check her colors work on older phones
-        run: if grep -rn "oklch(" app/src/main/assets --include=*.css --include=*.html; then echo "::error::oklch() found: run node tools/oklch.mjs on it"; exit 1; fi
+        run: |
+          if grep -rn "oklch(" app/src/main/assets --include=*.css --include=*.html; then
+            echo "::error::oklch() found, run node tools/oklch.mjs on it"
+            exit 1
+          fi
 
       # One signing key for every release, so each update installs over the last one.
       # Either a whole key in secrets (CAPRI_KEYSTORE_BASE64 + passwords), or just a passphrase
