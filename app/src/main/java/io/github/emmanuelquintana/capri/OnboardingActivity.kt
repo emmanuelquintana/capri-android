@@ -296,13 +296,14 @@ class OnboardingActivity : Activity() {
             val chips = ui.row()
             for (p in CapriSettings.KEYED) {
                 val on = p.id == aiKeyed.id
-                chips.addView(ui.button(p.name, if (on) Ui.Kind.GREEN else Ui.Kind.LINE) {
+                chips.addView(ui.button(p.name + if (p.id in CapriSettings.SEES) " 👁" else "", if (on) Ui.Kind.GREEN else Ui.Kind.LINE) {
                     aiKeyed = p
                     aiChoice = p.id
                     redraw()
                 }, LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply { rightMargin = ui.dpi(8) })
             }
             card.addView(HorizontalScrollView(this).apply { isHorizontalScrollBarEnabled = false; addView(chips) }, ui.block(12))
+            card.addView(ui.text(getString(R.string.ai_sees), 12f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
             val saved = CapriSettings.hasKey(this, aiKeyed.id)
             val f = ui.field(getString(if (saved) R.string.ai_key_saved_hint else R.string.ai_key_hint), secret = true)
             keyField?.text?.let { if (it.isNotEmpty()) f.setText(it) }

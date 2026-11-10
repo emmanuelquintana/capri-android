@@ -107,7 +107,7 @@ export class Touch {
       this.pet = false;
       this.ours = 0;
       // on her panel or her menu, the finger scrolls and taps them as any page: nothing to make up
-      if (e.target.closest?.('#panel, .cmenu, .cmenu-shade, .anote')) {
+      if (e.target.closest?.('#panel, .cmenu, .cmenu-shade, .anote, .wardrobe')) {
         this.drag = null;
         return;
       }
@@ -285,7 +285,7 @@ export class Touch {
         rectOf(document.getElementById('panel')),
         rectOf(document.getElementById('chip')),
         ghost ? null : rectOf(document.getElementById('mask')),
-        ...[...document.querySelectorAll('.cmenu:not([hidden])')].map(rectOf),
+        ...[...document.querySelectorAll('.cmenu:not([hidden]), .wardrobe:not([hidden])')].map(rectOf),
         // a menu up: the whole (dimmed) screen is hers, a tap beside it closes it
         ...[...document.querySelectorAll('.cmenu-shade:not([hidden])')].map(rectOf),
         ...(ghost ? [] : [...document.querySelectorAll('.anote:not([hidden])')].map(rectOf)),

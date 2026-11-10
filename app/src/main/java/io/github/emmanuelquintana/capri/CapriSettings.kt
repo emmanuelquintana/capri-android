@@ -24,6 +24,9 @@ object CapriSettings {
         Provider("deepseek", "DeepSeek", "https://api.deepseek.com/v1", "https://platform.deepseek.com/api_keys"),
     )
 
+    /** The services with models that see pictures (her look at your screen picks one of those). */
+    val SEES = setOf("gemini", "openai", "groq", "openrouter", "mistral", "nvidia")
+
     fun name(context: Context): String = Store(context).configString("userName") ?: ""
     fun provider(context: Context): String = Store(context).configString("provider") ?: "pollinations"
     fun ollamaHost(context: Context): String = Store(context).configString("ollamaHost") ?: ""

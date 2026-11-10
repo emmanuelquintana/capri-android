@@ -195,7 +195,7 @@
     <string name="settings_icon">Icon mode</string>
     <string name="settings_icon_how">Only her green mask stays on screen, with her eyes open, and she keeps commenting from there (your screen, your games, her chat). Drag it with a finger wherever it bothers you least; tap it for her menu. Handy if you like her big: when she’s out she’s big, as an icon she takes almost nothing.</string>
     <string name="settings_gamer">Gamer mode</string>
-    <string name="settings_gamer_how">For when you play: she gets small in a corner, can’t be touched, her cards stay away, she stops listening, and now and then she cheers you on. Also in her menu or by saying “Capri, gamer mode”. Off when you tap it again or restart her.</string>
+    <string name="settings_gamer_how">For when you play: she sits small and half see-through in a corner to watch you play (how see-through: her Wardrobe › Effects), only her face takes touches, her cards stay away, she stops listening, and now and then she cheers you on. Also in her menu or by saying “Capri, gamer mode”. Off when you tap it again or restart her.</string>
     <string name="settings_gamer_auto">On its own when a game opens</string>
     <string name="settings_gamer_auto_how">It turns on when you open a game and off when you leave. It needs “Usage access” in Android’s settings (she only sees which app is open, nothing inside it). Heads up: some banking and antivirus apps distrust that permission; if yours complains, leave this off.</string>
     <string name="settings_gamer_auto_grant">Find Capri in the list and turn on “Permit usage access”.</string>
@@ -234,4 +234,20 @@
     <string name="settings_battery_low">Tell me when it drops to</string>
     <string name="settings_breaks">Breaks</string>
     <string name="settings_breaks_how">After this long on your phone without putting it down, she tells you to rest your eyes. Turning the screen off five minutes counts as a break.</string>
+    <string name="ai_sees">👁 = can look at your screen. They can: Gemini, OpenAI, Groq, OpenRouter, Mistral and NVIDIA (she picks one of their models that sees). They can’t: DeepSeek and the free AI. With Ollama, only vision models (llava, gemma3, qwen-vl).</string>
+    <string name="voice_filter">Noise filter</string>
+    <string name="voice_filter_how">With people or a TV around, she can think she heard her name. Stricter: she only answers when “Capri” is the first thing you say, and said clearly.</string>
+    <string name="voice_filter_normal">Normal</string>
+    <string name="voice_filter_strict">Strict</string>
+    <string name="voice_filter_strictest">Very strict</string>
+    <string name="voice_pace">How you talk</string>
+    <string name="voice_pace_fast">Fast</string>
+    <string name="voice_pace_normal">Normal</string>
+    <string name="voice_pace_slow">Slow</string>
+    <string name="voice_pitch">Her voice</string>
+    <string name="voice_low">Lower</string>
+    <string name="voice_high">Higher</string>
+    <string name="voice_rate">How fast she talks</string>
+    <string name="voice_slower">Slower</string>
+    <string name="voice_faster">Faster</string>
 </resources>

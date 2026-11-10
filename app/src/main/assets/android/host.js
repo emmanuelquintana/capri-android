@@ -29,6 +29,9 @@ import { iconMode } from './icon.js';
 import { floatMode } from './float.js';
 import { longMemory } from './memory.js';
 import { phoneCare } from './phone-care.js';
+import { moods } from './moods.js';
+import { wardrobe } from './wardrobe.js';
+import { wedding } from './wedding.js';
 
 const llm = load('llm');
 // NVIDIA's (build.nvidia.com): a free key and many models to choose from. The desktop doesn't have
@@ -153,7 +156,7 @@ function updateConfig(patch) {
   saveConfig(patch);
   if ('ghost' in patch || 'gamer' in patch) touch.ghost = Boolean(cfg.ghost || cfg.gamer);
   if ('scale' in patch) setTimeout(() => notes?.place(), 0); // her notice card sits just below her height
-  if ('gamer' in patch) setTimeout(() => gamerMode(Boolean(cfg.gamer)), 0);
+  if ('gamer' in patch) setTimeout(() => { gamerMode(Boolean(cfg.gamer)); closet?.style(); }, 0);
   // her live look (Eyes.kt): Android asks you when it goes on; a "no" turns it back off
   if ('watchScreen' in patch && Boolean(cfg.watchScreen) !== wasWatching) {
     // an AI that can't see: no live look (she says why), and Android never asks
@@ -571,6 +574,8 @@ function markBlind(model) {
   blindModels.add(model);
   updateConfig({ blindModels: [...new Set([...(cfg.blindModels || []), model])].slice(-40) });
 }
+// the services that have models that see (her look picks one of them): 👁 in her menu
+const SERVICE_SEES = new Set(['gemini', 'openai', 'groq', 'openrouter', 'mistral', 'nvidia', 'ollama']);
 // can this model (of her service) see pictures? for her menu and the app's list: true, false or null (can't tell)
 function modelSees(model, provider = cfg.provider) {
   if (!model) return null;
@@ -761,6 +766,8 @@ const COMMUNITY = { discord: 'https://discord.gg/d8tsTKMhN', tiktok: 'https://ww
 
 const PHONE_LABELS = {
   es: {
+    wardrobe: 'Vestuario (vestirla)',
+    seesKey: '👁 = puede ver tu pantalla',
     battery: 'Avisos de batería', batteryOn: 'Avisarme', batteryFull: 'Cuando se cargue al', batteryLow: 'Cuando baje al', breaks: 'Recordarme descansar', breakEvery: 'Después de', hours: '{n} h',
     possess: 'Poseer sus tarjetas', gamer: 'Modo gamer', icon: 'Modo ícono (solo su máscara)', float: 'Sin gravedad (se queda donde la pongas)', community: 'Únete a la comunidad', startup: 'Iniciar con el teléfono', pcReact: 'Reaccionar a mi teléfono',
     motionAuto: 'Como el teléfono', restTaskbar: 'Sentada abajo, en el borde', theme: 'Estilo de sus paneles',
@@ -770,6 +777,8 @@ const PHONE_LABELS = {
     lookNow: 'Mira mi pantalla', lookAuto: 'Ver mi pantalla en vivo', ghost: 'Modo fantasma (solo se toca su cara)',
   },
   en: {
+    wardrobe: 'Wardrobe (dress her)',
+    seesKey: '👁 = can look at your screen',
     battery: 'Battery alerts', batteryOn: 'Tell me', batteryFull: 'When it charges to', batteryLow: 'When it drops to', breaks: 'Remind me to take breaks', breakEvery: 'After', hours: '{n} h',
     possess: 'Possess her cards', gamer: 'Gamer mode', icon: 'Icon mode (just her mask)', float: 'No gravity (stays where you put her)', community: 'Join the community', startup: 'Start with the phone', pcReact: 'React to my phone',
     motionAuto: 'Like the phone', restTaskbar: 'Sitting on the bottom edge', theme: 'Her panels’ style',
@@ -779,6 +788,8 @@ const PHONE_LABELS = {
     lookNow: 'Look at my screen', lookAuto: 'Watch my screen live', ghost: 'Ghost mode (only her face takes touches)',
   },
   fr: {
+    wardrobe: 'Garde-robe (l’habiller)',
+    seesKey: '👁 = peut voir ton écran',
     battery: 'Alertes de batterie', batteryOn: 'Me prévenir', batteryFull: 'Quand elle est chargée à', batteryLow: 'Quand elle descend à', breaks: 'Me rappeler de faire des pauses', breakEvery: 'Après', hours: '{n} h',
     possess: 'Posséder ses cartes', gamer: 'Mode gamer', icon: 'Mode icône (juste son masque)', float: 'Sans gravité (reste où tu la poses)', community: 'Rejoins la communauté', startup: 'Démarrer avec le téléphone', pcReact: 'Réagir à mon téléphone',
     motionAuto: 'Comme le téléphone', restTaskbar: 'Assise en bas, sur le bord', theme: 'Style de ses panneaux',
@@ -788,6 +799,8 @@ const PHONE_LABELS = {
     lookNow: 'Regarde mon écran', lookAuto: 'Voir mon écran en direct', ghost: 'Mode fantôme (seul son visage se touche)',
   },
   pt: {
+    wardrobe: 'Guarda-roupa (vestir)',
+    seesKey: '👁 = consegue ver sua tela',
     battery: 'Avisos de bateria', batteryOn: 'Me avisar', batteryFull: 'Quando carregar até', batteryLow: 'Quando cair para', breaks: 'Me lembrar de descansar', breakEvery: 'Depois de', hours: '{n} h',
     possess: 'Possuir os cartões', gamer: 'Modo gamer', icon: 'Modo ícone (só a máscara)', float: 'Sem gravidade (fica onde você colocar)', community: 'Entre na comunidade', startup: 'Iniciar com o celular', pcReact: 'Reagir ao meu celular',
     motionAuto: 'Como o celular', restTaskbar: 'Sentada embaixo, na borda', theme: 'Estilo dos painéis',
@@ -797,6 +810,8 @@ const PHONE_LABELS = {
     lookNow: 'Olha minha tela', lookAuto: 'Ver minha tela ao vivo', ghost: 'Modo fantasma (só o rosto se toca)',
   },
   ru: {
+    wardrobe: 'Гардероб (наряды)',
+    seesKey: '👁 = видит твой экран',
     battery: 'Уведомления о батарее', batteryOn: 'Сообщать', batteryFull: 'Когда зарядится до', batteryLow: 'Когда упадёт до', breaks: 'Напоминать о перерывах', breakEvery: 'Через', hours: '{n} ч',
     possess: 'Захватывать карточки', gamer: 'Игровой режим', icon: 'Режим иконки (только маска)', float: 'Без гравитации (остаётся, где поставишь)', community: 'Сообщество', startup: 'Запускать с телефоном', pcReact: 'Реагировать на телефон',
     motionAuto: 'Как на телефоне', restTaskbar: 'Сидя внизу, на краю', theme: 'Стиль её панелей',
@@ -831,15 +846,17 @@ function menuTemplate() {
     .map(([provider, p]) => {
       const current = cfg.provider === provider;
       const name = { ollama: t.provOllama, pollinations: t.provFree, custom: t.provCustom }[provider] || p.label;
+      const eye = (name) => (modelSees(name, provider) ? ' 👁' : '');
       const models = current && chatModels?.length
         ? chatModels.map((name) => ({
-          label: cloud.free.includes(name) ? `${short(name)} · ${t.cloudFree}` : short(name),
+          label: (cloud.free.includes(name) ? `${short(name)} · ${t.cloudFree}` : short(name)) + eye(name),
           type: 'radio', checked: name === pickModel(cfg), click: () => updateConfig({ chatModel: name }),
         }))
         : [{ label: current && chatError ? chatError.slice(0, 80) : t.noModels, enabled: false }];
+      const sees = SERVICE_SEES.has(provider) ? ' 👁' : '';
       return {
-        title: name,
-        label: current && pickModel(cfg) && provider !== 'pollinations' ? `${name} · ${short(pickModel(cfg))}` : name,
+        title: name + sees,
+        label: (current && pickModel(cfg) && provider !== 'pollinations' ? `${name} · ${short(pickModel(cfg))}` : name) + sees,
         type: 'radio',
         checked: current,
         submenu: [
@@ -871,6 +888,7 @@ function menuTemplate() {
       label: t.chatModel,
       submenu: [
         { label: t.aiSetup, click: () => sendCommand('setupChat') },
+        { label: t.seesKey, enabled: false },
         { type: 'header', label: t.service },
         ...services,
         { type: 'separator' },
@@ -888,6 +906,7 @@ function menuTemplate() {
         : [{ label: t.noReminders, enabled: false }],
     },
     { label: t.custom, click: () => sendCommand('customize') },
+    { label: t.wardrobe, click: () => closet?.open() },
 
     { type: 'header', label: t.secHer },
     {
@@ -1001,11 +1020,12 @@ function menuTemplate() {
 // screen behind blurred while either is up
 let blurred = false;
 const blur = () => {
-  const on = Boolean(menu?.isOpen || quick?.isOpen);
+  const on = Boolean(menu?.isOpen || quick?.isOpen || closet?.isOpen);
   if (on === blurred) return;
   blurred = on;
   send('overlay:blur', { on });
 };
+let closet = null; // her wardrobe (wardrobe.js), once her page is up
 const menu = new Menu(() => setTimeout(blur, 0));
 const syncLine = () => {
   const t = { ...TRAY[resolveLang(cfg.lang)], ...(PHONE_LABELS[resolveLang(cfg.lang)] || {}) };
@@ -1024,6 +1044,7 @@ const quick = new QuickMenu({
   full: (at) => menu.open(menuTemplate, at),
   openApp: () => send('app:open'),
   blur: () => setTimeout(blur, 0),
+  wardrobe: () => closet?.open(),
 });
 const openMenu = (at) => {
   if (menu.isOpen) menu.close();
@@ -1278,7 +1299,12 @@ function gamerMode(on) {
   const pick = (list) => list[Math.floor(Math.random() * list.length)];
   if (on) {
     dev.chat?.close?.();
-    if (!capri.hidden && !capri.busy) capri.teleport(capri.spot('post'));
+    // in her corner, sitting down to watch you play
+    if (!capri.hidden && !capri.busy) {
+      Promise.resolve(capri.teleport(capri.spot('post'))).then(() => {
+        setTimeout(() => cfg.gamer && !capri.busy && capri.perform?.('plop', capri.towardCenter?.() || 1), 600);
+      }).catch(noop);
+    }
   } else if (!capri.hidden && !capri.busy) capri.teleport(capri.spot('random'));
   dev.panel?.say({ kind: 'info', face: on ? 'smug' : 'laugh', line: pick(on ? lines.on : lines.off), hold: 3500 });
 }
@@ -1350,6 +1376,9 @@ ready.then(() => {
     floatMode({ cfg: () => cfg, setConfig: updateConfig });
     longMemory({ cfg: () => cfg, readMemory, saveMemory });
     phoneCare({ cfg: () => cfg });
+    moods({ cfg: () => cfg });
+    closet = wardrobe({ cfg: () => cfg, setConfig: updateConfig, onToggle: () => setTimeout(blur, 0) });
+    window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
   }, 300);
 });
 

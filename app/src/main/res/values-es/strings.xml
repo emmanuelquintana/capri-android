@@ -194,7 +194,7 @@
     <string name="settings_icon">Modo ícono</string>
     <string name="settings_icon_how">En la pantalla solo queda su máscara verde, con los ojos abiertos, y desde ahí sigue comentando (tu pantalla, tus juegos, su chat). Arrástrala con el dedo a donde menos te estorbe; tócala para abrir su menú. Útil si te gusta grande: afuera es grande, de ícono casi no ocupa.</string>
     <string name="settings_gamer">Modo gamer</string>
-    <string name="settings_gamer_how">Para cuando juegas: se hace chiquita en una esquina, no se puede tocar, no salen sus avisos, deja de escuchar y de vez en cuando te echa porras. También en su menú o diciéndole «Capri, modo gamer». Se quita al volver a tocarlo o al reiniciarla.</string>
+    <string name="settings_gamer_how">Para cuando juegas: se sienta chiquita y medio transparente en una esquina a verte jugar (qué tan transparente: en su Vestuario › Efectos), solo su cara se puede tocar, no salen sus avisos, deja de escuchar y de vez en cuando te echa porras. También en su menú o diciéndole «Capri, modo gamer». Se quita al volver a tocarlo o al reiniciarla.</string>
     <string name="settings_gamer_auto">Solita al abrir un juego</string>
     <string name="settings_gamer_auto_how">Se activa cuando abres un juego y se quita cuando sales. Necesita que le des «Acceso de uso» en los ajustes de Android (solo ve qué app tienes abierta, nada de lo que hay dentro). Ojo: algunas apps de banco y antivirus desconfían de ese permiso; si la tuya se queja, déjalo apagado.</string>
     <string name="settings_gamer_auto_grant">Busca Capri en la lista y activa «Permitir acceso de uso».</string>
@@ -233,4 +233,20 @@
     <string name="settings_battery_low">Avisarme cuando baje a</string>
     <string name="settings_breaks">Descansos</string>
     <string name="settings_breaks_how">Después de este rato en el teléfono sin soltarlo, te dice que descanses la vista. Apagar la pantalla cinco minutos cuenta como descanso.</string>
+    <string name="ai_sees">👁 = puede ver tu pantalla. Ven: Gemini, OpenAI, Groq, OpenRouter, Mistral y NVIDIA (ella elige uno de sus modelos que ven). No ven: DeepSeek y la IA gratis. Con Ollama, solo los modelos de visión (llava, gemma3, qwen-vl).</string>
+    <string name="voice_filter">Filtro de ruido</string>
+    <string name="voice_filter_how">Con gente o la tele de fondo, puede creer que oyó su nombre. Más estricto: solo te contesta si «Capri» es lo primero que dices y se oye claro.</string>
+    <string name="voice_filter_normal">Normal</string>
+    <string name="voice_filter_strict">Estricto</string>
+    <string name="voice_filter_strictest">Muy estricto</string>
+    <string name="voice_pace">Cómo hablas</string>
+    <string name="voice_pace_fast">Rápido</string>
+    <string name="voice_pace_normal">Normal</string>
+    <string name="voice_pace_slow">Pausado</string>
+    <string name="voice_pitch">Su voz</string>
+    <string name="voice_low">Más grave</string>
+    <string name="voice_high">Más aguda</string>
+    <string name="voice_rate">Qué tan rápido habla</string>
+    <string name="voice_slower">Más lento</string>
+    <string name="voice_faster">Más rápido</string>
 </resources>

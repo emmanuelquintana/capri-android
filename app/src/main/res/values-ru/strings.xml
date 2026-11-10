@@ -195,7 +195,7 @@
     <string name="settings_icon">Режим иконки</string>
     <string name="settings_icon_how">На экране остаётся только её зелёная маска с открытыми глазами, и оттуда она продолжает комментировать (твой экран, игры, её чат). Перетащи её пальцем туда, где она меньше мешает; нажми, чтобы открыть меню. Удобно, если любишь её большой: снаружи она большая, а иконкой почти не занимает места.</string>
     <string name="settings_gamer">Игровой режим</string>
-    <string name="settings_gamer_how">Для игры: она становится крошечной в углу, её нельзя трогать, её карточки не появляются, она перестаёт слушать и иногда тебя подбадривает. Также в её меню или словами «Капри, игровой режим». Выключается повторным нажатием или перезапуском.</string>
+    <string name="settings_gamer_how">Для игры: она садится крошечной и полупрозрачной в углу и смотрит, как ты играешь (прозрачность: её Гардероб › Эффекты), трогается только лицо, её карточки не появляются, она перестаёт слушать и иногда тебя подбадривает. Также в её меню или словами «Капри, игровой режим». Выключается повторным нажатием или перезапуском.</string>
     <string name="settings_gamer_auto">Сам при запуске игры</string>
     <string name="settings_gamer_auto_how">Включается, когда ты открываешь игру, и выключается, когда выходишь. Нужен «Доступ к истории использования» в настройках Android (она видит только, какое приложение открыто, ничего внутри). Внимание: некоторые банковские приложения и антивирусы не доверяют этому разрешению; если твоё жалуется, не включай.</string>
     <string name="settings_gamer_auto_grant">Найди Капри в списке и включи «Разрешить доступ к истории использования».</string>
@@ -234,4 +234,20 @@
     <string name="settings_battery_low">Сообщить, когда упадёт до</string>
     <string name="settings_breaks">Перерывы</string>
     <string name="settings_breaks_how">Если столько времени не выпускать телефон из рук, она предложит дать глазам отдых. Выключенный на пять минут экран считается перерывом.</string>
+    <string name="ai_sees">👁 = может видеть твой экран. Видят: Gemini, OpenAI, Groq, OpenRouter, Mistral и NVIDIA (она выберет их модель, которая видит). Не видят: DeepSeek и бесплатный ИИ. В Ollama — только модели со зрением (llava, gemma3, qwen-vl).</string>
+    <string name="voice_filter">Шумоподавление</string>
+    <string name="voice_filter_how">Если рядом люди или телевизор, ей может показаться, что её позвали. Строже: она отвечает, только если «Капри» — первое слово и сказано чётко.</string>
+    <string name="voice_filter_normal">Обычный</string>
+    <string name="voice_filter_strict">Строгий</string>
+    <string name="voice_filter_strictest">Очень строгий</string>
+    <string name="voice_pace">Как ты говоришь</string>
+    <string name="voice_pace_fast">Быстро</string>
+    <string name="voice_pace_normal">Обычно</string>
+    <string name="voice_pace_slow">Медленно</string>
+    <string name="voice_pitch">Её голос</string>
+    <string name="voice_low">Ниже</string>
+    <string name="voice_high">Выше</string>
+    <string name="voice_rate">Скорость речи</string>
+    <string name="voice_slower">Медленнее</string>
+    <string name="voice_faster">Быстрее</string>
 </resources>

@@ -258,6 +258,8 @@ async function handle(text, { toggleVisible, visible }) {
     return answer(pick(t.yes), 'look', '', false);
   }
   if (SHOW_ASK.test(text)) return answer(t.back, 'laugh');
+  // (a secret: wedding.js)
+  if (await dev.wedding?.heard(text, (line) => send('voice:say', { text: spoken(line), lang: locale }))) return;
   if (DEAF_ASK.test(text)) {
     answer(t.deaf, 'aside');
     send('voice:off');

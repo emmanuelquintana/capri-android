@@ -97,15 +97,23 @@ class Ears(private val service: CapriService) {
         }
         val r = recognizer ?: create().also { recognizer = it }
         val lang = language()
+        // how you talk (the app's Settings › Her ears): a slow talker gets longer pauses
+        val pause = when (Store(service).configString("voicePace")) { "slow" -> 2600L; "fast" -> 1000L; else -> 1500L }
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             .putExtra(RecognizerIntent.EXTRA_LANGUAGE, lang)
             .putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
+            .putExtra(RecognizerIntent.EXTRA_CONFIDENCE_SCORES, true)
             // a short pause after "Capri" doesn't end what you're saying
-            .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 1500L)
-            .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 1200L)
+            .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, pause)
+            .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, pause - 300L)
             .putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false)
             .putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, service.packageName)
+        // Android 13+: her name and her words weigh more than the noise around (a TV, people talking)
+        if (Build.VERSION.SDK_INT >= 33) {
+            intent.putExtra(RecognizerIntent.EXTRA_ENABLE_BIASING_DEVICE_CONTEXT, true)
+                .putStringArrayListExtra(RecognizerIntent.EXTRA_BIASING_STRINGS, arrayListOf("Capri", "Kapri", "Капри"))
+        }
         listening = true
         runCatching { r.startListening(intent) }.onFailure {
             listening = false
@@ -133,7 +141,10 @@ class Ears(private val service: CapriService) {
             override fun onResults(results: Bundle?) {
                 listening = false
                 failures = 0
-                heard(results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).orEmpty())
+                heard(
+                    results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).orEmpty(),
+                    results?.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES),
+                )
                 next(150)
             }
             override fun onError(error: Int) {
@@ -178,10 +189,18 @@ class Ears(private val service: CapriService) {
         }
     }
 
-    private fun heard(options: List<String>) {
+    private fun heard(options: List<String>, scores: FloatArray? = null) {
         val now = System.currentTimeMillis()
         val plain = options.map { plain(it) }
-        val at = plain.indexOfFirst { NAME.containsMatchIn(it) }
+        // her noise filter (the app's Settings › Her ears): stricter, she only answers to her name
+        // said first, said clearly; the TV or people around saying something like it don't count
+        val filter = Store(service).configString("voiceFilter") ?: "normal"
+        val minScore = when (filter) { "strict" -> 0.45f; "strictest" -> 0.7f; else -> 0f }
+        val clear = { i: Int -> scores == null || i >= scores.size || scores[i] < 0f || scores[i] >= minScore || scores.all { it == 0f } }
+        val first = { s: String -> NAME.find(s)?.let { m -> s.substring(0, m.range.first).trim().split(Regex("\\s+")).count { it.isNotEmpty() } <= 1 } ?: false }
+        val at = plain.indices.firstOrNull { i ->
+            NAME.containsMatchIn(plain[i]) && clear(i) && (filter == "normal" || first(plain[i]))
+        } ?: -1
         val named = if (at >= 0) plain[at] else null
         heardLast = options.firstOrNull() ?: ""
         val text = when {
@@ -206,6 +225,10 @@ class Ears(private val service: CapriService) {
         if (text.isBlank() || audio.getStreamVolume(AudioManager.STREAM_MUSIC) == 0) return@post
         val speak = {
             tts?.language = Locale.forLanguageTag(lang)
+            // her voice as you set it (the app's Settings › Her ears)
+            val store = Store(service)
+            tts?.setPitch(store.configNumber("voicePitch", 1.0).toFloat().coerceIn(0.5f, 2f))
+            tts?.setSpeechRate(store.configNumber("voiceRate", 1.0).toFloat().coerceIn(0.5f, 2f))
             speaking = true
             recognizer?.let { runCatching { it.cancel() } }
             listening = false

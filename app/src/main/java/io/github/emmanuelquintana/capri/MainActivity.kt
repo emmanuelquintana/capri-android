@@ -467,6 +467,8 @@ class MainActivity : Activity() {
             aiText = ui.text("", 17f, Hud.PAPER, ui.head)
             addView(aiText, ui.block(6))
             addView(ui.text(getString(R.string.main_ai_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            // which of them can look at your screen: the question everyone asks
+            addView(ui.text(getString(R.string.ai_sees), 13f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
             addView(ui.button(getString(R.string.main_ai_pick) + " ›", Ui.Kind.GREEN) {
                 startActivity(Intent(this@MainActivity, OnboardingActivity::class.java).putExtra(OnboardingActivity.EXTRA_ONLY, OnboardingActivity.PAGE_AI))
             }, ui.block(12))
@@ -494,6 +496,21 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.settings_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             voiceBtn = ui.button("", Ui.Kind.GREEN) { toggleVoice() }
             addView(voiceBtn, ui.block(12))
+            // the noise around you, how you talk, how she sounds (Ears.kt reads these each time)
+            val store = Store(this@MainActivity)
+            addView(ui.text(getString(R.string.voice_filter), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.voice_filter_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.voice_filter_normal to "normal", R.string.voice_filter_strict to "strict", R.string.voice_filter_strictest to "strictest"),
+                { store.configString("voiceFilter") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceFilter", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.voice_pace), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.voice_pace_fast to "fast", R.string.voice_pace_normal to "normal", R.string.voice_pace_slow to "slow"),
+                { store.configString("voicePace") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voicePace", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.voice_pitch), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.voice_low to 0.8, R.string.voice_pace_normal to 1.0, R.string.voice_high to 1.3),
+                { store.configNumber("voicePitch", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voicePitch", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.voice_rate), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.voice_slower to 0.85, R.string.voice_pace_normal to 1.0, R.string.voice_faster to 1.2),
+                { store.configNumber("voiceRate", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceRate", it) }, ui.block(6))
         }, ui.block(16))
 
         // her on your screen: size, how lively, ghost mode
@@ -576,6 +593,7 @@ class MainActivity : Activity() {
         addView(ui.card(Hud.GREEN).apply {
             addView(ui.label(getString(R.string.settings_look)))
             addView(ui.text(getString(R.string.settings_look_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.text(getString(R.string.ai_sees), 13f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
             addView(ui.button(getString(R.string.settings_look_now) + " ›", Ui.Kind.GREEN) {
                 if (!CapriSettings.tell(org.json.JSONObject().put("look", true))) Toast.makeText(this@MainActivity, R.string.settings_need_on, Toast.LENGTH_LONG).show()
                 else moveTaskToBack(true) // out of the way: it's your screen she looks at

@@ -194,7 +194,7 @@
     <string name="settings_icon">Mode icône</string>
     <string name="settings_icon_how">Il ne reste à l’écran que son masque vert, les yeux ouverts, et elle continue à commenter de là (ton écran, tes jeux, son chat). Fais-le glisser du doigt là où il te gêne le moins ; touche-le pour son menu. Pratique si tu l’aimes grande : dehors elle est grande, en icône elle ne prend presque rien.</string>
     <string name="settings_gamer">Mode gamer</string>
-    <string name="settings_gamer_how">Pour quand tu joues : elle se fait toute petite dans un coin, ne se touche plus, ses cartes restent à l’écart, elle n’écoute plus et de temps en temps elle t’encourage. Aussi dans son menu ou en disant « Capri, mode gamer ». Se désactive en le touchant à nouveau ou en la redémarrant.</string>
+    <string name="settings_gamer_how">Pour quand tu joues : elle s’assoit toute petite et à moitié transparente dans un coin pour te regarder jouer (la transparence : sa Garde-robe › Effets), seul son visage se touche, ses cartes restent à l’écart, elle n’écoute plus et de temps en temps elle t’encourage. Aussi dans son menu ou en disant « Capri, mode gamer ». Se désactive en le touchant à nouveau ou en la redémarrant.</string>
     <string name="settings_gamer_auto">Toute seule quand un jeu s’ouvre</string>
     <string name="settings_gamer_auto_how">Il s’active quand tu ouvres un jeu et se désactive quand tu le quittes. Il faut l’« Accès aux données d’utilisation » dans les réglages d’Android (elle voit seulement quelle appli est ouverte, rien de ce qu’il y a dedans). Attention : certaines applis bancaires et antivirus se méfient de cette autorisation ; si la tienne se plaint, laisse ça désactivé.</string>
     <string name="settings_gamer_auto_grant">Cherche Capri dans la liste et active « Autoriser l’accès aux données d’utilisation ».</string>
@@ -233,4 +233,20 @@
     <string name="settings_battery_low">Me prévenir quand elle descend à</string>
     <string name="settings_breaks">Pauses</string>
     <string name="settings_breaks_how">Après ce temps sur ton téléphone sans le lâcher, elle te dit de reposer tes yeux. Éteindre l’écran cinq minutes compte comme une pause.</string>
+    <string name="ai_sees">👁 = peut voir ton écran. Oui : Gemini, OpenAI, Groq, OpenRouter, Mistral et NVIDIA (elle choisit un de leurs modèles qui voient). Non : DeepSeek et l’IA gratuite. Avec Ollama, seulement les modèles de vision (llava, gemma3, qwen-vl).</string>
+    <string name="voice_filter">Filtre anti-bruit</string>
+    <string name="voice_filter_how">Avec du monde ou la télé autour, elle peut croire entendre son nom. Plus strict : elle ne répond que si « Capri » est le premier mot, dit clairement.</string>
+    <string name="voice_filter_normal">Normal</string>
+    <string name="voice_filter_strict">Strict</string>
+    <string name="voice_filter_strictest">Très strict</string>
+    <string name="voice_pace">Ta façon de parler</string>
+    <string name="voice_pace_fast">Rapide</string>
+    <string name="voice_pace_normal">Normal</string>
+    <string name="voice_pace_slow">Posée</string>
+    <string name="voice_pitch">Sa voix</string>
+    <string name="voice_low">Plus grave</string>
+    <string name="voice_high">Plus aiguë</string>
+    <string name="voice_rate">Sa vitesse</string>
+    <string name="voice_slower">Plus lent</string>
+    <string name="voice_faster">Plus rapide</string>
 </resources>

@@ -212,7 +212,7 @@ export function tweak({ cfg, onConfig }) {
     if (now < nextCheer || dev.panel?.current) return;
     nextCheer = now + rand(4, 8) * 60000;
     const lines = CHEERS[dev.brain?.lang] || CHEERS.en;
-    capri.perform?.(pick(['hop', 'look']), 1);
+    capri.perform?.(pick(['look', 'gaze', 'curious', 'hop']), capri.towardCenter?.() || 1); // watching you play
     dev.panel?.say({ kind: 'info', face: pick(['smug', 'laugh']), line: pick(lines), hold: 3000, noWink: true });
   }, 5000);
 

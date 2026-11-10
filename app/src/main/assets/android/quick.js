@@ -5,35 +5,35 @@
 const LABELS = {
   es: {
     title: 'Capri', moves: 'Movimientos', modes: 'Modos', all: 'Todos los ajustes', app: 'Abrir la app',
-    chat: 'Hablar', look: 'Mira mi pantalla', live: 'Ver en vivo', teleport: 'Teleport', satellite: 'Satélite', hide: 'Guardarla', show: 'Sacarla',
+    wardrobe: 'Vestirla', chat: 'Hablar', look: 'Mira mi pantalla', live: 'Ver en vivo', teleport: 'Teleport', satellite: 'Satélite', hide: 'Guardarla', show: 'Sacarla',
     hop: 'Brincar', spin: 'Girar', stretch: 'Estirarse', victory: 'Victoria', zap: 'Rayo', split: 'Split',
     ghost: 'Fantasma', icon: 'Ícono', float: 'Sin gravedad', gamer: 'Gamer',
     ghostHow: 'tus toques la atraviesan (menos su cara)', iconHow: 'solo su máscara', floatHow: 'se queda donde la pones', gamerHow: 'chiquita, para jugar', liveHow: 'comenta lo que ves',
   },
   en: {
     title: 'Capri', moves: 'Moves', modes: 'Modes', all: 'All settings', app: 'Open the app',
-    chat: 'Talk', look: 'Look at my screen', live: 'Watch live', teleport: 'Teleport', satellite: 'Satellite', hide: 'Put her away', show: 'Bring her out',
+    wardrobe: 'Dress her', chat: 'Talk', look: 'Look at my screen', live: 'Watch live', teleport: 'Teleport', satellite: 'Satellite', hide: 'Put her away', show: 'Bring her out',
     hop: 'Hop', spin: 'Spin', stretch: 'Stretch', victory: 'Victory', zap: 'Zap', split: 'Split',
     ghost: 'Ghost', icon: 'Icon', float: 'No gravity', gamer: 'Gamer',
     ghostHow: 'your taps go through her (not her face)', iconHow: 'just her mask', floatHow: 'stays where you put her', gamerHow: 'tiny, for playing', liveHow: 'comments on what you see',
   },
   fr: {
     title: 'Capri', moves: 'Mouvements', modes: 'Modes', all: 'Tous les réglages', app: 'Ouvrir l’appli',
-    chat: 'Parler', look: 'Regarde mon écran', live: 'En direct', teleport: 'Téléport', satellite: 'Satellite', hide: 'La ranger', show: 'La sortir',
+    wardrobe: 'L’habiller', chat: 'Parler', look: 'Regarde mon écran', live: 'En direct', teleport: 'Téléport', satellite: 'Satellite', hide: 'La ranger', show: 'La sortir',
     hop: 'Sauter', spin: 'Tourner', stretch: 'S’étirer', victory: 'Victoire', zap: 'Éclair', split: 'Grand écart',
     ghost: 'Fantôme', icon: 'Icône', float: 'Sans gravité', gamer: 'Gamer',
     ghostHow: 'tes touchers la traversent (sauf son visage)', iconHow: 'juste son masque', floatHow: 'reste où tu la poses', gamerHow: 'toute petite, pour jouer', liveHow: 'commente ce que tu vois',
   },
   pt: {
     title: 'Capri', moves: 'Movimentos', modes: 'Modos', all: 'Todos os ajustes', app: 'Abrir o app',
-    chat: 'Conversar', look: 'Olha minha tela', live: 'Ver ao vivo', teleport: 'Teleporte', satellite: 'Satélite', hide: 'Guardar', show: 'Mostrar',
+    wardrobe: 'Vestir', chat: 'Conversar', look: 'Olha minha tela', live: 'Ver ao vivo', teleport: 'Teleporte', satellite: 'Satélite', hide: 'Guardar', show: 'Mostrar',
     hop: 'Pular', spin: 'Girar', stretch: 'Espreguiçar', victory: 'Vitória', zap: 'Raio', split: 'Espacate',
     ghost: 'Fantasma', icon: 'Ícone', float: 'Sem gravidade', gamer: 'Gamer',
     ghostHow: 'seus toques passam por ela (menos o rosto)', iconHow: 'só a máscara', floatHow: 'fica onde você põe', gamerHow: 'pequenininha, pra jogar', liveHow: 'comenta o que você vê',
   },
   ru: {
     title: 'Капри', moves: 'Движения', modes: 'Режимы', all: 'Все настройки', app: 'Открыть приложение',
-    chat: 'Поговорить', look: 'Посмотри на экран', live: 'Смотреть вживую', teleport: 'Телепорт', satellite: 'Спутник', hide: 'Убрать', show: 'Вернуть',
+    wardrobe: 'Наряды', chat: 'Поговорить', look: 'Посмотри на экран', live: 'Смотреть вживую', teleport: 'Телепорт', satellite: 'Спутник', hide: 'Убрать', show: 'Вернуть',
     hop: 'Прыжок', spin: 'Кружиться', stretch: 'Потянуться', victory: 'Победа', zap: 'Молния', split: 'Шпагат',
     ghost: 'Призрак', icon: 'Иконка', float: 'Без гравитации', gamer: 'Игровой',
     ghostHow: 'касания проходят сквозь неё (кроме лица)', iconHow: 'только маска', floatHow: 'остаётся, где поставишь', gamerHow: 'крошечная, для игр', liveHow: 'комментирует, что видишь',
@@ -47,11 +47,12 @@ const ICONS = {
   teleport: '<path d="M4 20 20 4M14 4h6v6M4 10V4h6"/>',
   satellite: '<path d="m13 7 4 4M5 15l4 4M9 11l4 4M15 5l4 4-6 6-4-4z"/><path d="M3 21c0-3 1-5 3-6"/>',
   hide: '<path d="M4 7h16v13H4zM2 4h20v3H2zM10 11h4"/>',
+  wardrobe: '<path d="M12 6a2 2 0 1 1 2 2c-1 0-2 1-2 2l9 6v2H3v-2l9-6"/>',
 };
 const icon = (name) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] || ''}</svg>`;
 
 export class QuickMenu {
-  // `host`: { cfg(), lang(), sync(), setConfig(patch), command(name, payload), perform(name), full(at), openApp(), blur(on) }
+  // `host`: { cfg(), lang(), sync(), setConfig(patch), command(name, payload), perform(name), full(at), openApp(), blur(on), wardrobe() }
   constructor(host) {
     this.host = host;
     this.el = document.createElement('nav');
@@ -119,6 +120,7 @@ export class QuickMenu {
       action('look', t.look, () => this.host.command('look')),
       action('teleport', t.teleport, () => this.host.command('teleport')),
       action('satellite', t.satellite, () => this.host.command('satellite')),
+      action('wardrobe', t.wardrobe, () => this.host.wardrobe?.()),
       action('hide', visible ? t.hide : t.show, () => this.host.toggleVisible()),
     );
     this.el.append(big);
