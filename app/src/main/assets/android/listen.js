@@ -33,6 +33,7 @@ const WORDS = {
     shot: "Para una captura: botón de encendido + bajar volumen a la vez. Yo me quito de en medio.",
     radio: "Android no deja que las apps prendan o apaguen eso solas: te abro el panel, es un toque.",
     settings: "Te abro los ajustes.",
+    closet: "Te abro mi vestuario. ¿Qué me pongo?",
     call: "Te abro el teléfono{who}.",
     cant: "Eso no lo pude hacer en tu teléfono.",
     help: "Puedo decirte la hora, poner música, abrir apps, poner temporizadores y recordatorios, mirar tu pantalla, bailar… La lista completa está en la app, pestaña Comandos.",
@@ -62,6 +63,7 @@ const WORDS = {
     shot: "For a screenshot: power + volume down together. I'll get out of the way.",
     radio: "Android doesn't let apps switch that on their own: here's its panel, one tap.",
     settings: "Opening the settings.",
+    closet: "Here's my wardrobe. What should I wear?",
     call: "Opening your phone app{who}.",
     cant: "I couldn't do that on your phone.",
     help: "I can tell you the time, play music, open apps, set timers and reminders, look at your screen, dance… The full list is in the app, Commands tab.",
@@ -91,6 +93,7 @@ const WORDS = {
     shot: "Pour une capture : bouton marche + volume bas en même temps. Je me pousse.",
     radio: "Android ne laisse pas les applis changer ça toutes seules : voilà son panneau, un toucher suffit.",
     settings: "Je t’ouvre les réglages.",
+    closet: "Voilà ma garde-robe. Je mets quoi ?",
     call: "Je t’ouvre le téléphone{who}.",
     cant: "Je n’ai pas pu le faire sur ton téléphone.",
     help: "Je peux te dire l’heure, mettre de la musique, ouvrir des applis, lancer des minuteurs et des rappels, regarder ton écran, danser… La liste complète est dans l’appli, onglet Commandes.",
@@ -120,6 +123,7 @@ const WORDS = {
     shot: "Pra print: botão de ligar + abaixar volume juntos. Eu saio da frente.",
     radio: "O Android não deixa os apps ligarem ou desligarem isso sozinhos: abri o painel, é só um toque.",
     settings: "Abrindo os ajustes.",
+    closet: "Abri meu guarda-roupa. O que eu visto?",
     call: "Abrindo o telefone{who}.",
     cant: "Não consegui fazer isso no seu celular.",
     help: "Posso dizer as horas, tocar música, abrir apps, pôr timers e lembretes, olhar sua tela, dançar… A lista completa está no app, aba Comandos.",
@@ -149,6 +153,7 @@ const WORDS = {
     shot: "Для скриншота: кнопка питания + громкость вниз вместе. Я отойду.",
     radio: "Android не даёт приложениям переключать это самим: открыла панель, одно касание.",
     settings: "Открываю настройки.",
+    closet: "Открываю гардероб. Что мне надеть?",
     call: "Открываю звонилку{who}.",
     cant: "Не получилось сделать это на телефоне.",
     help: "Могу сказать время, включить музыку, открыть приложения, поставить таймер и напоминание, посмотреть на экран, потанцевать… Полный список в приложении, вкладка «Команды».",
@@ -196,6 +201,7 @@ const RADIO_ASK = /(?:wi-?fi|wifi|bluetooth|datos(?: m[oó]viles)?|mobile data|d
 const RADIO_PAGE = [['bluetooth', /bluetooth|блютуз/i], ['data', /datos|data|donn[ée]es|dados|данн/i], ['airplane', /avi[oó]n|airplane|avion|avi[aã]o|полёт/i], ['location', /ubicaci|location|localis|localiza|gps|геолок/i], ['nfc', /nfc/i], ['wifi', /./]];
 const RADIO_VERB = /prende|enciende|activa|apaga|desactiva|quita|pon|turn|switch|enable|disable|allume|[ée]teins|active|d[ée]sactive|liga|desliga|ativa|desativa|включи|выключи|ajustes|settings|r[ée]glages|configura|настройк/iu;
 const CALL_ASK = /^(?:llama(?:le)? a|marca(?:le)? a|call|phone|appelle|liga(?: para| pra)?|позвони)\s*(.*)$/iu;
+const WARDROBE_ASK = /(?:vest[ií]te|v[ií]stete|c[aá]mbiate de ropa|(?:abre|muestra|ens[eé][ñn]a(?:me)?) (?:tu|el) (?:vestuario|ropa|armario|closet)|tu vestuario|change (?:your )?clothes|get dressed|(?:open|show)(?: me)? your (?:wardrobe|closet|clothes)|your wardrobe|habille[- ]toi|change de v[eê]tements|(?:ouvre|montre)(?:[- ]moi)? ta garde[- ]robe|ta garde[- ]robe|troca de roupa|se veste|(?:abre|mostra)(?: o)? (?:teu|seu) guarda[- ]roupa|guarda[- ]roupa|переоденься|оденься|(?:открой|покажи) (?:свой )?гардероб|гардероб)/iu;
 const HELP_ASK = /^(?:qu[ée] (?:puedes|sabes) hacer|ayuda|comandos|what can you do|help|commands|qu['’]est-ce que tu sais faire|aide|commandes|o que voc[êe] (?:pode|sabe) fazer|ajuda|comandos|что ты умеешь|помощь|команды)(?![\p{L}])/iu;
 
 // what's left of her name at the start, as the recognizer may write it (Капри in Russian)
@@ -284,6 +290,10 @@ async function handle(text, { toggleVisible, visible }) {
   }
   if (CHAT_ASK.test(text)) return chat.start();
   if (HELP_ASK.test(text)) return answer(t.help, 'smug');
+  if (WARDROBE_ASK.test(text) && dev.wardrobe) {
+    dev.wardrobe.open();
+    return answer(t.closet, 'smug');
+  }
 
   // her own moves
   const words = text.split(/\s+/).length;

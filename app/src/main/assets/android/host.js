@@ -1378,6 +1378,7 @@ ready.then(() => {
     phoneCare({ cfg: () => cfg });
     moods({ cfg: () => cfg });
     closet = wardrobe({ cfg: () => cfg, setConfig: updateConfig, onToggle: () => setTimeout(blur, 0) });
+    window.dev.wardrobe = closet;
     window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
   }, 300);
 });

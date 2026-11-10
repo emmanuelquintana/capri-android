@@ -196,6 +196,15 @@ hear "Capri modo ícono"
 shot 30-icon 9
 hear "Capri sal del ícono"
 shot 31-icon-off 8
+# her wardrobe, by voice; a tap above it closes it. Then the secret (wedding.js), said out loud
+hear "Capri abre tu vestuario"
+shot 32-wardrobe 4
+adb shell input tap 540 300
+sleep 2
+hear "Capri cásate conmigo"
+shot 33-wedding-gasp 2
+shot 34-wedding-yes 5
+shot 35-wedding-veil 6
 adb shell dumpsys activity services $PKG | grep -iE "foregroundServiceType|types=" | head -4
 adb logcat -d | grep -iE "capri|chromium|torch" | grep -viE "regions|keyboard" | tail -40
 adb shell dumpsys window windows | grep -E "Window #" | head -16
