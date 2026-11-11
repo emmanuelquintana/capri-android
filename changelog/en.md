@@ -5,16 +5,21 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 ## 1.8.0
 
 - **Her wardrobe:** a new *Dress her* button in the quick menu (also in *Settings → Wardrobe* or by saying “Capri, get
-  dressed”). There you give her accessories (crown, cat ears, horns, halo, bow, flower, Santa hat, witch hat,
-  headphones, glasses, visor, scarf, choker), change the color of her hair and her mask, give her an aura and make her
-  more or less see-through. It all shows on her right away and stays saved. Full outfits (Western jockey, school
-  uniform, mecha pilot, demon hunter, ninja, netrunner and more) already have their spot and arrive in the next
-  versions.
-- **A comfier gamer mode:** when you turn it on she goes to her corner and sits down to watch you play, and you can
-  make her see-through only while you play (*Wardrobe → Effects*).
-- **More alive:** her face changes with what she says and does, she gets bored if you leave her alone for a while (and
-  peeks from the edge or does something to get your attention), shares a thought now and then, and has many more lines
-  and moves, so she repeats herself much less.
+  dressed”). 13 full outfits: Western jockey, school uniform, mecha pilot, demon hunter, ninja, netrunner, yellow
+  jacket, gothic, yukata, pajamas, witch and Christmas. Over 20 accessories to mix (crown, cat ears, horns, halo,
+  cowboy hat, Santa hat, headphones, glasses, visor, scarf, katana, game controller, heart balloon…), the color of her
+  hair and her mask, an aura and how see-through she is. She moves with all of it on and it stays saved.
+- **Cyberpunk: Edgerunners:** Capri is from the second season, so the wardrobe has a section for the series, with
+  outfits inspired by both seasons (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D., Kingsley, Roman
+  Carax) and the **Sandevistan** effect: green, cyan and violet afterimages trailing behind her. The series outfits
+  are on their way; the missing ones show a padlock.
+- **A comfier gamer mode:** when you turn it on she lies on her belly on top of your screen, kicking her legs while
+  she watches you play, and you can make her see-through only while you play (*Wardrobe → Effects*). Tap her and she
+  gets up.
+- **More alive:** new faces (angry, sad, in love, thoughtful, focused, bored, cringing, wink) that match what she
+  says, new flashes when something gets to her, and new poses: when she’s bored she sprawls on her back, sits hugging
+  her knees or leans on the edge of the screen; she sleeps curled up and waves when you call her. She also shares a
+  thought now and then and has many more lines and moves, so she repeats herself much less.
 - **She looks after you and your phone:** she tells you when your phone is charged and when its battery is low, at the
   percent you choose (*Settings → She looks after you* or her menu → *Your phone*). And if you’ve been glued to the
   screen for hours, she tells you to rest your eyes (every 1, 2 or 3 hours, or never).

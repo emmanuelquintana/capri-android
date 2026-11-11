@@ -5,16 +5,22 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 ## 1.8.0
 
 - **O guarda-roupa dela:** novo botão *Vestir* no menu rápido (também em *Ajustes → Guarda-roupa* ou dizendo “Capri,
-  se veste”). Lá você coloca acessórios (coroa, orelhas de gato, chifres, auréola, laço, flor, gorro de Natal, chapéu
-  de bruxa, fones, óculos, viseira, cachecol, gargantilha), muda a cor do cabelo e da máscara dela, dá uma aura e
-  deixa ela mais ou menos transparente. Tudo aparece nela na hora e fica salvo. Os conjuntos completos (jóquei do
-  Oeste, uniforme escolar, piloto de mecha, caçadora de demônios, ninja, netrunner e mais) já têm seu lugar e chegam
-  nas próximas versões.
-- **Modo gamer mais confortável:** ao ativar, ela vai pro canto dela e senta pra te ver jogar, e você pode deixá-la
-  semitransparente só enquanto joga (*Guarda-roupa → Efeitos*).
-- **Mais viva:** a cara dela muda conforme o que ela diz e faz, ela fica entediada se você deixa ela sozinha um tempo
-  (e espia da borda ou faz algo pra chamar sua atenção), solta pensamentos de vez em quando e tem muito mais frases e
-  movimentos, então repete bem menos.
+  se veste”). 13 conjuntos completos: jóquei do Oeste, uniforme escolar, piloto de mecha, caçadora de demônios, ninja,
+  netrunner, jaqueta amarela, gótica, yukata, pijama, bruxa e Natal. Mais de 20 acessórios pra combinar (coroa,
+  orelhas de gato, chifres, auréola, chapéu de caubói, gorro de Natal, fones, óculos, viseira, cachecol, katana,
+  controle, balão de coração…), a cor do cabelo e da máscara, uma aura e o quanto ela é transparente. Ela se mexe com
+  tudo isso e fica salvo.
+- **Cyberpunk: Edgerunners:** a Capri é da segunda temporada, então o guarda-roupa tem uma seção da série, com
+  conjuntos inspirados nas duas temporadas (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D., Kingsley,
+  Roman Carax) e o efeito **Sandevistan**: rastros verdes, ciano e violeta atrás dela. Os conjuntos da série vão
+  chegando; os que faltam aparecem com cadeado.
+- **Modo gamer mais confortável:** ao ativar, ela deita de bruços em cima da sua tela, balançando as pernas enquanto
+  te vê jogar, e você pode deixá-la semitransparente só enquanto joga (*Guarda-roupa → Efeitos*). Toque nela e ela
+  levanta.
+- **Mais viva:** caras novas (brava, triste, apaixonada, pensativa, concentrada, entediada, sem graça, piscadinha)
+  conforme o que ela diz, flashes novos quando algo mexe com ela, e poses novas: quando fica entediada ela se joga de
+  costas, senta abraçando os joelhos ou se encosta na borda da tela; dorme enroladinha e acena quando você chama. Ela
+  também solta pensamentos de vez em quando e tem muito mais frases e movimentos, então repete bem menos.
 - **Ela cuida de você e do seu celular:** avisa quando o celular já carregou e quando a bateria está acabando, na
   porcentagem que você escolher (*Ajustes → Ela cuida de você* ou o menu dela → *Seu celular*). E se você está grudado
   na tela há horas, ela manda você descansar a vista (a cada 1, 2 ou 3 horas, ou nunca).

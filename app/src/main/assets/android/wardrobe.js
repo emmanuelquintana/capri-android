@@ -494,9 +494,10 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     };
 
     if (tab === 'outfits') {
-      const g = grid(null);
+      let g = grid(null);
       for (const row of OUTFITS) {
         const [id] = row;
+        if (id === 'lucy') g = grid('Cyberpunk: Edgerunners');
         const secret = row[6] === 'secret';
         if (secret && !open.has(id)) continue;
         const ready = id === 'default' || have[`outfit-${id}`];

@@ -5,17 +5,23 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 ## 1.8.0
 
 - **Sa garde-robe :** nouveau bouton *L’habiller* dans le menu rapide (aussi dans *Réglages → Garde-robe* ou en lui
-  disant « Capri, habille-toi »). Là, tu lui mets des accessoires (couronne, oreilles de chat, cornes, auréole, nœud,
-  fleur, bonnet de Noël, chapeau de sorcière, casque audio, lunettes, visière, écharpe, ras-du-cou), tu changes la
-  couleur de ses cheveux et de son masque, tu lui donnes une aura et tu la rends plus ou moins transparente. Tout se
-  voit sur elle tout de suite et reste enregistré. Les tenues complètes (jockey de l’Ouest, uniforme scolaire, pilote
-  de mecha, chasseuse de démons, ninja, netrunner et plus) ont déjà leur place et arrivent dans les prochaines
-  versions.
-- **Un mode gamer plus confortable :** quand tu l’actives, elle va dans son coin et s’assoit pour te regarder jouer,
-  et tu peux la rendre semi-transparente seulement pendant que tu joues (*Garde-robe → Effets*).
-- **Plus vivante :** son visage change selon ce qu’elle dit et ce qu’elle fait, elle s’ennuie si tu la laisses seule
-  un moment (et elle jette un œil depuis le bord ou fait quelque chose pour attirer ton attention), partage une pensée
-  de temps en temps et a beaucoup plus de phrases et de mouvements, donc elle se répète bien moins.
+  disant « Capri, habille-toi »). 13 tenues complètes : jockey de l’Ouest, uniforme scolaire, pilote de mecha,
+  chasseuse de démons, ninja, netrunner, veste jaune, gothique, yukata, pyjama, sorcière et Noël. Plus de 20
+  accessoires à combiner (couronne, oreilles de chat, cornes, auréole, chapeau de cowboy, bonnet de Noël, casque,
+  lunettes, visière, écharpe, katana, manette, ballon cœur…), la couleur de ses cheveux et de son masque, une aura et
+  sa transparence. Elle bouge avec tout ça sur elle et c’est enregistré.
+- **Cyberpunk: Edgerunners :** Capri vient de la deuxième saison, alors la garde-robe a sa section de la série, avec
+  des tenues inspirées des deux saisons (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D., Kingsley,
+  Roman Carax) et l’effet **Sandevistan** : des images rémanentes vertes, cyan et violettes derrière elle. Les tenues
+  de la série arrivent peu à peu ; celles qui manquent ont un cadenas.
+- **Un mode gamer plus confortable :** quand tu l’actives, elle s’allonge sur le ventre en haut de ton écran et bat
+  des jambes en te regardant jouer, et tu peux la rendre semi-transparente seulement pendant que tu joues (*Garde-robe
+  → Effets*). Touche-la et elle se relève.
+- **Plus vivante :** de nouveaux visages (fâchée, triste, amoureuse, pensive, concentrée, qui s’ennuie, gênée, clin
+  d’œil) selon ce qu’elle dit, de nouveaux flashs quand quelque chose la touche, et de nouvelles poses : quand elle
+  s’ennuie, elle s’étale sur le dos, s’assoit en serrant ses genoux ou s’appuie au bord de l’écran ; elle dort roulée
+  en boule et te fait coucou quand tu l’appelles. Elle partage aussi une pensée de temps en temps et a beaucoup plus
+  de phrases et de mouvements, donc elle se répète bien moins.
 - **Elle prend soin de toi et de ton téléphone :** elle te prévient quand ton téléphone est chargé et quand la
   batterie est faible, au pourcentage que tu choisis (*Réglages → Elle prend soin de toi* ou son menu → *Ton
   téléphone*). Et si tu es collé à l’écran depuis des heures, elle te dit de reposer tes yeux (toutes les 1, 2 ou 3

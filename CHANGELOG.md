@@ -6,16 +6,22 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 ## 1.8.0
 
 - **Su vestuario:** nuevo botón *Vestirla* en el menú rápido (también en *Ajustes → Vestuario* o diciéndole «Capri,
-  vístete»). Ahí le pones accesorios (corona, orejas de gato, cuernos, aureola, moño, flor, gorro navideño, sombrero
-  de bruja, audífonos, lentes, visor, bufanda, gargantilla), le cambias el color del cabello y de la máscara, le das
-  un aura y la haces más o menos transparente. Todo se ve en ella al momento y se queda guardado. Los conjuntos
-  completos (jinete del Oeste, uniforme escolar, piloto de mecha, cazadora de demonios, ninja, netrunner y más) ya
-  tienen su lugar y van llegando en las próximas versiones.
-- **Modo gamer más cómodo:** al activarlo se va a su esquina y se sienta a verte jugar, y puedes hacerla
-  semitransparente solo mientras juegas (*Vestuario → Efectos*).
-- **Más viva:** cambia de cara según lo que dice y lo que hace, se aburre si la dejas sola un rato (y se asoma desde
-  la orilla o hace algo para llamar tu atención), suelta pensamientos de vez en cuando y tiene muchas más frases y
-  movimientos, así que ya no repite tanto.
+  vístete»). 13 conjuntos completos: jinete del Oeste, uniforme escolar, piloto de mecha, cazadora de demonios, ninja,
+  netrunner, chaqueta amarilla, gótica, yukata, pijama, bruja y Navidad. Más de 20 accesorios para combinar (corona,
+  orejas de gato, cuernos, aureola, sombrero vaquero, gorro navideño, audífonos, lentes, visor, bufanda, katana,
+  control de videojuegos, globo de corazón…), el color de su cabello y de su máscara, un aura y qué tan transparente
+  es. Se mueve con todo puesto y se queda guardado.
+- **Cyberpunk: Edgerunners:** Capri es de la segunda temporada, así que el vestuario tiene su sección de la serie, con
+  conjuntos inspirados en las dos temporadas (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D.,
+  Kingsley, Roman Carax) y el efecto **Sandevistan**: estelas verdes, cian y violetas detrás de ella. Los conjuntos de
+  la serie van llegando; los que faltan salen con candado.
+- **Modo gamer más cómodo:** al activarlo se acuesta boca abajo arriba de tu pantalla, pataleando mientras te ve
+  jugar, y puedes hacerla semitransparente solo mientras juegas (*Vestuario → Efectos*). Tócala y se levanta.
+- **Más viva:** caras nuevas (enojada, triste, enamorada, pensativa, concentrada, aburrida, incómoda, guiño) según lo
+  que dice, destellos nuevos cuando algo le llega, y poses nuevas: cuando se aburre se tira boca arriba, se sienta
+  abrazando las rodillas o se recarga en la orilla de la pantalla; se duerme hecha bolita y te saluda cuando la
+  llamas. Además suelta pensamientos de vez en cuando y tiene muchas más frases y movimientos, así que ya no repite
+  tanto.
 - **Te cuida a ti y a tu teléfono:** te avisa cuando tu teléfono ya se cargó y cuando le queda poca batería, con el
   porcentaje que tú elijas (*Ajustes → Te cuida* o su menú → *Tu teléfono*). Y si llevas horas pegado a la pantalla,
   te dice que descanses la vista (cada 1, 2 o 3 horas, o nunca).
