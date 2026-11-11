@@ -263,10 +263,11 @@ export function moods({ cfg }) {
       nextAct = now + rand(40, 100) * 1000;
       // sometimes something longer, drawn cel by cel (poses.js): a snack, her phone, a dance, a Sandevistan dash
       const p = dev.poses;
-      const long = p ? ['eat', 'phone', 'dance', ...(cfg().look?.aura === 'sandevistan' ? ['sandevistan', 'sandevistan'] : [])].filter(p.has) : [];
+      const late = [23, 0, 1, 2, 3, 4, 5].includes(new Date().getHours());
+      const long = p ? ['eat', 'phone', 'dance', 'selfie', 'guitar', ...(late ? ['yawn', 'yawn'] : []), ...(cfg().look?.aura === 'sandevistan' ? ['sandevistan', 'sandevistan'] : [])].filter(p.has) : [];
       if (long.length && Math.random() < 0.15) {
         const name = pick(long);
-        p.play(name, name === 'sandevistan' ? {} : { hold: rand(9, 16) * 1000 });
+        p.play(name, ['sandevistan', 'yawn'].includes(name) ? {} : { hold: rand(9, 16) * 1000 });
         return;
       }
       capri.perform?.(pick(IDLE_ACTS), capri.towardCenter?.() || 1);

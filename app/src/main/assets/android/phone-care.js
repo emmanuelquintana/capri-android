@@ -162,7 +162,7 @@ export function phoneCare({ cfg }) {
     const minutes = Math.round((Date.now() - since) / 60000);
     const time = fill(w.breakTime, { h: Math.floor(minutes / 60), m: String(minutes % 60).padStart(2, '0') });
     tell(fill(pick(w.breakLines), { time }), {
-      face: 'look', act: 'stretch', hold: 20000,
+      face: 'look', act: 'stretch', anim: 'stretch', hold: 20000,
       actions: [{ id: 'pause', label: w.pause, primary: true }, { id: 'later', label: w.later }],
       onAction: (id) => {
         if (id === 'later') {

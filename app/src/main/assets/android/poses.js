@@ -9,7 +9,10 @@
 // stretching when she wakes), sprawled, hugging her knees or leaning on the edge when she's bored,
 // waving when you call her, dancing, laughing, crying, stomping, in love, shy, thinking while her AI
 // answers, hugging a battery while your phone charges, out of juice when it's low, eating, on her
-// phone, a Sandevistan dash. While she's in one, her real self (the sprite) steps aside and stays
+// phone, a Sandevistan dash. Part 5 (capri-prompts-1.8.0-parte5-animaciones.zip): scanning your
+// screen while her AI looks at it, a goodbye when you hide her, dizzy after a hard throw, bobbing to
+// your music on its card, stretching with you on a break, yawning late at night, hacking when she
+// opens something for you, surprised by a notification, selfies and air guitar now and then. While she's in one, her real self (the sprite) steps aside and stays
 // put; a tap on it, a word to her, her chat or anything she has to do brings her back.
 //
 // Only in her own suit (an outfit isn't drawn in these), and never with reduced motion.
@@ -50,9 +53,10 @@ export function poses({ cfg, wardrobe }) {
   let now = null; // { name, el, timer, until, onEnd, at }
   let lastEnd = 0; // when you last tapped her out of one: a while before the next
 
-  // (in gamer mode she's lying around in her corner already, and while you chat she may think: fine too)
-  const free = ({ lying = false, chat = false } = {}) => !capri.hidden && !capri.stowed && !capri.dormant && !capri.busy && !capri.dragging
-    && (!capri.act || lying) && (!capri.lounge || lying) && (chat || !dev.chat?.open) && !cfg().icon && !reduced.matches
+  // (in gamer mode she's lying around in her corner already, and while you chat she may think: fine too;
+  // and something that just happened to her (`now`) cuts into whatever move she was making)
+  const free = ({ lying = false, chat = false, now: right = false } = {}) => !capri.hidden && !capri.stowed && !capri.dormant && !capri.busy && !capri.dragging
+    && (!capri.act || lying || right) && (!capri.lounge || lying) && (chat || !dev.chat?.open) && !cfg().icon && !reduced.matches
     && ['stand', 'sit', ...(lying ? ['down'] : [])].includes(capri.stance) && (!cfg().look?.outfit || cfg().look.outfit === 'default');
 
   // where it goes: on her feet, or along the top of the screen, or against the nearest side
@@ -98,12 +102,12 @@ export function poses({ cfg, wardrobe }) {
   }
 
   // an animation: its strip, cel by cel
-  async function play(name, { hold = 0, times = 0, at = null, onEnd = null, lying = false, chat = false } = {}) {
+  async function play(name, { hold = 0, times = 0, at = null, onEnd = null, lying = false, chat = false, now: right = false } = {}) {
     await ready;
     const a = anims[name];
-    if (!a || now || !free({ lying, chat })) return false;
+    if (!a || now || !free({ lying, chat, now: right })) return false;
     const img = await load(`${ANIMS}${name}.png`);
-    if (!img || now || !free({ lying, chat })) return false;
+    if (!img || now || !free({ lying, chat, now: right })) return false;
     const el = document.createElement('div');
     el.className = 'capri-pose capri-anim';
     el.style.backgroundImage = `url("${dress(el, img)}")`;
@@ -143,6 +147,9 @@ export function poses({ cfg, wardrobe }) {
     if (srcs.length > 1) now.timer = setInterval(() => { i = (i + 1) % srcs.length; el.src = srcs[i]; }, every);
     return true;
   }
+
+  // the animation when it's in, else nothing (she does what she always did)
+  const cue = (name, opts = {}) => (has(name) ? play(name, { now: true, ...opts }) : Promise.resolve(false));
 
   // the animation when it's in, else the pose
   const either = (anim, poseName, opts = {}, poseOpts = {}) => (has(anim) ? play(anim, opts) : pose(poseName, { ...opts, ...poseOpts }));
@@ -195,6 +202,19 @@ export function poses({ cfg, wardrobe }) {
     };
   }
 
+  // thrown hard (or twice in a row): dizzy a moment, once she's back on her feet or a ledge
+  const throws = [];
+  const thrown = capri.onThrown;
+  capri.onThrown = (info = {}) => {
+    thrown?.(info);
+    const t = Date.now();
+    throws.push(t);
+    while (throws.length && t - throws[0] > 120000) throws.shift();
+    if (info.how !== 'leap' && throws.length < 3 && (throws.length === 2 || info.hard > 0.6)) {
+      setTimeout(() => cue('dizzy', { hold: 3800 }), 700);
+    }
+  };
+
   // anything for her to do: she's back (not what she was just told to do)
   const back = () => now && Date.now() - now.since > 400 && end();
   on('capri:heard', back);
@@ -207,6 +227,7 @@ export function poses({ cfg, wardrobe }) {
   return {
     play,
     pose,
+    cue,
     end,
     has,
     ready,

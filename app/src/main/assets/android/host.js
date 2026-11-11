@@ -662,6 +662,12 @@ async function hideSelf(b64, rects) {
   }
 }
 
+// opening something on your phone for you: a moment of her netrunning (poses.js), when it's drawn
+function hack() {
+  window.dev?.poses?.cue('hack', { times: 2 });
+  return true;
+}
+
 async function sayAboutSnap({ id, persona, prompt, history = [] }) {
   const snap = snaps.get(id);
   snaps.delete(id);
@@ -669,6 +675,7 @@ async function sayAboutSnap({ id, persona, prompt, history = [] }) {
   if (blind) return blind;
   if (!snap?.image) return { ok: false, error: 'the picture is gone' };
   const image = await hideSelf(snap.image, snap.self);
+  window.dev?.poses?.cue('scan', { hold: 9000, chat: true }); // (the picture is taken: she can stand in front now)
   // she isn't in the picture anymore: nothing to tell her about herself in it
   prompt = String(prompt).replace(/If you see a small figure[^.]*\.\s*/i, '');
   // on a phone it's often a video, a reel or a post: she reacts to it like a friend watching with you
@@ -1263,7 +1270,7 @@ window.host = {
     const item = launch.match(items, String(text || ''));
     return item && { ...item, risky: false };
   },
-  launch: (item) => call('apps:launch', item).then(() => ({ ok: true }), (err) => ({ ok: false, error: err.message })),
+  launch: (item) => hack() && call('apps:launch', item).then(() => ({ ok: true }), (err) => ({ ok: false, error: err.message })),
   media: ask('apps:media', false),
   music: (query) => launch.music(query).catch(() => false),
   youtube: (query) => launch.youtube(query).catch(() => null),
@@ -1274,9 +1281,10 @@ window.host = {
   webSearch: async (query) => {
     const q = String(query || '').trim().slice(0, 300);
     if (!q) return false;
+    hack();
     return call('open:url', { url: `https://www.google.com/search?q=${encodeURIComponent(q)}` }).then(() => true, () => false);
   },
-  openSite: (address) => launch.site(address).catch(() => false),
+  openSite: (address) => hack() && launch.site(address).catch(() => false),
   focusOverlay: (v) => send('overlay:focus', { on: Boolean(v) }),
 };
 

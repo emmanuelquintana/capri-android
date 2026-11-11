@@ -272,7 +272,10 @@ export class Notes {
     const fresh = playing && (wasHidden || !before?.playing || before.title !== title);
     if (fresh) {
       const line = fmt(pick(this.t.music), { title });
-      this.hop('music', () => this.say(line));
+      this.hop('music', () => {
+        this.say(line);
+        window.dev?.poses?.cue('music', { hold: 20000 }); // bobbing her head to it, when it's drawn
+      });
     }
   }
 
@@ -310,7 +313,7 @@ export class Notes {
     clearTimeout(this.noteTimer);
     this.noteTimer = setTimeout(() => this.hideNote(), NOTE_FOR);
     // she just jumps on it: a line of hers would cover the very card it's about
-    this.hop('note');
+    this.hop('note', () => window.dev?.poses?.cue('surprised', { times: 1 }));
   }
 
   hideNote() {

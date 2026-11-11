@@ -48,6 +48,17 @@ ANIMS = {
     'drained': (4, 1, 6, False, 'stand'),
     'eat': (4, 1, 6, True, 'sit'),
     'sandevistan': (3, 2, 10, False, 'stand'),
+    # part 5
+    'scan': (4, 1, 6, True, 'stand'),
+    'bye': (4, 1, 8, False, 'stand'),
+    'dizzy': (4, 1, 6, True, 'sit'),
+    'music': (4, 1, 6, True, 'sit'),
+    'stretch': (4, 1, 4, True, 'stand'),
+    'yawn': (4, 1, 6, False, 'stand'),
+    'hack': (4, 1, 8, True, 'stand'),
+    'surprised': (4, 1, 8, False, 'stand'),
+    'selfie': (4, 1, 4, True, 'stand'),
+    'guitar': (4, 2, 8, True, 'stand'),
 }
 ACC_IDS = {'cat-ears': 'catears', 'santa-hat': 'santahat', 'hat-cowboy': 'cowboyhat', 'heart-balloon': 'balloon'}
 

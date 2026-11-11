@@ -239,6 +239,7 @@ async function handle(text, { toggleVisible, visible }) {
 
   if (HIDE_ASK.test(text)) {
     answer(t.bye, 'aside');
+    window.dev?.poses?.cue('bye', { times: 1 }); // a wave and she glitches out, when it's drawn
     setTimeout(() => toggleVisible(false), 1800);
     return;
   }
