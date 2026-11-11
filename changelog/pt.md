@@ -22,6 +22,10 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   conforme o que ela diz, flashes novos quando algo mexe com ela, e poses novas: quando fica entediada ela se joga de
   costas, senta abraçando os joelhos ou se encosta na borda da tela; dorme enroladinha e acena quando você chama. Ela
   também solta pensamentos de vez em quando e tem muito mais frases e movimentos, então repete bem menos.
+- **Animada quadro a quadro, como anime:** ela acena, dança, ri, chora, bate o pé, fica corada, se apaixona,
+  pensa enquanto a IA dela te responde, abraça uma pilha enquanto o celular carrega, fica sem energia quando a
+  bateria está baixa, come, mexe no celular, se espreguiça ao acordar e dá uma arrancada de Sandevistan. No modo
+  gamer ela se deita em cima da tela e de vez em quando joga junto com você.
 - **Ela cuida de você e do seu celular:** avisa quando o celular já carregou e quando a bateria está acabando, na
   porcentagem que você escolher (*Ajustes → Ela cuida de você* ou o menu dela → *Seu celular*). E se você está grudado
   na tela há horas, ela manda você descansar a vista (a cada 1, 2 ou 3 horas, ou nunca).

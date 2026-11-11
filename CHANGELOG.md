@@ -23,6 +23,10 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   abrazando las rodillas o se recarga en la orilla de la pantalla; se duerme hecha bolita y te saluda cuando la
   llamas. Además suelta pensamientos de vez en cuando y tiene muchas más frases y movimientos, así que ya no repite
   tanto.
+- **Animada cuadro por cuadro, como anime:** saluda, baila, se ríe, llora, hace berrinche, se sonroja, se
+  enamora, piensa mientras su IA te contesta, abraza una pila mientras cargas tu teléfono, se queda sin pila cuando
+  está baja, come, se pone a ver su celular, se despereza al despertar y hace un arranque de Sandevistan. En modo
+  gamer se acuesta arriba de tu pantalla y a ratos se pone a jugar contigo.
 - **Te cuida a ti y a tu teléfono:** te avisa cuando tu teléfono ya se cargó y cuando le queda poca batería, con el
   porcentaje que tú elijas (*Ajustes → Te cuida* o su menú → *Tu teléfono*). Y si llevas horas pegado a la pantalla,
   te dice que descanses la vista (cada 1, 2 o 3 horas, o nunca).

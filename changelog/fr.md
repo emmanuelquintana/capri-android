@@ -23,6 +23,10 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   s’ennuie, elle s’étale sur le dos, s’assoit en serrant ses genoux ou s’appuie au bord de l’écran ; elle dort roulée
   en boule et te fait coucou quand tu l’appelles. Elle partage aussi une pensée de temps en temps et a beaucoup plus
   de phrases et de mouvements, donc elle se répète bien moins.
+- **Animée image par image, comme un anime :** elle salue, danse, rit, pleure, tape du pied, rougit, tombe
+  amoureuse, réfléchit pendant que son IA te répond, serre une pile pendant que ton téléphone charge, tombe à plat
+  quand la batterie est faible, mange, regarde son téléphone, s’étire au réveil et fait un sprint Sandevistan. En mode
+  gamer, elle s’allonge en haut de ton écran et joue parfois avec toi.
 - **Elle prend soin de toi et de ton téléphone :** elle te prévient quand ton téléphone est chargé et quand la
   batterie est faible, au pourcentage que tu choisis (*Réglages → Elle prend soin de toi* ou son menu → *Ton
   téléphone*). Et si tu es collé à l’écran depuis des heures, elle te dit de reposer tes yeux (toutes les 1, 2 ou 3

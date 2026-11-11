@@ -21,6 +21,10 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   says, new flashes when something gets to her, and new poses: when she’s bored she sprawls on her back, sits hugging
   her knees or leans on the edge of the screen; she sleeps curled up and waves when you call her. She also shares a
   thought now and then and has many more lines and moves, so she repeats herself much less.
+- **Animated frame by frame, like anime:** she waves, dances, laughs, cries, stomps, blushes, falls in love,
+  thinks while her AI answers you, hugs a battery while your phone charges, runs out of juice when it’s low, eats,
+  scrolls her phone, stretches when she wakes up and does a Sandevistan dash. In gamer mode she lies on top of your
+  screen and now and then plays along with you.
 - **She looks after you and your phone:** she tells you when your phone is charged and when its battery is low, at the
   percent you choose (*Settings → She looks after you* or her menu → *Your phone*). And if you’ve been glued to the
   screen for hours, she tells you to rest your eyes (every 1, 2 or 3 hours, or never).
