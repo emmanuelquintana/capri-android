@@ -6,15 +6,16 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 ## 1.8.0
 
 - **Su vestuario:** nuevo botón *Vestirla* en el menú rápido (también en *Ajustes → Vestuario* o diciéndole «Capri,
-  vístete»). 13 conjuntos completos: jinete del Oeste, uniforme escolar, piloto de mecha, cazadora de demonios, ninja,
-  netrunner, chaqueta amarilla, gótica, yukata, pijama, bruja y Navidad. Más de 20 accesorios para combinar (corona,
+  vístete»). 12 conjuntos completos: jinete del Oeste, uniforme escolar, piloto de mecha, cazadora de demonios, ninja,
+  netrunner, chaqueta amarilla, gótica, yukata, pijama, bruja y Navidad. 25 accesorios para combinar (corona,
   orejas de gato, cuernos, aureola, sombrero vaquero, gorro navideño, audífonos, lentes, visor, bufanda, katana,
   control de videojuegos, globo de corazón…), el color de su cabello y de su máscara, un aura y qué tan transparente
-  es. Se mueve con todo puesto y se queda guardado.
+  es. Mientras la vistes se sube encima del panel para que veas cada cambio en ella, se mueve con todo
+  puesto y se queda guardado. En *Ajustes* de la app tiene su presentación, con un botón para abrirlo.
 - **Cyberpunk: Edgerunners:** Capri es de la segunda temporada, así que el vestuario tiene su sección de la serie, con
   conjuntos inspirados en las dos temporadas (David, Lucy, Rebecca, Maine, Dorio, Kiwi, Pilar, Falco, Faraday, Adam
   Smasher, Gloria, Sasha, D., Talia Yang, Kingsley, Roman Carax, Avida y Kyoko), accesorios de la serie (la cruz de
-  David, la máscara de Kiwi, el monohilo de Lucy, la mochila de Roman), colores de melena menta y rosa pastel y el
+  David, la máscara de Kiwi, el monohilo de Lucy, la mochila de Roman), colores de melena menta y rosa y el
   efecto **Sandevistan**: estelas verdes, cian y violetas detrás de ella.
 - **Modo gamer más cómodo:** al activarlo se acuesta boca abajo arriba de tu pantalla, pataleando mientras te ve
   jugar, y puedes hacerla semitransparente solo mientras juegas (*Vestuario → Efectos*). Tócala y se levanta.

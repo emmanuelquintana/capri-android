@@ -249,4 +249,15 @@
     <string name="voice_rate">Velocidade da fala</string>
     <string name="voice_slower">Mais devagar</string>
     <string name="voice_faster">Mais rápido</string>
+    <!-- 1.8.0: her wardrobe, shown off in Settings -->
+    <string name="closet_tag">Guarda-roupa</string>
+    <string name="closet_new">NOVO NA 1.8</string>
+    <string name="closet_title">Vista ela do seu jeito</string>
+    <string name="closet_outfits">roupas</string>
+    <string name="closet_things">acessórios</string>
+    <string name="closet_anims">animações</string>
+    <string name="closet_how">Roupas do dia a dia e de Cyberpunk: Edgerunners (David, Lucy, Rebecca, Kiwi, Talia…), acessórios, cores da juba e da máscara, auras e o Sandevistan, e o quanto ela fica transparente. Enquanto você a veste, ela sobe em cima do painel para você ver cada mudança nela.</string>
+    <string name="closet_alive">E agora ela se mexe quadro a quadro, como no anime: dança, dorme encolhidinha, vê você jogar, ouve sua música com você, fica tonta se você a jogar…</string>
+    <string name="closet_where">Abra quando quiser: segure ela e toque em «Vestir», ou diga «Capri, se veste».</string>
+    <string name="closet_open">Abrir o guarda-roupa</string>
 </resources>

@@ -501,6 +501,11 @@ body {
 
 /* ---------- her wardrobe (wardrobe.js): a sheet from the bottom, four tabs, tiles ---------- */
 
+/* while you dress her she stands on the sheet, over its shade (and behind the sheet itself, so a
+   bigger her sitting on its edge never covers its tiles), so you see each change on her */
+body.is-dressing .capri,
+body.is-dressing .fx { z-index: 41; }
+
 .wardrobe {
   --frame: var(--yellow);
   --echo: var(--magenta, #ff2d6f);
@@ -510,7 +515,8 @@ body {
   bottom: 12px;
   transform: translateX(-50%);
   width: min(420px, calc(100vw - 16px));
-  max-height: min(62vh, 560px);
+  /* one height for every tab (no jumping when you switch), and room above it for her to stand on it */
+  height: min(58vh, 520px);
   display: flex;
   flex-direction: column;
   color: var(--paper);
@@ -571,6 +577,8 @@ body {
 }
 
 .wardrobe__body {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
   touch-action: pan-y;

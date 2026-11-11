@@ -250,4 +250,15 @@
     <string name="voice_rate">Скорость речи</string>
     <string name="voice_slower">Медленнее</string>
     <string name="voice_faster">Быстрее</string>
+    <!-- 1.8.0: her wardrobe, shown off in Settings -->
+    <string name="closet_tag">Гардероб</string>
+    <string name="closet_new">НОВОЕ В 1.8</string>
+    <string name="closet_title">Одень её по-своему</string>
+    <string name="closet_outfits">нарядов</string>
+    <string name="closet_things">аксессуаров</string>
+    <string name="closet_anims">анимаций</string>
+    <string name="closet_how">Повседневные наряды и наряды из Cyberpunk: Edgerunners (Дэвид, Люси, Ребекка, Киви, Талия…), аксессуары, цвета гривы и маски, ауры и Сандевистан, и насколько она прозрачная. Пока ты её одеваешь, она встаёт на панель — каждое изменение видно сразу.</string>
+    <string name="closet_alive">А ещё она теперь двигается покадрово, как в аниме: танцует, спит, свернувшись клубком, смотрит, как ты играешь, слушает с тобой музыку, кружится голова, если её бросить…</string>
+    <string name="closet_where">Открывай когда хочешь: зажми её и нажми «Наряды» или скажи «Капри, переоденься».</string>
+    <string name="closet_open">Открыть гардероб</string>
 </resources>

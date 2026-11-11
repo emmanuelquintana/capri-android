@@ -327,6 +327,13 @@ export class Notes {
   // The cards as windows: what capri.setWindows takes on the desktop.
   snapshot() {
     const wins = [];
+    // her wardrobe sheet while it's open (wardrobe.js): she stands on it to be dressed, in front of the rest
+    const sheet = document.querySelector('.wardrobe:not([hidden])');
+    if (sheet) {
+      // (where it rests: centered at the bottom; not where its little slide-in has it right now)
+      const w = sheet.offsetWidth, h = sheet.offsetHeight;
+      wins.push({ id: 'wardrobe', x: (innerWidth - w) / 2, y: sheet.offsetTop, w, h, max: false });
+    }
     for (const [id, el] of [['note', this.notice], ['music', this.music]]) {
       if (el.hidden || el.classList.contains('is-out')) continue;
       // where it rests, not where its slide-in has it right now (it starts off the right edge: she

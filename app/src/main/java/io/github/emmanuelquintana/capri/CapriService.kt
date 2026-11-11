@@ -138,6 +138,7 @@ class CapriService : Service() {
             ACTION_QUIT -> quit()
             ACTION_CHAT -> command("chat")
             ACTION_SETUP -> if (pageReady) command("setupChat") else queued = "setupChat"
+            ACTION_WARDROBE -> if (pageReady) command("wardrobe") else queued = "wardrobe"
             // debug builds only (the service isn't exported otherwise): what she'd hear, for tests
             ACTION_HEAR -> if (BuildConfig.DEBUG) overlay?.emit("capri:heard", JSONObject().put("text", intent.getStringExtra("text") ?: "").toString())
         }
@@ -327,6 +328,7 @@ class CapriService : Service() {
         const val ACTION_TOGGLE = "capri.TOGGLE"
         const val ACTION_QUIT = "capri.QUIT"
         const val ACTION_SETUP = "capri.SETUP"
+        const val ACTION_WARDROBE = "capri.WARDROBE" // the app's Settings: open her wardrobe on her
         const val ACTION_CHAT = "capri.CHAT"
         const val ACTION_HEAR = "capri.HEAR"
         private val FACES = setOf("aside", "calm", "laugh", "look", "many", "smug", "wide")

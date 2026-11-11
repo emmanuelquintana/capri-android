@@ -249,4 +249,15 @@
     <string name="voice_rate">Sa vitesse</string>
     <string name="voice_slower">Plus lent</string>
     <string name="voice_faster">Plus rapide</string>
+    <!-- 1.8.0: her wardrobe, shown off in Settings -->
+    <string name="closet_tag">Garde-robe</string>
+    <string name="closet_new">NOUVEAU EN 1.8</string>
+    <string name="closet_title">Habille-la à ta façon</string>
+    <string name="closet_outfits">tenues</string>
+    <string name="closet_things">accessoires</string>
+    <string name="closet_anims">animations</string>
+    <string name="closet_how">Des tenues de tous les jours et de Cyberpunk: Edgerunners (David, Lucy, Rebecca, Kiwi, Talia…), des accessoires, les couleurs de sa crinière et de son masque, des auras et le Sandevistan, et sa transparence. Pendant que tu l’habilles, elle monte sur le panneau : tu vois chaque changement sur elle.</string>
+    <string name="closet_alive">Et maintenant elle bouge image par image, comme dans l’anime : elle danse, dort en boule, te regarde jouer, écoute ta musique avec toi, a le tournis si tu la lances…</string>
+    <string name="closet_where">Ouvre-la quand tu veux : garde-la appuyée et touche « L’habiller », ou dis « Capri, habille-toi ».</string>
+    <string name="closet_open">Ouvrir sa garde-robe</string>
 </resources>

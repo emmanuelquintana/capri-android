@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -434,6 +435,8 @@ class MainActivity : Activity() {
     // ---------- Settings ----------
 
     private fun settingsPage() = page {
+        // new in 1.8: her wardrobe, shown off first
+        addView(wardrobeCard(), ui.block(0))
         // the app's language, and hers (written in both, so it's found whatever the app is in)
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_lang)))
@@ -447,7 +450,7 @@ class MainActivity : Activity() {
                     postDelayed({ recreate() }, 350)
                 }, ui.block(if (n == 0) 8 else 4))
             }
-        }, ui.block(0))
+        }, ui.block(16))
 
         // what she calls you
         addView(ui.card(Hud.YELLOW).apply {
@@ -843,6 +846,87 @@ class MainActivity : Activity() {
                 runOnUiThread { updateBtn.isEnabled = true }
             }
         }.start()
+    }
+
+    // 1.8: her wardrobe, shown off. Her looks one after another on a little stage (assets/android/showcase,
+    // drawn by her own shader), what's in it, how to open it, and a button that opens it on her.
+    private fun wardrobeCard() = ui.card(Hud.YELLOW, Hud.MANE).apply {
+        val top = ui.row()
+        top.addView(ui.label(getString(R.string.closet_tag), Hud.YELLOW), LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+        top.addView(ui.text(getString(R.string.closet_new), 10f, Hud.INK, ui.mono).apply {
+            letterSpacing = 0.12f
+            background = Hud.Plate(Hud.GREEN, Hud.GREEN, cut = ui.dp(5f), stroke = 0f, offset = 0f)
+            setPadding(ui.dpi(8), ui.dpi(4), ui.dpi(10), ui.dpi(4))
+        })
+        addView(top)
+        addView(ui.text(getString(R.string.closet_title), 26f, Hud.PAPER, ui.head).apply { includeFontPadding = false }, ui.block(10))
+
+        // the stage: one look after another, each coming in with her glitch
+        val looks = runCatching { assets.list("android/showcase")?.filter { it.endsWith(".webp") }?.sorted() }.getOrNull().orEmpty()
+        if (looks.isNotEmpty()) {
+            val stage = FrameLayout(this@MainActivity).apply {
+                background = Hud.Plate(Hud.INK, Hud.LINE_STRONG, cut = ui.dp(12f), stroke = ui.dp(1f), offset = 0f)
+                setPadding(ui.dpi(6), ui.dpi(10), ui.dpi(6), ui.dpi(6))
+            }
+            val pic = ImageView(this@MainActivity).apply { scaleType = ImageView.ScaleType.FIT_CENTER }
+            stage.addView(pic, FrameLayout.LayoutParams(MATCH_PARENT, ui.dpi(250)))
+            val count = ui.text("", 10f, Hud.PAPER_3, ui.mono).apply { letterSpacing = 0.12f }
+            stage.addView(count, FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.BOTTOM or Gravity.END).apply {
+                rightMargin = ui.dpi(6); bottomMargin = ui.dpi(2)
+            })
+            var i = 0
+            fun show() {
+                val bmp = runCatching { assets.open("android/showcase/" + looks[i]).use { BitmapFactory.decodeStream(it) } }.getOrNull()
+                if (bmp != null) pic.setImageBitmap(bmp)
+                count.text = String.format("%02d / %02d", i + 1, looks.size)
+                ui.glitchIn(pic)
+            }
+            show()
+            val next = object : Runnable {
+                override fun run() {
+                    if (!pic.isAttachedToWindow) return
+                    if (pic.isShown) { i = (i + 1) % looks.size; show() }
+                    pic.postDelayed(this, 2200)
+                }
+            }
+            pic.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+                override fun onViewAttachedToWindow(v: View) { pic.removeCallbacks(next); pic.postDelayed(next, 2200) }
+                override fun onViewDetachedFromWindow(v: View) { pic.removeCallbacks(next) }
+            })
+            stage.isClickable = true
+            stage.setOnClickListener { i = (i + 1) % looks.size; show() } // a tap: the next one now
+            addView(stage, ui.block(12))
+        }
+
+        // what's in it, in three numbers
+        val stats = ui.row()
+        for ((n, word) in listOf("32" to R.string.closet_outfits, "25" to R.string.closet_things, "30" to R.string.closet_anims)) {
+            stats.addView(ui.col().apply {
+                gravity = Gravity.CENTER_HORIZONTAL
+                background = Hud.Plate(Hud.INK_2, Hud.LINE_STRONG, cut = ui.dp(6f), stroke = ui.dp(1f), offset = 0f)
+                setPadding(ui.dpi(4), ui.dpi(8), ui.dpi(4), ui.dpi(8))
+                addView(ui.text(n, 24f, Hud.YELLOW, ui.head).apply { gravity = Gravity.CENTER; includeFontPadding = false })
+                addView(ui.text(getString(word), 11f, Hud.PAPER_2, ui.mono).apply { gravity = Gravity.CENTER })
+            }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply { if (stats.childCount > 0) leftMargin = ui.dpi(8) })
+        }
+        addView(stats, ui.block(12))
+
+        addView(ui.text(getString(R.string.closet_how), 14f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.18f) }, ui.block(12))
+        addView(ui.text(getString(R.string.closet_alive), 14f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.18f) }, ui.block(8))
+        addView(ui.text(getString(R.string.closet_where), 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.18f) }, ui.block(10))
+        addView(ui.button(getString(R.string.closet_open) + " ›", Ui.Kind.MAIN) { openWardrobe() }, ui.block(14))
+    }
+
+    /** Her wardrobe, open on her over whatever is on screen: she starts first if she isn't on yet. */
+    private fun openWardrobe() {
+        if (!Settings.canDrawOverlays(this)) {
+            Toast.makeText(this, R.string.ob_need_overlay, Toast.LENGTH_LONG).show()
+            show(2)
+            return
+        }
+        if (CapriService.running) CapriService.send(this, CapriService.ACTION_WARDROBE)
+        else CapriService.start(this, CapriService.ACTION_WARDROBE)
+        moveTaskToBack(true)
     }
 
     /** Her setup panel, over whatever is on screen: she starts first if she isn't on yet. */

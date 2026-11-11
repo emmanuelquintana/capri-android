@@ -111,7 +111,7 @@ const MANES = [
   ['default', null, '#fc0346'], ['violet', 0.76, '#8a3cff'], ['blue', 0.62, '#2a5bff'], ['cyan', 0.5, '#00e5ff'],
   ['gold', 0.12, '#ffc21a'], ['green', 0.36, '#1fe36a'], ['silver', 'gray', '#d7d7e3'], ['shadow', 'dark', '#2a2236'],
   // (Edgerunners: Rebecca's mint, Talia's pastel pink)
-  ['mint', 0.44, '#7df5c8'], ['pink', 0.9, '#ff8fc8'],
+  ['mint', 0.44, '#7df5c8'], ['pink', 0.84, '#ff4fc0'], // (her shader pulls any red toward her own: 0.84 ends up pink)
 ];
 const MASKS = [
   ['default', null, '#08f467'], ['cyan', 0.5, '#00e5ff'], ['violet', 0.76, '#8a3cff'], ['gold', 0.12, '#ffc21a'], ['white', 'gray', '#f2f2f7'], ['red', 0.98, '#ff1744'],
@@ -423,18 +423,51 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
 
   // ---------- her sheet ----------
   let el = null, shade = null, tab = 'outfits';
+  let from = null; // where she was before she came up onto the sheet
   function open() {
     if (!el) build();
     render();
     el.hidden = false;
     shade.hidden = false;
+    document.body.classList.add('is-dressing');
     onToggle?.();
+    requestAnimationFrame(() => requestAnimationFrame(onStage));
   }
   function close() {
     if (!el || el.hidden) return;
     el.hidden = true;
     shade.hidden = true;
+    document.body.classList.remove('is-dressing');
     onToggle?.();
+    offStage();
+  }
+  // While you dress her she stands on top of her sheet (or sits on it, when she's too big to stand
+  // there), lit above its shade: every tap shows on her at once. She jumps back down when it closes.
+  function onStage() {
+    const dev = window.dev;
+    const capri = dev?.capri;
+    from = null;
+    if (!capri || !el || el.hidden || capri.hidden || capri.stowed || capri.dormant || cfg().icon || cfg().gamer) return;
+    dev.notes?.feed(); // the sheet, as a ledge for her (notes.js snapshot)
+    const r = { left: (innerWidth - el.offsetWidth) / 2, top: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight };
+    const win = { id: 'wardrobe', x: r.left, y: r.top, w: r.width, h: r.height, max: false };
+    from = { x: capri.pos.x, y: capri.pos.y, stance: capri.stance };
+    const dx = r.width * 0.5;
+    if (r.top - 420 * capri.scale > 28) {
+      capri.teleport({ x: r.left + dx, y: r.top + 2 }, { stance: 'stand', perch: { id: 'wardrobe', dx }, face: 1 });
+    } else if (capri.canSit?.(win)) capri.sitOn({ win, dx });
+    else from = null;
+  }
+  function offStage() {
+    const dev = window.dev;
+    const capri = dev?.capri;
+    dev?.notes?.feed();
+    if (!capri || !from) return;
+    const back = from;
+    from = null;
+    if (capri.perch?.id === 'wardrobe' || Math.abs(capri.pos.y - back.y) > 4) {
+      capri.teleport({ x: back.x, y: capri.floor ?? back.y }, { stance: 'stand', perch: null, face: capri.facing });
+    }
   }
   function build() {
     shade = document.createElement('div');
@@ -575,7 +608,11 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     c.width = 60;
     c.height = 96;
     const g = c.getContext('2d');
-    if (img) g.drawImage(img, 0, 0, img.naturalWidth || img.width, img.naturalHeight || img.height, 2, 0, 56, 96);
+    if (img) {
+      g.filter = 'brightness(1.3) saturate(1.2)'; // (as bright as her shader shows it on her)
+      g.drawImage(img, 0, 0, img.naturalWidth || img.width, img.naturalHeight || img.height, 2, 0, 56, 96);
+      g.filter = 'none';
+    }
     else {
       g.globalAlpha = 0.25;
       g.drawImage(original, 2, 0, 56, 96);

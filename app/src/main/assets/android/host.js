@@ -1088,6 +1088,11 @@ on('capri:command', (cmd) => {
   if (cmd?.name === 'menu') return openMenu();
   if (cmd?.name === 'toggle') return toggleVisible();
   if (cmd?.name === 'demo') return playDemo();
+  // the app's Settings (its wardrobe card): out if she's put away, then her wardrobe on her
+  if (cmd?.name === 'wardrobe') {
+    if (cfg.visible === false || window.dev?.capri?.hidden) toggleVisible(true);
+    return setTimeout(() => closet?.open(), 700);
+  }
   for (const fn of listeners.command) fn(cmd);
 });
 
@@ -1390,6 +1395,7 @@ ready.then(() => {
     moods({ cfg: () => cfg });
     closet = wardrobe({ cfg: () => cfg, setConfig: updateConfig, onToggle: () => setTimeout(blur, 0) });
     window.dev.wardrobe = closet;
+    window.dev.notes = notes; // (her wardrobe sheet joins its cards as a ledge for her)
     window.dev.poses = poses({ cfg: () => cfg, wardrobe: closet });
     window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
   }, 300);
