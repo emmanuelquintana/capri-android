@@ -112,7 +112,9 @@ export function poses({ cfg, wardrobe }) {
     el.className = 'capri-pose capri-anim';
     el.style.backgroundImage = `url("${dress(el, img)}")`;
     el.style.backgroundSize = `${a.n * 100}% 100%`;
-    place(el, a.w, a.h, KIND_SIZE[a.kind] || KIND_SIZE.stand, name, at);
+    // (`body`: how much of the strip's height is her when she just stands, for the ones she jumps or reaches up in)
+    const k = KIND_SIZE[a.kind] || KIND_SIZE.stand;
+    place(el, a.w, a.h, a.body && k.h ? { h: k.h / a.body } : k, name, at);
     // once through (or `times` times), unless it loops: then for `hold` ms, or until something brings her back
     const runs = a.loop ? times : Math.max(1, times);
     const total = runs ? runs * a.n : 0;

@@ -60,6 +60,9 @@ ANIMS = {
     'selfie': (4, 1, 4, True, 'stand'),
     'guitar': (4, 2, 8, True, 'stand'),
 }
+# the cel where she just stands there, for the ones she jumps or reaches up in: her real height is that cel's,
+# not the whole box's (else she looks smaller in them than in the rest)
+REST = {'surprised': 3, 'stretch': 3}
 ACC_IDS = {'cat-ears': 'catears', 'santa-hat': 'santahat', 'hat-cowboy': 'cowboyhat', 'heart-balloon': 'balloon'}
 
 FULL = Image.open(os.path.join(ROOT, 'capri-full.png')).convert('RGBA')
@@ -203,6 +206,7 @@ def anim(name, im):
     boxes = [c.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox() for c in cels]
     boxes = [b for b in boxes if b]
     box = (min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes))
+    rest = boxes[REST[name]] if name in REST and len(boxes) > REST[name] else None
     cels = [c.crop(box) for c in cels]
     w, h = cels[0].size
     k = min(1, (360 / h) if kind != 'lie' else (440 / w))
@@ -216,6 +220,8 @@ def anim(name, im):
     listing = os.path.join(ANIMS_DIR, 'anims.json')
     known = json.load(open(listing)) if os.path.exists(listing) else {}
     known[name] = {'n': len(cels), 'w': w, 'h': h, 'fps': fps, 'loop': loop, 'kind': kind}
+    if rest:
+        known[name]['body'] = round((rest[3] - rest[1]) / (box[3] - box[1]), 3)
     json.dump(dict(sorted(known.items())), open(listing, 'w'), indent=1)
     return strip, path
 
