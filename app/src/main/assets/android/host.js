@@ -35,6 +35,8 @@ import { poses } from './poses.js';
 import { wedding } from './wedding.js';
 import { reactions } from './react.js';
 import { hearing } from './hearing.js';
+import { sharing } from './share.js';
+import { translating } from './translate.js';
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
 const llm = load('llm');
@@ -731,7 +733,7 @@ async function sayAboutSnap({ id, persona, prompt, history = [] }) {
   // she isn't in the picture anymore: nothing to tell her about herself in it
   prompt = String(prompt).replace(/If you see a small figure[^.]*\.\s*/i, '');
   // on a phone it's often a video, a reel or a post: she reacts to it like a friend watching with you
-  prompt = `${prompt}\n(On a phone: if it's a video, a reel or a post, TikTok, Instagram, YouTube or the like, react to what happens in it or what it says, like a friend watching it with them. Never describe the phone's own buttons or bars, nor flat patches of color.)`;
+  if (!snap.shared) prompt = `${prompt}\n(On a phone: if it's a video, a reel or a post, TikTok, Instagram, YouTube or the like, react to what happens in it or what it says, like a friend watching it with them. Never describe the phone's own buttons or bars, nor flat patches of color.)`;
   const before = (Array.isArray(history) ? history : []).filter((m) => typeof m?.content === 'string' && ['user', 'assistant'].includes(m.role)).slice(-12);
   const models = lookModels();
   if (!models.length) return { ok: false, code: 'novision', model: pickModel(cfg) };
@@ -1214,6 +1216,13 @@ window.host = {
   chatMemory: after(() => readMemory().history || []),
   chatRemember: (history) => Array.isArray(history) && saveMemory({ history }),
   onChatDelta: (fn) => on('chat:delta', fn),
+  // a picture that isn't your screen (shared with her: share.js): looked at like a snap
+  lookPut: (image) => {
+    const id = crypto.randomUUID();
+    snaps.set(id, { image: String(image || ''), self: [], shared: true });
+    setTimeout(() => snaps.delete(id), 120000);
+    return id;
+  },
   lookSnap: after(async () => {
     try {
       if (await cantSee()) return { ok: true, id: 'blind' }; // she says why when she'd comment (lookSay)
@@ -1458,6 +1467,8 @@ ready.then(() => {
     window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
     reactions({ cfg: () => cfg }); // her reactions to your music, videos, games (react.js)
     window.dev.hearing = hearing(); // she's listening: her sign while you talk to her
+    sharing(); // pictures and videos shared with her from other apps (share.js)
+    window.dev.translate = translating(); // "tradúceme esto": your screen, in the language you want
   }, 300);
 });
 

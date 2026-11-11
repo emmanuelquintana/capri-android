@@ -261,4 +261,7 @@
     <string name="closet_where">Ouvre-la quand tu veux : garde-la appuyée et touche « L’habiller », ou dis « Capri, habille-toi ».</string>
     <string name="closet_open">Ouvrir sa garde-robe</string>
     <string name="closet_on_screen">L’habiller sur ton écran</string>
+    <string name="share_target">Montrer à Capri</string>
+    <string name="share_sending">Je l’envoie à Capri…</string>
+    <string name="share_failed">Capri n’a pas pu ouvrir ça</string>
 </resources>

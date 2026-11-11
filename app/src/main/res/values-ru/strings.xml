@@ -262,4 +262,7 @@
     <string name="closet_where">Открывай когда хочешь: зажми её и нажми «Наряды» или скажи «Капри, переоденься».</string>
     <string name="closet_open">Открыть гардероб</string>
     <string name="closet_on_screen">Одеть на экране</string>
+    <string name="share_target">Показать Капри</string>
+    <string name="share_sending">Отправляю Капри…</string>
+    <string name="share_failed">Капри не смогла это открыть</string>
 </resources>

@@ -261,4 +261,7 @@
     <string name="closet_where">Ábrelo cuando quieras: mantenla presionada y toca «Vestirla», o dile «Capri, vístete».</string>
     <string name="closet_open">Abrir su vestuario</string>
     <string name="closet_on_screen">Vestirla en tu pantalla</string>
+    <string name="share_target">Enseñárselo a Capri</string>
+    <string name="share_sending">Se lo paso a Capri…</string>
+    <string name="share_failed">Capri no pudo abrir eso</string>
 </resources>

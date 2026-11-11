@@ -69,6 +69,23 @@
             android:noHistory="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <!-- Compartir → Capri: a picture, a video or a text from any app, to her chat -->
+        <activity
+            android:name=".ShareActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:label="@string/share_target"
+            android:icon="@mipmap/ic_launcher"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="video/*" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".ClosetActivity"
             android:exported="false" />

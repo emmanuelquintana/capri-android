@@ -139,6 +139,8 @@ class CapriService : Service() {
             ACTION_CHAT -> command("chat")
             ACTION_SETUP -> if (pageReady) command("setupChat") else queued = "setupChat"
             ACTION_WARDROBE -> if (pageReady) command("wardrobe") else queued = "wardrobe"
+            // something shared with her (ShareActivity): her page takes it (share.js)
+            ACTION_SHARE -> if (pageReady) shared() else shareQueued = true
             // debug builds only (the service isn't exported otherwise): what she'd hear, for tests
             ACTION_HEAR -> if (BuildConfig.DEBUG) overlay?.emit("capri:heard", JSONObject().put("text", intent.getStringExtra("text") ?: "").toString())
             // (as if your phone were playing something, or that kind of app were in front: react.js)
@@ -156,7 +158,11 @@ class CapriService : Service() {
         pageReady = true
         // after her intro, so her panel doesn't land on top of her first hello
         queued?.let { queued = null; android.os.Handler(mainLooper).postDelayed({ command(it) }, 6000) }
+        if (shareQueued) { shareQueued = false; android.os.Handler(mainLooper).postDelayed({ shared() }, 6000) }
     }
+
+    private var shareQueued = false
+    private fun shared() = overlay?.emit("share:in", "{}")
 
     private fun command(name: String) = overlay?.emit("capri:command", JSONObject().put("name", name).toString())
 
@@ -334,6 +340,7 @@ class CapriService : Service() {
         const val ACTION_CHAT = "capri.CHAT"
         const val ACTION_HEAR = "capri.HEAR"
         const val ACTION_SENSE = "capri.SENSE"
+        const val ACTION_SHARE = "capri.SHARE"
         private val FACES = setOf("aside", "calm", "laugh", "look", "many", "smug", "wide")
 
         fun start(context: Context, action: String? = null) {

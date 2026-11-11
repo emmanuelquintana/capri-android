@@ -262,4 +262,7 @@
     <string name="closet_where">Open it any time: hold her and tap “Dress her”, or say “Capri, get dressed”.</string>
     <string name="closet_open">Open her wardrobe</string>
     <string name="closet_on_screen">Dress her on your screen</string>
+    <string name="share_target">Show to Capri</string>
+    <string name="share_sending">Sending it to Capri…</string>
+    <string name="share_failed">Capri couldn’t open that</string>
 </resources>

@@ -333,6 +333,13 @@ async function handle(text, { toggleVisible, visible }) {
   // her chat open: what you said goes into it, as if you typed it
   if (chat.open) return chat.send(text);
 
+  // "Capri, tradúceme esto": in her chat, where a translation can be read (translate.js)
+  if (dev.translate?.wants(text)) {
+    await chat.start();
+    if (chat.open) chat.send(text);
+    return;
+  }
+
   // what her chat does right away when you ask it plainly (music, volume, an app, a timer…)
   const asked = chat.asked(text);
   // "Capri, mira mi pantalla": her look (Android asks first)
