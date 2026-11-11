@@ -46,6 +46,17 @@ class ClosetActivity : Activity() {
 
                 // nothing but her own page here
                 override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) = true
+
+                // (1.9.0) its page crashed or was killed for memory: this screen closes, not the whole app
+                // (without this, Android takes the app down with the page)
+                override fun onRenderProcessGone(view: WebView, detail: android.webkit.RenderProcessGoneDetail): Boolean {
+                    Diag.add("W", "closet: page gone (crash: ${detail.didCrash()})")
+                    if (web === view) web = null
+                    (view.parent as? android.view.ViewGroup)?.removeView(view)
+                    view.destroy()
+                    if (!isFinishing) finish()
+                    return true
+                }
             }
             webChromeClient = object : WebChromeClient() {
                 override fun onConsoleMessage(m: ConsoleMessage): Boolean {
