@@ -13,7 +13,7 @@
     <string name="main_start">Allumer Capri</string>
     <string name="main_stop">Éteindre Capri</string>
     <string name="main_ok">C’est bon</string>
-    <string name="main_license">Portage Android de capri-desktop, par mochiiwuff. Gratuit, jamais à vendre (PolyForm Noncommercial 1.0.0). Capri, Cyberpunk et Cyberpunk: Edgerunners appartiennent à CD PROJEKT RED, Studio Trigger et Netflix.</string>
+    <string name="main_license_link">Licence</string>
     <string name="hooks_copied">Commande copiée. Colle-la dans Termux et appuie sur Entrée.</string>
     <string name="main_overlay">Afficher par-dessus les autres applis</string>
     <string name="main_notify">Afficher sa notification</string>

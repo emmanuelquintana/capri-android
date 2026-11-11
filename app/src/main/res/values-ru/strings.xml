@@ -13,7 +13,7 @@
     <string name="main_start">Включить Капри</string>
     <string name="main_stop">Выключить Капри</string>
     <string name="main_ok">Готово</string>
-    <string name="main_license">Android-версия capri-desktop от mochiiwuff. Бесплатно, никогда не продаётся (PolyForm Noncommercial 1.0.0). Капри, Cyberpunk и Cyberpunk: Edgerunners принадлежат CD PROJEKT RED, Studio Trigger и Netflix.</string>
+    <string name="main_license_link">Лицензия</string>
     <string name="hooks_copied">Команда скопирована. Вставь её в Termux и нажми Enter.</string>
     <string name="main_overlay">Поверх других приложений</string>
     <string name="main_notify">Показывать её уведомление</string>

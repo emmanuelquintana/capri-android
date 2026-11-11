@@ -342,7 +342,27 @@ class MainActivity : Activity() {
             addView(card, ui.block(10))
         }
 
-        addView(ui.text(getString(R.string.main_license), 11f, Hud.PAPER_3, ui.body).apply { setLineSpacing(0f, 1.2f) }, ui.block(24))
+        // (1.8.2, Emma: no credit line here) the license and its Required Notice stay a tap away, as on the web
+        addView(ui.text(getString(R.string.main_license_link), 11f, Hud.PAPER_3, ui.mono).apply {
+            letterSpacing = 0.08f
+            isClickable = true
+            setPadding(0, ui.dpi(6), 0, ui.dpi(6))
+            setOnClickListener { showLicense() }
+        }, ui.block(24))
+    }
+
+    /** The license (assets/capri/LICENSE, with its Required Notice), in full. */
+    private fun showLicense() {
+        val text = runCatching { assets.open("capri/LICENSE").bufferedReader().use { it.readText() } }.getOrDefault("")
+        val body = ui.text(text, 11f, Hud.PAPER_2, ui.mono).apply {
+            setPadding(ui.dpi(20), ui.dpi(16), ui.dpi(20), ui.dpi(16))
+            setTextIsSelectable(true)
+        }
+        android.app.AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
+            .setTitle(getString(R.string.main_license_link))
+            .setView(ScrollView(this).apply { setBackgroundColor(Hud.INK); addView(body) })
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
     }
 
     /** "- **Title:** the rest" → a spark, the title in her display face, the rest as body text. */
