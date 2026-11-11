@@ -2,7 +2,7 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
-## 1.9.0
+## 1.8.1
 
 - **La garde-robe, aussi comme écran de l’app :** *Réglages → Ouvrir sa garde-robe* ouvre maintenant son propre
   écran, avec Capri sur une scène en haut et les tenues, accessoires et effets en dessous. Chaque changement se voit

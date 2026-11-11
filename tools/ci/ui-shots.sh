@@ -91,7 +91,7 @@ shot 14-settings-tab 2
 # 1.8: the wardrobe's presentation opens Settings; the language card is under it
 adb shell input swipe 500 1800 500 700 300
 shot 14w-settings-wardrobe 2
-# 1.9: her Vestuario as a screen of its own (ClosetActivity), then back
+# 1.8.1: her Vestuario as a screen of its own (ClosetActivity), then back
 tap "abrir su vestuario"
 shot 14x-closet 5
 adb shell input keyevent KEYCODE_BACK

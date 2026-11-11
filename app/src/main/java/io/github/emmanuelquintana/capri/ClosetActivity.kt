@@ -17,7 +17,7 @@ import android.widget.Toast
 import org.json.JSONObject
 
 /**
- * Her Vestuario as a screen of its own, inside the app (1.9.0): the same sheet as over your screen
+ * Her Vestuario as a screen of its own, inside the app (1.8.1): the same sheet as over your screen
  * (assets/android/closet.html + wardrobe.js), with her on a little stage above it. What you pick is
  * saved as her page saves it (config.json's `look`) and, if she's on, she changes at once. From here
  * you can also dress her the other way, over your screen.

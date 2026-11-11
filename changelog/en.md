@@ -2,7 +2,7 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
-## 1.9.0
+## 1.8.1
 
 - **The wardrobe, now also as a screen in the app:** *Settings → Open her wardrobe* now opens its own screen, with
   Capri on a stage at the top and the outfits, accessories and effects below. Every change shows on her right away
