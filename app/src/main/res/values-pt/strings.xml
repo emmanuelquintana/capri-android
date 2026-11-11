@@ -279,4 +279,6 @@
     <string name="accent_pt">Portugal</string>
     <string name="accent_fr">França</string>
     <string name="accent_ca">Quebec</string>
+    <string name="settings_game_tips">Dicas enquanto você joga</string>
+    <string name="settings_game_tips_how">No modo gamer, com o olhar ao vivo ligado (ela está vendo sua tela), a cada poucos minutos ela te dá uma dica pro jogo aberto. Também dá pra pedir quando quiser: “Capri, me dá uma dica”, “o que eu faço aqui?”. A IA dela precisa conseguir ver imagens.</string>
 </resources>

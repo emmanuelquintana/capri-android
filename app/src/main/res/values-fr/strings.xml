@@ -279,4 +279,6 @@
     <string name="accent_pt">Portugal</string>
     <string name="accent_fr">France</string>
     <string name="accent_ca">Québec</string>
+    <string name="settings_game_tips">Conseils pendant que tu joues</string>
+    <string name="settings_game_tips_how">En mode gamer, avec son regard en direct activé (elle voit ton écran), toutes les quelques minutes elle te donne un conseil pour ton jeu. Tu peux aussi lui demander quand tu veux : « Capri, un conseil », « qu’est-ce que je fais ? ». Son IA doit pouvoir voir les images.</string>
 </resources>

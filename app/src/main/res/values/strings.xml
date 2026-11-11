@@ -280,4 +280,6 @@
     <string name="accent_pt">Portugal</string>
     <string name="accent_fr">France</string>
     <string name="accent_ca">Québec</string>
+    <string name="settings_game_tips">Tips while you play</string>
+    <string name="settings_game_tips_how">In gamer mode, with her live look on (she’s watching your screen), every few minutes she gives you a tip for the game you’re playing. You can also ask her any time: “Capri, give me a tip”, “what do I do here?”. Her AI has to see pictures.</string>
 </resources>

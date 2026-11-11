@@ -589,6 +589,11 @@ class MainActivity : Activity() {
                     runCatching { startActivity(Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS)) }
                 }
             }, ui.block(6))
+            // her tips while you play (1.9.0: coach.js)
+            addView(ui.text(getString(R.string.settings_game_tips), 13f, Hud.PAPER, ui.head), ui.block(12))
+            addView(ui.text(getString(R.string.settings_game_tips_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { Store(this@MainActivity).configFlag("gameTips", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "gameTips", it) }, ui.block(6))
             // her music card: always while a song plays, a while after each change, or never
             addView(ui.text(getString(R.string.settings_music), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(choice(listOf(R.string.music_always to "always", R.string.music_while to "while", R.string.music_off to "off"),

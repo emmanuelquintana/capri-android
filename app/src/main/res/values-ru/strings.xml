@@ -280,4 +280,6 @@
     <string name="accent_pt">Португалия</string>
     <string name="accent_fr">Франция</string>
     <string name="accent_ca">Квебек</string>
+    <string name="settings_game_tips">Советы в игре</string>
+    <string name="settings_game_tips_how">В игровом режиме, когда включён её живой взгляд (она видит твой экран), каждые несколько минут она даёт совет по игре. Можно и просто попросить: «Капри, дай совет», «что мне делать?». Её ИИ должен уметь видеть картинки.</string>
 </resources>

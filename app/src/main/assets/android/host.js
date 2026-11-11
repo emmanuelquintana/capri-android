@@ -37,6 +37,7 @@ import { reactions } from './react.js';
 import { hearing } from './hearing.js';
 import { sharing } from './share.js';
 import { translating } from './translate.js';
+import { coaching } from './coach.js';
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
 const llm = load('llm');
@@ -1418,6 +1419,7 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.voicePitch === 'number') updateConfig({ voicePitch: Math.min(2, Math.max(0.5, p.voicePitch)) });
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
+  if ('gameTips' in p) updateConfig({ gameTips: Boolean(p.gameTips) });
   if (p.musicStay) updateConfig({ musicStay: String(p.musicStay) });
   if (('musicCard' in p || p.musicStay) && notes) notes.refreshMusic(); // shown or hidden now
   if ('watchScreen' in p) sendCommand('watchScreen', { on: Boolean(p.watchScreen) });
@@ -1471,6 +1473,7 @@ ready.then(() => {
     window.dev.hearing = hearing(); // she's listening: her sign while you talk to her
     sharing(); // pictures and videos shared with her from other apps (share.js)
     window.dev.translate = translating(); // "tradúceme esto": your screen, in the language you want
+    window.dev.coach = coaching({ cfg: () => cfg }); // "dame un consejo": tips for your game
   }, 300);
 });
 
