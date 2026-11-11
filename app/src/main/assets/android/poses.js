@@ -15,7 +15,8 @@
 // opens something for you, surprised by a notification, selfies and air guitar now and then. While she's in one, her real self (the sprite) steps aside and stays
 // put; a tap on it, a word to her, her chat or anything she has to do brings her back.
 //
-// Only in her own suit (an outfit isn't drawn in these), and never with reduced motion.
+// Never with reduced motion. With an outfit on she still does them (1.8.2: before, any outfit kept her
+// from ever moving like this); they're drawn in her own suit, and the outfit is back when she's done.
 
 import { on } from './native.js';
 
@@ -57,7 +58,7 @@ export function poses({ cfg, wardrobe }) {
   // and something that just happened to her (`now`) cuts into whatever move she was making)
   const free = ({ lying = false, chat = false, now: right = false } = {}) => !capri.hidden && !capri.stowed && !capri.dormant && !capri.busy && !capri.dragging
     && (!capri.act || lying || right) && (!capri.lounge || lying) && (chat || !dev.chat?.open) && !cfg().icon && !reduced.matches
-    && ['stand', 'sit', ...(lying ? ['down'] : [])].includes(capri.stance) && (!cfg().look?.outfit || cfg().look.outfit === 'default');
+    && ['stand', 'sit', ...(lying ? ['down'] : [])].includes(capri.stance);
 
   // where it goes: on her feet, or along the top of the screen, or against the nearest side
   function place(el, fw, fh, k, name, at) {
