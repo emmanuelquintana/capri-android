@@ -106,17 +106,20 @@ const PLACE = {
   sword: { at: [118, 196], w: 150, behind: true }, shotgun: { at: [118, 196], w: 150, behind: true },
 };
 
-const AURAS = [['none', null], ['red', '#ff1744'], ['green', '#08f467'], ['cyan', '#00e5ff'], ['violet', '#8a3cff'], ['gold', '#ffc21a'], ['white', '#ffffff'], ['sandevistan', 'trail']];
+const AURAS = [['none', null], ['red', '#ff1744'], ['green', '#08f467'], ['cyan', '#00e5ff'], ['violet', '#8a3cff'], ['gold', '#ffc21a'], ['white', '#ffffff'], ['sandevistan', 'trail'], ['psycho', 'psycho']];
 // the Sandevistan's afterimages (Edgerunners): copies of her trailing behind, green to violet
 const TRAIL = (dir) => [['#08f467', 0.55], ['#00e5ff', 0.4], ['#8a3cff', 0.28]].map(([c, a], i) => `drop-shadow(${-dir * 7 * (i + 1)}px 0 0 ${c}${Math.round(a * 255).toString(16).padStart(2, '0')})`).join(' ');
+// cyberpsychosis (Edgerunners, 1.9.0): chrome taking over, red split copies of her twitching around her
+// (android.css .is-psycho moves them; this is how it stays on a pose drawing, poses.js)
+const PSYCHO = 'drop-shadow(-3px 0 0 #ff1744cc) drop-shadow(3px 0 0 #00e5ff55) drop-shadow(0 0 6px #ff1744aa) contrast(1.12)';
 const ALPHAS = [1, 0.85, 0.7, 0.55, 0.4];
 
 const WORDS = {
-  es: { title: 'Vestuario', outfits: 'Conjuntos', things: 'Accesorios', colors: 'Colores', effects: 'Efectos', soon: 'pronto', secret: 'secreto', mane: 'Melena', mask: 'Máscara', aura: 'Aura', alpha: 'Transparencia', gamerAlpha: 'En modo gamer', done: 'Listo', reset: 'Quitar todo', none: 'Nada', tap: 'Toca para ponérselo; otra vez para quitárselo.' },
-  en: { title: 'Wardrobe', outfits: 'Outfits', things: 'Accessories', colors: 'Colors', effects: 'Effects', soon: 'soon', secret: 'secret', mane: 'Mane', mask: 'Mask', aura: 'Aura', alpha: 'See-through', gamerAlpha: 'In gamer mode', done: 'Done', reset: 'Take it all off', none: 'None', tap: 'Tap to put it on her; again to take it off.' },
-  fr: { title: 'Garde-robe', outfits: 'Tenues', things: 'Accessoires', colors: 'Couleurs', effects: 'Effets', soon: 'bientôt', secret: 'secret', mane: 'Crinière', mask: 'Masque', aura: 'Aura', alpha: 'Transparence', gamerAlpha: 'En mode gamer', done: 'OK', reset: 'Tout enlever', none: 'Rien', tap: 'Touche pour le lui mettre ; encore pour l’enlever.' },
-  pt: { title: 'Guarda-roupa', outfits: 'Roupas', things: 'Acessórios', colors: 'Cores', effects: 'Efeitos', soon: 'em breve', secret: 'segredo', mane: 'Juba', mask: 'Máscara', aura: 'Aura', alpha: 'Transparência', gamerAlpha: 'No modo gamer', done: 'Pronto', reset: 'Tirar tudo', none: 'Nada', tap: 'Toque para colocar nela; de novo para tirar.' },
-  ru: { title: 'Гардероб', outfits: 'Наряды', things: 'Аксессуары', colors: 'Цвета', effects: 'Эффекты', soon: 'скоро', secret: 'секрет', mane: 'Грива', mask: 'Маска', aura: 'Аура', alpha: 'Прозрачность', gamerAlpha: 'В игровом режиме', done: 'Готово', reset: 'Снять всё', none: 'Нет', tap: 'Нажми, чтобы надеть; ещё раз — снять.' },
+  es: { title: 'Vestuario', outfits: 'Conjuntos', things: 'Accesorios', colors: 'Colores', effects: 'Efectos', soon: 'pronto', secret: 'secreto', mane: 'Melena', mask: 'Máscara', aura: 'Aura', alpha: 'Transparencia', gamerAlpha: 'En modo gamer', done: 'Listo', reset: 'Quitar todo', none: 'Nada', psycho: 'Ciberpsicosis', tap: 'Toca para ponérselo; otra vez para quitárselo.' },
+  en: { title: 'Wardrobe', outfits: 'Outfits', things: 'Accessories', colors: 'Colors', effects: 'Effects', soon: 'soon', secret: 'secret', mane: 'Mane', mask: 'Mask', aura: 'Aura', alpha: 'See-through', gamerAlpha: 'In gamer mode', done: 'Done', reset: 'Take it all off', none: 'None', psycho: 'Cyberpsychosis', tap: 'Tap to put it on her; again to take it off.' },
+  fr: { title: 'Garde-robe', outfits: 'Tenues', things: 'Accessoires', colors: 'Couleurs', effects: 'Effets', soon: 'bientôt', secret: 'secret', mane: 'Crinière', mask: 'Masque', aura: 'Aura', alpha: 'Transparence', gamerAlpha: 'En mode gamer', done: 'OK', reset: 'Tout enlever', none: 'Rien', psycho: 'Cyberpsychose', tap: 'Touche pour le lui mettre ; encore pour l’enlever.' },
+  pt: { title: 'Guarda-roupa', outfits: 'Roupas', things: 'Acessórios', colors: 'Cores', effects: 'Efeitos', soon: 'em breve', secret: 'segredo', mane: 'Juba', mask: 'Máscara', aura: 'Aura', alpha: 'Transparência', gamerAlpha: 'No modo gamer', done: 'Pronto', reset: 'Tirar tudo', none: 'Nada', psycho: 'Ciberpsicose', tap: 'Toque para colocar nela; de novo para tirar.' },
+  ru: { title: 'Гардероб', outfits: 'Наряды', things: 'Аксессуары', colors: 'Цвета', effects: 'Эффекты', soon: 'скоро', secret: 'секрет', mane: 'Грива', mask: 'Маска', aura: 'Аура', alpha: 'Прозрачность', gamerAlpha: 'В игровом режиме', done: 'Готово', reset: 'Снять всё', none: 'Нет', psycho: 'Киберпсихоз', tap: 'Нажми, чтобы надеть; ещё раз — снять.' },
 };
 const LANG_INDEX = { es: 1, en: 2, fr: 3, pt: 4, ru: 5 };
 
@@ -360,7 +363,8 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     if (!el) return;
     const l = look();
     const aura = AURAS.find(([id]) => id === l.aura)?.[1];
-    el.style.filter = aura === 'trail' ? TRAIL(capri.facing || 1) : aura ? `drop-shadow(0 0 6px ${aura}) drop-shadow(0 0 2px ${aura})` : '';
+    el.style.filter = aura === 'trail' ? TRAIL(capri.facing || 1) : aura === 'psycho' ? PSYCHO : aura ? `drop-shadow(0 0 6px ${aura}) drop-shadow(0 0 2px ${aura})` : '';
+    el.classList.toggle('is-psycho', aura === 'psycho');
     const alpha = cfg().gamer ? Math.min(l.alpha, l.gamerAlpha) : l.alpha;
     el.style.opacity = alpha < 1 ? String(alpha) : '';
   }
@@ -543,8 +547,10 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     } else {
       const g1 = grid(w.aura);
       for (const [id, color] of AURAS) {
-        const swatch = color === 'trail' ? 'linear-gradient(90deg, #8a3cff, #00e5ff 45%, #08f467 80%, transparent)' : color ? `radial-gradient(circle, ${color} 0 35%, transparent 70%)` : null;
-        g1.append(tile({ label: id === 'none' ? w.none : id === 'sandevistan' ? 'Sandevistan' : '', on: l.aura === id, swatch, click: () => { set({ aura: id }); render(); } }));
+        const swatch = color === 'trail' ? 'linear-gradient(90deg, #8a3cff, #00e5ff 45%, #08f467 80%, transparent)'
+          : color === 'psycho' ? 'repeating-linear-gradient(0deg, #ff1744 0 3px, #0a080e 3px 6px, #ff1744 6px 7px, transparent 7px 11px)'
+          : color ? `radial-gradient(circle, ${color} 0 35%, transparent 70%)` : null;
+        g1.append(tile({ label: id === 'none' ? w.none : id === 'sandevistan' ? 'Sandevistan' : id === 'psycho' ? w.psycho : '', on: l.aura === id, swatch, click: () => { set({ aura: id }); render(); } }));
       }
       const g2 = grid(w.alpha);
       for (const a of ALPHAS) g2.append(tile({ label: `${Math.round(a * 100)}%`, on: Math.abs(l.alpha - a) < 0.01, click: () => { set({ alpha: a }); render(); } }));

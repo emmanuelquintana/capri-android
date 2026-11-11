@@ -9,7 +9,18 @@ export const PROPOSAL = new RegExp([
   // es
   '(?:te\\s+)?(?:quieres|quisieras|querr[ií]as|aceptas)\\s+casarte\\s+conmigo', 'c[aá]sate\\s+conmigo', '(?:te\\s+)?(?:quieres|quisieras|querr[ií]as)\\s+casar\\s+conmigo', 'nos\\s+casamos\\s*\\?',
   'me\\s+(?:quieres|aceptas)\\s+como\\s+(?:tu\\s+)?(?:esposo|esposa|marido)', '(?:quieres|quisieras)\\s+ser\\s+mi\\s+(?:esposa|novia\\s+para\\s+siempre)',
+  // es, more ways (1.9.0)
+  '(?:quieres|quisieras|aceptas|acepta[rs]?)\\s+ser\\s+mi\\s+(?:esposa|mujer|reina|waifu)', 's[eé]\\s+mi\\s+(?:esposa|mujer)', 'ser[ií]as\\s+mi\\s+(?:esposa|mujer)',
+  '(?:quiero|me\\s+quiero)\\s+casar(?:me)?\\s+contigo', 'quiero\\s+que\\s+seas\\s+mi\\s+(?:esposa|mujer)', 'te\\s+(?:pido|propongo)\\s+matrimonio',
+  'cas[eé]monos', '(?:vamos|hay\\s+que)\\s+a?\\s*casarnos', 'seamos\\s+esposos', '(?:nos\\s+)?casamos\\s+(?:t[uú]\\s+y\\s+yo|hoy|ya)',
+  'acepta(?:s|r[ií]as)?\\s+(?:mi\\s+anillo|este\\s+anillo|casarte)', 'pasa(?:r)?\\s+(?:el\\s+)?resto\\s+de\\s+(?:mi|tu|nuestra)\\s+vida\\s+conmigo',
   // en
+  'let[\'’]?s\\s+get\\s+married', 'i\\s+want\\s+to\\s+marry\\s+you', 'would\\s+you\\s+(?:marry|be\\s+my\\s+wife)', 'be\\s+mine\\s+forever', 'take\\s+this\\s+ring',
+  'spend\\s+the\\s+rest\\s+of\\s+(?:your|my)\\s+life\\s+with\\s+me',
+  // fr, pt, ru, more ways
+  'marions[- ]nous', 'je\\s+veux\\s+t[\'’]?\\s*[ée]pouser', 'veux[- ]tu\\s+[êe]tre\\s+ma\\s+femme', 'tu\\s+veux\\s+m[\'’]?\\s*[ée]pouser',
+  'vamos\\s+(?:nos\\s+)?casar', 'quero\\s+(?:me\\s+)?casar\\s+com\\s+voc[êe]', 'case\\s+comigo', 'aceita\\s+ser\\s+minha\\s+(?:esposa|mulher)',
+  'давай\\s+поженимся', 'хочу\\s+на\\s+тебе\\s+жениться', 'выйдешь\\s+за\\s+меня',
   'marry\\s+me', 'will\\s+you\\s+(?:be\\s+my\\s+wife|marry)', 'be\\s+my\\s+(?:wife|bride)',
   // fr
   'veux[- ]tu\\s+m[\'’]?\\s*[ée]pouser', '[ée]pouse[- ]moi', 'tu\\s+veux\\s+te\\s+marier\\s+avec\\s+moi', 'veux[- ]tu\\s+devenir\\s+ma\\s+femme',
