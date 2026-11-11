@@ -5,9 +5,12 @@
 //
 // Kotlin (ClosetActivity) gives `window.CapriCloset`: config() her saved settings plus the app's
 // language, save(look) what you picked, onScreen() her wardrobe over your screen instead, done().
-import { wardrobe } from './wardrobe.js';
-
 const bridge = window.CapriCloset;
+// anything that goes wrong here, in the app's log (ClosetActivity)
+const report = (what) => { try { bridge?.log(String(what)); } catch {} };
+addEventListener('error', (e) => report(`${e.message} (${e.filename?.split('/').pop()}:${e.lineno})`));
+addEventListener('unhandledrejection', (e) => report(`unhandled: ${e.reason?.stack || e.reason}`));
+report('closet: start');
 const WORDS = {
   es: { screen: 'Vestirla en tu pantalla', done: 'Listo' },
   en: { screen: 'Dress her on your screen', done: 'Done' },
@@ -44,6 +47,9 @@ function show(picture, fresh) {
 
 const original = await load(new URL('../capri/assets/capri/capri-full.png', import.meta.url).href);
 show(original, false);
+report('closet: her picture is in');
+// her sheet's code after she's on the stage (so she shows at once)
+const { wardrobe } = await import('./wardrobe.js');
 
 // what wardrobe.js needs of her: her picture, and where a new one goes (no shader here)
 let first = true;
@@ -66,6 +72,7 @@ const closet = wardrobe({
 });
 await closet?.ready(); // (which drawings are in, before the outfits are shown)
 closet?.open();
+report(`closet: open (${closet ? 'sheet' : 'no sheet'})`);
 
 // below her sheet: the other way to dress her, and back to the app
 const bar = document.querySelector('.bar');

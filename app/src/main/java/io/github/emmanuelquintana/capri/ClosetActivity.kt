@@ -49,7 +49,7 @@ class ClosetActivity : Activity() {
             }
             webChromeClient = object : WebChromeClient() {
                 override fun onConsoleMessage(m: ConsoleMessage): Boolean {
-                    Log.d("capri-closet", "${m.message()} (${m.sourceId().substringAfterLast('/')}:${m.lineNumber()})")
+                    Log.i("capri-closet", "${m.message()} (${m.sourceId().substringAfterLast('/')}:${m.lineNumber()})")
                     return true
                 }
             }
@@ -116,6 +116,12 @@ class ClosetActivity : Activity() {
             else CapriService.start(this@ClosetActivity, CapriService.ACTION_WARDROBE)
             finish()
             moveTaskToBack(true)
+        }
+
+        /** Her page's own notes and errors, in the app's log. */
+        @JavascriptInterface
+        fun log(line: String) {
+            Log.i("capri-closet", line.take(500))
         }
 
         @JavascriptInterface
