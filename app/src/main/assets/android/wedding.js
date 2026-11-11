@@ -7,7 +7,7 @@ import { send } from './native.js';
 
 export const PROPOSAL = new RegExp([
   // es
-  '(?:te\\s+)?(?:quieres|quisieras|querr[ií]as|aceptas)\\s+casarte\\s+conmigo', 'c[aá]sate\\s+conmigo', 'nos\\s+casamos\\s*\\?',
+  '(?:te\\s+)?(?:quieres|quisieras|querr[ií]as|aceptas)\\s+casarte\\s+conmigo', 'c[aá]sate\\s+conmigo', '(?:te\\s+)?(?:quieres|quisieras|querr[ií]as)\\s+casar\\s+conmigo', 'nos\\s+casamos\\s*\\?',
   'me\\s+(?:quieres|aceptas)\\s+como\\s+(?:tu\\s+)?(?:esposo|esposa|marido)', '(?:quieres|quisieras)\\s+ser\\s+mi\\s+(?:esposa|novia\\s+para\\s+siempre)',
   // en
   'marry\\s+me', 'will\\s+you\\s+(?:be\\s+my\\s+wife|marry)', 'be\\s+my\\s+(?:wife|bride)',
