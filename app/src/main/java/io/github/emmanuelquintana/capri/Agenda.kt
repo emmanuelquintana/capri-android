@@ -224,16 +224,20 @@ object Agenda {
             .setContentIntent(tap)
             .setAutoCancel(true)
             .setTimeoutAfter(maxOf(d.until - System.currentTimeMillis(), 15 * 60_000L) + HOUR)
-        if (face != null) b.setLargeIcon(face)
         if (d.kind == "class") {
-            // her special one: her ink card, her yellow echo, her face
-            val v = RemoteViews(c.packageName, R.layout.notify_class).apply {
+            // her special one: her ink card, her yellow echo, her face (on it, so no second face beside it);
+            // folded, a line of each so it fits; open, all of it
+            fun card(lines: Int) = RemoteViews(c.packageName, R.layout.notify_class).apply {
                 if (face != null) setImageViewBitmap(R.id.n_face, face)
                 setTextViewText(R.id.n_title, d.title)
                 setTextViewText(R.id.n_text, d.text)
+                if (lines > 0) {
+                    setInt(R.id.n_title, "setMaxLines", 1)
+                    setInt(R.id.n_text, "setMaxLines", lines)
+                }
             }
-            b.setStyle(Notification.DecoratedCustomViewStyle()).setCustomContentView(v).setCustomBigContentView(v)
-        }
+            b.setStyle(Notification.DecoratedCustomViewStyle()).setCustomContentView(card(1)).setCustomBigContentView(card(0))
+        } else if (face != null) b.setLargeIcon(face)
         runCatching { nm.notify(d.key.hashCode(), b.build()) }.onFailure { Diag.add("W", "agenda notify: ${it.message}") }
         // and she says it herself when she's on your screen
         CapriService.current?.overlay?.emit("agenda:remind", JSONObject().put("kind", d.kind).put("title", d.title).put("text", d.text).toString())
