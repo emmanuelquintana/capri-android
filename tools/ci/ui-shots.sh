@@ -114,21 +114,15 @@ adb shell input swipe 500 1800 500 700 300
 shot 13c-style-more 2
 tap "ajustes"
 shot 14-settings-tab 2
-# the language card, under her permissions
-adb shell input swipe 500 1800 500 600 300
-sleep 1
-adb shell input swipe 500 1800 500 600 300
+# the language card, under her permissions (folded)
 # the app in another language, then back to the phone's
-tap "français"
+tapdown "français" 4
 shot 14f-french 4
 tap "nouveautés"
 tap "changements"
 shot 14g-french-news 2
 tap "réglages"
 sleep 2
-adb shell input swipe 500 1800 500 700 300
-sleep 1
-adb shell input swipe 500 1800 500 700 300
 tapdown "automatique" 4
 sleep 4
 # what she remembers about you (empty on a fresh install), in «Tú»

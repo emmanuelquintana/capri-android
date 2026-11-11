@@ -326,4 +326,7 @@
     <string name="peek_service_label">Капри в уведомлениях</string>
     <string name="peek_service_desc">Капри заглядывает в шторку уведомлений и быстрые настройки, когда ты их опускаешь. Приложение узнаёт лишь, что шторка Android открылась: оно не читает экран, ничего не нажимает и не следит за другими приложениями.</string>
     <string name="peek_service_summary">Капри заглядывает, когда ты опускаешь шторку уведомлений</string>
+    <string name="perms_summary">Выдано: %1$d из %2$d</string>
+    <string name="perms_show">Показать разрешения</string>
+    <string name="perms_hide">Скрыть разрешения</string>
 </resources>

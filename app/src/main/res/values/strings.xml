@@ -326,4 +326,7 @@
     <string name="peek_service_label">Capri in your notifications</string>
     <string name="peek_service_desc">Capri peeks into your notification panel and quick settings when you pull them down. This only tells the app that Android’s panel opened: it doesn’t read what’s on your screen, doesn’t touch anything and doesn’t watch other apps.</string>
     <string name="peek_service_summary">Capri peeks in when you pull down the notification panel</string>
+    <string name="perms_summary">%1$d of %2$d allowed</string>
+    <string name="perms_show">See permissions</string>
+    <string name="perms_hide">Hide permissions</string>
 </resources>

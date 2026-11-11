@@ -36,7 +36,7 @@ class Store(private val context: Context) {
         val tmp = File(dir, "$name.tmp")
         tmp.writeText(text)
         tmp.renameTo(File(dir, name))
-        if (name == CONFIG) synchronized(LOCK) { cached = null }
+        if (name == CONFIG) synchronized(CACHE) { cached = null }
     }
 
     /**
@@ -46,7 +46,7 @@ class Store(private val context: Context) {
      */
     private fun config(): org.json.JSONObject {
         val stamp = stamp(CONFIG)
-        synchronized(LOCK) {
+        synchronized(CACHE) {
             cached?.takeIf { it.first == stamp }?.let { return it.second }
         }
         val json = try {
@@ -54,7 +54,7 @@ class Store(private val context: Context) {
         } catch (_: Exception) {
             org.json.JSONObject()
         }
-        synchronized(LOCK) { cached = stamp to json }
+        synchronized(CACHE) { cached = stamp to json }
         return json
     }
 
@@ -121,6 +121,7 @@ class Store(private val context: Context) {
         private const val ALIAS = "capri-api-keys"
         private const val TRANSFORM = "AES/GCM/NoPadding"
         private val LOCK = Any()
+        private val CACHE = Any() // (her settings cache: not LOCK, which waits on the Keystore)
         @Volatile private var cached: Pair<Long, org.json.JSONObject>? = null
     }
 }

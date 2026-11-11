@@ -325,4 +325,7 @@
     <string name="peek_service_label">Capri dans tes notifications</string>
     <string name="peek_service_desc">Capri passe la tête dans ton volet de notifications et tes réglages rapides quand tu les tires. Cela indique seulement à l’app que le volet d’Android s’est ouvert : elle ne lit pas ton écran, ne touche à rien et ne regarde pas les autres apps.</string>
     <string name="peek_service_summary">Capri passe la tête quand tu tires le volet des notifications</string>
+    <string name="perms_summary">%1$d sur %2$d accordées</string>
+    <string name="perms_show">Voir les autorisations</string>
+    <string name="perms_hide">Masquer les autorisations</string>
 </resources>

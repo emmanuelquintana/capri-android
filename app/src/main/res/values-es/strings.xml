@@ -325,4 +325,7 @@
     <string name="peek_service_label">Capri en tus notificaciones</string>
     <string name="peek_service_desc">Capri se asoma en tu panel de notificaciones y en los ajustes rápidos cuando los bajas. Esto solo le avisa a la app que se abrió el panel de Android: no lee lo que hay en tu pantalla, no toca nada y no mira otras apps.</string>
     <string name="peek_service_summary">Capri se asoma cuando bajas el panel de notificaciones</string>
+    <string name="perms_summary">%1$d de %2$d concedidos</string>
+    <string name="perms_show">Ver permisos</string>
+    <string name="perms_hide">Ocultar permisos</string>
 </resources>

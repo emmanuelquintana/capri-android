@@ -325,4 +325,7 @@
     <string name="peek_service_label">Capri nas suas notificações</string>
     <string name="peek_service_desc">A Capri espia no seu painel de notificações e nas configurações rápidas quando você os puxa. Isso só avisa o app que o painel do Android abriu: não lê o que está na tela, não toca em nada e não olha outros apps.</string>
     <string name="peek_service_summary">A Capri espia quando você puxa o painel de notificações</string>
+    <string name="perms_summary">%1$d de %2$d concedidas</string>
+    <string name="perms_show">Ver permissões</string>
+    <string name="perms_hide">Ocultar permissões</string>
 </resources>

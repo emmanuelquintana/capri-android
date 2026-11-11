@@ -648,15 +648,36 @@ class MainActivity : Activity() {
         // what she's allowed to do on your phone (1.9.0: here, no longer a tab of its own)
         addView(ui.card(Hud.GREEN).apply {
             addView(ui.label(getString(R.string.tab_perms)))
-            addView(ui.text(getString(R.string.perms_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-            for ((i, p) in Permissions.all(this@MainActivity).withIndex()) {
+            // folded to a line (how many she has), open by itself while a needed one is missing
+            val perms = Permissions.all(this@MainActivity)
+            val summary = ui.text("", 15f, Hud.PAPER, ui.head)
+            addView(summary, ui.block(6))
+            val box = ui.col()
+            var open = false
+            val toggle = ui.button("", Ui.Kind.LINE) {}
+            val showPerms = {
+                val granted = perms.count { it.granted() }
+                val missing = perms.any { it.required && !it.granted() }
+                summary.text = getString(R.string.perms_summary, granted, perms.size)
+                summary.setTextColor(if (missing) Hud.YELLOW else Hud.GREEN)
+                box.visibility = if (open || missing) View.VISIBLE else View.GONE
+                toggle.visibility = if (missing) View.GONE else View.VISIBLE
+                toggle.text = getString(if (open) R.string.perms_hide else R.string.perms_show).uppercase()
+            }
+            toggle.setOnClickListener { open = !open; showPerms() }
+            addView(toggle, ui.block(10))
+            box.addView(ui.text(getString(R.string.perms_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            for ((i, p) in perms.withIndex()) {
                 val (view, refresh) = Permissions.row(this@MainActivity, ui, p)
-                addView(view, ui.block(if (i == 0) 14 else 10))
+                box.addView(view, ui.block(if (i == 0) 14 else 10))
                 permRows.add(refresh)
             }
             // banking apps see her overlay and her notification access as risks: what to do about it
-            addView(ui.text(getString(R.string.perms_bank_head), 14f, Hud.PAPER, ui.head), ui.block(16))
-            addView(ui.text(getString(R.string.perms_bank), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            box.addView(ui.text(getString(R.string.perms_bank_head), 14f, Hud.PAPER, ui.head), ui.block(16))
+            box.addView(ui.text(getString(R.string.perms_bank), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(box)
+            showPerms()
+            choices.add(showPerms)
         }, ui.block(16))
 
         // the app's language, and hers (written in both, so it's found whatever the app is in)
