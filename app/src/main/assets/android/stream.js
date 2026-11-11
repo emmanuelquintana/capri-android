@@ -85,7 +85,10 @@ Answer ONLY with JSON: {"comments":[{"user":"…","text":"…"}],"reply":"…"} 
       seen.push(...fresh);
       while (seen.length > 60) seen.shift();
       const reply = String(out?.reply || '').trim();
-      if (fresh.length && reply && cfg().streaming) say(reply, 'laugh', fresh.at(-1));
+      if (fresh.length && reply && cfg().streaming) {
+        say(reply, 'laugh', fresh.at(-1));
+        dev.poses?.cue('stream', { times: 2 }); // reading your chat, when it's drawn (anims/stream.png)
+      }
     } catch (err) {
       send('log', { level: 'W', text: `streaming: ${err?.message || err}` });
     } finally {
