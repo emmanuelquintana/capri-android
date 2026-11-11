@@ -215,6 +215,7 @@ export function listen({ toggleVisible, visible }) {
     // one at a time, but never stuck on one that never finished
     if (!window.dev || (busy && Date.now() - busy < 20000)) return;
     busy = Date.now();
+    if (String(heard?.text || '').replace(NAME, '').trim()) window.dev.hearing?.off(); // (heard you: she answers now)
     handle(String(heard?.text || '').replace(NAME, '').trim(), { toggleVisible, visible })
       .catch((err) => console.error('[capri] voice', err))
       .finally(() => { busy = 0; });
@@ -260,6 +261,7 @@ async function handle(text, { toggleVisible, visible }) {
   // just her name: she listens for what comes next (Ears.kt keeps the mic open a few seconds)
   if (!text) {
     // shown, not said: her voice would cover what you say next (her ears stay open for it)
+    dev.hearing?.on(10000); // (and her sign that she's listening: hearing.js)
     capri.perform?.('hop');
     window.dev.voice?.play?.('tick');
     return answer(pick(t.yes), 'look', '', false);

@@ -704,3 +704,35 @@ body.is-dressing .fx { z-index: 41; }
   transition: opacity 180ms steps(3, end);
 }
 .capri-pose.is-in { opacity: var(--pose-alpha, 1); }
+
+/* she's listening (hearing.js): little sound bars by her head */
+.capri-ears {
+  position: fixed;
+  z-index: 25;
+  width: 28px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 4px;
+  box-sizing: border-box;
+  pointer-events: none;
+  background: rgba(10, 8, 14, 0.78);
+  border: 1px solid var(--cyan);
+  box-shadow: 2px 2px 0 var(--yellow);
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+}
+.capri-ears[hidden] { display: none; }
+.capri-ears i {
+  display: block;
+  width: 3px;
+  height: 30%;
+  background: var(--cyan);
+  animation: capri-ears 1.4s ease-in-out infinite;
+}
+.capri-ears i:nth-child(2) { animation-delay: 0.2s; }
+.capri-ears i:nth-child(3) { animation-delay: 0.4s; }
+.capri-ears i:nth-child(4) { animation-delay: 0.6s; }
+.capri-ears.is-talking i { background: var(--yellow); animation-duration: 0.45s; }
+@keyframes capri-ears { 50% { height: 100%; } }
+@media (prefers-reduced-motion: reduce) { .capri-ears i { animation: none; height: 60%; } }

@@ -306,6 +306,8 @@ class MainActivity : Activity() {
             startBtn.postDelayed({ refresh() }, 700)
         }
         addView(startBtn, ui.block(14))
+        // her Discord, right under her button (1.9.0, the community asked)
+        addView(ui.button(getString(R.string.community_discord) + " ↗", Ui.Kind.LINE) { openLink(DISCORD) }, ui.block(10))
 
         // updates
         updateText = ui.text("", 13f, Hud.PAPER_2, ui.mono).apply { letterSpacing = 0.02f; setLineSpacing(0f, 1.15f) }

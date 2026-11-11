@@ -34,6 +34,7 @@ import { wardrobe } from './wardrobe.js';
 import { poses } from './poses.js';
 import { wedding } from './wedding.js';
 import { reactions } from './react.js';
+import { hearing } from './hearing.js';
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
 const llm = load('llm');
@@ -1456,6 +1457,7 @@ ready.then(() => {
     window.dev.poses = poses({ cfg: () => cfg, wardrobe: closet });
     window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
     reactions({ cfg: () => cfg }); // her reactions to your music, videos, games (react.js)
+    window.dev.hearing = hearing(); // she's listening: her sign while you talk to her
   }, 300);
 });
 

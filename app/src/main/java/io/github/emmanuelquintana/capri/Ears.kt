@@ -154,14 +154,21 @@ class Ears(private val service: CapriService) {
             override fun onReadyForSpeech(params: Bundle?) {
                 status = "listening"
             }
-            override fun onBeginningOfSpeech() {}
+            // you started or stopped talking: her sign that she's listening (hearing.js), only
+            // shown right after her name
+            override fun onBeginningOfSpeech() = speech(true)
             override fun onRmsChanged(rmsdB: Float) {}
             override fun onBufferReceived(buffer: ByteArray?) {}
-            override fun onEndOfSpeech() {}
+            override fun onEndOfSpeech() = speech(false)
             override fun onPartialResults(partialResults: Bundle?) {}
             override fun onEvent(eventType: Int, params: Bundle?) {}
         })
         return r
+    }
+
+    private fun speech(on: Boolean) {
+        val awake = System.currentTimeMillis() < awakeUntil
+        service.overlay?.emit("ears:speech", JSONObject().put("on", on).put("awake", awake).toString())
     }
 
     private fun failed(error: Int) {
