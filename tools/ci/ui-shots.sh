@@ -41,7 +41,8 @@ for m in re.finditer(r'<node [^>]*?text="([^"]*)"[^>]*?bounds="\[(\d+),(\d+)\]\[
 PY
 )
     if [ -n "$xy" ]; then adb shell input tap $xy; echo "tapped '$1' at $xy"; return; fi
-    adb shell input swipe 500 1700 500 900 300
+    # short, slow strokes: a long one flings it straight past the band where it can be tapped
+    adb shell input swipe 500 1600 500 1100 600
     sleep 1
   done
   echo "no '$1' on screen (scrolled)"
@@ -129,14 +130,14 @@ tap "ajustes"
 shot 14-settings-tab 2
 # the language card, under her permissions (folded)
 # the app in another language, then back to the phone's
-tapdown "français" 4
+tapdown "français" 10
 shot 14f-french 4
 tap "nouveautés"
 tap "changements"
 shot 14g-french-news 2
 tap "réglages"
 sleep 2
-tapdown "automatique" 4
+tapdown "automatique" 10
 sleep 4
 # what she remembers about you (empty on a fresh install), in «Tú»
 tap "tú"
@@ -222,7 +223,7 @@ shot 23d-settings-more 2
 adb shell input swipe 500 1800 500 700 300
 shot 23e-settings-end 2
 for i in 1 2 3 4 5 6 7 8; do adb shell input swipe 500 700 500 1800 200; done
-tapdown "activar" 8
+tapdown "activar" 14
 shot 24-voice-on 3
 adb shell input keyevent KEYCODE_HOME
 sleep 4
