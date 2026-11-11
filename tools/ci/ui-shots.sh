@@ -88,6 +88,10 @@ tap "permisos"
 shot 13-perms-tab 2
 tap "ajustes"
 shot 14-settings-tab 2
+# 1.8: the wardrobe's presentation opens Settings; the language card is under it
+adb shell input swipe 500 1800 500 700 300
+shot 14w-settings-wardrobe 2
+adb shell input swipe 500 1800 500 700 300
 # the app in another language, then back to the phone's
 tap "français"
 shot 14f-french 4
@@ -95,6 +99,10 @@ tap "nouveautés"
 tap "changements"
 shot 14g-french-news 2
 tap "réglages"
+sleep 2
+adb shell input swipe 500 1800 500 700 300
+sleep 1
+adb shell input swipe 500 1800 500 700 300
 tap "automatique"
 sleep 4
 # what she remembers about you (empty on a fresh install), under her AI
