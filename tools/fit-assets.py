@@ -63,6 +63,8 @@ ANIMS = {
 # the cel where she just stands there, for the ones she jumps or reaches up in: her real height is that cel's,
 # not the whole box's (else she looks smaller in them than in the rest)
 REST = {'surprised': 3, 'stretch': 3}
+# sitting ones GPT drew a little higher in some rows: each cel's seat put on the same line
+SEAT = {'music'}
 ACC_IDS = {'cat-ears': 'catears', 'santa-hat': 'santahat', 'hat-cowboy': 'cowboyhat', 'heart-balloon': 'balloon'}
 
 FULL = Image.open(os.path.join(ROOT, 'capri-full.png')).convert('RGBA')
@@ -204,6 +206,15 @@ def anim(name, im):
     cels = [im.crop((c * cw, r * ch, (c + 1) * cw, (r + 1) * ch)) for r in range(rows) for c in range(cols)]
     # one box for all (the union of where she is in each cel)
     boxes = [c.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox() for c in cels]
+    if name in SEAT and all(boxes):
+        low = max(b[3] for b in boxes)
+        moved = []
+        for c, b in zip(cels, boxes):
+            m = Image.new('RGBA', c.size)
+            m.paste(c, (0, low - b[3]))
+            moved.append(m)
+        cels = moved
+        boxes = [c.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox() for c in cels]
     boxes = [b for b in boxes if b]
     box = (min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes))
     rest = boxes[REST[name]] if name in REST and len(boxes) > REST[name] else None
