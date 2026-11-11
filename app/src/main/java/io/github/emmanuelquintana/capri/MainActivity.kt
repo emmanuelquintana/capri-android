@@ -536,6 +536,16 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.voice_rate), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(choice(listOf(R.string.voice_slower to 0.85, R.string.voice_pace_normal to 1.0, R.string.voice_faster to 1.2),
                 { store.configNumber("voiceRate", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceRate", it) }, ui.block(6))
+            // her accent in the language she speaks (1.9.0): Mexico or Spain, the US or Britain, Brazil or Portugal…
+            val lang = Lang.current(this@MainActivity)
+            Ears.ACCENTS[lang]?.let { accents ->
+                addView(ui.text(getString(R.string.voice_accent), 14f, Hud.PAPER, ui.head), ui.block(14))
+                addView(ui.text(getString(R.string.voice_accent_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+                for (row in accents.chunked(3)) {
+                    addView(choiceText(row.map { (tag, label) -> getString(label) to tag },
+                        { store.configString("voiceAccent_$lang") ?: accents[0].first }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceAccent_$lang", it) }, ui.block(6))
+                }
+            }
         }, ui.block(16))
 
         // her on your screen: size, how lively, ghost mode

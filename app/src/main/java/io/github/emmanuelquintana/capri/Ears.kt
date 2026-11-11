@@ -231,7 +231,7 @@ class Ears(private val service: CapriService) {
         // out loud through the media volume (what music uses): her ears asked you for it, even on silent
         if (text.isBlank() || audio.getStreamVolume(AudioManager.STREAM_MUSIC) == 0) return@post
         val speak = {
-            tts?.language = Locale.forLanguageTag(lang)
+            voice(accent(lang))
             // her voice as you set it (the app's Settings › Her ears)
             val store = Store(service)
             tts?.setPitch(store.configNumber("voicePitch", 1.0).toFloat().coerceIn(0.5f, 2f))
@@ -293,19 +293,46 @@ class Ears(private val service: CapriService) {
     private fun language(): String {
         val lang = Store(service).configString("lang")?.takeIf { it != "auto" } ?: Locale.getDefault().language
         return when (lang.substringBefore('-')) {
-            "es" -> "es-MX"
-            "en" -> "en-US"
-            "fr" -> "fr-FR"
-            "pt" -> "pt-BR"
+            "es" -> accent("es-MX")
+            "en" -> accent("en-US")
+            "fr" -> accent("fr-FR")
+            "pt" -> accent("pt-BR")
             "ru" -> "ru-RU"
             else -> Locale.getDefault().toLanguageTag()
         }
+    }
+
+    /** Her accent in that language, as you picked it (the app's Settings › Her ears), else `tag`. */
+    private fun accent(tag: String): String {
+        val base = tag.substringBefore('-')
+        val picked = Store(service).configString("voiceAccent_$base")
+        return if (picked != null && ACCENTS[base]?.any { it.first == picked } == true) picked else tag
+    }
+
+    /** That accent's voice of the phone's speech engine, installed ones first; its language if it has none. */
+    private fun voice(tag: String) {
+        val t = tts ?: return
+        val want = Locale.forLanguageTag(tag)
+        val v = runCatching {
+            t.voices?.filter { it.locale.language == want.language && it.locale.country == want.country && "notInstalled" !in it.features }
+                ?.sortedWith(compareBy({ it.isNetworkConnectionRequired }, { -it.quality }))?.firstOrNull()
+        }.getOrNull()
+        if (v != null && runCatching { t.setVoice(v) }.getOrDefault(TextToSpeech.ERROR) == TextToSpeech.SUCCESS) return
+        t.language = want
     }
 
     companion object {
         // her name as recognizers write it: Capri, Kapri, Capry, Cabri, Caprí, Capris… (Капри in Russian)
         private val NAME = Regex("(?<![a-zа-я])(?:[ck]a[pb]r[iy]s?|ка[пб]р[иы])(?![a-zа-я])")
         private const val GOOGLE = "com.google.android.googlequicksearchbox"
+
+        /** The accents she can have in each language (1.9.0): the first is hers until you pick another. */
+        val ACCENTS = mapOf(
+            "es" to listOf("es-MX" to R.string.accent_mx, "es-ES" to R.string.accent_es, "es-AR" to R.string.accent_ar, "es-CO" to R.string.accent_co, "es-US" to R.string.accent_us_latino),
+            "en" to listOf("en-US" to R.string.accent_us, "en-GB" to R.string.accent_gb, "en-AU" to R.string.accent_au, "en-IN" to R.string.accent_in),
+            "pt" to listOf("pt-BR" to R.string.accent_br, "pt-PT" to R.string.accent_pt),
+            "fr" to listOf("fr-FR" to R.string.accent_fr, "fr-CA" to R.string.accent_ca),
+        )
 
         /** What her ears are doing, for the app's Settings: "", listening, heard, other, busy, media, nomic, screenoff, error:N */
         @Volatile var status = ""

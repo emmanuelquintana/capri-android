@@ -265,4 +265,19 @@
     <string name="share_target">Показать Капри</string>
     <string name="share_sending">Отправляю Капри…</string>
     <string name="share_failed">Капри не смогла это открыть</string>
+    <string name="voice_accent">Её акцент</string>
+    <string name="voice_accent_how">Как она звучит на этом языке, как говорят в каждом месте (так она тебя и понимает лучше). Если в телефоне нет такого голоса, она говорит обычным для языка; в голосовом движке Google есть почти все.</string>
+    <string name="accent_mx">Мексика</string>
+    <string name="accent_es">Испания</string>
+    <string name="accent_ar">Аргентина</string>
+    <string name="accent_co">Колумбия</string>
+    <string name="accent_us_latino">Латино (США)</string>
+    <string name="accent_us">Американский</string>
+    <string name="accent_gb">Британский</string>
+    <string name="accent_au">Австралийский</string>
+    <string name="accent_in">Индийский</string>
+    <string name="accent_br">Бразилия</string>
+    <string name="accent_pt">Португалия</string>
+    <string name="accent_fr">Франция</string>
+    <string name="accent_ca">Квебек</string>
 </resources>

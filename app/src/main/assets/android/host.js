@@ -1413,6 +1413,8 @@ on('settings:apply', async (p = {}) => {
   if (p.wardrobeLook && typeof p.wardrobeLook === 'object') { updateConfig({ look: { ...p.wardrobeLook, mane: 'default', mask: 'default' } }); closet?.apply(); }
   // her voice and ears (the app's Settings › Talk to her; Ears.kt reads them from config.json each time)
   for (const key of ['voiceFilter', 'voicePace']) if (typeof p[key] === 'string') updateConfig({ [key]: p[key] });
+  // her accent in each language (Ears.kt: the voice and the ears for it)
+  for (const [key, value] of Object.entries(p)) if (/^voiceAccent_(es|en|fr|pt)$/.test(key) && /^[a-z]{2}-[A-Z]{2}$/.test(String(value))) updateConfig({ [key]: value });
   if (typeof p.voicePitch === 'number') updateConfig({ voicePitch: Math.min(2, Math.max(0.5, p.voicePitch)) });
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });

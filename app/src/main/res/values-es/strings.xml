@@ -264,4 +264,19 @@
     <string name="share_target">Enseñárselo a Capri</string>
     <string name="share_sending">Se lo paso a Capri…</string>
     <string name="share_failed">Capri no pudo abrir eso</string>
+    <string name="voice_accent">Su acento</string>
+    <string name="voice_accent_how">Cómo suena en este idioma, como se habla en cada lugar (también le ayuda a entenderte). Si tu teléfono no tiene voz para alguno, usa la de siempre de ese idioma; el motor de voz de Google tiene casi todos.</string>
+    <string name="accent_mx">México</string>
+    <string name="accent_es">España</string>
+    <string name="accent_ar">Argentina</string>
+    <string name="accent_co">Colombia</string>
+    <string name="accent_us_latino">EE. UU. latino</string>
+    <string name="accent_us">Estadounidense</string>
+    <string name="accent_gb">Británico</string>
+    <string name="accent_au">Australiano</string>
+    <string name="accent_in">Indio</string>
+    <string name="accent_br">Brasil</string>
+    <string name="accent_pt">Portugal</string>
+    <string name="accent_fr">Francia</string>
+    <string name="accent_ca">Quebec</string>
 </resources>
