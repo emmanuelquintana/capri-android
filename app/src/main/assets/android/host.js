@@ -38,6 +38,7 @@ import { hearing } from './hearing.js';
 import { sharing } from './share.js';
 import { translating } from './translate.js';
 import { coaching } from './coach.js';
+import { streaming } from './stream.js';
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
 const llm = load('llm');
@@ -115,6 +116,7 @@ async function loadConfig() {
   // her live look needs Android's yes again after each start: off until you turn it on
   if (cfg.watchScreen) cfg.watchScreen = false;
   if (cfg.gamer) cfg.gamer = false; // her gamer mode is for one session of play
+  if (cfg.streaming) cfg.streaming = false; // (and streaming mode for one live)
   if (info) device = { ...device, ...info };
   env.OLLAMA_HOST = cfg.ollamaHost || DEFAULTS.ollamaHost;
 }
@@ -1420,6 +1422,7 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
   if ('gameTips' in p) updateConfig({ gameTips: Boolean(p.gameTips) });
+  if ('streaming' in p) window.dev?.stream?.set(Boolean(p.streaming));
   if (p.musicStay) updateConfig({ musicStay: String(p.musicStay) });
   if (('musicCard' in p || p.musicStay) && notes) notes.refreshMusic(); // shown or hidden now
   if ('watchScreen' in p) sendCommand('watchScreen', { on: Boolean(p.watchScreen) });
@@ -1474,6 +1477,7 @@ ready.then(() => {
     sharing(); // pictures and videos shared with her from other apps (share.js)
     window.dev.translate = translating(); // "tradúceme esto": your screen, in the language you want
     window.dev.coach = coaching({ cfg: () => cfg }); // "dame un consejo": tips for your game
+    window.dev.stream = streaming({ cfg: () => cfg, setConfig: updateConfig }); // streaming mode: your live's comments
   }, 300);
 });
 

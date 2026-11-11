@@ -329,6 +329,8 @@ async function handle(text, { toggleVisible, visible }) {
   }
   // gamer mode: she says so herself (host.js gamerMode), and her ears rest until it's off
   if (GAMER_ASK.test(text)) return window.host.setConfig({ gamer: true });
+  // streaming mode: her co-hosting your live (stream.js), on or off
+  if (dev.stream?.wants(text)) return dev.stream.set(!OFF_ASK.test(text));
 
   // her chat open: what you said goes into it, as if you typed it
   if (chat.open) return chat.send(text);

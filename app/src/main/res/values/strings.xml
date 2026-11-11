@@ -161,6 +161,9 @@
         <item>#Her</item>
         <item>“Capri, hide” · “Capri, come back”</item>
         <item>“Capri, gamer mode” (off in Settings or her menu)</item>
+        <item>“Capri, streaming mode” / “Capri, streaming mode off”</item>
+        <item>“Capri, translate this into English” (what’s on your screen)</item>
+        <item>“Capri, give me a tip” (for the game on your screen)</item>
         <item>“Capri, icon mode” / “Capri, icon mode off”</item>
         <item>“Capri, open the chat”</item>
         <item>“Capri, call me Emma”</item>
@@ -282,4 +285,7 @@
     <string name="accent_ca">Québec</string>
     <string name="settings_game_tips">Tips while you play</string>
     <string name="settings_game_tips_how">In gamer mode, with her live look on (she’s watching your screen), every few minutes she gives you a tip for the game you’re playing. You can also ask her any time: “Capri, give me a tip”, “what do I do here?”. Her AI has to see pictures.</string>
+    <string name="settings_streaming">Streaming mode</string>
+    <string name="settings_streaming_how">For when you’re live (TikTok, Twitch, YouTube, Kick…): she reads your viewers’ comments off your screen and answers them out loud, as your co-host. No login and no connection to those apps: she only sees your screen (Android asks you to share it). Her AI has to see pictures. Also “Capri, streaming mode”. Off when you tap it again or restart her.</string>
+    <string name="settings_streaming_start">Start Capri first.</string>
 </resources>

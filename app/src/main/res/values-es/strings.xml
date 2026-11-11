@@ -159,6 +159,9 @@
         <item>#Ella</item>
         <item>«Capri, escóndete» · «Capri, ven»</item>
         <item>«Capri, modo gamer» (se quita en Ajustes o en su menú)</item>
+        <item>«Capri, modo streaming» / «Capri, quita el modo streaming»</item>
+        <item>«Capri, tradúceme esto al inglés» (lo que hay en tu pantalla)</item>
+        <item>«Capri, dame un consejo» (para el juego en tu pantalla)</item>
         <item>«Capri, modo ícono» / «Capri, sal del ícono»</item>
         <item>«Capri, abre el chat»</item>
         <item>«Capri, llámame Emma»</item>
@@ -281,4 +284,7 @@
     <string name="accent_ca">Quebec</string>
     <string name="settings_game_tips">Consejos mientras juegas</string>
     <string name="settings_game_tips_how">En modo gamer, con su mirada en vivo encendida (está viendo tu pantalla), cada pocos minutos te da un consejo para el juego que tienes abierto. También se lo puedes pedir cuando quieras: «Capri, dame un consejo», «¿qué hago aquí?». Su IA tiene que poder ver imágenes.</string>
+    <string name="settings_streaming">Modo streaming</string>
+    <string name="settings_streaming_how">Para cuando estás en vivo (TikTok, Twitch, YouTube, Kick…): lee los comentarios de tus seguidores en tu pantalla y les contesta en voz alta, como tu co-host. Sin cuentas ni conexión con esas apps: solo ve tu pantalla (Android te pide compartirla). Su IA tiene que poder ver imágenes. También «Capri, modo streaming». Se apaga si lo tocas otra vez o la reinicias.</string>
+    <string name="settings_streaming_start">Primero inicia a Capri.</string>
 </resources>

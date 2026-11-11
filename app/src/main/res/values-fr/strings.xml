@@ -159,6 +159,9 @@
         <item>#Elle</item>
         <item>« Capri, cache-toi » · « Capri, reviens »</item>
         <item>« Capri, mode gamer » (se désactive dans Réglages ou son menu)</item>
+        <item>« Capri, mode streaming » / « Capri, désactive le mode streaming »</item>
+        <item>« Capri, traduis ça en espagnol » (ce qu’il y a sur ton écran)</item>
+        <item>« Capri, un conseil » (pour le jeu sur ton écran)</item>
         <item>« Capri, mode icône » / « Capri, quitte le mode icône »</item>
         <item>« Capri, ouvre le chat »</item>
         <item>« Capri, appelle-moi Emma »</item>
@@ -281,4 +284,7 @@
     <string name="accent_ca">Québec</string>
     <string name="settings_game_tips">Conseils pendant que tu joues</string>
     <string name="settings_game_tips_how">En mode gamer, avec son regard en direct activé (elle voit ton écran), toutes les quelques minutes elle te donne un conseil pour ton jeu. Tu peux aussi lui demander quand tu veux : « Capri, un conseil », « qu’est-ce que je fais ? ». Son IA doit pouvoir voir les images.</string>
+    <string name="settings_streaming">Mode streaming</string>
+    <string name="settings_streaming_how">Pour quand tu es en live (TikTok, Twitch, YouTube, Kick…) : elle lit les commentaires de tes viewers sur ton écran et leur répond à voix haute, comme ta co-animatrice. Aucun compte, aucune connexion à ces applis : elle voit seulement ton écran (Android te demande de le partager). Son IA doit pouvoir voir les images. Aussi « Capri, mode streaming ». Désactivé si tu le touches à nouveau ou si tu la redémarres.</string>
+    <string name="settings_streaming_start">Lance Capri d’abord.</string>
 </resources>
