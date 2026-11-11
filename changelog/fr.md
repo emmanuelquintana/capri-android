@@ -2,6 +2,34 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.9.0
+
+- **Partage-lui des choses :** dans n'importe quelle appli, *Partager → Montrer à Capri* avec une image, une vidéo ou
+  un texte. Elle ouvre son chat et te dit ce qu'elle en pense, comme une amie à qui tu l'envoies ; puis vous en
+  parlez. D'une vidéo, elle voit trois moments. Son IA doit pouvoir voir les images.
+- **Elle traduit ton écran :** « Capri, traduis ça » (ou « …en espagnol », « …en japonais ») dans son chat ou à voix
+  haute : elle regarde ton écran et t'écrit le message, le post ou la page dans la langue demandée, ou dans la tienne.
+- **Des conseils pour tes jeux :** « Capri, un conseil » ou « qu'est-ce que je fais ? » : elle regarde ta partie et
+  te dit quelque chose d'utile pour ce moment. En mode gamer, avec son regard en direct activé, elle t'en donne un
+  toutes les quelques minutes (désactivable dans Réglages).
+- **Mode streaming :** quand tu es en live (TikTok, Twitch, YouTube, Kick…), elle lit sur ton écran les commentaires
+  de tes viewers et leur répond à voix haute, comme ta co-animatrice. Aucun compte, aucune connexion à ces applis.
+  Dans Réglages ou « Capri, mode streaming ».
+- **Son accent :** dans Réglages › Parle-lui, choisis comment elle parle dans ta langue : France ou Québec ;
+  Mexique, Espagne, Argentine… ; américain ou britannique ; Brésil ou Portugal.
+- **Elle réagit toute seule à ce que tu fais :** avec de la musique ou une vidéo, elle écoute, danse ou joue de la
+  guitare ; avec TikTok ou YouTube ouvert, elle grignote pendant que tu regardes ; quand tu joues, elle s'allonge pour
+  te regarder. Pour la musique, plus besoin d'aucune autorisation ; pour savoir quelle appli est ouverte, elle
+  utilise l'« Accès aux données d'utilisation » si tu l'as déjà donné.
+- **On voit qu'elle t'écoute :** quand tu dis « Capri » et que tu lui parles, de petites barres apparaissent près de
+  sa tête et bougent avec ta voix.
+- **Discord à portée de main :** le bouton Discord est maintenant juste sous celui qui la lance.
+- **Elle ne reste plus bloquée au démarrage :** sur certains téléphones, son image se perdait et laissait un carré gris
+  avec un visage triste. Maintenant elle se rétablit toute seule, et si le téléphone ne peut pas la dessiner comme
+  d'habitude, elle est dessinée plus simplement au lieu de ne pas apparaître.
+- **Moins de « serveurs saturés » :** avec l'IA gratuite, elle attend son tour au lieu d'abandonner, et si la tienne est
+  pleine, une autre dont tu lui as donné la clé répond, pour qu'elle te réponde toujours.
+
 ## 1.8.2
 
 - **Ses animations aussi avec une tenue :** si tu lui avais mis une tenue, elle ne dansait plus sur ta musique, ne

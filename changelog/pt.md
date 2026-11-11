@@ -2,6 +2,33 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.9.0
+
+- **Compartilhe coisas com ela:** em qualquer app, *Compartilhar → Mostrar pra Capri* com uma imagem, um vídeo ou um
+  texto. Ela abre o chat e diz o que achou, como uma amiga pra quem você mandou; depois vocês continuam falando
+  disso. De um vídeo ela vê três momentos. A IA dela precisa conseguir ver imagens.
+- **Ela traduz sua tela:** "Capri, traduz isso" (ou "…pro inglês", "…pro japonês") no chat ou em voz alta: ela olha
+  sua tela e escreve a mensagem, o post ou a página no idioma que você pedir, ou no seu.
+- **Dicas pros seus jogos:** "Capri, me dá uma dica" ou "o que eu faço aqui?": ela olha sua partida e diz algo útil
+  pra esse momento. No modo gamer, com o olhar ao vivo ligado, ela te dá uma a cada poucos minutos (desliga em Ajustes).
+- **Modo streaming:** quando você está ao vivo (TikTok, Twitch, YouTube, Kick…), ela lê na sua tela os comentários
+  dos seus seguidores e responde em voz alta, como sua co-host. Sem conta e sem conexão com esses apps. Em Ajustes
+  ou "Capri, modo streaming".
+- **O sotaque dela:** em Ajustes › Fala com ela, escolha como ela soa no seu idioma: Brasil ou Portugal; México,
+  Espanha, Argentina…; americano ou britânico; França ou Quebec.
+- **Ela reage sozinha ao que você faz:** com música ou vídeo tocando ela escuta junto, dança ou toca guitarra; com
+  TikTok ou YouTube aberto ela come um lanchinho enquanto você assiste; enquanto você joga ela deita pra te ver. Pra
+  música não precisa mais de nenhuma permissão; pra saber qual app está aberto ela usa o "Acesso de uso" se você
+  já deu.
+- **Dá pra ver que ela está ouvindo:** quando você diz "Capri" e fala com ela, aparecem umas barrinhas do lado da
+  cabeça dela que se mexem com a sua voz.
+- **Discord à mão:** o botão do Discord agora fica logo abaixo do que inicia ela.
+- **Não trava mais ao iniciar:** em alguns celulares a imagem dela se perdia e ficava um quadrado cinza com uma
+  carinha triste. Agora ela se recupera sozinha, e se o celular não consegue desenhá-la do jeito de sempre, ela é
+  desenhada mais simples em vez de não aparecer.
+- **Menos "servidores lotados":** com a IA grátis ela espera a vez em vez de desistir, e se a sua estiver cheia,
+  outra que você deu a chave responde, pra ela sempre te responder.
+
 ## 1.8.2
 
 - **As animações dela também com roupa:** se você tinha colocado uma roupa nela, ela não dançava com sua música, não

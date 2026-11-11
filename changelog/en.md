@@ -2,6 +2,32 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.9.0
+
+- **Share things with her:** in any app, *Share → Show to Capri* with a picture, a video or a text. She opens her
+  chat and tells you what she thinks, like a friend you sent it to; then you keep talking about it. From a video
+  she sees three moments. Her AI has to see pictures.
+- **She translates your screen:** "Capri, translate this" (or "…into Spanish", "…into Japanese") in her chat or out
+  loud: she looks at your screen and writes the message, post or page in the language you ask for, or in yours.
+- **Tips for your games:** "Capri, give me a tip" or "what do I do here?": she looks at your game and tells you
+  something useful for that moment. In gamer mode, with her live look on, she gives you one every few minutes (off in
+  Settings).
+- **Streaming mode:** when you're live (TikTok, Twitch, YouTube, Kick…), she reads your viewers' comments on your
+  screen and answers them out loud, as your co-host. No accounts, no connection to those apps. In Settings or
+  "Capri, streaming mode".
+- **Her accent:** in Settings › Talk to her, pick how she sounds in your language: Mexico, Spain, Argentina,
+  Colombia…; American or British; Brazil or Portugal; France or Québec.
+- **She reacts on her own to what you're doing:** with music or a video playing she listens along, dances or plays
+  air guitar; with TikTok or YouTube open she snacks while you watch; while you play she lies down to watch you.
+  Music needs no permission anymore; to know which app is open she uses "Usage access" if you already gave it.
+- **You can tell she's listening:** when you say "Capri" and talk to her, little bars show up by her head, moving
+  with your voice.
+- **Discord at hand:** the Discord button is now right under the one that starts her.
+- **No more getting stuck on start:** on some phones her picture got lost, leaving a grey box with a sad face. Now
+  she recovers on her own, and if the phone can't draw her the usual way, she's drawn simpler instead of not at all.
+- **Fewer "servers are swamped":** with the free AI she waits for her turn instead of giving up, and if yours is
+  full another one you gave her a key for answers, so she always replies.
+
 ## 1.8.2
 
 - **Her animations with an outfit on, too:** if you'd dressed her in an outfit, she no longer danced to your music,

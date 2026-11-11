@@ -3,6 +3,32 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.9.0
+
+- **Compártele cosas:** en cualquier app, *Compartir → Enseñárselo a Capri* con una imagen, un video o un texto.
+  Abre su chat y te dice qué le parece, como una amiga a la que se lo mandas; luego siguen hablando de eso. De un
+  video ve tres momentos. Su IA tiene que poder ver imágenes.
+- **Te traduce la pantalla:** «Capri, tradúceme esto» (o «…al inglés», «…al japonés») en su chat o en voz alta:
+  mira tu pantalla y te escribe el mensaje, el post o la página en el idioma que pidas, o en el tuyo.
+- **Consejos para tus juegos:** «Capri, dame un consejo» o «¿qué hago aquí?»: mira tu partida y te dice algo útil
+  para ese momento. En modo gamer, con su mirada en vivo encendida, te da uno cada pocos minutos (se apaga en Ajustes).
+- **Modo streaming:** cuando estás en vivo (TikTok, Twitch, YouTube, Kick…), lee en tu pantalla los comentarios de tus
+  seguidores y les contesta en voz alta, como tu co-host. Sin cuentas ni conexión con esas apps. En Ajustes o
+  «Capri, modo streaming».
+- **Su acento:** en Ajustes › Háblale elige cómo suena en tu idioma: México, España, Argentina, Colombia…;
+  estadounidense o británico; Brasil o Portugal; Francia o Quebec.
+- **Reacciona sola a lo que haces:** con música o un video sonando se pone a escuchar, baila o toca la guitarra; con
+  TikTok o YouTube abiertos come botanita mientras ves; mientras juegas se acuesta a mirarte. Para la música ya no
+  necesita ningún permiso; para saber qué app tienes abierta usa el «Acceso de uso» si ya se lo diste.
+- **Te escucha y se nota:** cuando le dices «Capri» y le hablas, salen unas barritas junto a su cabeza que se mueven
+  con tu voz.
+- **Discord a la mano:** el botón del Discord ahora está justo debajo del de iniciarla.
+- **Ya no se queda pillada al iniciar:** en algunos teléfonos su imagen se perdía y quedaba un recuadro gris con una
+  carita triste. Ahora se recupera sola, y si el teléfono no puede dibujarla como siempre, la dibuja más sencilla en
+  lugar de no salir.
+- **Menos «servidores saturados»:** con la IA gratis espera su turno en lugar de rendirse, y si la tuya está llena
+  contesta otra de las que le diste clave, para que siempre te responda.
+
 ## 1.8.2
 
 - **Sus animaciones también con ropa puesta:** si le habías puesto un conjunto, ya no bailaba con tu música, no se

@@ -224,6 +224,31 @@ hear "Capri cásate conmigo"
 shot 33-wedding-gasp 2
 shot 34-wedding-yes 5
 shot 35-wedding-veil 6
+# 1.9.0: her sign that she's listening (her name alone), her reaction to music playing, something
+# shared with her, "tradúceme esto", streaming mode on and off
+adb shell input tap 540 300
+sleep 2
+hear "Capri"
+shot 36-hearing 2
+adb shell am start-foreground-service -n $PKG/.CapriService -a capri.SENSE --ez sound true --es kind '""' >/dev/null
+shot 37-react-music 14
+adb shell am start-foreground-service -n $PKG/.CapriService -a capri.SENSE --ez sound false --es kind '""' >/dev/null
+adb shell am start -n $PKG/.ShareActivity -a android.intent.action.SEND -t text/plain --es android.intent.extra.TEXT "'mira esto, choom'" >/dev/null
+shot 38-share-text 12
+adb shell input keyevent KEYCODE_BACK
+adb shell input tap 540 300
+sleep 2
+hear "Capri tradúceme esto al inglés"
+shot 39-translate 14
+adb shell input keyevent KEYCODE_BACK
+adb shell input tap 540 300
+sleep 2
+hear "Capri modo streaming"
+shot 40-streaming 5
+adb shell input keyevent KEYCODE_BACK
+hear "Capri quita el modo streaming"
+shot 41-streaming-off 4
+adb logcat -d -s capri capri-js | grep -iE "share|stream|webgl|GPU|picture|busy|answered instead|in front" | tail -20
 adb shell dumpsys activity services $PKG | grep -iE "foregroundServiceType|types=" | head -4
 adb logcat -d | grep -iE "capri|chromium|torch" | grep -viE "regions|keyboard" | tail -40
 adb shell dumpsys window windows | grep -E "Window #" | head -16
