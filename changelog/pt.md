@@ -2,6 +2,13 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.9.0
+
+- **O guarda-roupa, agora também como tela do app:** *Ajustes → Abrir o guarda-roupa* agora abre a tela dele, com
+  a Capri num palco em cima e as roupas, acessórios e efeitos embaixo. Cada mudança aparece nela na hora e, se ela
+  estiver na sua tela, muda lá também. Se preferir vesti-la como antes, por cima da sua tela, continua lá: *Vestir na
+  sua tela* (em Ajustes, nesta tela, no menu rápido dela ou dizendo “Capri, troca de roupa”). Você escolhe.
+
 ## 1.8.0
 
 - **O guarda-roupa dela:** novo botão *Vestir* no menu rápido (também em *Ajustes → Guarda-roupa* ou dizendo “Capri,

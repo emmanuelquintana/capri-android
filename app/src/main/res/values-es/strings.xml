@@ -260,4 +260,5 @@
     <string name="closet_alive">Y ahora se mueve cuadro por cuadro, como en el anime: baila, duerme hecha bolita, te ve jugar, escucha tu música contigo, se marea si la avientas…</string>
     <string name="closet_where">Ábrelo cuando quieras: mantenla presionada y toca «Vestirla», o dile «Capri, vístete».</string>
     <string name="closet_open">Abrir su vestuario</string>
+    <string name="closet_on_screen">Vestirla en tu pantalla</string>
 </resources>

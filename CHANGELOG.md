@@ -3,6 +3,14 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.9.0
+
+- **El vestuario, también como pantalla de la app:** en *Ajustes → Abrir su vestuario* ahora se abre su propia
+  pantalla, con Capri en un escenario arriba y los conjuntos, accesorios y efectos abajo. Cada cambio se ve en ella
+  al instante y, si está en tu pantalla, se cambia ahí también. Si prefieres vestirla como antes, encima de tu
+  pantalla, sigue ahí: *Vestirla en tu pantalla* (en Ajustes, en esta pantalla, en su menú rápido o diciéndole
+  «Capri, vístete»). Tú eliges.
+
 ## 1.8.0
 
 - **Su vestuario:** nuevo botón *Vestirla* en el menú rápido (también en *Ajustes → Vestuario* o diciéndole «Capri,

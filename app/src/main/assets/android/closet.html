@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Vestuario</title>
+  <!-- The app's own Vestuario screen (ClosetActivity): her wardrobe sheet (wardrobe.js), with her on a
+       stage above it instead of over your screen. What you pick is saved as she'd save it. -->
+  <link rel="stylesheet" href="../capri/src/renderer/styles/capri.css">
+  <link rel="stylesheet" href="android.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--ink);
+      color: var(--paper);
+      pointer-events: auto;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      font-family: var(--font-display);
+      /* the faint scanlines of her HUD (Hud.Backdrop) */
+      background-image: repeating-linear-gradient(0deg, rgba(242, 241, 232, 0.04) 0 1px, transparent 1px 4px);
+    }
+    .stage {
+      position: relative;
+      flex: 0 0 auto;
+      height: clamp(240px, 42vh, 460px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: 34px;
+      box-sizing: border-box;
+    }
+    /* her floor: a yellow line with the cyan copy just off it */
+    .stage::after {
+      content: '';
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      bottom: 10px;
+      height: 2px;
+      background: var(--yellow);
+      box-shadow: 3px 3px 0 var(--cyan);
+    }
+    .stage__tag {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      font: 600 11px/1 var(--font-mono);
+      letter-spacing: 0.18em;
+      color: var(--yellow);
+    }
+    .stage__tag b { color: var(--paper-3); font-weight: 600; }
+    /* as bright as her shader shows her on your screen */
+    .stage__her {
+      height: calc(100% - 22px);
+      margin-bottom: 11px;
+      filter: brightness(1.3) saturate(1.2);
+      animation: closet-breathe 3.6s ease-in-out infinite;
+      transform-origin: 50% 100%;
+    }
+    #sprite { height: 100%; width: auto; display: block; transition: opacity 160ms; }
+    .stage__her.is-new { animation: closet-glitch 220ms steps(3, end) 1, closet-breathe 3.6s ease-in-out 220ms infinite; }
+    @keyframes closet-breathe { 50% { transform: scaleY(1.012); } }
+    @keyframes closet-glitch {
+      0% { transform: translateX(-6px); clip-path: inset(0 0 55% 0); }
+      50% { transform: translateX(5px); clip-path: inset(40% 0 0 0); }
+      100% { transform: none; clip-path: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { .stage__her, .stage__her.is-new { animation: none; } }
+
+    /* her sheet, in the page instead of over your screen */
+    .wardrobe {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      transform: none;
+      flex: 1 1 auto;
+      min-height: 0;
+      height: auto;
+      width: auto;
+      margin: 0 12px;
+      animation: none;
+    }
+    .wardrobe-shade, .wardrobe__done { display: none !important; }
+    .bar {
+      flex: 0 0 auto;
+      display: flex;
+      gap: 10px;
+      padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+    }
+    .bar button {
+      flex: 1;
+      min-height: 48px;
+      border: 2px solid var(--yellow);
+      background: transparent;
+      color: var(--yellow);
+      font: 700 13px/1.1 var(--font-display);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+    }
+    .bar button.is-main { background: var(--yellow); color: var(--ink); }
+    .bar button:active { background: var(--cyan); border-color: var(--cyan); color: var(--ink); }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <span class="stage__tag">// CAPRI <b>· LIVE</b></span>
+    <div class="stage__her"><canvas id="sprite" width="240" height="420"></canvas></div>
+  </div>
+  <div class="bar">
+    <button type="button" id="on-screen"></button>
+    <button type="button" id="done" class="is-main"></button>
+  </div>
+  <script type="module" src="closet.js"></script>
+</body>
+</html>

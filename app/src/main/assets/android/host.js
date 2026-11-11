@@ -1348,6 +1348,8 @@ on('settings:apply', async (p = {}) => {
     saveMemory({ facts: [], last: null, seen: said ? String(said).slice(0, 200) : null });
   }
   if ('icon' in p) updateConfig({ icon: Boolean(p.icon), ...(p.icon && { visible: true }) });
+  // the app's own Vestuario screen (ClosetActivity): what you picked there, on her now
+  if (p.look && typeof p.look === 'object') { updateConfig({ look: { ...p.look, mane: 'default', mask: 'default' } }); closet?.apply(); }
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
   if (p.musicStay) updateConfig({ musicStay: String(p.musicStay) });
   if (('musicCard' in p || p.musicStay) && notes) notes.refreshMusic(); // shown or hidden now

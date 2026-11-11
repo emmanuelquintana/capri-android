@@ -13,7 +13,7 @@
 
 import { FACES } from '../capri/src/renderer/js/panel.js';
 
-const WARDROBE = new URL('../../assets/capri/wardrobe/', location.href).href;
+const WARDROBE = new URL('../capri/assets/capri/wardrobe/', import.meta.url).href; // (from her page and from the app's closet.html)
 
 // ---------- what there is ----------
 
@@ -337,6 +337,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     const r = capri.sprite;
     const gl = r.gl;
     r.image = canvas; // (after a GPU reset, this is the picture that goes back)
+    if (!gl) return r.onPicture?.(canvas); // the app's own Vestuario screen (closet.js): no shader, a plain canvas
     const tex = gl.getParameter(gl.TEXTURE_BINDING_2D);
     if (!tex) return;
     gl.bindTexture(gl.TEXTURE_2D, tex);
@@ -397,7 +398,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     const dev = window.dev;
     const capri = dev?.capri;
     from = null;
-    if (!capri || !el || el.hidden || capri.hidden || capri.stowed || capri.dormant || cfg().icon || cfg().gamer) return;
+    if (!capri?.teleport || !el || el.hidden || capri.hidden || capri.stowed || capri.dormant || cfg().icon || cfg().gamer) return;
     dev.notes?.feed(); // the sheet, as a ledge for her (notes.js snapshot)
     const r = { left: (innerWidth - el.offsetWidth) / 2, top: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight };
     const win = { id: 'wardrobe', x: r.left, y: r.top, w: r.width, h: r.height, max: false };

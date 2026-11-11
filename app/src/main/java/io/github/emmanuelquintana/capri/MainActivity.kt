@@ -914,7 +914,9 @@ class MainActivity : Activity() {
         addView(ui.text(getString(R.string.closet_how), 14f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.18f) }, ui.block(12))
         addView(ui.text(getString(R.string.closet_alive), 14f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.18f) }, ui.block(8))
         addView(ui.text(getString(R.string.closet_where), 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.18f) }, ui.block(10))
-        addView(ui.button(getString(R.string.closet_open) + " ›", Ui.Kind.MAIN) { openWardrobe() }, ui.block(14))
+        // two ways to dress her (1.9.0): her own screen in the app, or over your screen as she is
+        addView(ui.button(getString(R.string.closet_open) + " ›", Ui.Kind.MAIN) { startActivity(android.content.Intent(this@MainActivity, ClosetActivity::class.java)) }, ui.block(14))
+        addView(ui.button(getString(R.string.closet_on_screen), Ui.Kind.LINE) { openWardrobe() }, ui.block(8))
     }
 
     /** Her wardrobe, open on her over whatever is on screen: she starts first if she isn't on yet. */

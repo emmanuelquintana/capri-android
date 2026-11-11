@@ -2,6 +2,14 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.9.0
+
+- **La garde-robe, aussi comme écran de l’app :** *Réglages → Ouvrir sa garde-robe* ouvre maintenant son propre
+  écran, avec Capri sur une scène en haut et les tenues, accessoires et effets en dessous. Chaque changement se voit
+  sur elle tout de suite et, si elle est sur ton écran, elle change là aussi. Si tu préfères l’habiller comme avant,
+  par-dessus ton écran, c’est toujours là : *L’habiller sur ton écran* (dans Réglages, sur cet écran, dans son menu
+  rapide ou en lui disant « Capri, habille-toi »). À toi de choisir.
+
 ## 1.8.0
 
 - **Sa garde-robe :** nouveau bouton *L’habiller* dans le menu rapide (aussi dans *Réglages → Garde-robe* ou en lui

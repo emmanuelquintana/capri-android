@@ -260,4 +260,5 @@
     <string name="closet_alive">Et maintenant elle bouge image par image, comme dans l’anime : elle danse, dort en boule, te regarde jouer, écoute ta musique avec toi, a le tournis si tu la lances…</string>
     <string name="closet_where">Ouvre-la quand tu veux : garde-la appuyée et touche « L’habiller », ou dis « Capri, habille-toi ».</string>
     <string name="closet_open">Ouvrir sa garde-robe</string>
+    <string name="closet_on_screen">L’habiller sur ton écran</string>
 </resources>

@@ -91,6 +91,11 @@ shot 14-settings-tab 2
 # 1.8: the wardrobe's presentation opens Settings; the language card is under it
 adb shell input swipe 500 1800 500 700 300
 shot 14w-settings-wardrobe 2
+# 1.9: her Vestuario as a screen of its own (ClosetActivity), then back
+tap "abrir su vestuario"
+shot 14x-closet 5
+adb shell input keyevent KEYCODE_BACK
+sleep 2
 adb shell input swipe 500 1800 500 700 300
 # the app in another language, then back to the phone's
 tap "français"

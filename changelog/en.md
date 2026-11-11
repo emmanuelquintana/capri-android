@@ -2,6 +2,14 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.9.0
+
+- **The wardrobe, now also as a screen in the app:** *Settings → Open her wardrobe* now opens its own screen, with
+  Capri on a stage at the top and the outfits, accessories and effects below. Every change shows on her right away
+  and, if she's on your screen, she changes there too. If you'd rather dress her as before, over your screen, that's
+  still there: *Dress her on your screen* (in Settings, on this screen, in her quick menu or by saying “Capri, get
+  dressed”). Your choice.
+
 ## 1.8.0
 
 - **Her wardrobe:** a new *Dress her* button in the quick menu (also in *Settings → Wardrobe* or by saying “Capri, get
