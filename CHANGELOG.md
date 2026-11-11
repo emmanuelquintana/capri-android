@@ -63,6 +63,10 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Se asoma en tus notificaciones (opcional):** al bajar el panel de notificaciones o los ajustes rápidos, Capri se
   asoma por un lado y te saluda. Se activa en Personalizar con el permiso de Accesibilidad (apagado de fábrica); solo
   se entera de que abriste el panel, no lee ni toca nada. Ojo: algunos bancos no abren con Accesibilidad activada.
+- **Widget de Capri:** ponlo en tu pantalla de inicio con sus colores y su cara (cambia si está apagada o guardada):
+  iniciarla, hablarle, que mire tu pantalla, vestirla y guardarla o sacarla, de un toque.
+- **Te escucha al pausar un video:** antes tardaba hasta 3 segundos en volver a escuchar después de pausar YouTube y
+  se perdía el principio de lo que decías; ahora empieza en cuanto se detiene el sonido.
 
 ## 1.8.2
 

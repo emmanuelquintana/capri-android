@@ -67,6 +67,33 @@ class Ears(private val service: CapriService) {
         }
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
     }
+    // (1.9.0) "pongo el video en pausa para hablar con Capri y no me escucha o solo la mitad": she waited
+    // for the sound to stop by checking every 3 s. Android now tells her the moment a player stops, and
+    // she starts listening right then.
+    private val players = object : AudioManager.AudioPlaybackCallback() {
+        override fun onPlaybackConfigChanged(configs: MutableList<android.media.AudioPlaybackConfiguration>?) {
+            if (!wanted || listening || speaking) return
+            main.removeCallbacks(quietNow)
+            main.postDelayed(quietNow, 250)
+        }
+    }
+    private val quietNow = Runnable {
+        val audio = service.getSystemService(AudioManager::class.java) ?: return@Runnable
+        if (!wanted || listening || speaking) return@Runnable
+        if (!audio.isMusicActive) next(0) else main.postDelayed(quietLater, 600)
+    }
+    private val quietLater = Runnable {
+        val audio = service.getSystemService(AudioManager::class.java) ?: return@Runnable
+        if (wanted && !listening && !speaking && !audio.isMusicActive) next(0)
+    }
+    private var watchingPlayers = false
+    private fun watchPlayers(on: Boolean) {
+        if (on == watchingPlayers) return
+        val audio = service.getSystemService(AudioManager::class.java) ?: return
+        watchingPlayers = on
+        runCatching { if (on) audio.registerAudioPlaybackCallback(players, main) else audio.unregisterAudioPlaybackCallback(players) }
+    }
+
     private var sensing = false
     private fun sense(on: Boolean) {
         if (on == sensing) return
@@ -91,6 +118,7 @@ class Ears(private val service: CapriService) {
         if (should == wanted) return@post
         wanted = should
         sense(should)
+        watchPlayers(should)
         if (should) {
             failures = 0
             Diag.add("I", "listening for her name")
@@ -107,6 +135,7 @@ class Ears(private val service: CapriService) {
 
     fun destroy() {
         sense(false)
+        watchPlayers(false)
         wanted = false
         stop()
         tts?.shutdown()
@@ -132,7 +161,7 @@ class Ears(private val service: CapriService) {
         // video pauses, the song stops), so she waits for it to end
         if (audio.isMusicActive) {
             status = "media"
-            return next(3000)
+            return next(700) // (1.9.0: was 3 s, so after you paused a video she was deaf for up to 3 s)
         }
         val r = recognizer ?: create().also { recognizer = it }
         val lang = language()

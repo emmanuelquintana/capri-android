@@ -329,4 +329,16 @@
     <string name="perms_summary">%1$d of %2$d allowed</string>
     <string name="perms_show">See permissions</string>
     <string name="perms_hide">Hide permissions</string>
+    <string name="widget_label">Capri</string>
+    <string name="widget_desc">Capri’s quick things: start her, talk, look at your screen, dress her</string>
+    <string name="widget_off">○ OFF</string>
+    <string name="widget_on">● ONLINE</string>
+    <string name="widget_hidden">● PUT AWAY</string>
+    <string name="widget_start">START</string>
+    <string name="widget_talk">TALK</string>
+    <string name="widget_look">LOOK</string>
+    <string name="widget_dress">DRESS</string>
+    <string name="widget_hide">HIDE</string>
+    <string name="widget_show">SHOW</string>
+    <string name="widget_app">APP</string>
 </resources>

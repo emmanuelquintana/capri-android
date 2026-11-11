@@ -104,6 +104,7 @@ class CapriService : Service() {
         checkUpdates()
         startForegroundCompat()
         Diag.add("I", "service started (Android ${Build.VERSION.RELEASE}, API ${Build.VERSION.SDK_INT})")
+        CapriWidget.update(this, visible)
         if (!Settings.canDrawOverlays(this)) {
             Diag.add("E", "no permission to show over other apps")
             // no right to be on top: the app asks for it (MainActivity), she starts from there
@@ -136,7 +137,8 @@ class CapriService : Service() {
             ACTION_MENU -> command("menu")
             ACTION_TOGGLE -> command("toggle")
             ACTION_QUIT -> quit()
-            ACTION_CHAT -> command("chat")
+            ACTION_CHAT -> if (pageReady) command("chat") else queued = "chat" // (her widget can start her with it)
+            ACTION_LOOK -> if (pageReady) command("look") else queued = "look"
             ACTION_SETUP -> if (pageReady) command("setupChat") else queued = "setupChat"
             ACTION_WARDROBE -> if (pageReady) command("wardrobe") else queued = "wardrobe"
             // something shared with her (ShareActivity): her page takes it (share.js)
@@ -177,6 +179,7 @@ class CapriService : Service() {
         if (v != visible) {
             visible = v
             refreshNotification()
+            CapriWidget.update(this, visible)
         }
     }
 
@@ -200,6 +203,7 @@ class CapriService : Service() {
         ticker.removeCallbacks(check)
         if (current === this) current = null
         Diag.add("I", "service stopped")
+        CapriWidget.update(this)
         try { unregisterReceiver(screen) } catch (_: Exception) {}
         try { unregisterReceiver(battery) } catch (_: Exception) {}
         hooks?.stop()
@@ -338,6 +342,7 @@ class CapriService : Service() {
         const val ACTION_SETUP = "capri.SETUP"
         const val ACTION_WARDROBE = "capri.WARDROBE" // the app's Settings: open her wardrobe on her
         const val ACTION_CHAT = "capri.CHAT"
+        const val ACTION_LOOK = "capri.LOOK" // her widget: look at my screen
         const val ACTION_HEAR = "capri.HEAR"
         const val ACTION_SENSE = "capri.SENSE"
         const val ACTION_SHARE = "capri.SHARE"

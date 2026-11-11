@@ -68,6 +68,10 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   réglages rapides, Capri passe la tête par le côté et te salue. À activer dans Personnaliser avec l’Accessibilité
   (désactivé par défaut) ; elle sait seulement que le volet s’est ouvert, elle ne lit et ne touche rien. Attention :
   certaines banques ne s’ouvrent pas avec l’Accessibilité activée.
+- **Widget Capri :** mets-le sur ton écran d’accueil, à ses couleurs et avec son visage (il change quand elle est
+  éteinte ou rangée) : la lancer, lui parler, qu’elle regarde ton écran, l’habiller, la ranger ou la sortir, d’un geste.
+- **Elle t’entend quand tu mets une vidéo en pause :** elle mettait jusqu’à 3 secondes à réécouter après une pause
+  sur YouTube et ratait le début de ta phrase ; maintenant elle écoute dès que le son s’arrête.
 
 ## 1.8.2
 

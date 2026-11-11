@@ -63,6 +63,10 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Ela espia nas suas notificações (opcional):** ao puxar o painel de notificações ou as configurações rápidas, a
   Capri espia pelo lado e acena. Liga em Personalizar com a permissão de Acessibilidade (desligado de fábrica); ela só
   fica sabendo que o painel abriu, não lê nem toca em nada. Atenção: alguns bancos não abrem com Acessibilidade ligada.
+- **Widget da Capri:** coloque na tela inicial, com as cores e o rosto dela (muda quando está desligada ou guardada):
+  iniciar, conversar, olhar sua tela, vestir e guardar ou trazer, num toque.
+- **Ela te ouve quando você pausa um vídeo:** antes levava até 3 segundos pra voltar a ouvir depois de pausar o
+  YouTube e perdia o começo do que você dizia; agora começa assim que o som para.
 
 ## 1.8.2
 

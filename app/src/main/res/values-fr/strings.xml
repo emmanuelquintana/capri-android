@@ -328,4 +328,16 @@
     <string name="perms_summary">%1$d sur %2$d accordées</string>
     <string name="perms_show">Voir les autorisations</string>
     <string name="perms_hide">Masquer les autorisations</string>
+    <string name="widget_label">Capri</string>
+    <string name="widget_desc">L’essentiel de Capri : la lancer, lui parler, qu’elle regarde ton écran, l’habiller</string>
+    <string name="widget_off">○ ÉTEINTE</string>
+    <string name="widget_on">● EN LIGNE</string>
+    <string name="widget_hidden">● RANGÉE</string>
+    <string name="widget_start">LANCER</string>
+    <string name="widget_talk">PARLER</string>
+    <string name="widget_look">REGARDER</string>
+    <string name="widget_dress">HABILLER</string>
+    <string name="widget_hide">RANGER</string>
+    <string name="widget_show">SORTIR</string>
+    <string name="widget_app">APP</string>
 </resources>

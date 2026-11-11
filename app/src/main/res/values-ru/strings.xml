@@ -329,4 +329,16 @@
     <string name="perms_summary">Выдано: %1$d из %2$d</string>
     <string name="perms_show">Показать разрешения</string>
     <string name="perms_hide">Скрыть разрешения</string>
+    <string name="widget_label">Капри</string>
+    <string name="widget_desc">Быстрое с Капри: запустить, поговорить, показать экран, переодеть</string>
+    <string name="widget_off">○ ВЫКЛ.</string>
+    <string name="widget_on">● В СЕТИ</string>
+    <string name="widget_hidden">● СПРЯТАНА</string>
+    <string name="widget_start">ЗАПУСК</string>
+    <string name="widget_talk">ЧАТ</string>
+    <string name="widget_look">ЭКРАН</string>
+    <string name="widget_dress">НАРЯД</string>
+    <string name="widget_hide">СПРЯТАТЬ</string>
+    <string name="widget_show">ПОКАЗАТЬ</string>
+    <string name="widget_app">APP</string>
 </resources>

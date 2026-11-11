@@ -61,6 +61,10 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **She peeks into your notifications (optional):** when you pull down the notification panel or quick settings,
   Capri peeks in from the side and waves. Turn it on in Customize with the Accessibility permission (off by default);
   she's only told the panel opened, she reads and touches nothing. Note: some banks won't open with Accessibility on.
+- **Capri widget:** put it on your home screen, in her colors and with her face (it changes when she's off or put
+  away): start her, talk, have her look at your screen, dress her, and put her away or bring her out, in one tap.
+- **She hears you when you pause a video:** she used to take up to 3 seconds to listen again after you paused
+  YouTube and missed the start of what you said; now she starts the moment the sound stops.
 
 ## 1.8.2
 

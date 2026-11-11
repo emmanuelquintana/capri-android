@@ -328,4 +328,16 @@
     <string name="perms_summary">%1$d de %2$d concedidas</string>
     <string name="perms_show">Ver permissões</string>
     <string name="perms_hide">Ocultar permissões</string>
+    <string name="widget_label">Capri</string>
+    <string name="widget_desc">O rápido da Capri: iniciar, conversar, olhar sua tela, vestir</string>
+    <string name="widget_off">○ DESLIGADA</string>
+    <string name="widget_on">● ONLINE</string>
+    <string name="widget_hidden">● GUARDADA</string>
+    <string name="widget_start">INICIAR</string>
+    <string name="widget_talk">FALAR</string>
+    <string name="widget_look">OLHAR</string>
+    <string name="widget_dress">VESTIR</string>
+    <string name="widget_hide">GUARDAR</string>
+    <string name="widget_show">TRAZER</string>
+    <string name="widget_app">APP</string>
 </resources>
