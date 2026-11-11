@@ -37,6 +37,22 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     private val gone = mutableListOf<Long>() // when her page was restarted lately
     private var up = false // her page said it's up (overlay:ready)
     private var closed = false // stopped for good (destroy)
+    @Volatile private var aliveAt = 0L // her page's last heartbeat (overlay:alive)
+
+    /** Her page says it's still running (every few seconds, host.js). */
+    fun alive() { aliveAt = System.currentTimeMillis() }
+
+    // (1.9.0) her page frozen (a half-drawn panel, nothing moving, "se me desapareció el chat"): fresh
+    private val heartbeat = object : Runnable {
+        override fun run() {
+            val now = System.currentTimeMillis()
+            if (up && !paused && webView != null && aliveAt > 0 && now - aliveAt > FROZEN_MS) {
+                aliveAt = 0
+                restart("her page stopped answering for ${FROZEN_MS / 1000} s")
+            }
+            if (!closed) main.postDelayed(this, 10_000)
+        }
+    }
 
     private val wm = context.getSystemService(WindowManager::class.java)!!
     private val main = Handler(Looper.getMainLooper())
@@ -145,6 +161,9 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
 
     fun ready() {
         up = true
+        aliveAt = System.currentTimeMillis()
+        main.removeCallbacks(heartbeat)
+        main.postDelayed(heartbeat, 10_000)
         bridge.log.add("I", "her page is up")
     }
 
@@ -307,6 +326,7 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     fun resume() = main.post {
         if (!paused) return@post
         paused = false
+        aliveAt = System.currentTimeMillis() // (her timers were stopped meanwhile)
         webView?.onResume()
     }
 
@@ -462,6 +482,7 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     companion object {
         // a tap away from her while she has the keyboard: her chat (or setup question) closes, and
         // if somehow none is open, the keyboard is given back anyway (never a screen you can't touch)
+        private const val FROZEN_MS = 45_000L // no heartbeat from her page this long, the screen on: frozen
         private const val START_WITHIN = 40_000L // ms her page has to say it's up (slow phones take ~10 s)
 
         private const val LEAVE =

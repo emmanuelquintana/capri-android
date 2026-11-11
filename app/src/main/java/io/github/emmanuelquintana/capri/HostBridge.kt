@@ -73,6 +73,7 @@ class HostBridge(private val service: CapriService) {
 
         // her window
         "overlay:ready" -> { service.overlay?.ready(); service.onPageReady() }
+        "overlay:alive" -> service.overlay?.alive()
         "share:take" -> ShareActivity.take() ?: JSONObject.NULL
         "overlay:restart" -> service.overlay?.restart(obj(args).optString("why", "her page asked"))
         "log" -> log.add(obj(args).optString("level", "E"), obj(args).optString("text"))

@@ -1518,6 +1518,8 @@ window.__capriTrim = () => {
 // she's up: Kotlin can show her (the WebView stays hidden until the page has drawn once)
 ready.then(() => setTimeout(() => send('overlay:ready'), 0));
 ready.then(watchGpu);
+// her heartbeat: Overlay.kt gives her a fresh page if it stops (frozen)
+ready.then(() => setInterval(() => send('overlay:alive'), 5000));
 
 // her page's errors, to the app's screen (MainActivity), so a phone with no developer tools can tell
 window.addEventListener('error', (e) => send('log', { level: 'E', text: `${e.message} (${String(e.filename).split('/').pop()}:${e.lineno})` }));
