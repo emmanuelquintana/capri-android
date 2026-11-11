@@ -62,6 +62,8 @@ ANIMS = {
     # 1.9.0
     'listen': (4, 1, 5, True, 'stand'),
     'stream': (4, 1, 5, True, 'stand'),
+    'birthday': (4, 1, 5, True, 'stand'),
+    'party': (4, 2, 8, True, 'stand'),
 }
 # the cel where she just stands there, for the ones she jumps or reaches up in: her real height is that cel's,
 # not the whole box's (else she looks smaller in them than in the rest)

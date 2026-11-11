@@ -39,6 +39,7 @@ import { sharing } from './share.js';
 import { translating } from './translate.js';
 import { coaching } from './coach.js';
 import { streaming } from './stream.js';
+import { birthday } from './birthday.js';
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
 const llm = load('llm');
@@ -1478,6 +1479,7 @@ ready.then(() => {
     window.dev.translate = translating(); // "tradúceme esto": your screen, in the language you want
     window.dev.coach = coaching({ cfg: () => cfg }); // "dame un consejo": tips for your game
     window.dev.stream = streaming({ cfg: () => cfg, setConfig: updateConfig }); // streaming mode: your live's comments
+    window.dev.birthday = birthday({ cfg: () => cfg, setConfig: updateConfig }); // your birthday: she asks, and celebrates it
   }, 300);
 });
 

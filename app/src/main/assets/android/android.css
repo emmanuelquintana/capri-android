@@ -749,3 +749,18 @@ body.is-dressing .fx { z-index: 41; }
   59% { filter: drop-shadow(-3px 0 0 #ff1744cc) drop-shadow(3px 0 0 #00e5ff55) drop-shadow(0 0 6px #ff1744aa) contrast(1.12); }
 }
 @media (prefers-reduced-motion: reduce) { .is-psycho { animation: none; } }
+
+/* her birthday party for you (birthday.js) */
+.capri-confetti {
+  position: fixed;
+  top: -16px;
+  z-index: 30;
+  width: 7px;
+  height: 12px;
+  pointer-events: none;
+  animation: capri-confetti 3s cubic-bezier(0.3, 0.6, 0.6, 1) forwards;
+}
+@keyframes capri-confetti {
+  to { transform: translate(var(--dx), 105vh) rotate(var(--spin)); opacity: 0.9; }
+}
+@media (prefers-reduced-motion: reduce) { .capri-confetti { display: none; } }
