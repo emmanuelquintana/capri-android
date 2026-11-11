@@ -94,6 +94,7 @@ shot 14w-settings-wardrobe 2
 # 1.8.1: her Vestuario as a screen of its own (ClosetActivity), then back
 tap "abrir su vestuario"
 shot 14x-closet 5
+echo "--- closet: crashes and its log"; adb logcat -d -b crash | tail -40; adb logcat -d | grep -iE "closet|AndroidRuntime|ActivityTaskManager: START" | tail -25
 adb shell input keyevent KEYCODE_BACK
 sleep 2
 adb shell input swipe 500 1800 500 700 300
