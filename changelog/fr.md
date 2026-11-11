@@ -52,6 +52,16 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   peu quand il n’y a rien à entendre.
 - **Filtre « Très strict » plus fin :** elle ignore les voix lointaines, comme la télé ou quelqu’un à l’autre bout de
   la pièce.
+- **Réglages rangés en trois onglets :** **Toi** (comment elle t’appelle, ton anniversaire, ce dont elle se souvient
+  et comment elle prend soin de toi), **Personnaliser** (sa garde-robe, son apparence et son comportement à l’écran, et
+  sa voix) et **Réglages** (le général : autorisations, langue, son IA, son ouïe, ses modes et les performances). Les
+  autorisations n’ont plus d’onglet : elles sont en haut des Réglages.
+- **Ton anniversaire dans l’app :** dans l’onglet Toi, choisis la date sans attendre qu’elle te la demande.
+- **Nouvelles animations :** elle écoute la main à l’oreille, salue en mode streaming, souffle les bougies de son
+  gâteau et fait sa fête pour ton anniversaire.
+- **Statistiques anonymes :** une fois par jour, l’app signale « quelqu’un utilise Capri » avec un nombre au hasard
+  (pas celui de ton téléphone), la version, la langue et la version d’Android, pour savoir combien de personnes
+  l’utilisent. Rien de personnel. Ça se désactive dans les Réglages.
 
 ## 1.8.2
 

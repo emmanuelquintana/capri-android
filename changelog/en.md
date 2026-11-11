@@ -46,6 +46,16 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **The mic no longer turns on and off nonstop:** on Android 13 or newer she listens continuously (the mic stays on,
   steady) instead of starting over every few seconds; on others she rests a little when there's nothing to hear.
 - **Finer "Strictest" filter:** she ignores far-away voices, like the TV or someone across the room.
+- **Settings sorted into three tabs:** **You** (what she calls you, your birthday, what she remembers about you and
+  how she looks after you), **Customize** (her wardrobe, how she looks and behaves on your screen, and her voice) and
+  **Settings** (the general: permissions, language, her AI, her ears, her modes and performance). Permissions no
+  longer have their own tab: they're at the top of Settings.
+- **Your birthday in the app:** in the You tab, pick the date without waiting for her to ask.
+- **New animations:** she listens with a hand to her ear, waves in streaming mode, blows out her cake's candles and
+  throws her party on your birthday.
+- **Anonymous statistics:** once a day the app says "someone uses Capri" with a random number (not your phone's), the
+  version, the language and the Android version, to know how many people use her. Nothing personal. Turn it off in
+  Settings.
 
 ## 1.8.2
 

@@ -61,6 +61,9 @@ class Store(private val context: Context) {
     /** A text setting straight from config.json (the app's screen: who answers her). */
     fun configString(key: String): String? = config().optString(key).ifEmpty { null }
 
+    /** An object setting straight from config.json (your birthday: { m, d }). */
+    fun configObject(key: String): org.json.JSONObject? = config().optJSONObject(key)
+
     /** A number setting straight from config.json (her size). */
     fun configNumber(key: String, default: Double): Double = config().optDouble(key, default)
 

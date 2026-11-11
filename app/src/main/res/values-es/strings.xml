@@ -300,4 +300,18 @@
     <string name="webview_old_how">A Capri la dibuja Android System WebView, y la de este teléfono (versión %1$d) es demasiado vieja para ella: puede que no aparezca o que se trabe. Actualízala desde la Play Store (es gratis y segura, es parte de Android) y vuelve a iniciarla.</string>
     <string name="webview_update">Actualizar WebView</string>
     <string name="voice_far">Oyó algo lejos (la tele, alguien más): no le hizo caso.</string>
+    <string name="tab_you">Tú</string>
+    <string name="tab_style">Personalizar</string>
+    <string name="you_intro">Lo que Capri sabe de ti: cómo te llama, tu cumpleaños, lo que recuerda y cómo te cuida.</string>
+    <string name="style_intro">Cómo se ve, cómo se comporta y cómo suena tu Capri.</string>
+    <string name="settings_intro">Lo general: sus permisos, el idioma, su IA, su oído, sus modos y cómo funciona la app.</string>
+    <string name="settings_modes">Sus modos</string>
+    <string name="settings_her_voice">Su voz</string>
+    <string name="you_birthday">Tu cumpleaños</string>
+    <string name="you_birthday_how">Ese día te festeja: confeti, te felicita en voz alta y hace su fiesta. También te lo puede preguntar en su chat.</string>
+    <string name="you_birthday_none">Todavía sin fecha</string>
+    <string name="you_birthday_pick">Elegir la fecha</string>
+    <string name="you_birthday_clear">Quitar</string>
+    <string name="settings_stats">Estadísticas anónimas</string>
+    <string name="settings_stats_how">Una vez al día la app manda un número al azar inventado la primera vez (no es el de tu teléfono ni el de tu cuenta), la versión de la app, su idioma y la versión de Android, para que Emma sepa cuánta gente usa Capri. Nada más: ni tu nombre, ni tus chats, ni nada de tu teléfono.</string>
 </resources>

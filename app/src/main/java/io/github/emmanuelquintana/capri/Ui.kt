@@ -279,6 +279,24 @@ class Ui(private val a: Activity) {
                     c.drawCircle(cx + s * 0.2f, cy - s * 0.22f, s * 0.12f, p)
                     c.drawArc(cx + s * 0.02f, cy - s * 0.02f, cx + s * 0.46f, cy + s * 0.42f, 215f, 125f, false, p)
                 }
+                "person" -> { // one head and shoulders: you
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = s * 0.1f
+                    p.strokeCap = Paint.Cap.ROUND
+                    c.drawCircle(cx, cy - s * 0.16f, s * 0.18f, p)
+                    c.drawArc(cx - s * 0.36f, cy + s * 0.1f, cx + s * 0.36f, cy + s * 0.74f, 200f, 140f, false, p)
+                }
+                "hanger" -> { // her wardrobe: a hook and a hanger
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = s * 0.09f
+                    p.strokeCap = Paint.Cap.ROUND
+                    p.strokeJoin = Paint.Join.ROUND
+                    c.drawArc(cx - s * 0.1f, cy - s * 0.44f, cx + s * 0.1f, cy - s * 0.24f, 180f, 270f, false, p)
+                    c.drawLine(cx, cy - s * 0.24f, cx, cy - s * 0.14f, p)
+                    path.moveTo(cx, cy - s * 0.14f)
+                    path.lineTo(cx + s * 0.44f, cy + s * 0.2f); path.lineTo(cx - s * 0.44f, cy + s * 0.2f); path.close()
+                    c.drawPath(path, p)
+                }
                 else -> { // sliders
                     p.style = Paint.Style.FILL
                     val h = s * 0.08f

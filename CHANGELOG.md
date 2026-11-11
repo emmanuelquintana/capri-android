@@ -48,6 +48,16 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   encendido, quieto) en lugar de volver a empezar cada pocos segundos; en los demás descansa un poco cuando no hay
   nada que oír.
 - **Filtro «Muy estricto» más fino:** ignora voces lejanas, como la tele o alguien al otro lado del cuarto.
+- **Ajustes ordenados en tres pestañas:** **Tú** (cómo te llama, tu cumpleaños, lo que recuerda de ti y cómo te
+  cuida), **Personalizar** (su vestuario, cómo se ve y se comporta en tu pantalla, y su voz) y **Ajustes** (lo general:
+  permisos, idioma, su IA, su oído, sus modos y el rendimiento). Los permisos ya no tienen pestaña propia: están al
+  principio de Ajustes.
+- **Tu cumpleaños en la app:** en la pestaña Tú eliges la fecha sin esperar a que te lo pregunte.
+- **Animaciones nuevas:** te escucha con la mano en la oreja, saluda en modo streaming, sopla las velas de su pastel y
+  hace su fiesta en tu cumpleaños.
+- **Estadísticas anónimas:** una vez al día la app avisa «alguien usa Capri» con un número al azar (no el de tu
+  teléfono), la versión, el idioma y la versión de Android, para saber cuánta gente la usa. Nada personal. Se apaga en
+  Ajustes.
 
 ## 1.8.2
 

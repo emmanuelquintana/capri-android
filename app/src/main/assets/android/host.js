@@ -1456,6 +1456,14 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
   if ('gameTips' in p) updateConfig({ gameTips: Boolean(p.gameTips) });
+  // the app (1.9.0): Ajustes › Rendimiento, and your birthday from the «Tú» tab ({ m, d }, or none)
+  if (['auto', 'lite', 'full'].includes(p.perfMode)) updateConfig({ perfMode: p.perfMode });
+  if ('birthday' in p) {
+    const b = p.birthday;
+    const m = Math.round(Number(b?.m));
+    const d = Math.round(Number(b?.d));
+    updateConfig({ birthday: m >= 1 && m <= 12 && d >= 1 && d <= 31 ? { m, d } : null });
+  }
   if ('streaming' in p) window.dev?.stream?.set(Boolean(p.streaming));
   if (p.musicStay) updateConfig({ musicStay: String(p.musicStay) });
   if (('musicCard' in p || p.musicStay) && notes) notes.refreshMusic(); // shown or hidden now

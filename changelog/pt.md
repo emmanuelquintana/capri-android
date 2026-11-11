@@ -48,6 +48,16 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   ligado, parado) em vez de recomeçar a cada poucos segundos; nos outros ela descansa um pouco quando não tem nada
   pra ouvir.
 - **Filtro "Muito estrito" mais fino:** ignora vozes distantes, como a TV ou alguém do outro lado do quarto.
+- **Ajustes organizados em três abas:** **Você** (como ela te chama, seu aniversário, o que ela lembra de você e como
+  cuida de você), **Personalizar** (o guarda-roupa, como ela aparece e se comporta na tela, e a voz dela) e **Ajustes**
+  (o geral: permissões, idioma, a IA, a audição, os modos e o desempenho). As permissões não têm mais aba própria:
+  ficam no começo de Ajustes.
+- **Seu aniversário no app:** na aba Você, escolha a data sem esperar ela perguntar.
+- **Animações novas:** ela escuta com a mão na orelha, acena no modo streaming, apaga as velas do bolo e faz a festa
+  no seu aniversário.
+- **Estatísticas anônimas:** uma vez por dia o app avisa "alguém usa a Capri" com um número aleatório (não o do seu
+  celular), a versão, o idioma e a versão do Android, pra saber quanta gente usa. Nada pessoal. Dá pra desligar em
+  Ajustes.
 
 ## 1.8.2
 

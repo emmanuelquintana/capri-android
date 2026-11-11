@@ -19,7 +19,7 @@ object Perf {
     /** "auto" (default), "lite" or "full". */
     fun mode(context: Context): String = Store(context).configString("perfMode") ?: "auto"
 
-    fun lite(context: Context): Boolean = when (mode(context)) {
+    fun lite(context: Context, mode: String = mode(context)): Boolean = when (mode) {
         "lite" -> true
         "full" -> false
         else -> modest(context)

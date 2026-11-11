@@ -301,4 +301,18 @@
     <string name="webview_old_how">Капри рисует Android System WebView, а на этом телефоне он слишком старый (версия %1$d): она может не появиться или зависнуть. Обнови его в Play Маркете (это бесплатно и безопасно, это часть Android) и запусти её снова.</string>
     <string name="webview_update">Обновить WebView</string>
     <string name="voice_far">Услышала что-то издалека (телевизор, кто-то другой): не обратила внимания.</string>
+    <string name="tab_you">Ты</string>
+    <string name="tab_style">Облик</string>
+    <string name="you_intro">Что Капри знает о тебе: как тебя называет, твой день рождения, что помнит и как заботится о тебе.</string>
+    <string name="style_intro">Как твоя Капри выглядит, ведёт себя и звучит.</string>
+    <string name="settings_intro">Общее: её разрешения, язык, её ИИ, слух, режимы и работа приложения.</string>
+    <string name="settings_modes">Её режимы</string>
+    <string name="settings_her_voice">Её голос</string>
+    <string name="you_birthday">Твой день рождения</string>
+    <string name="you_birthday_how">В этот день она тебя поздравит: конфетти, поздравление вслух и её вечеринка. Она может спросить и в чате.</string>
+    <string name="you_birthday_none">Дата пока не указана</string>
+    <string name="you_birthday_pick">Выбрать дату</string>
+    <string name="you_birthday_clear">Убрать</string>
+    <string name="settings_stats">Анонимная статистика</string>
+    <string name="settings_stats_how">Раз в день приложение отправляет случайное число, придуманное в первый раз (не номер телефона и не аккаунта), версию приложения, его язык и версию Android, чтобы Эмма знала, сколько людей пользуется Капри. Больше ничего: ни имени, ни чатов, ничего с телефона.</string>
 </resources>

@@ -125,19 +125,21 @@ class MainActivity : Activity() {
         content = FrameLayout(this)
         root.addView(content, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
 
-        val pages = listOf(newsPage(), cmdsPage(), permsPage(), settingsPage(), communityPage())
+        // 1.9.0 (Emma: "necesitamos organizar mejor la UI"): you, her looks and the general settings
+        // each in its own tab; the permissions moved into Ajustes
+        val pages = listOf(newsPage(), cmdsPage(), youPage(), stylePage(), settingsPage(), communityPage())
         val bar = ui.row().apply {
             background = Ui.Pill(Hud.INK, Hud.MANE, ui.dp(1.5f))
             setPadding(ui.dpi(6), ui.dpi(6), ui.dpi(6), ui.dpi(6))
             elevation = ui.dp(6f)
         }
-        val labels = listOf(R.string.tab_news to "spark", R.string.tab_cmds to "mic", R.string.tab_perms to "shield", R.string.tab_settings to "sliders", R.string.tab_community to "people")
+        val labels = listOf(R.string.tab_news to "spark", R.string.tab_cmds to "mic", R.string.tab_you to "person", R.string.tab_style to "hanger", R.string.tab_settings to "sliders", R.string.tab_community to "people")
         for ((i, pair) in labels.withIndex()) {
             val (label, kind) = pair
             val icon = Ui.Icon(kind, Hud.PAPER_2)
             val btn = ui.row().apply {
                 gravity = Gravity.CENTER
-                setPadding(ui.dpi(14), ui.dpi(10), ui.dpi(14), ui.dpi(10))
+                setPadding(ui.dpi(11), ui.dpi(10), ui.dpi(11), ui.dpi(10)) // (six tabs: they fit a 360 dp phone)
                 isClickable = true
                 contentDescription = getString(label)
                 setOnClickListener { show(i) }
@@ -166,7 +168,7 @@ class MainActivity : Activity() {
     }
 
     // a tab to open on ("tab", 0..4): the emulator's screenshots ask for one
-    private fun tabAsked(intent: Intent?) = intent?.getIntExtra(EXTRA_TAB, -1)?.takeIf { it in 0..4 }
+    private fun tabAsked(intent: Intent?) = intent?.getIntExtra(EXTRA_TAB, -1)?.takeIf { it in 0 until TABS }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -189,6 +191,7 @@ class MainActivity : Activity() {
         }
         // 1.9.0 ("cuando cambio entre pestañas se traba un poco"): a short smooth slide on the GPU, and
         // the page brought up to date once it's in, not in the middle of it
+        if (i == TAB_SETTINGS) (tabs[i].page as? ScrollView)?.scrollTo(0, 0)
         if (animate) {
             ui.slideIn(tabs[i].page)
             content.removeCallbacks(refreshLater)
@@ -206,6 +209,7 @@ class MainActivity : Activity() {
         if (Ears.enabled(this)) CapriService.current?.voiceChanged()
         refresh()
         checkUpdate()
+        Stats.maybePing(this)
         ticker.post(tick)
     }
 
@@ -315,7 +319,7 @@ class MainActivity : Activity() {
         startBtn = ui.button("", Ui.Kind.MAIN) {
             if (!Settings.canDrawOverlays(this@MainActivity)) {
                 Toast.makeText(this@MainActivity, R.string.ob_need_overlay, Toast.LENGTH_LONG).show()
-                show(2)
+                show(TAB_SETTINGS) // (its permissions, at the top)
                 return@button
             }
             if (CapriService.running) CapriService.send(this@MainActivity, CapriService.ACTION_QUIT) else CapriService.start(this@MainActivity)
@@ -453,43 +457,11 @@ class MainActivity : Activity() {
         }
     }
 
-    // ---------- Permissions ----------
+    // ---------- You (1.9.0): what she calls you, your birthday, what she remembers, how she looks after you ----------
 
-    private fun permsPage() = page {
-        addView(ui.label(getString(R.string.tab_perms)))
-        addView(ui.text(getString(R.string.perms_intro), 15f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.2f) }, ui.block(8))
-        for ((i, p) in Permissions.all(this@MainActivity).withIndex()) {
-            val (view, refresh) = Permissions.row(this@MainActivity, ui, p)
-            addView(view, ui.block(if (i == 0) 18 else 12))
-            permRows.add(refresh)
-        }
-        // banking apps see her overlay and her notification access as risks: what to do about it
-        addView(ui.card(Hud.GREEN).apply {
-            addView(ui.label(getString(R.string.perms_bank_head)))
-            addView(ui.text(getString(R.string.perms_bank), 14f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.2f) }, ui.block(6))
-        }, ui.block(18))
-    }
-
-    // ---------- Settings ----------
-
-    private fun settingsPage() = page {
-        // new in 1.8: her wardrobe, shown off first
-        addView(wardrobeCard(), ui.block(0))
-        // the app's language, and hers (written in both, so it's found whatever the app is in)
-        addView(ui.card(Hud.MANE).apply {
-            addView(ui.label(getString(R.string.settings_lang)))
-            // "Automático", then each language in its own name (a new one: Lang.LANGS + its strings),
-            // three to a row so the names fit
-            val langs = listOf(getString(R.string.lang_auto) to "auto") + Lang.LANGS.map { Lang.name(it) to it }
-            for ((n, row) in langs.chunked(3).withIndex()) {
-                addView(choiceText(row, { Lang.get(this@MainActivity) }, { a, b -> a == b }) {
-                    if (it == Lang.get(this@MainActivity)) return@choiceText
-                    Lang.set(this@MainActivity, it)
-                    postDelayed({ recreate() }, 350)
-                }, ui.block(if (n == 0) 8 else 4))
-            }
-        }, ui.block(16))
-
+    private fun youPage() = page {
+        addView(ui.label(getString(R.string.tab_you)))
+        addView(ui.text(getString(R.string.you_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // what she calls you
         addView(ui.card(Hud.YELLOW).apply {
             addView(ui.label(getString(R.string.settings_name)))
@@ -502,20 +474,8 @@ class MainActivity : Activity() {
             addView(ui.button(getString(R.string.settings_save), Ui.Kind.GREEN) { saveName() }, ui.block(12))
         }, ui.block(16))
 
-        // her AI
-        addView(ui.card(Hud.GREEN).apply {
-            addView(ui.label(getString(R.string.settings_ai)))
-            aiText = ui.text("", 17f, Hud.PAPER, ui.head)
-            addView(aiText, ui.block(6))
-            addView(ui.text(getString(R.string.main_ai_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            // which of them can look at your screen: the question everyone asks
-            addView(ui.text(getString(R.string.ai_sees), 13f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
-            addView(ui.button(getString(R.string.main_ai_pick) + " ›", Ui.Kind.GREEN) {
-                startActivity(Intent(this@MainActivity, OnboardingActivity::class.java).putExtra(OnboardingActivity.EXTRA_ONLY, OnboardingActivity.PAGE_AI))
-            }, ui.block(12))
-            addView(ui.button(getString(R.string.settings_ai_panel) + " ›", Ui.Kind.LINE) { pickAi() }, ui.block(8))
-        }, ui.block(16))
-
+        // your birthday (1.9.0, birthday.js): she celebrates you that day
+        addView(birthdayCard(), ui.block(16))
         // what she remembers about you from her chats (memory.js): on or off, and each thing, to forget
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_memory)))
@@ -526,44 +486,75 @@ class MainActivity : Activity() {
             addView(memoryBox, ui.block(12))
         }, ui.block(16))
 
-        // her ears: "Capri, …"
-        addView(ui.card(Hud.MANE).apply {
-            addView(ui.label(getString(R.string.settings_voice)))
-            voiceText = ui.text("", 17f, Hud.PAPER, ui.head)
-            addView(voiceText, ui.block(6))
-            // what her ears are doing right now (listening, what they heard, why not)
-            voiceState = ui.text("", 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.15f) }
-            addView(voiceState, ui.block(6))
-            addView(ui.text(getString(R.string.settings_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            voiceBtn = ui.button("", Ui.Kind.GREEN) { toggleVoice() }
-            addView(voiceBtn, ui.block(12))
-            // the noise around you, how you talk, how she sounds (Ears.kt reads these each time)
+        // she looks after you: the battery (charged, low) and a break now and then (phone-care.js)
+        addView(ui.card(Hud.YELLOW).apply {
             val store = Store(this@MainActivity)
-            addView(ui.text(getString(R.string.voice_filter), 14f, Hud.PAPER, ui.head), ui.block(16))
-            addView(ui.text(getString(R.string.voice_filter_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(choice(listOf(R.string.voice_filter_normal to "normal", R.string.voice_filter_strict to "strict", R.string.voice_filter_strictest to "strictest"),
-                { store.configString("voiceFilter") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceFilter", it) }, ui.block(6))
-            addView(ui.text(getString(R.string.voice_pace), 14f, Hud.PAPER, ui.head), ui.block(14))
-            addView(choice(listOf(R.string.voice_pace_fast to "fast", R.string.voice_pace_normal to "normal", R.string.voice_pace_slow to "slow"),
-                { store.configString("voicePace") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voicePace", it) }, ui.block(6))
-            addView(ui.text(getString(R.string.voice_pitch), 14f, Hud.PAPER, ui.head), ui.block(14))
-            addView(choice(listOf(R.string.voice_low to 0.8, R.string.voice_pace_normal to 1.0, R.string.voice_high to 1.3),
-                { store.configNumber("voicePitch", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voicePitch", it) }, ui.block(6))
-            addView(ui.text(getString(R.string.voice_rate), 14f, Hud.PAPER, ui.head), ui.block(14))
-            addView(choice(listOf(R.string.voice_slower to 0.85, R.string.voice_pace_normal to 1.0, R.string.voice_faster to 1.2),
-                { store.configNumber("voiceRate", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceRate", it) }, ui.block(6))
-            // her accent in the language she speaks (1.9.0): Mexico or Spain, the US or Britain, Brazil or Portugal…
-            val lang = Lang.current(this@MainActivity)
-            Ears.ACCENTS[lang]?.let { accents ->
-                addView(ui.text(getString(R.string.voice_accent), 14f, Hud.PAPER, ui.head), ui.block(14))
-                addView(ui.text(getString(R.string.voice_accent_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-                for (row in accents.chunked(3)) {
-                    addView(choiceText(row.map { (tag, label) -> getString(label) to tag },
-                        { store.configString("voiceAccent_$lang") ?: accents[0].first }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceAccent_$lang", it) }, ui.block(6))
-                }
-            }
+            addView(ui.label(getString(R.string.settings_care)))
+            addView(ui.text(getString(R.string.settings_battery), 14f, Hud.PAPER, ui.head), ui.block(10))
+            addView(ui.text(getString(R.string.settings_battery_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { store.configFlag("batteryAlerts", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "batteryAlerts", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.settings_battery_full), 13f, Hud.PAPER_2, ui.mono), ui.block(10))
+            addView(choiceText(listOf(80, 85, 90, 95, 100).map { "$it%" to it.toDouble() },
+                { store.configNumber("batteryFull", 100.0) }, { a, b -> Math.abs(a - b) < 0.5 }) { CapriSettings.set(this@MainActivity, "batteryFull", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.settings_battery_low), 13f, Hud.PAPER_2, ui.mono), ui.block(10))
+            addView(choiceText(listOf(5, 10, 15, 20, 30).map { "$it%" to it.toDouble() },
+                { store.configNumber("batteryLow", 15.0) }, { a, b -> Math.abs(a - b) < 0.5 }) { CapriSettings.set(this@MainActivity, "batteryLow", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.settings_breaks), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.settings_breaks_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choiceText(listOf(getString(R.string.off) to 0.0, "1 h" to 1.0, "2 h" to 2.0, "3 h" to 3.0),
+                { if (!store.configFlag("breaks", true)) 0.0 else store.configNumber("breakHours", 2.0) }, { a, b -> Math.abs(a - b) < 0.1 }) {
+                CapriSettings.set(this@MainActivity, "breaks", it > 0)
+                if (it > 0) CapriSettings.set(this@MainActivity, "breakHours", it)
+            }, ui.block(6))
         }, ui.block(16))
 
+    }
+
+    // your birthday: a date (no year: only the day matters to her), or none
+    private fun birthdayCard() = ui.card(Hud.RED).apply {
+        addView(ui.label(getString(R.string.you_birthday), Hud.RED))
+        addView(ui.text(getString(R.string.you_birthday_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+        val shown = ui.text("", 17f, Hud.PAPER, ui.head)
+        addView(shown, ui.block(10))
+        val clear = ui.button(getString(R.string.you_birthday_clear), Ui.Kind.LINE) {}
+        val show = {
+            val b = Store(this@MainActivity).configObject("birthday")
+            val m = b?.optInt("m") ?: 0
+            val d = b?.optInt("d") ?: 0
+            shown.text = if (m in 1..12 && d in 1..31) {
+                val locale = resources.configuration.locales[0]
+                val cal = java.util.Calendar.getInstance().apply { set(2000, m - 1, d) }
+                java.text.SimpleDateFormat(android.text.format.DateFormat.getBestDateTimePattern(locale, "dMMMM"), locale).format(cal.time)
+            } else getString(R.string.you_birthday_none)
+            clear.visibility = if (m in 1..12) View.VISIBLE else View.GONE
+        }
+        show()
+        choices.add(show)
+        addView(ui.button(getString(R.string.you_birthday_pick) + " ›", Ui.Kind.GREEN) {
+            val b = Store(this@MainActivity).configObject("birthday")
+            val now = java.util.Calendar.getInstance()
+            val m = b?.optInt("m")?.takeIf { it in 1..12 } ?: (now.get(java.util.Calendar.MONTH) + 1)
+            val d = b?.optInt("d")?.takeIf { it in 1..31 } ?: now.get(java.util.Calendar.DAY_OF_MONTH)
+            android.app.DatePickerDialog(this@MainActivity, { _, _, month, day ->
+                CapriSettings.set(this@MainActivity, "birthday", org.json.JSONObject().put("m", month + 1).put("d", day))
+                shown.postDelayed({ show() }, 400) // (her page saves it first, when she's on)
+            }, now.get(java.util.Calendar.YEAR), m - 1, d).show()
+        }, ui.block(12))
+        clear.setOnClickListener {
+            CapriSettings.set(this@MainActivity, "birthday", org.json.JSONObject.NULL)
+            shown.postDelayed({ show() }, 400)
+        }
+        addView(clear, ui.block(8))
+    }
+
+    // ---------- Customize (1.9.0): how she looks, how she behaves, how she sounds ----------
+
+    private fun stylePage() = page {
+        addView(ui.label(getString(R.string.tab_style)))
+        addView(ui.text(getString(R.string.style_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        // new in 1.8: her wardrobe, shown off first
+        addView(wardrobeCard(), ui.block(16))
         // her on your screen: size, how lively, ghost mode
         addView(ui.card(Hud.YELLOW).apply {
             addView(ui.label(getString(R.string.settings_her)))
@@ -587,8 +578,134 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.settings_icon_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(choice(listOf(R.string.off to false, R.string.on to true),
                 { Store(this@MainActivity).configFlag("icon", false) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "icon", it) }, ui.block(6))
+            // her music card: always while a song plays, a while after each change, or never
+            addView(ui.text(getString(R.string.settings_music), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.music_always to "always", R.string.music_while to "while", R.string.music_off to "off"),
+                {
+                    val store = Store(this@MainActivity)
+                    if (!store.configFlag("musicCard", true)) "off" else store.configString("musicStay") ?: "while"
+                }, { a, b -> a == b }) {
+                CapriSettings.set(this@MainActivity, "musicCard", it != "off")
+                if (it != "off") CapriSettings.set(this@MainActivity, "musicStay", it)
+            }, ui.block(6))
+        }, ui.block(16))
+
+        // how she sounds: her voice's pitch and speed, her accent (Ears.kt reads these each time)
+        addView(ui.card(Hud.MANE).apply {
+            addView(ui.label(getString(R.string.settings_her_voice)))
+            val store = Store(this@MainActivity)
+            addView(ui.text(getString(R.string.voice_pitch), 14f, Hud.PAPER, ui.head), ui.block(10))
+            addView(choice(listOf(R.string.voice_low to 0.8, R.string.voice_pace_normal to 1.0, R.string.voice_high to 1.3),
+                { store.configNumber("voicePitch", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voicePitch", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.voice_rate), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.voice_slower to 0.85, R.string.voice_pace_normal to 1.0, R.string.voice_faster to 1.2),
+                { store.configNumber("voiceRate", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceRate", it) }, ui.block(6))
+            // her accent in the language she speaks (1.9.0): Mexico or Spain, the US or Britain, Brazil or Portugal…
+            val lang = Lang.current(this@MainActivity)
+            Ears.ACCENTS[lang]?.let { accents ->
+                addView(ui.text(getString(R.string.voice_accent), 14f, Hud.PAPER, ui.head), ui.block(14))
+                addView(ui.text(getString(R.string.voice_accent_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+                for (row in accents.chunked(3)) {
+                    addView(choiceText(row.map { (tag, label) -> getString(label) to tag },
+                        { store.configString("voiceAccent_$lang") ?: accents[0].first }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceAccent_$lang", it) }, ui.block(6))
+                }
+            }
+        }, ui.block(16))
+
+    }
+
+    // ---------- Settings: what's general about her (1.9.0: you and her looks have their own tabs) ----------
+
+    private fun settingsPage() = page {
+        addView(ui.label(getString(R.string.tab_settings)))
+        addView(ui.text(getString(R.string.settings_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        // what she's allowed to do on your phone (1.9.0: here, no longer a tab of its own)
+        addView(ui.card(Hud.GREEN).apply {
+            addView(ui.label(getString(R.string.tab_perms)))
+            addView(ui.text(getString(R.string.perms_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            for ((i, p) in Permissions.all(this@MainActivity).withIndex()) {
+                val (view, refresh) = Permissions.row(this@MainActivity, ui, p)
+                addView(view, ui.block(if (i == 0) 14 else 10))
+                permRows.add(refresh)
+            }
+            // banking apps see her overlay and her notification access as risks: what to do about it
+            addView(ui.text(getString(R.string.perms_bank_head), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.perms_bank), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        }, ui.block(16))
+
+        // the app's language, and hers (written in both, so it's found whatever the app is in)
+        addView(ui.card(Hud.MANE).apply {
+            addView(ui.label(getString(R.string.settings_lang)))
+            // "Automático", then each language in its own name (a new one: Lang.LANGS + its strings),
+            // three to a row so the names fit
+            val langs = listOf(getString(R.string.lang_auto) to "auto") + Lang.LANGS.map { Lang.name(it) to it }
+            for ((n, row) in langs.chunked(3).withIndex()) {
+                addView(choiceText(row, { Lang.get(this@MainActivity) }, { a, b -> a == b }) {
+                    if (it == Lang.get(this@MainActivity)) return@choiceText
+                    Lang.set(this@MainActivity, it)
+                    postDelayed({ recreate() }, 350)
+                }, ui.block(if (n == 0) 8 else 4))
+            }
+        }, ui.block(16))
+
+        // her AI
+        addView(ui.card(Hud.GREEN).apply {
+            addView(ui.label(getString(R.string.settings_ai)))
+            aiText = ui.text("", 17f, Hud.PAPER, ui.head)
+            addView(aiText, ui.block(6))
+            addView(ui.text(getString(R.string.main_ai_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            // which of them can look at your screen: the question everyone asks
+            addView(ui.text(getString(R.string.ai_sees), 13f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
+            addView(ui.button(getString(R.string.main_ai_pick) + " ›", Ui.Kind.GREEN) {
+                startActivity(Intent(this@MainActivity, OnboardingActivity::class.java).putExtra(OnboardingActivity.EXTRA_ONLY, OnboardingActivity.PAGE_AI))
+            }, ui.block(12))
+            addView(ui.button(getString(R.string.settings_ai_panel) + " ›", Ui.Kind.LINE) { pickAi() }, ui.block(8))
+        }, ui.block(16))
+
+        // her look at your screen
+        addView(ui.card(Hud.GREEN).apply {
+            addView(ui.label(getString(R.string.settings_look)))
+            addView(ui.text(getString(R.string.settings_look_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.text(getString(R.string.ai_sees), 13f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.button(getString(R.string.settings_look_now) + " ›", Ui.Kind.GREEN) {
+                if (!CapriSettings.tell(org.json.JSONObject().put("look", true))) Toast.makeText(this@MainActivity, R.string.settings_need_on, Toast.LENGTH_LONG).show()
+                else moveTaskToBack(true) // out of the way: it's your screen she looks at
+            }, ui.block(12))
+            lookBtn = ui.button("", Ui.Kind.LINE) {
+                val on = !(CapriService.current?.eyes?.live ?: false)
+                if (!CapriSettings.tell(org.json.JSONObject().put("watchScreen", on))) Toast.makeText(this@MainActivity, R.string.settings_need_on, Toast.LENGTH_LONG).show()
+                lookBtn.postDelayed({ refresh() }, 1500)
+            }
+            addView(lookBtn, ui.block(8))
+        }, ui.block(16))
+
+        // her ears: "Capri, …"
+        addView(ui.card(Hud.MANE).apply {
+            addView(ui.label(getString(R.string.settings_voice)))
+            voiceText = ui.text("", 17f, Hud.PAPER, ui.head)
+            addView(voiceText, ui.block(6))
+            // what her ears are doing right now (listening, what they heard, why not)
+            voiceState = ui.text("", 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.15f) }
+            addView(voiceState, ui.block(6))
+            addView(ui.text(getString(R.string.settings_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            voiceBtn = ui.button("", Ui.Kind.GREEN) { toggleVoice() }
+            addView(voiceBtn, ui.block(12))
+            // the noise around you, how you talk, how she sounds (Ears.kt reads these each time)
+            val store = Store(this@MainActivity)
+            addView(ui.text(getString(R.string.voice_filter), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.voice_filter_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.voice_filter_normal to "normal", R.string.voice_filter_strict to "strict", R.string.voice_filter_strictest to "strictest"),
+                { store.configString("voiceFilter") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceFilter", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.voice_pace), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.voice_pace_fast to "fast", R.string.voice_pace_normal to "normal", R.string.voice_pace_slow to "slow"),
+                { store.configString("voicePace") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voicePace", it) }, ui.block(6))
+        }, ui.block(16))
+
+        // her modes: gamer (by hand or on its own), her tips while you play, streaming
+        addView(ui.card(Hud.GREEN).apply {
+            addView(ui.label(getString(R.string.settings_modes)))
             // gamer mode: small in a corner, untouchable, no cards, no ears (only while she's on)
-            addView(ui.text(getString(R.string.settings_gamer), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(ui.text(getString(R.string.settings_gamer), 14f, Hud.PAPER, ui.head), ui.block(10))
             addView(ui.text(getString(R.string.settings_gamer_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(choice(listOf(R.string.off to false, R.string.on to true),
                 { CapriService.gamer }, { a, b -> a == b }) {
@@ -618,16 +735,6 @@ class MainActivity : Activity() {
                 if (!CapriService.running) Toast.makeText(this@MainActivity, R.string.settings_streaming_start, Toast.LENGTH_LONG).show()
                 else CapriSettings.set(this@MainActivity, "streaming", it)
             }, ui.block(6))
-            // her music card: always while a song plays, a while after each change, or never
-            addView(ui.text(getString(R.string.settings_music), 14f, Hud.PAPER, ui.head), ui.block(14))
-            addView(choice(listOf(R.string.music_always to "always", R.string.music_while to "while", R.string.music_off to "off"),
-                {
-                    val store = Store(this@MainActivity)
-                    if (!store.configFlag("musicCard", true)) "off" else store.configString("musicStay") ?: "while"
-                }, { a, b -> a == b }) {
-                CapriSettings.set(this@MainActivity, "musicCard", it != "off")
-                if (it != "off") CapriSettings.set(this@MainActivity, "musicStay", it)
-            }, ui.block(6))
         }, ui.block(16))
 
         // Rendimiento (1.9.0, Perf.kt): modo ligero for older phones, automatic by default
@@ -643,51 +750,20 @@ class MainActivity : Activity() {
                 { Perf.mode(this@MainActivity) }, { a, b -> a == b }) {
                 val was = Perf.lite(this@MainActivity)
                 CapriSettings.set(this@MainActivity, "perfMode", it)
-                showNow()
                 // her picture's pixels are set as her page starts: a fresh one, if it changes anything
-                if (Perf.lite(this@MainActivity) != was) CapriService.current?.overlay?.reload()
+                // (once her page has saved it: it's what the new one reads)
+                if (Perf.lite(this@MainActivity, it) != was) now.postDelayed({ CapriService.current?.overlay?.reload() }, 800)
+                now.postDelayed({ showNow() }, 400)
             }, ui.block(8))
             addView(now, ui.block(8))
         }, ui.block(16))
 
-        // she looks after you: the battery (charged, low) and a break now and then (phone-care.js)
-        addView(ui.card(Hud.YELLOW).apply {
-            val store = Store(this@MainActivity)
-            addView(ui.label(getString(R.string.settings_care)))
-            addView(ui.text(getString(R.string.settings_battery), 14f, Hud.PAPER, ui.head), ui.block(10))
-            addView(ui.text(getString(R.string.settings_battery_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        // anonymous statistics (1.9.0, Stats.kt): how many use her, nothing about you
+        addView(ui.card().apply {
+            addView(ui.label(getString(R.string.settings_stats)))
+            addView(ui.text(getString(R.string.settings_stats_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(choice(listOf(R.string.off to false, R.string.on to true),
-                { store.configFlag("batteryAlerts", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "batteryAlerts", it) }, ui.block(6))
-            addView(ui.text(getString(R.string.settings_battery_full), 13f, Hud.PAPER_2, ui.mono), ui.block(10))
-            addView(choiceText(listOf(80, 85, 90, 95, 100).map { "$it%" to it.toDouble() },
-                { store.configNumber("batteryFull", 100.0) }, { a, b -> Math.abs(a - b) < 0.5 }) { CapriSettings.set(this@MainActivity, "batteryFull", it) }, ui.block(6))
-            addView(ui.text(getString(R.string.settings_battery_low), 13f, Hud.PAPER_2, ui.mono), ui.block(10))
-            addView(choiceText(listOf(5, 10, 15, 20, 30).map { "$it%" to it.toDouble() },
-                { store.configNumber("batteryLow", 15.0) }, { a, b -> Math.abs(a - b) < 0.5 }) { CapriSettings.set(this@MainActivity, "batteryLow", it) }, ui.block(6))
-            addView(ui.text(getString(R.string.settings_breaks), 14f, Hud.PAPER, ui.head), ui.block(16))
-            addView(ui.text(getString(R.string.settings_breaks_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(choiceText(listOf(getString(R.string.off) to 0.0, "1 h" to 1.0, "2 h" to 2.0, "3 h" to 3.0),
-                { if (!store.configFlag("breaks", true)) 0.0 else store.configNumber("breakHours", 2.0) }, { a, b -> Math.abs(a - b) < 0.1 }) {
-                CapriSettings.set(this@MainActivity, "breaks", it > 0)
-                if (it > 0) CapriSettings.set(this@MainActivity, "breakHours", it)
-            }, ui.block(6))
-        }, ui.block(16))
-
-        // her look at your screen
-        addView(ui.card(Hud.GREEN).apply {
-            addView(ui.label(getString(R.string.settings_look)))
-            addView(ui.text(getString(R.string.settings_look_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-            addView(ui.text(getString(R.string.ai_sees), 13f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-            addView(ui.button(getString(R.string.settings_look_now) + " ›", Ui.Kind.GREEN) {
-                if (!CapriSettings.tell(org.json.JSONObject().put("look", true))) Toast.makeText(this@MainActivity, R.string.settings_need_on, Toast.LENGTH_LONG).show()
-                else moveTaskToBack(true) // out of the way: it's your screen she looks at
-            }, ui.block(12))
-            lookBtn = ui.button("", Ui.Kind.LINE) {
-                val on = !(CapriService.current?.eyes?.live ?: false)
-                if (!CapriSettings.tell(org.json.JSONObject().put("watchScreen", on))) Toast.makeText(this@MainActivity, R.string.settings_need_on, Toast.LENGTH_LONG).show()
-                lookBtn.postDelayed({ refresh() }, 1500)
-            }
-            addView(lookBtn, ui.block(8))
+                { Stats.enabled(this@MainActivity) }, { a, b -> a == b }) { Stats.setEnabled(this@MainActivity, it) }, ui.block(8))
         }, ui.block(16))
 
         addView(ui.button(getString(R.string.settings_intro_again), Ui.Kind.LINE) {
@@ -890,6 +966,8 @@ class MainActivity : Activity() {
     companion object {
         const val EXTRA_UPDATE = "update"
         const val EXTRA_TAB = "tab"
+        const val TAB_SETTINGS = 4
+        private const val TABS = 6
         private const val TIKTOK = "https://www.tiktok.com/@emma180516_"
         private const val DISCORD = "https://discord.gg/d8tsTKMhN"
     }
@@ -1006,7 +1084,7 @@ class MainActivity : Activity() {
     private fun openWardrobe() {
         if (!Settings.canDrawOverlays(this)) {
             Toast.makeText(this, R.string.ob_need_overlay, Toast.LENGTH_LONG).show()
-            show(2)
+            show(TAB_SETTINGS)
             return
         }
         if (CapriService.running) CapriService.send(this, CapriService.ACTION_WARDROBE)

@@ -23,6 +23,16 @@ dump() {
   echo "dump failed"
 }
 # tap the first view whose text contains $1 (case-insensitive)
+# tap it, scrolling down the page until it shows (at most $2 swipes)
+tapdown() {
+  for _ in $(seq 0 "${2:-6}"); do
+    dump
+    if grep -qi "text=\"$1\"" /tmp/ui.xml; then tap "$1"; return; fi
+    adb shell input swipe 500 1700 500 900 300
+    sleep 1
+  done
+  echo "no '$1' on screen (scrolled)"
+}
 tap() {
   dump
   local xy
@@ -84,11 +94,14 @@ tap "ahora no"
 sleep 1
 adb shell input swipe 500 1800 500 600 300
 shot 12-main-scrolled 2
-tap "permisos"
-shot 13-perms-tab 2
-tap "ajustes"
-shot 14-settings-tab 2
-# 1.8: the wardrobe's presentation opens Settings; the language card is under it
+# 1.9.0: «Tú» (you), «Personalizar» (her looks) and «Ajustes» (the general, permissions first)
+tap "tú"
+shot 13-you-tab 2
+adb shell input swipe 500 1800 500 700 300
+shot 13a-you-more 2
+tap "personalizar"
+shot 13b-style-tab 2
+# 1.8: the wardrobe's presentation, first in Personalizar
 adb shell input swipe 500 1800 500 700 300
 shot 14w-settings-wardrobe 2
 # 1.8.1: her Vestuario as a screen of its own (ClosetActivity), then back
@@ -98,6 +111,13 @@ echo "--- closet: crashes and its log"; adb logcat -d -b crash | tail -40; adb l
 adb shell input keyevent KEYCODE_BACK
 sleep 2
 adb shell input swipe 500 1800 500 700 300
+shot 13c-style-more 2
+tap "ajustes"
+shot 14-settings-tab 2
+# the language card, under her permissions
+adb shell input swipe 500 1800 500 600 300
+sleep 1
+adb shell input swipe 500 1800 500 600 300
 # the app in another language, then back to the phone's
 tap "français"
 shot 14f-french 4
@@ -109,9 +129,10 @@ sleep 2
 adb shell input swipe 500 1800 500 700 300
 sleep 1
 adb shell input swipe 500 1800 500 700 300
-tap "automatique"
+tapdown "automatique" 4
 sleep 4
-# what she remembers about you (empty on a fresh install), under her AI
+# what she remembers about you (empty on a fresh install), in «Tú»
+tap "tú"
 adb shell input swipe 500 1800 500 900 300
 shot 14m-memory 3
 tap "comunidad"
@@ -181,7 +202,7 @@ shot 22-other-app 3
 # adb hand her service the words: the emulator has no microphone)
 adb shell input keyevent KEYCODE_BACK
 adb shell pm grant $PKG android.permission.RECORD_AUDIO
-adb shell am start -n $PKG/.MainActivity --ei tab 3 # straight to Ajustes (Capri may sit on the pill bar)
+adb shell am start -n $PKG/.MainActivity --ei tab 4 # straight to Ajustes (Capri may sit on the pill bar)
 sleep 4
 adb shell input swipe 500 1800 500 900 300
 shot 23-voice-card 2
@@ -193,9 +214,8 @@ adb shell input swipe 500 1800 500 700 300
 shot 23d-settings-more 2
 adb shell input swipe 500 1800 500 700 300
 shot 23e-settings-end 2
-for i in 1 2 3 4 5; do adb shell input swipe 500 700 500 1800 200; done
-adb shell input swipe 500 1800 500 900 300
-tap "activar"
+for i in 1 2 3 4 5 6 7 8; do adb shell input swipe 500 700 500 1800 200; done
+tapdown "activar" 8
 shot 24-voice-on 3
 adb shell input keyevent KEYCODE_HOME
 sleep 4

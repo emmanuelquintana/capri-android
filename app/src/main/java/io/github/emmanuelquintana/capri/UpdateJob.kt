@@ -15,6 +15,7 @@ class UpdateJob : JobService() {
     override fun attachBaseContext(newBase: android.content.Context) = super.attachBaseContext(Lang.wrap(newBase))
 
     override fun onStartJob(params: JobParameters): Boolean {
+        Stats.maybePing(this) // (once a day at most, if allowed: Stats.kt)
         Updater.checkInBackground(this, force = true, done = { jobFinished(params, false) }) { r ->
             CapriService.current?.newRelease(r)
         }
