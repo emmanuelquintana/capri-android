@@ -1,7 +1,7 @@
 // Her wardrobe: what you put on her. Outfits (a whole drawing of her in other clothes, in the same
 // pose, so she moves in them as she does in her own), things on top (a crown, cat ears, glasses, a
-// halo…), the colors of her mane and her mask, an aura, how see-through she is. Easy to use: one
-// sheet, four tabs, a tap puts it on her and a second tap takes it off. Opened from her quick menu
+// halo…), an aura, how see-through she is. Her own colors (her mane, her mask) are hers: they
+// don't change. Easy to use: one sheet, three tabs, a tap puts it on her and a second tap takes it off. Opened from her quick menu
 // (holding her) and from her menu.
 //
 // It all goes into her picture itself (the texture her shader draws, capri-full.png's 240x420), so
@@ -106,16 +106,6 @@ const PLACE = {
   sword: { at: [118, 196], w: 150, behind: true }, shotgun: { at: [118, 196], w: 150, behind: true },
 };
 
-// her mane's and her mask's colors: a hue (0..1), or a gray
-const MANES = [
-  ['default', null, '#fc0346'], ['violet', 0.76, '#8a3cff'], ['blue', 0.62, '#2a5bff'], ['cyan', 0.5, '#00e5ff'],
-  ['gold', 0.12, '#ffc21a'], ['green', 0.36, '#1fe36a'], ['silver', 'gray', '#d7d7e3'], ['shadow', 'dark', '#2a2236'],
-  // (Edgerunners: Rebecca's mint, Talia's pastel pink)
-  ['mint', 0.44, '#7df5c8'], ['pink', 0.84, '#ff4fc0'], // (her shader pulls any red toward her own: 0.84 ends up pink)
-];
-const MASKS = [
-  ['default', null, '#08f467'], ['cyan', 0.5, '#00e5ff'], ['violet', 0.76, '#8a3cff'], ['gold', 0.12, '#ffc21a'], ['white', 'gray', '#f2f2f7'], ['red', 0.98, '#ff1744'],
-];
 const AURAS = [['none', null], ['red', '#ff1744'], ['green', '#08f467'], ['cyan', '#00e5ff'], ['violet', '#8a3cff'], ['gold', '#ffc21a'], ['white', '#ffffff'], ['sandevistan', 'trail']];
 // the Sandevistan's afterimages (Edgerunners): copies of her trailing behind, green to violet
 const TRAIL = (dir) => [['#08f467', 0.55], ['#00e5ff', 0.4], ['#8a3cff', 0.28]].map(([c, a], i) => `drop-shadow(${-dir * 7 * (i + 1)}px 0 0 ${c}${Math.round(a * 255).toString(16).padStart(2, '0')})`).join(' ');
@@ -284,45 +274,6 @@ function loadImage(src) {
   });
 }
 
-const rgb2hsv = (r, g, b) => {
-  const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
-  let h = 0;
-  if (d) h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
-  return [(h / 6 + 1) % 1, max ? d / max : 0, max];
-};
-const hsv2rgb = (h, s, v) => {
-  const f = (n) => {
-    const k = (n + h * 6) % 6;
-    return v - v * s * Math.max(0, Math.min(k, 4 - k, 1));
-  };
-  return [f(5), f(3), f(1)];
-};
-// her mane (crimson to red) and her mask (green) to other colors, already as bright as her shader
-// makes her red and her green (it only brightens those two)
-function recolor(g, w, h, mane, mask) {
-  if (mane == null && mask == null) return;
-  const img = g.getImageData(0, 0, w, h);
-  const d = img.data;
-  for (let i = 0; i < d.length; i += 4) {
-    if (d[i + 3] < 8) continue;
-    const [hu, s, v] = rgb2hsv(d[i] / 255, d[i + 1] / 255, d[i + 2] / 255);
-    if (v < 0.1 || s < 0.06) continue;
-    const hx = hu < 0.5 ? hu + 1 : hu;
-    const isRed = hx > 0.78 && hx < 1.1;
-    const isGreen = hu > 0.22 && hu < 0.52 && s > 0.15;
-    const to = isRed ? mane : isGreen ? mask : undefined;
-    if (to == null) continue;
-    let out;
-    if (to === 'gray') out = hsv2rgb(0, 0, Math.min(1, v * 1.6 + 0.15));
-    else if (to === 'dark') out = hsv2rgb(0.75, 0.35, Math.min(1, v * 0.55 + 0.05));
-    else out = hsv2rgb(to, Math.max(s, 0.86), Math.min(1, v * 1.5 + 0.1));
-    d[i] = out[0] * 255;
-    d[i + 1] = out[1] * 255;
-    d[i + 2] = out[2] * 255;
-  }
-  g.putImageData(img, 0, 0);
-}
-
 export function wardrobe({ cfg, setConfig, onToggle }) {
   const dev = window.dev;
   const capri = dev?.capri;
@@ -331,7 +282,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
   const have = {}; // drawings that are in: { 'outfit-jinete': Image, 'acc-crown': Image }
   const lang = () => (WORDS[dev.brain?.lang] ? dev.brain.lang : 'en');
   const t = () => WORDS[lang()];
-  const look = () => ({ outfit: 'default', things: [], mane: 'default', mask: 'default', aura: 'none', alpha: 1, gamerAlpha: 0.55, ...(cfg().look || {}) });
+  const look = () => ({ outfit: 'default', things: [], aura: 'none', alpha: 1, gamerAlpha: 0.55, ...(cfg().look || {}), mane: 'default', mask: 'default' }); // (her colors don't change)
   const unlocked = () => new Set(cfg().unlocked || []);
 
   // which drawings are in (once)
@@ -354,7 +305,6 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       const g = c.getContext('2d', { willReadFrequently: true });
       g.drawImage(base, 0, 0, w, h);
       if (base !== original) g.clearRect(220, 0, w - 220, h); // (nothing of an outfit past her cut-out)
-      recolor(g, w, h, MANES.find(([id]) => id === l.mane)?.[1] ?? null, MASKS.find(([id]) => id === l.mask)?.[1] ?? null);
       // behind her face first (veil), then the rest
       const order = ['veil', ...ACCESSORIES.map(([id]) => id).filter((id) => id !== 'veil')];
       for (const id of order) {
@@ -496,7 +446,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
 
     const tabs = document.createElement('nav');
     tabs.className = 'wardrobe__tabs';
-    for (const [id, label] of [['outfits', w.outfits], ['things', w.things], ['colors', w.colors], ['effects', w.effects]]) {
+    for (const [id, label] of [['outfits', w.outfits], ['things', w.things], ['effects', w.effects]]) {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'wardrobe__tab';
@@ -578,11 +528,6 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
           click: () => { toggleThing(id); render(); },
         }));
       }
-    } else if (tab === 'colors') {
-      const g1 = grid(w.mane);
-      for (const [id, , swatch] of MANES) g1.append(tile({ label: '', on: l.mane === id, swatch, click: () => { set({ mane: id }); render(); } }));
-      const g2 = grid(w.mask);
-      for (const [id, , swatch] of MASKS) g2.append(tile({ label: '', on: l.mask === id, swatch, click: () => { set({ mask: id }); render(); } }));
     } else {
       const g1 = grid(w.aura);
       for (const [id, color] of AURAS) {
@@ -597,7 +542,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       reset.type = 'button';
       reset.className = 'wardrobe__reset';
       reset.textContent = w.reset;
-      reset.addEventListener('click', () => { set({ outfit: 'default', things: [], mane: 'default', mask: 'default', aura: 'none', alpha: 1 }); render(); });
+      reset.addEventListener('click', () => { set({ outfit: 'default', things: [], aura: 'none', alpha: 1 }); render(); });
       body.append(reset);
     }
     el.append(body);
@@ -646,7 +591,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
 
   // what you put on her last time (nothing to redo when she's as she is)
   const l0 = look();
-  if (l0.outfit !== 'default' || l0.things.length || l0.mane !== 'default' || l0.mask !== 'default') apply();
+  if (l0.outfit !== 'default' || l0.things.length) apply();
   else style();
   return {
     open, close, apply, style,
@@ -660,19 +605,8 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     wear(patch) { set(patch); },
     look,
     has: (id) => Boolean(have[id]),
-    // a drawing of her (poses.js) in her mane's and her mask's colors: a canvas, or null as she is
-    paint(img) {
-      const l = look();
-      const mane = MANES.find(([id]) => id === l.mane)?.[1] ?? null, mask = MASKS.find(([id]) => id === l.mask)?.[1] ?? null;
-      if (mane == null && mask == null) return null;
-      const c = document.createElement('canvas');
-      c.width = img.naturalWidth;
-      c.height = img.naturalHeight;
-      const g = c.getContext('2d', { willReadFrequently: true });
-      g.drawImage(img, 0, 0);
-      recolor(g, c.width, c.height, mane, mask);
-      return c;
-    },
+    // a drawing of her (poses.js) as she is: her colors are her own
+    paint: () => null,
     ready: () => probing,
     FACES,
   };

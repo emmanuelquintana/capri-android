@@ -556,7 +556,7 @@ body.is-dressing .fx { z-index: 41; }
 
 .wardrobe__tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }

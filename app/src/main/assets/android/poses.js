@@ -82,7 +82,7 @@ export function poses({ cfg, wardrobe }) {
     Object.assign(el.style, { left: `${x}px`, top: `${y}px`, width: `${w}px`, height: `${h}px`, transform: flip ? 'scaleX(-1)' : '' });
   }
 
-  // her colors (a recolored mane or mask), her aura and how see-through she is, as on her sprite
+  // her aura and how see-through she is, as on her sprite
   function dress(el, img) {
     const sprite = document.getElementById('sprite');
     el.style.filter = sprite?.style.filter || '';

@@ -7,13 +7,12 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Her wardrobe:** a new *Dress her* button in the quick menu (also in *Settings → Wardrobe* or by saying “Capri, get
   dressed”). 12 full outfits: Western jockey, school uniform, mecha pilot, demon hunter, ninja, netrunner, yellow
   jacket, gothic, yukata, pajamas, witch and Christmas. 25 accessories to mix (crown, cat ears, horns, halo,
-  cowboy hat, Santa hat, headphones, glasses, visor, scarf, katana, game controller, heart balloon…), the color of her
-  hair and her mask, an aura and how see-through she is. While you dress her she climbs on top of the panel so you see every change on
+  cowboy hat, Santa hat, headphones, glasses, visor, scarf, katana, game controller, heart balloon…), an aura and how see-through she is. While you dress her she climbs on top of the panel so you see every change on
   her, she moves with all of it on and it stays saved. The app’s *Settings* show it off, with a button to open it.
 - **Cyberpunk: Edgerunners:** Capri is from the second season, so the wardrobe has a section for the series, with
   outfits inspired by both seasons (David, Lucy, Rebecca, Maine, Dorio, Kiwi, Pilar, Falco, Faraday, Adam Smasher,
   Gloria, Sasha, D., Talia Yang, Kingsley, Roman Carax, Avida and Kyoko), accessories from the series (David’s cross,
-  Kiwi’s jaw mask, Lucy’s monowire, Roman’s backpack), mint and pink mane colors and the **Sandevistan**
+  Kiwi’s jaw mask, Lucy’s monowire, Roman’s backpack) and the **Sandevistan**
   effect: green, cyan and violet afterimages trailing behind her.
 - **A comfier gamer mode:** when you turn it on she lies on her belly on top of your screen, kicking her legs while
   she watches you play, and you can make her see-through only while you play (*Wardrobe → Effects*). Tap her and she

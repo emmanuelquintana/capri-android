@@ -8,13 +8,13 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   se veste”). 12 conjuntos completos: jóquei do Oeste, uniforme escolar, piloto de mecha, caçadora de demônios, ninja,
   netrunner, jaqueta amarela, gótica, yukata, pijama, bruxa e Natal. 25 acessórios pra combinar (coroa,
   orelhas de gato, chifres, auréola, chapéu de caubói, gorro de Natal, fones, óculos, viseira, cachecol, katana,
-  controle, balão de coração…), a cor do cabelo e da máscara, uma aura e o quanto ela é transparente. Enquanto você a
+  controle, balão de coração…), uma aura e o quanto ela é transparente. Enquanto você a
   veste, ela sobe em cima do painel pra você ver cada mudança nela; ela se mexe com tudo isso e fica salvo. Os *Ajustes*
   do app mostram o guarda-roupa, com um botão pra abrir.
 - **Cyberpunk: Edgerunners:** a Capri é da segunda temporada, então o guarda-roupa tem uma seção da série, com
   conjuntos inspirados nas duas temporadas (David, Lucy, Rebecca, Maine, Dorio, Kiwi, Pilar, Falco, Faraday, Adam
   Smasher, Gloria, Sasha, D., Talia Yang, Kingsley, Roman Carax, Avida e Kyoko), acessórios da série (a cruz do David,
-  a máscara da Kiwi, o monofio da Lucy, a mochila do Roman), cores de cabelo menta e rosa e o efeito
+  a máscara da Kiwi, o monofio da Lucy, a mochila do Roman) e o efeito
   **Sandevistan**: rastros verdes, ciano e violeta atrás dela.
 - **Modo gamer mais confortável:** ao ativar, ela deita de bruços em cima da sua tela, balançando as pernas enquanto
   te vê jogar, e você pode deixá-la semitransparente só enquanto joga (*Guarda-roupa → Efeitos*). Toque nela e ela
