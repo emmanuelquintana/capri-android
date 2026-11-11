@@ -33,16 +33,26 @@ const OUTFITS = [
   ['bruja', 'Bruja', 'Witch', 'Sorcière', 'Bruxa', 'Ведьма'],
   ['santa', 'Navidad', 'Christmas', 'Noël', 'Natal', 'Рождество'],
   // Cyberpunk: Edgerunners (her series: she's in its second season), first and second season
-  ['lucy', 'Netrunner de la Luna (Lucy)', 'Moon netrunner (Lucy)', 'Netrunneuse de la Lune (Lucy)', 'Netrunner da Lua (Lucy)', 'Нетраннер Луны (Люси)'],
-  ['rebecca', 'Pistolera neón (Rebecca)', 'Neon gunslinger (Rebecca)', 'Flingueuse néon (Rebecca)', 'Pistoleira neon (Rebecca)', 'Неоновая стрелок (Ребекка)'],
+  ['david', 'Chaqueta de David', 'David’s jacket', 'Veste de David', 'Jaqueta do David', 'Куртка Дэвида'],
+  ['davidfinal', 'David, cromo militar', 'David, military chrome', 'David, chrome militaire', 'David, cromo militar', 'Дэвид, военный хром'],
   ['academia', 'Academia corporativa (David)', 'Corpo academy (David)', 'Académie corpo (David)', 'Academia corporativa (David)', 'Корпо-академия (Дэвид)'],
-  ['maine', 'Brazos de cromo (Maine)', 'Chrome arms (Maine)', 'Bras de chrome (Maine)', 'Braços de cromo (Maine)', 'Хромовые руки (Мэйн)'],
-  ['kiwi', 'Netrunner veterana (Kiwi)', 'Veteran netrunner (Kiwi)', 'Netrunneuse vétérane (Kiwi)', 'Netrunner veterana (Kiwi)', 'Опытный нетраннер (Киви)'],
-  ['smasher', 'Borg pesado (Adam Smasher)', 'Heavy borg (Adam Smasher)', 'Borg lourd (Adam Smasher)', 'Borg pesado (Adam Smasher)', 'Тяжёлый борг (Адам Смэшер)'],
-  ['talia', 'Cromo corporativo (Talia Yang)', 'Corpo chrome (Talia Yang)', 'Chrome corpo (Talia Yang)', 'Cromo corporativo (Talia Yang)', 'Корпо-хром (Талия Ян)'],
-  ['nomada', 'Nómada netrunner (D.)', 'Nomad netrunner (D.)', 'Nomade netrunner (D.)', 'Nômade netrunner (D.)', 'Кочевник-нетраннер (Д.)'],
-  ['king', 'Leyenda caída (Kingsley)', 'Fallen legend (Kingsley)', 'Légende déchue (Kingsley)', 'Lenda caída (Kingsley)', 'Павшая легенда (Кингсли)'],
-  ['cineasta', 'Cineasta (Roman Carax)', 'Filmmaker (Roman Carax)', 'Cinéaste (Roman Carax)', 'Cineasta (Roman Carax)', 'Кинорежиссёр (Роман Каракс)'],
+  ['lucy', 'Lucy', 'Lucy', 'Lucy', 'Lucy', 'Люси'],
+  ['rebecca', 'Rebecca', 'Rebecca', 'Rebecca', 'Rebecca', 'Ребекка'],
+  ['maine', 'Maine', 'Maine', 'Maine', 'Maine', 'Мэйн'],
+  ['dorio', 'Dorio', 'Dorio', 'Dorio', 'Dorio', 'Дорио'],
+  ['kiwi', 'Kiwi', 'Kiwi', 'Kiwi', 'Kiwi', 'Киви'],
+  ['pilar', 'Pilar', 'Pilar', 'Pilar', 'Pilar', 'Пилар'],
+  ['falco', 'Falco', 'Falco', 'Falco', 'Falco', 'Фалько'],
+  ['faraday', 'Faraday', 'Faraday', 'Faraday', 'Faraday', 'Фарадей'],
+  ['smasher', 'Adam Smasher', 'Adam Smasher', 'Adam Smasher', 'Adam Smasher', 'Адам Смэшер'],
+  ['gloria', 'Gloria (paramédica)', 'Gloria (paramedic)', 'Gloria (ambulancière)', 'Gloria (paramédica)', 'Глория (парамедик)'],
+  ['sasha', 'Sasha', 'Sasha', 'Sasha', 'Sasha', 'Саша'],
+  ['nomada', 'D.', 'D.', 'D.', 'D.', 'Д.'],
+  ['talia', 'Talia Yang', 'Talia Yang', 'Talia Yang', 'Talia Yang', 'Талия Ян'],
+  ['king', 'Weak Kingsley', 'Weak Kingsley', 'Weak Kingsley', 'Weak Kingsley', 'Уик Кингсли'],
+  ['cineasta', 'Roman Carax', 'Roman Carax', 'Roman Carax', 'Roman Carax', 'Роман Каракс'],
+  ['avida', 'Avida', 'Avida', 'Avida', 'Avida', 'Авида'],
+  ['kyoko', 'Kyoko Tanaami', 'Kyoko Tanaami', 'Kyoko Tanaami', 'Kyoko Tanaami', 'Кёко Танаами'],
   ['novia', 'Vestido de novia', 'Wedding dress', 'Robe de mariée', 'Vestido de noiva', 'Свадебное платье', 'secret'],
 ];
 
@@ -69,6 +79,10 @@ const ACCESSORIES = [
   ['balloon', 'hand', 'Globo de corazón', 'Heart balloon', 'Ballon cœur', 'Balão de coração', 'Шарик-сердце'],
   ['moon', 'hand', 'La Luna (Lucy)', 'The Moon (Lucy)', 'La Lune (Lucy)', 'A Lua (Lucy)', 'Луна (Люси)'],
   ['filmcam', 'hand', 'Cámara de cine (Roman)', 'Film camera (Roman)', 'Caméra (Roman)', 'Câmera de cinema (Roman)', 'Кинокамера (Роман)'],
+  ['crosschain', 'neck', 'Cruz de oro (David)', 'Gold cross (David)', 'Croix en or (David)', 'Cruz de ouro (David)', 'Золотой крестик (Дэвид)'],
+  ['jawmask', 'face', 'Máscara de mandíbula (Kiwi)', 'Jaw mask (Kiwi)', 'Masque de mâchoire (Kiwi)', 'Máscara de mandíbula (Kiwi)', 'Маска на челюсть (Киви)'],
+  ['monowire', 'hand', 'Monohilo (Lucy)', 'Monowire (Lucy)', 'Monofil (Lucy)', 'Monofio (Lucy)', 'Мононить (Люси)'],
+  ['backpack', 'back', 'Mochila amarilla (Roman)', 'Yellow backpack (Roman)', 'Sac à dos jaune (Roman)', 'Mochila amarela (Roman)', 'Жёлтый рюкзак (Роман)'],
   ['sword', 'back', 'Katana', 'Katana', 'Katana', 'Katana', 'Катана'],
   ['shotgun', 'back', 'Escopeta (Rebecca)', 'Shotgun (Rebecca)', 'Fusil à pompe (Rebecca)', 'Escopeta (Rebecca)', 'Дробовик (Ребекка)'],
   ['veil', 'head', 'Velo de novia', 'Bridal veil', 'Voile de mariée', 'Véu de noiva', 'Фата', 'secret'],
@@ -87,6 +101,8 @@ const PLACE = {
   scarf: { at: [118, 170], w: 40 }, choker: { at: [119, 149], w: 22 }, netcable: { at: [124, 170], w: 40 },
   bouquet: { at: [118, 214], w: 34 }, controller: { at: [118, 206], w: 40 }, moon: { at: [118, 206], w: 40 }, filmcam: { at: [118, 206], w: 40 },
   balloon: { at: [200, 176], w: 40 },
+  crosschain: { at: [119, 160], w: 22 }, jawmask: { m: [1, 8], w: 30 }, monowire: { at: [118, 210], w: 44 },
+  backpack: { at: [118, 200], w: 70, behind: true },
   sword: { at: [118, 196], w: 150, behind: true }, shotgun: { at: [118, 196], w: 150, behind: true },
 };
 
@@ -94,6 +110,8 @@ const PLACE = {
 const MANES = [
   ['default', null, '#fc0346'], ['violet', 0.76, '#8a3cff'], ['blue', 0.62, '#2a5bff'], ['cyan', 0.5, '#00e5ff'],
   ['gold', 0.12, '#ffc21a'], ['green', 0.36, '#1fe36a'], ['silver', 'gray', '#d7d7e3'], ['shadow', 'dark', '#2a2236'],
+  // (Edgerunners: Rebecca's mint, Talia's pastel pink)
+  ['mint', 0.44, '#7df5c8'], ['pink', 0.9, '#ff8fc8'],
 ];
 const MASKS = [
   ['default', null, '#08f467'], ['cyan', 0.5, '#00e5ff'], ['violet', 0.76, '#8a3cff'], ['gold', 0.12, '#ffc21a'], ['white', 'gray', '#f2f2f7'], ['red', 0.98, '#ff1744'],
@@ -497,7 +515,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       let g = grid(null);
       for (const row of OUTFITS) {
         const [id] = row;
-        if (id === 'lucy') g = grid('Cyberpunk: Edgerunners');
+        if (id === 'david') g = grid('Cyberpunk: Edgerunners');
         const secret = row[6] === 'secret';
         if (secret && !open.has(id)) continue;
         const ready = id === 'default' || have[`outfit-${id}`];

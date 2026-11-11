@@ -11,8 +11,10 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   controle, balão de coração…), a cor do cabelo e da máscara, uma aura e o quanto ela é transparente. Ela se mexe com
   tudo isso e fica salvo.
 - **Cyberpunk: Edgerunners:** a Capri é da segunda temporada, então o guarda-roupa tem uma seção da série, com
-  conjuntos inspirados nas duas temporadas (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D., Kingsley,
-  Roman Carax) e o efeito **Sandevistan**: rastros verdes, ciano e violeta atrás dela.
+  conjuntos inspirados nas duas temporadas (David, Lucy, Rebecca, Maine, Dorio, Kiwi, Pilar, Falco, Faraday, Adam
+  Smasher, Gloria, Sasha, D., Talia Yang, Kingsley, Roman Carax, Avida e Kyoko), acessórios da série (a cruz do David,
+  a máscara da Kiwi, o monofio da Lucy, a mochila do Roman), cores de cabelo menta e rosa pastel e o efeito
+  **Sandevistan**: rastros verdes, ciano e violeta atrás dela.
 - **Modo gamer mais confortável:** ao ativar, ela deita de bruços em cima da sua tela, balançando as pernas enquanto
   te vê jogar, e você pode deixá-la semitransparente só enquanto joga (*Guarda-roupa → Efeitos*). Toque nela e ela
   levanta.

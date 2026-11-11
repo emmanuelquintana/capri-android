@@ -10,8 +10,10 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   cowboy hat, Santa hat, headphones, glasses, visor, scarf, katana, game controller, heart balloon…), the color of her
   hair and her mask, an aura and how see-through she is. She moves with all of it on and it stays saved.
 - **Cyberpunk: Edgerunners:** Capri is from the second season, so the wardrobe has a section for the series, with
-  outfits inspired by both seasons (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D., Kingsley, Roman
-  Carax) and the **Sandevistan** effect: green, cyan and violet afterimages trailing behind her.
+  outfits inspired by both seasons (David, Lucy, Rebecca, Maine, Dorio, Kiwi, Pilar, Falco, Faraday, Adam Smasher,
+  Gloria, Sasha, D., Talia Yang, Kingsley, Roman Carax, Avida and Kyoko), accessories from the series (David’s cross,
+  Kiwi’s jaw mask, Lucy’s monowire, Roman’s backpack), mint and pastel-pink mane colors and the **Sandevistan**
+  effect: green, cyan and violet afterimages trailing behind her.
 - **A comfier gamer mode:** when you turn it on she lies on her belly on top of your screen, kicking her legs while
   she watches you play, and you can make her see-through only while you play (*Wardrobe → Effects*). Tap her and she
   gets up.

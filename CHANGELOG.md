@@ -12,8 +12,10 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   control de videojuegos, globo de corazón…), el color de su cabello y de su máscara, un aura y qué tan transparente
   es. Se mueve con todo puesto y se queda guardado.
 - **Cyberpunk: Edgerunners:** Capri es de la segunda temporada, así que el vestuario tiene su sección de la serie, con
-  conjuntos inspirados en las dos temporadas (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D.,
-  Kingsley, Roman Carax) y el efecto **Sandevistan**: estelas verdes, cian y violetas detrás de ella.
+  conjuntos inspirados en las dos temporadas (David, Lucy, Rebecca, Maine, Dorio, Kiwi, Pilar, Falco, Faraday, Adam
+  Smasher, Gloria, Sasha, D., Talia Yang, Kingsley, Roman Carax, Avida y Kyoko), accesorios de la serie (la cruz de
+  David, la máscara de Kiwi, el monohilo de Lucy, la mochila de Roman), colores de melena menta y rosa pastel y el
+  efecto **Sandevistan**: estelas verdes, cian y violetas detrás de ella.
 - **Modo gamer más cómodo:** al activarlo se acuesta boca abajo arriba de tu pantalla, pataleando mientras te ve
   jugar, y puedes hacerla semitransparente solo mientras juegas (*Vestuario → Efectos*). Tócala y se levanta.
 - **Más viva:** caras nuevas (enojada, triste, enamorada, pensativa, concentrada, aburrida, incómoda, guiño) según lo
