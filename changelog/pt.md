@@ -2,6 +2,13 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.8.2
+
+- **Mais leve:** ela não carrega mais todas as animações e todas as roupas ao ligar, só cada uma quando é usada.
+  Em alguns celulares isso deixava ela sem memória: depois de conversar a tela piscava, a Capri sumia e a resposta
+  ficava pela metade. E se a página dela ainda cair, agora ela espera um pouco antes de voltar em vez de reiniciar
+  sem parar.
+
 ## 1.8.1
 
 - **O guarda-roupa, agora também como tela do app:** *Ajustes → Abrir o guarda-roupa* agora abre a tela dele, com

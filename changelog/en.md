@@ -2,6 +2,13 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.8.2
+
+- **Lighter:** she no longer loads all her animations and every outfit when she starts, only each one when it's used.
+  On some phones that left her out of memory: after chatting the screen flickered, Capri vanished and her answer
+  got stuck halfway. And if her page still goes down, she now waits a bit before coming back instead of restarting
+  over and over.
+
 ## 1.8.1
 
 - **The wardrobe, now also as a screen in the app:** *Settings → Open her wardrobe* now opens its own screen, with

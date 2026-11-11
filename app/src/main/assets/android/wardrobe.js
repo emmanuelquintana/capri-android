@@ -279,17 +279,22 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
   const capri = dev?.capri;
   if (!capri?.sprite) return null;
   const original = capri.sprite.image;
-  const have = {}; // drawings that are in: { 'outfit-jinete': Image, 'acc-crown': Image }
+  // Which drawings are in comes from wardrobe/index.json (tools/fit-assets.py writes it); a picture is
+  // only loaded when it's worn or her sheet is open (1.8.2: loading all ~60 at her start, with her 30
+  // animations, was too much memory for some phones, whose WebView then kept restarting her page).
+  const listed = new Set();
+  const have = {}; // drawings loaded so far: { 'outfit-jinete': Image, 'acc-crown': Image }
+  const need = (keys) => Promise.all(keys.filter((k) => listed.has(k) && !have[k]).map((k) =>
+    loadImage(`${WARDROBE}${k}.png`).then((img) => { if (img) have[k] = img; else listed.delete(k); })));
+  const worn = (l = look()) => [`outfit-${l.outfit}`, ...l.things.map((id) => `acc-${id}`)];
   const lang = () => (WORDS[dev.brain?.lang] ? dev.brain.lang : 'en');
   const t = () => WORDS[lang()];
   const look = () => ({ outfit: 'default', things: [], aura: 'none', alpha: 1, gamerAlpha: 0.55, ...(cfg().look || {}), mane: 'default', mask: 'default' }); // (her colors don't change)
   const unlocked = () => new Set(cfg().unlocked || []);
 
   // which drawings are in (once)
-  const probing = Promise.all([
-    ...OUTFITS.slice(1).map(([id]) => loadImage(`${WARDROBE}outfit-${id}.png`).then((img) => { if (img) have[`outfit-${id}`] = img; })),
-    ...ACCESSORIES.map(([id]) => loadImage(`${WARDROBE}acc-${id}.png`).then((img) => { if (img) have[`acc-${id}`] = img; })),
-  ]);
+  const probing = fetch(`${WARDROBE}index.json`).then((r) => (r.ok ? r.json() : [])).catch(() => [])
+    .then((names) => { (Array.isArray(names) ? names : []).forEach((n) => listed.add(String(n))); });
 
   // her picture with all of it, sent to her shader
   let composing = Promise.resolve();
@@ -297,6 +302,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     composing = composing.then(async () => {
       await probing;
       const l = look();
+      await need(worn(l));
       const base = have[`outfit-${l.outfit}`] || original;
       const w = original.naturalWidth || original.width, h = original.naturalHeight || original.height;
       const c = document.createElement('canvas');
@@ -378,6 +384,8 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
   function open() {
     if (!el) build();
     render();
+    // the pictures for its tiles, now that it's open (then shown)
+    probing.then(() => need([...listed].filter((k) => !k.startsWith('wedding')))).then(() => { if (el && !el.hidden) render(); });
     el.hidden = false;
     shade.hidden = false;
     document.body.classList.add('is-dressing');
@@ -391,6 +399,9 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     document.body.classList.remove('is-dressing');
     onToggle?.();
     offStage();
+    // only what she's wearing stays loaded
+    const keep = new Set(worn());
+    for (const k of Object.keys(have)) if (!keep.has(k)) delete have[k];
   }
   // While you dress her she stands on top of her sheet (or sits on it, when she's too big to stand
   // there), lit above its shade: every tap shows on her at once. She jumps back down when it closes.
@@ -502,7 +513,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
         if (id === 'david') g = grid('Cyberpunk: Edgerunners');
         const secret = row[6] === 'secret';
         if (secret && !open.has(id)) continue;
-        const ready = id === 'default' || have[`outfit-${id}`];
+        const ready = id === 'default' || listed.has(`outfit-${id}`);
         g.append(tile({
           label: row[LANG_INDEX[lang()]],
           on: l.outfit === id,
@@ -520,7 +531,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       for (const row of ACCESSORIES) {
         const [id] = row;
         if (row[7] === 'secret' && !open.has(id)) continue;
-        const ready = have[`acc-${id}`] || DRAW[id];
+        const ready = listed.has(`acc-${id}`) || DRAW[id];
         g.append(tile({
           label: row[LANG_INDEX[lang()] + 1],
           on: l.things.includes(id),
@@ -605,7 +616,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     },
     wear(patch) { set(patch); },
     look,
-    has: (id) => Boolean(have[id]),
+    has: (id) => listed.has(id),
     // a drawing of her (poses.js) as she is: her colors are her own
     paint: () => null,
     ready: () => probing,

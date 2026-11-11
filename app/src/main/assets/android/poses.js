@@ -41,12 +41,12 @@ export function poses({ cfg, wardrobe }) {
     img.onerror = () => resolve(null);
     img.src = src;
   }));
-  Object.keys(SIZE).forEach((name) => load(`${POSES}pose-${name}.png`));
+  // (each drawing is loaded when she does it, and let go after: 1.8.2, all 30 at once was too much memory
+  // for some phones, whose WebView then kept restarting her page)
   // the animations that are in
   let anims = {};
   const ready = fetch(`${ANIMS}anims.json`).then((r) => (r.ok ? r.json() : {})).catch(() => ({})).then((list) => {
     anims = list || {};
-    Object.keys(anims).forEach((name) => load(`${ANIMS}${name}.png`));
   });
   const has = (name) => Boolean(anims[name]);
 
@@ -160,6 +160,7 @@ export function poses({ cfg, wardrobe }) {
     if (!now) return;
     const { el, timer, until, onEnd } = now;
     now = null;
+    for (const src of Object.keys(pics)) delete pics[src]; // (let its pictures go)
     clearInterval(timer);
     clearTimeout(until);
     el.classList.remove('is-in');

@@ -2,6 +2,13 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.8.2
+
+- **Plus légère :** elle ne charge plus toutes ses animations et toutes ses tenues au démarrage, seulement chacune
+  quand elle sert. Sur certains téléphones ça lui faisait manquer de mémoire : après une discussion l’écran clignotait,
+  Capri disparaissait et sa réponse restait à moitié. Et si sa page tombe quand même, elle attend un peu avant de
+  revenir au lieu de redémarrer en boucle.
+
 ## 1.8.1
 
 - **La garde-robe, aussi comme écran de l’app :** *Réglages → Ouvrir sa garde-robe* ouvre maintenant son propre

@@ -275,6 +275,13 @@ def main():
             continue
         out.save(path, optimize=True)
         print(f'{f} -> {os.path.relpath(path, ROOT)} {out.size} {os.path.getsize(path) // 1024} KB')
+    index_wardrobe()
+
+
+def index_wardrobe():
+    # which drawings are in (wardrobe.js reads this instead of loading every picture to find out)
+    names = sorted(os.path.splitext(f)[0] for f in os.listdir(WARDROBE) if f.endswith('.png'))
+    json.dump(names, open(os.path.join(WARDROBE, 'index.json'), 'w'), indent=0)
 
 
 if __name__ == '__main__':

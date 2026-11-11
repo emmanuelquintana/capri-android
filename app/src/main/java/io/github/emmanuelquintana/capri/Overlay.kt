@@ -34,6 +34,8 @@ import java.io.FileInputStream
  */
 @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
 class Overlay(private val context: Context, private val bridge: HostBridge) {
+    private val gone = mutableListOf<Long>() // when her page's renderer died lately
+
     private val wm = context.getSystemService(WindowManager::class.java)!!
     private val main = Handler(Looper.getMainLooper())
     private var params: WindowManager.LayoutParams? = null
@@ -80,8 +82,14 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
 
             override fun onRenderProcessGone(view: WebView, detail: android.webkit.RenderProcessGoneDetail): Boolean {
                 // her page crashed or was killed for memory: a fresh one, not the whole app going down
-                bridge.log.add("E", "renderer gone (crash: ${detail.didCrash()})")
-                main.post { destroy(); main.postDelayed({ show() }, 500) }
+                // (1.8.2) and if it keeps dying, a longer wait each time instead of a restart loop (the screen
+                // flickering, her answer starting over): 0.5 s, then 5 s, 20 s, 60 s
+                val now = System.currentTimeMillis()
+                gone.removeAll { now - it > 120_000 }
+                gone.add(now)
+                val wait = when (gone.size) { 1 -> 500L; 2 -> 5_000L; 3 -> 20_000L; else -> 60_000L }
+                bridge.log.add("E", "renderer gone (crash: ${detail.didCrash()}, ${gone.size} in 2 min, back in ${wait / 1000.0} s)")
+                main.post { destroy(); main.postDelayed({ show() }, wait) }
                 return true
             }
         }
