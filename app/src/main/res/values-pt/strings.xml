@@ -316,4 +316,13 @@
     <string name="settings_stats_how">Uma vez por dia o app manda um número aleatório inventado na primeira vez (não é o do seu celular nem o da sua conta), a versão do app, o idioma e a versão do Android, pra Emma saber quanta gente usa a Capri. Nada mais: nem seu nome, nem seus chats, nada do seu celular.</string>
     <string name="settings_ghost_cards">Os cartões também</string>
     <string name="settings_ghost_cards_how">No modo fantasma, seus toques também atravessam os cartões de notificações e de música. Desligado: só ela deixa os toques passarem e os cartões continuam tocáveis.</string>
+    <string name="peek_title">Ela espia nas suas notificações</string>
+    <string name="peek_how">Quando você puxa o painel de notificações ou as configurações rápidas, a Capri espia pelo lado e acena. O Android só deixa um app ficar em cima desse painel com Acessibilidade, então se liga lá: Acessibilidade › Capri. Ela não lê nada nem toca em nada: só fica sabendo que o painel abriu. Alguns apps de banco não abrem enquanto um app tiver Acessibilidade. Se o Android disser que é uma configuração restrita: Informações do app › ⋮ › Permitir configurações restritas.</string>
+    <string name="peek_on">● Ligado</string>
+    <string name="peek_off">Desligado</string>
+    <string name="peek_turn_on">Ligar em Acessibilidade</string>
+    <string name="peek_turn_off">Desligar em Acessibilidade</string>
+    <string name="peek_service_label">Capri nas suas notificações</string>
+    <string name="peek_service_desc">A Capri espia no seu painel de notificações e nas configurações rápidas quando você os puxa. Isso só avisa o app que o painel do Android abriu: não lê o que está na tela, não toca em nada e não olha outros apps.</string>
+    <string name="peek_service_summary">A Capri espia quando você puxa o painel de notificações</string>
 </resources>

@@ -64,6 +64,10 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   l’utilisent. Rien de personnel. Ça se désactive dans les Réglages.
 - **Mode fantôme rien que pour elle :** tes touches traversent Capri, mais ses cartes de notifications et de musique
   restent touchables. Pour qu’elles soient traversées aussi, active Personnaliser › « Ses cartes aussi ».
+- **Elle passe la tête dans tes notifications (optionnel) :** quand tu tires le volet des notifications ou les
+  réglages rapides, Capri passe la tête par le côté et te salue. À activer dans Personnaliser avec l’Accessibilité
+  (désactivé par défaut) ; elle sait seulement que le volet s’est ouvert, elle ne lit et ne touche rien. Attention :
+  certaines banques ne s’ouvrent pas avec l’Accessibilité activée.
 
 ## 1.8.2
 

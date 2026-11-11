@@ -317,4 +317,13 @@
     <string name="settings_stats_how">Once a day the app sends a random number made up the first time (not your phone’s or your account’s), the app’s version, its language and the Android version, so Emma knows how many people use Capri. Nothing else: no name, no chats, nothing from your phone.</string>
     <string name="settings_ghost_cards">Her cards too</string>
     <string name="settings_ghost_cards_how">With ghost mode on, your touches also go through her notification and music cards. Off: only she lets them through, and her cards can still be touched.</string>
+    <string name="peek_title">She peeks into your notifications</string>
+    <string name="peek_how">When you pull down your notification panel or quick settings, Capri peeks in from the side and waves. Android only lets an app above that panel through Accessibility, so it’s turned on there: Accessibility › Capri. She reads nothing there and touches nothing: she’s only told that the panel opened. Some banking apps refuse to open while any app has Accessibility on. If Android says it’s a restricted setting: App info › ⋮ › Allow restricted settings.</string>
+    <string name="peek_on">● On</string>
+    <string name="peek_off">Off</string>
+    <string name="peek_turn_on">Turn on in Accessibility</string>
+    <string name="peek_turn_off">Turn off in Accessibility</string>
+    <string name="peek_service_label">Capri in your notifications</string>
+    <string name="peek_service_desc">Capri peeks into your notification panel and quick settings when you pull them down. This only tells the app that Android’s panel opened: it doesn’t read what’s on your screen, doesn’t touch anything and doesn’t watch other apps.</string>
+    <string name="peek_service_summary">Capri peeks in when you pull down the notification panel</string>
 </resources>

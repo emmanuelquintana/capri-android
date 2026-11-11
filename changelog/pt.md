@@ -60,6 +60,9 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   Ajustes.
 - **Modo fantasma só pra ela:** seus toques atravessam a Capri, mas os cartões de notificações e de música continuam
   tocáveis. Pra atravessar eles também, ligue Personalizar › "Os cartões também".
+- **Ela espia nas suas notificações (opcional):** ao puxar o painel de notificações ou as configurações rápidas, a
+  Capri espia pelo lado e acena. Liga em Personalizar com a permissão de Acessibilidade (desligado de fábrica); ela só
+  fica sabendo que o painel abriu, não lê nem toca em nada. Atenção: alguns bancos não abrem com Acessibilidade ligada.
 
 ## 1.8.2
 

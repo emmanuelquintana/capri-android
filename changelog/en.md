@@ -58,6 +58,9 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   Settings.
 - **Ghost mode just for her:** your touches go through Capri, but her notification and music cards can still be
   touched. To let touches through them too, turn on Customize › "Her cards too".
+- **She peeks into your notifications (optional):** when you pull down the notification panel or quick settings,
+  Capri peeks in from the side and waves. Turn it on in Customize with the Accessibility permission (off by default);
+  she's only told the panel opened, she reads and touches nothing. Note: some banks won't open with Accessibility on.
 
 ## 1.8.2
 

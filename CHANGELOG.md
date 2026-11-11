@@ -60,6 +60,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   Ajustes.
 - **Modo fantasma solo para ella:** tus toques atraviesan a Capri, pero sus tarjetas de notificaciones y de música
   se siguen pudiendo tocar. Si quieres que también las atraviesen, actívalo en Personalizar › «También sus tarjetas».
+- **Se asoma en tus notificaciones (opcional):** al bajar el panel de notificaciones o los ajustes rápidos, Capri se
+  asoma por un lado y te saluda. Se activa en Personalizar con el permiso de Accesibilidad (apagado de fábrica); solo
+  se entera de que abriste el panel, no lee ni toca nada. Ojo: algunos bancos no abren con Accesibilidad activada.
 
 ## 1.8.2
 
