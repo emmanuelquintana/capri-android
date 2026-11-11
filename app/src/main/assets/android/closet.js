@@ -1,3 +1,4 @@
+import './compat.js'; // (first: what an old WebView lacks)
 // The app's own Vestuario screen (ClosetActivity, closet.html): the same wardrobe sheet as over
 // your screen (wardrobe.js), with her standing on a little stage above it. Each tap shows on her at
 // once and is saved the way her page saves it (config.json's look), so she wears it when she's on,

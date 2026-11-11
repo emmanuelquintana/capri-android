@@ -8,7 +8,9 @@
 //
 // The order and the names follow main.js's registerIpc(), so the two can be read side by side.
 
+import './compat.js'; // (first: what an old WebView lacks, before anything uses it)
 import { call, send, on, emit } from './native.js';
+import { nativeFetch } from './fetch.js';
 import { load, env, electron } from './cjs.js';
 import './upstream/ollama.js';
 import './upstream/llm.js';
@@ -272,10 +274,38 @@ function pickModel(c = cfg) {
   return rankModels(chatModels)[0];
 }
 
+// Your keys, opened by Android's Keystore once and kept in her page's memory (1.9.0): before, every
+// message (and every try at another model) asked the Keystore again for each key, one after the
+// other, which an old phone takes its time over.
+const opened = new Map(); // sealed -> plain
 async function openKeys(apiKeys = {}) {
-  const out = {};
-  for (const [id, v] of Object.entries(apiKeys)) out[id] = await call('keys:open', { value: v }).catch(() => '');
-  return out;
+  const pairs = await Promise.all(Object.entries(apiKeys).map(async ([id, v]) => {
+    if (!v) return [id, ''];
+    if (opened.has(v)) return [id, opened.get(v)];
+    const plain = await call('keys:open', { value: v }).catch(() => null);
+    if (plain != null) opened.set(v, plain);
+    return [id, plain || ''];
+  }));
+  return Object.fromEntries(pairs);
+}
+
+// The way to her AI kept open (1.9.0): a phone's network takes a while to make a new secure
+// connection (up to a second or more), so when her chat opens and she hasn't talked with it for a
+// few minutes, it's made then, while you type, and your message goes down it.
+const linkUsed = new Map(); // provider -> when
+const KEEP_LINK = 4 * 60 * 1000; // (Android keeps an idle one about 5 minutes)
+function warmLink(provider = cfg.provider) {
+  const p = llm.PROVIDERS[provider];
+  if (!p?.url || p.local || provider === 'custom') return;
+  if (Date.now() - (linkUsed.get(provider) || 0) < KEEP_LINK) return;
+  linkUsed.set(provider, Date.now());
+  llmConfig().then((conf) => {
+    const key = conf.apiKeys?.[provider];
+    return nativeFetch(p.modelsUrl || `${p.url}/models`, {
+      headers: key ? { authorization: `Bearer ${key}` } : {},
+      signal: AbortSignal.timeout(8000),
+    });
+  }).then((r) => r.text()).catch(noop);
 }
 const llmConfig = async (c = cfg) => ({ ...c, apiKeys: await openKeys(c.apiKeys) });
 
@@ -324,8 +354,9 @@ function refreshCloud(force = false) {
 // No first word this long from a server (not Ollama on your PC, which may be loading its model):
 // it's stuck, so the next model gets a go instead of her looking frozen.
 // (the free online one is slow on long messages: it gets longer)
-const FIRST_WORD_MS = 40000;
-const FIRST_WORD_FREE_MS = 80000;
+// (1.9.0: 40 → 25 s, and 80 → 60 s for the free one, which holds a message up to 45 s for its turn)
+const FIRST_WORD_MS = 25000;
+const FIRST_WORD_FREE_MS = 60000;
 
 // Models that ran out for now (429: too many asks a minute, or the free quota of the day, as
 // Gemini's free keys do after a few dozen): rested until they can answer again, the service's
@@ -1196,6 +1227,7 @@ window.host = {
     if (!models.length) return { ok: false, error: 'nomodel', provider };
     const model = pickModel();
     llm.warm(provider, model);
+    warmLink(provider);
     const local = llm.isLocal(provider, cfg, model);
     return { ok: true, provider, model, agent: provider === 'claude', local, warmup: provider === 'ollama' && local };
   }),
@@ -1214,6 +1246,7 @@ window.host = {
       return { ok: false, error: abort.signal.aborted ? 'stopped' : friendly(err.message), code: err.code || null };
     } finally {
       chats.delete(id);
+      linkUsed.set(cfg.provider, Date.now());
     }
   }),
   chatStop: (id) => chats.get(id)?.abort(),

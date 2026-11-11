@@ -289,4 +289,16 @@
     <string name="settings_streaming_how">Когда ты в эфире (TikTok, Twitch, YouTube, Kick…): она читает комментарии зрителей на твоём экране и отвечает им вслух, как соведущая. Без входа в аккаунты и без подключения к этим приложениям: она видит только твой экран (Android попросит разрешить показ). Её ИИ должен уметь видеть картинки. Ещё: «Капри, режим стрима». Выключается повторным нажатием или перезапуском.</string>
     <string name="settings_streaming_start">Сначала запусти Капри.</string>
     <string name="voice_moved">Услышала «%1$s», пока телефон двигался: не считается (это шорох, а не ты).</string>
+    <string name="settings_perf">Производительность</string>
+    <string name="settings_perf_how">Лёгкий режим рисует её меньшим числом пикселей и убирает размытие за меню: на старых телефонах она работает плавнее и тратит меньше заряда. В автоматическом режиме он включается сам на телефонах с малым объёмом памяти или старым Android.</string>
+    <string name="settings_perf_now">Этот телефон: %1$s</string>
+    <string name="perf_auto">Авто</string>
+    <string name="perf_lite">Лёгкий</string>
+    <string name="perf_full">Полный</string>
+    <string name="perf_is_lite">лёгкий режим</string>
+    <string name="perf_is_full">полный режим</string>
+    <string name="webview_old_title">Обнови «Android System WebView»</string>
+    <string name="webview_old_how">Капри рисует Android System WebView, а на этом телефоне он слишком старый (версия %1$d): она может не появиться или зависнуть. Обнови его в Play Маркете (это бесплатно и безопасно, это часть Android) и запусти её снова.</string>
+    <string name="webview_update">Обновить WebView</string>
+    <string name="voice_far">Услышала что-то издалека (телевизор, кто-то другой): не обратила внимания.</string>
 </resources>

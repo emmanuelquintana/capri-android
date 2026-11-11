@@ -44,6 +44,20 @@ class Ears(private val service: CapriService) {
     private var torch = false
     private var movedAt = 0L        // when the phone last moved in your hand (the rustle it makes isn't you talking)
 
+    // (1.9.0) "activa el micro como loco aun si no hay ningún sonido": in silence the recognizer gives
+    // up after a few seconds and was started again at once, so the mic went on and off all the time.
+    // Android 13+ can keep one session open, handing back each thing said on its own (a "segmented
+    // session"): the mic stays on, steady, and starts again about once a minute. A phone whose
+    // recognizer won't do it is noticed (sessions that keep ending early with nothing) and goes back to
+    // the old way, with a short rest between tries when nothing at all was heard.
+    private var segmented: Boolean? = null // null: not known yet on this phone
+    private var longNow = false     // this session is a segmented one
+    private var sessionAt = 0L
+    private var segments = 0
+    private var shortOnes = 0
+    private var quiet = 0           // sessions in a row that heard nothing at all (the old way)
+    private var peak = NO_RMS       // the loudest moment of what's being said (how close the voice is)
+
     // (1.9.0) the phone moving: no permission, only how hard, never where
     private val motion = object : SensorEventListener {
         override fun onSensorChanged(e: SensorEvent) {
@@ -141,10 +155,50 @@ class Ears(private val service: CapriService) {
             intent.putExtra(RecognizerIntent.EXTRA_ENABLE_BIASING_DEVICE_CONTEXT, true)
                 .putStringArrayListExtra(RecognizerIntent.EXTRA_BIASING_STRINGS, arrayListOf("Capri", "Kapri", "Капри"))
         }
+        // one long session (Android 13+) when this phone's recognizer keeps it open
+        longNow = Build.VERSION.SDK_INT >= 33 && segmented != false
+        if (longNow) {
+            intent.putExtra(RecognizerIntent.EXTRA_SEGMENTED_SESSION, RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS)
+                .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, SESSION_MS)
+        }
+        sessionAt = System.currentTimeMillis()
+        segments = 0
+        peak = NO_RMS
         listening = true
+        main.removeCallbacks(mediaCheck)
+        if (longNow) main.postDelayed(mediaCheck, 2000)
         runCatching { r.startListening(intent) }.onFailure {
             listening = false
             failed(SpeechRecognizer.ERROR_CLIENT)
+        }
+    }
+
+    // a long session open and a video or song starts: she lets go of the mic (it would take its sound)
+    private val mediaCheck: Runnable = object : Runnable {
+        override fun run() {
+            if (!listening || !longNow) return
+            if (service.getSystemService(AudioManager::class.java)?.isMusicActive == true) {
+                recognizer?.let { runCatching { it.cancel() } }
+                listening = false
+                status = "media"
+                next(3000)
+                return
+            }
+            main.postDelayed(this, 2000)
+        }
+    }
+
+    /** A session ended. Segmented ones that end early with nothing, again and again: this phone can't. */
+    private fun ended(gotWords: Boolean) {
+        if (!longNow) return
+        val short = System.currentTimeMillis() - sessionAt < SESSION_MS / 3
+        if (segments > 0 || !short) {
+            if (segmented != true) Diag.add("I", "voice: one long session (the mic stays on)")
+            segmented = true
+            shortOnes = 0
+        } else if (!gotWords && segmented == null && ++shortOnes >= 3) {
+            segmented = false
+            Diag.add("I", "voice: this phone's recognizer listens a few seconds at a time")
         }
     }
 
@@ -168,10 +222,24 @@ class Ears(private val service: CapriService) {
             override fun onResults(results: Bundle?) {
                 listening = false
                 failures = 0
-                heard(
-                    results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).orEmpty(),
-                    results?.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES),
-                )
+                quiet = 0
+                val words = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).orEmpty()
+                ended(words.isNotEmpty())
+                heard(words, results?.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES))
+                next(150)
+            }
+            // a long session: each thing said, as it ends, and she keeps listening
+            override fun onSegmentResults(segmentResults: Bundle) {
+                segments++
+                failures = 0
+                val words = segmentResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).orEmpty()
+                if (words.any { it.isNotBlank() }) heard(words, segmentResults.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES))
+                peak = NO_RMS
+                if (status != "heard" && status != "moved" && status != "other" && status != "far") status = "listening"
+            }
+            override fun onEndOfSegmentedSession() {
+                listening = false
+                ended(true)
                 next(150)
             }
             override fun onError(error: Int) {
@@ -184,7 +252,9 @@ class Ears(private val service: CapriService) {
             // you started or stopped talking: her sign that she's listening (hearing.js), only
             // shown right after her name
             override fun onBeginningOfSpeech() = speech(true)
-            override fun onRmsChanged(rmsdB: Float) {}
+            override fun onRmsChanged(rmsdB: Float) {
+                if (rmsdB > peak) peak = rmsdB
+            }
             override fun onBufferReceived(buffer: ByteArray?) {}
             override fun onEndOfSpeech() = speech(false)
             override fun onPartialResults(partialResults: Bundle?) {}
@@ -201,9 +271,12 @@ class Ears(private val service: CapriService) {
     private fun failed(error: Int) {
         when (error) {
             // silence, or words that weren't words: listen again right away
+            // (the old way, a few quiet ones in a row: a short rest between them, not a mic blinking nonstop)
             SpeechRecognizer.ERROR_NO_MATCH, SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> {
                 failures = 0
-                next(200)
+                ended(false)
+                quiet = if (error == SpeechRecognizer.ERROR_SPEECH_TIMEOUT) quiet + 1 else 0
+                next(if (longNow || quiet < 3) 200L else minOf(1500L, 300L * quiet))
             }
             SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> {
                 status = "nomic"
@@ -247,6 +320,15 @@ class Ears(private val service: CapriService) {
             !(scores != null && scores.isNotEmpty() && scores[0] >= 0.85f)
         if (shaken) {
             status = "moved"
+            return
+        }
+        // (1.9.0) her strictest filter: a voice from across the room (the TV, someone else) is quieter
+        // than yours at the phone. Only when the recognizer says how loud it was.
+        val loud = peak
+        peak = NO_RMS
+        if (filter == "strictest" && loud > NO_RMS && loud < FAR_RMS && plain.any { NAME.containsMatchIn(it) }) {
+            status = "far"
+            Diag.add("I", "voice: too far away (${"%.1f".format(loud)} dB)")
             return
         }
         val named = when {
@@ -373,6 +455,9 @@ class Ears(private val service: CapriService) {
         private const val GOOGLE = "com.google.android.googlequicksearchbox"
         private const val MOVED = 2.2 // m/s² off gravity: the phone moved in your hand, not just held
         private const val SHAKEN_MS = 4000L
+        private const val SESSION_MS = 60_000L // a long session's length (then a new one)
+        private const val NO_RMS = -100f
+        private const val FAR_RMS = 4.5f // the recognizer's level (about -2 silence to 10 loud): under it, far away
 
         /** The accents she can have in each language (1.9.0): the first is hers until you pick another. */
         val ACCENTS = mapOf(

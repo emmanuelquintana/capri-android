@@ -100,15 +100,26 @@ object Hud {
 
     /** Her screen's backdrop: the ink, with the faint scanlines of a HUD. */
     class Backdrop(private val step: Float) : Drawable() {
-        private val paint = Paint().apply { color = Color.argb(10, 242, 241, 232) }
+        // one tile (a line, then ink) repeated by the GPU: not hundreds of lines drawn every frame (1.9.0)
+        private val paint = Paint().apply {
+            val h = step.toInt().coerceAtLeast(2)
+            val tile = android.graphics.Bitmap.createBitmap(1, h, android.graphics.Bitmap.Config.ARGB_8888)
+            tile.eraseColor(INK)
+            tile.setPixel(0, 0, blend(INK, Color.argb(10, 242, 241, 232)))
+            shader = android.graphics.BitmapShader(tile, android.graphics.Shader.TileMode.REPEAT, android.graphics.Shader.TileMode.REPEAT)
+        }
+
+        private fun blend(under: Int, over: Int): Int {
+            val a = Color.alpha(over) / 255f
+            fun mix(u: Int, o: Int) = (u + (o - u) * a).toInt().coerceIn(0, 255)
+            return Color.rgb(mix(Color.red(under), Color.red(over)), mix(Color.green(under), Color.green(over)), mix(Color.blue(under), Color.blue(over)))
+        }
 
         override fun draw(canvas: Canvas) {
-            canvas.drawColor(INK)
-            var y = bounds.top.toFloat()
-            while (y < bounds.bottom) {
-                canvas.drawRect(bounds.left.toFloat(), y, bounds.right.toFloat(), y + 1, paint)
-                y += step
-            }
+            canvas.save()
+            canvas.translate(bounds.left.toFloat(), bounds.top.toFloat())
+            canvas.drawRect(0f, 0f, bounds.width().toFloat(), bounds.height().toFloat(), paint)
+            canvas.restore()
         }
 
         override fun setAlpha(alpha: Int) {}

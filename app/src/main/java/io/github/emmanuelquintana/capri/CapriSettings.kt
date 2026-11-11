@@ -92,10 +92,18 @@ object CapriSettings {
     }
 
     /** What she remembers about you from her chats (memory.js), as she noted it down. */
-    fun facts(context: Context): List<String> = runCatching {
-        val arr = JSONObject(Store(context).read(Store.MEMORY) ?: "{}").optJSONArray("facts") ?: return emptyList()
-        (0 until arr.length()).mapNotNull { arr.optString(it).ifEmpty { null } }
-    }.getOrDefault(emptyList())
+    fun facts(context: Context): List<String> {
+        val store = Store(context)
+        val stamp = store.stamp(Store.MEMORY) // (kept while memory.json stays the same: the app's screen asks often)
+        factsRead?.takeIf { it.first == stamp }?.let { return it.second }
+        val list = runCatching {
+            val arr = JSONObject(store.read(Store.MEMORY) ?: "{}").optJSONArray("facts")
+            if (arr == null) emptyList() else (0 until arr.length()).mapNotNull { arr.optString(it).ifEmpty { null } }
+        }.getOrDefault(emptyList())
+        factsRead = stamp to list
+        return list
+    }
+    @Volatile private var factsRead: Pair<Long, List<String>>? = null
 
     /** One of those forgotten, or all of them (null). To her page if she's on, else into memory.json. */
     fun forget(context: Context, fact: String?) {

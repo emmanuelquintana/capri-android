@@ -35,6 +35,19 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **A voz dela não ativa mais sozinha quando você mexe o celular:** com o filtro estrito ela ignora o que ouve
   enquanto o celular se mexe (o atrito, não você), e o nome dela sozinho tem que soar claro.
 - **Se a página dela congelar** (um painel pela metade, nada se mexe), o Android dá uma nova e ela volta.
+- **Responde mais rápido:** ela mantém aberta a conexão com a IA entre uma mensagem e outra e a prepara quando você
+  abre o chat, então sua mensagem sai sem esperar conectar; e se um servidor travar, ela tenta outro modelo antes.
+- **Trocar de aba não trava mais:** o app não relê mais todos os ajustes a cada troca, e a transição ficou mais curta
+  e suave.
+- **Modo leve para celulares mais antigos:** em Ajustes › Desempenho. Liga sozinho em celulares com pouca memória ou
+  Android antigo: ela é desenhada com menos pixels e os menus perdem o desfoque, então fica mais fluida. E se o
+  "Android System WebView" do celular for velho demais pra ela, o app avisa e te leva pra atualizar.
+- **Menos quadros cinza:** a janela dela gasta muito menos memória gráfica, que era o que deixava partes dela em
+  cinza e fazia ela fechar e abrir sozinha.
+- **O microfone não liga e desliga sem parar:** no Android 13 ou mais novo ela escuta direto (o microfone fica
+  ligado, parado) em vez de recomeçar a cada poucos segundos; nos outros ela descansa um pouco quando não tem nada
+  pra ouvir.
+- **Filtro "Muito estrito" mais fino:** ignora vozes distantes, como a TV ou alguém do outro lado do quarto.
 
 ## 1.8.2
 

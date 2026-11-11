@@ -289,4 +289,16 @@
     <string name="settings_streaming_how">For when you’re live (TikTok, Twitch, YouTube, Kick…): she reads your viewers’ comments off your screen and answers them out loud, as your co-host. No login and no connection to those apps: she only sees your screen (Android asks you to share it). Her AI has to see pictures. Also “Capri, streaming mode”. Off when you tap it again or restart her.</string>
     <string name="settings_streaming_start">Start Capri first.</string>
     <string name="voice_moved">Heard “%1$s” while the phone was moving: ignored (its rustle, not you).</string>
+    <string name="settings_perf">Performance</string>
+    <string name="settings_perf_how">Light mode draws her with fewer pixels and leaves out the blur behind her menus: she runs smoother on older phones and uses less battery. Automatic turns it on for phones with little memory or an old Android.</string>
+    <string name="settings_perf_now">This phone: %1$s</string>
+    <string name="perf_auto">Automatic</string>
+    <string name="perf_lite">Light</string>
+    <string name="perf_full">Full</string>
+    <string name="perf_is_lite">light mode</string>
+    <string name="perf_is_full">full mode</string>
+    <string name="webview_old_title">Update “Android System WebView”</string>
+    <string name="webview_old_how">Capri is drawn by Android System WebView, and the one on this phone (version %1$d) is too old for her: she may not show up or may freeze. Update it from the Play Store (it’s free and safe, it’s part of Android) and start her again.</string>
+    <string name="webview_update">Update WebView</string>
+    <string name="voice_far">Heard something far away (the TV, someone else): ignored it.</string>
 </resources>

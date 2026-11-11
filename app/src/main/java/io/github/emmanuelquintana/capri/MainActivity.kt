@@ -187,9 +187,15 @@ class MainActivity : Activity() {
             t.label.visibility = if (on) View.VISIBLE else View.GONE
             t.page.visibility = if (on) View.VISIBLE else View.GONE
         }
-        if (animate) ui.glitchIn(tabs[i].page)
-        refresh()
+        // 1.9.0 ("cuando cambio entre pestañas se traba un poco"): a short smooth slide on the GPU, and
+        // the page brought up to date once it's in, not in the middle of it
+        if (animate) {
+            ui.slideIn(tabs[i].page)
+            content.removeCallbacks(refreshLater)
+            content.postDelayed(refreshLater, 200)
+        } else refresh()
     }
+    private val refreshLater = Runnable { if (!isFinishing) refresh() }
 
     override fun onResume() {
         super.onResume()
@@ -284,6 +290,16 @@ class MainActivity : Activity() {
             })
         }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
         addView(header)
+        // a WebView too old for her page (1.9.0): she can't show up at all until it's updated
+        if (Perf.webViewTooOld()) addView(ui.card(Hud.RED).apply {
+            addView(ui.label(getString(R.string.webview_old_title), Hud.RED))
+            addView(ui.text(getString(R.string.webview_old_how, Perf.webView()), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.button(getString(R.string.webview_update) + " ↗", Ui.Kind.MAIN) {
+                val pkg = Perf.webViewPackage()
+                runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg"))) }
+                    .onFailure { openLink("https://play.google.com/store/apps/details?id=$pkg") }
+            }, ui.block(10))
+        }, ui.block(16))
 
         // status and Start
         val status = ui.card()
@@ -614,6 +630,26 @@ class MainActivity : Activity() {
             }, ui.block(6))
         }, ui.block(16))
 
+        // Rendimiento (1.9.0, Perf.kt): modo ligero for older phones, automatic by default
+        addView(ui.card().apply {
+            addView(ui.label(getString(R.string.settings_perf)))
+            addView(ui.text(getString(R.string.settings_perf_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            val now = ui.text("", 12f, Hud.PAPER_3, ui.mono)
+            val showNow = {
+                now.text = getString(R.string.settings_perf_now, getString(if (Perf.lite(this@MainActivity)) R.string.perf_is_lite else R.string.perf_is_full))
+            }
+            showNow()
+            addView(choice(listOf(R.string.perf_auto to "auto", R.string.perf_lite to "lite", R.string.perf_full to "full"),
+                { Perf.mode(this@MainActivity) }, { a, b -> a == b }) {
+                val was = Perf.lite(this@MainActivity)
+                CapriSettings.set(this@MainActivity, "perfMode", it)
+                showNow()
+                // her picture's pixels are set as her page starts: a fresh one, if it changes anything
+                if (Perf.lite(this@MainActivity) != was) CapriService.current?.overlay?.reload()
+            }, ui.block(8))
+            addView(now, ui.block(8))
+        }, ui.block(16))
+
         // she looks after you: the battery (charged, low) and a break now and then (phone-care.js)
         addView(ui.card(Hud.YELLOW).apply {
             val store = Store(this@MainActivity)
@@ -696,6 +732,7 @@ class MainActivity : Activity() {
             s == "heard" -> getString(R.string.voice_heard, said)
             s == "other" -> getString(R.string.voice_other, said)
             s == "moved" -> getString(R.string.voice_moved, said)
+            s == "far" -> getString(R.string.voice_far)
             s == "busy" -> getString(R.string.voice_busy)
             s == "media" -> getString(R.string.voice_media)
             s == "gamer" -> getString(R.string.voice_gamer)

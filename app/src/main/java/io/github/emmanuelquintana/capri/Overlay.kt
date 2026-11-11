@@ -68,7 +68,11 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
         val web = WebView(context)
         webView = web
         web.setBackgroundColor(Color.TRANSPARENT)
-        web.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        // (1.9.0) no layer of its own: on a screen-sized window that was a whole extra copy of the screen
+        // in the GPU's memory, redrawn at every frame of hers. Short of that memory, some phones stopped
+        // drawing parts of her page (grey boxes where her panel and she were) and its renderer was
+        // killed (her page reopening again and again). The window's 0.8 is applied by Android's
+        // compositor, not by this layer.
         web.isVerticalScrollBarEnabled = false
         web.isHorizontalScrollBarEnabled = false
         web.overScrollMode = View.OVER_SCROLL_NEVER
@@ -96,7 +100,7 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean = request.url.host != HOST
 
             override fun onPageFinished(view: WebView, url: String) {
-                bridge.log.add("I", "page loaded")
+                bridge.log.add("I", "page loaded (WebView ${Perf.webView()}${if (Perf.lite(context)) ", modo ligero" else ""})")
             }
 
             override fun onRenderProcessGone(view: WebView, detail: android.webkit.RenderProcessGoneDetail): Boolean {
@@ -173,6 +177,14 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
      * instead of a restart loop (the screen flickering, her answer starting over): 0.5 s, then 5 s,
      * 20 s, 60 s.
      */
+    /** A fresh page now, asked for (Modo ligero changed in Ajustes): not a failure, no waiting. */
+    fun reload() = main.post {
+        if (webView == null || closed) return@post
+        bridge.log.add("I", "a fresh page (settings)")
+        drop()
+        main.postDelayed({ if (!closed) show() }, 300)
+    }
+
     fun restart(why: String) = main.post {
         val now = System.currentTimeMillis()
         gone.removeAll { now - it > 120_000 }
@@ -269,7 +281,7 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
         val web = webView ?: return@post
         val p = params ?: return@post
         val flag = WindowManager.LayoutParams.FLAG_BLUR_BEHIND
-        val want = on && wm.isCrossWindowBlurEnabled
+        val want = on && wm.isCrossWindowBlurEnabled && !Perf.lite(context) // (the blur is GPU work an old phone feels)
         if (want == (p.flags and flag != 0)) return@post
         if (want) {
             p.flags = p.flags or flag

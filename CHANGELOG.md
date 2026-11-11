@@ -35,6 +35,19 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Su voz ya no se activa sola al mover el teléfono:** con el filtro estricto ignora lo que oye mientras mueves el
   celular (era el roce, no tú) y su nombre solo tiene que oírse claro.
 - **Si su página se congela** (un panel a medias, nada se mueve), Android le da una nueva y vuelve sola.
+- **Responde más rápido:** guarda abierta la conexión con su IA entre mensaje y mensaje y la prepara cuando abres su
+  chat, así tu mensaje sale sin esperar a conectarse; y si un servidor se atora, prueba con otro modelo antes.
+- **Cambiar de pestaña ya no se traba:** la app ya no relee todos sus ajustes en cada cambio, y la transición es
+  más corta y suave.
+- **Modo ligero para teléfonos más viejos:** en Ajustes › Rendimiento. Se activa solo en teléfonos con poca memoria
+  o un Android antiguo: la dibuja con menos píxeles y quita el desenfoque de sus menús, así va más fluida. Y si el
+  «Android System WebView» del teléfono es demasiado viejo para ella, la app te avisa y te lleva a actualizarlo.
+- **Menos cuadros grises:** su ventana gasta mucha menos memoria gráfica, que era lo que dejaba partes de ella en
+  gris y hacía que se cerrara y abriera sola.
+- **El micro ya no se prende y apaga sin parar:** en Android 13 o más nuevo escucha de seguido (el micro se queda
+  encendido, quieto) en lugar de volver a empezar cada pocos segundos; en los demás descansa un poco cuando no hay
+  nada que oír.
+- **Filtro «Muy estricto» más fino:** ignora voces lejanas, como la tele o alguien al otro lado del cuarto.
 
 ## 1.8.2
 

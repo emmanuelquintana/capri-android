@@ -37,6 +37,21 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   entend pendant que le téléphone bouge (son frottement, pas toi), et son nom seul doit être bien clair.
 - **Si sa page se fige** (un panneau à moitié dessiné, plus rien ne bouge), Android lui en donne une nouvelle et elle
   revient.
+- **Elle répond plus vite :** elle garde la connexion avec son IA ouverte entre deux messages et la prépare quand tu
+  ouvres son chat, donc ton message part sans attendre ; et si un serveur bloque, elle essaie un autre modèle plus tôt.
+- **Changer d’onglet ne saccade plus :** l’app ne relit plus tous ses réglages à chaque changement, et la transition
+  est plus courte et plus fluide.
+- **Mode léger pour les vieux téléphones :** dans Réglages › Performances. Il s’active tout seul sur les téléphones
+  avec peu de mémoire ou un vieil Android : elle est dessinée avec moins de pixels et ses menus perdent le flou, donc
+  plus fluide. Et si l’« Android System WebView » du téléphone est trop ancien pour elle, l’app te prévient et
+  t’emmène le mettre à jour.
+- **Moins de cases grises :** sa fenêtre utilise beaucoup moins de mémoire graphique, ce qui laissait des parties
+  d’elle en gris et la faisait se fermer et se rouvrir toute seule.
+- **Le micro ne s’allume et ne s’éteint plus sans arrêt :** sur Android 13 ou plus récent, elle écoute en continu (le
+  micro reste allumé, stable) au lieu de recommencer toutes les quelques secondes ; sur les autres, elle se repose un
+  peu quand il n’y a rien à entendre.
+- **Filtre « Très strict » plus fin :** elle ignore les voix lointaines, comme la télé ou quelqu’un à l’autre bout de
+  la pièce.
 
 ## 1.8.2
 

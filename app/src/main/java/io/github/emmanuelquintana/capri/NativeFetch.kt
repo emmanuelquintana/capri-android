@@ -55,9 +55,12 @@ class NativeFetch(private val emit: (channel: String, json: String) -> Unit) {
                 if (open.containsKey(id)) {
                     emit("fetch:error", JSONObject().put("id", id).put("error", e.message ?: e.javaClass.simpleName).toString())
                 }
-            } finally {
-                open.remove(id)
                 conn?.disconnect()
+            } finally {
+                // (1.9.0: no disconnect() when all went well. The connection, its body read to the end,
+                // goes back to Android's pool, and her next message to the same AI skips the new
+                // connection and its TLS handshake: up to a second or more on a phone's network.)
+                open.remove(id)
             }
         }
     }

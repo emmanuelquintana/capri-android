@@ -164,6 +164,15 @@ class Ui(private val a: Activity) {
             .setInterpolator(GlitchInterpolator()).start()
     }
 
+    /** A page in: a short glide, drawn once into a GPU layer for its length (switching tabs). */
+    fun slideIn(v: View) {
+        v.animate().cancel()
+        v.alpha = 0f
+        v.translationX = dp(12f)
+        v.animate().setStartDelay(0).setDuration(180).alpha(1f).translationX(0f)
+            .setInterpolator(DecelerateInterpolator(1.8f)).withLayer().start()
+    }
+
     /** Steps instead of a glide (her panels' steps(3)), with a kick back near the end. */
     private class GlitchInterpolator : android.animation.TimeInterpolator {
         private val d = DecelerateInterpolator(1.6f)

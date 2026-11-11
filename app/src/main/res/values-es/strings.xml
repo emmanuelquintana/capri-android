@@ -288,4 +288,16 @@
     <string name="settings_streaming_how">Para cuando estás en vivo (TikTok, Twitch, YouTube, Kick…): lee los comentarios de tus seguidores en tu pantalla y les contesta en voz alta, como tu co-host. Sin cuentas ni conexión con esas apps: solo ve tu pantalla (Android te pide compartirla). Su IA tiene que poder ver imágenes. También «Capri, modo streaming». Se apaga si lo tocas otra vez o la reinicias.</string>
     <string name="settings_streaming_start">Primero inicia a Capri.</string>
     <string name="voice_moved">Oyó «%1$s» mientras el teléfono se movía: lo ignoró (era el roce, no tú).</string>
+    <string name="settings_perf">Rendimiento</string>
+    <string name="settings_perf_how">El modo ligero la dibuja con menos píxeles y quita el desenfoque detrás de sus menús: va más fluida en teléfonos viejos y gasta menos batería. En automático se activa sola en teléfonos con poca memoria o un Android antiguo.</string>
+    <string name="settings_perf_now">Este teléfono: %1$s</string>
+    <string name="perf_auto">Automático</string>
+    <string name="perf_lite">Ligero</string>
+    <string name="perf_full">Completo</string>
+    <string name="perf_is_lite">modo ligero</string>
+    <string name="perf_is_full">modo completo</string>
+    <string name="webview_old_title">Actualiza «Android System WebView»</string>
+    <string name="webview_old_how">A Capri la dibuja Android System WebView, y la de este teléfono (versión %1$d) es demasiado vieja para ella: puede que no aparezca o que se trabe. Actualízala desde la Play Store (es gratis y segura, es parte de Android) y vuelve a iniciarla.</string>
+    <string name="webview_update">Actualizar WebView</string>
+    <string name="voice_far">Oyó algo lejos (la tele, alguien más): no le hizo caso.</string>
 </resources>

@@ -43,6 +43,10 @@ class HostBridge(private val service: CapriService) {
     @JavascriptInterface
     fun fetchAbort(id: String) = fetch.abort(id)
 
+    /** Modo ligero (Perf.kt), asked by her page as it starts (compat.js), before it draws anything. */
+    @JavascriptInterface
+    fun lite(): Boolean = Perf.lite(service)
+
     private fun obj(args: Any?) = args as? JSONObject ?: JSONObject()
 
     private fun clipboard(): String {

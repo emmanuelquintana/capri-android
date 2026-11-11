@@ -297,7 +297,7 @@ export class Touch {
       const key = JSON.stringify(all);
       if (key === this.regions) return;
       this.regions = key;
-      send('touch:regions', { rects: all, dpr: devicePixelRatio });
+      send('touch:regions', { rects: all, dpr: window.screenDpr?.() || devicePixelRatio }); // (the screen's real one, also in modo ligero: compat.js)
     };
     requestAnimationFrame(tick);
   }

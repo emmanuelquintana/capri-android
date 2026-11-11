@@ -34,6 +34,18 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Her voice no longer wakes up when you move the phone:** with the strict filter she ignores what she hears while
   the phone is moving (its rustle, not you), and her name alone has to be heard clearly.
 - **If her page freezes** (a half-drawn panel, nothing moving), Android gives her a fresh one and she's back.
+- **Faster answers:** she keeps the connection to her AI open between messages and gets it ready when you open her
+  chat, so your message goes out without waiting to connect; and if a server gets stuck she tries another model sooner.
+- **Switching tabs no longer stutters:** the app no longer rereads all its settings on every switch, and the
+  transition is shorter and smoother.
+- **Light mode for older phones:** in Settings › Performance. It turns on by itself on phones with little memory or an
+  old Android: she's drawn with fewer pixels and her menus lose the blur, so she runs smoother. And if the phone's
+  "Android System WebView" is too old for her, the app tells you and takes you to update it.
+- **Fewer grey boxes:** her window uses much less graphics memory, which is what left parts of her grey and made her
+  close and reopen by herself.
+- **The mic no longer turns on and off nonstop:** on Android 13 or newer she listens continuously (the mic stays on,
+  steady) instead of starting over every few seconds; on others she rests a little when there's nothing to hear.
+- **Finer "Strictest" filter:** she ignores far-away voices, like the TV or someone across the room.
 
 ## 1.8.2
 
