@@ -13,8 +13,7 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   es. Se mueve con todo puesto y se queda guardado.
 - **Cyberpunk: Edgerunners:** Capri es de la segunda temporada, así que el vestuario tiene su sección de la serie, con
   conjuntos inspirados en las dos temporadas (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D.,
-  Kingsley, Roman Carax) y el efecto **Sandevistan**: estelas verdes, cian y violetas detrás de ella. Los conjuntos de
-  la serie van llegando; los que faltan salen con candado.
+  Kingsley, Roman Carax) y el efecto **Sandevistan**: estelas verdes, cian y violetas detrás de ella.
 - **Modo gamer más cómodo:** al activarlo se acuesta boca abajo arriba de tu pantalla, pataleando mientras te ve
   jugar, y puedes hacerla semitransparente solo mientras juegas (*Vestuario → Efectos*). Tócala y se levanta.
 - **Más viva:** caras nuevas (enojada, triste, enamorada, pensativa, concentrada, aburrida, incómoda, guiño) según lo

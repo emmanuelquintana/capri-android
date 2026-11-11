@@ -12,8 +12,7 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   sa transparence. Elle bouge avec tout ça sur elle et c’est enregistré.
 - **Cyberpunk: Edgerunners :** Capri vient de la deuxième saison, alors la garde-robe a sa section de la série, avec
   des tenues inspirées des deux saisons (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D., Kingsley,
-  Roman Carax) et l’effet **Sandevistan** : des images rémanentes vertes, cyan et violettes derrière elle. Les tenues
-  de la série arrivent peu à peu ; celles qui manquent ont un cadenas.
+  Roman Carax) et l’effet **Sandevistan** : des images rémanentes vertes, cyan et violettes derrière elle.
 - **Un mode gamer plus confortable :** quand tu l’actives, elle s’allonge sur le ventre en haut de ton écran et bat
   des jambes en te regardant jouer, et tu peux la rendre semi-transparente seulement pendant que tu joues (*Garde-robe
   → Effets*). Touche-la et elle se relève.

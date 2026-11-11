@@ -12,8 +12,7 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   tudo isso e fica salvo.
 - **Cyberpunk: Edgerunners:** a Capri é da segunda temporada, então o guarda-roupa tem uma seção da série, com
   conjuntos inspirados nas duas temporadas (Lucy, Rebecca, David, Maine, Kiwi, Adam Smasher, Talia Yang, D., Kingsley,
-  Roman Carax) e o efeito **Sandevistan**: rastros verdes, ciano e violeta atrás dela. Os conjuntos da série vão
-  chegando; os que faltam aparecem com cadeado.
+  Roman Carax) e o efeito **Sandevistan**: rastros verdes, ciano e violeta atrás dela.
 - **Modo gamer mais confortável:** ao ativar, ela deita de bruços em cima da sua tela, balançando as pernas enquanto
   te vê jogar, e você pode deixá-la semitransparente só enquanto joga (*Guarda-roupa → Efeitos*). Toque nela e ela
   levanta.
@@ -39,7 +38,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Pegar ela não falha mais:** ao segurá-la aparece um anel e vibra; se soltar, abre o menu rápido, e se mover o
   dedo, você arrasta ela (antes às vezes aparecia o menu do sistema ou não dava pra mover sem tocar em *Conversar*).
   Nos modos fantasma e gamer, o rosto dela continua respondendo ao toque.
-- **“Ver as boas-vindas de novo” não quebra mais nada:** agora pede confirmação e mantém a IA e a chave que você já tinha.
+- **“Ver as boas-vindas de novo” não quebra mais nada:** agora pede confirmação e mantém a IA e a chave que você já
+  tinha.
 - **Corrigido:** o erro “messages… content must be a string” ao olhar sua tela com um modelo do Groq que não vê
   imagens.
 - E um segredo. Pergunte a ela algo que você nunca perguntou. 💍

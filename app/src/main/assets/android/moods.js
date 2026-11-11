@@ -177,6 +177,11 @@ export function moods({ cfg }) {
     // a strong feeling, now and then: her cut-in for it
     const kind = { angry: 'angry', sad: 'cry', love: 'love', sleepy: 'sleepy' }[face];
     if (kind && face !== msg.face && Math.random() < 0.3) cutin(kind);
+    // and now and then she acts it out (poses.js: angry, crying, in love, laughing)
+    else if (face !== msg.face || face === 'laugh') {
+      const mood = face === 'sad' ? 'sad' : face;
+      if (['angry', 'sad', 'love', 'laugh'].includes(mood) && Math.random() < (mood === 'laugh' ? 0.15 : 0.3)) setTimeout(() => dev.poses?.feel(mood), 200);
+    }
     return say({ ...msg, face });
   };
 
@@ -256,6 +261,14 @@ export function moods({ cfg }) {
     }
     if (now >= nextAct) {
       nextAct = now + rand(40, 100) * 1000;
+      // sometimes something longer, drawn cel by cel (poses.js): a snack, her phone, a dance, a Sandevistan dash
+      const p = dev.poses;
+      const long = p ? ['eat', 'phone', 'dance', ...(cfg().look?.aura === 'sandevistan' ? ['sandevistan', 'sandevistan'] : [])].filter(p.has) : [];
+      if (long.length && Math.random() < 0.15) {
+        const name = pick(long);
+        p.play(name, name === 'sandevistan' ? {} : { hold: rand(9, 16) * 1000 });
+        return;
+      }
       capri.perform?.(pick(IDLE_ACTS), capri.towardCenter?.() || 1);
     }
   }, 5000);

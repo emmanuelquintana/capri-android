@@ -43,6 +43,11 @@ PY
 }
 shot() {
   sleep "${2:-2}"
+  # the emulator gone: say so and stop, instead of waiting for it until the job times out
+  if ! timeout 20 adb get-state >/dev/null 2>&1; then
+    echo "!!! EL EMULADOR SE CAYÓ antes de la captura $1"
+    exit 3
+  fi
   adb exec-out screencap -p > "shots/$1.png"
   convert "shots/$1.png" -resize 400x "shots/$1.small.png" 2>/dev/null || cp "shots/$1.png" "shots/$1.small.png"
   echo "===SHOT $1==="; base64 -w0 "shots/$1.small.png"; echo; echo "===END $1==="

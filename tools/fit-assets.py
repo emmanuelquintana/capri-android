@@ -10,7 +10,11 @@
 - face-<name>.png  256x256, like her other faces.        cutin-<name>.png 360x240.
 - pose-<name>.png  trimmed, at most 640 px (shown as they are, not through her shader).
 - wedding-*.png    at most 1000 px wide, as .jpg.
+- anim-<name>.png  a sheet of cels (capri-prompts-1.8.0-parte3-animaciones.zip, grid in ANIMS): cut, all cut
+  to the same box (so she doesn't jump between cels), into one strip, anims/<name>.png, and its line
+  in anims/anims.json (cels, fps, loops, stand / sit / lie / curl).
 """
+import json
 import os
 import sys
 
@@ -20,6 +24,30 @@ from PIL import Image
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'app', 'src', 'main', 'assets', 'capri', 'assets', 'capri')
 WARDROBE = os.path.join(ROOT, 'wardrobe')
 POSES = os.path.join(ROOT, 'poses')
+ANIMS_DIR = os.path.join(ROOT, 'anims')
+# name: (columns, rows, cels per second, loops, how she is in it: stand / sit / lie)
+ANIMS = {
+    'gamer-watch': (3, 2, 6, True, 'lie'),
+    'gamer-play': (2, 2, 6, True, 'sit'),
+    'sleep': (2, 2, 3, True, 'curl'),
+    'wake': (4, 1, 6, False, 'stand'),
+    'wave': (4, 1, 8, True, 'stand'),
+    'dance': (4, 2, 8, True, 'stand'),
+    'laugh': (4, 1, 8, True, 'stand'),
+    'cry': (4, 1, 6, True, 'sit'),
+    'angry': (4, 1, 8, True, 'stand'),
+    'love': (4, 1, 6, True, 'stand'),
+    'shy': (4, 1, 6, True, 'stand'),
+    'think': (4, 1, 4, True, 'stand'),
+    'bored-tap': (2, 2, 4, True, 'lie'),
+    'hug-rock': (4, 1, 4, True, 'sit'),
+    'lean-nails': (4, 1, 4, True, 'stand'),
+    'phone': (2, 2, 4, True, 'lie'),
+    'charge': (4, 1, 6, True, 'stand'),
+    'drained': (4, 1, 6, False, 'stand'),
+    'eat': (4, 1, 6, True, 'sit'),
+    'sandevistan': (3, 2, 10, False, 'stand'),
+}
 ACC_IDS = {'cat-ears': 'catears', 'santa-hat': 'santahat', 'hat-cowboy': 'cowboyhat', 'heart-balloon': 'balloon'}
 
 FULL = Image.open(os.path.join(ROOT, 'capri-full.png')).convert('RGBA')
@@ -87,6 +115,43 @@ def trim(im, most):
     return im
 
 
+def unkey(im):
+    """a cyan #00FFFF background (when GPT can't do transparency) made transparent"""
+    arr = np.array(im.convert('RGBA')).astype(int)
+    if arr[..., 3].min() < 250:
+        return Image.fromarray(arr.astype('uint8'), 'RGBA')
+    r, g, b = arr[..., 0], arr[..., 1], arr[..., 2]
+    key = (g > 200) & (b > 200) & (r < 90)
+    arr[..., 3][key] = 0
+    return Image.fromarray(arr.astype('uint8'), 'RGBA')
+
+
+def anim(name, im):
+    cols, rows, fps, loop, kind = ANIMS[name]
+    im = unkey(im)
+    cw, ch = im.width // cols, im.height // rows
+    cels = [im.crop((c * cw, r * ch, (c + 1) * cw, (r + 1) * ch)) for r in range(rows) for c in range(cols)]
+    # one box for all (the union of where she is in each cel)
+    boxes = [c.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox() for c in cels]
+    boxes = [b for b in boxes if b]
+    box = (min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes))
+    cels = [c.crop(box) for c in cels]
+    w, h = cels[0].size
+    k = min(1, (360 / h) if kind != 'lie' else (440 / w))
+    w, h = max(1, round(w * k)), max(1, round(h * k))
+    strip = Image.new('RGBA', (w * len(cels), h))
+    for i, c in enumerate(cels):
+        strip.paste(c.resize((w, h), Image.LANCZOS), (i * w, 0))
+    os.makedirs(ANIMS_DIR, exist_ok=True)
+    path = os.path.join(ANIMS_DIR, f'{name}.png')
+    strip.save(path, optimize=True)
+    listing = os.path.join(ANIMS_DIR, 'anims.json')
+    known = json.load(open(listing)) if os.path.exists(listing) else {}
+    known[name] = {'n': len(cels), 'w': w, 'h': h, 'fps': fps, 'loop': loop, 'kind': kind}
+    json.dump(dict(sorted(known.items())), open(listing, 'w'), indent=1)
+    return strip, path
+
+
 def main():
     src = sys.argv[1]
     only = set(sys.argv[2:])
@@ -108,6 +173,11 @@ def main():
             out, path = im.convert('RGB').resize((360, 240), Image.LANCZOS), os.path.join(ROOT, f'cutin-{rest}.png')
         elif kind == 'pose':
             out, path = trim(im, 640), os.path.join(POSES, f'pose-{rest}.png')
+        elif kind == 'anim':
+            if rest not in ANIMS:
+                print('? (no está en ANIMS)', f)
+                continue
+            out, path = anim(rest, im)
         elif kind == 'wedding':
             out = im.convert('RGB')
             out.thumbnail((1000, 1000), Image.LANCZOS)

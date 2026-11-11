@@ -11,6 +11,9 @@ on:
       api:
         description: 'Android del emulador (33 trae un WebView viejo, sin oklch)'
         default: '34'
+      gpu:
+        description: 'GPU del emulador (swangle_indirect, swiftshader_indirect, host…)'
+        default: 'swangle_indirect'
 
 jobs:
   shots:
@@ -36,10 +39,16 @@ jobs:
           arch: x86_64
           profile: pixel_6
           disable-animations: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          ram-size: 4096M
+          heap-size: 576M
+          # (swiftshader_indirect made the emulator itself crash a few seconds after her overlay came up, 2026-11-10)
+          emulator-options: -no-window -gpu ${{ inputs.gpu || 'swangle_indirect' }} -noaudio -no-boot-anim -camera-back none
           script: bash tools/ci/ui-shots.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: capturas
           path: shots/
+      - name: Si el emulador se cayó, su reporte
+        if: always()
+        run: ls -la /tmp/android-runner/ 2>/dev/null; find /tmp/android-runner -maxdepth 2 -type f 2>/dev/null | head -20; tail -50 /tmp/android-runner/*.log 2>/dev/null || true

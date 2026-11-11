@@ -95,11 +95,13 @@ export function phoneCare({ cfg }) {
   const t = () => WORDS[dev.brain?.lang] || WORDS.en;
 
   // her line: in her panel when she's out, else in her notification
-  const tell = (line, { face = 'look', act = null, ...more } = {}) => {
+  const tell = (line, { face = 'look', act = null, anim = null, ...more } = {}) => {
     const away = capri.hidden || capri.stowed || capri.dormant;
     if (away && !cfg().icon) return send('notify:wink', { line, face });
     capri.wake?.();
-    if (act) capri.perform?.(act, capri.towardCenter?.() || 1);
+    // her animation for it (poses.js) when it's in, else her move
+    if (anim && dev.poses?.has(anim)) dev.poses.play(anim, { times: 2 });
+    else if (act) capri.perform?.(act, capri.towardCenter?.() || 1);
     panel.say({ kind: 'info', face, line, hold: 9000, ...more });
   };
   // not in the middle of her chat, nor in gamer mode (a game shouldn't be covered)
@@ -119,7 +121,7 @@ export function phoneCare({ cfg }) {
       said.low = said.critical = false;
       if (!said.full && (p >= full || (full >= 100 && b.full))) {
         said.full = true;
-        if (quiet()) tell(fill(pick(t().full), { p }), { face: 'laugh', act: 'victory' });
+        if (quiet()) tell(fill(pick(t().full), { p }), { face: 'laugh', act: 'victory', anim: 'charge' });
       }
       return;
     }
@@ -127,11 +129,11 @@ export function phoneCare({ cfg }) {
     if (p > low + 2) said.low = said.critical = false;
     if (!said.critical && p <= CRITICAL && low > CRITICAL) {
       said.critical = said.low = true;
-      return tell(fill(pick(t().critical), { p }), { face: 'wide', act: 'alarm' }); // even in a game
+      return tell(fill(pick(t().critical), { p }), { face: 'wide', act: 'alarm', anim: 'drained' }); // even in a game
     }
     if (!said.low && p <= low) {
       said.low = true;
-      if (!cfg().gamer) tell(fill(pick(t().low), { p }), { face: 'aside', act: 'drained' });
+      if (!cfg().gamer) tell(fill(pick(t().low), { p }), { face: 'aside', act: 'drained', anim: 'drained' });
     }
   });
   send('battery:now');

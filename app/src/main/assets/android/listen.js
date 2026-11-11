@@ -387,6 +387,8 @@ async function moveFor(move, { capri, answer, t }) {
   }
   if (move === 'dance') {
     answer(t.dance, 'laugh');
+    // her dance, drawn cel by cel (poses.js), when it's in
+    if (window.dev?.poses?.has('dance') && await window.dev.poses.play('dance', { hold: 7000 })) return;
     for (const [act, ms] of [['spin', 0], ['hop', 1300], ['split', 2300], ['victory', 3700]]) setTimeout(() => capri.perform?.(act, side), ms);
     return;
   }
