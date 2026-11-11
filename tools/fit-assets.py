@@ -52,7 +52,7 @@ ANIMS = {
     'scan': (4, 1, 6, True, 'stand'),
     'bye': (4, 1, 8, False, 'stand'),
     'dizzy': (4, 1, 6, True, 'sit'),
-    'music': (4, 1, 6, True, 'sit'),
+    'music': (2, 2, 6, True, 'sit'),  # (redone like gamer-play: 2x2)
     'stretch': (4, 1, 4, True, 'stand'),
     'yawn': (4, 1, 6, False, 'stand'),
     'hack': (4, 1, 8, True, 'stand'),
