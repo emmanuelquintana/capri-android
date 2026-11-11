@@ -10,6 +10,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   al instante y, si está en tu pantalla, se cambia ahí también. Si prefieres vestirla como antes, encima de tu
   pantalla, sigue ahí: *Vestirla en tu pantalla* (en Ajustes, en esta pantalla, en su menú rápido o diciéndole
   «Capri, vístete»). Tú eliges.
+- **Arreglado:** en *Ajustes → Háblale*, los botones del filtro de ruido, de cómo hablas y de su voz no hacían nada
+  mientras Capri estaba en tu pantalla. Ya cambian al tocarlos.
 
 ## 1.8.0
 

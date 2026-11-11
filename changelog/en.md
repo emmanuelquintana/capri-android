@@ -9,6 +9,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   and, if she's on your screen, she changes there too. If you'd rather dress her as before, over your screen, that's
   still there: *Dress her on your screen* (in Settings, on this screen, in her quick menu or by saying “Capri, get
   dressed”). Your choice.
+- **Fixed:** in *Settings → Talk to her*, the noise filter, how-you-talk and voice buttons did nothing while Capri was
+  on your screen. They change when you tap them now.
 
 ## 1.8.0
 

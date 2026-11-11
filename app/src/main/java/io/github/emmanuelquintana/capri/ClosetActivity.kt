@@ -102,7 +102,7 @@ class ClosetActivity : Activity() {
         @JavascriptInterface
         fun save(look: String) {
             val value = runCatching { JSONObject(look) }.getOrNull() ?: return
-            CapriSettings.set(this@ClosetActivity, "look", value)
+            CapriSettings.setLook(this@ClosetActivity, value)
         }
 
         /** Her wardrobe over your screen instead (the other way to dress her). */

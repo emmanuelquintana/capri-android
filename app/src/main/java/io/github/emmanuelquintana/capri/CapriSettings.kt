@@ -85,6 +85,12 @@ object CapriSettings {
         apply(context, JSONObject().put(key, value)) { it.put(key, value) }
     }
 
+    /** Her look from the app's Vestuario screen: on her now if she's on (as `wardrobeLook`, since `look` there
+     *  means "look at my screen"), else into config.json's `look`. */
+    fun setLook(context: Context, look: JSONObject) {
+        apply(context, JSONObject().put("wardrobeLook", look)) { it.put("look", look) }
+    }
+
     /** What she remembers about you from her chats (memory.js), as she noted it down. */
     fun facts(context: Context): List<String> = runCatching {
         val arr = JSONObject(Store(context).read(Store.MEMORY) ?: "{}").optJSONArray("facts") ?: return emptyList()

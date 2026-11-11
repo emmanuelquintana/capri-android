@@ -9,6 +9,8 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   sur elle tout de suite et, si elle est sur ton écran, elle change là aussi. Si tu préfères l’habiller comme avant,
   par-dessus ton écran, c’est toujours là : *L’habiller sur ton écran* (dans Réglages, sur cet écran, dans son menu
   rapide ou en lui disant « Capri, habille-toi »). À toi de choisir.
+- **Corrigé :** dans *Réglages → Lui parler*, les boutons du filtre de bruit, de ta façon de parler et de sa voix ne
+  faisaient rien quand Capri était sur ton écran. Ils changent maintenant quand tu les touches.
 
 ## 1.8.0
 

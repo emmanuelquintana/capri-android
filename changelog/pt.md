@@ -8,6 +8,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   a Capri num palco em cima e as roupas, acessórios e efeitos embaixo. Cada mudança aparece nela na hora e, se ela
   estiver na sua tela, muda lá também. Se preferir vesti-la como antes, por cima da sua tela, continua lá: *Vestir na
   sua tela* (em Ajustes, nesta tela, no menu rápido dela ou dizendo “Capri, troca de roupa”). Você escolhe.
+- **Corrigido:** em *Ajustes → Fale com ela*, os botões do filtro de ruído, de como você fala e da voz dela não faziam
+  nada enquanto a Capri estava na sua tela. Agora mudam quando você toca.
 
 ## 1.8.0
 

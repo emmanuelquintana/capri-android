@@ -1349,7 +1349,11 @@ on('settings:apply', async (p = {}) => {
   }
   if ('icon' in p) updateConfig({ icon: Boolean(p.icon), ...(p.icon && { visible: true }) });
   // the app's own Vestuario screen (ClosetActivity): what you picked there, on her now
-  if (p.look && typeof p.look === 'object') { updateConfig({ look: { ...p.look, mane: 'default', mask: 'default' } }); closet?.apply(); }
+  if (p.wardrobeLook && typeof p.wardrobeLook === 'object') { updateConfig({ look: { ...p.wardrobeLook, mane: 'default', mask: 'default' } }); closet?.apply(); }
+  // her voice and ears (the app's Settings › Talk to her; Ears.kt reads them from config.json each time)
+  for (const key of ['voiceFilter', 'voicePace']) if (typeof p[key] === 'string') updateConfig({ [key]: p[key] });
+  if (typeof p.voicePitch === 'number') updateConfig({ voicePitch: Math.min(2, Math.max(0.5, p.voicePitch)) });
+  if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
   if (p.musicStay) updateConfig({ musicStay: String(p.musicStay) });
   if (('musicCard' in p || p.musicStay) && notes) notes.refreshMusic(); // shown or hidden now
