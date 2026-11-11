@@ -27,7 +27,20 @@ dump() {
 tapdown() {
   for _ in $(seq 0 "${2:-6}"); do
     dump
-    if grep -qi "text=\"$1\"" /tmp/ui.xml; then tap "$1"; return; fi
+    # (only once it's clear of the pill bar at the bottom: a tap there lands on a tab)
+    local xy
+    xy=$(python3 - "$1" <<'PY'
+import re, sys
+want = sys.argv[1].lower()
+xml = open('/tmp/ui.xml', encoding='utf-8').read()
+for m in re.finditer(r'<node [^>]*?text="([^"]*)"[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml):
+    x1, y1, x2, y2 = map(int, m.groups()[1:])
+    if m.group(1).lower().strip() == want and 150 < (y1 + y2) // 2 < 1900:
+        print((x1 + x2) // 2, (y1 + y2) // 2)
+        break
+PY
+)
+    if [ -n "$xy" ]; then adb shell input tap $xy; echo "tapped '$1' at $xy"; return; fi
     adb shell input swipe 500 1700 500 900 300
     sleep 1
   done
