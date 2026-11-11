@@ -1378,12 +1378,12 @@ ready.then(() => {
     iconMode({ cfg: () => cfg, onConfig: (fn) => listeners.config.add(fn), setConfig: updateConfig });
     floatMode({ cfg: () => cfg, setConfig: updateConfig });
     longMemory({ cfg: () => cfg, readMemory, saveMemory });
-    phoneCare({ cfg: () => cfg });
-    moods({ cfg: () => cfg });
-    closet = wardrobe({ cfg: () => cfg, setConfig: updateConfig, onToggle: () => setTimeout(blur, 0) });
+    // (bisect) phoneCare({ cfg: () => cfg });
+    // (bisect) moods({ cfg: () => cfg });
+    // (bisect) closet = wardrobe({ cfg: () => cfg, setConfig: updateConfig, onToggle: () => setTimeout(blur, 0) });
     window.dev.wardrobe = closet;
-    window.dev.poses = poses({ cfg: () => cfg, wardrobe: closet });
-    window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
+    // (bisect) window.dev.poses = poses({ cfg: () => cfg, wardrobe: closet });
+    // (bisect) window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
   }, 300);
 });
 
