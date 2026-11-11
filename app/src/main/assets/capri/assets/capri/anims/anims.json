@@ -7,6 +7,14 @@
   "loop": true,
   "kind": "stand"
  },
+ "birthday": {
+  "n": 4,
+  "w": 146,
+  "h": 360,
+  "fps": 5,
+  "loop": true,
+  "kind": "stand"
+ },
  "bored-tap": {
   "n": 4,
   "w": 440,
@@ -127,6 +135,14 @@
   "loop": true,
   "kind": "stand"
  },
+ "listen": {
+  "n": 4,
+  "w": 142,
+  "h": 360,
+  "fps": 5,
+  "loop": true,
+  "kind": "stand"
+ },
  "love": {
   "n": 4,
   "w": 144,
@@ -142,6 +158,14 @@
   "fps": 6,
   "loop": true,
   "kind": "sit"
+ },
+ "party": {
+  "n": 8,
+  "w": 280,
+  "h": 360,
+  "fps": 8,
+  "loop": true,
+  "kind": "stand"
  },
  "phone": {
   "n": 4,
@@ -190,6 +214,14 @@
   "fps": 3,
   "loop": true,
   "kind": "curl"
+ },
+ "stream": {
+  "n": 4,
+  "w": 177,
+  "h": 360,
+  "fps": 5,
+  "loop": true,
+  "kind": "stand"
  },
  "stretch": {
   "n": 4,
