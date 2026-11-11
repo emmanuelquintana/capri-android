@@ -211,7 +211,7 @@ hear "Capri sal del ícono"
 shot 31-icon-off 8
 # her wardrobe, by voice; a tap above it closes it. Then the secret (wedding.js), said out loud
 hear "Capri abre tu vestuario"
-shot 32-wardrobe 4
+shot 32-wardrobe 9
 adb shell input tap 540 300
 sleep 2
 hear "Capri cásate conmigo"
