@@ -16,6 +16,7 @@ class UpdateJob : JobService() {
 
     override fun onStartJob(params: JobParameters): Boolean {
         Stats.maybePing(this) // (once a day at most, if allowed: Stats.kt)
+        Agenda.plan(this) // (her next class or calendar reminder, in case its alarm got lost)
         Updater.checkInBackground(this, force = true, done = { jobFinished(params, false) }) { r ->
             CapriService.current?.newRelease(r)
         }

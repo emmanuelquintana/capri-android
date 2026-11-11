@@ -4,6 +4,12 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.9.0
 
+- **Your classes and your calendar:** in the «You» tab, note which days you have class and at what time, and an hour
+  before her special notification arrives, with her face and her colors. If you want, she also reads your calendar
+  (read only, she never changes anything) and reminds you of what's coming: the evening before and an hour before.
+  If she's on your screen, she tells you herself too. Nothing leaves your phone.
+- **Her icon in your notifications:** the bar at the top now shows her little face instead of a white square, on her
+  quick settings tile too.
 - **Share things with her:** in any app, *Share → Show to Capri* with a picture, a video or a text. She opens her
   chat and tells you what she thinks, like a friend you sent it to; then you keep talking about it. From a video
   she sees three moments. Her AI has to see pictures.

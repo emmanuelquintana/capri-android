@@ -5,6 +5,12 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 1.9.0
 
+- **Tus clases y tu calendario:** en la pestaña «Tú» anota qué días tienes clase y a qué hora, y una hora antes
+  te llega su notificación especial, con su cara y sus colores. Si quieres, también lee tu calendario (solo lo lee,
+  nunca cambia nada) y te recuerda lo que se acerca: la noche antes y una hora antes. Si está en tu pantalla, te lo
+  dice ella también. Nada sale de tu teléfono.
+- **Su icono en las notificaciones:** en la barra de arriba ya sale su carita en lugar de un cuadro blanco, también
+  en su botón de ajustes rápidos.
 - **Compártele cosas:** en cualquier app, *Compartir → Enseñárselo a Capri* con una imagen, un video o un texto.
   Abre su chat y te dice qué le parece, como una amiga a la que se lo mandas; luego siguen hablando de eso. De un
   video ve tres momentos. Su IA tiene que poder ver imágenes.

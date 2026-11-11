@@ -4,6 +4,12 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 
 ## 1.9.0
 
+- **Tes cours et ton agenda :** dans l’onglet « Toi », note les jours où tu as cours et l’heure, et une heure avant
+  sa notification spéciale arrive, avec son visage et ses couleurs. Si tu veux, elle lit aussi ton agenda (en
+  lecture seule, elle ne change jamais rien) et te rappelle ce qui approche : la veille au soir et une heure avant.
+  Si elle est sur ton écran, elle te le dit aussi. Rien ne sort de ton téléphone.
+- **Son icône dans tes notifications :** la barre du haut montre maintenant son petit visage au lieu d’un carré
+  blanc, sur sa tuile de réglages rapides aussi.
 - **Partage-lui des choses :** dans n'importe quelle appli, *Partager → Montrer à Capri* avec une image, une vidéo ou
   un texte. Elle ouvre son chat et te dit ce qu'elle en pense, comme une amie à qui tu l'envoies ; puis vous en
   parlez. D'une vidéo, elle voit trois moments. Son IA doit pouvoir voir les images.

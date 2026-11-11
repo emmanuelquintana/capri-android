@@ -340,4 +340,28 @@
     <string name="widget_hide">GUARDAR</string>
     <string name="widget_show">TRAZER</string>
     <string name="widget_app">APP</string>
+    <!-- 1.9.0: your classes and your calendar (Agenda.kt) -->
+    <string name="you_classes">Suas aulas</string>
+    <string name="you_classes_how">Me diz em que dias você tem aula e a que horas: uma hora antes chega minha notificação especial. Tudo fica no seu celular.</string>
+    <string name="you_classes_none">Nenhuma aula anotada ainda.</string>
+    <string name="you_class_add">Adicionar aula</string>
+    <string name="you_class_name">Matéria (opcional)</string>
+    <string name="you_class_days">Quais dias?</string>
+    <string name="you_class_time">Que horas começa?</string>
+    <string name="you_calendar">Sua agenda</string>
+    <string name="you_calendar_how">Se quiser, eu leio sua agenda pra te lembrar do que está chegando: na noite anterior e uma hora antes. Eu só leio, nunca mudo nada, e nada sai do seu celular.</string>
+    <string name="you_calendar_denied">Sem a permissão da agenda eu não consigo vê-la. Você pode dar nas configurações do Android.</string>
+    <string name="agenda_channel">Aulas e datas</string>
+    <string name="agenda_channel_how">Capri te lembra das suas aulas e do que está chegando na sua agenda.</string>
+    <string name="agenda_class_default">Sua aula</string>
+    <string name="agenda_event_default">(sem título)</string>
+    <string name="agenda_class_title">📚 Hoje tem aula, %1$s!</string>
+    <string name="agenda_class_text">%1$s às %2$s. Pega suas coisas, come alguma coisa e não se atrasa. Eu guardo seu lugar.</string>
+    <string name="agenda_tomorrow_title">📅 Amanhã: %1$s</string>
+    <string name="agenda_tomorrow_text">Às %1$s. Eu lembro por você, mas você também, hein?</string>
+    <string name="agenda_tomorrow_allday">É o dia todo. Se prepara desde hoje.</string>
+    <string name="agenda_today_title">📅 Hoje: %1$s</string>
+    <string name="agenda_today_text">Hoje é o dia, choom. Que dê tudo certo.</string>
+    <string name="agenda_soon_title">⏰ Às %1$s: %2$s</string>
+    <string name="agenda_soon_text">Já quase, choom. Te aviso com tempo pra você não ter que correr.</string>
 </resources>

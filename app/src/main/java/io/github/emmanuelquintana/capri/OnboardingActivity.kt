@@ -438,6 +438,7 @@ object Permissions {
     )
 
     const val MIC = 2
+    const val CALENDAR = 3 // (1.9.0: only from «Tú», if you want her to read your calendar)
 
     /** Its card (tag, title, why, and a GRANT plate or a mark) and how to redraw it. */
     fun row(a: Activity, ui: Ui, p: Perm): Pair<View, () -> Unit> {

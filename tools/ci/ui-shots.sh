@@ -263,6 +263,12 @@ shot 37-react-music 14
 adb shell am start-foreground-service -n $PKG/.CapriService -a capri.SENSE --ez sound false --es kind '""' >/dev/null
 adb shell am start -n $PKG/.ShareActivity -a android.intent.action.SEND -t text/plain --es android.intent.extra.TEXT "'mira esto, choom'" >/dev/null
 shot 38-share-text 12
+# her class reminder (Agenda.kt), with her special notification and her face in the status bar
+adb shell am start-foreground-service -n $PKG/.CapriService -a capri.AGENDA >/dev/null
+sleep 3
+adb shell cmd statusbar expand-notifications
+shot 39-agenda 3
+adb shell cmd statusbar collapse
 adb shell input keyevent KEYCODE_BACK
 adb shell input tap 540 300
 sleep 2

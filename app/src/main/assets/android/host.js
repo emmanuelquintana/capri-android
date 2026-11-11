@@ -37,6 +37,7 @@ import { poses } from './poses.js';
 import { wedding } from './wedding.js';
 import { reactions } from './react.js';
 import { hearing } from './hearing.js';
+import { agenda } from './agenda.js';
 import { sharing } from './share.js';
 import { translating } from './translate.js';
 import { coaching } from './coach.js';
@@ -1519,6 +1520,7 @@ ready.then(() => {
     window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
     reactions({ cfg: () => cfg }); // her reactions to your music, videos, games (react.js)
     window.dev.hearing = hearing(); // she's listening: her sign while you talk to her
+    window.dev.agenda = agenda(); // your classes and your calendar: she says her reminder too (Agenda.kt)
     sharing(); // pictures and videos shared with her from other apps (share.js)
     window.dev.translate = translating(); // "tradúceme esto": your screen, in the language you want
     window.dev.coach = coaching({ cfg: () => cfg }); // "dame un consejo": tips for your game

@@ -146,6 +146,7 @@ class CapriService : Service() {
             // debug builds only (the service isn't exported otherwise): what she'd hear, for tests
             ACTION_HEAR -> if (BuildConfig.DEBUG) overlay?.emit("capri:heard", JSONObject().put("text", intent.getStringExtra("text") ?: "").toString())
             // (as if your phone were playing something, or that kind of app were in front: react.js)
+            ACTION_AGENDA -> if (BuildConfig.DEBUG) Agenda.demo(this)
             ACTION_SENSE -> if (BuildConfig.DEBUG) overlay?.emit("phone:activity", JSONObject().put("sound", intent.getBooleanExtra("sound", false)).put("kind", intent.getStringExtra("kind") ?: "").toString())
         }
         return START_STICKY
@@ -345,6 +346,7 @@ class CapriService : Service() {
         const val ACTION_LOOK = "capri.LOOK" // her widget: look at my screen
         const val ACTION_HEAR = "capri.HEAR"
         const val ACTION_SENSE = "capri.SENSE"
+        const val ACTION_AGENDA = "capri.AGENDA" // (debug: her class notification now)
         const val ACTION_SHARE = "capri.SHARE"
         private val FACES = setOf("aside", "calm", "laugh", "look", "many", "smug", "wide")
 

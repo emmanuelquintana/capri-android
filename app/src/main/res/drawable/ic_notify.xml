@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Her face for the status bar, her notification and her quick tile (1.9.0): her mask with both eyes
+     and her jagged grin. Android paints status bar icons in one color from the alpha only, so a solid
+     picture came out as a white square. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M1,10 L5,5.5 L9,9.5 L14,1.5 L23,1 L23,12 L7.5,16 L2,15 Z M2.9,11.6 a2.7,2.7 0 1,0 5.4,0 a2.7,2.7 0 1,0 -5.4,0 Z M4.6,11.6 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0 Z M14.3,6.4 a3.3,3.3 0 1,0 6.6,0 a3.3,3.3 0 1,0 -6.6,0 Z M16.4,6.4 a1.2,1.2 0 1,0 2.4,0 a1.2,1.2 0 1,0 -2.4,0 Z M6.5,20 L11,17.6 L11.4,19.4 L16,16.4 L16.2,18.2 L21.5,15.2 L17.4,20.2 L17.1,18.6 L12.2,22 L11.8,20 Z" />
+</vector>

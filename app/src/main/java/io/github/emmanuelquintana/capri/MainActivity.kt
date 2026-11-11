@@ -116,6 +116,7 @@ class MainActivity : Activity() {
             return
         }
         UpdateJob.schedule(this)
+        Agenda.plan(this)
         wantsUpdate = intent?.getBooleanExtra(EXTRA_UPDATE, false) == true
         window.statusBarColor = Hud.INK
         window.navigationBarColor = Hud.INK
@@ -223,6 +224,11 @@ class MainActivity : Activity() {
         // the microphone just allowed from "Turn on": her ears go on with it
         if (requestCode == Permissions.MIC && wantVoice && Ears.allowed(this)) Ears.setEnabled(this, true)
         wantVoice = false
+        // your calendar just allowed from «Tú»: her reminders from it go on with it
+        if (requestCode == Permissions.CALENDAR) {
+            Agenda.setCalendar(this, Agenda.calendarAllowed(this))
+            if (!Agenda.calendarAllowed(this)) Toast.makeText(this, R.string.you_calendar_denied, Toast.LENGTH_LONG).show()
+        }
         CapriService.current?.voiceChanged()
         refresh()
     }
@@ -476,6 +482,8 @@ class MainActivity : Activity() {
 
         // your birthday (1.9.0, birthday.js): she celebrates you that day
         addView(birthdayCard(), ui.block(16))
+        // your classes and your calendar (1.9.0, Agenda.kt): she reminds you
+        addView(agendaCard(), ui.block(16))
         // what she remembers about you from her chats (memory.js): on or off, and each thing, to forget
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_memory)))
@@ -546,6 +554,74 @@ class MainActivity : Activity() {
             shown.postDelayed({ show() }, 400)
         }
         addView(clear, ui.block(8))
+    }
+
+    /** Your classes (days and time, an hour before: her special notification) and your calendar (optional). */
+    private fun agendaCard() = ui.card(Hud.CYAN).apply {
+        addView(ui.label(getString(R.string.you_classes), Hud.CYAN))
+        addView(ui.text(getString(R.string.you_classes_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+        val list = ui.col()
+        addView(list, ui.block(8))
+        val locale = resources.configuration.locales[0]
+        val names = java.text.DateFormatSymbols(locale).shortWeekdays
+        val week = listOf(2, 3, 4, 5, 6, 7, 1) // (Monday first)
+        fun draw() {
+            list.removeAllViews()
+            val lessons = Agenda.lessons(this@MainActivity)
+            if (lessons.isEmpty()) list.addView(ui.text(getString(R.string.you_classes_none), 13f, Hud.PAPER_3, ui.mono), ui.block(4))
+            lessons.forEachIndexed { i, l ->
+                val cal = java.util.Calendar.getInstance().apply { set(java.util.Calendar.HOUR_OF_DAY, l.h); set(java.util.Calendar.MINUTE, l.m) }
+                val time = android.text.format.DateFormat.getTimeFormat(this@MainActivity).format(cal.time)
+                val days = week.filter { it in l.days }.joinToString(", ") { names[it].trimEnd('.') }
+                val row = ui.row()
+                val what = ui.col().apply {
+                    addView(ui.text(l.name.ifBlank { getString(R.string.agenda_class_default) }, 15f, Hud.PAPER, ui.head))
+                    addView(ui.text("$days · $time", 12f, Hud.CYAN, ui.mono), ui.block(2))
+                }
+                row.addView(what, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+                row.addView(ui.button(getString(R.string.you_birthday_clear), Ui.Kind.LINE) {
+                    Agenda.setLessons(this@MainActivity, Agenda.lessons(this@MainActivity).filterIndexed { j, _ -> j != i })
+                    draw()
+                })
+                list.addView(row, ui.block(if (i == 0) 4 else 10))
+            }
+        }
+        draw()
+        addView(ui.button(getString(R.string.you_class_add) + " ›", Ui.Kind.GREEN) { addLesson { draw() } }, ui.block(12))
+
+        // your calendar: off until you turn it on (then Android asks)
+        addView(ui.text(getString(R.string.you_calendar), 14f, Hud.PAPER, ui.head), ui.block(18))
+        addView(ui.text(getString(R.string.you_calendar_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        addView(choice(listOf(R.string.off to false, R.string.on to true), { Agenda.calendarOn(this@MainActivity) }, { a, b -> a == b }) { on ->
+            if (on && !Agenda.calendarAllowed(this@MainActivity)) requestPermissions(arrayOf(android.Manifest.permission.READ_CALENDAR), Permissions.CALENDAR)
+            else Agenda.setCalendar(this@MainActivity, on)
+        }, ui.block(6))
+    }
+
+    /** A new class: what (optional), which days, what time. */
+    private fun addLesson(done: () -> Unit) {
+        val locale = resources.configuration.locales[0]
+        val names = java.text.DateFormatSymbols(locale).weekdays
+        val week = listOf(2, 3, 4, 5, 6, 7, 1)
+        val field = ui.field(getString(R.string.you_class_name)).apply { filters = arrayOf(android.text.InputFilter.LengthFilter(40)) }
+        val box = ui.col().apply { setPadding(ui.dpi(20), ui.dpi(8), ui.dpi(20), 0); addView(field) }
+        android.app.AlertDialog.Builder(this).setTitle(R.string.you_class_add).setView(box)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                val name = field.text.toString().trim()
+                val picked = BooleanArray(7)
+                android.app.AlertDialog.Builder(this).setTitle(R.string.you_class_days)
+                    .setMultiChoiceItems(week.map { names[it].replaceFirstChar { c -> c.titlecase(locale) } }.toTypedArray(), picked) { _, i, on -> picked[i] = on }
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        val days = week.filterIndexed { i, _ -> picked[i] }.toSet()
+                        if (days.isEmpty()) return@setPositiveButton
+                        android.app.TimePickerDialog(this, { _, h, m ->
+                            Agenda.setLessons(this, Agenda.lessons(this) + Agenda.Lesson(days, h, m, name))
+                            done()
+                        }, 8, 0, android.text.format.DateFormat.is24HourFormat(this)).apply { setTitle(R.string.you_class_time) }.show()
+                    }.show()
+            }.show()
     }
 
     // ---------- Customize (1.9.0): how she looks, how she behaves, how she sounds ----------

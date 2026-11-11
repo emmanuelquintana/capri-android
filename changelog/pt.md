@@ -4,6 +4,12 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 
 ## 1.9.0
 
+- **Suas aulas e sua agenda:** na aba «Você», anota em que dias você tem aula e a que horas, e uma hora antes chega
+  a notificação especial dela, com o rosto e as cores dela. Se quiser, ela também lê sua agenda (só lê, nunca muda
+  nada) e te lembra do que está chegando: na noite anterior e uma hora antes. Se ela estiver na sua tela, ela mesma
+  te fala. Nada sai do seu celular.
+- **O ícone dela nas notificações:** a barra de cima agora mostra o rostinho dela em vez de um quadrado branco,
+  também no bloco de configurações rápidas.
 - **Compartilhe coisas com ela:** em qualquer app, *Compartilhar → Mostrar pra Capri* com uma imagem, um vídeo ou um
   texto. Ela abre o chat e diz o que achou, como uma amiga pra quem você mandou; depois vocês continuam falando
   disso. De um vídeo ela vê três momentos. A IA dela precisa conseguir ver imagens.

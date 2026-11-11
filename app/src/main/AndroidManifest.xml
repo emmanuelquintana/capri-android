@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <!-- "Capri, …": only if you turn it on in Settings, and only with the screen on (Ears.kt) -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- your calendar (1.9.0): optional, read only, asked only if you turn it on in «Tú» (Agenda.kt) -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <!-- "Capri, mira mi pantalla": Android's screen capture, asked each time (Eyes.kt) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
@@ -172,6 +174,11 @@
         <!-- its taps: only this app's widget reaches it -->
         <receiver
             android:name=".CapriWidget$Tap"
+            android:exported="false" />
+
+        <!-- her class and calendar reminders: her own alarm only (Agenda.kt) -->
+        <receiver
+            android:name=".Agenda$Fire"
             android:exported="false" />
 
         <receiver

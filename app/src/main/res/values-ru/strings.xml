@@ -341,4 +341,28 @@
     <string name="widget_hide">СПРЯТАТЬ</string>
     <string name="widget_show">ПОКАЗАТЬ</string>
     <string name="widget_app">APP</string>
+    <!-- 1.9.0: your classes and your calendar (Agenda.kt) -->
+    <string name="you_classes">Твои занятия</string>
+    <string name="you_classes_how">Скажи, в какие дни у тебя занятия и во сколько: за час до начала придёт моё особое уведомление. Всё остаётся на твоём телефоне.</string>
+    <string name="you_classes_none">Пока ни одного занятия.</string>
+    <string name="you_class_add">Добавить занятие</string>
+    <string name="you_class_name">Предмет (необязательно)</string>
+    <string name="you_class_days">В какие дни?</string>
+    <string name="you_class_time">Во сколько начало?</string>
+    <string name="you_calendar">Твой календарь</string>
+    <string name="you_calendar_how">Если хочешь, я буду читать твой календарь и напоминать о том, что скоро: накануне вечером и за час. Я только читаю, ничего не меняю, и ничего не уходит с телефона.</string>
+    <string name="you_calendar_denied">Без доступа к календарю я его не вижу. Его можно дать в настройках Android.</string>
+    <string name="agenda_channel">Занятия и даты</string>
+    <string name="agenda_channel_how">Капри напоминает о занятиях и о том, что скоро в твоём календаре.</string>
+    <string name="agenda_class_default">Занятие</string>
+    <string name="agenda_event_default">(без названия)</string>
+    <string name="agenda_class_title">📚 Сегодня занятия, %1$s!</string>
+    <string name="agenda_class_text">%1$s в %2$s. Собери вещи, перекуси и не опаздывай. Я займу тебе место.</string>
+    <string name="agenda_tomorrow_title">📅 Завтра: %1$s</string>
+    <string name="agenda_tomorrow_text">В %1$s. Я помню за тебя, но ты тоже помни, ладно?</string>
+    <string name="agenda_tomorrow_allday">Это на весь день. Готовься уже сегодня.</string>
+    <string name="agenda_today_title">📅 Сегодня: %1$s</string>
+    <string name="agenda_today_text">Сегодня тот самый день, чум. Пусть всё получится.</string>
+    <string name="agenda_soon_title">⏰ В %1$s: %2$s</string>
+    <string name="agenda_soon_text">Уже скоро, чум. Говорю заранее, чтобы не пришлось бежать.</string>
 </resources>
