@@ -15,6 +15,14 @@
   "loop": true,
   "kind": "lie"
  },
+ "bye": {
+  "n": 4,
+  "w": 157,
+  "h": 360,
+  "fps": 8,
+  "loop": false,
+  "kind": "stand"
+ },
  "charge": {
   "n": 4,
   "w": 139,
@@ -38,6 +46,14 @@
   "fps": 8,
   "loop": true,
   "kind": "stand"
+ },
+ "dizzy": {
+  "n": 4,
+  "w": 206,
+  "h": 360,
+  "fps": 6,
+  "loop": true,
+  "kind": "sit"
  },
  "drained": {
   "n": 4,
@@ -71,6 +87,22 @@
   "loop": true,
   "kind": "lie"
  },
+ "guitar": {
+  "n": 8,
+  "w": 250,
+  "h": 360,
+  "fps": 8,
+  "loop": true,
+  "kind": "stand"
+ },
+ "hack": {
+  "n": 4,
+  "w": 145,
+  "h": 360,
+  "fps": 8,
+  "loop": true,
+  "kind": "stand"
+ },
  "hug-rock": {
   "n": 4,
   "w": 196,
@@ -103,6 +135,14 @@
   "loop": true,
   "kind": "stand"
  },
+ "music": {
+  "n": 4,
+  "w": 236,
+  "h": 360,
+  "fps": 6,
+  "loop": true,
+  "kind": "sit"
+ },
  "phone": {
   "n": 4,
   "w": 440,
@@ -117,6 +157,22 @@
   "h": 360,
   "fps": 10,
   "loop": false,
+  "kind": "stand"
+ },
+ "scan": {
+  "n": 4,
+  "w": 139,
+  "h": 360,
+  "fps": 6,
+  "loop": true,
+  "kind": "stand"
+ },
+ "selfie": {
+  "n": 4,
+  "w": 136,
+  "h": 360,
+  "fps": 4,
+  "loop": true,
   "kind": "stand"
  },
  "shy": {
@@ -134,6 +190,22 @@
   "fps": 3,
   "loop": true,
   "kind": "curl"
+ },
+ "stretch": {
+  "n": 4,
+  "w": 142,
+  "h": 360,
+  "fps": 4,
+  "loop": true,
+  "kind": "stand"
+ },
+ "surprised": {
+  "n": 4,
+  "w": 145,
+  "h": 360,
+  "fps": 8,
+  "loop": false,
+  "kind": "stand"
  },
  "think": {
   "n": 4,
@@ -157,6 +229,14 @@
   "h": 360,
   "fps": 8,
   "loop": true,
+  "kind": "stand"
+ },
+ "yawn": {
+  "n": 4,
+  "w": 140,
+  "h": 360,
+  "fps": 6,
+  "loop": false,
   "kind": "stand"
  }
 }

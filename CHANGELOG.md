@@ -27,6 +27,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   enamora, piensa mientras su IA te contesta, abraza una pila mientras cargas tu teléfono, se queda sin pila cuando
   está baja, come, se pone a ver su celular, se despereza al despertar y hace un arranque de Sandevistan. En modo
   gamer se acuesta arriba de tu pantalla y a ratos se pone a jugar contigo.
+  También mira tu pantalla con su visor mientras su IA la ve, se despide y se desvanece cuando la escondes, queda
+  mareada si la avientas fuerte, mueve la cabeza con tu música, se estira contigo en el descanso, bosteza de noche,
+  hackea cuando abre algo por ti, se sorprende con tus notificaciones, se toma selfies y toca guitarra de aire.
 - **Te cuida a ti y a tu teléfono:** te avisa cuando tu teléfono ya se cargó y cuando le queda poca batería, con el
   porcentaje que tú elijas (*Ajustes → Te cuida* o su menú → *Tu teléfono*). Y si llevas horas pegado a la pantalla,
   te dice que descanses la vista (cada 1, 2 o 3 horas, o nunca).

@@ -25,6 +25,9 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   thinks while her AI answers you, hugs a battery while your phone charges, runs out of juice when it’s low, eats,
   scrolls her phone, stretches when she wakes up and does a Sandevistan dash. In gamer mode she lies on top of your
   screen and now and then plays along with you.
+  She also scans your screen with her visor while her AI looks at it, waves and glitches away when you hide her,
+  gets dizzy if you throw her hard, bobs her head to your music, stretches with you on a break, yawns late at night,
+  hacks away when she opens something for you, jumps at your notifications, takes selfies and plays air guitar.
 - **She looks after you and your phone:** she tells you when your phone is charged and when its battery is low, at the
   percent you choose (*Settings → She looks after you* or her menu → *Your phone*). And if you’ve been glued to the
   screen for hours, she tells you to rest your eyes (every 1, 2 or 3 hours, or never).

@@ -26,6 +26,10 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   pensa enquanto a IA dela te responde, abraça uma pilha enquanto o celular carrega, fica sem energia quando a
   bateria está baixa, come, mexe no celular, se espreguiça ao acordar e dá uma arrancada de Sandevistan. No modo
   gamer ela se deita em cima da tela e de vez em quando joga junto com você.
+  Ela também escaneia sua tela com o visor enquanto a IA dela olha, se despede e some num glitch quando você a
+  esconde, fica tonta se você a jogar com força, balança a cabeça com sua música, se alonga com você na pausa,
+  boceja tarde da noite, hackeia quando abre algo para você, se assusta com suas notificações, tira selfies e toca
+  guitarra imaginária.
 - **Ela cuida de você e do seu celular:** avisa quando o celular já carregou e quando a bateria está acabando, na
   porcentagem que você escolher (*Ajustes → Ela cuida de você* ou o menu dela → *Seu celular*). E se você está grudado
   na tela há horas, ela manda você descansar a vista (a cada 1, 2 ou 3 horas, ou nunca).

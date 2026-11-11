@@ -27,6 +27,10 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   amoureuse, réfléchit pendant que son IA te répond, serre une pile pendant que ton téléphone charge, tombe à plat
   quand la batterie est faible, mange, regarde son téléphone, s’étire au réveil et fait un sprint Sandevistan. En mode
   gamer, elle s’allonge en haut de ton écran et joue parfois avec toi.
+  Elle scanne aussi ton écran avec sa visière pendant que son IA le regarde, salue et disparaît en glitch quand tu
+  la caches, a le tournis si tu la lances fort, hoche la tête sur ta musique, s’étire avec toi pendant une pause,
+  bâille tard le soir, pirate quand elle ouvre quelque chose pour toi, sursaute à tes notifications, fait des selfies
+  et de l’air guitar.
 - **Elle prend soin de toi et de ton téléphone :** elle te prévient quand ton téléphone est chargé et quand la
   batterie est faible, au pourcentage que tu choisis (*Réglages → Elle prend soin de toi* ou son menu → *Ton
   téléphone*). Et si tu es collé à l’écran depuis des heures, elle te dit de reposer tes yeux (toutes les 1, 2 ou 3
