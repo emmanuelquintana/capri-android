@@ -4,6 +4,10 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.media.AudioManager
@@ -38,6 +42,25 @@ class Ears(private val service: CapriService) {
     private var awakeUntil = 0L     // just her name: what comes next is for her, even without it
     private var failures = 0
     private var torch = false
+    private var movedAt = 0L        // when the phone last moved in your hand (the rustle it makes isn't you talking)
+
+    // (1.9.0) the phone moving: no permission, only how hard, never where
+    private val motion = object : SensorEventListener {
+        override fun onSensorChanged(e: SensorEvent) {
+            val v = e.values
+            val g = Math.sqrt((v[0] * v[0] + v[1] * v[1] + v[2] * v[2]).toDouble())
+            if (Math.abs(g - SensorManager.GRAVITY_EARTH) > MOVED) movedAt = System.currentTimeMillis()
+        }
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+    }
+    private var sensing = false
+    private fun sense(on: Boolean) {
+        if (on == sensing) return
+        val sm = service.getSystemService(SensorManager::class.java) ?: return
+        sensing = on
+        if (on) sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.let { sm.registerListener(motion, it, SensorManager.SENSOR_DELAY_NORMAL) }
+        else sm.unregisterListener(motion)
+    }
 
     /** Switched on or off, the screen on or off, the mic allowed or not: listening or not. */
     fun update() = main.post {
@@ -53,6 +76,7 @@ class Ears(private val service: CapriService) {
         }
         if (should == wanted) return@post
         wanted = should
+        sense(should)
         if (should) {
             failures = 0
             Diag.add("I", "listening for her name")
@@ -68,6 +92,7 @@ class Ears(private val service: CapriService) {
     }
 
     fun destroy() {
+        sense(false)
         wanted = false
         stop()
         tts?.shutdown()
@@ -109,8 +134,10 @@ class Ears(private val service: CapriService) {
             .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, pause - 300L)
             .putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false)
             .putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, service.packageName)
-        // Android 13+: her name and her words weigh more than the noise around (a TV, people talking)
-        if (Build.VERSION.SDK_INT >= 33) {
+        // Android 13+: her name weighs more than the noise around (a TV, people talking). Only with her
+        // filter at normal: biased like that, the rustle of the phone moving in your hand came out as
+        // "Capri" (1.9.0: "muevo el celular sin decir nada y se activa")
+        if (Build.VERSION.SDK_INT >= 33 && (Store(service).configString("voiceFilter") ?: "normal") == "normal") {
             intent.putExtra(RecognizerIntent.EXTRA_ENABLE_BIASING_DEVICE_CONTEXT, true)
                 .putStringArrayListExtra(RecognizerIntent.EXTRA_BIASING_STRINGS, arrayListOf("Capri", "Kapri", "Капри"))
         }
@@ -208,11 +235,30 @@ class Ears(private val service: CapriService) {
         val at = plain.indices.firstOrNull { i ->
             NAME.containsMatchIn(plain[i]) && clear(i) && (filter == "normal" || first(plain[i]))
         } ?: -1
-        val named = if (at >= 0) plain[at] else null
+        val named0 = if (at >= 0) plain[at] else null
         heardLast = options.firstOrNull() ?: ""
+        // (1.9.0) noise heard as words: her name alone, unsure, or one or two letters after it. With her
+        // filter on, her name alone must be clear (it opens 10 s where anything you say is for her)
+        val restOf = { s: String -> s.substring(NAME.find(s)!!.range.last + 1).trim(' ', ',', '.', '!', '?') }
+        val alone = named0 != null && restOf(named0).isEmpty()
+        val sure = { i: Int -> scores == null || i >= scores.size || scores[i] < 0f || scores.all { it == 0f } || scores[i] >= minScore + 0.2f }
+        // the phone moved while that was heard, with her filter on: its rustle, not you, unless it's very clear
+        val shaken = filter != "normal" && now - movedAt < SHAKEN_MS &&
+            !(scores != null && scores.isNotEmpty() && scores[0] >= 0.85f)
+        if (shaken) {
+            status = "moved"
+            return
+        }
+        val named = when {
+            named0 == null -> null
+            alone && filter != "normal" && !sure(at) -> null
+            !alone && restOf(named0).replace(" ", "").length < 3 && filter != "normal" -> null
+            else -> named0
+        }
         val text = when {
             named != null -> options[at] // as you said it (her page finds her name in it)
-            now < awakeUntil && options.isNotEmpty() -> options[0]
+            // what comes after her name alone: words, clear ones with her filter on (not the phone moving)
+            now < awakeUntil && options.isNotEmpty() && plain[0].replace(" ", "").length >= 3 && (filter == "normal" || clear(0)) -> options[0]
             else -> {
                 status = "other"
                 return
@@ -325,6 +371,8 @@ class Ears(private val service: CapriService) {
         // her name as recognizers write it: Capri, Kapri, Capry, Cabri, Caprí, Capris… (Капри in Russian)
         private val NAME = Regex("(?<![a-zа-я])(?:[ck]a[pb]r[iy]s?|ка[пб]р[иы])(?![a-zа-я])")
         private const val GOOGLE = "com.google.android.googlequicksearchbox"
+        private const val MOVED = 2.2 // m/s² off gravity: the phone moved in your hand, not just held
+        private const val SHAKEN_MS = 4000L
 
         /** The accents she can have in each language (1.9.0): the first is hers until you pick another. */
         val ACCENTS = mapOf(

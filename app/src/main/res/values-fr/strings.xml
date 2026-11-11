@@ -238,7 +238,7 @@
     <string name="settings_breaks_how">Après ce temps sur ton téléphone sans le lâcher, elle te dit de reposer tes yeux. Éteindre l’écran cinq minutes compte comme une pause.</string>
     <string name="ai_sees">👁 = peut voir ton écran. Oui : Gemini, OpenAI, Groq, OpenRouter, Mistral et NVIDIA (elle choisit un de leurs modèles qui voient). Non : DeepSeek et l’IA gratuite. Avec Ollama, seulement les modèles de vision (llava, gemma3, qwen-vl).</string>
     <string name="voice_filter">Filtre anti-bruit</string>
-    <string name="voice_filter_how">Avec du monde ou la télé autour, elle peut croire entendre son nom. Plus strict : elle ne répond que si « Capri » est le premier mot, dit clairement.</string>
+    <string name="voice_filter_how">Avec du monde ou la télé autour, elle peut croire entendre son nom. Plus strict : elle ne répond que si « Capri » est le premier mot, dit clairement. En strict, elle ignore aussi ce qu’elle entend pendant que tu bouges le téléphone.</string>
     <string name="voice_filter_normal">Normal</string>
     <string name="voice_filter_strict">Strict</string>
     <string name="voice_filter_strictest">Très strict</string>
@@ -287,4 +287,5 @@
     <string name="settings_streaming">Mode streaming</string>
     <string name="settings_streaming_how">Pour quand tu es en live (TikTok, Twitch, YouTube, Kick…) : elle lit les commentaires de tes viewers sur ton écran et leur répond à voix haute, comme ta co-animatrice. Aucun compte, aucune connexion à ces applis : elle voit seulement ton écran (Android te demande de le partager). Son IA doit pouvoir voir les images. Aussi « Capri, mode streaming ». Désactivé si tu le touches à nouveau ou si tu la redémarres.</string>
     <string name="settings_streaming_start">Lance Capri d’abord.</string>
+    <string name="voice_moved">Elle a entendu « %1$s » pendant que le téléphone bougeait : ignoré (son frottement, pas toi).</string>
 </resources>

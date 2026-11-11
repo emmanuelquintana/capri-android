@@ -239,7 +239,7 @@
     <string name="settings_breaks_how">Если столько времени не выпускать телефон из рук, она предложит дать глазам отдых. Выключенный на пять минут экран считается перерывом.</string>
     <string name="ai_sees">👁 = может видеть твой экран. Видят: Gemini, OpenAI, Groq, OpenRouter, Mistral и NVIDIA (она выберет их модель, которая видит). Не видят: DeepSeek и бесплатный ИИ. В Ollama — только модели со зрением (llava, gemma3, qwen-vl).</string>
     <string name="voice_filter">Шумоподавление</string>
-    <string name="voice_filter_how">Если рядом люди или телевизор, ей может показаться, что её позвали. Строже: она отвечает, только если «Капри» — первое слово и сказано чётко.</string>
+    <string name="voice_filter_how">Если рядом люди или телевизор, ей может показаться, что её позвали. Строже: она отвечает, только если «Капри» — первое слово и сказано чётко. В строгом режиме она не слушает и то, что слышно, пока телефон двигается в руке.</string>
     <string name="voice_filter_normal">Обычный</string>
     <string name="voice_filter_strict">Строгий</string>
     <string name="voice_filter_strictest">Очень строгий</string>
@@ -288,4 +288,5 @@
     <string name="settings_streaming">Режим стрима</string>
     <string name="settings_streaming_how">Когда ты в эфире (TikTok, Twitch, YouTube, Kick…): она читает комментарии зрителей на твоём экране и отвечает им вслух, как соведущая. Без входа в аккаунты и без подключения к этим приложениям: она видит только твой экран (Android попросит разрешить показ). Её ИИ должен уметь видеть картинки. Ещё: «Капри, режим стрима». Выключается повторным нажатием или перезапуском.</string>
     <string name="settings_streaming_start">Сначала запусти Капри.</string>
+    <string name="voice_moved">Услышала «%1$s», пока телефон двигался: не считается (это шорох, а не ты).</string>
 </resources>

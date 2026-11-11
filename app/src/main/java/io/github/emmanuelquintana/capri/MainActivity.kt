@@ -695,6 +695,7 @@ class MainActivity : Activity() {
             s == "listening" -> getString(R.string.voice_listening)
             s == "heard" -> getString(R.string.voice_heard, said)
             s == "other" -> getString(R.string.voice_other, said)
+            s == "moved" -> getString(R.string.voice_moved, said)
             s == "busy" -> getString(R.string.voice_busy)
             s == "media" -> getString(R.string.voice_media)
             s == "gamer" -> getString(R.string.voice_gamer)

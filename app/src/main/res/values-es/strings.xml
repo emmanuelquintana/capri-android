@@ -238,7 +238,7 @@
     <string name="settings_breaks_how">Después de este rato en el teléfono sin soltarlo, te dice que descanses la vista. Apagar la pantalla cinco minutos cuenta como descanso.</string>
     <string name="ai_sees">👁 = puede ver tu pantalla. Ven: Gemini, OpenAI, Groq, OpenRouter, Mistral y NVIDIA (ella elige uno de sus modelos que ven). No ven: DeepSeek y la IA gratis. Con Ollama, solo los modelos de visión (llava, gemma3, qwen-vl).</string>
     <string name="voice_filter">Filtro de ruido</string>
-    <string name="voice_filter_how">Con gente o la tele de fondo, puede creer que oyó su nombre. Más estricto: solo te contesta si «Capri» es lo primero que dices y se oye claro.</string>
+    <string name="voice_filter_how">Con gente o la tele de fondo, puede creer que oyó su nombre. Más estricto: solo te contesta si «Capri» es lo primero que dices y se oye claro. En estricto tampoco cuenta lo que oye mientras mueves el teléfono.</string>
     <string name="voice_filter_normal">Normal</string>
     <string name="voice_filter_strict">Estricto</string>
     <string name="voice_filter_strictest">Muy estricto</string>
@@ -287,4 +287,5 @@
     <string name="settings_streaming">Modo streaming</string>
     <string name="settings_streaming_how">Para cuando estás en vivo (TikTok, Twitch, YouTube, Kick…): lee los comentarios de tus seguidores en tu pantalla y les contesta en voz alta, como tu co-host. Sin cuentas ni conexión con esas apps: solo ve tu pantalla (Android te pide compartirla). Su IA tiene que poder ver imágenes. También «Capri, modo streaming». Se apaga si lo tocas otra vez o la reinicias.</string>
     <string name="settings_streaming_start">Primero inicia a Capri.</string>
+    <string name="voice_moved">Oyó «%1$s» mientras el teléfono se movía: lo ignoró (era el roce, no tú).</string>
 </resources>

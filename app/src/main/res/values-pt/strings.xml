@@ -238,7 +238,7 @@
     <string name="settings_breaks_how">Depois desse tempo no celular sem largar, ela diz pra você descansar a vista. Desligar a tela cinco minutos conta como pausa.</string>
     <string name="ai_sees">👁 = consegue ver sua tela. Veem: Gemini, OpenAI, Groq, OpenRouter, Mistral e NVIDIA (ela escolhe um dos modelos deles que enxerga). Não veem: DeepSeek e a IA grátis. Com Ollama, só modelos de visão (llava, gemma3, qwen-vl).</string>
     <string name="voice_filter">Filtro de ruído</string>
-    <string name="voice_filter_how">Com gente ou TV ao fundo, ela pode achar que ouviu o nome dela. Mais rígido: ela só responde se “Capri” for a primeira coisa que você diz, e bem claro.</string>
+    <string name="voice_filter_how">Com gente ou TV ao fundo, ela pode achar que ouviu o nome dela. Mais rígido: ela só responde se “Capri” for a primeira coisa que você diz, e bem claro. No estrito ela também ignora o que ouve enquanto você mexe o celular.</string>
     <string name="voice_filter_normal">Normal</string>
     <string name="voice_filter_strict">Rígido</string>
     <string name="voice_filter_strictest">Muito rígido</string>
@@ -287,4 +287,5 @@
     <string name="settings_streaming">Modo streaming</string>
     <string name="settings_streaming_how">Pra quando você está ao vivo (TikTok, Twitch, YouTube, Kick…): ela lê os comentários dos seus seguidores na sua tela e responde em voz alta, como sua co-host. Sem conta e sem conexão com esses apps: ela só vê sua tela (o Android pede pra compartilhar). A IA dela precisa conseguir ver imagens. Também “Capri, modo streaming”. Desliga se você tocar de novo ou reiniciar ela.</string>
     <string name="settings_streaming_start">Primeiro inicie a Capri.</string>
+    <string name="voice_moved">Ouviu “%1$s” enquanto o celular se mexia: ignorou (era o atrito, não você).</string>
 </resources>

@@ -239,7 +239,7 @@
     <string name="settings_breaks_how">After this long on your phone without putting it down, she tells you to rest your eyes. Turning the screen off five minutes counts as a break.</string>
     <string name="ai_sees">👁 = can look at your screen. They can: Gemini, OpenAI, Groq, OpenRouter, Mistral and NVIDIA (she picks one of their models that sees). They can’t: DeepSeek and the free AI. With Ollama, only vision models (llava, gemma3, qwen-vl).</string>
     <string name="voice_filter">Noise filter</string>
-    <string name="voice_filter_how">With people or a TV around, she can think she heard her name. Stricter: she only answers when “Capri” is the first thing you say, and said clearly.</string>
+    <string name="voice_filter_how">With people or a TV around, she can think she heard her name. Stricter: she only answers when “Capri” is the first thing you say, and said clearly. Stricter also ignores what she hears while the phone is moving in your hand.</string>
     <string name="voice_filter_normal">Normal</string>
     <string name="voice_filter_strict">Strict</string>
     <string name="voice_filter_strictest">Very strict</string>
@@ -288,4 +288,5 @@
     <string name="settings_streaming">Streaming mode</string>
     <string name="settings_streaming_how">For when you’re live (TikTok, Twitch, YouTube, Kick…): she reads your viewers’ comments off your screen and answers them out loud, as your co-host. No login and no connection to those apps: she only sees your screen (Android asks you to share it). Her AI has to see pictures. Also “Capri, streaming mode”. Off when you tap it again or restart her.</string>
     <string name="settings_streaming_start">Start Capri first.</string>
+    <string name="voice_moved">Heard “%1$s” while the phone was moving: ignored (its rustle, not you).</string>
 </resources>
