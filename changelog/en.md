@@ -27,6 +27,13 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   she recovers on her own, and if the phone can't draw her the usual way, she's drawn simpler instead of not at all.
 - **Fewer "servers are swamped":** with the free AI she waits for her turn instead of giving up, and if yours is
   full another one you gave her a key for answers, so she always replies.
+- **Your birthday:** now and then she asks when it is (or tell her: "my birthday is May 3rd"), and on the day she
+  celebrates you: confetti, she wishes you a happy birthday out loud and throws her party.
+- **Cyberpsychosis effect:** in her Wardrobe › Effects, red copies of her twitching around her, like the chrome
+  taking over.
+- **Her voice no longer wakes up when you move the phone:** with the strict filter she ignores what she hears while
+  the phone is moving (its rustle, not you), and her name alone has to be heard clearly.
+- **If her page freezes** (a half-drawn panel, nothing moving), Android gives her a fresh one and she's back.
 
 ## 1.8.2
 

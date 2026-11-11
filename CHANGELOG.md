@@ -28,6 +28,13 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   lugar de no salir.
 - **Menos «servidores saturados»:** con la IA gratis espera su turno en lugar de rendirse, y si la tuya está llena
   contesta otra de las que le diste clave, para que siempre te responda.
+- **Tu cumpleaños:** de vez en cuando te pregunta cuándo es (o díselo tú: «mi cumpleaños es el 3 de mayo») y ese día
+  te festeja: confeti, te felicita en voz alta y hace su fiesta.
+- **Efecto Ciberpsicosis:** en su Vestuario › Efectos, copias rojas de ella que tiemblan a su alrededor, como el
+  cromo tomando el control.
+- **Su voz ya no se activa sola al mover el teléfono:** con el filtro estricto ignora lo que oye mientras mueves el
+  celular (era el roce, no tú) y su nombre solo tiene que oírse claro.
+- **Si su página se congela** (un panel a medias, nada se mueve), Android le da una nueva y vuelve sola.
 
 ## 1.8.2
 

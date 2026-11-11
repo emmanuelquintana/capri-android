@@ -29,6 +29,14 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   d'habitude, elle est dessinée plus simplement au lieu de ne pas apparaître.
 - **Moins de « serveurs saturés » :** avec l'IA gratuite, elle attend son tour au lieu d'abandonner, et si la tienne est
   pleine, une autre dont tu lui as donné la clé répond, pour qu'elle te réponde toujours.
+- **Ton anniversaire :** de temps en temps elle te demande quand c'est (ou dis-le-lui : « mon anniversaire c'est le
+  3 mai »), et ce jour-là elle te fête : confettis, elle te le souhaite à voix haute et fait sa fête.
+- **Effet Cyberpsychose :** dans sa Garde-robe › Effets, des copies rouges d'elle qui tremblent autour d'elle, comme
+  le chrome qui prend le dessus.
+- **Sa voix ne se déclenche plus quand tu bouges le téléphone :** avec le filtre strict, elle ignore ce qu'elle
+  entend pendant que le téléphone bouge (son frottement, pas toi), et son nom seul doit être bien clair.
+- **Si sa page se fige** (un panneau à moitié dessiné, plus rien ne bouge), Android lui en donne une nouvelle et elle
+  revient.
 
 ## 1.8.2
 

@@ -28,6 +28,13 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   desenhada mais simples em vez de não aparecer.
 - **Menos "servidores lotados":** com a IA grátis ela espera a vez em vez de desistir, e se a sua estiver cheia,
   outra que você deu a chave responde, pra ela sempre te responder.
+- **Seu aniversário:** de vez em quando ela pergunta quando é (ou conte pra ela: "meu aniversário é 3 de maio"), e
+  nesse dia ela te comemora: confete, te dá parabéns em voz alta e faz a festa dela.
+- **Efeito Ciberpsicose:** no Guarda-roupa › Efeitos, cópias vermelhas dela tremendo em volta, como o cromo tomando
+  conta.
+- **A voz dela não ativa mais sozinha quando você mexe o celular:** com o filtro estrito ela ignora o que ouve
+  enquanto o celular se mexe (o atrito, não você), e o nome dela sozinho tem que soar claro.
+- **Se a página dela congelar** (um painel pela metade, nada se mexe), o Android dá uma nova e ela volta.
 
 ## 1.8.2
 
