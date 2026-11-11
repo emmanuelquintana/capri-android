@@ -290,7 +290,8 @@ export class Touch {
         ...[...document.querySelectorAll('.cmenu:not([hidden]), .wardrobe:not([hidden])')].map(rectOf),
         // a menu up: the whole (dimmed) screen is hers, a tap beside it closes it
         ...[...document.querySelectorAll('.cmenu-shade:not([hidden])')].map(rectOf),
-        ...(ghost ? [] : [...document.querySelectorAll('.anote:not([hidden])')].map(rectOf)),
+        // (1.9.0: as a ghost only she lets touches through; her cards too only if you chose it)
+        ...(ghost && this.ghostCards ? [] : [...document.querySelectorAll('.anote:not([hidden])')].map(rectOf)),
       ].filter(Boolean);
       // (a finger already on her keeps her: Android sends the whole gesture to where it began)
       const all = list;

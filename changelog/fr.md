@@ -62,6 +62,8 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Statistiques anonymes :** une fois par jour, l’app signale « quelqu’un utilise Capri » avec un nombre au hasard
   (pas celui de ton téléphone), la version, la langue et la version d’Android, pour savoir combien de personnes
   l’utilisent. Rien de personnel. Ça se désactive dans les Réglages.
+- **Mode fantôme rien que pour elle :** tes touches traversent Capri, mais ses cartes de notifications et de musique
+  restent touchables. Pour qu’elles soient traversées aussi, active Personnaliser › « Ses cartes aussi ».
 
 ## 1.8.2
 

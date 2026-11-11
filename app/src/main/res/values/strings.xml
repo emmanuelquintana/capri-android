@@ -315,4 +315,6 @@
     <string name="you_birthday_clear">Remove</string>
     <string name="settings_stats">Anonymous statistics</string>
     <string name="settings_stats_how">Once a day the app sends a random number made up the first time (not your phone’s or your account’s), the app’s version, its language and the Android version, so Emma knows how many people use Capri. Nothing else: no name, no chats, nothing from your phone.</string>
+    <string name="settings_ghost_cards">Her cards too</string>
+    <string name="settings_ghost_cards_how">With ghost mode on, your touches also go through her notification and music cards. Off: only she lets them through, and her cards can still be touched.</string>
 </resources>

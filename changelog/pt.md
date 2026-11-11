@@ -58,6 +58,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Estatísticas anônimas:** uma vez por dia o app avisa "alguém usa a Capri" com um número aleatório (não o do seu
   celular), a versão, o idioma e a versão do Android, pra saber quanta gente usa. Nada pessoal. Dá pra desligar em
   Ajustes.
+- **Modo fantasma só pra ela:** seus toques atravessam a Capri, mas os cartões de notificações e de música continuam
+  tocáveis. Pra atravessar eles também, ligue Personalizar › "Os cartões também".
 
 ## 1.8.2
 

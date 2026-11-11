@@ -167,6 +167,7 @@ function updateConfig(patch) {
   const wasWatching = Boolean(cfg.watchScreen);
   saveConfig(patch);
   if ('ghost' in patch || 'gamer' in patch) touch.ghost = Boolean(cfg.ghost || cfg.gamer);
+  if ('ghostCards' in patch) touch.ghostCards = Boolean(cfg.ghostCards);
   if ('scale' in patch) setTimeout(() => notes?.place(), 0); // her notice card sits just below her height
   if ('gamer' in patch) setTimeout(() => { gamerMode(Boolean(cfg.gamer)); closet?.style(); }, 0);
   // her live look (Eyes.kt): Android asks you when it goes on; a "no" turns it back off
@@ -1428,6 +1429,7 @@ on('settings:apply', async (p = {}) => {
   // her size, her ghost mode, how lively she is (the app's Settings)
   if (typeof p.scale === 'number') updateConfig({ scale: Math.min(1.1, Math.max(0.3, p.scale)) });
   if ('ghost' in p) updateConfig({ ghost: Boolean(p.ghost) });
+  if ('ghostCards' in p) updateConfig({ ghostCards: Boolean(p.ghostCards) }); // her cards too (notifications, music)
   if (p.lively) updateConfig({ lively: String(p.lively) });
   if ('gamer' in p) updateConfig({ gamer: Boolean(p.gamer) });
   if (typeof p.lang === 'string') updateConfig({ lang: p.lang }); // Ajustes › Idioma (Lang.kt)
@@ -1499,6 +1501,7 @@ ready.then(() => {
   followTurns(() => resolveLang(cfg.lang)); // the phone turned: she turns too
   listen({ toggleVisible, visible: () => cfg.visible !== false }); // "Capri, …" out loud (Ears.kt)
   touch.ghost = Boolean(cfg.ghost);
+  touch.ghostCards = Boolean(cfg.ghostCards);
   // once her page has built her: the phone's tunings (phone-tweaks.js)
   const tuned = setInterval(() => {
     if (!window.dev?.capri) return;

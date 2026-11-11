@@ -314,4 +314,6 @@
     <string name="you_birthday_clear">Tirar</string>
     <string name="settings_stats">Estatísticas anônimas</string>
     <string name="settings_stats_how">Uma vez por dia o app manda um número aleatório inventado na primeira vez (não é o do seu celular nem o da sua conta), a versão do app, o idioma e a versão do Android, pra Emma saber quanta gente usa a Capri. Nada mais: nem seu nome, nem seus chats, nada do seu celular.</string>
+    <string name="settings_ghost_cards">Os cartões também</string>
+    <string name="settings_ghost_cards_how">No modo fantasma, seus toques também atravessam os cartões de notificações e de música. Desligado: só ela deixa os toques passarem e os cartões continuam tocáveis.</string>
 </resources>

@@ -56,6 +56,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Anonymous statistics:** once a day the app says "someone uses Capri" with a random number (not your phone's), the
   version, the language and the Android version, to know how many people use her. Nothing personal. Turn it off in
   Settings.
+- **Ghost mode just for her:** your touches go through Capri, but her notification and music cards can still be
+  touched. To let touches through them too, turn on Customize › "Her cards too".
 
 ## 1.8.2
 

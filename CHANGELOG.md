@@ -58,6 +58,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Estadísticas anónimas:** una vez al día la app avisa «alguien usa Capri» con un número al azar (no el de tu
   teléfono), la versión, el idioma y la versión de Android, para saber cuánta gente la usa. Nada personal. Se apaga en
   Ajustes.
+- **Modo fantasma solo para ella:** tus toques atraviesan a Capri, pero sus tarjetas de notificaciones y de música
+  se siguen pudiendo tocar. Si quieres que también las atraviesen, actívalo en Personalizar › «También sus tarjetas».
 
 ## 1.8.2
 
