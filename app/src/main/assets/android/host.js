@@ -33,6 +33,8 @@ import { moods, cutin } from './moods.js';
 import { wardrobe } from './wardrobe.js';
 import { poses } from './poses.js';
 import { wedding } from './wedding.js';
+import { reactions } from './react.js';
+import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
 const llm = load('llm');
 // NVIDIA's (build.nvidia.com): a free key and many models to choose from. The desktop doesn't have
@@ -246,8 +248,8 @@ const NV_SKIP = /embed|guard|safety|reward|parse|nvclip|retriever|rerank|detecto
 const NV_QUICK = [/deepseek-v[\d.]+-flash/, /glm-[\d.]+-flash/, /gemma-4/, /kimi-k2/, /minimax-.*flash/, /nemotron-[\d.]+-lightning/, /mistral-large-4/, /nemotron-3-super/, /gemma-3-12b/, /llama-3\.1-nemotron-70b/, /mistral-nemo/, /gpt-oss/];
 const NV_SEES = [/llama-3\.2-90b-vision/, /nemotron-[\d.]+-super-vl/, /gemma-3-12b/, /phi-3-vision/, /gemma-3-4b/];
 const nvidiaModels = (list) => list.filter((m) => !NV_SKIP.test(m));
-function rankModels(list) {
-  const nv = cfg.provider === 'nvidia';
+function rankModels(list, provider = cfg.provider) {
+  const nv = provider === 'nvidia';
   const usable = list.filter((m) => !NOT_CHAT.test(m) && !(nv && /vision|[-_]vl\b|phi-3-vision/i.test(m)));
   const score = (m) => {
     const q = (nv ? NV_QUICK : QUICK).findIndex((re) => re.test(m));
@@ -338,7 +340,52 @@ function aiResting(models) {
   return Math.min(...list.map((m) => tired.get(m)));
 }
 
+// 1.9.0: "sus servidores están saturados cada 2 o 3 respuestas, con cualquier modelo". When every
+// model of her AI is busy, the other AIs you gave her a key for answer instead (and the free one,
+// last), so she still answers; your AI stays hers, and is back next message.
+const BACKUP_FIRST_WORD_MS = 25000;
+const backupModels = new Map(); // provider -> { at, list }
 async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
+  try {
+    return await chatOnce(c, messages, sendDelta, signal, streamed);
+  } catch (err) {
+    if (signal.aborted || streamed() || !['busy', 'gone'].includes(err.code)) throw err;
+    const conf = await llmConfig(c);
+    const others = Object.keys(conf.apiKeys || {}).filter((id) => conf.apiKeys[id] && id !== c.provider && llm.PROVIDERS[id]?.url);
+    if (c.provider !== 'pollinations') others.push('pollinations');
+    for (const id of others) {
+      if (signal.aborted) break;
+      let models = backupModels.get(id);
+      if (!models || Date.now() - models.at > KEEP_MODELS) {
+        const list = await llm.models(id, conf).catch(() => null);
+        if (!list?.length) continue;
+        models = { at: Date.now(), list: id === 'nvidia' ? nvidiaModels(list) : list };
+        backupModels.set(id, models);
+      }
+      const model = rankModels(models.list, id).find((m) => !isTired(m));
+      if (!model) continue;
+      const inner = new AbortController();
+      const stop = () => inner.abort();
+      signal.addEventListener('abort', stop, { once: true });
+      const timer = setTimeout(() => { if (!streamed()) inner.abort(); }, BACKUP_FIRST_WORD_MS);
+      try {
+        const text = await llm.chat(id, conf, { model, messages }, sendDelta, inner.signal);
+        send('log', { level: 'W', text: `${c.provider} busy: ${id} (${model}) answered instead` });
+        return text;
+      } catch (e) {
+        if (signal.aborted || streamed()) throw e;
+        if (e.code === 'busy') rest(model, e);
+        send('log', { level: 'W', text: `backup ${id} (${model}): ${String(e.message || e).slice(0, 120)}` });
+      } finally {
+        clearTimeout(timer);
+        signal.removeEventListener('abort', stop);
+      }
+    }
+    throw err;
+  }
+}
+
+async function chatOnce(c, messages, sendDelta, signal, streamed) {
   let model = pickModel(c);
   const tried = new Set();
   // her model is resting (it ran out a moment ago): another of the service's first, if one isn't
@@ -369,8 +416,12 @@ async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
       if (err.status === 410 || /end of life|no longer available/i.test(err.message || '')) err.code = 'gone';
       // the free AI answers one message every 45 s per phone (and sometimes it's full): it says how
       // long to wait, so she waits and asks again instead of giving up
-      const after = Number(/retry after (\d+)\s*s/i.exec(err.message || '')?.[1]);
-      if (!stuck && !signal.aborted && c.provider === 'pollinations' && after > 0 && after <= 60 && waited++ < 2) {
+      // (402 FREE_LIMIT is that too; and when it doesn't say how long, a little longer each time:
+      // 1.9.0, she waits for her turn instead of saying she's swamped)
+      if (c.provider === 'pollinations' && err.status === 402) err.code = 'busy';
+      const free = c.provider === 'pollinations' && err.code === 'busy' ? [8, 15, 25][waited] || 0 : 0;
+      const after = Number(/retry after (\d+)\s*s/i.exec(err.message || '')?.[1]) || free;
+      if (!stuck && !signal.aborted && c.provider === 'pollinations' && after > 0 && after <= 60 && waited++ < 3) {
         await new Promise((r) => {
           const t = setTimeout(r, (after + 1) * 1000);
           signal.addEventListener('abort', () => { clearTimeout(t); r(); }, { once: true });
@@ -1404,6 +1455,7 @@ ready.then(() => {
     window.dev.notes = notes; // (her wardrobe sheet joins its cards as a ledge for her)
     window.dev.poses = poses({ cfg: () => cfg, wardrobe: closet });
     window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
+    reactions({ cfg: () => cfg }); // her reactions to your music, videos, games (react.js)
   }, 300);
 });
 
@@ -1441,6 +1493,7 @@ window.__capriTrim = () => {
 
 // she's up: Kotlin can show her (the WebView stays hidden until the page has drawn once)
 ready.then(() => setTimeout(() => send('overlay:ready'), 0));
+ready.then(watchGpu);
 
 // her page's errors, to the app's screen (MainActivity), so a phone with no developer tools can tell
 window.addEventListener('error', (e) => send('log', { level: 'E', text: `${e.message} (${String(e.filename).split('/').pop()}:${e.lineno})` }));

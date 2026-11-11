@@ -34,7 +34,9 @@ import java.io.FileInputStream
  */
 @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
 class Overlay(private val context: Context, private val bridge: HostBridge) {
-    private val gone = mutableListOf<Long>() // when her page's renderer died lately
+    private val gone = mutableListOf<Long>() // when her page was restarted lately
+    private var up = false // her page said it's up (overlay:ready)
+    private var closed = false // stopped for good (destroy)
 
     private val wm = context.getSystemService(WindowManager::class.java)!!
     private val main = Handler(Looper.getMainLooper())
@@ -46,6 +48,7 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
 
     fun show() {
         if (webView != null) return
+        closed = false
         val web = WebView(context)
         webView = web
         web.setBackgroundColor(Color.TRANSPARENT)
@@ -82,14 +85,7 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
 
             override fun onRenderProcessGone(view: WebView, detail: android.webkit.RenderProcessGoneDetail): Boolean {
                 // her page crashed or was killed for memory: a fresh one, not the whole app going down
-                // (1.8.2) and if it keeps dying, a longer wait each time instead of a restart loop (the screen
-                // flickering, her answer starting over): 0.5 s, then 5 s, 20 s, 60 s
-                val now = System.currentTimeMillis()
-                gone.removeAll { now - it > 120_000 }
-                gone.add(now)
-                val wait = when (gone.size) { 1 -> 500L; 2 -> 5_000L; 3 -> 20_000L; else -> 60_000L }
-                bridge.log.add("E", "renderer gone (crash: ${detail.didCrash()}, ${gone.size} in 2 min, back in ${wait / 1000.0} s)")
-                main.post { destroy(); main.postDelayed({ show() }, wait) }
+                restart("renderer gone (crash: ${detail.didCrash()})")
                 return true
             }
         }
@@ -126,6 +122,18 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
         wm.addView(web, p)
         watchKeyboard(web)
         web.loadUrl("https://$HOST/capri/src/renderer/index.html")
+        // (1.9.0) her page never came up (stuck on start): once more, fresh
+        up = false
+        val page = web
+        lateinit var check: Runnable
+        check = Runnable {
+            when {
+                up || webView !== page -> Unit
+                paused -> main.postDelayed(check, START_WITHIN) // (screen off: her page waits for it too)
+                else -> restart("her page didn't start in ${START_WITHIN / 1000} s")
+            }
+        }
+        main.postDelayed(check, START_WITHIN)
     }
 
     /** The screen turned: her window laid out again at the new size (it fills the screen either way). */
@@ -136,7 +144,24 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     }
 
     fun ready() {
+        up = true
         bridge.log.add("I", "her page is up")
+    }
+
+    /**
+     * A fresh page for her: her renderer died, or her page asked (1.9.0: her picture lost on the GPU
+     * and never back, the grey box with a sad face). If it keeps happening, a longer wait each time
+     * instead of a restart loop (the screen flickering, her answer starting over): 0.5 s, then 5 s,
+     * 20 s, 60 s.
+     */
+    fun restart(why: String) = main.post {
+        val now = System.currentTimeMillis()
+        gone.removeAll { now - it > 120_000 }
+        gone.add(now)
+        val wait = when (gone.size) { 1 -> 500L; 2 -> 5_000L; 3 -> 20_000L; else -> 60_000L }
+        bridge.log.add("E", "$why: a fresh page (${gone.size} in 2 min, back in ${wait / 1000.0} s)")
+        drop()
+        main.postDelayed({ if (!closed) show() }, wait)
     }
 
     // ---------- the keyboard ----------
@@ -285,7 +310,13 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
         webView?.onResume()
     }
 
+    /** She's stopped: her window goes, and no restart brings it back. */
     fun destroy() = main.post {
+        closed = true
+        drop()
+    }
+
+    private fun drop() {
         pads.clear()
         webView?.let {
             try { wm.removeView(it) } catch (_: Exception) {}
@@ -431,6 +462,8 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     companion object {
         // a tap away from her while she has the keyboard: her chat (or setup question) closes, and
         // if somehow none is open, the keyboard is given back anyway (never a screen you can't touch)
+        private const val START_WITHIN = 40_000L // ms her page has to say it's up (slow phones take ~10 s)
+
         private const val LEAVE =
             "(function(){var p=window.dev&&window.dev.panel;if(p&&p.current&&p.current.chat&&!p.el.hidden){p.hide()}else if(window.host){window.host.focusOverlay(false)}})()"
         private const val ESCAPE =

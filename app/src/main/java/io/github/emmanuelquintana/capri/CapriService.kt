@@ -141,6 +141,8 @@ class CapriService : Service() {
             ACTION_WARDROBE -> if (pageReady) command("wardrobe") else queued = "wardrobe"
             // debug builds only (the service isn't exported otherwise): what she'd hear, for tests
             ACTION_HEAR -> if (BuildConfig.DEBUG) overlay?.emit("capri:heard", JSONObject().put("text", intent.getStringExtra("text") ?: "").toString())
+            // (as if your phone were playing something, or that kind of app were in front: react.js)
+            ACTION_SENSE -> if (BuildConfig.DEBUG) overlay?.emit("phone:activity", JSONObject().put("sound", intent.getBooleanExtra("sound", false)).put("kind", intent.getStringExtra("kind") ?: "").toString())
         }
         return START_STICKY
     }
@@ -331,6 +333,7 @@ class CapriService : Service() {
         const val ACTION_WARDROBE = "capri.WARDROBE" // the app's Settings: open her wardrobe on her
         const val ACTION_CHAT = "capri.CHAT"
         const val ACTION_HEAR = "capri.HEAR"
+        const val ACTION_SENSE = "capri.SENSE"
         private val FACES = setOf("aside", "calm", "laugh", "look", "many", "smug", "wide")
 
         fun start(context: Context, action: String? = null) {
