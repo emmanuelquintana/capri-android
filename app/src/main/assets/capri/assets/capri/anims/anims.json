@@ -193,7 +193,7 @@
  },
  "stretch": {
   "n": 4,
-  "w": 142,
+  "w": 155,
   "h": 360,
   "fps": 4,
   "loop": true,
@@ -202,12 +202,12 @@
  },
  "surprised": {
   "n": 4,
-  "w": 145,
+  "w": 134,
   "h": 360,
   "fps": 8,
   "loop": false,
   "kind": "stand",
-  "body": 0.875
+  "body": 0.858
  },
  "think": {
   "n": 4,
