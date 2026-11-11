@@ -17,6 +17,7 @@
 import json
 import os
 import sys
+from collections import deque
 
 import numpy as np
 from PIL import Image
@@ -97,13 +98,69 @@ def darken(im):
     return Image.fromarray(arr.astype('uint8'), 'RGBA')
 
 
-def outfit(im):
+# a hanging hand GPT drew lower than her own, still touching her (x0, y0, x1, y1 and the hue range of that hand)
+HANDS = {'rebecca': ((135, 240, 200, 315), (0.55, 0.72))}
+
+
+def pieces(mask):
+    """each connected piece of the picture, by number"""
+    h, w = mask.shape
+    lab = np.zeros(mask.shape, int)
+    n = 0
+    for y, x in zip(*np.nonzero(mask)):
+        if lab[y, x]:
+            continue
+        n += 1
+        lab[y, x] = n
+        q = deque([(y, x)])
+        while q:
+            cy, cx = q.popleft()
+            for ny in (cy - 1, cy, cy + 1):
+                for nx in (cx - 1, cx, cx + 1):
+                    if 0 <= ny < h and 0 <= nx < w and mask[ny, nx] and not lab[ny, nx]:
+                        lab[ny, nx] = n
+                        q.append((ny, nx))
+    return lab, n
+
+
+FULL_A = np.array(FULL)[..., 3] > 30
+
+
+def leftovers(arr):
+    """what's left of GPT's hanging right arm: loose bits beside her, where her own picture has nothing"""
+    lab, n = pieces(arr[..., 3] > 40)
+    sizes = np.bincount(lab.ravel())
+    sizes[0] = 0
+    main = sizes.argmax()
+    kill = np.zeros(lab.shape, bool)
+    for i in range(1, n + 1):
+        bit = lab == i
+        ys, xs = np.nonzero(bit)
+        if i == main or xs.mean() < 128 or not 140 < ys.mean() < 345 or (bit & FULL_A).sum() > bit.sum() / 2:
+            continue
+        kill |= bit
+    return kill
+
+
+def outfit(im, name=''):
     body = im.convert('RGBA').resize((220, 420), Image.LANCZOS)
     out = Image.new('RGBA', (240, 420))
     out.paste(body, (0, 0))
     out = darken(out)
     arr = np.array(out)
     arr[..., 3][ARM] = 0
+    if name in HANDS:
+        (x0, y0, x1, y1), (lo, hi) = HANDS[name]
+        h = hsv(Image.fromarray(arr))
+        hand = np.zeros(ARM.shape, bool)
+        hand[y0:y1, x0:x1] = True
+        hand &= (h[..., 0] > lo) & (h[..., 0] < hi) & (h[..., 1] > 0.35)
+        for _ in range(2):  # and its outline
+            hand = hand | np.roll(hand, 1, 0) | np.roll(hand, -1, 0) | np.roll(hand, 1, 1) | np.roll(hand, -1, 1)
+        hand[:, :x0] = False
+        hand[y1:, :] = False
+        arr[..., 3][hand & ~FULL_A] = 0
+    arr[..., 3][leftovers(arr)] = 0
     return Image.fromarray(arr)
 
 
@@ -164,7 +221,7 @@ def main():
         im = Image.open(os.path.join(src, f))
         kind, _, rest = name.partition('-')
         if kind == 'outfit':
-            out, path = outfit(im), os.path.join(WARDROBE, f'outfit-{rest}.png')
+            out, path = outfit(im, rest), os.path.join(WARDROBE, f'outfit-{rest}.png')
         elif kind == 'acc':
             out, path = trim(im, 256), os.path.join(WARDROBE, f'acc-{ACC_IDS.get(rest, rest)}.png')
         elif kind == 'face':

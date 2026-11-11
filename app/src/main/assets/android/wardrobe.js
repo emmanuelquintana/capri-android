@@ -101,7 +101,7 @@ const PLACE = {
   scarf: { at: [118, 170], w: 40 }, choker: { at: [119, 149], w: 22 }, netcable: { at: [124, 170], w: 40 },
   bouquet: { at: [118, 214], w: 34 }, controller: { at: [118, 206], w: 40 }, moon: { at: [118, 206], w: 40 }, filmcam: { at: [118, 206], w: 40 },
   balloon: { at: [200, 176], w: 40 },
-  crosschain: { at: [119, 160], w: 22 }, jawmask: { m: [1, 8], w: 30 }, monowire: { at: [118, 210], w: 44 },
+  crosschain: { at: [119, 166], w: 30 }, jawmask: { m: [1, 8], w: 30 }, monowire: { at: [118, 210], w: 44 },
   backpack: { at: [118, 200], w: 70, behind: true },
   sword: { at: [118, 196], w: 150, behind: true }, shotgun: { at: [118, 196], w: 150, behind: true },
 };
