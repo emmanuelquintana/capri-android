@@ -5,10 +5,9 @@
 // (holding her) and from her menu.
 //
 // It all goes into her picture itself (the texture her shader draws, capri-full.png's 240x420), so
-// a hat tilts with her head and a dress swings with her legs. Outfit drawings come later (the
-// prompts in capri-prompts-1.8.0.zip): until assets/capri/wardrobe/outfit-<id>.png is there, an
-// outfit shows a padlock, "soon". Things on top are drawn here, or come from
-// assets/capri/wardrobe/acc-<id>.png when that drawing is in.
+// a hat tilts with her head and a dress swings with her legs. Outfits are drawings of her
+// (assets/capri/wardrobe/outfit-<id>.png, fitted by tools/fit-assets.py): until one is there, it
+// shows a padlock, "soon". Things on top come from acc-<id>.png, or are drawn here.
 //
 // And one thing that isn't in any list: ask her to marry you (wedding.js).
 
@@ -27,12 +26,23 @@ const OUTFITS = [
   ['cazadora', 'Cazadora de demonios', 'Demon hunter', 'Chasseuse de démons', 'Caçadora de demônios', 'Охотница на демонов'],
   ['ninja', 'Ninja', 'Ninja', 'Ninja', 'Ninja', 'Ниндзя'],
   ['netrunner', 'Netrunner', 'Netrunner', 'Netrunner', 'Netrunner', 'Нетраннер'],
-  ['chaqueta', 'Chaqueta amarilla', 'Yellow jacket', 'Veste jaune', 'Jaqueta amarela', 'Жёлтая куртка'],
+  ['chaqueta', 'Chaqueta amarilla (David)', 'Yellow jacket (David)', 'Veste jaune (David)', 'Jaqueta amarela (David)', 'Жёлтая куртка (Дэвид)'],
   ['gotica', 'Gótica', 'Gothic', 'Gothique', 'Gótica', 'Готика'],
   ['kimono', 'Yukata', 'Yukata', 'Yukata', 'Yukata', 'Юката'],
   ['pijama', 'Pijama', 'Pajamas', 'Pyjama', 'Pijama', 'Пижама'],
   ['bruja', 'Bruja', 'Witch', 'Sorcière', 'Bruxa', 'Ведьма'],
   ['santa', 'Navidad', 'Christmas', 'Noël', 'Natal', 'Рождество'],
+  // Cyberpunk: Edgerunners (her series: she's in its second season), first and second season
+  ['lucy', 'Netrunner de la Luna (Lucy)', 'Moon netrunner (Lucy)', 'Netrunneuse de la Lune (Lucy)', 'Netrunner da Lua (Lucy)', 'Нетраннер Луны (Люси)'],
+  ['rebecca', 'Pistolera neón (Rebecca)', 'Neon gunslinger (Rebecca)', 'Flingueuse néon (Rebecca)', 'Pistoleira neon (Rebecca)', 'Неоновая стрелок (Ребекка)'],
+  ['academia', 'Academia corporativa (David)', 'Corpo academy (David)', 'Académie corpo (David)', 'Academia corporativa (David)', 'Корпо-академия (Дэвид)'],
+  ['maine', 'Brazos de cromo (Maine)', 'Chrome arms (Maine)', 'Bras de chrome (Maine)', 'Braços de cromo (Maine)', 'Хромовые руки (Мэйн)'],
+  ['kiwi', 'Netrunner veterana (Kiwi)', 'Veteran netrunner (Kiwi)', 'Netrunneuse vétérane (Kiwi)', 'Netrunner veterana (Kiwi)', 'Опытный нетраннер (Киви)'],
+  ['smasher', 'Borg pesado (Adam Smasher)', 'Heavy borg (Adam Smasher)', 'Borg lourd (Adam Smasher)', 'Borg pesado (Adam Smasher)', 'Тяжёлый борг (Адам Смэшер)'],
+  ['talia', 'Cromo corporativo (Talia Yang)', 'Corpo chrome (Talia Yang)', 'Chrome corpo (Talia Yang)', 'Cromo corporativo (Talia Yang)', 'Корпо-хром (Талия Ян)'],
+  ['nomada', 'Nómada netrunner (D.)', 'Nomad netrunner (D.)', 'Nomade netrunner (D.)', 'Nômade netrunner (D.)', 'Кочевник-нетраннер (Д.)'],
+  ['king', 'Leyenda caída (Kingsley)', 'Fallen legend (Kingsley)', 'Légende déchue (Kingsley)', 'Lenda caída (Kingsley)', 'Павшая легенда (Кингсли)'],
+  ['cineasta', 'Cineasta (Roman Carax)', 'Filmmaker (Roman Carax)', 'Cinéaste (Roman Carax)', 'Cineasta (Roman Carax)', 'Кинорежиссёр (Роман Каракс)'],
   ['novia', 'Vestido de novia', 'Wedding dress', 'Robe de mariée', 'Vestido de noiva', 'Свадебное платье', 'secret'],
 ];
 
@@ -48,14 +58,37 @@ const ACCESSORIES = [
   ['flower', 'head', 'Flor', 'Flower', 'Fleur', 'Flor', 'Цветок'],
   ['santahat', 'head', 'Gorro navideño', 'Santa hat', 'Bonnet de Noël', 'Gorro de Natal', 'Новогодняя шапка'],
   ['witchhat', 'head', 'Sombrero de bruja', 'Witch hat', 'Chapeau de sorcière', 'Chapéu de bruxa', 'Шляпа ведьмы'],
+  ['cowboyhat', 'head', 'Sombrero vaquero', 'Cowboy hat', 'Chapeau de cowboy', 'Chapéu de caubói', 'Ковбойская шляпа'],
   ['headphones', 'face', 'Audífonos', 'Headphones', 'Casque', 'Fones', 'Наушники'],
   ['glasses', 'face', 'Lentes de sol', 'Sunglasses', 'Lunettes de soleil', 'Óculos escuros', 'Очки'],
   ['visor', 'face', 'Visor', 'Visor', 'Visière', 'Visor', 'Визор'],
   ['scarf', 'neck', 'Bufanda', 'Scarf', 'Écharpe', 'Cachecol', 'Шарф'],
   ['choker', 'neck', 'Gargantilla', 'Choker', 'Ras-de-cou', 'Gargantilha', 'Чокер'],
+  ['netcable', 'neck', 'Cable de netrunner', 'Netrunner cable', 'Câble de netrunner', 'Cabo de netrunner', 'Кабель нетраннера'],
+  ['controller', 'hand', 'Control de videojuegos', 'Game controller', 'Manette', 'Controle', 'Геймпад'],
+  ['balloon', 'hand', 'Globo de corazón', 'Heart balloon', 'Ballon cœur', 'Balão de coração', 'Шарик-сердце'],
+  ['moon', 'hand', 'La Luna (Lucy)', 'The Moon (Lucy)', 'La Lune (Lucy)', 'A Lua (Lucy)', 'Луна (Люси)'],
+  ['filmcam', 'hand', 'Cámara de cine (Roman)', 'Film camera (Roman)', 'Caméra (Roman)', 'Câmera de cinema (Roman)', 'Кинокамера (Роман)'],
+  ['sword', 'back', 'Katana', 'Katana', 'Katana', 'Katana', 'Катана'],
+  ['shotgun', 'back', 'Escopeta (Rebecca)', 'Shotgun (Rebecca)', 'Fusil à pompe (Rebecca)', 'Escopeta (Rebecca)', 'Дробовик (Ребекка)'],
   ['veil', 'head', 'Velo de novia', 'Bridal veil', 'Voile de mariée', 'Véu de noiva', 'Фата', 'secret'],
   ['bouquet', 'hand', 'Ramo', 'Bouquet', 'Bouquet', 'Buquê', 'Букет', 'secret'],
 ];
+
+// where a drawing of a thing goes (sprite px). m: from the middle of her mask, along its tilt;
+// at: on her body (her arms are left alone: her right one is her left one mirrored, so whatever
+// her left hand held, both would). w: its width. behind: only where she isn't (on her back).
+const PLACE = {
+  crown: { m: [0, -30], w: 44 }, catears: { m: [0, -27], w: 66 }, horns: { m: [0, -27], w: 62 }, halo: { m: [0, -46], w: 58 },
+  cowboyhat: { m: [2, -27], w: 76 }, santahat: { m: [4, -28], w: 66 }, witchhat: { m: [0, -40], w: 80 },
+  bow: { m: [19, -19], w: 30 }, flower: { m: [-19, -14], w: 26 },
+  headphones: { m: [0, -6], w: 54 }, glasses: { m: [1, -2], w: 34 }, visor: { m: [1, -2], w: 38 },
+  veil: { m: [0, 52], w: 150, alpha: 0.82 },
+  scarf: { at: [118, 170], w: 40 }, choker: { at: [119, 149], w: 22 }, netcable: { at: [124, 170], w: 40 },
+  bouquet: { at: [118, 214], w: 34 }, controller: { at: [118, 206], w: 40 }, moon: { at: [118, 206], w: 40 }, filmcam: { at: [118, 206], w: 40 },
+  balloon: { at: [200, 176], w: 40 },
+  sword: { at: [118, 196], w: 150, behind: true }, shotgun: { at: [118, 196], w: 150, behind: true },
+};
 
 // her mane's and her mask's colors: a hue (0..1), or a gray
 const MANES = [
@@ -65,7 +98,9 @@ const MANES = [
 const MASKS = [
   ['default', null, '#08f467'], ['cyan', 0.5, '#00e5ff'], ['violet', 0.76, '#8a3cff'], ['gold', 0.12, '#ffc21a'], ['white', 'gray', '#f2f2f7'], ['red', 0.98, '#ff1744'],
 ];
-const AURAS = [['none', null], ['red', '#ff1744'], ['green', '#08f467'], ['cyan', '#00e5ff'], ['violet', '#8a3cff'], ['gold', '#ffc21a'], ['white', '#ffffff']];
+const AURAS = [['none', null], ['red', '#ff1744'], ['green', '#08f467'], ['cyan', '#00e5ff'], ['violet', '#8a3cff'], ['gold', '#ffc21a'], ['white', '#ffffff'], ['sandevistan', 'trail']];
+// the Sandevistan's afterimages (Edgerunners): copies of her trailing behind, green to violet
+const TRAIL = (dir) => [['#08f467', 0.55], ['#00e5ff', 0.4], ['#8a3cff', 0.28]].map(([c, a], i) => `drop-shadow(${-dir * 7 * (i + 1)}px 0 0 ${c}${Math.round(a * 255).toString(16).padStart(2, '0')})`).join(' ');
 const ALPHAS = [1, 0.85, 0.7, 0.55, 0.4];
 
 const WORDS = {
@@ -300,6 +335,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       c.height = h;
       const g = c.getContext('2d', { willReadFrequently: true });
       g.drawImage(base, 0, 0, w, h);
+      if (base !== original) g.clearRect(220, 0, w - 220, h); // (nothing of an outfit past her cut-out)
       recolor(g, w, h, MANES.find(([id]) => id === l.mane)?.[1] ?? null, MASKS.find(([id]) => id === l.mask)?.[1] ?? null);
       // behind her face first (veil), then the rest
       const order = ['veil', ...ACCESSORIES.map(([id]) => id).filter((id) => id !== 'veil')];
@@ -316,10 +352,18 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
   }
   // a drawing of a thing (assets): fitted to where the drawn one goes
   function drawPicture(g, id, pic) {
-    const box = { head: [70, 0, 110, 60], face: [100, 112, 46, 30], neck: [96, 140, 46, 60], hand: [8, 192, 40, 44] }[ACCESSORIES.find(([a]) => a === id)?.[1] || 'head'];
-    const k = Math.min(box[2] / pic.naturalWidth, box[3] / pic.naturalHeight);
-    const pw = pic.naturalWidth * k, ph = pic.naturalHeight * k;
-    g.drawImage(pic, box[0] + (box[2] - pw) / 2, box[1] + (box[3] - ph) / 2, pw, ph);
+    const p = PLACE[id] || { at: [118, 60], w: 60 };
+    const w = p.w, h = (w * pic.naturalHeight) / pic.naturalWidth;
+    g.save();
+    if (p.alpha) g.globalAlpha = p.alpha;
+    if (p.behind) g.globalCompositeOperation = 'destination-over';
+    if (p.m) {
+      g.translate(MASK.x, MASK.y);
+      g.rotate(MASK.rot);
+      g.translate(p.m[0], p.m[1]);
+    } else g.translate(p.at[0], p.at[1]);
+    g.drawImage(pic, -w / 2, -h / 2, w, h);
+    g.restore();
   }
   function upload(canvas) {
     const r = capri.sprite;
@@ -341,7 +385,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     if (!el) return;
     const l = look();
     const aura = AURAS.find(([id]) => id === l.aura)?.[1];
-    el.style.filter = aura ? `drop-shadow(0 0 6px ${aura}) drop-shadow(0 0 2px ${aura})` : '';
+    el.style.filter = aura === 'trail' ? TRAIL(capri.facing || 1) : aura ? `drop-shadow(0 0 6px ${aura}) drop-shadow(0 0 2px ${aura})` : '';
     const alpha = cfg().gamer ? Math.min(l.alpha, l.gamerAlpha) : l.alpha;
     el.style.opacity = alpha < 1 ? String(alpha) : '';
   }
@@ -473,10 +517,12 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       for (const row of ACCESSORIES) {
         const [id] = row;
         if (row[7] === 'secret' && !open.has(id)) continue;
+        const ready = have[`acc-${id}`] || DRAW[id];
         g.append(tile({
           label: row[LANG_INDEX[lang()] + 1],
           on: l.things.includes(id),
-          paint: thingThumb(id),
+          locked: ready ? null : w.soon,
+          paint: ready ? thingThumb(id) : null,
           click: () => { toggleThing(id); render(); },
         }));
       }
@@ -487,7 +533,10 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       for (const [id, , swatch] of MASKS) g2.append(tile({ label: '', on: l.mask === id, swatch, click: () => { set({ mask: id }); render(); } }));
     } else {
       const g1 = grid(w.aura);
-      for (const [id, color] of AURAS) g1.append(tile({ label: id === 'none' ? w.none : '', on: l.aura === id, swatch: color ? `radial-gradient(circle, ${color} 0 35%, transparent 70%)` : null, click: () => { set({ aura: id }); render(); } }));
+      for (const [id, color] of AURAS) {
+        const swatch = color === 'trail' ? 'linear-gradient(90deg, #8a3cff, #00e5ff 45%, #08f467 80%, transparent)' : color ? `radial-gradient(circle, ${color} 0 35%, transparent 70%)` : null;
+        g1.append(tile({ label: id === 'none' ? w.none : id === 'sandevistan' ? 'Sandevistan' : '', on: l.aura === id, swatch, click: () => { set({ aura: id }); render(); } }));
+      }
       const g2 = grid(w.alpha);
       for (const a of ALPHAS) g2.append(tile({ label: `${Math.round(a * 100)}%`, on: Math.abs(l.alpha - a) < 0.01, click: () => { set({ alpha: a }); render(); } }));
       const g3 = grid(w.gamerAlpha);
@@ -523,20 +572,26 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     c.width = 60;
     c.height = 60;
     const g = c.getContext('2d');
+    const pic = have[`acc-${id}`];
+    if (pic) {
+      const k = Math.min(56 / pic.naturalWidth, 56 / pic.naturalHeight);
+      g.drawImage(pic, (60 - pic.naturalWidth * k) / 2, (60 - pic.naturalHeight * k) / 2, pic.naturalWidth * k, pic.naturalHeight * k);
+      return c;
+    }
     const box = { head: [60, 0, 130, 70], face: [96, 106, 52, 44], neck: [90, 136, 60, 70], hand: [4, 190, 48, 50] }[ACCESSORIES.find(([a]) => a === id)?.[1] || 'head'];
     if (id === 'veil') box.splice(0, 4, 10, 96, 220, 172);
     const k = Math.min(60 / box[2], 60 / box[3]);
     g.translate((60 - box[2] * k) / 2, (60 - box[3] * k) / 2);
     g.scale(k, k);
     g.translate(-box[0], -box[1]);
-    const pic = have[`acc-${id}`];
-    if (pic) drawPicture(g, id, pic);
-    else DRAW[id]?.(g);
+    DRAW[id]?.(g);
     return c;
   }
 
-  // gamer mode on or off: how see-through she is changes
-  apply();
+  // what you put on her last time (nothing to redo when she's as she is)
+  const l0 = look();
+  if (l0.outfit !== 'default' || l0.things.length || l0.mane !== 'default' || l0.mask !== 'default') apply();
+  else style();
   return {
     open, close, apply, style,
     get isOpen() { return Boolean(el && !el.hidden); },
@@ -549,6 +604,19 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     wear(patch) { set(patch); },
     look,
     has: (id) => Boolean(have[id]),
+    // a drawing of her (poses.js) in her mane's and her mask's colors: a canvas, or null as she is
+    paint(img) {
+      const l = look();
+      const mane = MANES.find(([id]) => id === l.mane)?.[1] ?? null, mask = MASKS.find(([id]) => id === l.mask)?.[1] ?? null;
+      if (mane == null && mask == null) return null;
+      const c = document.createElement('canvas');
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      const g = c.getContext('2d', { willReadFrequently: true });
+      g.drawImage(img, 0, 0);
+      recolor(g, c.width, c.height, mane, mask);
+      return c;
+    },
     ready: () => probing,
     FACES,
   };

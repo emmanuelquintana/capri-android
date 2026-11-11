@@ -263,7 +263,10 @@ async function handle(text, { toggleVisible, visible }) {
     window.dev.voice?.play?.('tick');
     return answer(pick(t.yes), 'look', '', false);
   }
-  if (SHOW_ASK.test(text)) return answer(t.back, 'laugh');
+  if (SHOW_ASK.test(text)) {
+    setTimeout(() => dev.poses?.wave(), 400);
+    return answer(t.back, 'laugh');
+  }
   // (a secret: wedding.js)
   if (await dev.wedding?.heard(text, (line) => send('voice:say', { text: spoken(line), lang: locale }))) return;
   if (DEAF_ASK.test(text)) {

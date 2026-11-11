@@ -29,8 +29,9 @@ import { iconMode } from './icon.js';
 import { floatMode } from './float.js';
 import { longMemory } from './memory.js';
 import { phoneCare } from './phone-care.js';
-import { moods } from './moods.js';
+import { moods, cutin } from './moods.js';
 import { wardrobe } from './wardrobe.js';
+import { poses } from './poses.js';
 import { wedding } from './wedding.js';
 
 const llm = load('llm');
@@ -1297,8 +1298,10 @@ function gamerMode(on) {
   notes?.gamer(on);
   const lines = GAMER_LINES[resolveLang(cfg.lang)] || GAMER_LINES.en;
   const pick = (list) => list[Math.floor(Math.random() * list.length)];
+  if (!on) dev.poses?.end();
   if (on) {
     dev.chat?.close?.();
+    setTimeout(() => cutin('gamer'), 300);
     // in her corner, sitting down to watch you play
     if (!capri.hidden && !capri.busy) {
       Promise.resolve(capri.teleport(capri.spot('post'))).then(() => {
@@ -1379,6 +1382,7 @@ ready.then(() => {
     moods({ cfg: () => cfg });
     closet = wardrobe({ cfg: () => cfg, setConfig: updateConfig, onToggle: () => setTimeout(blur, 0) });
     window.dev.wardrobe = closet;
+    window.dev.poses = poses({ cfg: () => cfg, wardrobe: closet });
     window.dev.wedding = wedding({ cfg: () => cfg, setConfig: updateConfig, wardrobe: closet });
   }, 300);
 });

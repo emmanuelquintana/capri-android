@@ -684,3 +684,15 @@ body {
 
 /* her quick menu's big buttons: two rows of three */
 .qmenu__big { grid-template-columns: repeat(3, 1fr); }
+
+/* a pose of hers (poses.js): a whole drawing where her sprite was, coming in like a cel change */
+.capri-pose {
+  position: fixed;
+  z-index: 20;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  opacity: 0;
+  transition: opacity 180ms steps(3, end);
+}
+.capri-pose.is-in { opacity: var(--pose-alpha, 1); }

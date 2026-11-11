@@ -107,7 +107,7 @@ export class Touch {
       this.pet = false;
       this.ours = 0;
       // on her panel or her menu, the finger scrolls and taps them as any page: nothing to make up
-      if (e.target.closest?.('#panel, .cmenu, .cmenu-shade, .anote, .wardrobe')) {
+      if (e.target.closest?.('#panel, .cmenu, .cmenu-shade, .anote, .wardrobe, .capri-pose')) {
         this.drag = null;
         return;
       }
@@ -277,14 +277,16 @@ export class Touch {
       else setTimeout(() => requestAnimationFrame(tick), 90);
       // a ghost: nothing of her stops your touches but her face (and her panel and her menu, to talk and to undo it)
       const ghost = this.ghost;
-      const handle = ghost && this.handle();
+      const pose = document.querySelector('.capri-pose');
+      const handle = ghost && !pose && this.handle();
       const list = [
-        ...(ghost ? [] : this.body(rectOf(document.getElementById('sprite')))),
+        // in a pose (poses.js) she's that drawing, not her sprite
+        ...(pose ? [rectOf(pose)] : ghost ? [] : this.body(rectOf(document.getElementById('sprite')))),
         // a ghost keeps her face to hold her by (to move her, or for her menu)
         handle ? handle.rect.map((v) => Math.round(v / 8) * 8) : null,
         rectOf(document.getElementById('panel')),
         rectOf(document.getElementById('chip')),
-        ghost ? null : rectOf(document.getElementById('mask')),
+        ghost || pose ? null : rectOf(document.getElementById('mask')),
         ...[...document.querySelectorAll('.cmenu:not([hidden]), .wardrobe:not([hidden])')].map(rectOf),
         // a menu up: the whole (dimmed) screen is hers, a tap beside it closes it
         ...[...document.querySelectorAll('.cmenu-shade:not([hidden])')].map(rectOf),

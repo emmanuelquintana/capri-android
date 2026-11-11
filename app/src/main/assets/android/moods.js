@@ -3,8 +3,9 @@
 // (a sigh, a stretch, peeking in from the edge of the screen), a thought of her own now and then,
 // more of her moves on her own, and more of her lines.
 //
-// Her new faces are drawings to come (the prompts in capri-prompts-1.8.0.zip): until one is in
-// assets/capri/, the closest face she has stands in for it.
+// Her new faces are drawings (assets/capri/face-<name>.png, made from capri-prompts-1.8.0.zip):
+// until one is in, the closest face she has stands in for it. Her new cut-ins too (cutin-<name>.png):
+// a flash of her angry, crying, in love, sleepy, or with her gamer headphones on, now and then.
 
 import { FACES } from '../capri/src/renderer/js/panel.js';
 import { LINES } from '../capri/src/renderer/js/lines.js';
@@ -23,6 +24,26 @@ for (const [name, stand] of Object.entries(NEW_FACES)) {
   const img = new Image();
   img.onload = () => { FACES[name] = `face-${name}.png`; };
   img.src = new URL(`../../assets/capri/face-${name}.png`, location.href).href;
+}
+
+// her new cut-ins, into her effects once they're in (fx.cutin(…, { kind }))
+const CUTINS = ['angry', 'cry', 'love', 'sleepy', 'gamer'];
+export function cutin(kind) {
+  const dev = window.dev;
+  if (!dev?.fx?.cutins?.[kind] || !dev.capri || dev.capri.hidden || dev.capri.stowed) return;
+  try {
+    const side = dev.capri.towardCenter?.() || 1;
+    dev.fx.cutin(...dev.capri.cutinAt(-side), { kind, life: 900 });
+  } catch {}
+}
+function loadCutins() {
+  const fx = window.dev?.fx;
+  if (!fx?.cutins) return;
+  for (const kind of CUTINS) {
+    const img = new Image();
+    img.onload = () => { fx.cutins[kind] = img; };
+    img.src = new URL(`../../assets/capri/cutin-${kind}.png`, location.href).href;
+  }
 }
 
 // what she says, read for a mood (in her five languages): a face that fits it
@@ -147,10 +168,17 @@ export function moods({ cfg }) {
   const { capri, panel } = dev;
   const words = () => MORE[dev.brain?.lang] || MORE.en;
   const started = Date.now();
+  loadCutins();
 
   // every line she says gets the face its words call for
   const say = panel.say.bind(panel);
-  panel.say = (msg = {}) => say({ ...msg, face: moodOf(msg.line, msg.face) });
+  panel.say = (msg = {}) => {
+    const face = moodOf(msg.line, msg.face);
+    // a strong feeling, now and then: her cut-in for it
+    const kind = { angry: 'angry', sad: 'cry', love: 'love', sleepy: 'sleepy' }[face];
+    if (kind && face !== msg.face && Math.random() < 0.3) cutin(kind);
+    return say({ ...msg, face });
+  };
 
   // you, lately: a touch, her chat, your voice
   let lastYou = Date.now();
@@ -181,6 +209,15 @@ export function moods({ cfg }) {
       await capri.peek(pick(['left', 'right'])).catch(() => {});
       setTimeout(() => bored.on && unbore(), rand(25, 50) * 1000);
       return;
+    }
+    // sprawled on her back, hugging her knees or leaning on the edge of the screen (poses.js)
+    if (roll < 0.75 && dev.poses) {
+      const ms = rand(25, 45) * 1000;
+      if (await dev.poses.bored(ms)) {
+        panel.say({ kind: 'info', face: 'bored', line: fill(pick(w.bored)), hold: 5500 });
+        setTimeout(() => { bored.on = false; }, ms);
+        return;
+      }
     }
     capri.perform?.(pick(['stretch', 'huff', 'shake']), capri.towardCenter?.() || 1);
     panel.say({ kind: 'info', face: 'bored', line: fill(pick(w.bored)), hold: 5500 });

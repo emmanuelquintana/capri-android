@@ -113,6 +113,7 @@ export function wedding({ cfg, setConfig, wardrobe }) {
       capri.perform?.('alarm', side);
       try { fx?.cutin?.(...capri.cutinAt(-side), { kind: 'many', life: 900 }); } catch {}
       say(w.gasp, 'surprised');
+      scene('wedding-proposal', 2300);
       await wait(2600);
       capri.perform?.('flinch', side);
       say(w.melt, 'love');
@@ -120,11 +121,11 @@ export function wedding({ cfg, setConfig, wardrobe }) {
       await wait(3000);
       // yes
       capri.perform?.('victory', side);
-      try { fx?.cutin?.(...capri.cutinAt(-side), { kind: 'laugh', life: 900 }); } catch {}
+      try { fx?.cutin?.(...capri.cutinAt(-side), { kind: fx?.cutins?.love ? 'love' : 'laugh', life: 900 }); } catch {}
       const yes = fill(w.yes);
       say(yes, 'love');
       hearts(22);
-      scene();
+      scene('wedding-yes', 2600);
       setConfig({ married: { at: Date.now(), name: cfg().userName || '' } });
       wardrobe?.unlock(['novia', 'veil', 'bouquet']);
       const dress = wardrobe?.has('outfit-novia');
@@ -142,16 +143,16 @@ export function wedding({ cfg, setConfig, wardrobe }) {
     }
   }
 
-  // her drawing of that moment, if it's in (wedding-yes.png): over the screen for a beat
-  function scene() {
+  // her drawing of that moment, if it's in (wedding-proposal.jpg, wedding-yes.jpg): over the screen for a beat
+  function scene(name, ms) {
     const img = new Image();
     img.onload = () => {
       img.className = 'wedding-scene';
       document.body.append(img);
-      setTimeout(() => img.classList.add('is-out'), 2600);
-      setTimeout(() => img.remove(), 3200);
+      setTimeout(() => img.classList.add('is-out'), ms);
+      setTimeout(() => img.remove(), ms + 600);
     };
-    img.src = new URL('../../assets/capri/wardrobe/wedding-yes.png', location.href).href;
+    img.src = new URL(`../../assets/capri/wardrobe/${name}.jpg`, location.href).href;
   }
 
   // hearts around her head
