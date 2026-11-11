@@ -4,6 +4,9 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 
 ## 1.8.2
 
+- **As animações dela também com roupa:** se você tinha colocado uma roupa nela, ela não dançava com sua música, não
+  deitava para te ver jogar nem reagia a nada. Agora sim: a animação mostra ela com o traje dela, e sua roupa volta
+  no final.
 - **Mais leve:** ela não carrega mais todas as animações e todas as roupas ao ligar, só cada uma quando é usada.
   Em alguns celulares isso deixava ela sem memória: depois de conversar a tela piscava, a Capri sumia e a resposta
   ficava pela metade. E se a página dela ainda cair, agora ela espera um pouco antes de voltar em vez de reiniciar

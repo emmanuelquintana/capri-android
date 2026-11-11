@@ -4,6 +4,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 
 ## 1.8.2
 
+- **Ses animations aussi avec une tenue :** si tu lui avais mis une tenue, elle ne dansait plus sur ta musique, ne
+  s’allongeait plus pour te regarder jouer et ne réagissait à rien. Maintenant si : l’animation la montre dans sa
+  tenue à elle, et ta tenue revient à la fin.
 - **Plus légère :** elle ne charge plus toutes ses animations et toutes ses tenues au démarrage, seulement chacune
   quand elle sert. Sur certains téléphones ça lui faisait manquer de mémoire : après une discussion l’écran clignotait,
   Capri disparaissait et sa réponse restait à moitié. Et si sa page tombe quand même, elle attend un peu avant de

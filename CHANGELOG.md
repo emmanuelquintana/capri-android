@@ -5,6 +5,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 1.8.2
 
+- **Sus animaciones también con ropa puesta:** si le habías puesto un conjunto, ya no bailaba con tu música, no se
+  acostaba a verte jugar ni reaccionaba a nada. Ahora sí: la animación se ve con su traje y al terminar vuelve a
+  tener tu conjunto.
 - **Más ligera:** ya no carga todas sus animaciones y toda la ropa al encenderse, sino cada cosa cuando la usa.
   En algunos teléfonos eso la dejaba sin memoria: después de chatear la pantalla parpadeaba, Capri desaparecía y su
   respuesta se quedaba a medias. Y si aun así su página se cae, ahora espera un poco antes de volver en vez de

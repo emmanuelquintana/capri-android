@@ -4,6 +4,9 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.8.2
 
+- **Her animations with an outfit on, too:** if you'd dressed her in an outfit, she no longer danced to your music,
+  lay down to watch you play or reacted to anything. Now she does: the animation shows her in her suit, and your
+  outfit is back when it's over.
 - **Lighter:** she no longer loads all her animations and every outfit when she starts, only each one when it's used.
   On some phones that left her out of memory: after chatting the screen flickered, Capri vanished and her answer
   got stuck halfway. And if her page still goes down, she now waits a bit before coming back instead of restarting
