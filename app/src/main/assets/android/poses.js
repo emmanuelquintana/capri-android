@@ -139,9 +139,12 @@ export function poses({ cfg, wardrobe }) {
   // an animation: its strip, cel by cel
   async function play(name, { hold = 0, times = 0, at = null, onEnd = null, lying = false, chat = false, now: right = false } = {}) {
     await ready;
-    const a = anims[name];
+    // (1.10.0) in an outfit, its own drawing of this animation when there is one (anims/<name>@<outfit>.png)
+    const outfit = wardrobe?.look?.().outfit;
+    const key = outfit && outfit !== 'default' && anims[`${name}@${outfit}`] ? `${name}@${outfit}` : name;
+    const a = anims[key];
     if (!a || now || animsOff() || !free({ lying, chat, now: right })) return false;
-    const img = await load(`${ANIMS}${name}.png`);
+    const img = await load(`${ANIMS}${key}.png`);
     if (!img || now || !free({ lying, chat, now: right })) return false;
     // (1.10.0) cel by cel on a small canvas of its own, its size on screen: before, the whole strip
     // was her background, scaled up to the screen's pixels (a dance: 8 cels, thousands of pixels wide)

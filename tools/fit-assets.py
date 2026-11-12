@@ -13,6 +13,8 @@
 - anim-<name>.png  a sheet of cels (capri-prompts-1.8.0-parte3-animaciones.zip, grid in ANIMS): cut, all cut
   to the same box (so she doesn't jump between cels), into one strip, anims/<name>.png, and its line
   in anims/anims.json (cels, fps, loops, stand / sit / lie / curl).
+- anim-<name>@<outfit>.png  (1.10.0) that animation in one of her outfits (same grid): anims/<name>@<outfit>.png;
+  poses.js plays it instead of the plain one while she wears that outfit.
 """
 import json
 import os
@@ -205,13 +207,15 @@ def unkey(im):
 
 
 def anim(name, im):
-    cols, rows, fps, loop, kind = ANIMS[name]
+    # (1.10.0) anim-<name>@<outfit>.png: the same animation in one of her outfits, same grid
+    base = name.split('@')[0]
+    cols, rows, fps, loop, kind = ANIMS[base]
     im = unkey(im)
     cw, ch = im.width // cols, im.height // rows
     cels = [im.crop((c * cw, r * ch, (c + 1) * cw, (r + 1) * ch)) for r in range(rows) for c in range(cols)]
     # one box for all (the union of where she is in each cel)
     boxes = [c.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox() for c in cels]
-    if name in SEAT and all(boxes):
+    if base in SEAT and all(boxes):
         low = max(b[3] for b in boxes)
         moved = []
         for c, b in zip(cels, boxes):
@@ -222,7 +226,7 @@ def anim(name, im):
         boxes = [c.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox() for c in cels]
     boxes = [b for b in boxes if b]
     box = (min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes))
-    rest = boxes[REST[name]] if name in REST and len(boxes) > REST[name] else None
+    rest = boxes[REST[base]] if base in REST and len(boxes) > REST[base] else None
     cels = [c.crop(box) for c in cels]
     w, h = cels[0].size
     k = min(1, (360 / h) if kind != 'lie' else (440 / w))
@@ -264,7 +268,7 @@ def main():
         elif kind == 'pose':
             out, path = trim(im, 640), os.path.join(POSES, f'pose-{rest}.png')
         elif kind == 'anim':
-            if rest not in ANIMS:
+            if rest.split('@')[0] not in ANIMS:
                 print('? (no está en ANIMS)', f)
                 continue
             out, path = anim(rest, im)
