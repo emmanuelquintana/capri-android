@@ -44,6 +44,7 @@ class CapriService : Service() {
                 }
                 Intent.ACTION_SCREEN_ON, Intent.ACTION_USER_PRESENT -> {
                     overlay?.resume()
+                    rebindNotes()
                     // how long the phone was put down (her breaks: phone-care.js)
                     if (screenOffAt > 0) {
                         val off = System.currentTimeMillis() - screenOffAt
@@ -74,6 +75,30 @@ class CapriService : Service() {
                 .put("full", status == android.os.BatteryManager.BATTERY_STATUS_FULL).toString())
         }
     }
+    // (1.10.0) an app uninstalled: she fires her beam at it (laser.js). Its name is looked up while it
+    // was still there (the list of your apps her page keeps), here only its package.
+    private val removed = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) return // (an update, not gone)
+            val pkg = intent.data?.schemeSpecificPart ?: return
+            if (pkg == packageName) return
+            overlay?.emit("phone:removed", JSONObject().put("pkg", pkg).toString())
+        }
+    }
+
+    /**
+     * (1.10.0) Your notifications and music card missing on some phones (Xiaomi, HyperOS) until a heavy
+     * game was opened: Android had let go of her notification listener and didn't bind it again. Asked
+     * to, when she starts and each time the screen comes on.
+     */
+    fun rebindNotes() {
+        if (CapriNotifications.instance != null || !CapriNotifications.allowed(this)) return
+        runCatching {
+            android.service.notification.NotificationListenerService.requestRebind(android.content.ComponentName(this, CapriNotifications::class.java))
+            Diag.add("I", "notifications: asked Android to connect her again")
+        }
+    }
+
     /** The battery right now, for her page when it's (re)loaded. */
     fun batteryNow() {
         lastBattery = ""
@@ -131,6 +156,11 @@ class CapriService : Service() {
         val power = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) registerReceiver(battery, power, RECEIVER_NOT_EXPORTED)
         else registerReceiver(battery, power)
+        // (a system broadcast: exported, or Android 14 never hands it over)
+        val gone = IntentFilter(Intent.ACTION_PACKAGE_REMOVED).apply { addDataScheme("package") }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) registerReceiver(removed, gone, RECEIVER_EXPORTED)
+        else registerReceiver(removed, gone)
+        rebindNotes()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -185,6 +215,18 @@ class CapriService : Service() {
         }
     }
 
+    /** (1.10.0) Battery saver, from her page (saver.js): what costs battery the most rests until you charge. */
+    fun setSaving(on: Boolean) {
+        if (on == saving) return
+        saving = on
+        Diag.add("I", if (on) "battery saver: on" else "battery saver: off")
+        ears?.update()
+        if (on) {
+            if (eyesMade) eyes.stopLive()
+            games?.stop()
+        } else games?.start()
+    }
+
     /** Her ears switched on or off (the app's Settings), or the mic allowed: her service's type too. */
     fun voiceChanged() {
         startForegroundCompat()
@@ -208,6 +250,7 @@ class CapriService : Service() {
         CapriWidget.update(this)
         try { unregisterReceiver(screen) } catch (_: Exception) {}
         try { unregisterReceiver(battery) } catch (_: Exception) {}
+        try { unregisterReceiver(removed) } catch (_: Exception) {}
         hooks?.stop()
         ears?.destroy()
         ears = null
@@ -328,6 +371,9 @@ class CapriService : Service() {
         /** Her gamer mode is on (her page's config): small in a corner, no ears. */
         @Volatile
         var gamer = false
+            private set
+        /** (1.10.0) Battery saver on (saver.js): her ears, her live look and her app watch rest. */
+        @Volatile var saving = false
             private set
         @Volatile
         var running = false

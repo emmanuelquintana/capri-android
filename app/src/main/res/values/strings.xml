@@ -377,4 +377,18 @@
     <string name="report_off">Reports aren’t being received right now. Try again later.</string>
     <string name="report_net">No connection. Check your internet and try again.</string>
     <string name="report_bad">It couldn’t be sent. Try again later.</string>
+    <!-- 1.10.0 -->
+    <string name="you_games_title">Play with her</string>
+    <string name="you_games_how">Chess, minesweeper, 21 and tic-tac-toe, here on your phone with no internet. She plays against you and says what she thinks. You can also tell her “Capri, let’s play”.</string>
+    <string name="you_games_open">Play</string>
+    <string name="you_chatlog_title">Chat history</string>
+    <string name="you_chatlog_how">Everything you told her in her chat and what she answered, by day, with a search. It stays on this phone only.</string>
+    <string name="you_chatlog_open">See history</string>
+    <string name="settings_saver">Battery saver</string>
+    <string name="settings_saver_how">When the battery drops to this level (and isn’t charging), what uses the most battery rests until you charge: her ears, her live look at your screen, her animations and reactions, and she’s drawn less often.</string>
+    <string name="settings_autodress">She dresses herself</string>
+    <string name="settings_autodress_how">Now and then she picks another of her outfits and shows it off. Each one lasts a good while, never every few minutes. Her colors never change.</string>
+    <string name="autodress_day">1 day</string>
+    <string name="voice_speak">Her voice</string>
+    <string name="voice_speak_how">Off: she still listens and answers, but only in writing.</string>
 </resources>

@@ -654,6 +654,12 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     },
     wear(patch) { set(patch); },
     look,
+    // (1.10.0, autodress.js) the outfits she has to put on now, and what one is called
+    available: () => OUTFITS.filter(([id, , , , , , secret]) => (id === 'default' || listed.has(`outfit-${id}`)) && (secret !== 'secret' || unlocked().has(id))).map(([id]) => id),
+    outfitName: (id) => {
+      const row = OUTFITS.find(([o]) => o === id);
+      return row ? row[1 + Math.max(0, ['es', 'en', 'fr', 'pt', 'ru'].indexOf(lang()))] : id;
+    },
     has: (id) => listed.has(id),
     // a drawing of her (poses.js) as she is: her colors are her own
     paint: () => null,

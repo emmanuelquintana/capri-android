@@ -790,3 +790,48 @@ body.is-dressing .fx { z-index: 41; }
   .qmenu__mode-text small { display: none; }
   .qmenu__mode { padding-top: 9px; padding-bottom: 9px; min-height: 0; }
 }
+
+/* an app you uninstalled (laser.js, 1.10.0): its tile, then pixels */
+.capri-doomed {
+  position: fixed;
+  z-index: 24;
+  width: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 160ms steps(3, end), transform 160ms steps(3, end);
+}
+.capri-doomed.is-in { opacity: 1; transform: none; }
+.capri-doomed b {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--paper, #f2f1e8);
+  color: var(--ink, #13120d);
+  font: 700 30px/1 var(--font-display, sans-serif);
+  box-shadow: 3px 3px 0 var(--cyan, #00f0ff);
+}
+.capri-doomed span {
+  max-width: 96px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 600 11px/1.2 var(--font-mono, monospace);
+  color: var(--paper, #f2f1e8);
+  text-shadow: 0 1px 2px #000;
+}
+.capri-doomed.is-hit { animation: capri-disintegrate 820ms steps(8, end) forwards; }
+@keyframes capri-disintegrate {
+  0% { filter: none; clip-path: inset(0); }
+  15% { filter: brightness(2) hue-rotate(-30deg); transform: translateX(-4px); }
+  35% { clip-path: polygon(0 0, 100% 0, 100% 30%, 70% 30%, 70% 55%, 100% 55%, 100% 100%, 0 100%); transform: translateX(5px) skewX(-8deg); }
+  60% { clip-path: polygon(10% 10%, 60% 0, 90% 40%, 40% 50%, 80% 90%, 20% 100%); opacity: 0.7; filter: brightness(3) saturate(0); }
+  100% { clip-path: polygon(50% 50%, 50% 50%, 50% 50%); opacity: 0; transform: translateY(-20px) scale(1.3); }
+}
+@media (prefers-reduced-motion: reduce) { .capri-doomed.is-hit { animation: none; opacity: 0; } }

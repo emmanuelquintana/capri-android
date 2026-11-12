@@ -43,6 +43,15 @@ import { translating } from './translate.js';
 import { coaching } from './coach.js';
 import { streaming } from './stream.js';
 import { birthday } from './birthday.js';
+import { keepAsking } from './away.js';
+import { chatLog } from './chatlog.js';
+import { chatAsks } from './asks.js';
+import { laser } from './laser.js';
+import { saver } from './saver.js';
+import { autoDress } from './autodress.js';
+import { iconFaces } from './icon-faces.js';
+import { checkIn } from './checkin.js';
+import { typing } from './typing.js';
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
 const llm = load('llm');
@@ -209,7 +218,7 @@ function saveMemory(patch) {
 }
 function forgetChats() {
   llm.resetClaude();
-  saveMemory({ history: [], claude: null, facts: [], last: null, seen: null });
+  saveMemory({ history: [], claude: null, facts: [], phrases: [], feeling: null, last: null, seen: null });
   sendCommand('forget');
 }
 
@@ -249,7 +258,7 @@ const chats = new Map();
 
 // Not for chatting (speech, images, filters) or slow to say a first word (models that "think"
 // first, out of sight: she'd look frozen for a long while), and the quick, good ones first.
-const NOT_CHAT = /whisper|tts|speech|audio|transcri|guard|embed|moderation|image|imagen|dall|vision-only|search|roblox|evil|uncensored|bidara|midijourney|rtist|compound/i;
+const NOT_CHAT = /whisper|tts|speech|audio|transcri|guard|embed|moderation|image|imagen|dall|vision-only|search|roblox|evil|uncensored|bidara|midijourney|rtist|compound|orpheus|playai|allam|prompt-guard|safeguard/i;
 const SLOW = /reason|think|r1\b|-r1|o1|o3|o4|qwq|deepseek-r|gpt-oss-120|large|405b|pro\b|opus/i;
 const QUICK = [/^openai-fast$/, /^openai$/, /llama-3\.3-70b/, /llama-3\.1-8b-instant/, /gemini-[\d.]+-flash(?!-lite)/, /gemini.*flash/, /gpt-4o-mini|gpt-4\.1-mini|gpt-4\.1-nano/, /mistral-small|mistral$/, /deepseek-chat|deepseek-v3/, /llama/i];
 // NVIDIA lists 80-odd models, most of them not to chat with (search, safety filters, code, pictures,
@@ -271,7 +280,7 @@ function rankModels(list, provider = cfg.provider) {
 
 function pickModel(c = cfg) {
   if (!chatModels?.length) return null;
-  if (chatModels.includes(c.chatModel)) return c.chatModel;
+  if (chatModels.includes(c.chatModel) && !NOT_CHAT.test(c.chatModel)) return c.chatModel; // (1.10.0: not a voice model picked by mistake, Groq's orpheus)
   if (c.provider === 'ollama') return chatModels.find((m) => !ollama.isCloud(m)) || chatModels[0];
   return rankModels(chatModels)[0];
 }
@@ -453,7 +462,7 @@ async function chatOnce(c, messages, sendDelta, signal, streamed) {
       return text;
     } catch (err) {
       // a model the service retired, still on its list (NVIDIA says 410 Gone): the next one
-      if (err.status === 410 || /end of life|no longer available/i.test(err.message || '')) err.code = 'gone';
+      if (err.status === 410 || /end of life|no longer available|terms acceptance|accept the terms|not have access to model|model_terms_required/i.test(err.message || '')) err.code = 'gone';
       // the free AI answers one message every 45 s per phone (and sometimes it's full): it says how
       // long to wait, so she waits and asks again instead of giving up
       // (402 FREE_LIMIT is that too; and when it doesn't say how long, a little longer each time:
@@ -768,8 +777,8 @@ async function sayAboutSnap({ id, persona, prompt, history = [] }) {
   const snap = snaps.get(id);
   snaps.delete(id);
   const blind = await cantSee();
-  if (blind) return blind;
   if (!snap?.image) return { ok: false, error: 'the picture is gone' };
+  if (blind && blind.code !== 'novision') return blind;
   const image = await hideSelf(snap.image, snap.self);
   window.dev?.poses?.cue('scan', { hold: 9000, chat: true }); // (the picture is taken: she can stand in front now)
   // she isn't in the picture anymore: nothing to tell her about herself in it
@@ -777,10 +786,18 @@ async function sayAboutSnap({ id, persona, prompt, history = [] }) {
   // on a phone it's often a video, a reel or a post: she reacts to it like a friend watching with you
   if (!snap.shared) prompt = `${prompt}\n(On a phone: if it's a video, a reel or a post, TikTok, Instagram, YouTube or the like, react to what happens in it or what it says, like a friend watching it with them. Never describe the phone's own buttons or bars, nor flat patches of color.)`;
   const before = (Array.isArray(history) ? history : []).filter((m) => typeof m?.content === 'string' && ['user', 'assistant'].includes(m.role)).slice(-12);
-  const models = lookModels();
-  if (!models.length) return { ok: false, code: 'novision', model: pickModel(cfg) };
+  const models = blind ? [] : lookModels();
+  // (1.10.0) her own service can't look, or can't right now: another of yours that sees does
+  // ("solo Gemini funciona para que mire la pantalla")
+  const elsewhere = async (why) => {
+    const other = await lookElsewhere(persona, before, prompt, image);
+    if (other) return other;
+    if (why?.ok === false) send('log', { level: 'W', text: `look: ${why.code || ''} ${String(why.error || '').slice(0, 140)} (${cfg.provider} ${why.model || ''})` });
+    return why;
+  };
+  if (!models.length) return elsewhere(blind || { ok: false, code: 'novision', model: pickModel(cfg) });
   const resting = aiResting(models);
-  if (resting) return { ok: false, code: 'busy', error: friendly('429 quota'), until: resting, model: models[0] };
+  if (resting) return elsewhere({ ok: false, code: 'busy', error: friendly('429 quota'), until: resting, model: models[0] });
   let last = null;
   for (const model of models.slice(0, 3)) {
     // NVIDIA takes a picture inside the message only if it's small: a smaller copy goes
@@ -805,13 +822,44 @@ async function sayAboutSnap({ id, persona, prompt, history = [] }) {
           continue;
         }
         if (err.code === 'busy') rest(model, err);
-        if (!['busy', 'gone'].includes(err.code)) return last;
+        if (!['busy', 'gone'].includes(err.code)) return elsewhere(last);
         break;
       }
     }
   }
   if (last?.code === 'busy') last.until = aiResting(models) || Date.now() + 90000;
-  return last;
+  return elsewhere(last);
+}
+
+// Another service of yours (a key you gave her) whose models see: one of them looks instead.
+const LOOK_SERVICES = ['gemini', 'openrouter', 'groq', 'openai', 'mistral', 'nvidia'];
+async function lookElsewhere(persona, before, prompt, image) {
+  const conf = await llmConfig();
+  const others = LOOK_SERVICES.filter((id) => id !== cfg.provider && conf.apiKeys?.[id] && llm.PROVIDERS[id]?.url);
+  for (const id of others) {
+    let models = backupModels.get(id);
+    if (!models || Date.now() - models.at > KEEP_MODELS) {
+      const list = await llm.models(id, conf).catch(() => null);
+      if (!list?.length) continue;
+      models = { at: Date.now(), list: id === 'nvidia' ? nvidiaModels(list) : list };
+      backupModels.set(id, models);
+    }
+    const ok = (m) => SEES.test(m) && !BLIND.test(m) && !blindModels.has(m) && !isTired(m) && !(id === 'openrouter' && !/:free$/.test(m) && /claude|gpt-[45]|o[34]\b/.test(m));
+    const nv = id === 'nvidia' ? NV_SEES.map((re) => models.list.find((n) => re.test(n))).filter(Boolean) : [];
+    const model = [...nv, ...models.list].find(ok);
+    if (!model) continue;
+    const pic = id === 'nvidia' ? await shrink(image, 170000) : image;
+    const user = { role: 'user', content: [{ type: 'text', text: prompt }, { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${pic}` } }] };
+    try {
+      const text = await llm.chat(id, conf, { model, messages: [{ role: 'system', content: persona }, ...before, user] }, noop, AbortSignal.timeout(90000));
+      send('log', { level: 'W', text: `look: ${cfg.provider} couldn't, ${id} (${model}) looked instead` });
+      return { ok: true, text, model };
+    } catch (e) {
+      if (e.code === 'busy') rest(model, e);
+      send('log', { level: 'W', text: `look backup ${id} (${model}): ${String(e.message || e).slice(0, 120)}` });
+    }
+  }
+  return null;
 }
 
 // NVIDIA lists its models to anyone, key or not, so that doesn't say whether a key works: a
@@ -1443,6 +1491,12 @@ on('settings:apply', async (p = {}) => {
   if ('longMemory' in p) updateConfig({ longMemory: Boolean(p.longMemory) });
   // her battery alerts and breaks (the app's Settings)
   for (const key of ['batteryAlerts', 'breaks']) if (key in p) updateConfig({ [key]: Boolean(p[key]) });
+  // (1.10.0) she dresses herself, and how often
+  if ('autoDress' in p) updateConfig({ autoDress: Boolean(p.autoDress), ...(p.autoDress ? { autoDressAt: 0 } : {}) });
+  if ([6, 12, 24].includes(Number(p.autoDressHours))) updateConfig({ autoDressHours: Number(p.autoDressHours) });
+  // (1.10.0) battery saver, and from what %
+  if ('saver' in p) { updateConfig({ saver: Boolean(p.saver) }); window.dev?.saver?.check(); }
+  if ([15, 20, 30].includes(Number(p.saverAt))) { updateConfig({ saverAt: Number(p.saverAt) }); window.dev?.saver?.check(); }
   if (typeof p.batteryFull === 'number') updateConfig({ batteryFull: Math.min(100, Math.max(50, Math.round(p.batteryFull))) });
   if (typeof p.batteryLow === 'number') updateConfig({ batteryLow: Math.min(50, Math.max(5, Math.round(p.batteryLow))) });
   if (typeof p.breakHours === 'number') updateConfig({ breakHours: Math.min(6, Math.max(0.5, p.breakHours)) });
@@ -1451,7 +1505,7 @@ on('settings:apply', async (p = {}) => {
   if (p.forgetFacts) {
     // and what you'd talked about so far isn't noted down again
     const said = (readMemory().history || []).at(-1)?.content;
-    saveMemory({ facts: [], last: null, seen: said ? String(said).slice(0, 200) : null });
+    saveMemory({ facts: [], phrases: [], feeling: null, last: null, seen: said ? String(said).slice(0, 200) : null });
   }
   if ('icon' in p) updateConfig({ icon: Boolean(p.icon), ...(p.icon && { visible: true }) });
   // the app's own Vestuario screen (ClosetActivity): what you picked there, on her now
@@ -1463,6 +1517,7 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.voicePitch === 'number') updateConfig({ voicePitch: Math.min(2, Math.max(0.5, p.voicePitch)) });
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
+  if ('speak' in p) updateConfig({ speak: Boolean(p.speak) }); // (1.10.0) her voice on or off (Ears.kt reads it)
   if ('gameTips' in p) updateConfig({ gameTips: Boolean(p.gameTips) });
   // the app (1.9.0): Ajustes › Rendimiento, and your birthday from the «Tú» tab ({ m, d }, or none)
   if (['auto', 'lite', 'full'].includes(p.perfMode)) updateConfig({ perfMode: p.perfMode });
@@ -1514,6 +1569,7 @@ ready.then(() => {
     clearInterval(tuned);
     tweak({ cfg: () => cfg, onConfig: (fn) => listeners.config.add(fn) });
     iconMode({ cfg: () => cfg, onConfig: (fn) => listeners.config.add(fn), setConfig: updateConfig });
+    iconFaces({ cfg: () => cfg }); // (1.10.0) her icon, with more feelings
     floatMode({ cfg: () => cfg, setConfig: updateConfig });
     longMemory({ cfg: () => cfg, readMemory, saveMemory });
     phoneCare({ cfg: () => cfg });
@@ -1531,6 +1587,15 @@ ready.then(() => {
     window.dev.coach = coaching({ cfg: () => cfg }); // "dame un consejo": tips for your game
     window.dev.stream = streaming({ cfg: () => cfg, setConfig: updateConfig }); // streaming mode: your live's comments
     window.dev.birthday = birthday({ cfg: () => cfg, setConfig: updateConfig }); // your birthday: she asks, and celebrates it
+    // 1.10.0
+    keepAsking({ lang: () => resolveLang(cfg.lang) }); // her chat closed while she thinks: she answers anyway
+    chatLog(); // your chat history, kept on the phone (the app shows it)
+    chatAsks({ lang: () => resolveLang(cfg.lang) }); // games, history, a message by WhatsApp: done, not asked to her AI
+    laser({ lang: () => resolveLang(cfg.lang), cfg: () => cfg }); // an app uninstalled: her beam
+    window.dev.autoDress = autoDress({ cfg: () => cfg, setConfig: updateConfig, lang: () => resolveLang(cfg.lang) }); // she dresses herself
+    window.dev.checkIn = checkIn({ cfg: () => cfg, setConfig: updateConfig, lang: () => resolveLang(cfg.lang), readMemory, saveMemory }); // she asks how you are
+    typing({ cfg: () => cfg }); // you type: she lies on top of the keyboard (in a game: on her phone)
+    window.dev.saver = saver({ cfg: () => cfg, lang: () => resolveLang(cfg.lang), setConfig: updateConfig }); // battery saver
   }, 300);
 });
 

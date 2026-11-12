@@ -67,6 +67,29 @@ class Actions(private val context: Context, private val store: Store) {
     }
 
     /**
+     * (1.10.0) "Mándale a Ana por WhatsApp que ya voy" (asks.js): that app opens with the message
+     * written, and you pick who and send it. Android has no way for an app to send it for you, and
+     * she wouldn't: you always see it first. SMS: the phone's messages app. No such app: Android's
+     * share sheet with the text.
+     */
+    fun shareMessage(app: String, pkg: String?, text: String): Boolean {
+        val flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        if (app == "sms") {
+            return runCatching {
+                context.startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:")).putExtra("sms_body", text).addFlags(flags))
+            }.isSuccess
+        }
+        val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
+        if (!pkg.isNullOrEmpty()) {
+            val ok = runCatching { context.startActivity(Intent(send).setPackage(pkg).addFlags(flags)) }.isSuccess
+            if (ok) return true
+            // (WhatsApp Business)
+            if (pkg == "com.whatsapp" && runCatching { context.startActivity(Intent(send).setPackage("com.whatsapp.w4b").addFlags(flags)) }.isSuccess) return true
+        }
+        return runCatching { context.startActivity(Intent.createChooser(send, null).addFlags(flags)) }.isSuccess
+    }
+
+    /**
      * Her hooks can't be written into Termux from here: the command goes on your clipboard, and
      * Termux opens to paste it in. ("Install Claude Code hooks" in her menu, "Plug me in" in her guide.)
      */

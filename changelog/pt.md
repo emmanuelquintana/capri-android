@@ -2,6 +2,37 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.10.0
+
+- **Adeus tela branca ao dançar:** quando a Capri dançava, ouvia música ou descansava, em muitos celulares ela virava
+  um bloco branco, depois a tela toda ficava branca e o app fechava. Agora as animações gastam muito menos memória
+  gráfica, e se mesmo assim o seu celular cair duas vezes durante uma, ela fica parada (sem animações) por uns dias
+  em vez de fechar.
+- **Jogue com ela:** xadrez, campo minado, 21 e jogo da velha, sem internet. Ela joga contra você e diz o que pensa.
+  Na aba «Você», ou diga «Capri, vamos jogar».
+- **Histórico do chat:** em «Você», tudo o que você disse e o que ela respondeu, por dia e com busca. Fica só no seu
+  celular e dá para apagar.
+- **Sua pergunta não é mais cancelada:** se você tocar fora do chat enquanto ela pensa, ela continua pensando.
+  Quando a resposta fica pronta, ela mostra no balão, com um botão para continuar conversando.
+- **Mensagens pelo WhatsApp:** «Capri, manda pra Ana no WhatsApp que já tô indo». Ela abre o WhatsApp (ou Telegram,
+  Messenger, SMS…) com a mensagem escrita; você escolhe pra quem e envia.
+- **O raio dela:** quando você desinstala um app, a Capri atira nele e ele se desintegra.
+- **Ela se veste sozinha (opcional):** em «Personalizar», a cada 6 h, 12 h ou um dia ela escolhe outro visual e te
+  mostra. As cores dela nunca mudam.
+- **Economia de bateria (opcional):** em «Você», escolha 15, 20 ou 30%. Nesse nível e sem carregar, o que mais gasta
+  (os ouvidos dela, o olhar ao vivo, as animações) descansa até você carregar.
+- **Modo ícone com mais caras:** ela ri, pisca, se surpreende, fica brava, apaixonada, pensa com pontinhos, mexe com
+  a sua música, fica tonta se você arrastar muito e dorme se você deixar ela sozinha.
+- **Ela lembra melhor de você:** guarda mais coisas, aprende suas frases e usa de vez em quando, e de vez em quando
+  pergunta como você está.
+- **Enquanto você digita:** ela deita em cima do teclado; jogando, fica no celular dela.
+- **A voz dela pode ser desligada:** em «Personalizar › A voz dela». Ela continua ouvindo e responde por escrito.
+- **Microfone:** corrigido o «erro 12» em alguns Samsung com Android 16.
+- **Olhar a sua tela:** se a sua IA não vê imagens, ela usa outra das suas que veja (Gemini, Groq…).
+- **Groq:** não escolhe mais por engano um modelo de voz que pedia para aceitar termos.
+- **Notificações e barra de música:** em alguns Xiaomi só apareciam depois de abrir um jogo pesado. Agora se
+  reconectam sozinhas.
+
 ## 1.9.1
 
 - **Menos fechamentos e telas brancas:** em celulares com gráfico fraco (Redmi, Honor, realme…) a Capri fechava ou

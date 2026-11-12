@@ -2,6 +2,36 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.10.0
+
+- **Goodbye white screen while dancing:** when Capri danced, listened to music or rested, on many phones she turned
+  into a white block, then the whole screen went white and the app closed. Her animations now use far less graphics
+  memory, and if your phone still goes down twice during one, she stays still (no animations) for a few days instead.
+- **Play with her:** chess, minesweeper, 21 and tic-tac-toe, no internet needed. She plays against you and says what
+  she thinks. In the «You» tab, or tell her "Capri, let's play".
+- **Chat history:** in «You», everything you told her and what she answered, by day, with search. It stays on your
+  phone only, and you can delete it.
+- **Your question isn't cancelled anymore:** if you tap outside her chat while she's thinking, she keeps thinking.
+  When the answer is ready she shows it in her bubble, with a button to keep talking.
+- **Messages by WhatsApp:** "Capri, tell Ana on WhatsApp I'm on my way". She opens WhatsApp (or Telegram, Messenger,
+  SMS…) with the message written; you pick who and send it.
+- **Her beam:** when you uninstall an app, Capri shoots it and it disintegrates.
+- **She dresses herself (optional):** in «Customize», every 6 h, 12 h or a day she picks another outfit and shows it
+  off. Her colors never change.
+- **Battery saver (optional):** in «You», pick 15, 20 or 30%. At that level and not charging, what uses the most
+  (her ears, her live look, her animations) rests until you charge her.
+- **Icon mode with more faces:** she laughs, winks, gets surprised, angry, in love, thinks with little dots, sways
+  to your music, gets dizzy if you drag her a lot and falls asleep if you leave her alone.
+- **She remembers you better:** she keeps more about you, learns your phrases and uses them now and then, and every
+  so often asks how you are.
+- **While you type:** she lies on top of the keyboard; in games, she's on her phone.
+- **Her voice can be turned off:** in «Customize › Her voice». She still listens and answers in writing.
+- **Microphone:** fixed "error 12" on some Samsung phones with Android 16.
+- **Looking at your screen:** if your AI can't see pictures, she uses another of yours that can (Gemini, Groq…).
+- **Groq:** no longer picks a voice model by mistake that asked to accept terms.
+- **Notifications and music bar:** on some Xiaomi phones they didn't show until a heavy game was opened. They now
+  reconnect by themselves.
+
 ## 1.9.1
 
 - **Fewer closes and white screens:** on phones with weak graphics (Redmi, Honor, realme…) Capri closed or stayed

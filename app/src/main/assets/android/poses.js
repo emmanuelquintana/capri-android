@@ -18,7 +18,7 @@
 // Never with reduced motion. With an outfit on she still does them (1.8.2: before, any outfit kept her
 // from ever moving like this); they're drawn in her own suit, and the outfit is back when she's done.
 
-import { on } from './native.js';
+import { on, send } from './native.js';
 
 const POSES = new URL('../../assets/capri/poses/', location.href).href;
 const ANIMS = new URL('../../assets/capri/anims/', location.href).href;
@@ -49,9 +49,43 @@ export function poses({ cfg, wardrobe }) {
   const ready = fetch(`${ANIMS}anims.json`).then((r) => (r.ok ? r.json() : {})).catch(() => ({})).then((list) => {
     anims = list || {};
   });
-  const has = (name) => Boolean(anims[name]);
+  const has = (name) => Boolean(anims[name]) && !animsOff();
 
+  // (1.10.0) a phone that went down while she was in one of them: if it happens twice in a few
+  // hours, she does them no more there for 3 days (her plain self instead), rather than going down
+  // again and again. Marked when one starts, cleared when it ends: still marked at the next start of
+  // her page means the last one never ended.
+  const store = (() => { try { return window.localStorage; } catch { return null; } })();
+  const read = (key) => { try { return JSON.parse(store?.getItem(key) || 'null'); } catch { return null; } };
+  const write = (key, value) => { try { store?.setItem(key, JSON.stringify(value)); } catch {} };
+  const H = 3600000;
+  {
+    const was = read('capri.animOn');
+    if (was && Date.now() - (was.beat || was.at) < 30000) { // (her page back right away: the app went down, not you stopping her)
+      const downs = [...(read('capri.animDowns') || []).filter((t) => Date.now() - t < 6 * H), Date.now()];
+      write('capri.animDowns', downs);
+      if (downs.length >= 2) {
+        write('capri.animOff', Date.now());
+        setTimeout(() => send('log', { level: 'W', text: `the phone went down twice during her animations (last: ${was.name}): plain her for 3 days` }), 0);
+      }
+    }
+    write('capri.animOn', null);
+  }
+  const animsOff = () => Boolean(window.capriSaving) || Date.now() - (read('capri.animOff') || 0) < 72 * H;
   let now = null; // { name, el, timer, until, onEnd, at }
+
+  // (1.10.0) while a drawing of her is on, her real self is hidden: it isn't drawn again and again
+  // underneath (before, being `busy` it was redrawn up to 24 times a second on the GPU for nothing,
+  // all through a dance or her music). What she does (behave) still runs, a few times a second.
+  const interval = capri.interval.bind(capri);
+  capri.interval = () => (now ? 250 : interval());
+  const drawFrame = capri.drawFrame.bind(capri);
+  capri.drawFrame = (t = performance.now()) => {
+    if (!now) return drawFrame(t);
+    capri.lastDraw = t;
+    capri.animate(t); // (her moves go on, and end, as always; only the drawing is skipped)
+    capri.place();
+  };
   let lastEnd = 0; // when you last tapped her out of one: a while before the next
 
   // (in gamer mode she's lying around in her corner already, and while you chat she may think: fine too;
@@ -88,9 +122,9 @@ export function poses({ cfg, wardrobe }) {
     const sprite = document.getElementById('sprite');
     el.style.filter = sprite?.style.filter || '';
     el.style.setProperty('--pose-alpha', sprite?.style.opacity || '1');
-    const painted = wardrobe?.paint?.(img);
-    return painted ? painted.toDataURL() : img.src;
+    return wardrobe?.paint?.(img) || img; // (a canvas when her outfit is painted on it)
   }
+  const url = (pic) => (pic.toDataURL ? pic.toDataURL() : pic.src);
 
   function start(name, el, { hold, onEnd, at }) {
     document.body.append(el);
@@ -106,25 +140,44 @@ export function poses({ cfg, wardrobe }) {
   async function play(name, { hold = 0, times = 0, at = null, onEnd = null, lying = false, chat = false, now: right = false } = {}) {
     await ready;
     const a = anims[name];
-    if (!a || now || !free({ lying, chat, now: right })) return false;
+    if (!a || now || animsOff() || !free({ lying, chat, now: right })) return false;
     const img = await load(`${ANIMS}${name}.png`);
     if (!img || now || !free({ lying, chat, now: right })) return false;
-    const el = document.createElement('div');
+    // (1.10.0) cel by cel on a small canvas of its own, its size on screen: before, the whole strip
+    // was her background, scaled up to the screen's pixels (a dance: 8 cels, thousands of pixels wide)
+    // and painted again at every cel, with her aura's filter on top. On many phones that ran the GPU
+    // out of memory while she danced, listened to music or rested: she turned into a white box, then
+    // the whole screen went white and the app stopped.
+    const el = document.createElement('canvas');
     el.className = 'capri-pose capri-anim';
-    el.style.backgroundImage = `url("${dress(el, img)}")`;
-    el.style.backgroundSize = `${a.n * 100}% 100%`;
-    // (`body`: how much of the strip's height is her when she just stands, for the ones she jumps or reaches up in)
     const k = KIND_SIZE[a.kind] || KIND_SIZE.stand;
+    // (`body`: how much of the strip's height is her when she just stands, for the ones she jumps or reaches up in)
     place(el, a.w, a.h, a.body && k.h ? { h: k.h / a.body } : k, name, at);
+    const sharp = Math.min(window.devicePixelRatio || 1, window.capriLite || window.capriFlat ? 1.25 : 2);
+    el.width = Math.max(1, Math.round(parseFloat(el.style.width) * sharp));
+    el.height = Math.max(1, Math.round(parseFloat(el.style.height) * sharp));
+    const g = el.getContext('2d');
+    if (!g) return false;
+    const pic = dress(el, img);
+    if (window.capriLite || window.capriFlat) el.style.filter = ''; // (no aura's filter on a weak GPU)
     // once through (or `times` times), unless it loops: then for `hold` ms, or until something brings her back
     const runs = a.loop ? times : Math.max(1, times);
     const total = runs ? runs * a.n : 0;
     if (!hold && total) hold = Math.round((total * 1000) / a.fps) + 200;
     start(name, el, { hold, onEnd, at });
+    write('capri.animOn', { name, at: Date.now() });
+    const fw = img.naturalWidth / a.n;
+    const fh = img.naturalHeight;
     let i = 0;
-    const show = () => { el.style.backgroundPosition = `${(i * 100) / Math.max(1, a.n - 1)}% 0`; };
+    const show = () => {
+      g.clearRect(0, 0, el.width, el.height);
+      g.drawImage(pic, i * fw, 0, fw, fh, 0, 0, el.width, el.height);
+    };
     show();
+    let beat = Date.now();
     now.timer = setInterval(() => {
+      if (document.hidden) return;
+      if (Date.now() - beat > 5000) { beat = Date.now(); write('capri.animOn', { name, at: beat, beat }); }
       if (!a.loop && i >= a.n - 1) return; // (stays on its last cel)
       i = (i + 1) % a.n;
       show();
@@ -142,7 +195,7 @@ export function poses({ cfg, wardrobe }) {
     el.className = 'capri-pose';
     el.alt = '';
     el.draggable = false;
-    const srcs = imgs.map((img) => dress(el, img));
+    const srcs = imgs.map((img) => url(dress(el, img)));
     el.src = srcs[0];
     place(el, imgs[0].naturalWidth, imgs[0].naturalHeight, SIZE[list[0]] || { h: 1 }, list[0], at);
     start(name, el, { hold, onEnd, at });
@@ -161,6 +214,7 @@ export function poses({ cfg, wardrobe }) {
     if (!now) return;
     const { el, timer, until, onEnd } = now;
     now = null;
+    write('capri.animOn', null);
     for (const src of Object.keys(pics)) delete pics[src]; // (let its pictures go)
     clearInterval(timer);
     clearTimeout(until);

@@ -8,7 +8,8 @@
 // one message every 45 s: it waits until she has been quiet a while). Off in the app's Settings;
 // "Forget" in her menu (or in Settings) empties it.
 
-const MAX_FACTS = 40;
+const MAX_FACTS = 60; // (1.10.0: was 40, she remembers more)
+const MAX_PHRASES = 10;
 const FACT_CHARS = 160;
 const IDLE_MS = 3 * 60 * 1000;      // quiet this long after her last answer: she notes it down
 const AFTER_CLOSE_MS = 20 * 1000;   // or this long after you close her chat
@@ -38,6 +39,12 @@ export function longMemory({ cfg, readMemory, saveMemory }) {
       lines.push(`What you remember about the user from earlier chats (it's true: bring it up naturally when it fits, like a friend who remembers, never list it or say you have notes):\n${known.map((f) => `- ${f}`).join('\n')}`);
     }
     if (last?.text) lines.push(`Your last chat with them was ${ago(last.at)}: ${last.text}`);
+    // (1.10.0) the way you two talk: their expressions and your inside jokes, used now and then
+    const phrases = Array.isArray(readMemory().phrases) ? readMemory().phrases : [];
+    if (phrases.length) lines.push(`Expressions and inside jokes you two use (use one now and then when it fits naturally, like a friend who talks like them; never all at once, never forced): ${phrases.map((p) => `"${p}"`).join(', ')}`);
+    // (1.10.0, checkin.js) how they said they were, when she asked
+    const feeling = readMemory().feeling;
+    if (feeling?.text && Date.now() - feeling.at < 3 * 86400000) lines.push(`When you asked how they were (${ago(feeling.at)}), they said: ${feeling.text}. Keep it in mind, and ask how they are now if it fits.`);
     return lines;
   };
 
@@ -94,8 +101,10 @@ export function longMemory({ cfg, readMemory, saveMemory }) {
         content: [
           `Notes so far:\n${known.length ? known.map((f) => `- ${f}`).join('\n') : '(none)'}`,
           `New conversation, oldest first ("User" is ${name}):\n${talk.map((m) => `${m.role === 'user' ? 'User' : 'Capri'}: ${m.content.slice(0, 600)}`).join('\n')}`,
-          'Update the notes. Answer with JSON only, nothing else: {"facts": ["..."], "last": "..."}',
+          `Expressions so far: ${(Array.isArray(readMemory().phrases) ? readMemory().phrases : []).map((p) => `"${p}"`).join(', ') || '(none)'}`,
+          'Update the notes. Answer with JSON only, nothing else: {"facts": ["..."], "phrases": ["..."], "last": "..."}',
           `- facts: what's worth remembering in later chats, about the user only (not Capri): their likes and dislikes, people they mention (name and who they are to them), pets, studies or work, plans and dates coming up and how things went, what matters to them, how they like to be treated. One short line each, in ${lang}. Keep the old notes unless this conversation changes or contradicts them; merge repeats; at most ${MAX_FACTS}, the most important first. Small talk and jokes are not facts.`,
+          `- phrases: the user's own catchphrases, slang, nicknames and inside jokes you two share (their exact words, short), so Capri can talk like them. Keep the old ones unless they stopped using them; at most ${MAX_PHRASES}. Never anything offensive about someone.`,
           '- Never note passwords, keys, codes, card or bank numbers, exact addresses, or anything the user asked to forget or keep secret.',
           `- last: one sentence on what you talked about this time, in ${lang}, written to Capri (like "They told you…").`,
         ].join('\n\n'),
@@ -115,6 +124,7 @@ export function longMemory({ cfg, readMemory, saveMemory }) {
     const kept = notes.facts.length || !known.length ? notes.facts : known; // an empty answer never wipes them
     saveMemory({
       facts: kept,
+      ...(notes.phrases.length ? { phrases: notes.phrases } : {}),
       last: notes.last ? { text: notes.last, at: Date.now() } : readMemory().last || null,
       seen: key(talk.at(-1)),
     });
@@ -137,7 +147,9 @@ function parse(text) {
       .filter((f) => f.length > 2);
     const unique = [...new Map(facts.map((f) => [f.toLowerCase(), f])).values()].slice(0, MAX_FACTS);
     const last = typeof json.last === 'string' ? json.last.replace(/\s+/g, ' ').trim().slice(0, 240) : '';
-    return { facts: unique, last };
+    const phrases = [...new Set((Array.isArray(json.phrases) ? json.phrases : []).filter((p) => typeof p === 'string')
+      .map((p) => p.replace(/\s+/g, ' ').trim().slice(0, 60)).filter((p) => p.length > 1))].slice(0, MAX_PHRASES);
+    return { facts: unique, last, phrases };
   } catch {
     return null;
   }

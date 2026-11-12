@@ -55,6 +55,7 @@ class Ears(private val service: CapriService) {
     private var segmented: Boolean? = service.getSharedPreferences("app", Context.MODE_PRIVATE)
         .getString(SEG_PREF, null)?.takeIf { it.startsWith(SEG_KEY) }?.let { it.endsWith(":1") }
     private var longNow = false     // this session is a segmented one
+    private var langStep = 0        // (1.10.0) how plainly the recognizer is asked, after errors 12/13
     private var sessionAt = 0L
     private var segments = 0
     private var shortOnes = 0
@@ -169,13 +170,14 @@ class Ears(private val service: CapriService) {
     /** Switched on or off, the screen on or off, the mic allowed or not: listening or not. */
     fun update() = main.post {
         val pm = service.getSystemService(PowerManager::class.java)!!
-        val should = enabled(service) && allowed(service) && pm.isInteractive && SpeechRecognizer.isRecognitionAvailable(service) && !CapriService.gamer
+        val should = enabled(service) && allowed(service) && pm.isInteractive && SpeechRecognizer.isRecognitionAvailable(service) && !CapriService.gamer && !CapriService.saving
         status = when {
             !enabled(service) -> ""
             !allowed(service) -> "nomic"
             !SpeechRecognizer.isRecognitionAvailable(service) -> "norecognizer"
             !pm.isInteractive -> "screenoff"
             CapriService.gamer -> "gamer"
+            CapriService.saving -> "saver"
             else -> status
         }
         if (should == wanted) return@post
@@ -233,7 +235,7 @@ class Ears(private val service: CapriService) {
         val pause = when (Store(service).configString("voicePace")) { "slow" -> 2600L; "fast" -> 1000L; else -> 1500L }
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            .putExtra(RecognizerIntent.EXTRA_LANGUAGE, lang)
+            .apply { if (langStep < 3) putExtra(RecognizerIntent.EXTRA_LANGUAGE, if (langStep >= 2) lang.substringBefore('-') else lang) }
             .putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
             .putExtra(RecognizerIntent.EXTRA_CONFIDENCE_SCORES, true)
             // a short pause after "Capri" doesn't end what you're saying
@@ -244,7 +246,7 @@ class Ears(private val service: CapriService) {
         // Android 13+: her name weighs more than the noise around (a TV, people talking). Only with her
         // filter at normal: biased like that, the rustle of the phone moving in your hand came out as
         // "Capri" (1.9.0: "muevo el celular sin decir nada y se activa")
-        if (Build.VERSION.SDK_INT >= 33 && (Store(service).configString("voiceFilter") ?: "normal") == "normal") {
+        if (Build.VERSION.SDK_INT >= 33 && langStep < 1 && (Store(service).configString("voiceFilter") ?: "normal") == "normal") {
             intent.putExtra(RecognizerIntent.EXTRA_ENABLE_BIASING_DEVICE_CONTEXT, true)
                 .putStringArrayListExtra(RecognizerIntent.EXTRA_BIASING_STRINGS, arrayListOf("Capri", "Kapri", "Капри"))
         }
@@ -323,7 +325,7 @@ class Ears(private val service: CapriService) {
             runCatching { SpeechRecognizer.isOnDeviceRecognitionAvailable(service) }.getOrDefault(false)
         val r = when {
             local -> SpeechRecognizer.createOnDeviceSpeechRecognizer(service)
-            google != null && failures % 3 != 2 -> SpeechRecognizer.createSpeechRecognizer(service, google)
+            google != null && langStep < 3 && failures % 3 != 2 -> SpeechRecognizer.createSpeechRecognizer(service, google)
             else -> SpeechRecognizer.createSpeechRecognizer(service)
         }
         r.setRecognitionListener(object : RecognitionListener {
@@ -408,6 +410,28 @@ class Ears(private val service: CapriService) {
                 if (failures == 1 || failures % 10 == 0) Diag.add("W", "voice: recognizer error $error")
                 next(minOf(15_000L, 600L * failures))
             }
+            // (1.10.0) "Arreglen el micrófono": error 12/13, the recognizer won't take the language as asked
+            // (a Samsung on Android 16). Asked more plainly each time, until one way works: without her
+            // name's weight, the short way, the language alone ("es" for "es-MX"), and at last no
+            // language at all on the phone's own recognizer (it listens in the phone's language).
+            12, 13 -> {
+                recognizer?.let { runCatching { it.cancel() }; runCatching { it.destroy() } }
+                recognizer = null
+                if (longNow && segmented != true) {
+                    knowSegmented(false)
+                    Diag.add("I", "voice: error $error on the long session, the short way")
+                    return next(400)
+                }
+                if (langStep < 3) {
+                    langStep++
+                    Diag.add("I", "voice: error $error, asking more plainly (step $langStep)")
+                    return next(400)
+                }
+                failures++
+                status = "error:$error"
+                if (failures == 1 || failures % 10 == 0) Diag.add("W", "voice: recognizer error $error")
+                next(minOf(60_000L, 1000L * failures * failures))
+            }
             SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> {
                 status = "nomic"
                 Diag.add("W", "voice: no microphone permission")
@@ -491,6 +515,8 @@ class Ears(private val service: CapriService) {
         main.removeCallbacks(hushEnd)
         // out loud through the media volume (what music uses): her ears asked you for it, even on silent
         if (text.isBlank() || audio.getStreamVolume(AudioManager.STREAM_MUSIC) == 0) return@post
+        // (1.10.0) her voice switched off (Personalizar › Su voz): she answers in writing only
+        if (!Store(service).configFlag("speak", true)) return@post
         val speak = {
             voice(accent(lang))
             // her voice as you set it (the app's Settings › Her ears)

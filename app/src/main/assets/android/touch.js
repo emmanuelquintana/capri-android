@@ -89,7 +89,7 @@ export class Touch {
     // Chromium's long press on her, a right-click: she has her own (below)
     window.addEventListener('contextmenu', (e) => {
       if (!this.ours || performance.now() - this.ours > 2500) return;
-      e.preventDefault();
+      if (e.cancelable) e.preventDefault();
       e.stopImmediatePropagation();
     }, true);
 
@@ -143,7 +143,7 @@ export class Touch {
       if (this.pet) {
         const a = e.touches[0], b = e.touches[1] || a;
         this.mouse('mousemove', (a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2);
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         return;
       }
       const d = this.drag;
@@ -157,7 +157,7 @@ export class Touch {
         this.mouse('mousedown', d.at.x, d.at.y, d.target, 1);
       }
       this.mouse('mousemove', p.x + d.off.x, p.y + d.off.y, null, 1);
-      e.preventDefault();
+      if (e.cancelable) e.preventDefault();
     }, { passive: false });
 
     const end = (e) => {
@@ -171,7 +171,7 @@ export class Touch {
       if (d.held && !d.started) {
         // held still and let go: her menu, where the finger was
         if (e.type === 'touchend') window.host?.openMenu?.();
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         return;
       }
       if (!d.started) {
@@ -179,13 +179,13 @@ export class Touch {
         if (d.off.x || d.off.y) {
           this.mouse('mousedown', d.at.x, d.at.y, d.target, 1);
           this.mouse('mouseup', d.at.x, d.at.y, null, 0);
-          e.preventDefault();
+          if (e.cancelable) e.preventDefault();
         }
         return; // a tap: Chromium's own mousedown, mouseup and click
       }
       const t = e.changedTouches[0];
       this.mouse('mouseup', t.clientX + d.off.x, t.clientY + d.off.y, null, 0);
-      e.preventDefault();
+      if (e.cancelable) e.preventDefault();
     };
     window.addEventListener('touchend', end, { passive: false });
     window.addEventListener('touchcancel', end, { passive: false });

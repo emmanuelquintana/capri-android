@@ -376,4 +376,18 @@
     <string name="report_off">Les signalements ne sont pas reçus pour l’instant. Réessaie plus tard.</string>
     <string name="report_net">Pas de connexion. Vérifie ton internet et réessaie.</string>
     <string name="report_bad">Impossible d’envoyer. Réessaie plus tard.</string>
+    <!-- 1.10.0 -->
+    <string name="you_games_title">Joue avec elle</string>
+    <string name="you_games_how">Échecs, démineur, 21 et morpion, ici sur ton téléphone, sans internet. Elle joue contre toi et dit ce qu’elle en pense. Tu peux aussi lui dire « Capri, on joue ».</string>
+    <string name="you_games_open">Jouer</string>
+    <string name="you_chatlog_title">Historique du chat</string>
+    <string name="you_chatlog_how">Tout ce que tu lui as dit dans son chat et ce qu’elle a répondu, par jour, avec une recherche. Ça reste sur ce téléphone.</string>
+    <string name="you_chatlog_open">Voir l’historique</string>
+    <string name="settings_saver">Économie de batterie</string>
+    <string name="settings_saver_how">Quand la batterie descend à ce niveau (sans charger), ce qui consomme le plus se repose jusqu’à ce que tu charges : ses oreilles, son regard en direct sur ton écran, ses animations et réactions, et elle est dessinée moins souvent.</string>
+    <string name="settings_autodress">Elle s’habille seule</string>
+    <string name="settings_autodress_how">De temps en temps, elle choisit une autre de ses tenues et te la montre. Chacune dure un bon moment, jamais toutes les quelques minutes. Ses couleurs ne changent jamais.</string>
+    <string name="autodress_day">1 jour</string>
+    <string name="voice_speak">Sa voix</string>
+    <string name="voice_speak_how">Coupée : elle t’écoute et te répond toujours, mais seulement par écrit.</string>
 </resources>

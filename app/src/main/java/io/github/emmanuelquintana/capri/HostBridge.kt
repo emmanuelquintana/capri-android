@@ -73,6 +73,11 @@ class HostBridge(private val service: CapriService) {
         "config:save" -> store.write(Store.CONFIG, obj(args).toString()).let { service.onConfig(obj(args)) }
         "memory:load" -> store.read(Store.MEMORY)?.let { JSONObject(it) }
         "memory:save" -> store.write(Store.MEMORY, obj(args).toString())
+        // (1.10.0) your chat history, on this phone only (ChatLog.kt, shown in the app)
+        "msg:share" -> obj(args).let { actions.shareMessage(it.optString("app"), it.optString("pkg").takeIf { p -> p.isNotEmpty() && p != "null" }, it.optString("text")) }
+        "saver:set" -> service.setSaving(obj(args).optBoolean("on"))
+        "page:open" -> obj(args).optString("page").let { if (it == "games" || it == "chatlog") PageActivity.open(service, it) }
+        "chatlog:add" -> obj(args).let { ChatLog.add(service, it.optString("q"), it.optString("a"), it.optLong("at", System.currentTimeMillis())) }
         "keys:seal" -> store.seal(obj(args).optString("value"))
         "keys:open" -> store.open(obj(args).optString("value"))
         // "Pegar" for her key box: what you copied (Android lets her read it while you type in her panel)

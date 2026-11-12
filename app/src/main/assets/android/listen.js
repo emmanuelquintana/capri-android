@@ -4,6 +4,7 @@
 // (music, volume, an app, a timer, a reminder, the battery…), and anything else is a question for
 // her AI. She shows her answer in her panel and says it out loud.
 
+import { extraAsk } from './asks.js';
 import { on, send, call } from './native.js';
 import { clean, mood } from '../capri/src/renderer/js/chat.js';
 
@@ -294,6 +295,9 @@ async function handle(text, { toggleVisible, visible }) {
     capri.pulse?.();
     return answer(res ? t.torchOn : t.torchOff, 'smug');
   }
+  // (1.10.0) games, your chat history, a message by WhatsApp… (asks.js)
+  const did = extraAsk(text, lang);
+  if (did) return answer(did.line, did.face);
   if (CHAT_ASK.test(text)) return chat.start();
   if (HELP_ASK.test(text)) return answer(t.help, 'smug');
   if (WARDROBE_ASK.test(text) && dev.wardrobe) {

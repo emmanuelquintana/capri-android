@@ -463,6 +463,15 @@ class MainActivity : Activity() {
             addView(ui.button(getString(R.string.settings_save), Ui.Kind.GREEN) { saveName() }, ui.block(12))
         }, ui.block(16))
 
+        // (1.10.0) games with her, and your chat history (PageActivity)
+        addView(ui.card(Hud.GREEN).apply {
+            addView(ui.label(getString(R.string.you_games_title), Hud.GREEN))
+            addView(ui.text(getString(R.string.you_games_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.button(getString(R.string.you_games_open), Ui.Kind.GREEN) { PageActivity.open(this@MainActivity, "games") }, ui.block(12))
+            addView(ui.text(getString(R.string.you_chatlog_title), 14f, Hud.PAPER, ui.head), ui.block(18))
+            addView(ui.text(getString(R.string.you_chatlog_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(ui.button(getString(R.string.you_chatlog_open), Ui.Kind.LINE) { PageActivity.open(this@MainActivity, "chatlog") }, ui.block(10))
+        }, ui.block(16))
         // your birthday (1.9.0, birthday.js): she celebrates you that day
         addView(birthdayCard(), ui.block(16))
         // your classes and your calendar (1.9.0, Agenda.kt): she reminds you
@@ -491,6 +500,14 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.settings_battery_low), 13f, Hud.PAPER_2, ui.mono), ui.block(10))
             addView(choiceText(listOf(5, 10, 15, 20, 30).map { "$it%" to it.toDouble() },
                 { store.configNumber("batteryLow", 15.0) }, { a, b -> Math.abs(a - b) < 0.5 }) { CapriSettings.set(this@MainActivity, "batteryLow", it) }, ui.block(6))
+            // (1.10.0) battery saver: below your %, what costs the most battery rests (saver.js)
+            addView(ui.text(getString(R.string.settings_saver), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.settings_saver_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choiceText(listOf(getString(R.string.off) to 0.0, "15%" to 15.0, "20%" to 20.0, "30%" to 30.0),
+                { if (!store.configFlag("saver", false)) 0.0 else store.configNumber("saverAt", 20.0) }, { a, b -> Math.abs(a - b) < 0.5 }) {
+                CapriSettings.set(this@MainActivity, "saver", it > 0)
+                if (it > 0) CapriSettings.set(this@MainActivity, "saverAt", it.toInt())
+            }, ui.block(6))
             addView(ui.text(getString(R.string.settings_breaks), 14f, Hud.PAPER, ui.head), ui.block(16))
             addView(ui.text(getString(R.string.settings_breaks_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(choiceText(listOf(getString(R.string.off) to 0.0, "1 h" to 1.0, "2 h" to 2.0, "3 h" to 3.0),
@@ -637,6 +654,17 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.settings_float_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(choice(listOf(R.string.off to false, R.string.on to true),
                 { Store(this@MainActivity).configFlag("float", false) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "float", it) }, ui.block(6))
+            // (1.10.0) she dresses herself now and then (autodress.js): off, or every 6 h, 12 h, a day
+            addView(ui.text(getString(R.string.settings_autodress), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(ui.text(getString(R.string.settings_autodress_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choiceText(listOf(getString(R.string.off) to 0.0, "6 h" to 6.0, "12 h" to 12.0, getString(R.string.autodress_day) to 24.0),
+                {
+                    val store = Store(this@MainActivity)
+                    if (!store.configFlag("autoDress", false)) 0.0 else store.configNumber("autoDressHours", 12.0)
+                }, { a, b -> Math.abs(a - b) < 0.5 }) {
+                if (it > 0) CapriSettings.set(this@MainActivity, "autoDressHours", it.toInt())
+                CapriSettings.set(this@MainActivity, "autoDress", it > 0)
+            }, ui.block(6))
             // icon mode: only her mask, wherever you put it, still talking
             addView(ui.text(getString(R.string.settings_icon), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(ui.text(getString(R.string.settings_icon_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
@@ -679,6 +707,11 @@ class MainActivity : Activity() {
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_her_voice)))
             val store = Store(this@MainActivity)
+            // (1.10.0) her voice on or off: off, she answers in writing only
+            addView(ui.text(getString(R.string.voice_speak), 14f, Hud.PAPER, ui.head), ui.block(10))
+            addView(ui.text(getString(R.string.voice_speak_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { store.configFlag("speak", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "speak", it) }, ui.block(6))
             addView(ui.text(getString(R.string.voice_pitch), 14f, Hud.PAPER, ui.head), ui.block(10))
             addView(choice(listOf(R.string.voice_low to 0.8, R.string.voice_pace_normal to 1.0, R.string.voice_high to 1.3),
                 { store.configNumber("voicePitch", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voicePitch", it) }, ui.block(6))

@@ -376,4 +376,18 @@
     <string name="report_off">Agora os reportes não estão sendo recebidos. Tenta mais tarde.</string>
     <string name="report_net">Sem conexão. Confere sua internet e tenta de novo.</string>
     <string name="report_bad">Não deu pra enviar. Tenta mais tarde.</string>
+    <!-- 1.10.0 -->
+    <string name="you_games_title">Jogue com ela</string>
+    <string name="you_games_how">Xadrez, campo minado, 21 e jogo da velha, aqui no seu celular e sem internet. Ela joga contra você e diz o que pensa. Você também pode dizer “Capri, vamos jogar”.</string>
+    <string name="you_games_open">Jogar</string>
+    <string name="you_chatlog_title">Histórico do chat</string>
+    <string name="you_chatlog_how">Tudo o que você disse no chat dela e o que ela respondeu, por dia e com busca. Fica só neste celular.</string>
+    <string name="you_chatlog_open">Ver histórico</string>
+    <string name="settings_saver">Economia de bateria</string>
+    <string name="settings_saver_how">Quando a bateria cair até esse nível (e não estiver carregando), o que mais gasta bateria descansa até você carregar: os ouvidos dela, o olhar ao vivo na sua tela, as animações e reações, e ela é desenhada menos vezes.</string>
+    <string name="settings_autodress">Ela se veste sozinha</string>
+    <string name="settings_autodress_how">De vez em quando ela escolhe outro visual e te mostra. Cada um dura um bom tempo, nunca a cada poucos minutos. As cores dela nunca mudam.</string>
+    <string name="autodress_day">1 dia</string>
+    <string name="voice_speak">A voz dela</string>
+    <string name="voice_speak_how">Desligada: ela continua te ouvindo e respondendo, mas só por escrito.</string>
 </resources>

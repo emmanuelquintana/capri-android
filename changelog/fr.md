@@ -2,6 +2,39 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.10.0
+
+- **Fini l’écran blanc quand elle danse :** quand Capri dansait, écoutait de la musique ou se reposait, sur beaucoup
+  de téléphones elle devenait un bloc blanc, puis tout l’écran blanchissait et l’appli se fermait. Ses animations
+  utilisent maintenant bien moins de mémoire graphique, et si ton téléphone plante quand même deux fois pendant
+  l’une d’elles, elle reste immobile (sans animations) quelques jours au lieu de se fermer.
+- **Joue avec elle :** échecs, démineur, 21 et morpion, sans internet. Elle joue contre toi et dit ce qu’elle en
+  pense. Dans l’onglet « Toi », ou dis-lui « Capri, on joue ».
+- **Historique du chat :** dans « Toi », tout ce que tu lui as dit et ce qu’elle a répondu, par jour, avec une
+  recherche. Ça reste sur ton téléphone et tu peux l’effacer.
+- **Ta question n’est plus annulée :** si tu touches en dehors de son chat pendant qu’elle réfléchit, elle continue.
+  Quand la réponse est prête, elle te la montre dans sa bulle, avec un bouton pour continuer à parler.
+- **Messages par WhatsApp :** « Capri, dis à Ana sur WhatsApp que j’arrive ». Elle ouvre WhatsApp (ou Telegram,
+  Messenger, SMS…) avec le message écrit ; tu choisis à qui et tu l’envoies.
+- **Son rayon :** quand tu désinstalles une appli, Capri lui tire dessus et la désintègre.
+- **Elle s’habille seule (optionnel) :** dans « Personnaliser », toutes les 6 h, 12 h ou chaque jour, elle choisit une
+  autre tenue et te la montre. Ses couleurs ne changent jamais.
+- **Économie de batterie (optionnel) :** dans « Toi », choisis 15, 20 ou 30 %. À ce niveau et sans charger, ce qui
+  consomme le plus (ses oreilles, son regard en direct, ses animations) se repose jusqu’à ce que tu la charges.
+- **Mode icône avec plus d’expressions :** elle rit, fait un clin d’œil, s’étonne, se fâche, tombe amoureuse,
+  réfléchit avec des petits points, bouge avec ta musique, a le tournis si tu la traînes trop et s’endort si tu la
+  laisses seule.
+- **Elle se souvient mieux de toi :** elle garde plus de choses, apprend tes expressions et les utilise de temps en
+  temps, et te demande parfois comment tu vas.
+- **Pendant que tu écris :** elle s’allonge sur le clavier ; en jeu, elle est sur son téléphone.
+- **Sa voix peut être coupée :** dans « Personnaliser › Sa voix ». Elle t’écoute toujours et répond par écrit.
+- **Micro :** corrigé « erreur 12 » sur certains Samsung sous Android 16.
+- **Regarder ton écran :** si ton IA ne voit pas les images, elle en utilise une autre des tiennes qui le peut
+  (Gemini, Groq…).
+- **Groq :** ne choisit plus par erreur un modèle vocal qui demandait d’accepter des conditions.
+- **Notifications et barre de musique :** sur certains Xiaomi, elles n’apparaissaient qu’après avoir ouvert un jeu
+  lourd. Elles se reconnectent maintenant toutes seules.
+
 ## 1.9.1
 
 - **Moins de fermetures et d’écrans blancs :** sur les téléphones avec une puce graphique modeste (Redmi, Honor,

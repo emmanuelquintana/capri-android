@@ -3,6 +3,37 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.10.0
+
+- **Adiós a la pantalla blanca al bailar:** cuando Capri bailaba, escuchaba música o descansaba, en muchos teléfonos
+  se volvía un bloque blanco, luego toda la pantalla se ponía blanca y la app se cerraba. Ahora sus animaciones
+  gastan mucha menos memoria gráfica, y si aun así tu teléfono se cae dos veces durante una, se queda quieta (sin
+  animaciones) unos días en vez de cerrarse.
+- **Juega con ella:** ajedrez, buscaminas, 21 y tres en raya, sin internet. Ella juega contra ti y te dice lo que
+  piensa. En la pestaña «Tú» o diciéndole «Capri, juguemos».
+- **Historial de chat:** en «Tú», todo lo que le dijiste y lo que te respondió, por día y con buscador. Se queda
+  solo en tu teléfono y lo puedes borrar.
+- **Ya no se cancela tu pregunta:** si tocas fuera de su chat mientras piensa, sigue pensando. Cuando tiene la
+  respuesta te la muestra en su globo, con un botón para seguir hablando.
+- **Mensajes por WhatsApp:** «Capri, mándale a Ana por WhatsApp que ya voy». Te abre WhatsApp (o Telegram,
+  Messenger, SMS…) con el mensaje escrito; tú eliges a quién y lo envías.
+- **Su rayo:** cuando desinstalas una app, Capri le dispara y la desintegra.
+- **Se viste sola (opcional):** en «Personalizar», cada 6 h, 12 h o un día escoge otro de sus atuendos y te lo
+  presume. Sus colores nunca cambian.
+- **Ahorro de batería (opcional):** en «Tú», elige 15, 20 o 30 %. Al llegar ahí sin cargar, descansa lo que más
+  gasta (sus oídos, su mirada en vivo, sus animaciones) hasta que la cargues.
+- **Modo icono con más caras:** se ríe, guiña, se sorprende, se enoja, se enamora, piensa con puntitos, se mueve
+  con tu música, se marea si la arrastras mucho y se duerme si la dejas sola.
+- **Te recuerda mejor:** guarda más cosas de ti, aprende tus frases y las usa de vez en cuando, y cada tanto te
+  pregunta cómo estás.
+- **Mientras escribes:** se acuesta encima del teclado; jugando, se pone con su celular.
+- **Su voz se puede apagar:** en «Personalizar › Su voz». Te sigue escuchando y respondiendo por escrito.
+- **Micrófono:** arreglado el «error 12» de algunos Samsung con Android 16.
+- **Mirar tu pantalla:** si tu IA no puede ver imágenes, usa otra de las tuyas que sí pueda (Gemini, Groq…).
+- **Groq:** ya no elige por error un modelo de voz que pedía aceptar términos.
+- **Notificaciones y barra de música:** en algunos Xiaomi no salían hasta abrir un juego pesado. Ahora se reconectan
+  solas.
+
 ## 1.9.1
 
 - **Menos cierres y pantallas blancas:** en teléfonos con poca gráfica (Redmi, Honor, realme…) Capri se cerraba o

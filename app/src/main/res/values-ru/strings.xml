@@ -377,4 +377,18 @@
     <string name="report_off">Сейчас отчёты не принимаются. Попробуй позже.</string>
     <string name="report_net">Нет связи. Проверь интернет и попробуй снова.</string>
     <string name="report_bad">Не удалось отправить. Попробуй позже.</string>
+    <!-- 1.10.0 -->
+    <string name="you_games_title">Играй с ней</string>
+    <string name="you_games_how">Шахматы, сапёр, 21 и крестики-нолики прямо на телефоне, без интернета. Она играет против тебя и говорит, что думает. Можно сказать ей «Капри, давай сыграем».</string>
+    <string name="you_games_open">Играть</string>
+    <string name="you_chatlog_title">История чата</string>
+    <string name="you_chatlog_how">Всё, что ты писал ей в чате, и её ответы — по дням и с поиском. Хранится только на этом телефоне.</string>
+    <string name="you_chatlog_open">Открыть историю</string>
+    <string name="settings_saver">Экономия заряда</string>
+    <string name="settings_saver_how">Когда заряд опустится до этого уровня (и телефон не заряжается), самое затратное отдыхает до зарядки: её слух, взгляд на экран в реальном времени, анимации и реакции, и она рисуется реже.</string>
+    <string name="settings_autodress">Одевается сама</string>
+    <string name="settings_autodress_how">Время от времени она выбирает другой наряд и хвастается им. Каждый держится долго, а не каждые пару минут. Её цвета никогда не меняются.</string>
+    <string name="autodress_day">1 день</string>
+    <string name="voice_speak">Её голос</string>
+    <string name="voice_speak_how">Выключен: она всё так же слушает и отвечает, но только текстом.</string>
 </resources>
