@@ -36,8 +36,14 @@ const load = (src) => new Promise((resolve, reject) => {
 
 const sprite = document.getElementById('sprite');
 const her = sprite.parentElement;
-const g = sprite.getContext('2d');
+// drawn by the CPU, not the GPU (1.9.0): on some phones the GPU's canvas broke and the stage showed a
+// white box with a sad face; this one is small, and a lost one can't happen. And if the phone still
+// drops it, it's drawn again as it comes back.
+const g = sprite.getContext('2d', { willReadFrequently: true });
+let shown = null;
+sprite.addEventListener('contextrestored', () => shown && show(shown, false));
 function show(picture, fresh) {
+  shown = picture;
   g.clearRect(0, 0, sprite.width, sprite.height);
   g.drawImage(picture, 0, 0, sprite.width, sprite.height);
   if (!fresh) return;

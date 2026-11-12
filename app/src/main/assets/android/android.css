@@ -764,3 +764,29 @@ body.is-dressing .fx { z-index: 41; }
   to { transform: translate(var(--dx), 105vh) rotate(var(--spin)); opacity: 0.9; }
 }
 @media (prefers-reduced-motion: reduce) { .capri-confetti { display: none; } }
+
+/* her menus (1.9.0): a scroll bar you can see while there's more than fits (scroll-cue.js), painted as
+   the panel's background so it stays put while the rest scrolls */
+.cmenu.has-scroll {
+  background:
+    linear-gradient(var(--frame), var(--frame)) no-repeat calc(100% - 3px) var(--bar-y, 4px) / 3px var(--bar-h, 40px),
+    linear-gradient(rgba(242, 241, 232, 0.08), rgba(242, 241, 232, 0.08)) no-repeat calc(100% - 3px) 4px / 3px calc(100% - 8px),
+    var(--ink);
+}
+.cmenu.has-scroll { padding-right: 6px; }
+
+/* a short, wide screen (a phone on its side, in a game): her quick menu in two columns, so it all
+   fits or nearly; her buttons on the left, her moves and modes on the right */
+@media (orientation: landscape) and (max-height: 560px) {
+  .qmenu {
+    width: min(640px, calc(100vw - 24px));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-content: start;
+  }
+  .qmenu__head, .qmenu__foot { grid-column: 1 / -1; }
+  .qmenu__big { grid-column: 1; grid-row: 2 / span 4; align-content: start; }
+  .qmenu__label, .qmenu__chips, .qmenu__modes { grid-column: 2; }
+  .qmenu__mode-text small { display: none; }
+  .qmenu__mode { padding-top: 9px; padding-bottom: 9px; min-height: 0; }
+}

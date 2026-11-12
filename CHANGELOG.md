@@ -5,6 +5,12 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 1.9.0
 
+- **Reportar un fallo:** en Ajustes, cuéntanos qué pasó y le llega directo a Emma por Discord, con la versión y el
+  registro interno de errores de Capri (sin tu nombre, tus mensajes ni tus claves).
+- **Su menú en horizontal:** con el teléfono de lado (jugando, por ejemplo) se acomoda en dos columnas y tiene una
+  barra para ver que hay más abajo.
+- **Vestuario:** el aura Sandevistan ya no se ve cortada (ahora son tres estelas limpias), las opciones de
+  Transparencia te muestran cómo se verá, y en algunos teléfonos su vista previa ya no sale como un cuadro blanco.
 - **Tus clases y tu calendario:** en la pestaña «Tú» anota qué días tienes clase y a qué hora, y una hora antes
   te llega su notificación especial, con su cara y sus colores. Si quieres, también lee tu calendario (solo lo lee,
   nunca cambia nada) y te recuerda lo que se acerca: la noche antes y una hora antes. Si está en tu pantalla, te lo

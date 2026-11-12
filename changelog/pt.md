@@ -4,6 +4,12 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 
 ## 1.9.0
 
+- **Reportar um erro:** em Ajustes, conta o que aconteceu e chega direto pra Emma no Discord, com a versão e o
+  registro interno de erros da Capri (sem seu nome, suas mensagens nem suas chaves).
+- **O menu dela na horizontal:** com o celular deitado (jogando, por exemplo) ele se ajeita em duas colunas e tem
+  uma barra que mostra que tem mais embaixo.
+- **Guarda-roupa:** a aura Sandevistan não parece mais cortada (agora são três rastros limpos), as opções de
+  Transparência mostram como ela vai ficar, e em alguns celulares a prévia dela não aparece mais como um quadrado branco.
 - **Suas aulas e sua agenda:** na aba «Você», anota em que dias você tem aula e a que horas, e uma hora antes chega
   a notificação especial dela, com o rosto e as cores dela. Se quiser, ela também lê sua agenda (só lê, nunca muda
   nada) e te lembra do que está chegando: na noite anterior e uma hora antes. Se ela estiver na sua tela, ela mesma

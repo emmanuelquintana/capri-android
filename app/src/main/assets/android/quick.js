@@ -2,6 +2,8 @@
 // a few of her moves, her modes as switches, and the way to all her settings (menu.js). Over a
 // dimmed screen (blurred too, where the phone can: Overlay.kt), so it reads over any app.
 
+import { scrollCue } from './scroll-cue.js';
+
 const LABELS = {
   es: {
     title: 'Capri', moves: 'Movimientos', modes: 'Modos', all: 'Todos los ajustes', app: 'Abrir la app',
@@ -77,6 +79,7 @@ export class QuickMenu {
     this.render();
     this.el.hidden = false;
     this.shade.hidden = false;
+    this.place(); // (again, now that it has a size: hidden, it measured 0 and went off-center)
     this.host.blur(true);
   }
 
@@ -192,6 +195,7 @@ export class QuickMenu {
     foot.append(all, app);
     this.el.append(foot);
     this.place();
+    scrollCue(this.el); // (a bar you can see when it doesn't all fit: a phone on its side)
   }
 
   label(text) {

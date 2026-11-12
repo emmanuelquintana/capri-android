@@ -4,6 +4,12 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.9.0
 
+- **Report a bug:** in Settings, tell us what happened and it goes straight to Emma on Discord, with the version and
+  Capri's internal error log (without your name, your messages or your keys).
+- **Her menu sideways:** with the phone on its side (while gaming, say) it fits in two columns and has a bar that
+  shows there's more below.
+- **Wardrobe:** the Sandevistan aura no longer looks cut up (now it's three clean trails), the See-through options
+  show you how she'll look, and on some phones her preview no longer shows up as a white box.
 - **Your classes and your calendar:** in the «You» tab, note which days you have class and at what time, and an hour
   before her special notification arrives, with her face and her colors. If you want, she also reads your calendar
   (read only, she never changes anything) and reminds you of what's coming: the evening before and an hour before.

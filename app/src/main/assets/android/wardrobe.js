@@ -108,11 +108,36 @@ const PLACE = {
 
 const AURAS = [['none', null], ['red', '#ff1744'], ['green', '#08f467'], ['cyan', '#00e5ff'], ['violet', '#8a3cff'], ['gold', '#ffc21a'], ['white', '#ffffff'], ['sandevistan', 'trail'], ['psycho', 'psycho']];
 // the Sandevistan's afterimages (Edgerunners): copies of her trailing behind, green to violet
-const TRAIL = (dir) => [['#08f467', 0.55], ['#00e5ff', 0.4], ['#8a3cff', 0.28]].map(([c, a], i) => `drop-shadow(${-dir * 7 * (i + 1)}px 0 0 ${c}${Math.round(a * 255).toString(16).padStart(2, '0')})`).join(' ');
+// Sandevistan: three afterimages behind her, green, cyan, violet, each fainter and a little soft. An SVG
+// filter (1.9.0): chained CSS drop-shadows copy each other's copies (8 hard copies in steps, "se ven
+// cortados"), these are three, each of her alone.
+const TRAIL_COPIES = [['#08f467', 0.55], ['#00e5ff', 0.4], ['#8a3cff', 0.28]];
+function trailFilters() {
+  if (document.getElementById('capri-trail-r')) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('width', '0');
+  svg.setAttribute('height', '0');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;pointer-events:none';
+  const parts = (dir) => {
+    const copies = TRAIL_COPIES.map(([c, a], i) => `<feOffset in="soft" dx="${-dir * 8 * (i + 1)}" result="o${i}"/><feFlood flood-color="${c}" flood-opacity="${a}"/><feComposite in2="o${i}" operator="in" result="c${i}"/>`).reverse().join('');
+    const merge = TRAIL_COPIES.map((_, i) => `<feMergeNode in="c${i}"/>`).reverse().join('');
+    return `<filter id="capri-trail-${dir > 0 ? 'r' : 'l'}" x="-35%" y="-5%" width="170%" height="110%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="0.7" result="soft"/>${copies}<feMerge>${merge}<feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+  };
+  svg.innerHTML = parts(1) + parts(-1);
+  (document.body || document.documentElement).append(svg);
+}
+const TRAIL = (dir) => {
+  trailFilters();
+  return `url(#capri-trail-${dir < 0 ? 'l' : 'r'})`;
+};
 // cyberpsychosis (Edgerunners, 1.9.0): chrome taking over, red split copies of her twitching around her
 // (android.css .is-psycho moves them; this is how it stays on a pose drawing, poses.js)
 const PSYCHO = 'drop-shadow(-3px 0 0 #ff1744cc) drop-shadow(3px 0 0 #00e5ff55) drop-shadow(0 0 6px #ff1744aa) contrast(1.12)';
 const ALPHAS = [1, 0.85, 0.7, 0.55, 0.4];
+// behind her see-through tiles: diagonal stripes, so you see through her
+const SEE_THROUGH = 'repeating-linear-gradient(135deg, rgba(242,241,232,0.16) 0 6px, rgba(242,241,232,0.03) 6px 12px)';
 
 const WORDS = {
   es: { title: 'Vestuario', outfits: 'Conjuntos', things: 'Accesorios', colors: 'Colores', effects: 'Efectos', soon: 'pronto', secret: 'secreto', mane: 'Melena', mask: 'Máscara', aura: 'Aura', alpha: 'Transparencia', gamerAlpha: 'En modo gamer', done: 'Listo', reset: 'Quitar todo', none: 'Nada', psycho: 'Ciberpsicosis', tap: 'Toca para ponérselo; otra vez para quitárselo.' },
@@ -552,10 +577,11 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
           : color ? `radial-gradient(circle, ${color} 0 35%, transparent 70%)` : null;
         g1.append(tile({ label: id === 'none' ? w.none : id === 'sandevistan' ? 'Sandevistan' : id === 'psycho' ? w.psycho : '', on: l.aura === id, swatch, click: () => { set({ aura: id }); render(); } }));
       }
+      // each one shows her as see-through as that, over stripes (1.9.0: they were empty)
       const g2 = grid(w.alpha);
-      for (const a of ALPHAS) g2.append(tile({ label: `${Math.round(a * 100)}%`, on: Math.abs(l.alpha - a) < 0.01, click: () => { set({ alpha: a }); render(); } }));
+      for (const a of ALPHAS) g2.append(tile({ label: `${Math.round(a * 100)}%`, on: Math.abs(l.alpha - a) < 0.01, swatch: SEE_THROUGH, paint: ghost(a), click: () => { set({ alpha: a }); render(); } }));
       const g3 = grid(w.gamerAlpha);
-      for (const a of [1, 0.7, 0.55, 0.4, 0.25]) g3.append(tile({ label: `${Math.round(a * 100)}%`, on: Math.abs(l.gamerAlpha - a) < 0.01, click: () => { set({ gamerAlpha: a }); render(); } }));
+      for (const a of [1, 0.7, 0.55, 0.4, 0.25]) g3.append(tile({ label: `${Math.round(a * 100)}%`, on: Math.abs(l.gamerAlpha - a) < 0.01, swatch: SEE_THROUGH, paint: ghost(a), click: () => { set({ gamerAlpha: a }); render(); } }));
       const reset = document.createElement('button');
       reset.type = 'button';
       reset.className = 'wardrobe__reset';
@@ -564,6 +590,12 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       body.append(reset);
     }
     el.append(body);
+  }
+  // her in what she wears now, as see-through as `a`
+  function ghost(a) {
+    const c = thumb(have[`outfit-${look().outfit}`] || original);
+    c.style.opacity = String(a);
+    return c;
   }
   // a small picture of her in an outfit (or a padlock's silhouette)
   function thumb(img) {

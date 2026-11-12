@@ -3,6 +3,8 @@
 // drawn here as one of her own HUD plates, near where you pressed her. Submenus open in place,
 // with a back row at the top.
 
+import { scrollCue } from './scroll-cue.js';
+
 const ARROW = '›';
 
 export class Menu {
@@ -83,6 +85,7 @@ export class Menu {
     }
     this.el.append(list);
     this.place();
+    scrollCue(this.el);
   }
 
   row(item, kind = '') {
