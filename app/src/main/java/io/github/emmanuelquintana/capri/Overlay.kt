@@ -477,11 +477,31 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
             val web = webView ?: return false
             val at = IntArray(2)
             web.getLocationOnScreen(at)
-            val copy = MotionEvent.obtain(ev)
+            val copy = finger(ev) ?: return true
             copy.offsetLocation(ev.rawX - ev.x - at[0], ev.rawY - ev.y - at[1])
             web.dispatchTouchEvent(copy)
             copy.recycle()
             return true
+        }
+
+        // (1.9.1) "não consigo clicar na capri com o mouse": a mouse (or a phone used with keyboard and
+        // mouse) clicks as a finger would tap, so she's pressed, dragged and held the same way. Its
+        // own button events (not a touch) are left out.
+        private fun finger(ev: MotionEvent): MotionEvent? {
+            val mouse = ev.isFromSource(android.view.InputDevice.SOURCE_MOUSE) ||
+                (ev.pointerCount > 0 && ev.getToolType(0) == MotionEvent.TOOL_TYPE_MOUSE)
+            if (!mouse) return MotionEvent.obtain(ev)
+            when (ev.actionMasked) {
+                MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE, MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {}
+                else -> return null
+            }
+            val n = ev.pointerCount
+            val props = Array(n) { i -> MotionEvent.PointerProperties().also { ev.getPointerProperties(i, it); it.toolType = MotionEvent.TOOL_TYPE_FINGER } }
+            val coords = Array(n) { i -> MotionEvent.PointerCoords().also { ev.getPointerCoords(i, it) } }
+            return MotionEvent.obtain(
+                ev.downTime, ev.eventTime, ev.action, n, props, coords, ev.metaState, 0,
+                ev.xPrecision, ev.yPrecision, ev.deviceId, ev.edgeFlags, android.view.InputDevice.SOURCE_TOUCHSCREEN, ev.flags,
+            )
         }
 
         fun clear() {

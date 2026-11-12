@@ -39,6 +39,11 @@ class PeekService : AccessibilityService() {
         if (Regex("volume|dialog|toast|keyguard", RegexOption.IGNORE_CASE).containsMatchIn(cls)) return
         if (!CapriService.running) return
         if (getSystemService(KeyguardManager::class.java)?.isKeyguardLocked == true) return // (not on the lock screen)
+        // 1.9.1 (Samsung, Android 16: "aparece siempre"): some phones' system UI sends these all the
+        // time, and each one kept her there longer. Now: one visit, then a rest before the next.
+        val now = System.currentTimeMillis()
+        if (view != null || now - lastGone < REST_MS) return
+        if (seen.add(cls)) Diag.add("I", "peek: system panel ${cls.substringAfterLast('.')}") // (a class name only)
         show()
     }
 
@@ -62,11 +67,13 @@ class PeekService : AccessibilityService() {
         }.onFailure { Diag.add("W", "peek: ${it.message}") }
     }
 
+    private var lastGone = 0L
+    private val seen = HashSet<String>()
+
     private fun show() = main.post {
         load()
-        if (frames.isEmpty()) return@post
-        main.removeCallbacks(goAway)
-        if (view == null) {
+        if (frames.isEmpty() || view != null) return@post
+        run {
             val wm = getSystemService(WindowManager::class.java) ?: return@post
             val h = (resources.displayMetrics.density * 150).toInt()
             val w = h * frames[0].width / frames[0].height
@@ -113,6 +120,7 @@ class PeekService : AccessibilityService() {
     private fun hide(now: Boolean = false) {
         val v = view ?: return
         view = null
+        lastGone = System.currentTimeMillis()
         main.removeCallbacks(tick)
         main.removeCallbacks(goAway)
         val wm = getSystemService(WindowManager::class.java)
@@ -125,6 +133,7 @@ class PeekService : AccessibilityService() {
         private const val ANIMS = "capri/assets/capri/anims"
         private const val ANIM = "wave"
         private const val STAY_MS = 6500L
+        private const val REST_MS = 120_000L // at most one visit every two minutes
 
         /** Turned on in Android's Accessibility settings (only there: the app can't do it itself). */
         fun enabled(context: Context): Boolean {

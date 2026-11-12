@@ -542,6 +542,7 @@ const snaps = new Map();
 // "signal is aborted" or "messages[1].content must be a string" in her panel
 const FRIENDLY = {
   es: [
+    [/afford|credits|insufficient.*(credit|balance|funds)|payment required/i, 'a tu cuenta de esa IA le falta saldo para esto; usa un modelo gratis (los que dicen «free») o recarga'],
     [/must be a string|image_url|vision|multimodal|modalit/i, 'esa IA no puede ver imágenes'],
     [/^not allowed/i, 'no me diste permiso de ver tu pantalla'],
     [/screen off/i, 'la pantalla está apagada'],
@@ -555,6 +556,7 @@ const FRIENDLY = {
     [/network|fetch|resolve|offline|connect|socket|host/i, 'no hay internet o el servicio no responde'],
   ],
   en: [
+    [/afford|credits|insufficient.*(credit|balance|funds)|payment required/i, 'your account with that AI is short on credit for this; pick a free model (the ones marked “free”) or top it up'],
     [/must be a string|image_url|vision|multimodal|modalit/i, 'that AI can’t see pictures'],
     [/^not allowed/i, 'you didn’t let me see your screen'],
     [/screen off/i, 'the screen is off'],
@@ -568,6 +570,7 @@ const FRIENDLY = {
     [/network|fetch|resolve|offline|connect|socket|host/i, 'no internet, or the service isn’t answering'],
   ],
   fr: [
+    [/afford|credits|insufficient.*(credit|balance|funds)|payment required/i, 'ton compte chez cette IA manque de crédit pour ça ; prends un modèle gratuit (marqué « free ») ou recharge'],
     [/must be a string|image_url|vision|multimodal|modalit/i, 'cette IA ne voit pas les images'],
     [/^not allowed/i, 'tu ne m’as pas laissée voir ton écran'],
     [/screen off/i, 'l’écran est éteint'],
@@ -581,6 +584,7 @@ const FRIENDLY = {
     [/network|fetch|resolve|offline|connect|socket|host/i, 'pas d’internet, ou le service ne répond pas'],
   ],
   pt: [
+    [/afford|credits|insufficient.*(credit|balance|funds)|payment required/i, 'sua conta nessa IA está sem saldo pra isso; usa um modelo grátis (os que dizem “free”) ou recarrega'],
     [/must be a string|image_url|vision|multimodal|modalit/i, 'essa IA não enxerga imagens'],
     [/^not allowed/i, 'você não me deixou ver sua tela'],
     [/screen off/i, 'a tela está desligada'],
@@ -594,6 +598,7 @@ const FRIENDLY = {
     [/network|fetch|resolve|offline|connect|socket|host/i, 'sem internet, ou o serviço não responde'],
   ],
   ru: [
+    [/afford|credits|insufficient.*(credit|balance|funds)|payment required/i, 'на твоём аккаунте этого ИИ не хватает средств; выбери бесплатную модель (с пометкой «free») или пополни счёт'],
     [/must be a string|image_url|vision|multimodal|modalit/i, 'этот ИИ не видит картинки'],
     [/^not allowed/i, 'ты не разрешил мне видеть экран'],
     [/screen off/i, 'экран выключен'],

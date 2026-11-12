@@ -2,6 +2,22 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.9.1
+
+- **Fewer closes and white screens:** on phones with weak graphics (Redmi, Honor, realme…) Capri closed or stayed
+  white. In **lite mode** she's now drawn without 3D, and if your phone loses her picture twice in a row, it
+  switches to that drawing by itself for a few days.
+- **OpenRouter:** looking at photos and videos no longer fails with "something went wrong". If you run out of
+  credits, she tells you clearly.
+- **Gamer mode with cloud games:** detects Boosteroid, GeForce NOW, Xbox Cloud, Steam Link, Moonlight, Parsec and
+  others.
+- **She peeks into your notifications:** she no longer shows up every time or gets stuck; she peeks once and rests
+  a while.
+- **Microphone:** no more repeated "The speech recognizer failed (error 5)", she remembers how your phone listens, and no
+  more beep each time the mic turns on and off (media sound is muted only for an instant; never your calls, alarms
+  or notifications).
+- **With a mouse:** if you use your phone with a mouse, you can now click Capri.
+
 ## 1.9.0
 
 - **Report a bug:** in Settings, tell us what happened and it goes straight to Emma on Discord, with the version and

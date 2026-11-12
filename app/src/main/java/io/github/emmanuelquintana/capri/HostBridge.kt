@@ -47,6 +47,10 @@ class HostBridge(private val service: CapriService) {
     @JavascriptInterface
     fun lite(): Boolean = Perf.lite(service)
 
+    /** Her picture in 2D, without WebGL (1.9.1, Perf.flat): asked as her page starts (compat.js). */
+    @JavascriptInterface
+    fun flat(): Boolean = Perf.flat(service)
+
     private fun obj(args: Any?) = args as? JSONObject ?: JSONObject()
 
     private fun clipboard(): String {
@@ -80,6 +84,7 @@ class HostBridge(private val service: CapriService) {
         "overlay:alive" -> service.overlay?.alive()
         "share:take" -> ShareActivity.take() ?: JSONObject.NULL
         "overlay:restart" -> service.overlay?.restart(obj(args).optString("why", "her page asked"))
+        "gpu:lost" -> Perf.gpuLost(service)
         "log" -> log.add(obj(args).optString("level", "E"), obj(args).optString("text"))
         "overlay:focus" -> service.overlay?.setFocusable(obj(args).optBoolean("on"))
         "overlay:blur" -> service.overlay?.setBlur(obj(args).optBoolean("on"))
@@ -95,6 +100,7 @@ class HostBridge(private val service: CapriService) {
         "voice:say" -> service.ears?.say(obj(args).optString("text"), obj(args).optString("lang", "es-MX"))
         "voice:torch" -> service.ears?.torch(if (obj(args).isNull("on")) null else obj(args).optBoolean("on")) ?: JSONObject.NULL
         "voice:off" -> Ears.setEnabled(service, false)
+        "voice:sound" -> service.ears?.sound()
 
         // her look at your screen (Eyes.kt): one picture, live on or off, how much it changed
         "look:snap" -> JSONObject().put("image", service.eyes.snap())

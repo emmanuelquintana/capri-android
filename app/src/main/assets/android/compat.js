@@ -71,4 +71,10 @@ if (lite && real() > LITE_DPR) {
   } catch {}
 }
 window.capriLite = lite;
+// her picture in 2D, without WebGL (1.9.1, Perf.flat: modo ligero, or a GPU that kept losing it)
+try {
+  window.capriFlat = Boolean(window.CapriNative?.flat?.());
+} catch {
+  window.capriFlat = lite;
+}
 if (lite) document.documentElement.classList.add('is-lite');

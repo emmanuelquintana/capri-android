@@ -32,7 +32,15 @@ function variants(url, body) {
   } catch {
     return [plain];
   }
-  if (!json || typeof json !== 'object' || json.reasoning_effort) return [plain];
+  if (!json || typeof json !== 'object') return [plain];
+  // OpenRouter (1.9.1): with no max_tokens it reserves the model's whole maximum (32768) up front,
+  // and an account with a little credit gets "can only afford 3293" (402) on every look and chat.
+  // Her answers are short: a few hundred words at most, a look at your screen included.
+  if (/openrouter\.ai\/api\/v1\/chat\/completions/.test(url) && json.max_tokens == null && json.max_completion_tokens == null) {
+    json = { ...json, max_tokens: 1500 };
+    return [JSON.stringify(json)];
+  }
+  if (json.reasoning_effort) return [plain];
   let efforts = [];
   if (/text\.pollinations\.ai\/openai\/chat\/completions/.test(url)) efforts = ['low'];
   else if (/generativelanguage\.googleapis\.com\/.*\/chat\/completions/.test(url)) {

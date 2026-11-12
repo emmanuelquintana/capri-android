@@ -2,6 +2,22 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.9.1
+
+- **Moins de fermetures et d’écrans blancs :** sur les téléphones avec une puce graphique modeste (Redmi, Honor,
+  realme…) Capri se fermait ou restait blanche. En **mode léger** elle est maintenant dessinée sans 3D, et si ton
+  téléphone perd son image deux fois de suite, il passe tout seul à ce dessin pendant quelques jours.
+- **OpenRouter :** regarder des photos et des vidéos n’échoue plus avec « quelque chose a échoué ». Si tu n’as plus
+  de crédits, elle te le dit clairement.
+- **Mode gamer avec le cloud gaming :** détecte Boosteroid, GeForce NOW, Xbox Cloud, Steam Link, Moonlight, Parsec
+  et d’autres.
+- **Elle jette un œil à tes notifications :** elle n’apparaît plus à chaque fois et ne reste plus bloquée ; elle
+  passe une fois et se repose un moment.
+- **Micro :** plus de « La reconnaissance vocale a échoué (erreur 5) » en boucle, elle se souvient de la façon dont
+  ton téléphone écoute, et plus de bip à chaque fois que le micro s’allume et s’éteint (le son multimédia est coupé
+  un instant seulement ; jamais tes appels, alarmes ni notifications).
+- **Avec une souris :** si tu utilises ton téléphone avec une souris, tu peux maintenant cliquer sur Capri.
+
 ## 1.9.0
 
 - **Signaler un bug :** dans Réglages, raconte-nous ce qui s’est passé et ça arrive directement à Emma sur Discord,

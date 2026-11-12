@@ -50,13 +50,76 @@ class Ears(private val service: CapriService) {
     // session"): the mic stays on, steady, and starts again about once a minute. A phone whose
     // recognizer won't do it is noticed (sessions that keep ending early with nothing) and goes back to
     // the old way, with a short rest between tries when nothing at all was heard.
-    private var segmented: Boolean? = null // null: not known yet on this phone
+    // (1.9.1) remembered: a phone that closed her each time it lost her picture started over, trying the
+    // long session again (and failing, "error 5") after every restart. Known again after an update.
+    private var segmented: Boolean? = service.getSharedPreferences("app", Context.MODE_PRIVATE)
+        .getString(SEG_PREF, null)?.takeIf { it.startsWith(SEG_KEY) }?.let { it.endsWith(":1") }
     private var longNow = false     // this session is a segmented one
     private var sessionAt = 0L
     private var segments = 0
     private var shortOnes = 0
     private var quiet = 0           // sessions in a row that heard nothing at all (the old way)
     private var peak = NO_RMS       // the loudest moment of what's being said (how close the voice is)
+
+    private fun knowSegmented(can: Boolean) {
+        segmented = can
+        service.getSharedPreferences("app", Context.MODE_PRIVATE).edit().putString(SEG_PREF, "$SEG_KEY${if (can) 1 else 0}").apply()
+    }
+
+    // (1.9.1) "se escucha un pitido cada vez que activa y desactiva el micro": the recognizer's own beep,
+    // on the media sound. Only that one, never your calls, alarms or notifications, is
+    // muted while her mic opens and closes, and never while something plays (she lets go of the mic as
+    // soon as a video or song starts). Each comes back as it was: a sound you had muted yourself isn't
+    // touched, and what she muted is written down, so it comes back even if the app closed meanwhile.
+    private val hushed = HashSet<Int>()
+    private val unhushNow = Runnable { unhush() }
+
+    private var soundUntil = 0L
+
+    /** Her page is about to make a sound of its own (a blip, her hello): heard, not muted. */
+    fun sound() = main.post {
+        soundUntil = System.currentTimeMillis() + 4000
+        unhush()
+    }
+
+    /** Her beep muted for [ms] more (each call moves the end). */
+    private fun hush(ms: Long) {
+        if (System.currentTimeMillis() < soundUntil) return
+        val audio = service.getSystemService(AudioManager::class.java) ?: return
+        var changed = false
+        for (stream in HUSH) {
+            if (stream in hushed || audio.isStreamMute(stream)) continue
+            if (runCatching { audio.adjustStreamVolume(stream, AudioManager.ADJUST_MUTE, 0) }.isSuccess) {
+                hushed.add(stream)
+                changed = true
+            }
+        }
+        if (changed) saveHushed()
+        main.removeCallbacks(unhushNow)
+        if (hushed.isNotEmpty()) main.postDelayed(unhushNow, ms)
+    }
+
+    private fun unhush() {
+        main.removeCallbacks(unhushNow)
+        if (hushed.isEmpty()) return
+        val audio = service.getSystemService(AudioManager::class.java)
+        hushed.forEach { stream -> runCatching { audio?.adjustStreamVolume(stream, AudioManager.ADJUST_UNMUTE, 0) } }
+        hushed.clear()
+        saveHushed()
+    }
+
+    private fun saveHushed() {
+        service.getSharedPreferences("app", Context.MODE_PRIVATE).edit().putString(HUSH_PREF, hushed.joinToString(",")).commit()
+    }
+
+    init {
+        // left muted by a closing she didn't see coming: back as they were
+        val left = service.getSharedPreferences("app", Context.MODE_PRIVATE).getString(HUSH_PREF, "").orEmpty()
+        if (left.isNotBlank()) {
+            hushed.addAll(left.split(',').mapNotNull { it.trim().toIntOrNull() }.filter { it in HUSH })
+            unhush()
+        }
+    }
 
     // (1.9.0) the phone moving: no permission, only how hard, never where
     private val motion = object : SensorEventListener {
@@ -131,6 +194,7 @@ class Ears(private val service: CapriService) {
         listening = false
         recognizer?.let { runCatching { it.cancel() }; runCatching { it.destroy() } }
         recognizer = null
+        unhush()
     }
 
     fun destroy() {
@@ -194,26 +258,39 @@ class Ears(private val service: CapriService) {
         segments = 0
         peak = NO_RMS
         listening = true
+        playing = 0
         main.removeCallbacks(mediaCheck)
-        if (longNow) main.postDelayed(mediaCheck, 2000)
+        main.postDelayed(mediaCheck, MEDIA_EVERY)
+        // her beep, as the mic opens (a short session: also as it closes, a few seconds later)
+        hush(if (longNow) 2500L else 12_000L)
+        main.removeCallbacks(hushEnd)
+        if (longNow) main.postDelayed(hushEnd, SESSION_MS - 1500L)
         runCatching { r.startListening(intent) }.onFailure {
             listening = false
             failed(SpeechRecognizer.ERROR_CLIENT)
         }
     }
 
-    // a long session open and a video or song starts: she lets go of the mic (it would take its sound)
+    // a long session about to end on its own: her beep as it closes
+    private val hushEnd = Runnable { if (listening && longNow) hush(4000L) }
+
+    // a video or song starts while she listens: she lets go of the mic (it would take its sound, and
+    // its sound would be muted). Twice in a row, so her own short beep doesn't count.
+    private var playing = 0
     private val mediaCheck: Runnable = object : Runnable {
         override fun run() {
-            if (!listening || !longNow) return
-            if (service.getSystemService(AudioManager::class.java)?.isMusicActive == true) {
+            if (!listening) return
+            playing = if (service.getSystemService(AudioManager::class.java)?.isMusicActive == true) playing + 1 else 0
+            if (playing >= 2) {
                 recognizer?.let { runCatching { it.cancel() } }
                 listening = false
+                main.removeCallbacks(hushEnd)
+                unhush()
                 status = "media"
                 next(3000)
                 return
             }
-            main.postDelayed(this, 2000)
+            main.postDelayed(this, MEDIA_EVERY)
         }
     }
 
@@ -222,11 +299,13 @@ class Ears(private val service: CapriService) {
         if (!longNow) return
         val short = System.currentTimeMillis() - sessionAt < SESSION_MS / 3
         if (segments > 0 || !short) {
-            if (segmented != true) Diag.add("I", "voice: one long session (the mic stays on)")
-            segmented = true
+            if (segmented != true) {
+                Diag.add("I", "voice: one long session (the mic stays on)")
+                knowSegmented(true)
+            }
             shortOnes = 0
         } else if (!gotWords && segmented == null && ++shortOnes >= 3) {
-            segmented = false
+            knowSegmented(false)
             Diag.add("I", "voice: this phone's recognizer listens a few seconds at a time")
         }
     }
@@ -252,6 +331,7 @@ class Ears(private val service: CapriService) {
                 listening = false
                 failures = 0
                 quiet = 0
+                hush(800) // (her closing beep; the next session starts before it ends)
                 val words = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).orEmpty()
                 ended(words.isNotEmpty())
                 heard(words, results?.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES))
@@ -268,15 +348,19 @@ class Ears(private val service: CapriService) {
             }
             override fun onEndOfSegmentedSession() {
                 listening = false
+                hush(800)
                 ended(true)
                 next(150)
             }
             override fun onError(error: Int) {
                 listening = false
+                hush(800)
                 failed(error)
             }
             override fun onReadyForSpeech(params: Bundle?) {
                 status = "listening"
+                // the mic is open, its beep played: a long session gives your sounds back now
+                if (longNow) hush(400)
             }
             // you started or stopped talking: her sign that she's listening (hearing.js), only
             // shown right after her name
@@ -306,6 +390,23 @@ class Ears(private val service: CapriService) {
                 ended(false)
                 quiet = if (error == SpeechRecognizer.ERROR_SPEECH_TIMEOUT) quiet + 1 else 0
                 next(if (longNow || quiet < 3) 200L else minOf(1500L, 300L * quiet))
+            }
+            // (1.9.1) "Falló el reconocedor de voz (error 5)" over and over: 5 is the recognizer saying it
+            // can't do what was asked (a long session, on many phones) or that it was still busy with the
+            // last one. Not your microphone failing: a fresh recognizer, the short way if it was the
+            // long session, soon, and the error only shown if it keeps happening.
+            SpeechRecognizer.ERROR_CLIENT, SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> {
+                recognizer?.let { runCatching { it.cancel() }; runCatching { it.destroy() } }
+                recognizer = null
+                if (error == SpeechRecognizer.ERROR_CLIENT && longNow && segmented != true) {
+                    knowSegmented(false)
+                    Diag.add("I", "voice: no long session here (error 5), the short way")
+                    return next(400)
+                }
+                failures++
+                if (failures >= 4) status = "error:$error"
+                if (failures == 1 || failures % 10 == 0) Diag.add("W", "voice: recognizer error $error")
+                next(minOf(15_000L, 600L * failures))
             }
             SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> {
                 status = "nomic"
@@ -385,6 +486,9 @@ class Ears(private val service: CapriService) {
     /** Her answer, out loud (not on silent or vibrate), and not heard by her own ears meanwhile. */
     fun say(text: String, lang: String) = main.post {
         val audio = service.getSystemService(AudioManager::class.java)!!
+        // her own beep's mute off first: her voice goes through the media volume too
+        unhush()
+        main.removeCallbacks(hushEnd)
         // out loud through the media volume (what music uses): her ears asked you for it, even on silent
         if (text.isBlank() || audio.getStreamVolume(AudioManager.STREAM_MUSIC) == 0) return@post
         val speak = {
@@ -485,6 +589,11 @@ class Ears(private val service: CapriService) {
         private const val MOVED = 2.2 // m/s² off gravity: the phone moved in your hand, not just held
         private const val SHAKEN_MS = 4000L
         private const val SESSION_MS = 60_000L // a long session's length (then a new one)
+        private const val MEDIA_EVERY = 700L
+        private val HUSH = intArrayOf(AudioManager.STREAM_MUSIC) // (not the system sounds: on phones they are the ringtone)
+        private const val HUSH_PREF = "voiceHushed"
+        private const val SEG_PREF = "voiceLong"
+        private val SEG_KEY = "${Build.VERSION.SDK_INT}:${BuildConfig.VERSION_CODE}:"
         private const val NO_RMS = -100f
         private const val FAR_RMS = 4.5f // the recognizer's level (about -2 silence to 10 loud): under it, far away
 

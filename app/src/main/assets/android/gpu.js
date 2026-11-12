@@ -16,8 +16,20 @@ const setup = SpriteRenderer.prototype.setup;
 const resize = SpriteRenderer.prototype.resize;
 const draw = SpriteRenderer.prototype.draw;
 
+// drawn in 2D from the start (1.9.1): modo ligero, or a phone whose GPU kept losing her (Perf.flat)
+function goFlat(r, why) {
+  const g = r.canvas.getContext('2d');
+  if (!g) return false;
+  send('log', { level: 'I', text: `drawing her in 2D (${why})` });
+  r.flat = g;
+  r.gl = null;
+  r.onPicture = () => {}; // (her wardrobe's picture is this.image, drawn on the next frame)
+  return true;
+}
+
 SpriteRenderer.prototype.setup = function () {
   if (this.flat) return;
+  if (window.capriFlat && !this.started && goFlat(this, window.capriLite ? 'modo ligero' : 'her GPU lost her picture lately')) return;
   const again = this.started; // (after a GPU reset, not her first time)
   try {
     setup.call(this);
@@ -59,9 +71,11 @@ SpriteRenderer.prototype.draw = function (s) {
   const { width, height } = this.canvas;
   const k = width / (SPRITE.width + SPRITE.pad * 2);
   g.clearRect(0, 0, width, height);
+  g.filter = 'brightness(1.3) saturate(1.2)'; // (as bright as her shader shows her)
   g.globalAlpha = Math.max(0, Math.min(1, (s?.alpha ?? 1) * (1 - (s?.dissolve || 0)) * (1 - (s?.collapse || 0))));
   g.drawImage(this.image, SPRITE.pad * k, SPRITE.pad * k, SPRITE.width * k, SPRITE.height * k);
   g.globalAlpha = 1;
+  g.filter = 'none';
 };
 
 // lost and not back: a fresh page
@@ -70,6 +84,7 @@ export function watchGpu() {
   if (!canvas) return;
   let timer = null;
   canvas.addEventListener('webglcontextlost', () => {
+    send('gpu:lost', {}); // (counted: twice lately and she's drawn in 2D from then on, Perf.kt)
     send('log', { level: 'W', text: 'her picture was lost (GPU)' });
     clearTimeout(timer);
     timer = setTimeout(() => {

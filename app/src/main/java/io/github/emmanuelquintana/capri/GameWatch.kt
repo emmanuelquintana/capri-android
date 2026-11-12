@@ -154,6 +154,9 @@ class GameWatch(private val service: CapriService) {
     // a game, as its store filed it (or as it says of itself)
     private fun isGame(pkg: String): Boolean = games.getOrPut(pkg) {
         if (pkg == service.packageName || pkg.startsWith("com.samsung.android.game.")) return@getOrPut false // Samsung's game tools aren't the game
+        // cloud gaming (1.9.1, from the community: Boosteroid didn't count): their stores file them as
+        // tools or entertainment, but what's in front is a game
+        if (CLOUD.any { it in pkg.lowercase() }) return@getOrPut true
         val info = runCatching { service.packageManager.getApplicationInfo(pkg, 0) }.getOrNull() ?: return@getOrPut false
         @Suppress("DEPRECATION")
         val flagged = info.flags and ApplicationInfo.FLAG_IS_GAME != 0
@@ -167,6 +170,12 @@ class GameWatch(private val service: CapriService) {
         // their coming and going doesn't mean you left your game
         private val OVERLAYS = setOf("com.android.systemui", "com.samsung.android.game.gametools", "com.samsung.android.game.gos")
         private const val PREF = "autoGamer"
+        // cloud gaming and remote play apps, by a piece of their package name
+        private val CLOUD = listOf(
+            "boosteroid", "geforcenow", "xcloud", "xboxone.smartglass", "gamepass", "steamlink", "limelight",
+            "moonlight", "remoteplay", "parsec", "shadow.mobile", "playstation.remote", "amazon.luna", "cloudgaming",
+            "netboom", "gloud", "cloudplay", "nowgg", "blacknut",
+        )
         // short videos and streams, whatever category they filed themselves under
         private val VIDEO = listOf(
             "com.zhiliaoapp.musically", "com.ss.android.ugc", "com.google.android.youtube", "com.netflix.",

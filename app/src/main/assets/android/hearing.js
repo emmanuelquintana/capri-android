@@ -7,7 +7,21 @@
 // When: after her name alone (what you say next is for her, 10 s), and while you speak right after
 // it (Ears.kt: `ears:speech`, with `awake`). The TV talking doesn't count.
 
-import { on } from './native.js';
+import { on, send } from './native.js';
+import { Voice } from '../capri/src/renderer/js/voice.js';
+
+// (1.9.1) while her mic opens and closes, the media sound is muted for a moment (Ears.kt: the
+// recognizer's beep). Her own little sounds (her voice blips, her hello) tell it first, so they're heard.
+const play = Voice.prototype.play;
+let told = 0;
+Voice.prototype.play = function (...args) {
+  const now = Date.now();
+  if (!this.muted && now - told > 1500) {
+    told = now;
+    send('voice:sound', {});
+  }
+  return play.apply(this, args);
+};
 
 export function hearing() {
   const dev = window.dev;

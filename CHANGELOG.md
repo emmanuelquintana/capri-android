@@ -3,6 +3,20 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.9.1
+
+- **Menos cierres y pantallas blancas:** en teléfonos con poca gráfica (Redmi, Honor, realme…) Capri se cerraba o
+  se quedaba en blanco. En **modo ligero** ahora se dibuja sin 3D, y si tu teléfono pierde su imagen dos veces
+  seguidas, cambia solo a ese dibujo por unos días.
+- **OpenRouter:** mirar fotos y videos ya no falla con «algo falló». Si se te acaban los créditos, te lo dice claro.
+- **Modo gamer con juegos en la nube:** detecta Boosteroid, GeForce NOW, Xbox Cloud, Steam Link, Moonlight, Parsec
+  y otros.
+- **Se asoma en tus notificaciones:** ya no sale cada vez ni se queda pegada; se asoma una vez y descansa un rato.
+- **Micrófono:** ya no repite «Falló el reconocedor de voz (error 5)», recuerda cómo escucha tu teléfono y ya no
+  suena un pitido cada vez que se prende y apaga (silencia el sonido multimedia solo un instante; nunca tus
+  llamadas, alarmas ni notificaciones).
+- **Con mouse:** si usas el teléfono con mouse, ya puedes hacerle clic a Capri.
+
 ## 1.9.0
 
 - **Reportar un fallo:** en Ajustes, cuéntanos qué pasó y le llega directo a Emma por Discord, con la versión y el
