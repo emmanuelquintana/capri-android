@@ -127,7 +127,7 @@ jobs:
             echo "---"
             echo "**Instalar:** descarga \`Capri-Android-$VERSION.apk\` en tu teléfono y ábrelo. Si ya tienes Capri, actualízala desde la app (placa *Actualizaciones*), sin desinstalar."
             echo
-            echo "Port de [capri-desktop](https://github.com/mochiiwuff/capri-desktop), de mochiiwuff. Gratis, nunca a la venta (PolyForm Noncommercial 1.0.0)."
+            echo "Gratis, nunca a la venta (PolyForm Noncommercial 1.0.0, ver LICENSE)."
           } >> "$RUNNER_TEMP/notes.md"
           echo "file=$RUNNER_TEMP/notes.md" >> "$GITHUB_OUTPUT"
           cat "$RUNNER_TEMP/notes.md"

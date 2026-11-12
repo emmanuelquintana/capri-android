@@ -365,4 +365,16 @@
     <string name="agenda_today_text">Сегодня тот самый день, чум. Пусть всё получится.</string>
     <string name="agenda_soon_title">⏰ В %1$s: %2$s</string>
     <string name="agenda_soon_text">Уже скоро, чум. Говорю заранее, чтобы не пришлось бежать.</string>
+    <!-- 1.9.0: report a bug (Report.kt) -->
+    <string name="settings_report">Сообщить об ошибке</string>
+    <string name="settings_report_how">Расскажи, что случилось, и это придёт Эмме в Discord. Вместе с этим уходят версия приложения, твой Android и модель телефона, и внутренний журнал ошибок Капри — без твоего имени, сообщений и ключей.</string>
+    <string name="settings_report_hint">Что случилось? Что ты делал(а)?</string>
+    <string name="settings_report_send">Отправить</string>
+    <string name="report_empty">Расскажи чуть подробнее, что случилось.</string>
+    <string name="report_sending">Отправка…</string>
+    <string name="report_ok">Отправлено. Спасибо, чум: Эмма посмотрит.</string>
+    <string name="report_rate">Ты уже отправил(а) несколько. Попробуй через час.</string>
+    <string name="report_off">Сейчас отчёты не принимаются. Попробуй позже.</string>
+    <string name="report_net">Нет связи. Проверь интернет и попробуй снова.</string>
+    <string name="report_bad">Не удалось отправить. Попробуй позже.</string>
 </resources>

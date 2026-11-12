@@ -364,4 +364,16 @@
     <string name="agenda_today_text">Hoje é o dia, choom. Que dê tudo certo.</string>
     <string name="agenda_soon_title">⏰ Às %1$s: %2$s</string>
     <string name="agenda_soon_text">Já quase, choom. Te aviso com tempo pra você não ter que correr.</string>
+    <!-- 1.9.0: report a bug (Report.kt) -->
+    <string name="settings_report">Reportar um erro</string>
+    <string name="settings_report_how">Conta o que aconteceu e chega pra Emma no Discord. Junto vai a versão do app, seu Android e modelo do celular, e o registro interno de erros da Capri, sem seu nome, suas mensagens nem suas chaves.</string>
+    <string name="settings_report_hint">O que aconteceu? O que você estava fazendo?</string>
+    <string name="settings_report_send">Enviar</string>
+    <string name="report_empty">Conta um pouco mais do que aconteceu.</string>
+    <string name="report_sending">Enviando…</string>
+    <string name="report_ok">Enviado. Valeu, choom: a Emma vai olhar.</string>
+    <string name="report_rate">Você já enviou vários. Tenta de novo em uma hora.</string>
+    <string name="report_off">Agora os reportes não estão sendo recebidos. Tenta mais tarde.</string>
+    <string name="report_net">Sem conexão. Confere sua internet e tenta de novo.</string>
+    <string name="report_bad">Não deu pra enviar. Tenta mais tarde.</string>
 </resources>

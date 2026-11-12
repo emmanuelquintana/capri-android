@@ -96,6 +96,7 @@ class CapriService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        Diag.init(this)
         running = true
         current = this
         bridge = HostBridge(this)

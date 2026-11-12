@@ -56,6 +56,7 @@ class OnboardingActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Diag.init(this)
         window.statusBarColor = Hud.INK
         window.navigationBarColor = Hud.INK
         ui = Ui(this)

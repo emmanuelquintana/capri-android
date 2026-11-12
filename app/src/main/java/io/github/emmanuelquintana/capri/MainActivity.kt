@@ -1,8 +1,6 @@
 package io.github.emmanuelquintana.capri
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -103,13 +101,12 @@ class MainActivity : Activity() {
             ticker.postDelayed(this, 1500)
         }
     }
-    private lateinit var logText: TextView
-    private lateinit var logBox: LinearLayout
 
     private class Tab(val icon: Ui.Icon, val label: TextView, val button: LinearLayout, val page: View)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Diag.init(this)
         if (OnboardingActivity.needed(this)) {
             startActivity(Intent(this, OnboardingActivity::class.java))
             finish()
@@ -204,7 +201,6 @@ class MainActivity : Activity() {
     override fun onResume() {
         super.onResume()
         if (!::ui.isInitialized) return
-        Diag.onChange = { runOnUiThread { showLog() } }
         // back in the app: her service can take the microphone again if her ears are on (Android
         // only lets it while the app is in front)
         if (Ears.enabled(this)) CapriService.current?.voiceChanged()
@@ -216,7 +212,6 @@ class MainActivity : Activity() {
 
     override fun onPause() {
         super.onPause()
-        Diag.onChange = null
         ticker.removeCallbacks(tick)
     }
 
@@ -285,19 +280,7 @@ class MainActivity : Activity() {
             setPadding(ui.dpi(16), 0, 0, 0)
             addView(ui.text("/// PROJECT CAPRICORN", 11f, Hud.MANE, ui.mono).apply { letterSpacing = 0.12f })
             addView(ui.text("CAPRI", 44f, Hud.YELLOW, ui.head).apply { letterSpacing = 0.06f; includeFontPadding = false })
-            addView(ui.text("ANDROID // v${BuildConfig.VERSION_NAME}", 10f, Hud.PAPER_3, ui.mono).apply {
-                letterSpacing = 0.1f
-                // seven taps on the version: the developer's log shows up in Settings (or goes again)
-                var taps = 0
-                setOnClickListener {
-                    if (++taps < 7) return@setOnClickListener
-                    taps = 0
-                    val on = !devMode()
-                    getSharedPreferences("app", MODE_PRIVATE).edit().putBoolean("dev", on).apply()
-                    Toast.makeText(this@MainActivity, if (on) R.string.dev_on else R.string.dev_off, Toast.LENGTH_SHORT).show()
-                    refresh()
-                }
-            })
+            addView(ui.text("ANDROID // v${BuildConfig.VERSION_NAME}", 10f, Hud.PAPER_3, ui.mono).apply { letterSpacing = 0.1f })
         }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
         addView(header)
         // a WebView too old for her page (1.9.0): she can't show up at all until it's updated
@@ -903,21 +886,48 @@ class MainActivity : Activity() {
                 .show()
         }, ui.block(16))
 
-        // the log: what went wrong lately (the developer's, not for everyone: debug builds, or seven
-        // taps on the version)
-        logBox = ui.col()
-        addView(logBox)
-        val logHead = ui.row()
-        logHead.addView(ui.label(getString(R.string.main_log)), LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
-        logHead.addView(ui.button(getString(R.string.main_copy), Ui.Kind.LINE) { copyLog() })
-        logBox.addView(logHead, ui.block(26))
-        logText = ui.text("", 11f, Hud.PAPER_2, ui.mono).apply {
-            setLineSpacing(0f, 1.15f)
-            setTextIsSelectable(true)
-            background = ui.plate()
-            setPadding(ui.dpi(12), ui.dpi(10), ui.dpi(12), ui.dpi(12))
+        // report a bug (1.9.0, Report.kt): to Emma's Discord, with her internal log (never shown here)
+        addView(reportCard(), ui.block(16))
+    }
+
+    private fun reportCard() = ui.card(Hud.RED).apply {
+        addView(ui.label(getString(R.string.settings_report), Hud.RED))
+        addView(ui.text(getString(R.string.settings_report_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+        val field = ui.field(getString(R.string.settings_report_hint)).apply {
+            filters = arrayOf(android.text.InputFilter.LengthFilter(Report.MAX_TEXT))
+            minLines = 3
+            gravity = Gravity.TOP or Gravity.START
+            isSingleLine = false
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE or android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
         }
-        logBox.addView(logText, ui.block(8))
+        addView(field, ui.block(10))
+        val state = ui.text("", 13f, Hud.PAPER_2, ui.mono).apply { visibility = View.GONE }
+        lateinit var send: TextView
+        send = ui.button(getString(R.string.settings_report_send) + " ›", Ui.Kind.GREEN) {
+            val text = field.text.toString().trim()
+            if (text.length < 5) return@button Toast.makeText(this@MainActivity, R.string.report_empty, Toast.LENGTH_SHORT).show()
+            hideKeyboard()
+            send.isEnabled = false
+            send.alpha = 0.5f
+            state.visibility = View.VISIBLE
+            state.setTextColor(Hud.PAPER_2)
+            state.text = getString(R.string.report_sending)
+            Report.send(this@MainActivity, text) { r ->
+                send.isEnabled = true
+                send.alpha = 1f
+                state.setTextColor(if (r == "ok") Hud.GREEN else Hud.RED)
+                state.text = getString(when (r) {
+                    "ok" -> R.string.report_ok
+                    "rate" -> R.string.report_rate
+                    "off" -> R.string.report_off
+                    "net" -> R.string.report_net
+                    else -> R.string.report_bad
+                })
+                if (r == "ok") field.setText("")
+            }
+        }
+        addView(send, ui.block(10))
+        addView(state, ui.block(8))
     }
 
     private fun showVoice() {
@@ -944,7 +954,6 @@ class MainActivity : Activity() {
         voiceState.visibility = if (voiceState.text.isEmpty()) View.GONE else View.VISIBLE
     }
 
-    private fun devMode() = BuildConfig.DEBUG || getSharedPreferences("app", MODE_PRIVATE).getBoolean("dev", false)
 
     private fun saveName() {
         val n = nameField.text.toString().trim()
@@ -1020,7 +1029,6 @@ class MainActivity : Activity() {
         showVoice()
         choices.forEach { it() }
         lookBtn.text = getString(if (CapriService.current?.eyes?.live == true) R.string.settings_look_live_off else R.string.settings_look_live_on).uppercase()
-        showLog()
     }
 
     // ---------- Community ----------
@@ -1224,20 +1232,6 @@ class MainActivity : Activity() {
         if (CapriService.running) CapriService.send(this, CapriService.ACTION_SETUP)
         else CapriService.start(this, CapriService.ACTION_SETUP)
         moveTaskToBack(true)
-    }
-
-    private fun showLog() {
-        if (!::logText.isInitialized) return
-        logBox.visibility = if (devMode()) View.VISIBLE else View.GONE
-        val lines = Diag.all()
-        logText.text = if (lines.isEmpty()) getString(R.string.main_log_empty) else lines.takeLast(30).joinToString("\n")
-        logText.setTextColor(if (lines.any { it.contains(" E ") }) Hud.PAPER else Hud.PAPER_2)
-    }
-
-    private fun copyLog() {
-        val all = "Capri ${BuildConfig.VERSION_NAME} / Android ${Build.VERSION.RELEASE} (${Build.MODEL})\n" + Diag.all().joinToString("\n")
-        (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("Capri", all))
-        Toast.makeText(this, R.string.main_copied, Toast.LENGTH_SHORT).show()
     }
 
     private fun hideKeyboard() {

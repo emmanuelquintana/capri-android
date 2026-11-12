@@ -1,6 +1,6 @@
 # Capri para Android
 
-Port de [capri-desktop](https://github.com/mochiiwuff/capri-desktop), de mochiiwuff, a Android.
+Desarrollada por Emma.
 Capri, el constructo de *Project Capricorn* de Cyberpunk: Edgerunners, vive encima de tus apps, se sube a tu
 música y a tus notificaciones, charla contigo y te cuenta lo que hace tu IA de programación: **Claude Code**,
 **Codex** o **Antigravity**.
@@ -84,9 +84,7 @@ Cuando sale una versión nueva de capri-desktop, una tarea diaria abre un *issue
 
 ## Créditos y licencia
 
-Required Notice: Copyright (c) 2026 mochiiwuff (https://github.com/mochiiwuff/capri-desktop)
-
-El código está bajo la [PolyForm Noncommercial License 1.0.0](LICENSE), como el original: puedes usarlo,
+El código está bajo la [PolyForm Noncommercial License 1.0.0](LICENSE) (ahí están sus avisos): puedes usarlo,
 cambiarlo y compartirlo **gratis**. No se puede vender ni cobrar por él de ninguna forma.
 
 Capri / Project Capricorn, Cyberpunk y Cyberpunk: Edgerunners pertenecen a CD PROJEKT RED, Studio Trigger y
