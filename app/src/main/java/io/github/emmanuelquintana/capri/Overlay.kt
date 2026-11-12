@@ -27,7 +27,7 @@ import java.io.FileInputStream
 /**
  * Her window, as main.js's createOverlay(): full screen, transparent, always on top, and the
  * touches pass through it to your apps (FLAG_NOT_TOUCHABLE, as setIgnoreMouseEvents on the
- * desktop). Her renderer, copied unchanged from capri-desktop, runs in it.
+ * desktop). Her renderer, copied unchanged from the desktop code, runs in it.
  *
  * Where she can be touched (her body, her panel, her biochip), small invisible windows sit on top
  * (TouchPads) and hand the finger over to her page: the rest of the screen stays yours.

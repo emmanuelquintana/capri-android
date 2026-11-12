@@ -5,9 +5,8 @@ Capri, el constructo de *Project Capricorn* de Cyberpunk: Edgerunners, vive enci
 música y a tus notificaciones, charla contigo y te cuenta lo que hace tu IA de programación: **Claude Code**,
 **Codex** o **Antigravity**.
 
-Es **la misma Capri**: su motor visual (WebGL, animación cuadro a cuadro, efectos, frases en 5 idiomas, chat,
-vínculo, recordatorios) se copia **sin cambios** del original y corre en una capa flotante. Solo se reescribe
-lo que en Windows hacían Electron, Node y PowerShell.
+Su motor visual (WebGL, animación cuadro a cuadro, efectos, frases en 5 idiomas, chat, vínculo, recordatorios)
+corre en una capa flotante sobre tus apps, con una app nativa de Android alrededor.
 
 ## Instalar
 
@@ -30,7 +29,7 @@ instala encima con un toque, sin desinstalar. Qué cambia en cada versión está
   brinca encima. Tocarla abre la notificación.
 - **Guiños en el panel de notificaciones:** su notificación va en sus colores, con su cara y lo último que dijo.
 - **Gira contigo:** si giras la pantalla, da una vuelta y se recoloca.
-- **Todo lo del original:** intro, teletransportes, cut-ins, caras, flotar, asomarse, caer, dormir, lanzarla y
+- **Y todo lo suyo:** intro, teletransportes, cut-ins, caras, flotar, asomarse, caer, dormir, lanzarla y
   atraparla, informe de misión, personalización, vínculo, celos, chat, recordatorios, sonidos, idiomas.
 
 Gestos: mantén pulsado sobre ella para su menú (el clic derecho del PC), arrástrala para lanzarla y acaríciala
@@ -46,27 +45,12 @@ queda copiado y se abre Termux; pégalo y pulsa Enter:
 curl -fsS http://127.0.0.1:47823/install.sh | sh
 ```
 
-Instala los hooks del original en `~/.capri` y los añade a `~/.claude/settings.json` (con copia de seguridad).
+Instala sus hooks en `~/.capri` y los añade a `~/.claude/settings.json` (con copia de seguridad).
 Para Codex o Antigravity: `| sh -s -- codex` o `| sh -s -- agy`. Para quitarlos: `| sh -s -- --uninstall`.
-
-## Cómo funciona
-
-| Escritorio (Electron) | Android |
-| --- | --- |
-| Ventana transparente a pantalla completa, siempre encima | Capa flotante (`TYPE_APPLICATION_OVERLAY`) a pantalla completa; los toques pasan a tus apps |
-| `preload.js` + `main.js` (IPC) | `assets/android/host.js` + `HostBridge.kt` |
-| Servidor de hooks en `127.0.0.1:47823` | El mismo servidor, mismo puerto y mismo formato (`HookServer.kt`) |
-| Icono de la bandeja y su menú | Notificación fija y el mismo menú dibujado como uno de sus paneles |
-| Las ventanas donde se sienta | Sus tarjetas de música y de avisos (`notes.js`, `CapriNotifications.kt`) |
-| `llm.js`, `ollama.js`, `labels.js`, `launch.js` | Los mismos archivos, sin tocar (`tools/sync-upstream.mjs`) |
-
-Android no deja leer las ventanas de otras apps ni cerrarlas, así que eso se adapta o queda fuera.
 
 ## Desarrollo
 
 ```sh
-# copiar el original (con `npm ci --omit=dev` hecho en él) a los assets
-node tools/sync-upstream.mjs ../capri-desktop
 # ver la página en Chromium a tamaño de teléfono, con un Kotlin simulado
 node tools/preview/run.mjs
 ```
@@ -80,13 +64,11 @@ apartado al principio de [CHANGELOG.md](CHANGELOG.md); ese texto es lo que se ve
 de la app. Todas se firman con la misma llave (secreto `CAPRI_SIGNING_PASSPHRASE` y `app/signing/`): no borres
 ninguno de los dos o las actualizaciones dejarán de instalarse encima.
 
-Cuando sale una versión nueva de capri-desktop, una tarea diaria abre un *issue* en este repo para portarla.
-
 ## Créditos y licencia
 
 El código está bajo la [PolyForm Noncommercial License 1.0.0](LICENSE) (ahí están sus avisos): puedes usarlo,
 cambiarlo y compartirlo **gratis**. No se puede vender ni cobrar por él de ninguna forma.
 
 Capri / Project Capricorn, Cyberpunk y Cyberpunk: Edgerunners pertenecen a CD PROJEKT RED, Studio Trigger y
-Netflix. Es un proyecto de fans, sin afiliación. Las imágenes de `assets/capri/` vienen del original y **no**
-están cubiertas por la licencia del código. Fuentes: Chakra Petch y JetBrains Mono (SIL Open Font License).
+Netflix. Es un proyecto de fans, sin afiliación. Las imágenes de `assets/capri/` **no** están cubiertas
+por la licencia del código. Fuentes: Chakra Petch y JetBrains Mono (SIL Open Font License).

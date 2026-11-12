@@ -1,4 +1,4 @@
-// src/main/llm.js from capri-desktop, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.
+// src/main/llm.js from the desktop code, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.
 import { define } from '../cjs.js';
 define("llm", function (module, exports, require, process, __dirname, fetch) {
 'use strict';

@@ -1,4 +1,4 @@
-// scripts/demo-sequence.js from capri-desktop, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.
+// scripts/demo-sequence.js from the desktop code, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.
 import { define } from '../cjs.js';
 define("demo-sequence", function (module, exports, require, process, __dirname, fetch) {
 'use strict';

@@ -19,7 +19,7 @@ import java.util.concurrent.Executors
  * an Origin header, i.e. a web page, is refused), so the desktop's hooks work unchanged from Termux.
  *
  * It also serves what Termux needs to plug her in: /install.sh, and her hooks and their installers
- * (copied unchanged from capri-desktop into the APK's assets).
+ * (copied unchanged from the desktop code into the APK's assets).
  */
 class HookServer(
     private val assets: AssetManager,

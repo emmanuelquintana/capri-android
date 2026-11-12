@@ -11,7 +11,7 @@ android {
         applicationId = "io.github.emmanuelquintana.capri"
         minSdk = 26
         targetSdk = 35
-        // Capri Android's own numbering (MAJOR.MINOR.PATCH), not capri-desktop's;
+        // Capri Android's own numbering (MAJOR.MINOR.PATCH), not the desktop's;
         // versionCode = MAJOR*10000 + MINOR*100 + PATCH, always above the old 5xx builds
         versionCode = 10900
         versionName = "1.9.0"

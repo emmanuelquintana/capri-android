@@ -1,4 +1,4 @@
-// src/main/labels.js from capri-desktop, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.
+// src/main/labels.js from the desktop code, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.
 import { define } from '../cjs.js';
 define("labels", function (module, exports, require, process, __dirname, fetch) {
 'use strict';

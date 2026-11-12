@@ -352,8 +352,7 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 1.0.0
 
-- **Numeración propia:** Capri Android estrena sus propias versiones, empezando por la 1.0.0. Ya no sigue la
-  numeración de capri-desktop. A partir de ahora: el último número sube con los arreglos, el del medio con las
+- **Numeración propia:** Capri Android estrena sus propias versiones, empezando por la 1.0.0. A partir de ahora: el último número sube con los arreglos, el del medio con las
   funciones nuevas y el primero con los cambios grandes.
 - Trae todo lo de la versión anterior: bienvenida animada, barra de píldora y el arreglo del teclado.
 
@@ -408,4 +407,4 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 0.5.1-android.1
 
-- Primera versión: Capri del escritorio en Android, con su servidor de hooks para Claude Code.
+- Primera versión de Capri para Android, con su servidor de hooks para Claude Code.

@@ -1,4 +1,4 @@
-// src/main/launch.js from capri-desktop, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.
+// src/main/launch.js from the desktop code, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.
 import { define } from '../cjs.js';
 define("launch", function (module, exports, require, process, __dirname, fetch) {
 'use strict';

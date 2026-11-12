@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// Copies Capri's desktop code (https://github.com/mochiiwuff/capri-desktop) into the Android app, as is.
+// Copies Capri's desktop code into the Android app, as is.
 //
-//   node tools/sync-upstream.mjs <path to a capri-desktop checkout, with `npm ci --omit=dev` run>
+//   node tools/sync-upstream.mjs <path to a desktop checkout, with `npm ci --omit=dev` run>
 //
 // What it copies, unchanged:
 //   src/renderer/**                 -> assets/capri/src/renderer   (her whole visual engine)
@@ -31,7 +31,7 @@ const WRAPPED = path.join(ASSETS, 'android', 'upstream');
 
 const src = path.resolve(process.argv[2] || '');
 if (!process.argv[2] || !fs.existsSync(path.join(src, 'src', 'renderer', 'index.html'))) {
-  console.error('usage: node tools/sync-upstream.mjs <capri-desktop checkout>');
+  console.error('usage: node tools/sync-upstream.mjs <desktop checkout>');
   process.exit(1);
 }
 
@@ -112,7 +112,7 @@ fs.mkdirSync(WRAPPED, { recursive: true });
 const wrap = (file, name) => {
   const code = fs.readFileSync(path.join(src, file), 'utf8');
   fs.writeFileSync(path.join(WRAPPED, `${name}.js`),
-    `// ${file} from capri-desktop, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.\n`
+    `// ${file} from the desktop code, unchanged, wrapped by tools/sync-upstream.mjs. Do not edit.\n`
     + `import { define } from '../cjs.js';\n`
     + `define(${JSON.stringify(name)}, function (module, exports, require, process, __dirname, fetch) {\n${code}\n});\n`);
 };
@@ -130,5 +130,5 @@ try {
 }
 const { version } = JSON.parse(fs.readFileSync(path.join(src, 'package.json'), 'utf8'));
 fs.writeFileSync(path.join(ASSETS, 'android', 'upstream.json'),
-  JSON.stringify({ repo: 'https://github.com/mochiiwuff/capri-desktop', version, commit }, null, 2) + '\n');
-console.log(`synced capri-desktop ${version} (${commit.slice(0, 7)})`);
+  JSON.stringify({ version, commit }, null, 2) + '\n');
+console.log(`synced the desktop code ${version} (${commit.slice(0, 7)})`);
