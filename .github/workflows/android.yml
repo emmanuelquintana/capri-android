@@ -86,14 +86,16 @@ jobs:
           KEY_PASS_SECRET: ${{ secrets.CAPRI_KEY_PASSWORD }}
         run: |
           [ -n "$KEY_PASSWORD_SECRET" ] && export CAPRI_KEYSTORE_PASSWORD="$KEY_PASSWORD_SECRET" CAPRI_KEY_ALIAS="$KEY_ALIAS_SECRET" CAPRI_KEY_PASSWORD="$KEY_PASS_SECRET"
-          ./gradlew --no-daemon assembleRelease lintRelease
+          ./gradlew --no-daemon assembleGithubRelease lintGithubRelease bundlePlayRelease
 
       - name: Name the APK
         id: apk
         run: |
           v=$(grep -o 'versionName = "[^"]*"' app/build.gradle.kts | cut -d'"' -f2)
           echo "version=$v" >> "$GITHUB_OUTPUT"
-          cp app/build/outputs/apk/release/app-release.apk "Capri-Android-$v.apk"
+          cp app/build/outputs/apk/github/release/app-github-release.apk "Capri-Android-$v.apk"
+          # la de Google Play (AAB, firmada con nuestra clave como clave de subida): solo como artefacto, se sube a mano en Play Console
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab "Capri-Play-$v.aab"
 
       - uses: actions/upload-artifact@v4
         with:
@@ -101,10 +103,15 @@ jobs:
           path: Capri-Android-*.apk
 
       - uses: actions/upload-artifact@v4
+        with:
+          name: Capri-Play
+          path: Capri-Play-*.aab
+
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: lint-report
-          path: app/build/reports/lint-results-release.html
+          path: app/build/reports/lint-results-githubRelease.html
           if-no-files-found: ignore
 
       # what this version brings: its section of CHANGELOG.md (required for a release)
