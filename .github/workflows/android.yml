@@ -88,6 +88,14 @@ jobs:
           [ -n "$KEY_PASSWORD_SECRET" ] && export CAPRI_KEYSTORE_PASSWORD="$KEY_PASSWORD_SECRET" CAPRI_KEY_ALIAS="$KEY_ALIAS_SECRET" CAPRI_KEY_PASSWORD="$KEY_PASS_SECRET"
           ./gradlew --no-daemon assembleGithubRelease lintGithubRelease bundlePlayRelease
 
+      - name: La versión de Play sin lo que la tienda no permite
+        run: |
+          m=$(find app/build/intermediates -path '*playRelease*' -name AndroidManifest.xml | grep -i merged | head -1)
+          echo "$m"; grep -E 'uses-permission|targetSdk' "$m"
+          if grep -E 'REQUEST_INSTALL_PACKAGES|com\.termux|PeekService|InstallResult' "$m"; then
+            echo "::error::La versión de Play todavía trae algo que Google Play no acepta"; exit 1
+          fi
+
       - name: Name the APK
         id: apk
         run: |
