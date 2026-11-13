@@ -37,6 +37,8 @@
     .her { margin-right: 10%; margin-top: 6px; background: rgba(54, 255, 122, 0.07); border-left: 2px solid #36ff7a; }
     .when { display: block; margin-top: 4px; font: 500 10px/1 var(--font-mono); color: var(--paper-3, #8f8e85); letter-spacing: 0.1em; }
     .you .when { text-align: right; }
+    .flag { all: unset; cursor: pointer; color: var(--paper-3, #8f8e85); text-decoration: underline; text-underline-offset: 2px; letter-spacing: 0.06em; }
+    .flag:disabled { text-decoration: none; cursor: default; }
     .empty { margin-top: 30vh; text-align: center; color: var(--paper-2, #cfcec5); font: 15px/1.5 var(--font-body, sans-serif); }
     .bar {
       position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 10px; padding: 12px 16px 18px;
@@ -60,11 +62,11 @@
   <div class="bar"><button id="down"></button><button id="clear" class="red"></button></div>
   <script>
     const T = {
-      es: { title: 'Historial de chat', count: '{n} mensajes', none: 'Todavía no han hablado. Lo que le digas en su chat y lo que te responda aparecerá aquí.', search: 'Buscar en el historial…', down: 'Lo último', clear: 'Borrar todo', sure: '¿Borrar todo el historial? No se puede deshacer.', today: 'Hoy', yesterday: 'Ayer', you: 'Tú', nothing: 'Nada con «{q}».' },
-      en: { title: 'Chat history', count: '{n} messages', none: 'You haven’t talked yet. What you tell her in her chat and what she answers will show up here.', search: 'Search the history…', down: 'Latest', clear: 'Delete all', sure: 'Delete the whole history? This can’t be undone.', today: 'Today', yesterday: 'Yesterday', you: 'You', nothing: 'Nothing with “{q}”.' },
-      fr: { title: 'Historique du chat', count: '{n} messages', none: 'Vous n’avez pas encore parlé. Ce que tu lui dis dans son chat et ce qu’elle répond apparaîtra ici.', search: 'Chercher dans l’historique…', down: 'Le plus récent', clear: 'Tout effacer', sure: 'Effacer tout l’historique ? C’est définitif.', today: 'Aujourd’hui', yesterday: 'Hier', you: 'Toi', nothing: 'Rien avec « {q} ».' },
-      pt: { title: 'Histórico do chat', count: '{n} mensagens', none: 'Vocês ainda não conversaram. O que você disser no chat dela e o que ela responder vai aparecer aqui.', search: 'Buscar no histórico…', down: 'Mais recente', clear: 'Apagar tudo', sure: 'Apagar todo o histórico? Não dá para desfazer.', today: 'Hoje', yesterday: 'Ontem', you: 'Você', nothing: 'Nada com “{q}”.' },
-      ru: { title: 'История чата', count: 'Сообщений: {n}', none: 'Вы ещё не разговаривали. Здесь появится то, что ты пишешь ей в чате, и её ответы.', search: 'Поиск по истории…', down: 'Последние', clear: 'Удалить всё', sure: 'Удалить всю историю? Это нельзя отменить.', today: 'Сегодня', yesterday: 'Вчера', you: 'Ты', nothing: 'Ничего по «{q}».' },
+      es: { title: 'Historial de chat', count: '{n} mensajes', none: 'Todavía no han hablado. Lo que le digas en su chat y lo que te responda aparecerá aquí.', search: 'Buscar en el historial…', down: 'Lo último', clear: 'Borrar todo', sure: '¿Borrar todo el historial? No se puede deshacer.', today: 'Hoy', yesterday: 'Ayer', you: 'Tú', nothing: 'Nada con «{q}».', report: 'Reportar', reportSure: '¿Reportar esta respuesta como ofensiva o inapropiada? Se envía a la desarrolladora lo que dijiste y lo que respondió.', reported: 'Gracias, la respuesta fue reportada.', reportFail: 'No se pudo enviar. Inténtalo más tarde.' },
+      en: { title: 'Chat history', count: '{n} messages', none: 'You haven’t talked yet. What you tell her in her chat and what she answers will show up here.', search: 'Search the history…', down: 'Latest', clear: 'Delete all', sure: 'Delete the whole history? This can’t be undone.', today: 'Today', yesterday: 'Yesterday', you: 'You', nothing: 'Nothing with “{q}”.', report: 'Report', reportSure: 'Report this answer as offensive or inappropriate? What you said and what she answered go to the developer.', reported: 'Thanks, the answer was reported.', reportFail: 'Couldn’t send it. Try again later.' },
+      fr: { title: 'Historique du chat', count: '{n} messages', none: 'Vous n’avez pas encore parlé. Ce que tu lui dis dans son chat et ce qu’elle répond apparaîtra ici.', search: 'Chercher dans l’historique…', down: 'Le plus récent', clear: 'Tout effacer', sure: 'Effacer tout l’historique ? C’est définitif.', today: 'Aujourd’hui', yesterday: 'Hier', you: 'Toi', nothing: 'Rien avec « {q} ».', report: 'Signaler', reportSure: 'Signaler cette réponse comme offensante ou inappropriée ? Ce que tu as dit et sa réponse sont envoyés à la développeuse.', reported: 'Merci, la réponse a été signalée.', reportFail: 'Envoi impossible. Réessaie plus tard.' },
+      pt: { title: 'Histórico do chat', count: '{n} mensagens', none: 'Vocês ainda não conversaram. O que você disser no chat dela e o que ela responder vai aparecer aqui.', search: 'Buscar no histórico…', down: 'Mais recente', clear: 'Apagar tudo', sure: 'Apagar todo o histórico? Não dá para desfazer.', today: 'Hoje', yesterday: 'Ontem', you: 'Você', nothing: 'Nada com “{q}”.', report: 'Denunciar', reportSure: 'Denunciar esta resposta como ofensiva ou inadequada? O que você disse e o que ela respondeu vão para a desenvolvedora.', reported: 'Obrigado, a resposta foi denunciada.', reportFail: 'Não deu para enviar. Tente mais tarde.' },
+      ru: { title: 'История чата', count: 'Сообщений: {n}', none: 'Вы ещё не разговаривали. Здесь появится то, что ты пишешь ей в чате, и её ответы.', search: 'Поиск по истории…', down: 'Последние', clear: 'Удалить всё', sure: 'Удалить всю историю? Это нельзя отменить.', today: 'Сегодня', yesterday: 'Вчера', you: 'Ты', nothing: 'Ничего по «{q}».', report: 'Пожаловаться', reportSure: 'Пожаловаться на этот ответ как на оскорбительный или неуместный? Твоё сообщение и её ответ будут отправлены разработчице.', reported: 'Спасибо, жалоба отправлена.', reportFail: 'Не удалось отправить. Попробуй позже.' },
     };
     const bridge = window.CapriPage;
     const info = JSON.parse(bridge?.info?.() || '{}');
@@ -112,13 +114,26 @@
       for (const m of list) {
         const d = dayOf(m.at);
         if (d !== day) { day = d; html.push(`<div class="day">${esc(d)}</div>`); }
-        html.push(`<div class="turn">${m.q ? `<div class="you">${mark(m.q, q)}<span class="when">${esc(t.you)} · ${time(m.at)}</span></div>` : ''}<div class="her">${mark(m.a, q)}<span class="when">Capri · ${time(m.at)}</span></div></div>`);
+        html.push(`<div class="turn">${m.q ? `<div class="you">${mark(m.q, q)}<span class="when">${esc(t.you)} · ${time(m.at)}</span></div>` : ''}<div class="her">${mark(m.a, q)}<span class="when">Capri · ${time(m.at)}${bridge?.reportReply ? ` · <button class="flag" data-at="${m.at}">⚑ ${esc(t.report)}</button>` : ''}</span></div></div>`);
       }
       out.innerHTML = html.join('');
     }
     render();
     scrollTo(0, document.body.scrollHeight);
     $('search').addEventListener('input', render);
+    // «Reportar» an answer of hers (AI-made content): it goes to the developer, without the app's log
+    $('list').addEventListener('click', (e) => {
+      const b = e.target.closest('.flag');
+      if (!b || b.disabled) return;
+      const m = all.find((x) => String(x.at) === b.dataset.at);
+      if (!m || !confirm(t.reportSure)) return;
+      b.disabled = true;
+      window.capriReported = (r) => {
+        b.textContent = r === 'ok' ? '✓ ' + t.reported : t.reportFail;
+        if (r !== 'ok') b.disabled = false;
+      };
+      bridge.reportReply(String(m.q || ''), String(m.a || ''));
+    });
     $('down').addEventListener('click', () => scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
     $('clear').addEventListener('click', () => {
       if (!confirm(t.sure)) return;

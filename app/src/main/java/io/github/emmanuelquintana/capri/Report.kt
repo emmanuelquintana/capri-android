@@ -38,12 +38,12 @@ object Report {
     }
 
     /** Sends it in the background; [done] gets "ok", "rate", "off", "bad" or "net", on the main thread. */
-    fun send(context: Context, text: String, done: (String) -> Unit) {
+    fun send(context: Context, text: String, withLog: Boolean = true, done: (String) -> Unit) {
         val app = context.applicationContext
         val main = android.os.Handler(android.os.Looper.getMainLooper())
         Threads.make {
             val result = runCatching {
-                val log = clean(app, Diag.saved().joinToString("\n")).takeLast(MAX_LOG)
+                val log = if (withLog) clean(app, Diag.saved().joinToString("\n")).takeLast(MAX_LOG) else ""
                 val body = JSONObject()
                     .put("app", "android")
                     .put("v", BuildConfig.VERSION_NAME)
@@ -54,7 +54,7 @@ object Report {
                     .put("log", log)
                 app.getSharedPreferences("app", Context.MODE_PRIVATE).getString("statsId", null)?.let { body.put("id", it) }
                 // her last unexpected close, if there was one: shown apart in the report
-                Diag.saved().lastOrNull { " crash in " in it }?.let { body.put("stack", clean(app, it).take(1800)) }
+                if (withLog) Diag.saved().lastOrNull { " crash in " in it }?.let { body.put("stack", clean(app, it).take(1800)) }
                 val conn = (URL(URL_REPORT).openConnection() as HttpURLConnection).apply {
                     requestMethod = "POST"
                     connectTimeout = 15_000
