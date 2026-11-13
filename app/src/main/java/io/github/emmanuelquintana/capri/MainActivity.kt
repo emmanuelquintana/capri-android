@@ -321,7 +321,8 @@ class MainActivity : Activity() {
         // updates
         updateText = ui.text("", 13f, Hud.PAPER_2, ui.mono).apply { letterSpacing = 0.02f; setLineSpacing(0f, 1.15f) }
         updateBtn = ui.button(getString(R.string.update_go), Ui.Kind.GREEN) { update() }.apply { visibility = View.GONE }
-        addView(ui.card().apply {
+        // (la versión de Play se actualiza desde la tienda: sin esta placa)
+        if (Updater.ENABLED) addView(ui.card().apply {
             addView(ui.label(getString(R.string.update_head)))
             addView(updateText, ui.block(6))
             addView(updateBtn, ui.block(10))
@@ -683,8 +684,8 @@ class MainActivity : Activity() {
         }, ui.block(16))
 
         // peeking in your notification panel (1.9.0, PeekService.kt): only with Android's Accessibility,
-        // off unless you turn it on there
-        addView(ui.card(Hud.RED).apply {
+        // off unless you turn it on there (not in the Play version)
+        if (BuildConfig.PEEK) addView(ui.card(Hud.RED).apply {
             addView(ui.label(getString(R.string.peek_title), Hud.RED))
             addView(ui.text(getString(R.string.peek_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
             val state = ui.text("", 13f, Hud.PAPER, ui.mono)
@@ -1101,7 +1102,7 @@ class MainActivity : Activity() {
     }
 
     private fun checkUpdate() {
-        if (downloading) return
+        if (!Updater.ENABLED || downloading) return
         if (release == null) updateText.text = getString(R.string.update_checking)
         Threads.make {
             val r = Updater.latest(this)
