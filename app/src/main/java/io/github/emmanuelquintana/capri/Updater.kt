@@ -42,7 +42,11 @@ object Updater {
      * language the app speaks (changelog/<lang>.md at that release; Spanish when it has none).
      * Network: not on the main thread.
      */
+    /** Off in the Play version: Google Play updates it, and it may not update itself. */
+    val ENABLED = BuildConfig.SELF_UPDATE
+
     fun latest(context: Context): Release? {
+        if (!ENABLED) return null
         val public = latestSpanish()?.let { r -> localNotes(context, r)?.let { r.copy(notes = it) } ?: r }
         // (Emma's phones only, once unlocked) her beta channel: its build when it's the newest of the two
         val beta = Beta.latest(context) ?: return public
@@ -195,6 +199,7 @@ object Updater {
 
     /** Every few hours at most, from her service: a notification (and her own word) when there's a newer release. */
     fun checkInBackground(context: Context, force: Boolean = false, done: () -> Unit = {}, onNew: (Release) -> Unit = {}) {
+        if (!ENABLED) return done()
         val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         val now = System.currentTimeMillis()
         // her service and the job both ask: not twice within half an hour
