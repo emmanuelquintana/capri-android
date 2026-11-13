@@ -79,6 +79,12 @@ jobs:
           echo "CAPRI_KEYSTORE=$KS" >> "$GITHUB_ENV"
           echo "signed=true" >> "$GITHUB_OUTPUT"
 
+      # la huella pública de la clave (no es secreta): la pide Play Console para registrar el nombre de paquete
+      - name: Huella SHA-256 de la clave
+        if: steps.key.outputs.signed == 'true'
+        run: |
+          keytool -list -v -keystore "$CAPRI_KEYSTORE" -storetype PKCS12 -alias "$CAPRI_KEY_ALIAS" -storepass:env CAPRI_KEYSTORE_PASSWORD | grep -E 'SHA256:' | tee -a "$GITHUB_STEP_SUMMARY"
+
       - name: Build
         env:
           KEY_PASSWORD_SECRET: ${{ secrets.CAPRI_KEYSTORE_PASSWORD }}
