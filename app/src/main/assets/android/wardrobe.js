@@ -12,6 +12,7 @@
 // And one thing that isn't in any list: ask her to marry you (wedding.js).
 
 import { FACES } from '../capri/src/renderer/js/panel.js';
+import { bothArms } from './arms.js';
 
 const WARDROBE = new URL('../capri/assets/capri/wardrobe/', import.meta.url).href; // (from her page and from the app's closet.html)
 
@@ -605,7 +606,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     const g = c.getContext('2d');
     if (img) {
       g.filter = 'brightness(1.3) saturate(1.2)'; // (as bright as her shader shows it on her)
-      g.drawImage(img, 0, 0, img.naturalWidth || img.width, img.naturalHeight || img.height, 2, 0, 56, 96);
+      g.drawImage(bothArms(img), 0, 0, img.naturalWidth || img.width, img.naturalHeight || img.height, 2, 0, 56, 96); // (1.10.0: both arms)
       g.filter = 'none';
     }
     else {

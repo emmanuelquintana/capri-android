@@ -390,4 +390,6 @@
     <string name="autodress_day">1 dia</string>
     <string name="voice_speak">A voz dela</string>
     <string name="voice_speak_how">Desligada: ela continua te ouvindo e respondendo, mas só por escrito.</string>
+    <string name="settings_musicapp">As músicas que você pedir</string>
+    <string name="settings_musicapp_how">Quando você pede uma música, ela toca aqui (Spotify só se estiver instalado; se não, abre na web).</string>
 </resources>

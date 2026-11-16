@@ -57,6 +57,7 @@ class GameWatch(private val service: CapriService) {
             if (app != lastApp) Diag.add("I", "in front: ${app.ifEmpty { "(home or nothing)" }} (${kind(app).ifEmpty { "app" }})")
             lastApp = app
             gamerCheck(app)
+            bankCheck(app)
         } else if (onByMe) gamer(false)
         // what's going on on your phone, for her reactions
         val sound = runCatching { service.getSystemService(AudioManager::class.java)!!.isMusicActive }.getOrDefault(false)
@@ -102,6 +103,28 @@ class GameWatch(private val service: CapriService) {
                 }
             }
         }
+    }
+
+    // (1.10.0) a bank or payments app in front: she steps out of its way (Overlay.shy)
+    private var shyFor = ""
+    private fun bankCheck(app: String) {
+        val bank = app.isNotEmpty() && isBank(app)
+        if (bank && shyFor != app) {
+            shyFor = app
+            Diag.add("I", "bank app in front ($app): she hides")
+            service.overlay?.shy(true)
+        } else if (!bank && shyFor.isNotEmpty()) {
+            shyFor = ""
+            service.overlay?.shy(false)
+        }
+    }
+
+    private val banks = HashMap<String, Boolean>()
+    private fun isBank(pkg: String): Boolean = banks.getOrPut(pkg) {
+        val label = runCatching {
+            service.packageManager.getApplicationLabel(service.packageManager.getApplicationInfo(pkg, 0)).toString()
+        }.getOrDefault("")
+        BANK.containsMatchIn(pkg) || BANK_NAME.containsMatchIn(label)
     }
 
     private fun gamer(on: Boolean) {
@@ -165,6 +188,9 @@ class GameWatch(private val service: CapriService) {
 
     companion object {
         private const val EVERY = 4000L
+        // banks and payments, by their package or their name (Latin America, Brazil, Spain, the US…)
+        private val BANK = Regex("bank|banco|banca|bancolombia|bbva|santander|banorte|banamex|citibanamex|scotiabank|hsbc|itau|bradesco|caixa|nubank|nu\\.production|picpay|mercadopago|mercadolibre\\.wallet|nequi|daviplata|\\.uala|brubank|paypal|venmo|cashapp|squareup\\.cash|zelle|revolut|transferwise|wise\\.android|inter\\.android|c6bank|bancointer|sicoob|sicredi|banrisul|interbank|yape|coppel|azteca|spin\\.oxxo|hey\\.banco|openbank|bankinter|sabadell|bancosantander|lacaixa|kutxa|unicaja|ibercaja|chase|wellsfargo|bofa|capitalone|usaa|tinkoff|sberbank|alfabank|raiffeisen", RegexOption.IGNORE_CASE)
+        private val BANK_NAME = Regex("\\b(banco|bank|banca|banking|banque|банк)\\b", RegexOption.IGNORE_CASE)
         private const val LEAVE_AFTER = 10_000L
         // panels that float over the app you're in (the notification shade, Samsung's game tools):
         // their coming and going doesn't mean you left your game

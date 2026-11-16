@@ -391,7 +391,9 @@ class Ears(private val service: CapriService) {
                 failures = 0
                 ended(false)
                 quiet = if (error == SpeechRecognizer.ERROR_SPEECH_TIMEOUT) quiet + 1 else 0
-                next(if (longNow || quiet < 3) 200L else minOf(1500L, 300L * quiet))
+                // (1.10.0) "el micrófono se prende y apaga a cada rato": on a phone that listens a few seconds
+                // at a time, a quiet room now rests her mic a little longer between tries (up to 3.5 s)
+                next(if (longNow || quiet < 3) 200L else minOf(3500L, 500L * quiet))
             }
             // (1.9.1) "Falló el reconocedor de voz (error 5)" over and over: 5 is the recognizer saying it
             // can't do what was asked (a long session, on many phones) or that it was still busy with the

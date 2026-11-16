@@ -4,6 +4,19 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 
 ## 1.10.0
 
+- **O rosto novo dela:** todas as animações, poses e expressões foram redesenhadas com a máscara de verdade (a placa
+  verde com os olhos grandes), e duas novas: deitada no seu teclado e no celular dela quando você joga.
+- **Não falta mais um braço:** no modo leve e na imagem grande do guarda-roupa ela aparecia com um braço só.
+- **O chat não se mexe mais enquanto você digita:** o teclado muda um pouco de tamanho ao sugerir palavras, e isso
+  mexia o chat dela.
+- **Bancos:** muitos apps de banco não funcionam com outro app por cima. Se você deu «Acesso de uso», a Capri se
+  esconde sozinha enquanto você usa o banco e volta quando você sai.
+- **Suas músicas no Spotify (opcional):** em «Personalizar», escolha se as músicas que você pede tocam no YouTube ou
+  no Spotify.
+- **Sem respostas em branco:** se a IA não responde nada, a Capri pergunta de novo ou usa outro modelo.
+- **Ela fala no singular:** quase não diz mais «a gente».
+- **Microfone:** nos celulares que escutam poucos segundos por vez, ele liga e desliga menos no silêncio.
+- **Ver sua tela com o Groq:** se o Groq não tem modelo que enxerga, ela usa outra das suas IAs.
 - **Adeus tela branca ao dançar:** quando a Capri dançava, ouvia música ou descansava, em muitos celulares ela virava
   um bloco branco, depois a tela toda ficava branca e o app fechava. Agora as animações gastam muito menos memória
   gráfica, e se mesmo assim o seu celular cair duas vezes durante uma, ela fica parada (sem animações) por uns dias

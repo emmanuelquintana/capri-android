@@ -457,6 +457,9 @@ async function chatOnce(c, messages, sendDelta, signal, streamed) {
     }, c.provider === 'pollinations' ? FIRST_WORD_FREE_MS : FIRST_WORD_MS);
     try {
       const text = await llm.chat(c.provider, await llmConfig(c), { model, messages }, sendDelta, inner.signal);
+      // (1.10.0) "se queda en blanco, sin dar ninguna respuesta": some models answer nothing at all (all
+      // of it spent thinking, or cut off): asked again, then another model, as if it were busy
+      if (!String(text ?? '').trim() && !streamed()) throw Object.assign(new Error('empty answer'), { code: 'busy' });
       // (one that's only resting stays her model: it's back later)
       if (model !== pickModel(c) && !isTired(pickModel(c))) updateConfig({ chatModel: model });
       return text;
@@ -639,7 +642,10 @@ async function cantSee() {
   if (cfg.provider === 'claude') return { ok: false, code: 'novision', model: 'Claude Code' };
   if (cfg.provider === 'ollama' && !(await ollama.canSee(model))) return { ok: false, code: 'novision', model };
   if (cfg.provider === 'pollinations' && !(await freeSees(model))) return { ok: false, code: 'novision', model: FREE_AI[brainLang()] || FREE_AI.en };
-  if (!['ollama', 'pollinations', 'custom'].includes(cfg.provider) && !lookModel()) return { ok: false, code: 'novision', model };
+  // (1.10.0) "Groq dice que puede ver mi pantalla, pero me pide otra IA": none of this service's models
+  // sees now, but another service you have a key for does (lookElsewhere): she looks with that one
+  const elsewhereKey = LOOK_SERVICES.some((id) => id !== cfg.provider && cfg.apiKeys?.[id]);
+  if (!['ollama', 'pollinations', 'custom'].includes(cfg.provider) && !lookModel() && !elsewhereKey) return { ok: false, code: 'novision', model };
   return null;
 }
 
@@ -1432,6 +1438,7 @@ window.host = {
   media: ask('apps:media', false),
   music: (query) => launch.music(query).catch(() => false),
   youtube: (query) => launch.youtube(query).catch(() => null),
+  musicApp: () => cfg.musicApp || 'youtube', // (1.10.0) where a song you ask for plays (the app's Settings)
   roblox: (query) => launch.roblox(query).catch(() => null),
   searchFiles: ask('files:search', []),
   openFile: (file, reveal) => call('files:open', { file: String(file), reveal: Boolean(reveal) }).then(() => true, () => false),
@@ -1616,8 +1623,22 @@ const resized = () => {
   send('log', { level: 'I', text: `size ${innerWidth}x${innerHeight} (screen ${screen.width}x${screen.height}) keyboard ${keyboard} gap ${Math.round(gap)}` });
 };
 window.addEventListener('resize', resized);
+// (1.10.0) "no deja terminar de escribir porque se mueve": while you type, many keyboards change
+// height (their word suggestions coming and going: 448, 472, 448…) and some hide for an instant
+// (472, 0, 448). Each of those moved her chat. Now: a keyboard up only grows her floor (a smaller
+// change of it is let be), and one that goes away has to stay away a moment before she comes down.
+let keyboardGone = null;
 on('ime:change', ({ height = 0 } = {}) => {
-  keyboard = Math.max(0, Number(height) || 0);
+  const h = Math.max(0, Number(height) || 0);
+  clearTimeout(keyboardGone);
+  if (!h) {
+    if (!keyboard) return;
+    keyboardGone = setTimeout(() => { keyboard = 0; resized(); }, 400);
+    return;
+  }
+  if (keyboard && h < keyboard && keyboard - h <= 96) return; // (its suggestions bar went: she stays put)
+  if (h === keyboard) return;
+  keyboard = h;
   resized();
   const capri = window.dev?.capri;
   // sitting on something now under the keys: she gets up onto what's left of the screen

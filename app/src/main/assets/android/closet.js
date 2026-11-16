@@ -1,4 +1,5 @@
 import './compat.js'; // (first: what an old WebView lacks)
+import { bothArms } from './arms.js';
 // The app's own Vestuario screen (ClosetActivity, closet.html): the same wardrobe sheet as over
 // your screen (wardrobe.js), with her standing on a little stage above it. Each tap shows on her at
 // once and is saved the way her page saves it (config.json's look), so she wears it when she's on,
@@ -45,7 +46,7 @@ sprite.addEventListener('contextrestored', () => shown && show(shown, false));
 function show(picture, fresh) {
   shown = picture;
   g.clearRect(0, 0, sprite.width, sprite.height);
-  g.drawImage(picture, 0, 0, sprite.width, sprite.height);
+  g.drawImage(bothArms(picture), 0, 0, sprite.width, sprite.height); // (1.10.0: with her other arm)
   if (!fresh) return;
   her.classList.remove('is-new');
   void her.offsetWidth; // (the glitch again, on every change)

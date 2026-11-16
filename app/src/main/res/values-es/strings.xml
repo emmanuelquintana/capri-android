@@ -390,4 +390,6 @@
     <string name="autodress_day">1 día</string>
     <string name="voice_speak">Su voz</string>
     <string name="voice_speak_how">Apagada: te sigue escuchando y respondiendo, pero solo por escrito.</string>
+    <string name="settings_musicapp">Las canciones que le pidas</string>
+    <string name="settings_musicapp_how">Cuando le pides una canción, suena aquí (Spotify solo si lo tienes instalado; si no, se abre en la web).</string>
 </resources>

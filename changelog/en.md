@@ -4,6 +4,20 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.10.0
 
+- **Her new look:** all her animations, poses and faces are redrawn with her real mask (the green plate with her
+  big eyes), plus two new ones: lying on your keyboard and on her phone while you play.
+- **No more missing arm:** in light mode and on the wardrobe's big picture she was drawn with one arm.
+- **The chat no longer moves while you type:** the keyboard changes size a bit as it suggests words, and that kept
+  moving her chat.
+- **Banks:** many banking apps won't work with another app on top. If you gave her "Usage access", Capri hides by
+  herself while you use your bank and comes back when you leave.
+- **Your songs on Spotify (optional):** in "Customize", choose whether the songs you ask for play on YouTube or
+  Spotify.
+- **No more blank answers:** if the AI answers nothing, Capri asks again or uses another model.
+- **She talks in the singular:** she hardly says "we" anymore. In English she no longer mixes in Spanish.
+- **Microphone:** on phones that listen a few seconds at a time, it turns on and off less in silence.
+- **Looking at your screen with Groq:** if Groq has no model that sees, she uses another of your AIs instead of
+  asking you to switch.
 - **Goodbye white screen while dancing:** when Capri danced, listened to music or rested, on many phones she turned
   into a white block, then the whole screen went white and the app closed. Her animations now use far less graphics
   memory, and if your phone still goes down twice during one, she stays still (no animations) for a few days instead.

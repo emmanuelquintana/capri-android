@@ -391,4 +391,6 @@
     <string name="autodress_day">1 день</string>
     <string name="voice_speak">Её голос</string>
     <string name="voice_speak_how">Выключен: она всё так же слушает и отвечает, но только текстом.</string>
+    <string name="settings_musicapp">Песни, которые ты просишь</string>
+    <string name="settings_musicapp_how">Когда ты просишь у неё песню, она играет здесь (Spotify, только если он установлен; иначе откроется в браузере).</string>
 </resources>

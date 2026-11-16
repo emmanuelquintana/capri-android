@@ -4,6 +4,20 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 
 ## 1.10.0
 
+- **Son nouveau visage :** toutes ses animations, poses et expressions sont redessinées avec son vrai masque (la
+  plaque verte et ses grands yeux), et deux nouvelles : allongée sur ton clavier et sur son téléphone quand tu joues.
+- **Il ne lui manque plus un bras :** en mode léger et sur la grande image du vestiaire, elle n’avait qu’un bras.
+- **Le chat ne bouge plus pendant que tu écris :** le clavier change un peu de taille en suggérant des mots, et ça
+  déplaçait son chat.
+- **Banques :** beaucoup d’applis bancaires ne marchent pas avec une autre appli par-dessus. Si tu lui as donné
+  « Accès à l’utilisation », Capri se cache toute seule pendant que tu utilises ta banque et revient après.
+- **Tes chansons sur Spotify (optionnel) :** dans « Personnaliser », choisis si les chansons demandées passent sur
+  YouTube ou Spotify.
+- **Plus de réponses vides :** si l’IA ne répond rien, Capri redemande ou prend un autre modèle.
+- **Elle parle au singulier :** elle ne dit presque plus « on ».
+- **Micro :** sur les téléphones qui écoutent quelques secondes à la fois, il s’allume et s’éteint moins dans le
+  silence.
+- **Regarder ton écran avec Groq :** si Groq n’a pas de modèle qui voit, elle prend une autre de tes IA.
 - **Fini l’écran blanc quand elle danse :** quand Capri dansait, écoutait de la musique ou se reposait, sur beaucoup
   de téléphones elle devenait un bloc blanc, puis tout l’écran blanchissait et l’appli se fermait. Ses animations
   utilisent maintenant bien moins de mémoire graphique, et si ton téléphone plante quand même deux fois pendant

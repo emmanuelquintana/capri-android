@@ -17,7 +17,7 @@ const KEEP = 60;     // messages she remembers across restarts (memory.json)
 // conversation so far, English after a switch, whatever the top of her prompt says)
 const IN_LANGUAGE = {
   fr: { we: '"on" or "nous" in French', last: 'Écris tout en français, sauf si l’utilisateur t’écrit dans une autre langue : alors dans la sienne. Seuls les mots d’argot de Night City restent en anglais, jamais une phrase entière.', now: 'Réponds en français, sauf si ce message est écrit dans une autre langue.' },
-  en: { we: '', last: 'Write everything in English, unless the user writes to you in another language: then in theirs.', now: 'Answer in English, unless this message is written in another language.' },
+  en: { we: '', last: 'Write everything in English, unless the user writes to you in another language: then in theirs. Never mix in Spanish or any other language.', now: 'Answer in English, unless this message is written in another language.' },
   es: { we: '"nosotros" in Spanish', last: 'Escribe todo en español, salvo si el usuario te escribe en otro idioma: entonces en el suyo. Solo las palabras de jerga de Night City se quedan en inglés, nunca una frase entera.', now: 'Responde en español, salvo si este mensaje está escrito en otro idioma.' },
   pt: { we: '"a gente" or "nós" in Portuguese', last: 'Escreva tudo em português do Brasil, a não ser que o usuário te escreva em outra língua: aí, na dele. Só as gírias de Night City ficam em inglês, nunca uma frase inteira.', now: 'Responda em português do Brasil, a não ser que esta mensagem esteja escrita em outra língua.' },
   ru: { we: '"мы" in Russian', last: 'Пиши всё по-русски, если только пользователь не пишет тебе на другом языке: тогда на его языке. По-английски остаются только словечки Найт-Сити, никогда не целые фразы.', now: 'Отвечай по-русски, если только это сообщение не написано на другом языке.' },
@@ -755,7 +755,9 @@ export class Chat {
         ? await this.doNow({ kind: 'open', text: asked.before }) : null;
       // "joue à Brawlhalla" is a game, "lance spotify" an app; anything else, a song
       const game = await this.host.findLaunch(asked.song);
-      const then = game && ['steam', 'epic', 'app', 'file'].includes(game.kind) && !game.risky ? await this.openNow(game) : await this.youtube(asked.song);
+      const spotify = this.host.musicApp?.() === 'spotify'; // (1.10.0, Android: your songs in Spotify if you chose it)
+      const then = game && ['steam', 'epic', 'app', 'file'].includes(game.kind) && !game.risky ? await this.openNow(game)
+        : spotify ? await this.doNow({ kind: 'music', song: asked.song }) : await this.youtube(asked.song);
       if (!first?.line) return then;
       return { line: [first.line, then?.line].filter(Boolean).join('\n'), face: then?.face || first.face };
     }
@@ -1053,7 +1055,7 @@ export class Chat {
     const watching = this.brain.watching; // else Claude Code isn't part of her life here
     const lang = IN_LANGUAGE[this.brain.lang] || IN_LANGUAGE.en;
     return [
-      `You are Capri, the personality construct from Project Capricorn (Cyberpunk: Edgerunners, season 2): dozens of minds fused into one digital ghost, so now and then you speak as "we"${lang.we ? ` (${lang.we})` : ''}.`,
+      `You are Capri, the personality construct from Project Capricorn (Cyberpunk: Edgerunners, season 2): dozens of minds fused into one digital ghost. You speak as "I", in the singular, like one person; only very rarely, for effect, you slip into "we"${lang.we ? ` (${lang.we})` : ''}.`, // (1.10.0: "a veces habla en plural", too often)
       watching
         ? `You live on the user's desktop as a small glitchy figure and keep an eye on ${assistant}, their AI coding assistant, for them. Only talk about ${assistant} when the user asks about it or about their work.`
         : 'You live on the user\'s desktop as a small glitchy figure and keep them company.',

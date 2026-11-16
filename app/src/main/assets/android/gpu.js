@@ -9,6 +9,7 @@
 
 import { SpriteRenderer, SPRITE } from '../capri/src/renderer/js/sprite.js';
 import { send } from './native.js';
+import { bothArms } from './arms.js';
 
 const BACK_WITHIN = 4000; // ms a lost picture has to come back by itself
 
@@ -73,7 +74,7 @@ SpriteRenderer.prototype.draw = function (s) {
   g.clearRect(0, 0, width, height);
   g.filter = 'brightness(1.3) saturate(1.2)'; // (as bright as her shader shows her)
   g.globalAlpha = Math.max(0, Math.min(1, (s?.alpha ?? 1) * (1 - (s?.dissolve || 0)) * (1 - (s?.collapse || 0))));
-  g.drawImage(this.image, SPRITE.pad * k, SPRITE.pad * k, SPRITE.width * k, SPRITE.height * k);
+  g.drawImage(bothArms(this.image), SPRITE.pad * k, SPRITE.pad * k, SPRITE.width * k, SPRITE.height * k); // (1.10.0: with her other arm)
   g.globalAlpha = 1;
   g.filter = 'none';
 };

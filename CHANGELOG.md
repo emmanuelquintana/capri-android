@@ -5,6 +5,20 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 1.10.0
 
+- **Su cara nueva:** todas sus animaciones, poses y caras están redibujadas con su máscara de verdad (la placa verde
+  con sus ojos grandes), y estrenan dos: acostada en tu teclado y con su celular cuando juegas.
+- **Ya no le falta un brazo:** en modo ligero y en la pantalla grande del vestuario se dibujaba con un solo brazo.
+- **El chat ya no se mueve mientras escribes:** el teclado cambia un poco de tamaño al sugerir palabras y eso movía
+  su chat a cada rato.
+- **Bancos:** muchas apps de bancos no funcionan con otra app encima. Si le diste «Acceso de uso», Capri se esconde
+  sola mientras usas tu banco y vuelve al salir.
+- **Tus canciones en Spotify (opcional):** en «Personalizar», elige si las canciones que le pides suenan en YouTube
+  o en Spotify.
+- **Ya no se queda en blanco:** si la IA responde vacío, Capri pregunta de nuevo o usa otro modelo.
+- **Habla en singular:** ya casi no dice «nosotros». En inglés ya no mezcla español.
+- **Micrófono:** en teléfonos que escuchan de a pocos segundos, se prende y apaga menos en silencio.
+- **Mirar tu pantalla con Groq:** si Groq no tiene un modelo que vea, usa otra de tus IAs en vez de pedirte que
+  cambies.
 - **Adiós a la pantalla blanca al bailar:** cuando Capri bailaba, escuchaba música o descansaba, en muchos teléfonos
   se volvía un bloque blanco, luego toda la pantalla se ponía blanca y la app se cerraba. Ahora sus animaciones
   gastan mucha menos memoria gráfica, y si aun así tu teléfono se cae dos veces durante una, se queda quieta (sin

@@ -342,6 +342,19 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
         webView?.onResume()
     }
 
+    // (1.10.0) "Con ella instalada el banco no funciona": banking apps refuse to work (or to take
+    // touches) while another app's window is over them, even an invisible one like hers. With one of
+    // them in front (GameWatch, with "Acceso de uso"), her window and her touch pads are hidden, and
+    // back as they were when you leave it.
+    private var shyNow = false
+
+    fun shy(on: Boolean) = main.post {
+        if (on == shyNow) return@post
+        shyNow = on
+        webView?.visibility = if (on) View.GONE else View.VISIBLE
+        pads.reapply()
+    }
+
     /** She's stopped: her window goes, and no restart brings it back. */
     fun destroy() = main.post {
         closed = true
@@ -421,10 +434,11 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
 
         fun reapply() = update(last, lastDpr)
 
-        fun update(list: JSONArray, dpr: Double) {
-            last = list
+        fun update(given: JSONArray, dpr: Double) {
+            last = given
             lastDpr = dpr
-            lastRegions = list
+            lastRegions = given
+            val list = if (shyNow) JSONArray() else given // (1.10.0) out of a bank's way: nothing of hers
             // the keyboard's top, in screen px: nothing of hers is touchable below it
             val floor = if (ime > 0) maxOf(context.resources.displayMetrics.heightPixels, webView?.height ?: 0) - ime else Int.MAX_VALUE
             val want = ArrayList<IntArray>()

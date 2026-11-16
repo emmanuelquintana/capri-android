@@ -665,6 +665,11 @@ class MainActivity : Activity() {
                 if (it > 0) CapriSettings.set(this@MainActivity, "autoDressHours", it.toInt())
                 CapriSettings.set(this@MainActivity, "autoDress", it > 0)
             }, ui.block(6))
+            // (1.10.0) "quería decirle que abra una canción y la abra en Spotify": where a song you ask for plays
+            addView(ui.text(getString(R.string.settings_musicapp), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(ui.text(getString(R.string.settings_musicapp_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choiceText(listOf("YouTube" to "youtube", "Spotify" to "spotify"),
+                { Store(this@MainActivity).configString("musicApp") ?: "youtube" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "musicApp", it) }, ui.block(6))
             // icon mode: only her mask, wherever you put it, still talking
             addView(ui.text(getString(R.string.settings_icon), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(ui.text(getString(R.string.settings_icon_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))

@@ -390,4 +390,6 @@
     <string name="autodress_day">1 jour</string>
     <string name="voice_speak">Sa voix</string>
     <string name="voice_speak_how">Coupée : elle t’écoute et te répond toujours, mais seulement par écrit.</string>
+    <string name="settings_musicapp">Les chansons que tu lui demandes</string>
+    <string name="settings_musicapp_how">Quand tu lui demandes une chanson, elle passe ici (Spotify seulement s’il est installé ; sinon, sur le web).</string>
 </resources>
