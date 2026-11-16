@@ -31,7 +31,7 @@ ANIMS_DIR = os.path.join(ROOT, 'anims')
 # name: (columns, rows, cels per second, loops, how she is in it: stand / sit / lie)
 ANIMS = {
     'gamer-watch': (3, 2, 6, True, 'lie'),
-    'gamer-play': (2, 2, 6, True, 'sit'),
+    'gamer-play': (4, 1, 6, True, 'sit'),  # (1.10.0: 4x1)
     'sleep': (2, 2, 3, True, 'curl'),
     'wake': (4, 1, 6, False, 'stand'),
     'wave': (4, 1, 8, True, 'stand'),
@@ -48,13 +48,13 @@ ANIMS = {
     'phone': (2, 2, 4, True, 'lie'),
     'charge': (4, 1, 6, True, 'stand'),
     'drained': (4, 1, 6, False, 'stand'),
-    'eat': (4, 1, 6, True, 'sit'),
+    'eat': (4, 1, 6, True, 'stand'),  # (1.10.0: standing)
     'sandevistan': (3, 2, 10, False, 'stand'),
     # part 5
     'scan': (4, 1, 6, True, 'stand'),
     'bye': (4, 1, 8, False, 'stand'),
-    'dizzy': (4, 1, 6, True, 'sit'),
-    'music': (2, 2, 6, True, 'sit'),  # (redone like gamer-play: 2x2)
+    'dizzy': (4, 1, 6, True, 'stand'),  # (1.10.0: standing)
+    'music': (4, 1, 6, True, 'stand'),  # (1.10.0: standing, 4x1)
     'stretch': (4, 1, 4, True, 'stand'),
     'yawn': (4, 1, 6, False, 'stand'),
     'hack': (4, 1, 8, True, 'stand'),
@@ -66,12 +66,15 @@ ANIMS = {
     'stream': (4, 1, 5, True, 'stand'),
     'birthday': (4, 1, 5, True, 'stand'),
     'party': (4, 2, 8, True, 'stand'),
+    # 1.10.0: lying on the keyboard, sitting with the phone in games (typing.js)
+    'keyboard': (2, 2, 4, True, 'lie'),
+    'type-phone': (4, 1, 6, True, 'sit'),
 }
 # the cel where she just stands there, for the ones she jumps or reaches up in: her real height is that cel's,
 # not the whole box's (else she looks smaller in them than in the rest)
 REST = {'surprised': 3, 'stretch': 3}
 # sitting ones GPT drew a little higher in some rows: each cel's seat put on the same line
-SEAT = {'music'}
+SEAT = {'gamer-play', 'type-phone'}
 ACC_IDS = {'cat-ears': 'catears', 'santa-hat': 'santahat', 'hat-cowboy': 'cowboyhat', 'heart-balloon': 'balloon'}
 
 FULL = Image.open(os.path.join(ROOT, 'capri-full.png')).convert('RGBA')

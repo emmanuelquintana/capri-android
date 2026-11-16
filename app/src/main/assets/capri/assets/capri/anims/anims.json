@@ -1,7 +1,7 @@
 {
  "angry": {
   "n": 4,
-  "w": 140,
+  "w": 169,
   "h": 360,
   "fps": 8,
   "loop": true,
@@ -9,7 +9,7 @@
  },
  "birthday": {
   "n": 4,
-  "w": 146,
+  "w": 173,
   "h": 360,
   "fps": 5,
   "loop": true,
@@ -18,14 +18,14 @@
  "bored-tap": {
   "n": 4,
   "w": 440,
-  "h": 243,
+  "h": 326,
   "fps": 4,
   "loop": true,
   "kind": "lie"
  },
  "bye": {
   "n": 4,
-  "w": 157,
+  "w": 184,
   "h": 360,
   "fps": 8,
   "loop": false,
@@ -33,7 +33,7 @@
  },
  "charge": {
   "n": 4,
-  "w": 139,
+  "w": 170,
   "h": 360,
   "fps": 6,
   "loop": true,
@@ -41,7 +41,7 @@
  },
  "cry": {
   "n": 4,
-  "w": 188,
+  "w": 243,
   "h": 360,
   "fps": 6,
   "loop": true,
@@ -49,7 +49,7 @@
  },
  "dance": {
   "n": 8,
-  "w": 233,
+  "w": 243,
   "h": 360,
   "fps": 8,
   "loop": true,
@@ -57,15 +57,15 @@
  },
  "dizzy": {
   "n": 4,
-  "w": 206,
+  "w": 202,
   "h": 360,
   "fps": 6,
   "loop": true,
-  "kind": "sit"
+  "kind": "stand"
  },
  "drained": {
   "n": 4,
-  "w": 173,
+  "w": 209,
   "h": 360,
   "fps": 6,
   "loop": false,
@@ -73,15 +73,15 @@
  },
  "eat": {
   "n": 4,
-  "w": 183,
+  "w": 178,
   "h": 360,
   "fps": 6,
   "loop": true,
-  "kind": "sit"
+  "kind": "stand"
  },
  "gamer-play": {
   "n": 4,
-  "w": 331,
+  "w": 242,
   "h": 360,
   "fps": 6,
   "loop": true,
@@ -90,14 +90,14 @@
  "gamer-watch": {
   "n": 6,
   "w": 440,
-  "h": 320,
+  "h": 282,
   "fps": 6,
   "loop": true,
   "kind": "lie"
  },
  "guitar": {
   "n": 8,
-  "w": 250,
+  "w": 224,
   "h": 360,
   "fps": 8,
   "loop": true,
@@ -105,7 +105,7 @@
  },
  "hack": {
   "n": 4,
-  "w": 145,
+  "w": 169,
   "h": 360,
   "fps": 8,
   "loop": true,
@@ -113,15 +113,23 @@
  },
  "hug-rock": {
   "n": 4,
-  "w": 196,
+  "w": 241,
   "h": 360,
   "fps": 4,
   "loop": true,
   "kind": "sit"
  },
+ "keyboard": {
+  "n": 4,
+  "w": 440,
+  "h": 284,
+  "fps": 4,
+  "loop": true,
+  "kind": "lie"
+ },
  "laugh": {
   "n": 4,
-  "w": 158,
+  "w": 204,
   "h": 360,
   "fps": 8,
   "loop": true,
@@ -129,7 +137,7 @@
  },
  "lean-nails": {
   "n": 4,
-  "w": 140,
+  "w": 171,
   "h": 360,
   "fps": 4,
   "loop": true,
@@ -137,7 +145,7 @@
  },
  "listen": {
   "n": 4,
-  "w": 142,
+  "w": 219,
   "h": 360,
   "fps": 5,
   "loop": true,
@@ -145,7 +153,7 @@
  },
  "love": {
   "n": 4,
-  "w": 144,
+  "w": 170,
   "h": 360,
   "fps": 6,
   "loop": true,
@@ -153,15 +161,15 @@
  },
  "music": {
   "n": 4,
-  "w": 328,
+  "w": 177,
   "h": 360,
   "fps": 6,
   "loop": true,
-  "kind": "sit"
+  "kind": "stand"
  },
  "party": {
   "n": 8,
-  "w": 280,
+  "w": 243,
   "h": 360,
   "fps": 8,
   "loop": true,
@@ -170,14 +178,14 @@
  "phone": {
   "n": 4,
   "w": 440,
-  "h": 298,
+  "h": 284,
   "fps": 4,
   "loop": true,
   "kind": "lie"
  },
  "sandevistan": {
   "n": 6,
-  "w": 373,
+  "w": 392,
   "h": 360,
   "fps": 10,
   "loop": false,
@@ -185,7 +193,7 @@
  },
  "scan": {
   "n": 4,
-  "w": 139,
+  "w": 175,
   "h": 360,
   "fps": 6,
   "loop": true,
@@ -193,7 +201,7 @@
  },
  "selfie": {
   "n": 4,
-  "w": 136,
+  "w": 166,
   "h": 360,
   "fps": 4,
   "loop": true,
@@ -201,7 +209,7 @@
  },
  "shy": {
   "n": 4,
-  "w": 140,
+  "w": 172,
   "h": 360,
   "fps": 6,
   "loop": true,
@@ -209,7 +217,7 @@
  },
  "sleep": {
   "n": 4,
-  "w": 414,
+  "w": 270,
   "h": 360,
   "fps": 3,
   "loop": true,
@@ -217,7 +225,7 @@
  },
  "stream": {
   "n": 4,
-  "w": 177,
+  "w": 167,
   "h": 360,
   "fps": 5,
   "loop": true,
@@ -225,33 +233,41 @@
  },
  "stretch": {
   "n": 4,
-  "w": 155,
+  "w": 202,
   "h": 360,
   "fps": 4,
   "loop": true,
   "kind": "stand",
-  "body": 0.938
+  "body": 0.986
  },
  "surprised": {
   "n": 4,
-  "w": 134,
+  "w": 152,
   "h": 360,
   "fps": 8,
   "loop": false,
   "kind": "stand",
-  "body": 0.858
+  "body": 0.896
  },
  "think": {
   "n": 4,
-  "w": 140,
+  "w": 169,
   "h": 360,
   "fps": 4,
   "loop": true,
   "kind": "stand"
  },
+ "type-phone": {
+  "n": 4,
+  "w": 242,
+  "h": 360,
+  "fps": 6,
+  "loop": true,
+  "kind": "sit"
+ },
  "wake": {
   "n": 4,
-  "w": 164,
+  "w": 179,
   "h": 360,
   "fps": 6,
   "loop": false,
@@ -259,7 +275,7 @@
  },
  "wave": {
   "n": 4,
-  "w": 147,
+  "w": 188,
   "h": 360,
   "fps": 8,
   "loop": true,
@@ -267,7 +283,7 @@
  },
  "yawn": {
   "n": 4,
-  "w": 140,
+  "w": 169,
   "h": 360,
   "fps": 6,
   "loop": false,
