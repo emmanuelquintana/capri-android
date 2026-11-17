@@ -21,8 +21,13 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   um bloco branco, depois a tela toda ficava branca e o app fechava. Agora as animações gastam muito menos memória
   gráfica, e se mesmo assim o seu celular cair duas vezes durante uma, ela fica parada (sem animações) por uns dias
   em vez de fechar.
-- **Jogue com ela:** xadrez, campo minado, 21 e jogo da velha, sem internet. Ela joga contra você e diz o que pensa.
+- **Jogue com ela:** xadrez, campo minado, 21, jogo da velha, pingue-pongue e pedra, papel e tesoura, sem internet. Ela joga contra você e diz o que pensa.
   Na aba «Você», ou diga «Capri, vamos jogar».
+- **Duas Capris:** abra dois dedos sobre ela (ou diga «Capri, se divide») e saem duas. A outra anda, dança com a sua
+  música e fala com você se você tocar nela. Toque duas vezes ou arraste pra cima da Capri pra juntar.
+- **Ela usa seu celular por você (opcional):** «Capri, volta», «vai pro início», «abre as notificações», «desce»,
+  «toca em Configurações» ou «escreve aqui oi». Se ativa na Acessibilidade (em «Personalizar» ela explica). Só age
+  quando você pede, nunca em apps de banco ou pagamento e nunca escreve senhas.
 - **Histórico do chat:** em «Você», tudo o que você disse e o que ela respondeu, por dia e com busca. Fica só no seu
   celular e dá para apagar.
 - **Sua pergunta não é mais cancelada:** se você tocar fora do chat enquanto ela pensa, ela continua pensando.

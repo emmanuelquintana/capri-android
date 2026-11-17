@@ -22,8 +22,14 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   de téléphones elle devenait un bloc blanc, puis tout l’écran blanchissait et l’appli se fermait. Ses animations
   utilisent maintenant bien moins de mémoire graphique, et si ton téléphone plante quand même deux fois pendant
   l’une d’elles, elle reste immobile (sans animations) quelques jours au lieu de se fermer.
-- **Joue avec elle :** échecs, démineur, 21 et morpion, sans internet. Elle joue contre toi et dit ce qu’elle en
+- **Joue avec elle :** échecs, démineur, 21, morpion, ping-pong et pierre-feuille-ciseaux, sans internet. Elle joue contre toi et dit ce qu’elle en
   pense. Dans l’onglet « Toi », ou dis-lui « Capri, on joue ».
+- **Deux Capri :** écarte deux doigts sur elle (ou dis-lui « Capri, divise-toi ») et elles sont deux. L’autre marche,
+  danse sur ta musique et te parle si tu la touches. Touche-la deux fois ou pose-la sur Capri pour les réunir.
+- **Elle utilise ton téléphone pour toi (optionnel) :** « Capri, retour », « écran d’accueil », « ouvre les
+  notifications », « descends », « touche Paramètres » ou « écris ici salut ». S’active dans Accessibilité
+  (« Personnaliser » t’explique comment). Elle n’agit que quand tu le demandes, jamais dans les apps de banque ou de
+  paiement, et n’écrit jamais de mots de passe.
 - **Historique du chat :** dans « Toi », tout ce que tu lui as dit et ce qu’elle a répondu, par jour, avec une
   recherche. Ça reste sur ton téléphone et tu peux l’effacer.
 - **Ta question n’est plus annulée :** si tu touches en dehors de son chat pendant qu’elle réfléchit, elle continue.

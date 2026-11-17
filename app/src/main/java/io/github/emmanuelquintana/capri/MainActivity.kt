@@ -708,6 +708,28 @@ class MainActivity : Activity() {
             choices.add(show)
         }, ui.block(16))
 
+        // (1.10.0) she uses your phone for you (ControlService.kt): only with Android's Accessibility,
+        // off unless you turn it on there; never in bank apps
+        addView(ui.card(Hud.GREEN).apply {
+            addView(ui.label(getString(R.string.control_title), Hud.GREEN))
+            addView(ui.text(getString(R.string.control_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.text(getString(R.string.control_bank), 13f, Hud.YELLOW, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
+            val state = ui.text("", 13f, Hud.PAPER, ui.mono)
+            addView(state, ui.block(10))
+            val btn = ui.button("", Ui.Kind.LINE) {
+                runCatching { startActivity(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS)) }
+            }
+            addView(btn, ui.block(8))
+            val show = {
+                val on = ControlService.enabled(this@MainActivity)
+                state.text = getString(if (on) R.string.peek_on else R.string.peek_off)
+                state.setTextColor(if (on) Hud.GREEN else Hud.PAPER_2)
+                btn.text = getString(if (on) R.string.peek_turn_off else R.string.peek_turn_on).uppercase() + " ›"
+            }
+            show()
+            choices.add(show)
+        }, ui.block(16))
+
         // how she sounds: her voice's pitch and speed, her accent (Ears.kt reads these each time)
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_her_voice)))

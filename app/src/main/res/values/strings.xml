@@ -172,6 +172,11 @@
         <item>#Your screen</item>
         <item>“Capri, look at my screen” (Android asks you first; it needs an AI that sees pictures, like Gemini)</item>
         <item>Live: Settings → Let her see your screen → Watch live</item>
+        <item>#Your phone</item>
+        <item>“Capri, go back”, “go home”, “scroll down”</item>
+        <item>“Capri, tap Settings”, “type here hello”</item>
+        <item>Turn it on first: Customize → She uses your phone for you</item>
+        <item>“Capri, split” (or spread two fingers on her) · “come back together”</item>
         <item>#Anything else</item>
         <item>Anything else goes to her AI and she answers out loud: “Capri, tell me a joke”, “Capri, how do you say cat in Japanese?”</item>
     </string-array>
@@ -393,4 +398,10 @@
     <string name="voice_speak_how">Off: she still listens and answers, but only in writing.</string>
     <string name="settings_musicapp">Songs you ask for</string>
     <string name="settings_musicapp_how">When you ask her for a song, it plays here (Spotify only if it’s installed; if not, it opens on the web).</string>
+    <string name="control_title">She uses your phone for you</string>
+    <string name="control_how">Ask her “Capri, go back”, “go home”, “open notifications”, “scroll down”, “tap Settings” or “type here hello”, out loud or in her chat. Android only allows this through Accessibility, so you turn it on there: Accessibility › Capri uses your phone. She only acts when you ask, reads the screen only at that moment to find what you named, and keeps nothing. She never acts inside banking or payment apps, never types into passwords and does nothing on the lock screen.</string>
+    <string name="control_bank">Heads up: some banking apps (like Nu) refuse to open while any app has Accessibility on. If yours complains, turn this off before opening it.</string>
+    <string name="control_service_label">Capri uses your phone</string>
+    <string name="control_service_desc">Lets Capri do what you ask her, only when you ask: go back, go home, open notifications or recent apps, scroll, tap a button by its name or type into the field you’re on. She reads the app in front only at that moment, to find what you named, and keeps nothing. She never acts in banking or payment apps, never types into passwords and does nothing on the lock screen.</string>
+    <string name="control_service_summary">Capri goes back, scrolls, taps and types when you ask her</string>
 </resources>

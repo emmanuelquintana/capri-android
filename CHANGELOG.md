@@ -23,8 +23,13 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   se volvía un bloque blanco, luego toda la pantalla se ponía blanca y la app se cerraba. Ahora sus animaciones
   gastan mucha menos memoria gráfica, y si aun así tu teléfono se cae dos veces durante una, se queda quieta (sin
   animaciones) unos días en vez de cerrarse.
-- **Juega con ella:** ajedrez, buscaminas, 21 y tres en raya, sin internet. Ella juega contra ti y te dice lo que
+- **Juega con ella:** ajedrez, buscaminas, 21, tres en raya, ping pong y piedra, papel o tijera, sin internet. Ella juega contra ti y te dice lo que
   piensa. En la pestaña «Tú» o diciéndole «Capri, juguemos».
+- **Dos Capris:** abre dos dedos sobre ella (o dile «Capri, divídete») y salen dos. La otra camina, baila con tu
+  música y te habla si la tocas. Tócala dos veces o llévala encima de Capri para juntarlas.
+- **Usa tu celular por ti (opcional):** «Capri, ve atrás», «ve al inicio», «abre las notificaciones», «baja», «toca
+  Ajustes» o «escribe aquí hola». Se activa en Accesibilidad (en «Personalizar» te dice cómo). Solo actúa cuando se
+  lo pides, nunca en apps de bancos o pagos y nunca escribe contraseñas.
 - **Historial de chat:** en «Tú», todo lo que le dijiste y lo que te respondió, por día y con buscador. Se queda
   solo en tu teléfono y lo puedes borrar.
 - **Ya no se cancela tu pregunta:** si tocas fuera de su chat mientras piensa, sigue pensando. Cuando tiene la

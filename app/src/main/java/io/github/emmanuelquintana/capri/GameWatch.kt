@@ -120,12 +120,7 @@ class GameWatch(private val service: CapriService) {
     }
 
     private val banks = HashMap<String, Boolean>()
-    private fun isBank(pkg: String): Boolean = banks.getOrPut(pkg) {
-        val label = runCatching {
-            service.packageManager.getApplicationLabel(service.packageManager.getApplicationInfo(pkg, 0)).toString()
-        }.getOrDefault("")
-        BANK.containsMatchIn(pkg) || BANK_NAME.containsMatchIn(label)
-    }
+    private fun isBank(pkg: String): Boolean = banks.getOrPut(pkg) { looksLikeBank(service, pkg) }
 
     private fun gamer(on: Boolean) {
         leftAt = 0L
@@ -191,6 +186,13 @@ class GameWatch(private val service: CapriService) {
         // banks and payments, by their package or their name (Latin America, Brazil, Spain, the US…)
         private val BANK = Regex("bank|banco|banca|bancolombia|bbva|santander|banorte|banamex|citibanamex|scotiabank|hsbc|itau|bradesco|caixa|nubank|nu\\.production|picpay|mercadopago|mercadolibre\\.wallet|nequi|daviplata|\\.uala|brubank|paypal|venmo|cashapp|squareup\\.cash|zelle|revolut|transferwise|wise\\.android|inter\\.android|c6bank|bancointer|sicoob|sicredi|banrisul|interbank|yape|coppel|azteca|spin\\.oxxo|hey\\.banco|openbank|bankinter|sabadell|bancosantander|lacaixa|kutxa|unicaja|ibercaja|chase|wellsfargo|bofa|capitalone|usaa|tinkoff|sberbank|alfabank|raiffeisen", RegexOption.IGNORE_CASE)
         private val BANK_NAME = Regex("\\b(banco|bank|banca|banking|banque|банк)\\b", RegexOption.IGNORE_CASE)
+        /** A bank or payments app, by its package or its name (also ControlService: she never acts in one). */
+        fun looksLikeBank(context: android.content.Context, pkg: String): Boolean {
+            val label = runCatching {
+                context.packageManager.getApplicationLabel(context.packageManager.getApplicationInfo(pkg, 0)).toString()
+            }.getOrDefault("")
+            return BANK.containsMatchIn(pkg) || BANK_NAME.containsMatchIn(label)
+        }
         private const val LEAVE_AFTER = 10_000L
         // panels that float over the app you're in (the notification shade, Samsung's game tools):
         // their coming and going doesn't mean you left your game

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Capri using your phone for you (ControlService.kt): she listens to no events; she reads the app
+     in front only when you ask her for something (to find what you named), and taps or types once. -->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged"
+    android:packageNames="io.github.emmanuelquintana.capri.none"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagRetrieveInteractiveWindows"
+    android:notificationTimeout="1000"
+    android:canRetrieveWindowContent="true"
+    android:canPerformGestures="true"
+    android:description="@string/control_service_desc"
+    android:summary="@string/control_service_summary" />

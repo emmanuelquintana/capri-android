@@ -76,6 +76,15 @@ class HostBridge(private val service: CapriService) {
         // (1.10.0) your chat history, on this phone only (ChatLog.kt, shown in the app)
         "msg:share" -> obj(args).let { actions.shareMessage(it.optString("app"), it.optString("pkg").takeIf { p -> p.isNotEmpty() && p != "null" }, it.optString("text")) }
         "saver:set" -> service.setSaving(obj(args).optBoolean("on"))
+        // (1.10.0) she uses your phone for you, if you turned it on (ControlService.kt)
+        "control:state" -> ControlService.instance != null
+        "control:do" -> obj(args).let { a ->
+            val svc = ControlService.instance
+            if (svc == null) false else { svc.act(a.optString("what"), a.optString("text")); true }
+        }
+        "control:settings" -> runCatching {
+            service.startActivity(android.content.Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))
+        }.isSuccess
         "page:open" -> obj(args).optString("page").let { if (it == "games" || it == "chatlog") PageActivity.open(service, it) }
         "chatlog:add" -> obj(args).let { ChatLog.add(service, it.optString("q"), it.optString("a"), it.optLong("at", System.currentTimeMillis())) }
         "keys:seal" -> store.seal(obj(args).optString("value"))

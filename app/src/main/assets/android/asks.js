@@ -4,9 +4,12 @@
 // - "mándale a Ana por WhatsApp que ya voy": WhatsApp (or Telegram, Messenger, SMS…) opens with the
 //   message written; you pick who and tap send. Android doesn't let an app send a message for you
 //   (and she never would without you seeing it).
+// - "ve atrás", "ve al inicio", "baja", "toca Ajustes", "escribe aquí hola": she uses your phone, if you
+//   turned it on in Accessibility (control.js, ControlService.kt).
 
 import { send } from './native.js';
 import { SPLIT_ASK, MERGE_ASK } from './twin.js';
+import { controlAsk, wire as wireControl } from './control.js';
 
 const GAMES_ASK = /juguemos|jugar (?:algo|contigo|conmigo|ajedrez|buscaminas|cartas|al? (?:21|gato|ajedrez|buscaminas|blackjack|tres en raya|ping ?pong|piedra,? papel))|jugar (?:ping ?pong|piedra,? papel)|juega(?:s)? conmigo|quiero jugar (?:contigo|algo|ajedrez|buscaminas|cartas)|tus juegos|let'?s play|play (?:a game|with me|chess|minesweeper|cards|blackjack|tic.?tac.?toe|ping ?pong|rock,? paper)|your games|jouons|on joue|joue avec moi|jouer aux? (?:échecs|cartes|démineur|morpion)|vamos jogar|bora jogar|joga comigo|jogar (?:xadrez|cartas|campo minado|jogo da velha)|давай (?:сыграем|поиграем)|поиграй со мной|сыграем в/iu;
 const HISTORY_ASK = /(?:mi|el|nuestro|tu) historial|historial (?:de|del) chat|chat history|our (?:chat|history)|historique|hist[oó]rico (?:do|de) chat|meu hist[oó]rico|история (?:чата|переписки)/iu;
@@ -49,6 +52,9 @@ export function extraAsk(text, lang) {
   if (twin && words <= 8 && MERGE_ASK.test(said)) {
     return twin.merge(false) ? { line: twin.lines().merge[0], face: 'laugh' } : { line: twin.lines().alone, face: 'look' };
   }
+  // (1.10.0) "ve atrás", "baja", "toca Ajustes", "escribe aquí hola": she uses your phone (control.js)
+  const acted = controlAsk(said, lang);
+  if (acted) return acted;
   if (GAMES_ASK.test(said) && words <= 10) {
     send('page:open', { page: 'games' });
     return { line: t.games, face: 'laugh' };
@@ -73,6 +79,7 @@ export function extraAsk(text, lang) {
 
 // her chat: these happen here, not as a question to her AI (which would pretend it sent it)
 export function chatAsks({ lang }) {
+  wireControl();
   const chat = window.dev?.chat;
   if (!chat) return;
   const ask = chat.send.bind(chat);

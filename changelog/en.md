@@ -21,8 +21,13 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Goodbye white screen while dancing:** when Capri danced, listened to music or rested, on many phones she turned
   into a white block, then the whole screen went white and the app closed. Her animations now use far less graphics
   memory, and if your phone still goes down twice during one, she stays still (no animations) for a few days instead.
-- **Play with her:** chess, minesweeper, 21 and tic-tac-toe, no internet needed. She plays against you and says what
+- **Play with her:** chess, minesweeper, 21, tic-tac-toe, ping pong and rock-paper-scissors, no internet needed. She plays against you and says what
   she thinks. In the «You» tab, or tell her "Capri, let's play".
+- **Two Capris:** spread two fingers on her (or tell her "Capri, split") and there are two. The other one walks,
+  dances to your music and talks to you if you tap her. Tap her twice or drag her onto Capri to join them.
+- **She uses your phone for you (optional):** "Capri, go back", "go home", "open notifications", "scroll down",
+  "tap Settings" or "type here hello". Turned on in Accessibility («Customize» tells you how). She only acts when you
+  ask, never in banking or payment apps, and never types passwords.
 - **Chat history:** in «You», everything you told her and what she answered, by day, with search. It stays on your
   phone only, and you can delete it.
 - **Your question isn't cancelled anymore:** if you tap outside her chat while she's thinking, she keeps thinking.

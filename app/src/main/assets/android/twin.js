@@ -56,7 +56,7 @@ const LINES = {
 };
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 
-export const SPLIT_ASK = /div[ií]dete|div[ií]danse|sep[aá]rate en dos|hazte dos|clónate|cl[oó]nate|split|clone yourself|make two of you|divise-toi|d[ée]double-toi|divide-se|se divide|se clona|раздвойся|разделись/iu;
+export const SPLIT_ASK = /div[ií]dete|div[ií]danse|sep[aá]rate en dos|hazte dos|clónate|cl[oó]nate|split|clone yourself|make two of you|divise-toi|d[ée]double-toi|divide-se|se divide|se clona|раздвойся|раздвоись|разделись/iu;
 export const MERGE_ASK = /j[uú]ntense|[uú]nanse|vuelve(?:n)? a ser una|j[uú]ntate|merge|become one|back together|fusionnez|fusionne-toi|juntem-se|se junta(?:m)?|voltem a ser uma|соединитесь|объединитесь|снова одна/iu;
 
 export function twins({ lang, cfg }) {

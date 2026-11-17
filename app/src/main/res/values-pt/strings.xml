@@ -170,6 +170,11 @@
         <item>#Sua tela</item>
         <item>“Capri, olha minha tela” (o Android te pergunta antes; precisa de uma IA que veja imagens, como o Gemini)</item>
         <item>Ao vivo: Ajustes → Deixar ela ver sua tela → Ver ao vivo</item>
+        <item>#Seu celular</item>
+        <item>“Capri, volta”, “vai pro início”, “desce”</item>
+        <item>“Capri, toca em Configurações”, “escreve aqui oi”</item>
+        <item>Ative antes: Personalizar → Ela usa seu celular por você</item>
+        <item>“Capri, se divide” (ou abra dois dedos sobre ela) · “juntem-se”</item>
         <item>#Todo o resto</item>
         <item>Todo o resto vai para a IA dela e ela responde em voz alta: “Capri, me conta uma piada”, “Capri, como se diz gato em japonês?”</item>
     </string-array>
@@ -392,4 +397,10 @@
     <string name="voice_speak_how">Desligada: ela continua te ouvindo e respondendo, mas só por escrito.</string>
     <string name="settings_musicapp">As músicas que você pedir</string>
     <string name="settings_musicapp_how">Quando você pede uma música, ela toca aqui (Spotify só se estiver instalado; se não, abre na web).</string>
+    <string name="control_title">Ela usa seu celular por você</string>
+    <string name="control_how">Peça «Capri, volta», «vai pro início», «abre as notificações», «desce», «toca em Configurações» ou «escreve aqui oi», em voz alta ou no chat dela. O Android só permite isso pela Acessibilidade, então se ativa lá: Acessibilidade › Capri usa seu celular. Ela só age quando você pede, lê a tela só naquele momento pra achar o que você falou e não guarda nada. Nunca age em apps de banco ou pagamento, nunca escreve em senhas e não faz nada com a tela bloqueada.</string>
+    <string name="control_bank">Atenção: alguns apps de banco (como o Nubank) não abrem enquanto qualquer app tiver Acessibilidade ativada. Se o seu reclamar, desative isto antes de abrir.</string>
+    <string name="control_service_label">Capri usa seu celular</string>
+    <string name="control_service_desc">Deixa a Capri fazer o que você pede, só quando você pede: voltar, ir pro início, abrir as notificações ou os apps recentes, rolar, tocar num botão pelo nome ou escrever no campo em que você está. Ela lê o app da frente só naquele momento, pra achar o que você falou, e não guarda nada. Nunca age em apps de banco ou pagamento, nunca escreve em senhas e não faz nada com a tela bloqueada.</string>
+    <string name="control_service_summary">A Capri volta, rola, toca e escreve quando você pede</string>
 </resources>

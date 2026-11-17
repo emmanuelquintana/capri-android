@@ -147,6 +147,21 @@
                 android:resource="@xml/capri_peek" />
         </service>
 
+        <!-- Capri using your phone for you (1.10.0): back, home, scroll, "toca …", "escribe …". Off unless
+             you turn it on in Android's Accessibility settings; never in bank apps (ControlService.kt) -->
+        <service
+            android:name=".ControlService"
+            android:exported="true"
+            android:label="@string/control_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/capri_control" />
+        </service>
+
         <!-- every few hours, even with her off: is there a new version? (Updater.kt) -->
         <service
             android:name=".UpdateJob"
