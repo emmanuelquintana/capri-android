@@ -418,7 +418,7 @@ class OnboardingActivity : Activity() {
 object Permissions {
     class Perm(val title: Int, val why: Int, val required: Boolean, val granted: () -> Boolean, val ask: () -> Unit)
 
-    fun all(a: Activity): List<Perm> = listOf(
+    fun all(a: Activity): List<Perm> = listOfNotNull(
         Perm(R.string.perm_overlay_title, R.string.perm_overlay_why, true, { Settings.canDrawOverlays(a) }) {
             a.startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${a.packageName}")))
         },
@@ -430,9 +430,10 @@ object Permissions {
         Perm(R.string.perm_notes_title, R.string.perm_notes_why, false, { CapriNotifications.allowed(a) }) {
             a.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
         },
-        Perm(R.string.perm_install_title, R.string.perm_install_why, false, { a.packageManager.canRequestPackageInstalls() }) {
+        // (the Play version updates from the store: no installing APKs)
+        if (Updater.ENABLED) Perm(R.string.perm_install_title, R.string.perm_install_why, false, { a.packageManager.canRequestPackageInstalls() }) {
             a.startActivity(Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${a.packageName}")))
-        },
+        } else null,
         Perm(R.string.perm_mic_title, R.string.perm_mic_why, false, { Ears.allowed(a) }) {
             a.requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), MIC)
         },

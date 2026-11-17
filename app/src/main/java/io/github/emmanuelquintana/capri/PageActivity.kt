@@ -121,6 +121,17 @@ class PageActivity : Activity() {
         @JavascriptInterface
         fun clearChatlog() = ChatLog.clear(this@PageActivity).let { }
 
+        /** «Reportar» on one of her answers (Google Play's rule for AI-made content): what you said and
+         *  what she answered go to Emma, like a bug report but without the app's log. Answers "ok",
+         *  "rate", "off", "bad" or "net" to the page's capriReported(). */
+        @JavascriptInterface
+        fun reportReply(q: String, a: String) {
+            val text = "[Respuesta de la IA reportada]\nTú: ${q.take(300)}\nCapri: ${a.take(650)}"
+            Report.send(this@PageActivity, text, withLog = false) { r ->
+                web?.evaluateJavascript("window.capriReported && capriReported(${JSONObject.quote(r)})", null)
+            }
+        }
+
         /** A game's result, so she can bring it up later over your screen (games.js). */
         @JavascriptInterface
         fun played(json: String) {

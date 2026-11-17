@@ -3,7 +3,7 @@
 # base64 between markers, so the app's screens can be looked at without a phone.
 set -u
 PKG=io.github.emmanuelquintana.capri
-APK=${1:-app/build/outputs/apk/debug/app-debug.apk}
+APK=${1:-app/build/outputs/apk/github/debug/app-github-debug.apk}
 mkdir -p shots
 adb install -r "$APK" >/dev/null
 adb shell settings put global window_animation_scale 1
