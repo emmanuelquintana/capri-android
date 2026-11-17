@@ -6,7 +6,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 
 - **O rosto novo dela:** todas as animações, poses e expressões foram redesenhadas com a máscara de verdade (a placa
   verde com os olhos grandes), e duas novas: deitada no seu teclado e no celular dela quando você joga.
-- **Não falta mais um braço:** no modo leve e na imagem grande do guarda-roupa ela aparecia com um braço só.
+- **Não falta mais um braço:** no modo leve, na imagem grande do guarda-roupa e nas miniaturas ela aparecia
+  com um braço só. Agora ela tem as duas mãos com todas as roupas, em qualquer modo.
 - **O chat não se mexe mais enquanto você digita:** o teclado muda um pouco de tamanho ao sugerir palavras, e isso
   mexia o chat dela.
 - **Bancos:** muitos apps de banco não funcionam com outro app por cima. Se você deu «Acesso de uso», a Capri se

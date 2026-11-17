@@ -7,7 +7,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 - **Su cara nueva:** todas sus animaciones, poses y caras están redibujadas con su máscara de verdad (la placa verde
   con sus ojos grandes), y estrenan dos: acostada en tu teclado y con su celular cuando juegas.
-- **Ya no le falta un brazo:** en modo ligero y en la pantalla grande del vestuario se dibujaba con un solo brazo.
+- **Ya no le falta un brazo:** en modo ligero, en la pantalla grande del vestuario y en sus miniaturas
+  se dibujaba con un solo brazo. Ahora tiene sus dos manos con todos sus trajes, en cualquier modo.
 - **El chat ya no se mueve mientras escribes:** el teclado cambia un poco de tamaño al sugerir palabras y eso movía
   su chat a cada rato.
 - **Bancos:** muchas apps de bancos no funcionan con otra app encima. Si le diste «Acceso de uso», Capri se esconde

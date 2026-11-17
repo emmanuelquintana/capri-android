@@ -6,7 +6,8 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 
 - **Son nouveau visage :** toutes ses animations, poses et expressions sont redessinées avec son vrai masque (la
   plaque verte et ses grands yeux), et deux nouvelles : allongée sur ton clavier et sur son téléphone quand tu joues.
-- **Il ne lui manque plus un bras :** en mode léger et sur la grande image du vestiaire, elle n’avait qu’un bras.
+- **Il ne lui manque plus un bras :** en mode léger, sur la grande image du vestiaire et dans ses vignettes,
+  elle n’avait qu’un bras. Maintenant elle a ses deux mains avec toutes ses tenues, dans tous les modes.
 - **Le chat ne bouge plus pendant que tu écris :** le clavier change un peu de taille en suggérant des mots, et ça
   déplaçait son chat.
 - **Banques :** beaucoup d’applis bancaires ne marchent pas avec une autre appli par-dessus. Si tu lui as donné

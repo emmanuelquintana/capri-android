@@ -6,7 +6,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 - **Her new look:** all her animations, poses and faces are redrawn with her real mask (the green plate with her
   big eyes), plus two new ones: lying on your keyboard and on her phone while you play.
-- **No more missing arm:** in light mode and on the wardrobe's big picture she was drawn with one arm.
+- **No more missing arm:** in light mode, on the wardrobe's big picture and in its thumbnails she was
+  drawn with one arm. Now she has both hands in every outfit, in any mode.
 - **The chat no longer moves while you type:** the keyboard changes size a bit as it suggests words, and that kept
   moving her chat.
 - **Banks:** many banking apps won't work with another app on top. If you gave her "Usage access", Capri hides by
