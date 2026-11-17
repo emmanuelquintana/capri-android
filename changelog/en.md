@@ -30,6 +30,14 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   does it too.
 - **Cyberpunk games:** the games screen is now Night City neon, with Capri watching you from the corner, her mask as
   her piece in tic-tac-toe, on her cards and on her ping pong paddle, and a stamp at the end of each game.
+- **Capri plays like a real rival:** she no longer answers instantly or always the same way. She has a mood (gets
+  cocky, annoyed, in the zone) and it shows on her face and in how she plays. She thinks longer when the move is hard,
+  sometimes eyes one move and changes her mind, makes human mistakes (and sometimes notices), comments on your good
+  moves and your slips, hurries you if you take long and gets serious if you keep beating her. She remembers your
+  habits between games (your chess opening, when you stand at 21, your favourite hand) and keeps the score against
+  you. At rock-paper-scissors she sometimes tells you what she'll throw… and it may be a lie. At ping pong she reacts
+  with a delay, gets tired on long rallies and smashes when she's confident. At minesweeper she gives you a hint if
+  you get stuck.
 - **Two Capris:** spread two fingers on her (or tell her "Capri, split") and there are two. The other one walks,
   dances to your music and talks to you if you tap her. Tap her twice or drag her onto Capri to join them.
 - **She uses your phone for you (optional):** "Capri, go back", "go home", "open notifications", "scroll down",

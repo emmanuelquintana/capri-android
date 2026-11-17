@@ -32,6 +32,13 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   de Android.
 - **Juegos cyberpunk:** la pantalla de juegos ahora es neón de Night City, con Capri mirándote desde la esquina, su
   máscara como ficha en tres en raya, en sus cartas y en su pala de ping pong, y un sello al final de cada partida.
+- **Capri juega como una rival de verdad:** ya no responde al instante ni siempre igual. Tiene ánimo (se confía, se
+  enoja, entra en la zona) y se le nota en la cara y en cómo juega. Piensa más cuando la jugada está difícil, a veces
+  mira una jugada y cambia de idea, se equivoca como una persona (y a veces se da cuenta), comenta tus buenas
+  jugadas y tus errores, te apura si tardas y se pone seria si le ganas seguido. Recuerda tus mañas entre partidas
+  (tu apertura de ajedrez, en cuánto te plantas en 21, tu mano favorita) y lleva el marcador contra ti. En piedra,
+  papel o tijera a veces te dice qué va a sacar… y puede ser mentira. En ping pong reacciona con retraso, se cansa en
+  los peloteos largos y remata cuando está confiada. En buscaminas te da una pista si te atoras.
 - **Dos Capris:** abre dos dedos sobre ella (o dile «Capri, divídete») y salen dos. La otra camina, baila con tu
   música y te habla si la tocas. Tócala dos veces o llévala encima de Capri para juntarlas.
 - **Usa tu celular por ti (opcional):** «Capri, ve atrás», «ve al inicio», «abre las notificaciones», «baja», «toca

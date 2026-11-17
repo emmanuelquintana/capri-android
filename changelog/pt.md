@@ -30,6 +30,13 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   acessibilidade do Android também.
 - **Jogos cyberpunk:** a tela de jogos agora é neon de Night City, com a Capri te olhando do canto, a máscara dela como
   peça no jogo da velha, nas cartas e na raquete do pingue-pongue, e um carimbo no fim de cada partida.
+- **A Capri joga como uma rival de verdade:** não responde mais na hora nem sempre igual. Ela tem humor (fica
+  confiante, brava, entra na zona) e isso aparece no rosto e no jeito de jogar. Pensa mais quando a jogada é difícil,
+  às vezes olha uma jogada e muda de ideia, erra como uma pessoa (e às vezes percebe), comenta suas boas jogadas e
+  seus erros, te apressa se você demora e fica séria se você ganha seguido. Lembra das suas manias entre partidas (sua
+  abertura no xadrez, quando você para no 21, sua mão favorita) e guarda o placar contra você. No pedra, papel e
+  tesoura às vezes ela fala o que vai jogar… e pode ser mentira. No pingue-pongue ela reage com atraso, cansa nas
+  trocas longas e dá cortada quando está confiante. No campo minado te dá uma dica se você travar.
 - **Duas Capris:** abra dois dedos sobre ela (ou diga «Capri, se divide») e saem duas. A outra anda, dança com a sua
   música e fala com você se você tocar nela. Toque duas vezes ou arraste pra cima da Capri pra juntar.
 - **Ela usa seu celular por você (opcional):** «Capri, volta», «vai pro início», «abre as notificações», «desce»,

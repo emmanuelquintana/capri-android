@@ -1,7 +1,10 @@
 // Games with her (1.10.0, games.html in the app: PageActivity "games"). "Que puedas jugar juegos
 // con ella (no juegos que exijan mucho) sino clásicos como ajedrez, buscaminas, cartas…".
-// Four, all here on the phone, no internet: chess, minesweeper, 21 (blackjack, she deals) and
-// tic-tac-toe. She plays (or watches) and says what she thinks, with her faces.
+// Six, all here on the phone, no internet: chess, minesweeper, 21 (blackjack, she deals),
+// tic-tac-toe, ping pong and rock-paper-scissors. She plays (or watches) and says what she thinks,
+// with her faces. How she plays, like a person and not a machine: brain.js.
+
+import { rival, record } from './brain.js';
 
 const bridge = window.CapriPage;
 const info = (() => { try { return JSON.parse(bridge?.info?.() || '{}'); } catch { return {}; } })();
@@ -223,6 +226,7 @@ function stamp(result) {
   setTimeout(() => s.remove(), 2600);
 }
 const played = (game, result) => {
+  brain?.end(result);
   pose(result);
   stamp(result);
   try { bridge?.played?.(JSON.stringify({ game, result, at: Date.now() })); } catch {}
@@ -241,7 +245,8 @@ const GAMES = [
 let level = (() => { try { return localStorage.getItem('capri.games.level') || 'normal'; } catch { return 'normal'; } })();
 let current = null;
 let stopGame = null; // a game with its own loop leaves this to stop it
-const halt = () => { try { stopGame?.(); } catch {} stopGame = null; };
+let brain = null; // her, as your rival in the game that's open (brain.js)
+const halt = () => { try { stopGame?.(); } catch {} stopGame = null; brain?.stop(); brain = null; };
 
 function menu() {
   halt();
@@ -252,6 +257,9 @@ function menu() {
   for (const g of GAMES) {
     const b = el('button', 'game');
     b.append(el('span', 'game__icon', g.icon), el('span', 'game__name', W[g.id]), el('span', 'game__how', W[g.how]));
+    // your record against her
+    const r = record(g.id);
+    if (r && (r.you || r.her || r.draw)) b.append(el('span', 'game__rec', `${W.you} ${r.you} · ${W.her} ${r.her}`));
     b.addEventListener('click', () => { buzz(); open(g); });
     grid.append(b);
   }
@@ -285,7 +293,8 @@ function open(g) {
   bar.append(back, again);
   const box = el('div', 'box');
   stage.append(bar, box);
-  say('start', 'smug');
+  brain = rival({ game: g.id, level, lang, talk: (text, mood) => say(text, mood) });
+  brain.start();
   pose('play');
   g.run(box);
 }
@@ -313,61 +322,75 @@ function ttt(box) {
   });
   box.append(grid);
   let over = false;
-  const draw = () => cells.forEach((v, i) => { btns[i].textContent = v || ''; btns[i].className = `ttt__cell${v ? ` is-${v.toLowerCase()}` : ''}`; });
-  function best(b, me) {
-    // minimax: her best move (O), whole tree (it's small)
-    const score = (bb, turn, depth) => {
-      const w = winner(bb);
-      if (w === 'O') return 10 - depth;
-      if (w === 'X') return depth - 10;
-      if (w === 'draw') return 0;
-      let top = turn === 'O' ? -99 : 99;
-      for (let i = 0; i < 9; i++) {
-        if (bb[i]) continue;
-        bb[i] = turn;
-        const s = score(bb, turn === 'O' ? 'X' : 'O', depth + 1);
-        bb[i] = null;
-        top = turn === 'O' ? Math.max(top, s) : Math.min(top, s);
-      }
-      return top;
-    };
-    let pickAt = -1;
-    let top = -99;
+  let eye = -1; // a cell she's eyeing before she decides
+  const draw = () => cells.forEach((v, i) => { btns[i].textContent = v || ''; btns[i].className = `ttt__cell${v ? ` is-${v.toLowerCase()}` : ''}${!v && i === eye ? ' is-eye' : ''}`; });
+  // minimax, the whole tree (it's small): how it ends for her (O) with best play from here
+  const value = (bb, turn, depth) => {
+    const w = winner(bb);
+    if (w === 'O') return 10 - depth;
+    if (w === 'X') return depth - 10;
+    if (w === 'draw') return 0;
+    let top = turn === 'O' ? -99 : 99;
     for (let i = 0; i < 9; i++) {
-      if (b[i]) continue;
-      b[i] = me;
-      const s = score(b, 'X', 1);
-      b[i] = null;
-      if (s > top) { top = s; pickAt = i; }
+      if (bb[i]) continue;
+      bb[i] = turn;
+      const v = value(bb, turn === 'O' ? 'X' : 'O', depth + 1);
+      bb[i] = null;
+      top = turn === 'O' ? Math.max(top, v) : Math.min(top, v);
     }
-    return pickAt;
-  }
+    return top;
+  };
+  // every free cell and what it's worth to `who` (higher = better for them)
+  const options = (who) => {
+    const out = [];
+    for (let i = 0; i < 9; i++) {
+      if (cells[i]) continue;
+      cells[i] = who;
+      const v = value(cells, who === 'O' ? 'X' : 'O', 1);
+      cells[i] = null;
+      out.push({ move: i, score: who === 'O' ? v : -v });
+    }
+    return out;
+  };
   function end(w) {
     over = true;
     if (w === 'X') { say('youWin', 'surprised'); played('ttt', 'you'); }
     else if (w === 'O') { say('herWin', 'smug'); played('ttt', 'her'); }
     else { say('draw', 'calm'); played('ttt', 'draw'); }
   }
+  let busy = false;
   function play(i) {
-    if (over || cells[i]) return;
+    if (over || busy || cells[i]) return;
     buzz();
+    // how good was that? (only judged when it mattered: some cells were better or worse than others)
+    const yours = options('X');
+    const top = Math.max(...yours.map((o) => o.score));
+    const low = Math.min(...yours.map((o) => o.score));
+    const mine = yours.find((o) => o.move === i).score;
     cells[i] = 'X';
     draw();
     let w = winner(cells);
     if (w) return end(w);
-    say('think', 'thinking');
+    if (top !== low) brain.yourMove(mine === top ? (top - low >= 10 ? 1 : 0.8) : (mine - low) / (top - low) * 0.6, { missed: mine < top });
+    busy = true;
+    const choice = brain.choose(options('O'), { scale: 12 });
+    face.src = `${FACES}face-thinking.png`;
+    const wait = brain.hesitation(choice, (k) => { eye = k ?? -1; draw(); });
     setTimeout(() => {
-      const free = cells.map((v, k) => (v ? -1 : k)).filter((k) => k >= 0);
-      const slip = { easy: 0.55, normal: 0.22, hard: 0 }[level];
-      const at = Math.random() < slip ? pick(free) : best(cells, 'O');
-      cells[at] = 'O';
+      eye = -1;
+      cells[choice.move] = 'O';
+      busy = false;
       draw();
       w = winner(cells);
-      if (w) end(w);
-      else face.src = `${FACES}face-focus.png`;
-    }, 450 + Math.random() * 400);
+      if (w) return end(w);
+      brain.afterHer(choice);
+      brain.standing(Math.max(...options('O').map((o) => o.score)) / 10);
+      face.src = `${FACES}face-${brain.face()}.png`;
+      brain.yourTurn();
+    }, wait + brain.thinkTime({ choice, many: 9 - cells.filter(Boolean).length }));
   }
   draw();
+  brain.yourTurn();
 }
 
 // ---------- minesweeper ----------
@@ -424,6 +447,22 @@ function mines(box) {
     return b;
   });
   box.append(info2, grid);
+  // she watches: fast taps, and when you're stuck (not on Difícil) a whispered safe cell
+  const taps = [];
+  let stuck = 0;
+  const watch = () => {
+    clearTimeout(stuck);
+    if (level === 'hard') return;
+    stuck = setTimeout(() => {
+      if (over || !placed || current?.id !== 'mines') return;
+      const near = cells.map((c, i) => i).filter((i) => !cells[i].open && !cells[i].flag && !cells[i].mine && around(i).some((k) => cells[k].open));
+      if (!near.length) return;
+      const at = pick(near);
+      btns[at].classList.add('is-hint');
+      setTimeout(() => btns[at].classList.remove('is-hint'), 2500);
+      brain.line('hint', 'wink', { r: Math.floor(at / W2) + 1, c: (at % W2) + 1 }, 2);
+    }, 22000);
+  };
   const draw = () => {
     cells.forEach((c, i) => {
       const b = btns[i];
@@ -450,6 +489,7 @@ function mines(box) {
       cells.forEach((k) => { if (k.mine) k.open = true; });
       draw();
       buzz();
+      clearTimeout(stuck);
       say('boom', 'laugh');
       played('mines', 'her');
       return;
@@ -466,11 +506,17 @@ function mines(box) {
     draw();
     if (cells.every((k) => k.mine || k.open)) {
       over = true;
+      clearTimeout(stuck);
       say('cleared', 'love');
       played('mines', 'you');
-    } else if (opened > 6 && Math.random() < 0.12) {
-      say('think', 'focus');
+      return;
     }
+    const now = Date.now();
+    taps.push(now);
+    while (taps.length && now - taps[0] > 3500) taps.shift();
+    if (taps.length >= 5) { taps.length = 0; brain.line('fast', 'surprised', {}, 1); }
+    brain.standing(-cells.filter((k) => k.open).length / cells.filter((k) => !k.mine).length);
+    watch();
   };
   draw();
 }
@@ -525,40 +571,79 @@ function cards(box) {
     draw();
     played('cards', who);
   };
+  // what would bust her now, from the cards she hasn't seen yet (she counts them)
+  const bustChance = () => {
+    const unseen = deck.length;
+    if (!unseen) return 1;
+    return deck.filter((c) => value([...hers, c]) > 21).length / unseen;
+  };
+  // her call, like a player: she sees your cards, so with her head on she hits while she's behind
+  // and weighs a tie; distracted or annoyed she plays the house's old rule (17), with nerves
+  const wantsCard = () => {
+    const h = value(hers);
+    const y = value(mine);
+    const risk = bustChance();
+    if (Math.random() < brain.skill()) {
+      if (h < y) return true;
+      if (h > y) return false;
+      return risk < 0.25 + brain.mood.confidence * 0.2; // a tie: only if it's fairly safe
+    }
+    if (brain.mood.tilt > 0.4 && h >= 15 && h < 17) return Math.random() < 0.5;
+    return h < 17;
+  };
   const herTurn = () => {
     hidden = false;
     draw();
+    brain.stop();
     say('think', 'thinking');
+    let first = true;
     const step = () => {
-      if (value(hers) < 17) {
+      const h = value(hers);
+      if (h <= 21 && wantsCard()) {
+        const risk = bustChance();
+        if (risk > 0.45) brain.line('riskHit', 'focus', {}, first ? 1 : 0);
+        else if (level === 'hard' && first && risk < 0.2) brain.line('counted', 'smug', {}, 0);
+        first = false;
         hers.push(deck.pop());
         draw();
-        setTimeout(step, 650);
+        setTimeout(step, 600 + Math.round(risk * 900) + Math.random() * 300); // a risky card: she takes her time
         return;
       }
-      const h = value(hers);
       const y = value(mine);
+      if (h === y && h <= 21) brain.line('safeStand', 'calm', {}, 0);
       if (h > 21) { say('herBust', 'cringe'); finish('you'); } else if (h > y) { say('herWin', 'smug'); finish('her'); } else if (h < y) { say('youWin', 'surprised'); finish('you'); } else { say('draw', 'calm'); finish('draw'); }
     };
     setTimeout(step, 700);
+  };
+  // reading you: a nudge when you're on the fence, and how you usually stand (she remembers)
+  const yourCall = () => {
+    const y = value(mine);
+    if (y >= 12 && y <= 16) brain.line('tease21', 'wink', {}, 0);
+    brain.yourTurn();
   };
   hit.addEventListener('click', () => {
     if (over) return;
     buzz();
     mine.push(deck.pop());
     draw();
-    if (value(mine) > 21) { say('bust', 'laugh'); finish('her'); } else if (value(mine) === 21) herTurn();
+    if (value(mine) > 21) { brain.stop(); say('bust', 'laugh'); finish('her'); } else if (value(mine) === 21) herTurn();
     else if (Math.random() < 0.3) say('hitLine', 'aside');
+    else yourCall();
   });
   stand.addEventListener('click', () => {
     if (over) return;
     buzz();
+    const y = value(mine);
+    const usual = brain.habitOf('stand');
+    brain.habit('stand', String(y));
+    if (usual && usual.total >= 4 && usual.share >= 0.4 && Number(usual.value) === y && y <= 16) brain.line('stand15', 'smug', { x: y }, 2);
     over = true;
     hit.disabled = stand.disabled = true;
     herTurn();
   });
   draw();
   if (value(mine) === 21) { say('blackjack', 'wide'); setTimeout(herTurn, 600); }
+  else setTimeout(yourCall, 2500);
 }
 
 // ---------- chess ----------
@@ -710,16 +795,14 @@ function chess(box) {
     }
     return best;
   }
+  // every move she has and what it's worth to her (deeper the harder the level, and when she's focused)
   function think(st) {
-    const moves = legal(st);
-    const depth = { easy: 1, normal: 2, hard: 3 }[level];
-    let best = null;
-    let top = -Infinity;
-    for (const m of moves) {
-      const v = search(apply(st, m), depth - 1, -Infinity, Infinity) + Math.random() * (level === 'easy' ? 120 : 12);
-      if (v > top) { top = v; best = m; }
-    }
-    return best;
+    const depth = { easy: 1, normal: 2, hard: 3 }[level] + (level === 'normal' && brain.mood.focus > 0.7 ? 1 : 0);
+    return legal(st).map((m) => ({ move: m, score: Math.max(-3000, Math.min(3000, search(apply(st, m), depth - 1, -Infinity, Infinity))) }));
+  }
+  // your moves, each with what it leaves you (her best answer, one move deep): to judge yours
+  function yourOptions(st) {
+    return legal(st).map((m) => ({ move: m, score: Math.max(-3000, Math.min(3000, search(apply(st, m), 1, -Infinity, Infinity))) }));
   }
 
   const board = el('div', 'chess');
@@ -737,6 +820,8 @@ function chess(box) {
   let targets = [];
   let over = false;
   let lastMove = null;
+  let eye = null; // a move she's eyeing before she decides
+  let mine = 0; // your moves so far
   const taken = { w: [], b: [] };
   function draw() {
     const check = inCheck(s) ? kingAt(s, s.turn) : -1;
@@ -744,7 +829,7 @@ function chess(box) {
       const p = s.b[i];
       const d = squares[i];
       d.textContent = p ? GLYPH[p[1]] : '';
-      d.className = `chess__sq${(Math.floor(i / 8) + (i % 8)) % 2 ? ' is-dark' : ''}${p ? ` is-${p[0]}` : ''}${i === chosen ? ' is-chosen' : ''}${targets.some((m) => m.to === i) ? ' is-target' : ''}${lastMove && (lastMove.from === i || lastMove.to === i) ? ' is-last' : ''}${i === check ? ' is-check' : ''}`;
+      d.className = `chess__sq${(Math.floor(i / 8) + (i % 8)) % 2 ? ' is-dark' : ''}${p ? ` is-${p[0]}` : ''}${i === chosen ? ' is-chosen' : ''}${targets.some((m) => m.to === i) ? ' is-target' : ''}${lastMove && (lastMove.from === i || lastMove.to === i) ? ' is-last' : ''}${eye && (eye.from === i || eye.to === i) ? ' is-eye' : ''}${i === check ? ' is-check' : ''}`;
     }
     caps.textContent = `${taken.b.map((k) => GLYPH[k]).join('')}  ·  ${taken.w.map((k) => GLYPH[k]).join('')}`;
   }
@@ -769,15 +854,30 @@ function chess(box) {
     if (t) {
       buzz();
       const took = s.b[i] || t.enPassant;
+      // how good was it: what it leaves you next to the best you had (lower = better for you)
+      const opts = yourOptions(s);
+      const best = Math.min(...opts.map((o) => o.score));
+      const yours = opts.find((o) => o.move.from === t.from && o.move.to === t.to)?.score ?? best;
+      const loss = yours - best;
+      const second = opts.map((o) => o.score).sort((a, b) => a - b)[1] ?? best;
+      // your opening: she remembers it
+      if (mine === 0) {
+        const key = `${t.from}-${t.to}`;
+        const usual = brain.habitOf('open');
+        if (usual && usual.total >= 3 && usual.share >= 0.6 && usual.value === key) brain.line('openRepeat', 'smug', {}, 2);
+        brain.habit('open', key);
+      }
+      mine += 1;
       move(t);
       chosen = null;
       targets = [];
       draw();
       if (done()) return;
-      if (took && Math.random() < 0.6) say('lost', 'angry');
-      else if (inCheck(s)) say('inCheck', 'surprised');
-      else say('think', 'thinking');
-      setTimeout(herMove, 250);
+      if (inCheck(s)) say('inCheck', 'surprised');
+      else if (took && Math.random() < 0.5) say('lost', 'angry');
+      else if (mine > 1) brain.yourMove(loss <= 0 ? (second - best > 150 ? 1 : 0.8) : Math.max(0, 1 - loss / 300), { missed: loss > 60 });
+      face.src = `${FACES}face-thinking.png`;
+      setTimeout(herMove, 120);
       return;
     }
     if (s.b[i]?.[0] === 'w') {
@@ -790,19 +890,31 @@ function chess(box) {
     draw();
   }
   function herMove() {
-    const m = think(s);
-    if (!m) return done();
+    const choice = brain.choose(think(s), { scale: 300 });
+    if (!choice) return done();
+    const m = choice.move;
     const took = s.b[m.to] || m.enPassant;
+    const wait = brain.hesitation(choice, (k) => { eye = k; draw(); });
     setTimeout(() => {
+      eye = null;
       move(m);
       draw();
       if (done()) return;
       if (inCheck(s)) say('check', 'smug');
-      else if (took && Math.random() < 0.6) say('took', 'grin');
-      else face.src = `${FACES}face-focus.png`;
-    }, 200);
+      else if (took && Math.random() < 0.5) say('took', 'grin');
+      else brain.afterHer(choice);
+      // how it's going: the pieces on the board, her side positive
+      const material = evaluate(s) / 900;
+      const was = brain.mood.confidence;
+      brain.standing(Math.max(-1, Math.min(1, material)));
+      if (material > 0.35 && was < 0.6 && Math.random() < 0.4) brain.line('material', 'smug', {}, 0);
+      if (material < -0.35 && was > 0.4 && Math.random() < 0.4) brain.line('behind', 'cringe', {}, 0);
+      face.src = `${FACES}face-${brain.face()}.png`;
+      brain.yourTurn();
+    }, wait + brain.thinkTime({ choice, many: choice.sorted.length }));
   }
   draw();
+  brain.yourTurn();
 }
 
 // ---------- ping pong ----------
@@ -827,27 +939,42 @@ function pong(box) {
   const mask = new Image();
   mask.src = `${FACES}capri-face.png`;
   const trail = [];
-  const skill = { easy: [0.45, 34], normal: [0.7, 16], hard: [0.95, 4] }[level]; // her speed (share of ball's), her aim error
-  const st = { me: w / 2, cap: w / 2, bx: w / 2, by: h / 2, vx: 0, vy: 0, mine: 0, hers: 0, wait: 0, aim: 0, over: false };
+  // her, like a player (brain.js): she reads the ball only after a reaction time, guesses where it
+  // will land (wall bounces included) roughly at first and better as it comes, gets tired on long
+  // rallies unless she's in the zone, overreaches when annoyed, and smashes when she's confident
+  const st = { me: w / 2, cap: w / 2, bx: w / 2, by: h / 2, vx: 0, vy: 0, mine: 0, hers: 0, wait: 0, over: false, react: 0, guess: 0, rally: 0, coming: false };
   const serve = (toward) => {
     const speed = h * { easy: 0.55, normal: 0.7, hard: 0.85 }[level];
     const a = (Math.random() - 0.5) * 0.9;
     st.bx = w / 2; st.by = h / 2;
     st.vx = Math.sin(a) * speed; st.vy = Math.cos(a) * speed * toward;
     st.wait = 0.8;
-    st.aim = (Math.random() - 0.5) * 2 * skill[1];
+    st.rally = 0;
+    st.coming = false;
+  };
+  const herY = 18 + ph;
+  // where the ball will cross her line, folding the wall bounces
+  const landing = () => {
+    if (st.vy >= 0) return w / 2;
+    const t = (st.by - herY) / -st.vy;
+    let x = st.bx + st.vx * t;
+    const lo = r, hi = w - r, span = hi - lo;
+    x = ((x - lo) % (2 * span) + 2 * span) % (2 * span);
+    return lo + (x > span ? 2 * span - x : x);
   };
   const point = (mine) => {
     buzz();
-    if (mine) { st.mine += 1; you.textContent = `${W.you} ${st.mine}`; }
-    else { st.hers += 1; her.textContent = `${W.her} ${st.hers}`; }
+    if (mine) { st.mine += 1; you.textContent = `${W.you} ${st.mine}`; brain.event('yourPoint'); }
+    else { st.hers += 1; her.textContent = `${W.her} ${st.hers}`; brain.event('herPoint'); }
+    brain.event('calm');
+    brain.standing((st.hers - st.mine) / 4);
     if (st.mine >= 5 || st.hers >= 5) {
       st.over = true;
       if (st.mine >= 5) { say('youWin', 'surprised'); played('pong', 'you'); }
       else { say('herWin', 'smug'); played('pong', 'her'); }
       return;
     }
-    say(mine ? 'yourPoint' : 'herPoint', mine ? 'angry' : 'grin');
+    if (!brain.line(st.mine >= 4 && st.hers < 4 ? 'comeback' : st.hers >= 4 && st.mine < 4 ? 'confident' : 'none', brain.face(), {}, 1)) say(mine ? 'yourPoint' : 'herPoint', mine ? brain.face() : 'grin');
     serve(mine ? -1 : 1);
   };
   const follow = (e) => {
@@ -862,11 +989,14 @@ function pong(box) {
   const hitPaddle = (px, y, dir) => {
     if (Math.abs(st.bx - px) > pw / 2 + r) return false;
     const off = (st.bx - px) / (pw / 2); // -1..1: where on the paddle
-    const speed = Math.min(Math.hypot(st.vx, st.vy) * 1.06, h * 1.9);
+    // her smash: confident, she hits it harder now and then
+    const smash = dir > 0 && brain.mood.confidence > 0.68 && Math.random() < 0.3 ? 1.18 : 1;
+    const speed = Math.min(Math.hypot(st.vx, st.vy) * 1.06 * smash, h * 1.9);
     const a = off * 1.05;
     st.vx = Math.sin(a) * speed; st.vy = Math.cos(a) * speed * dir;
     st.by = y;
-    st.aim = (Math.random() - 0.5) * 2 * skill[1];
+    st.rally += 1;
+    brain.event('rally', st.rally);
     return true;
   };
   let last = performance.now();
@@ -880,15 +1010,33 @@ function pong(box) {
         st.bx += st.vx * dt; st.by += st.vy * dt;
         if (st.bx < r) { st.bx = r; st.vx = Math.abs(st.vx); }
         if (st.bx > w - r) { st.bx = w - r; st.vx = -Math.abs(st.vx); }
-        const myY = h - 18 - ph, herY = 18 + ph;
+        const myY = h - 18 - ph;
         if (st.vy > 0 && st.by + r >= myY && st.by < myY + ph) { if (hitPaddle(st.me, myY - r, -1)) buzz(); }
         if (st.vy < 0 && st.by - r <= herY && st.by > herY - ph) hitPaddle(st.cap, herY + r, 1);
         if (st.by > h + r) point(false);
         else if (st.by < -r) point(true);
       }
-      // her paddle: chases the ball when it comes to her, drifts to the middle when it doesn't
-      const goal = st.vy < 0 ? st.bx + st.aim : w / 2;
-      const max = Math.hypot(st.vx, st.vy) * skill[0] * dt;
+      // her paddle
+      const sk = brain.skill();
+      const mood = brain.mood;
+      if (st.vy < 0 && !st.coming) {
+        // it's coming her way: she notices after a moment, with a first rough guess
+        st.coming = true;
+        st.react = 0.32 - sk * 0.24 + Math.random() * 0.08;
+        st.guess = (Math.random() - 0.5) * 2 * (1 - sk) * w * 0.45;
+      }
+      if (st.vy > 0) st.coming = false;
+      let goal = w / 2;
+      if (st.coming) {
+        if (st.react > 0) { st.react -= dt; goal = st.cap; }
+        else {
+          const near = Math.max(0, Math.min(1, (st.by - herY) / (h * 0.85))); // 1 far … 0 at her line
+          goal = landing() + st.guess * (0.25 + near * 0.75);
+          if (mood.tilt > 0.4) goal += Math.sign(goal - st.cap) * mood.tilt * 18; // overreaching
+        }
+      }
+      const tired = Math.min(0.3, st.rally * 0.014 * (1 - mood.focus));
+      const max = h * (0.45 + sk * 0.75) * (1 - tired) * dt;
       st.cap += Math.max(-max, Math.min(max, goal - st.cap));
       st.cap = Math.max(pw / 2, Math.min(w - pw / 2, st.cap));
     }
@@ -949,24 +1097,49 @@ function rps(box) {
     return b;
   });
   box.append(score, show, acts);
-  const st = { mine: 0, hers: 0, seen: [], busy: false };
-  // she guesses your next hand from what you did after your last one (no peeking)
+  const st = { mine: 0, hers: 0, seen: [], busy: false, said: null, lie: false };
+  const beat = (x) => (x + 1) % 3; // what beats x
+  // she guesses your next hand (no peeking): what you did after your last hand this game, and your
+  // favourite hands from all your games against her
   const guess = () => {
     const h = st.seen;
-    const smart = { easy: 0, normal: 0.45, hard: 0.8 }[level];
-    if (h.length < 2 || Math.random() >= smart) return Math.floor(Math.random() * 3);
-    const after = [0, 0, 0];
-    for (let i = 1; i < h.length; i++) if (h[i - 1] === h[h.length - 1]) after[h[i]] += 1;
-    const counts = after.some(Boolean) ? after : h.reduce((c, x) => (c[x] += 1, c), [0, 0, 0]);
-    const likely = counts.indexOf(Math.max(...counts));
-    return (likely + 1) % 3; // what beats it
+    const smart = Math.max(0, Math.min(0.9, (brain.skill() - 0.2) * 1.15));
+    if (Math.random() >= smart) return Math.floor(Math.random() * 3);
+    const counts = [0, 0, 0];
+    const past = brain.habitOf('hand')?.counts || {};
+    for (let k = 0; k < 3; k++) counts[k] += (past[k] || 0) * 0.15;
+    for (let i = 1; i < h.length; i++) if (h[i - 1] === h[h.length - 1]) counts[h[i]] += 1;
+    h.forEach((x) => { counts[x] += 0.3; });
+    if (!counts.some(Boolean)) return Math.floor(Math.random() * 3);
+    return beat(counts.indexOf(Math.max(...counts)));
+  };
+  // her bluff: now and then she tells you what she'll throw. Whether it's true depends on you:
+  // if you usually believe her (you play what beats it), she lies
+  const announce = () => {
+    st.said = null;
+    if (st.over || Math.random() > 0.28) return;
+    const trusting = brain.habitOf('believe');
+    st.lie = trusting && trusting.total >= 2 ? trusting.counts.yes / trusting.total > 0.5 : Math.random() < 0.5;
+    st.said = Math.floor(Math.random() * 3);
+    brain.line('announce', 'wink', { x: W[HANDS[st.said][0]].toLowerCase() }, 2);
   };
   function throwHand(i) {
     if (st.busy || st.over) return;
     buzz();
     st.busy = true;
-    const hers = guess();
+    let hers = guess();
+    if (st.said != null) {
+      // she said it: the truth, or the hand that beats the one you'd play if you believed her
+      hers = st.lie ? beat(beat(st.said)) : st.said;
+      brain.habit('believe', i === beat(st.said) ? 'yes' : 'no');
+    }
+    const said = st.said;
+    st.said = null;
     st.seen.push(i);
+    brain.habit('hand', i);
+    // the same hand three times: she notices
+    const n = st.seen.length;
+    if (n >= 3 && st.seen[n - 1] === st.seen[n - 2] && st.seen[n - 2] === st.seen[n - 3]) brain.line('pattern', 'smug', { x: W[HANDS[i][0]].toLowerCase() }, 2);
     mineHand.textContent = HANDS[i][1];
     herHand.textContent = '…';
     btns.forEach((b, k) => b.classList.toggle('is-chosen', k === i));
@@ -974,10 +1147,13 @@ function rps(box) {
     setTimeout(() => {
       herHand.textContent = HANDS[hers][1];
       herHand.classList.remove('is-pop'); void herHand.offsetWidth; herHand.classList.add('is-pop');
-      if (i === hers) say('rpsTie', 'calm');
-      else if (beats(i, hers)) { st.mine += 1; you.textContent = `${W.you} ${st.mine}`; say('rpsYours', 'angry'); }
-      else { st.hers += 1; her.textContent = `${W.her} ${st.hers}`; say('rpsMine', 'grin'); }
+      const spoke = said != null && brain.line(st.lie ? 'lied' : 'honest', st.lie ? 'laugh' : 'calm', {}, 2);
+      if (i === hers) { if (!spoke) say('rpsTie', 'calm'); }
+      else if (beats(i, hers)) { st.mine += 1; you.textContent = `${W.you} ${st.mine}`; brain.event('yourPoint'); if (!spoke) say('rpsYours', brain.face()); }
+      else { st.hers += 1; her.textContent = `${W.her} ${st.hers}`; brain.event('herPoint'); if (!spoke) say('rpsMine', 'grin'); }
+      brain.standing((st.hers - st.mine) / 2);
       st.busy = false;
+      if (st.mine < 3 && st.hers < 3) setTimeout(announce, 1400);
       if (st.mine >= 3 || st.hers >= 3) {
         st.over = true;
         btns.forEach((b) => { b.disabled = true; });

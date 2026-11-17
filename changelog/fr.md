@@ -32,6 +32,14 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Jeux cyberpunk :** l’écran des jeux est maintenant en néon de Night City, avec Capri qui te regarde depuis le coin,
   son masque comme pion au morpion, sur ses cartes et sur sa raquette de ping-pong, et un tampon à la fin de chaque
   partie.
+- **Capri joue comme une vraie rivale :** elle ne répond plus instantanément ni toujours pareil. Elle a une humeur
+  (sûre d’elle, agacée, dans la zone) qui se voit sur son visage et dans son jeu. Elle réfléchit plus quand le coup
+  est difficile, hésite parfois et change d’avis, se trompe comme une personne (et parfois s’en rend compte),
+  commente tes bons coups et tes erreurs, te presse si tu traînes et devient sérieuse si tu la bats souvent. Elle
+  retient tes habitudes d’une partie à l’autre (ton ouverture aux échecs, quand tu restes au 21, ta main préférée) et
+  tient le score contre toi. À pierre-feuille-ciseaux, elle t’annonce parfois ce qu’elle va jouer… et ça peut être un
+  mensonge. Au ping-pong, elle réagit avec un temps de retard, se fatigue dans les longs échanges et smashe quand elle
+  est sûre d’elle. Au démineur, elle te donne un indice si tu bloques.
 - **Deux Capri :** écarte deux doigts sur elle (ou dis-lui « Capri, divise-toi ») et elles sont deux. L’autre marche,
   danse sur ta musique et te parle si tu la touches. Touche-la deux fois ou pose-la sur Capri pour les réunir.
 - **Elle utilise ton téléphone pour toi (optionnel) :** « Capri, retour », « écran d’accueil », « ouvre les
