@@ -33,6 +33,12 @@ class ControlService : AccessibilityService() {
         super.onServiceConnected()
         instance = this
         tell("control:state", JSONObject().put("on", true))
+        // Android's accessibility button (or its floating button): Capri out of nowhere, over any app
+        runCatching {
+            accessibilityButtonController.registerAccessibilityButtonCallback(object : android.accessibilityservice.AccessibilityButtonController.AccessibilityButtonCallback() {
+                override fun onClicked(controller: android.accessibilityservice.AccessibilityButtonController) = summon()
+            })
+        }
         Diag.add("I", "control: on")
     }
 
@@ -45,6 +51,10 @@ class ControlService : AccessibilityService() {
     override fun onDestroy() {
         instance = null
         super.onDestroy()
+    }
+
+    private fun summon() {
+        if (CapriService.running) CapriService.send(this, CapriService.ACTION_SUMMON) else CapriService.start(this)
     }
 
     // it listens to nothing: the config asks for no events (res/xml/capri_control.xml)

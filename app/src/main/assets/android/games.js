@@ -23,6 +23,7 @@ const buzz = () => { try { bridge?.haptic?.(); } catch {} };
 const W = {
   es: {
     title: 'Juegos', pick: 'Elige un juego', back: 'Menú', again: 'Otra vez', level: 'Dificultad',
+    stampYou: 'Ganaste', stampHer: 'Capri gana', stampDraw: 'Empate',
     pong: 'Ping pong', rps: 'Piedra, papel o tijera',
     pongHow: 'Mueve tu pala con el dedo. A 5 puntos.', rpsHow: 'Al mejor de 5. Yo también elijo.',
     rock: 'Piedra', paper: 'Papel', scissors: 'Tijera', score: 'Marcador',
@@ -54,6 +55,7 @@ const W = {
   },
   en: {
     title: 'Games', pick: 'Pick a game', back: 'Menu', again: 'Again', level: 'Difficulty',
+    stampYou: 'You win', stampHer: 'Capri wins', stampDraw: 'Draw',
     pong: 'Ping pong', rps: 'Rock, paper, scissors',
     pongHow: 'Move your paddle with your finger. First to 5.', rpsHow: 'Best of 5. I pick too.',
     rock: 'Rock', paper: 'Paper', scissors: 'Scissors', score: 'Score',
@@ -85,6 +87,7 @@ const W = {
   },
   fr: {
     title: 'Jeux', pick: 'Choisis un jeu', back: 'Menu', again: 'Encore', level: 'Difficulté',
+    stampYou: 'Gagné', stampHer: 'Capri gagne', stampDraw: 'Égalité',
     pong: 'Ping-pong', rps: 'Pierre, feuille, ciseaux',
     pongHow: 'Bouge ta raquette avec le doigt. En 5 points.', rpsHow: 'En 3 manches gagnantes sur 5. Je choisis aussi.',
     rock: 'Pierre', paper: 'Feuille', scissors: 'Ciseaux', score: 'Score',
@@ -116,6 +119,7 @@ const W = {
   },
   pt: {
     title: 'Jogos', pick: 'Escolha um jogo', back: 'Menu', again: 'De novo', level: 'Dificuldade',
+    stampYou: 'Você venceu', stampHer: 'Capri venceu', stampDraw: 'Empate',
     pong: 'Pingue-pongue', rps: 'Pedra, papel e tesoura',
     pongHow: 'Mova sua raquete com o dedo. Até 5 pontos.', rpsHow: 'Melhor de 5. Eu também escolho.',
     rock: 'Pedra', paper: 'Papel', scissors: 'Tesoura', score: 'Placar',
@@ -147,6 +151,7 @@ const W = {
   },
   ru: {
     title: 'Игры', pick: 'Выбери игру', back: 'Меню', again: 'Ещё раз', level: 'Сложность',
+    stampYou: 'Победа', stampHer: 'Капри победила', stampDraw: 'Ничья',
     pong: 'Пинг-понг', rps: 'Камень, ножницы, бумага',
     pongHow: 'Двигай ракетку пальцем. До 5 очков.', rpsHow: 'До трёх побед. Я тоже выбираю.',
     rock: 'Камень', paper: 'Бумага', scissors: 'Ножницы', score: 'Счёт',
@@ -199,7 +204,29 @@ function say(key, mood = 'look') {
     if (i >= chars.length) clearInterval(lineTimer);
   }, 22);
 }
-const played = (game, result) => { try { bridge?.played?.(JSON.stringify({ game, result, at: Date.now() })); } catch {} };
+// (1.10.0) her, watching from the corner: a pose for how it's going
+const body = $('#body');
+const POSES = { menu: ['wave', false], play: ['prone-watch', true], her: ['prone-kick', true], you: ['hug-knees', false], draw: ['bored-back', true] };
+function pose(id) {
+  const [file, wide] = POSES[id] || POSES.play;
+  const src = `${FACES}poses/pose-${file}.png`;
+  if (body.getAttribute('src') === src) return;
+  body.src = src;
+  body.classList.toggle('is-wide', wide);
+  body.classList.remove('is-new'); void body.offsetWidth; body.classList.add('is-new');
+}
+// the end of a game: a stamp across the screen
+function stamp(result) {
+  document.querySelector('.stamp')?.remove();
+  const s = el('div', `stamp is-${result}`, W[result === 'you' ? 'stampYou' : result === 'her' ? 'stampHer' : 'stampDraw']);
+  document.body.append(s);
+  setTimeout(() => s.remove(), 2600);
+}
+const played = (game, result) => {
+  pose(result);
+  stamp(result);
+  try { bridge?.played?.(JSON.stringify({ game, result, at: Date.now() })); } catch {}
+};
 
 // ---------- the menu ----------
 const stage = $('#stage');
@@ -242,6 +269,7 @@ function menu() {
   }
   stage.append(lv);
   say('hello', 'grin');
+  pose('menu');
 }
 
 function open(g) {
@@ -258,6 +286,7 @@ function open(g) {
   const box = el('div', 'box');
   stage.append(bar, box);
   say('start', 'smug');
+  pose('play');
   g.run(box);
 }
 
@@ -789,12 +818,15 @@ function pong(box) {
   box.append(score, cv);
   const dpr = Math.min(2, window.devicePixelRatio || 1);
   const w = Math.min(box.clientWidth || 340, 460);
-  const h = Math.round(Math.min(w * 1.35, Math.max(320, window.innerHeight - cv.getBoundingClientRect().top - 24)));
+  const h = Math.round(Math.min(w * 1.35, Math.max(320, window.innerHeight - cv.getBoundingClientRect().top - 110)));
   cv.width = w * dpr; cv.height = h * dpr;
   cv.style.width = `${w}px`; cv.style.height = `${h}px`;
   const g = cv.getContext('2d');
   g.scale(dpr, dpr);
   const pw = w * 0.24, ph = 10, r = 7;
+  const mask = new Image();
+  mask.src = `${FACES}capri-face.png`;
+  const trail = [];
   const skill = { easy: [0.45, 34], normal: [0.7, 16], hard: [0.95, 4] }[level]; // her speed (share of ball's), her aim error
   const st = { me: w / 2, cap: w / 2, bx: w / 2, by: h / 2, vx: 0, vy: 0, mine: 0, hers: 0, wait: 0, aim: 0, over: false };
   const serve = (toward) => {
@@ -860,19 +892,34 @@ function pong(box) {
       st.cap += Math.max(-max, Math.min(max, goal - st.cap));
       st.cap = Math.max(pw / 2, Math.min(w - pw / 2, st.cap));
     }
-    g.clearRect(0, 0, w, h);
-    g.fillStyle = 'rgba(31, 30, 23, 0.9)';
+    // a neon court: grid, her half in red, yours in cyan, her mask big and faint in the middle
+    g.fillStyle = '#0b0a10';
     g.fillRect(0, 0, w, h);
-    g.strokeStyle = 'rgba(242, 241, 232, 0.18)';
-    g.setLineDash([8, 8]);
+    g.lineWidth = 1;
+    for (let x = 0; x <= w; x += 28) { g.strokeStyle = 'rgba(0, 240, 255, 0.08)'; g.beginPath(); g.moveTo(x, 0); g.lineTo(x, h); g.stroke(); }
+    for (let y = 0; y <= h; y += 28) { g.strokeStyle = y < h / 2 ? 'rgba(255, 32, 82, 0.1)' : 'rgba(0, 240, 255, 0.08)'; g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke(); }
+    if (mask.complete && mask.naturalWidth) { g.globalAlpha = 0.1; g.drawImage(mask, w / 2 - w * 0.22, h / 2 - w * 0.22, w * 0.44, w * 0.44); g.globalAlpha = 1; }
+    g.strokeStyle = 'rgba(255, 32, 82, 0.6)';
+    g.setLineDash([10, 8]);
     g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
     g.setLineDash([]);
-    g.shadowBlur = 12;
+    g.shadowBlur = 16;
+    // her paddle, with her mask on it
     g.fillStyle = GREEN; g.shadowColor = GREEN;
     g.fillRect(st.cap - pw / 2, 18, pw, ph);
+    g.shadowBlur = 0;
+    if (mask.complete && mask.naturalWidth) g.drawImage(mask, st.cap - 12, 18 + ph / 2 - 12, 24, 24);
+    g.shadowBlur = 16;
     g.fillStyle = YELLOW; g.shadowColor = YELLOW;
     g.fillRect(st.me - pw / 2, h - 18 - ph, pw, ph);
-    if (!st.over) { g.beginPath(); g.arc(st.bx, st.by, r, 0, Math.PI * 2); g.fill(); }
+    if (!st.over) {
+      trail.push([st.bx, st.by]);
+      if (trail.length > 8) trail.shift();
+      trail.forEach(([x, y], i) => { g.globalAlpha = (i + 1) / trail.length * 0.35; g.fillStyle = st.vy < 0 ? GREEN : '#00f0ff'; g.beginPath(); g.arc(x, y, r * (0.5 + i / trail.length / 2), 0, Math.PI * 2); g.fill(); });
+      g.globalAlpha = 1;
+      g.fillStyle = YELLOW; g.shadowColor = YELLOW;
+      g.beginPath(); g.arc(st.bx, st.by, r, 0, Math.PI * 2); g.fill();
+    }
     g.shadowBlur = 0;
     raf = requestAnimationFrame(tick);
   };

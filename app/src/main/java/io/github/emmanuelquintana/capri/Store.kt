@@ -24,6 +24,15 @@ class Store(private val context: Context) {
     /** When a file of hers last changed (0: not there), to keep what was read from it while it hasn't. */
     fun stamp(name: String): Long = File(dir, name).let { if (it.exists()) it.lastModified() * 31 + it.length() else 0L }
 
+    /** Her memory of you; a broken memory.json gives the one kept before it (MEMORY_PREV). */
+    fun memory(): org.json.JSONObject? {
+        for (n in listOf(MEMORY, MEMORY_PREV)) {
+            val text = read(n) ?: continue
+            runCatching { return org.json.JSONObject(text) }.onFailure { Diag.add("W", "$n: ${it.message}") }
+        }
+        return null
+    }
+
     fun read(name: String): String? = try {
         File(dir, name).takeIf { it.exists() }?.readText()
     } catch (_: Exception) {
@@ -32,6 +41,12 @@ class Store(private val context: Context) {
 
     @Synchronized
     fun write(name: String, text: String) {
+        // (1.10.0) her memory of you: the one before stays as memory.prev.json when this one is much
+        // smaller (a whole memory replaced by almost nothing), and memory:load falls back on it
+        if (name == MEMORY) runCatching {
+            val old = File(dir, name)
+            if (old.exists() && old.length() > 400 && text.length * 3 < old.length()) old.copyTo(File(dir, MEMORY_PREV), overwrite = true)
+        }
         // written next to it, then swapped in: a crash halfway never leaves her settings broken
         val tmp = File(dir, "$name.tmp")
         tmp.writeText(text)
@@ -118,6 +133,7 @@ class Store(private val context: Context) {
     companion object {
         const val CONFIG = "config.json"
         const val MEMORY = "memory.json"
+        const val MEMORY_PREV = "memory.prev.json"
         private const val ALIAS = "capri-api-keys"
         private const val TRANSFORM = "AES/GCM/NoPadding"
         private val LOCK = Any()

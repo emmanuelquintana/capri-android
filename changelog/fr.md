@@ -24,6 +24,14 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   l’une d’elles, elle reste immobile (sans animations) quelques jours au lieu de se fermer.
 - **Joue avec elle :** échecs, démineur, 21, morpion, ping-pong et pierre-feuille-ciseaux, sans internet. Elle joue contre toi et dit ce qu’elle en
   pense. Dans l’onglet « Toi », ou dis-lui « Capri, on joue ».
+- **Sa mémoire ne s’efface plus :** si Capri enregistrait quelque chose avant d’avoir fini de lire ce qu’elle se
+  rappelait de toi, elle effaçait tout. Maintenant elle attend de l’avoir lu, et garde une copie de secours.
+- **Elle surgit de nulle part :** sa tuile des réglages rapides ou le bouton de sa notification la font apparaître
+  avec un glitch et un salut, même pendant une vidéo ou un jeu. Si tu actives « Elle utilise ton téléphone pour
+  toi », le bouton d’accessibilité d’Android aussi.
+- **Jeux cyberpunk :** l’écran des jeux est maintenant en néon de Night City, avec Capri qui te regarde depuis le coin,
+  son masque comme pion au morpion, sur ses cartes et sur sa raquette de ping-pong, et un tampon à la fin de chaque
+  partie.
 - **Deux Capri :** écarte deux doigts sur elle (ou dis-lui « Capri, divise-toi ») et elles sont deux. L’autre marche,
   danse sur ta musique et te parle si tu la touches. Touche-la deux fois ou pose-la sur Capri pour les réunir.
 - **Elle utilise ton téléphone pour toi (optionnel) :** « Capri, retour », « écran d’accueil », « ouvre les

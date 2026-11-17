@@ -25,6 +25,13 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   animaciones) unos días en vez de cerrarse.
 - **Juega con ella:** ajedrez, buscaminas, 21, tres en raya, ping pong y piedra, papel o tijera, sin internet. Ella juega contra ti y te dice lo que
   piensa. En la pestaña «Tú» o diciéndole «Capri, juguemos».
+- **Su memoria ya no se borra:** si Capri guardaba algo antes de terminar de leer lo que recordaba de ti, lo
+  borraba todo. Ahora espera a leerlo y además guarda una copia de respaldo.
+- **Aparece de la nada:** su botón de Ajustes rápidos o el de su notificación la hacen aparecer con un glitch y un
+  saludo, aunque estés viendo videos o jugando. Si activas «Usa tu celular por ti», también el botón de accesibilidad
+  de Android.
+- **Juegos cyberpunk:** la pantalla de juegos ahora es neón de Night City, con Capri mirándote desde la esquina, su
+  máscara como ficha en tres en raya, en sus cartas y en su pala de ping pong, y un sello al final de cada partida.
 - **Dos Capris:** abre dos dedos sobre ella (o dile «Capri, divídete») y salen dos. La otra camina, baila con tu
   música y te habla si la tocas. Tócala dos veces o llévala encima de Capri para juntarlas.
 - **Usa tu celular por ti (opcional):** «Capri, ve atrás», «ve al inicio», «abre las notificaciones», «baja», «toca

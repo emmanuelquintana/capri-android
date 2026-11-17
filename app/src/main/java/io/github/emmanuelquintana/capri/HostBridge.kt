@@ -71,7 +71,7 @@ class HostBridge(private val service: CapriService) {
         // her settings and her memory (config.js, main.js)
         "config:load" -> store.read(Store.CONFIG)?.let { JSONObject(it) }
         "config:save" -> store.write(Store.CONFIG, obj(args).toString()).let { service.onConfig(obj(args)) }
-        "memory:load" -> store.read(Store.MEMORY)?.let { JSONObject(it) }
+        "memory:load" -> store.memory()
         "memory:save" -> store.write(Store.MEMORY, obj(args).toString())
         // (1.10.0) your chat history, on this phone only (ChatLog.kt, shown in the app)
         "msg:share" -> obj(args).let { actions.shareMessage(it.optString("app"), it.optString("pkg").takeIf { p -> p.isNotEmpty() && p != "null" }, it.optString("text")) }

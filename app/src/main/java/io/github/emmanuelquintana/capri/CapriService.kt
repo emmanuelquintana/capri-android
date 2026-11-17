@@ -167,6 +167,7 @@ class CapriService : Service() {
         when (intent?.action) {
             ACTION_MENU -> command("menu")
             ACTION_TOGGLE -> command("toggle")
+            ACTION_SUMMON -> if (pageReady) command("summon") else queued = "summon"
             ACTION_QUIT -> quit()
             ACTION_CHAT -> if (pageReady) command("chat") else queued = "chat" // (her widget can start her with it)
             ACTION_LOOK -> if (pageReady) command("look") else queued = "look"
@@ -386,6 +387,7 @@ class CapriService : Service() {
         private const val WINK_FOR = 10 * 60 * 1000L
         const val ACTION_MENU = "capri.MENU"
         const val ACTION_TOGGLE = "capri.TOGGLE"
+        const val ACTION_SUMMON = "capri.SUMMON" // (1.10.0) Android's accessibility button: out of nowhere
         const val ACTION_QUIT = "capri.QUIT"
         const val ACTION_SETUP = "capri.SETUP"
         const val ACTION_WARDROBE = "capri.WARDROBE" // the app's Settings: open her wardrobe on her

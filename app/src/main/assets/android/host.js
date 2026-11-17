@@ -212,10 +212,34 @@ function sendCommand(name, payload = {}) {
 // ---------- her memory of your chats ----------
 
 let memory = {};
+// (1.10.0, "la memoria de mi Capri desapareció de la nada") nothing is written until memory.json
+// was read: a save before that (or after a read that failed) wrote only the new bits over everything
+let memoryRead = false;
+let memoryEarly = {};
 const readMemory = () => memory;
 function saveMemory(patch) {
   memory = { ...memory, ...patch };
+  if (!memoryRead) {
+    memoryEarly = { ...memoryEarly, ...patch };
+    return;
+  }
   send('memory:save', memory);
+}
+async function loadMemory() {
+  for (let i = 0; i < 4; i++) {
+    try {
+      const got = await call('memory:load');
+      memory = { ...(got && typeof got === 'object' ? got : {}), ...memoryEarly };
+      memoryRead = true;
+      if (Object.keys(memoryEarly).length) send('memory:save', memory);
+      memoryEarly = {};
+      return;
+    } catch (err) {
+      console.warn(`[capri] memory:load: ${err.message}`);
+      await new Promise((r) => setTimeout(r, 1500 * (i + 1)));
+    }
+  }
+  // still not read: she keeps this session's in memory only, and never writes over the file
 }
 function forgetChats() {
   llm.resetClaude();
@@ -916,6 +940,27 @@ function toggleVisible(force) {
   sendCommand('stow', { on: !visible });
 }
 
+// (1.10.0, community: "un botón para que Capri aparezca de la nada en cualquier momento, viendo
+// videos o jugando") her tile, her notification or Android's accessibility button: out of nowhere,
+// with a glitch and a line; pressed again while she's out, she goes
+const SUMMON_LINES = {
+  es: ['¿Me llamaste?', 'Aquí estoy.', 'Salí de la red solo por ti.', '¿Qué hacemos?'],
+  en: ['You called?', 'Here I am.', 'Jacked out of the net just for you.', 'What are we doing?'],
+  fr: ['Tu m’as appelée ?', 'Me voilà.', 'Sortie du réseau rien que pour toi.', 'On fait quoi ?'],
+  pt: ['Me chamou?', 'Tô aqui.', 'Saí da rede só por você.', 'O que a gente faz?'],
+  ru: ['Звал(а)?', 'Я здесь.', 'Вышла из сети только ради тебя.', 'Что делаем?'],
+};
+function summon() {
+  const capri = window.dev?.capri;
+  if (cfg.visible !== false) return toggleVisible(false);
+  toggleVisible(true);
+  setTimeout(() => {
+    capri?.flash?.([[0.21, 1, 0.48], [1, 0.13, 0.32], [0.08, 0.06, 0.11]]);
+    const lines = SUMMON_LINES[resolveLang(cfg.lang)] || SUMMON_LINES.en;
+    window.dev?.panel?.say({ kind: 'info', face: 'smug', line: lines[Math.floor(Math.random() * lines.length)], hold: 3500 });
+  }, 650);
+}
+
 // ---------- her menu (the tray menu of main.js, drawn in the page) ----------
 
 // Her menu's desktop words, the phone's way (the desktop-only entries are left out of it:
@@ -1225,7 +1270,7 @@ const ask = (method, fallback) => (args) => call(method, args).catch((err) => {
 // ---------- window.host ----------
 
 const ready = loadConfig().then(async () => {
-  memory = (await call('memory:load').catch(() => null)) || {};
+  await loadMemory();
   llm.restoreClaude(memory.claude);
   refreshModels().catch(noop);
 });
@@ -1237,7 +1282,7 @@ on('claude:event', (evt) => {
 });
 on('capri:command', (cmd) => {
   if (cmd?.name === 'menu') return openMenu();
-  if (cmd?.name === 'toggle') return toggleVisible();
+  if (cmd?.name === 'toggle' || cmd?.name === 'summon') return summon();
   if (cmd?.name === 'demo') return playDemo();
   // the app's Settings (its wardrobe card): out if she's put away, then her wardrobe on her
   if (cmd?.name === 'wardrobe') {

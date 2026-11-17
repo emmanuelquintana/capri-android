@@ -23,6 +23,13 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   memory, and if your phone still goes down twice during one, she stays still (no animations) for a few days instead.
 - **Play with her:** chess, minesweeper, 21, tic-tac-toe, ping pong and rock-paper-scissors, no internet needed. She plays against you and says what
   she thinks. In the «You» tab, or tell her "Capri, let's play".
+- **Her memory no longer vanishes:** if Capri saved something before she finished reading what she remembered about
+  you, she wiped it all. Now she waits to read it first, and keeps a backup copy.
+- **Out of nowhere:** her Quick Settings tile or her notification button makes her appear with a glitch and a hello,
+  even while you watch videos or play. If you turn on "She uses your phone for you", Android's accessibility button
+  does it too.
+- **Cyberpunk games:** the games screen is now Night City neon, with Capri watching you from the corner, her mask as
+  her piece in tic-tac-toe, on her cards and on her ping pong paddle, and a stamp at the end of each game.
 - **Two Capris:** spread two fingers on her (or tell her "Capri, split") and there are two. The other one walks,
   dances to your music and talks to you if you tap her. Tap her twice or drag her onto Capri to join them.
 - **She uses your phone for you (optional):** "Capri, go back", "go home", "open notifications", "scroll down",

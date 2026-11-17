@@ -5,7 +5,7 @@
     android:accessibilityEventTypes="typeWindowStateChanged"
     android:packageNames="io.github.emmanuelquintana.capri.none"
     android:accessibilityFeedbackType="feedbackGeneric"
-    android:accessibilityFlags="flagRetrieveInteractiveWindows"
+    android:accessibilityFlags="flagRetrieveInteractiveWindows|flagRequestAccessibilityButton"
     android:notificationTimeout="1000"
     android:canRetrieveWindowContent="true"
     android:canPerformGestures="true"

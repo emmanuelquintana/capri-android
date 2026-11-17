@@ -23,6 +23,13 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   em vez de fechar.
 - **Jogue com ela:** xadrez, campo minado, 21, jogo da velha, pingue-pongue e pedra, papel e tesoura, sem internet. Ela joga contra você e diz o que pensa.
   Na aba «Você», ou diga «Capri, vamos jogar».
+- **A memória dela não some mais:** se a Capri salvava algo antes de terminar de ler o que lembrava de você, apagava
+  tudo. Agora ela espera ler primeiro e ainda guarda uma cópia de segurança.
+- **Aparece do nada:** o bloco dela nas configurações rápidas ou o botão da notificação fazem ela aparecer com um
+  glitch e um oi, mesmo vendo vídeos ou jogando. Se você ativar «Ela usa seu celular por você», o botão de
+  acessibilidade do Android também.
+- **Jogos cyberpunk:** a tela de jogos agora é neon de Night City, com a Capri te olhando do canto, a máscara dela como
+  peça no jogo da velha, nas cartas e na raquete do pingue-pongue, e um carimbo no fim de cada partida.
 - **Duas Capris:** abra dois dedos sobre ela (ou diga «Capri, se divide») e saem duas. A outra anda, dança com a sua
   música e fala com você se você tocar nela. Toque duas vezes ou arraste pra cima da Capri pra juntar.
 - **Ela usa seu celular por você (opcional):** «Capri, volta», «vai pro início», «abre as notificações», «desce»,
