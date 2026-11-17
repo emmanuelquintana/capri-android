@@ -6,6 +6,7 @@
 //   (and she never would without you seeing it).
 
 import { send } from './native.js';
+import { SPLIT_ASK, MERGE_ASK } from './twin.js';
 
 const GAMES_ASK = /juguemos|jugar (?:algo|contigo|conmigo|ajedrez|buscaminas|cartas|al? (?:21|gato|ajedrez|buscaminas|blackjack|tres en raya))|juega(?:s)? conmigo|quiero jugar (?:contigo|algo|ajedrez|buscaminas|cartas)|tus juegos|let'?s play|play (?:a game|with me|chess|minesweeper|cards|blackjack|tic.?tac.?toe)|your games|jouons|on joue|joue avec moi|jouer aux? (?:échecs|cartes|démineur|morpion)|vamos jogar|bora jogar|joga comigo|jogar (?:xadrez|cartas|campo minado|jogo da velha)|давай (?:сыграем|поиграем)|поиграй со мной|сыграем в/iu;
 const HISTORY_ASK = /(?:mi|el|nuestro|tu) historial|historial (?:de|del) chat|chat history|our (?:chat|history)|historique|hist[oó]rico (?:do|de) chat|meu hist[oó]rico|история (?:чата|переписки)/iu;
@@ -38,6 +39,16 @@ export function extraAsk(text, lang) {
   const said = String(text || '').trim();
   if (!said) return null;
   const words = said.split(/\s+/).length;
+  // (1.10.0) "Capri, divídete" / "júntense": two of her, or one again (twin.js)
+  const twin = window.dev?.twin;
+  if (twin && words <= 8 && SPLIT_ASK.test(said)) {
+    const was = twin.on;
+    twin.split();
+    return { line: was ? twin.lines().already : twin.lines().split[2], face: 'smug' };
+  }
+  if (twin && words <= 8 && MERGE_ASK.test(said)) {
+    return twin.merge(false) ? { line: twin.lines().merge[0], face: 'laugh' } : { line: twin.lines().alone, face: 'look' };
+  }
   if (GAMES_ASK.test(said) && words <= 10) {
     send('page:open', { page: 'games' });
     return { line: t.games, face: 'laugh' };

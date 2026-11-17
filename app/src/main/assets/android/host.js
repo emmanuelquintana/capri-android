@@ -52,6 +52,7 @@ import { autoDress } from './autodress.js';
 import { iconFaces } from './icon-faces.js';
 import { checkIn } from './checkin.js';
 import { typing } from './typing.js';
+import { twins } from './twin.js';
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
 const llm = load('llm');
@@ -1602,6 +1603,7 @@ ready.then(() => {
     window.dev.autoDress = autoDress({ cfg: () => cfg, setConfig: updateConfig, lang: () => resolveLang(cfg.lang) }); // she dresses herself
     window.dev.checkIn = checkIn({ cfg: () => cfg, setConfig: updateConfig, lang: () => resolveLang(cfg.lang), readMemory, saveMemory }); // she asks how you are
     typing({ cfg: () => cfg }); // you type: she lies on top of the keyboard (in a game: on her phone)
+    window.dev.twin = twins({ cfg: () => cfg, lang: () => resolveLang(cfg.lang) }); // two of her (two fingers pulled apart)
     window.dev.saver = saver({ cfg: () => cfg, lang: () => resolveLang(cfg.lang), setConfig: updateConfig }); // battery saver
   }, 300);
 });

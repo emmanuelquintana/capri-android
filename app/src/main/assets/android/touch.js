@@ -102,12 +102,15 @@ export class Touch {
         // two fingers on her: a pointer passing over, no button (petting)
         this.drag = null;
         this.pet = true;
+        // (1.10.0) …or pulled apart, and there are two of her (twin.js)
+        const a = point(e.touches[0]), b = point(e.touches[1]);
+        this.spread = { d: Math.hypot(a.x - b.x, a.y - b.y), at: performance.now() };
         return;
       }
       this.pet = false;
       this.ours = 0;
       // on her panel or her menu, the finger scrolls and taps them as any page: nothing to make up
-      if (e.target.closest?.('#panel, .cmenu, .cmenu-shade, .anote, .wardrobe, .capri-pose')) {
+      if (e.target.closest?.('#panel, .cmenu, .cmenu-shade, .anote, .wardrobe, .capri-pose, .capri-twin, .twin-say')) {
         this.drag = null;
         return;
       }
@@ -142,6 +145,12 @@ export class Touch {
       this.last = { ...p, at: performance.now() };
       if (this.pet) {
         const a = e.touches[0], b = e.touches[1] || a;
+        const sp = this.spread;
+        if (sp && e.touches.length >= 2 && performance.now() - sp.at < 1500
+          && Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) - sp.d > 120) {
+          this.spread = null;
+          window.dispatchEvent(new CustomEvent('capri:split', { detail: { a: point(a), b: point(b) } }));
+        }
         this.mouse('mousemove', (a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2);
         if (e.cancelable) e.preventDefault();
         return;
@@ -288,6 +297,8 @@ export class Touch {
         rectOf(document.getElementById('chip')),
         ghost || pose ? null : rectOf(document.getElementById('mask')),
         ...[...document.querySelectorAll('.cmenu:not([hidden]), .wardrobe:not([hidden])')].map(rectOf),
+        // (1.10.0) her twin, when there are two of her (twin.js)
+        ...(ghost ? [] : [window.dev?.twin?.rect?.()].filter(Boolean).map((r) => r.map((v) => Math.round(v / 8) * 8))),
         // a menu up: the whole (dimmed) screen is hers, a tap beside it closes it
         ...[...document.querySelectorAll('.cmenu-shade:not([hidden])')].map(rectOf),
         // (1.9.0: as a ghost only she lets touches through; her cards too only if you chose it)
