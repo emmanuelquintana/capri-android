@@ -207,17 +207,68 @@ function say(key, mood = 'look') {
     if (i >= chars.length) clearInterval(lineTimer);
   }, 22);
 }
-// (1.10.0) her, watching from the corner: a pose for how it's going
+// (1.10.0) her, from the corner, alive: an animation for what she's doing or feeling. The games'
+// own ones (anim-game-*.png, made from tools/prompts-juegos) come first when they're there; until
+// then, her everyday animations that fit; and if none loads, a still pose.
 const body = $('#body');
-const POSES = { menu: ['wave', false], play: ['prone-watch', true], her: ['prone-kick', true], you: ['hug-knees', false], draw: ['bored-back', true] };
-function pose(id) {
-  const [file, wide] = POSES[id] || POSES.play;
-  const src = `${FACES}poses/pose-${file}.png`;
-  if (body.getAttribute('src') === src) return;
-  body.src = src;
-  body.classList.toggle('is-wide', wide);
+const ANIMS = `${FACES}anims/`;
+const ACTS = {
+  menu: ['game-hello', 'wave', 'wave'],
+  watch: ['game-watch', 'gamer-watch', 'prone-watch'],
+  pong: ['game-paddle', 'gamer-play', 'prone-watch'],
+  think: ['game-think', 'think', 'lean'],
+  hesitate: ['game-hesitate', 'think', 'lean'],
+  her: ['game-cheer', 'party', 'prone-kick'],
+  you: ['game-pout', 'cry', 'hug-knees'],
+  draw: ['game-shrug', 'bored-tap', 'bored-back'],
+  shock: ['game-shock', 'surprised', 'hug-knees'],
+  tilt: ['game-tilt', 'angry', 'lean'],
+  zone: ['game-zone', 'hack', 'lean'],
+  smug: ['game-smug', 'lean-nails', 'lean'],
+  bluff: ['game-bluff', 'shy', 'wave'],
+  laugh: ['game-laugh', 'laugh', 'prone-kick'],
+  regret: ['game-facepalm', 'dizzy', 'hug-knees'],
+  idle: ['game-idle', 'yawn', 'bored-back'],
+};
+// what she says → what she does (brain.js line keys)
+const LINE_ACTS = {
+  youGood: 'shock', behind: 'shock', tilt: 'tilt', serious: 'tilt', comeback: 'tilt', regret: 'regret',
+  confident: 'smug', material: 'smug', obvious: 'smug', pattern: 'smug', openRepeat: 'smug', counted: 'smug', stand15: 'smug',
+  focus: 'zone', rally: 'zone', riskHit: 'zone', announce: 'bluff', hint: 'bluff', tease21: 'bluff',
+  lied: 'laugh', youBlunder: 'laugh', idle: 'idle', hesitate: 'hesitate', hard: 'think',
+};
+let animMeta = null;
+let baseAct = 'menu';
+let nowAct = '';
+let actBack = 0;
+fetch(`${ANIMS}anims.json`).then((r) => r.json()).then((j) => { animMeta = j; const a = nowAct; nowAct = ''; act(a || baseAct); }).catch(() => {});
+/** She does `id` (ACTS); with `ms`, then back to what she was doing (baseAct). */
+function act(id, ms = 0) {
+  clearTimeout(actBack);
+  if (ms) actBack = setTimeout(() => act(baseAct), ms);
+  if (id === nowAct) return;
+  nowAct = id;
+  const [own, everyday, still] = ACTS[id] || ACTS.watch;
+  const name = animMeta?.[own] ? own : animMeta?.[everyday] ? everyday : null;
+  body.getAnimations?.().forEach((a) => a.cancel());
+  if (name) {
+    const m = animMeta[name];
+    const tall = m.kind === 'lie' ? 96 : 150;
+    const k = tall / m.h;
+    const w = Math.round(m.w * k);
+    body.classList.toggle('is-wide', m.kind === 'lie');
+    Object.assign(body.style, { width: `${w}px`, height: `${tall}px`, backgroundImage: `url(${ANIMS}${name}.png)`, backgroundSize: `${w * m.n}px ${tall}px`, backgroundPosition: '0 0' });
+    body.animate?.([{ backgroundPosition: '0 0' }, { backgroundPosition: `-${w * m.n}px 0` }], { duration: (m.n / (m.fps || 6)) * 1000, iterations: Infinity, easing: `steps(${m.n})` });
+  } else {
+    const wide = ['prone-watch', 'prone-kick', 'bored-back'].includes(still);
+    body.classList.toggle('is-wide', wide);
+    Object.assign(body.style, { width: wide ? '170px' : '90px', height: wide ? '96px' : '150px', backgroundImage: `url(${FACES}poses/pose-${still}.png)`, backgroundSize: 'contain', backgroundPosition: 'right bottom' });
+  }
   body.classList.remove('is-new'); void body.offsetWidth; body.classList.add('is-new');
 }
+const pose = (id) => {
+  if (id === 'menu' || id === 'play' || id === 'pong') { baseAct = id === 'play' ? 'watch' : id; act(baseAct); } else act(id);
+};
 // the end of a game: a stamp across the screen
 function stamp(result) {
   document.querySelector('.stamp')?.remove();
@@ -293,9 +344,9 @@ function open(g) {
   bar.append(back, again);
   const box = el('div', 'box');
   stage.append(bar, box);
-  brain = rival({ game: g.id, level, lang, talk: (text, mood) => say(text, mood) });
+  brain = rival({ game: g.id, level, lang, talk: (text, mood, key) => { say(text, mood); if (LINE_ACTS[key]) act(LINE_ACTS[key], 2600); } });
   brain.start();
-  pose('play');
+  pose(g.id === 'pong' ? 'pong' : 'play');
   g.run(box);
 }
 
@@ -375,6 +426,7 @@ function ttt(box) {
     busy = true;
     const choice = brain.choose(options('O'), { scale: 12 });
     face.src = `${FACES}face-thinking.png`;
+    act('think', 1500);
     const wait = brain.hesitation(choice, (k) => { eye = k ?? -1; draw(); });
     setTimeout(() => {
       eye = -1;
@@ -877,6 +929,7 @@ function chess(box) {
       else if (took && Math.random() < 0.5) say('lost', 'angry');
       else if (mine > 1) brain.yourMove(loss <= 0 ? (second - best > 150 ? 1 : 0.8) : Math.max(0, 1 - loss / 300), { missed: loss > 60 });
       face.src = `${FACES}face-thinking.png`;
+      act('think', 2400);
       setTimeout(herMove, 120);
       return;
     }

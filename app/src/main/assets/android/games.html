@@ -139,9 +139,8 @@
     .rps__pick:disabled { opacity: 0.4; }
 
     /* her, watching from the corner (games.js: pose by how it's going) */
-    .her-body { position: fixed; right: 4px; bottom: 0; height: 150px; max-width: 46vw; object-fit: contain; object-position: right bottom; pointer-events: none; z-index: 5;
-      filter: drop-shadow(0 0 8px rgba(255, 32, 82, 0.45)); transition: opacity 200ms; }
-    .her-body.is-wide { height: 96px; max-width: 60vw; }
+    .her-body { position: fixed; right: 4px; bottom: 0; width: 90px; height: 150px; background-repeat: no-repeat; pointer-events: none; z-index: 5;
+      filter: drop-shadow(0 0 8px rgba(255, 32, 82, 0.45)) brightness(1.15); image-rendering: auto; }
     .her-body.is-new { animation: glitch 300ms steps(3, end) 1; }
     /* the end of a game: a stamp across the screen */
     .stamp { position: fixed; left: 0; right: 0; top: 40%; z-index: 9; pointer-events: none; text-align: center; padding: 14px 0; font: 700 30px/1 var(--font-display); letter-spacing: 0.18em; text-transform: uppercase;
@@ -155,7 +154,7 @@
 </head>
 <body>
   <section class="her"><div class="her__frame"><img id="face" src="../capri/assets/capri/capri-face.png" alt=""></div><div class="her__talk"><h1><span id="title">Juegos</span><span class="live">CAPRI</span></h1><p id="line"></p></div></section>
-  <img id="body" class="her-body" src="../capri/assets/capri/poses/pose-wave.png" alt="">
+  <div id="body" class="her-body" aria-hidden="true"></div>
   <main id="stage"></main>
   <script type="module" src="games.js"></script>
 </body>

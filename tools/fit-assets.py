@@ -30,6 +30,23 @@ POSES = os.path.join(ROOT, 'poses')
 ANIMS_DIR = os.path.join(ROOT, 'anims')
 # name: (columns, rows, cels per second, loops, how she is in it: stand / sit / lie)
 ANIMS = {
+    # (1.10.0) her games (games.js ACTS): her body in the corner while she plays with you
+    'game-hello': (4, 1, 8, True, 'stand'),
+    'game-watch': (2, 2, 4, True, 'lie'),
+    'game-paddle': (4, 1, 8, True, 'stand'),
+    'game-think': (4, 1, 4, True, 'stand'),
+    'game-hesitate': (4, 1, 6, True, 'stand'),
+    'game-cheer': (4, 2, 10, True, 'stand'),
+    'game-pout': (4, 1, 5, True, 'sit'),
+    'game-shrug': (4, 1, 5, True, 'stand'),
+    'game-shock': (4, 1, 10, True, 'stand'),
+    'game-tilt': (4, 1, 10, True, 'stand'),
+    'game-zone': (4, 1, 8, True, 'stand'),
+    'game-smug': (4, 1, 4, True, 'stand'),
+    'game-bluff': (4, 1, 6, True, 'stand'),
+    'game-laugh': (4, 1, 8, True, 'stand'),
+    'game-facepalm': (4, 1, 6, True, 'stand'),
+    'game-idle': (4, 1, 4, True, 'stand'),
     'gamer-watch': (3, 2, 6, True, 'lie'),
     'gamer-play': (4, 1, 6, True, 'sit'),  # (1.10.0: 4x1)
     'sleep': (2, 2, 3, True, 'curl'),

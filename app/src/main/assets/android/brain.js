@@ -206,7 +206,7 @@ function save(all) {
 }
 
 /**
- * Her, as your rival in one game. talk(text, face) shows her line (games.js say()).
+ * Her, as your rival in one game. talk(text, face, key) shows her line (games.js say(), and what she does).
  * level: 'easy' | 'normal' | 'hard'.
  */
 export function rival({ game, level, lang, talk }) {
@@ -238,7 +238,7 @@ export function rival({ game, level, lang, talk }) {
     if (priority < 2 && gap < 3500) return false;
     if (priority === 0 && Math.random() > 0.35) return false;
     lastTalk = now;
-    talk(fill(pick(list), vars), face);
+    talk(fill(pick(list), vars), face, key);
     return true;
   }
 
