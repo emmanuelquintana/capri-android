@@ -23,6 +23,14 @@ const buzz = () => { try { bridge?.haptic?.(); } catch {} };
 const W = {
   es: {
     title: 'Juegos', pick: 'Elige un juego', back: 'Menú', again: 'Otra vez', level: 'Dificultad',
+    pong: 'Ping pong', rps: 'Piedra, papel o tijera',
+    pongHow: 'Mueve tu pala con el dedo. A 5 puntos.', rpsHow: 'Al mejor de 5. Yo también elijo.',
+    rock: 'Piedra', paper: 'Papel', scissors: 'Tijera', score: 'Marcador',
+    herPoint: ['Punto mío.', 'Muy lenta… o lento.', 'Ja, no la viste.'],
+    yourPoint: ['Ok, esa fue buena.', 'Suerte.', 'Hmph. Punto tuyo.'],
+    rpsTie: ['Lo mismo. ¿Me lees la mente?', 'Empate. Otra.'],
+    rpsMine: ['Te leí.', 'Predecible.', 'Esa era fácil.'],
+    rpsYours: ['¿Cómo supiste?', 'Ugh. Bien.', 'Ok, esa no la vi venir.'],
     easy: 'Fácil', normal: 'Normal', hard: 'Difícil',
     chess: 'Ajedrez', mines: 'Buscaminas', cards: '21', ttt: 'Tres en raya',
     chessHow: 'Tú juegas con blancas.', minesHow: 'Toca para abrir; usa la bandera para marcar.', cardsHow: 'Llega a 21 sin pasarte. Yo reparto.', tttHow: 'Tú eres X, yo soy O.',
@@ -46,6 +54,14 @@ const W = {
   },
   en: {
     title: 'Games', pick: 'Pick a game', back: 'Menu', again: 'Again', level: 'Difficulty',
+    pong: 'Ping pong', rps: 'Rock, paper, scissors',
+    pongHow: 'Move your paddle with your finger. First to 5.', rpsHow: 'Best of 5. I pick too.',
+    rock: 'Rock', paper: 'Paper', scissors: 'Scissors', score: 'Score',
+    herPoint: ['My point.', 'Too slow.', 'Ha, you didn’t even see it.'],
+    yourPoint: ['Ok, that was a good one.', 'Lucky.', 'Hmph. Your point.'],
+    rpsTie: ['Same thing. Are you reading my mind?', 'Tie. Again.'],
+    rpsMine: ['Read you.', 'Predictable.', 'That one was easy.'],
+    rpsYours: ['How did you know?', 'Ugh. Fine.', 'Ok, didn’t see that coming.'],
     easy: 'Easy', normal: 'Normal', hard: 'Hard',
     chess: 'Chess', mines: 'Minesweeper', cards: '21', ttt: 'Tic-tac-toe',
     chessHow: 'You play white.', minesHow: 'Tap to open; use the flag to mark.', cardsHow: 'Get to 21 without going over. I deal.', tttHow: 'You’re X, I’m O.',
@@ -69,6 +85,14 @@ const W = {
   },
   fr: {
     title: 'Jeux', pick: 'Choisis un jeu', back: 'Menu', again: 'Encore', level: 'Difficulté',
+    pong: 'Ping-pong', rps: 'Pierre, feuille, ciseaux',
+    pongHow: 'Bouge ta raquette avec le doigt. En 5 points.', rpsHow: 'En 3 manches gagnantes sur 5. Je choisis aussi.',
+    rock: 'Pierre', paper: 'Feuille', scissors: 'Ciseaux', score: 'Score',
+    herPoint: ['Point pour moi.', 'Trop lent.', 'Ha, tu ne l’as même pas vue.'],
+    yourPoint: ['Ok, celle-là était bien.', 'Coup de chance.', 'Hmph. Point pour toi.'],
+    rpsTie: ['Pareil. Tu lis dans mes pensées ?', 'Égalité. Encore.'],
+    rpsMine: ['Je t’ai lu.', 'Prévisible.', 'Trop facile.'],
+    rpsYours: ['Comment tu as su ?', 'Pff. D’accord.', 'Ok, je ne l’ai pas vue venir.'],
     easy: 'Facile', normal: 'Normal', hard: 'Difficile',
     chess: 'Échecs', mines: 'Démineur', cards: '21', ttt: 'Morpion',
     chessHow: 'Tu joues les blancs.', minesHow: 'Touche pour ouvrir ; le drapeau pour marquer.', cardsHow: 'Atteins 21 sans dépasser. Je distribue.', tttHow: 'Tu es X, je suis O.',
@@ -92,6 +116,14 @@ const W = {
   },
   pt: {
     title: 'Jogos', pick: 'Escolha um jogo', back: 'Menu', again: 'De novo', level: 'Dificuldade',
+    pong: 'Pingue-pongue', rps: 'Pedra, papel e tesoura',
+    pongHow: 'Mova sua raquete com o dedo. Até 5 pontos.', rpsHow: 'Melhor de 5. Eu também escolho.',
+    rock: 'Pedra', paper: 'Papel', scissors: 'Tesoura', score: 'Placar',
+    herPoint: ['Ponto meu.', 'Lento demais.', 'Ha, nem viu.'],
+    yourPoint: ['Ok, essa foi boa.', 'Sorte.', 'Hmph. Ponto seu.'],
+    rpsTie: ['A mesma coisa. Tá lendo minha mente?', 'Empate. De novo.'],
+    rpsMine: ['Te li.', 'Previsível.', 'Essa foi fácil.'],
+    rpsYours: ['Como você soube?', 'Argh. Tá bom.', 'Ok, essa eu não vi chegando.'],
     easy: 'Fácil', normal: 'Normal', hard: 'Difícil',
     chess: 'Xadrez', mines: 'Campo minado', cards: '21', ttt: 'Jogo da velha',
     chessHow: 'Você joga de brancas.', minesHow: 'Toque para abrir; use a bandeira para marcar.', cardsHow: 'Chegue a 21 sem passar. Eu dou as cartas.', tttHow: 'Você é X, eu sou O.',
@@ -115,6 +147,14 @@ const W = {
   },
   ru: {
     title: 'Игры', pick: 'Выбери игру', back: 'Меню', again: 'Ещё раз', level: 'Сложность',
+    pong: 'Пинг-понг', rps: 'Камень, ножницы, бумага',
+    pongHow: 'Двигай ракетку пальцем. До 5 очков.', rpsHow: 'До трёх побед. Я тоже выбираю.',
+    rock: 'Камень', paper: 'Бумага', scissors: 'Ножницы', score: 'Счёт',
+    herPoint: ['Очко моё.', 'Слишком медленно.', 'Ха, ты даже не увидел(а).'],
+    yourPoint: ['Ладно, это было неплохо.', 'Повезло.', 'Хмф. Твоё очко.'],
+    rpsTie: ['Одно и то же. Ты читаешь мои мысли?', 'Ничья. Ещё.'],
+    rpsMine: ['Я тебя прочитала.', 'Предсказуемо.', 'Это было легко.'],
+    rpsYours: ['Как ты узнал(а)?', 'Ух. Ладно.', 'Ок, этого я не ожидала.'],
     easy: 'Легко', normal: 'Нормально', hard: 'Сложно',
     chess: 'Шахматы', mines: 'Сапёр', cards: '21', ttt: 'Крестики-нолики',
     chessHow: 'Ты играешь белыми.', minesHow: 'Нажми, чтобы открыть; флажок — чтобы отметить.', cardsHow: 'Набери 21 и не перебери. Я сдаю.', tttHow: 'Ты — X, я — O.',
@@ -168,11 +208,16 @@ const GAMES = [
   { id: 'mines', icon: '✹', how: 'minesHow', run: mines },
   { id: 'cards', icon: '♠', how: 'cardsHow', run: cards },
   { id: 'ttt', icon: '✕', how: 'tttHow', run: ttt },
+  { id: 'pong', icon: '◐', how: 'pongHow', run: pong },
+  { id: 'rps', icon: '✊', how: 'rpsHow', run: rps },
 ];
 let level = (() => { try { return localStorage.getItem('capri.games.level') || 'normal'; } catch { return 'normal'; } })();
 let current = null;
+let stopGame = null; // a game with its own loop leaves this to stop it
+const halt = () => { try { stopGame?.(); } catch {} stopGame = null; };
 
 function menu() {
+  halt();
   current = null;
   stage.innerHTML = '';
   $('#title').textContent = W.title;
@@ -200,6 +245,7 @@ function menu() {
 }
 
 function open(g) {
+  halt();
   current = g;
   stage.innerHTML = '';
   $('#title').textContent = W[g.id];
@@ -728,6 +774,173 @@ function chess(box) {
     }, 200);
   }
   draw();
+}
+
+// ---------- ping pong ----------
+function pong(box) {
+  const css = getComputedStyle(document.documentElement);
+  const YELLOW = css.getPropertyValue('--yellow').trim() || '#fcee0a';
+  const GREEN = '#36ff7a';
+  const score = el('div', 'mines__info');
+  const you = el('span', '', `${W.you} 0`);
+  const her = el('span', '', `${W.her} 0`);
+  score.append(you, her);
+  const cv = el('canvas', 'pong');
+  box.append(score, cv);
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = Math.min(box.clientWidth || 340, 460);
+  const h = Math.round(Math.min(w * 1.35, Math.max(320, window.innerHeight - cv.getBoundingClientRect().top - 24)));
+  cv.width = w * dpr; cv.height = h * dpr;
+  cv.style.width = `${w}px`; cv.style.height = `${h}px`;
+  const g = cv.getContext('2d');
+  g.scale(dpr, dpr);
+  const pw = w * 0.24, ph = 10, r = 7;
+  const skill = { easy: [0.45, 34], normal: [0.7, 16], hard: [0.95, 4] }[level]; // her speed (share of ball's), her aim error
+  const st = { me: w / 2, cap: w / 2, bx: w / 2, by: h / 2, vx: 0, vy: 0, mine: 0, hers: 0, wait: 0, aim: 0, over: false };
+  const serve = (toward) => {
+    const speed = h * { easy: 0.55, normal: 0.7, hard: 0.85 }[level];
+    const a = (Math.random() - 0.5) * 0.9;
+    st.bx = w / 2; st.by = h / 2;
+    st.vx = Math.sin(a) * speed; st.vy = Math.cos(a) * speed * toward;
+    st.wait = 0.8;
+    st.aim = (Math.random() - 0.5) * 2 * skill[1];
+  };
+  const point = (mine) => {
+    buzz();
+    if (mine) { st.mine += 1; you.textContent = `${W.you} ${st.mine}`; }
+    else { st.hers += 1; her.textContent = `${W.her} ${st.hers}`; }
+    if (st.mine >= 5 || st.hers >= 5) {
+      st.over = true;
+      if (st.mine >= 5) { say('youWin', 'surprised'); played('pong', 'you'); }
+      else { say('herWin', 'smug'); played('pong', 'her'); }
+      return;
+    }
+    say(mine ? 'yourPoint' : 'herPoint', mine ? 'angry' : 'grin');
+    serve(mine ? -1 : 1);
+  };
+  const follow = (e) => {
+    const t = e.touches?.[0] || e;
+    const rect = cv.getBoundingClientRect();
+    st.me = Math.max(pw / 2, Math.min(w - pw / 2, t.clientX - rect.left));
+    if (e.cancelable) e.preventDefault();
+  };
+  cv.addEventListener('touchstart', follow, { passive: false });
+  cv.addEventListener('touchmove', follow, { passive: false });
+  cv.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') follow(e); });
+  const hitPaddle = (px, y, dir) => {
+    if (Math.abs(st.bx - px) > pw / 2 + r) return false;
+    const off = (st.bx - px) / (pw / 2); // -1..1: where on the paddle
+    const speed = Math.min(Math.hypot(st.vx, st.vy) * 1.06, h * 1.9);
+    const a = off * 1.05;
+    st.vx = Math.sin(a) * speed; st.vy = Math.cos(a) * speed * dir;
+    st.by = y;
+    st.aim = (Math.random() - 0.5) * 2 * skill[1];
+    return true;
+  };
+  let last = performance.now();
+  let raf = 0;
+  const tick = (now) => {
+    const dt = Math.min(0.033, (now - last) / 1000);
+    last = now;
+    if (!st.over) {
+      if (st.wait > 0) st.wait -= dt;
+      else {
+        st.bx += st.vx * dt; st.by += st.vy * dt;
+        if (st.bx < r) { st.bx = r; st.vx = Math.abs(st.vx); }
+        if (st.bx > w - r) { st.bx = w - r; st.vx = -Math.abs(st.vx); }
+        const myY = h - 18 - ph, herY = 18 + ph;
+        if (st.vy > 0 && st.by + r >= myY && st.by < myY + ph) { if (hitPaddle(st.me, myY - r, -1)) buzz(); }
+        if (st.vy < 0 && st.by - r <= herY && st.by > herY - ph) hitPaddle(st.cap, herY + r, 1);
+        if (st.by > h + r) point(false);
+        else if (st.by < -r) point(true);
+      }
+      // her paddle: chases the ball when it comes to her, drifts to the middle when it doesn't
+      const goal = st.vy < 0 ? st.bx + st.aim : w / 2;
+      const max = Math.hypot(st.vx, st.vy) * skill[0] * dt;
+      st.cap += Math.max(-max, Math.min(max, goal - st.cap));
+      st.cap = Math.max(pw / 2, Math.min(w - pw / 2, st.cap));
+    }
+    g.clearRect(0, 0, w, h);
+    g.fillStyle = 'rgba(31, 30, 23, 0.9)';
+    g.fillRect(0, 0, w, h);
+    g.strokeStyle = 'rgba(242, 241, 232, 0.18)';
+    g.setLineDash([8, 8]);
+    g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+    g.setLineDash([]);
+    g.shadowBlur = 12;
+    g.fillStyle = GREEN; g.shadowColor = GREEN;
+    g.fillRect(st.cap - pw / 2, 18, pw, ph);
+    g.fillStyle = YELLOW; g.shadowColor = YELLOW;
+    g.fillRect(st.me - pw / 2, h - 18 - ph, pw, ph);
+    if (!st.over) { g.beginPath(); g.arc(st.bx, st.by, r, 0, Math.PI * 2); g.fill(); }
+    g.shadowBlur = 0;
+    raf = requestAnimationFrame(tick);
+  };
+  serve(1);
+  raf = requestAnimationFrame(tick);
+  stopGame = () => cancelAnimationFrame(raf);
+}
+
+// ---------- rock, paper, scissors ----------
+function rps(box) {
+  const HANDS = [['rock', '✊'], ['paper', '✋'], ['scissors', '✌']];
+  const beats = (a, b) => (a + 2) % 3 === b; // rock 0 > scissors 2, paper 1 > rock 0, scissors 2 > paper 1
+  const score = el('div', 'mines__info');
+  const you = el('span', '', `${W.you} 0`);
+  const her = el('span', '', `${W.her} 0`);
+  score.append(you, her);
+  const show = el('div', 'rps__show');
+  const mineHand = el('span', 'rps__hand', '?');
+  const herHand = el('span', 'rps__hand is-her', '?');
+  show.append(mineHand, el('span', 'rps__vs', 'VS'), herHand);
+  const acts = el('div', 'rps__acts');
+  const btns = HANDS.map(([id, icon], i) => {
+    const b = el('button', 'game rps__pick');
+    b.append(el('span', 'game__icon', icon), el('span', 'game__name', W[id]));
+    b.addEventListener('click', () => throwHand(i));
+    acts.append(b);
+    return b;
+  });
+  box.append(score, show, acts);
+  const st = { mine: 0, hers: 0, seen: [], busy: false };
+  // she guesses your next hand from what you did after your last one (no peeking)
+  const guess = () => {
+    const h = st.seen;
+    const smart = { easy: 0, normal: 0.45, hard: 0.8 }[level];
+    if (h.length < 2 || Math.random() >= smart) return Math.floor(Math.random() * 3);
+    const after = [0, 0, 0];
+    for (let i = 1; i < h.length; i++) if (h[i - 1] === h[h.length - 1]) after[h[i]] += 1;
+    const counts = after.some(Boolean) ? after : h.reduce((c, x) => (c[x] += 1, c), [0, 0, 0]);
+    const likely = counts.indexOf(Math.max(...counts));
+    return (likely + 1) % 3; // what beats it
+  };
+  function throwHand(i) {
+    if (st.busy || st.over) return;
+    buzz();
+    st.busy = true;
+    const hers = guess();
+    st.seen.push(i);
+    mineHand.textContent = HANDS[i][1];
+    herHand.textContent = '…';
+    btns.forEach((b, k) => b.classList.toggle('is-chosen', k === i));
+    say('think', 'thinking');
+    setTimeout(() => {
+      herHand.textContent = HANDS[hers][1];
+      herHand.classList.remove('is-pop'); void herHand.offsetWidth; herHand.classList.add('is-pop');
+      if (i === hers) say('rpsTie', 'calm');
+      else if (beats(i, hers)) { st.mine += 1; you.textContent = `${W.you} ${st.mine}`; say('rpsYours', 'angry'); }
+      else { st.hers += 1; her.textContent = `${W.her} ${st.hers}`; say('rpsMine', 'grin'); }
+      st.busy = false;
+      if (st.mine >= 3 || st.hers >= 3) {
+        st.over = true;
+        btns.forEach((b) => { b.disabled = true; });
+        setTimeout(() => {
+          if (st.mine >= 3) { say('youWin', 'surprised'); played('rps', 'you'); }
+          else { say('herWin', 'smug'); played('rps', 'her'); }
+        }, 900);
+      }
+    }, 650);
+  }
 }
 
 menu();

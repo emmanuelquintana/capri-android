@@ -8,7 +8,7 @@
 import { send } from './native.js';
 import { SPLIT_ASK, MERGE_ASK } from './twin.js';
 
-const GAMES_ASK = /juguemos|jugar (?:algo|contigo|conmigo|ajedrez|buscaminas|cartas|al? (?:21|gato|ajedrez|buscaminas|blackjack|tres en raya))|juega(?:s)? conmigo|quiero jugar (?:contigo|algo|ajedrez|buscaminas|cartas)|tus juegos|let'?s play|play (?:a game|with me|chess|minesweeper|cards|blackjack|tic.?tac.?toe)|your games|jouons|on joue|joue avec moi|jouer aux? (?:échecs|cartes|démineur|morpion)|vamos jogar|bora jogar|joga comigo|jogar (?:xadrez|cartas|campo minado|jogo da velha)|давай (?:сыграем|поиграем)|поиграй со мной|сыграем в/iu;
+const GAMES_ASK = /juguemos|jugar (?:algo|contigo|conmigo|ajedrez|buscaminas|cartas|al? (?:21|gato|ajedrez|buscaminas|blackjack|tres en raya|ping ?pong|piedra,? papel))|jugar (?:ping ?pong|piedra,? papel)|juega(?:s)? conmigo|quiero jugar (?:contigo|algo|ajedrez|buscaminas|cartas)|tus juegos|let'?s play|play (?:a game|with me|chess|minesweeper|cards|blackjack|tic.?tac.?toe|ping ?pong|rock,? paper)|your games|jouons|on joue|joue avec moi|jouer aux? (?:échecs|cartes|démineur|morpion)|vamos jogar|bora jogar|joga comigo|jogar (?:xadrez|cartas|campo minado|jogo da velha)|давай (?:сыграем|поиграем)|поиграй со мной|сыграем в/iu;
 const HISTORY_ASK = /(?:mi|el|nuestro|tu) historial|historial (?:de|del) chat|chat history|our (?:chat|history)|historique|hist[oó]rico (?:do|de) chat|meu hist[oó]rico|история (?:чата|переписки)/iu;
 const APPS = [
   ['whatsapp', /whats ?app|wasap|wsp|guasap|ватсап|вотсап/iu, 'com.whatsapp'],

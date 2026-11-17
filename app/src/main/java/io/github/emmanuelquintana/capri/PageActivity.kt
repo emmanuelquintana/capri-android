@@ -18,7 +18,7 @@ import org.json.JSONObject
 /**
  * A screen of the app drawn by one of her pages (1.10.0), like her Vestuario (ClosetActivity):
  * - "chatlog": your chat history with her (ChatLog.kt), to read again or empty.
- * - "games": games with her (assets/android/games.html): chess, minesweeper, 21, tic-tac-toe.
+ * - "games": games with her (assets/android/games.html): chess, minesweeper, 21, tic-tac-toe, ping pong, rock-paper-scissors.
  * Only her own files are served; nothing here goes on the internet.
  */
 class PageActivity : Activity() {
