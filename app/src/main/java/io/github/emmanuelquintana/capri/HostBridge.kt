@@ -85,11 +85,12 @@ class HostBridge(private val service: CapriService) {
         "control:settings" -> runCatching {
             service.startActivity(android.content.Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))
         }.isSuccess
-        "page:open" -> obj(args).optString("page").let { if (it == "games" || it == "chatlog") PageActivity.open(service, it) }
+        "page:open" -> obj(args).optString("page").let { if (it == "games" || it == "chatlog" || it == "neuro") PageActivity.open(service, it) }
         // (1.11.0) her sleep mode (Sleep.kt): "Capri, modo sueño / despiértame a las 7", and its state
         "sleep:start" -> Sleep.start(service, obj(args).optLong("alarm", 0L)).let { true }
         "sleep:stop" -> Sleep.stop(service) ?: JSONObject.NULL
         "sleep:state" -> JSONObject().put("on", Sleep.on(service)).put("start", Sleep.startedAt(service)).put("alarm", Sleep.alarmAt(service)).put("times", Sleep.wakes(service).length())
+        "neuro:add" -> Neuro.add(service, obj(args)) // (1.11.0) a braindance she recorded for you (neuro.js)
         "appchat:reply" -> AppChat.deliver(obj(args)) // (1.11.0) her answer for the app's Chat tab
         "chatlog:add" -> obj(args).let { ChatLog.add(service, it.optString("q"), it.optString("a"), it.optLong("at", System.currentTimeMillis())) }
         "keys:seal" -> store.seal(obj(args).optString("value"))

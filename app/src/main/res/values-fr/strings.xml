@@ -477,4 +477,20 @@
         <item quantity="one">Tu as allumé l’écran %1$d fois (%2$d min éveillé·e).</item>
         <item quantity="other">Tu as allumé l’écran %1$d fois (%2$d min éveillé·e).</item>
     </plurals>
+    <!-- 1.11.0 neurodanzas (Neuro.kt) -->
+    <string name="neuro_title">Neurodanses</string>
+    <string name="neuro_how">Neurodanses : ses souvenirs, enregistrés pour toi. Donne-lui beaucoup d’affection (caresse-la, parle-lui) et de temps en temps elle t’en enregistre une à regarder. Ensuite, elle te dit ce qu’elle en pense. Tu peux aussi lui demander : « Capri, donne-moi une neurodanse ».</string>
+    <string name="neuro_open">Voir ses neurodanses</string>
+    <string name="neuro_none">Aucune pour l’instant. Donne-lui de l’affection.</string>
+    <string name="neuro_channel">Neurodanses de Capri</string>
+    <string name="neuro_notify_title">Capri t’a enregistré une neurodanse</string>
+    <string name="neuro_notify_text">« %1$s ». Touche pour la voir.</string>
+    <plurals name="neuro_new">
+        <item quantity="one">%d nouvelle neurodanse, pas encore vue</item>
+        <item quantity="other">%d nouvelles neurodanses, pas encore vues</item>
+    </plurals>
+    <plurals name="neuro_count">
+        <item quantity="one">%d neurodanse gardée</item>
+        <item quantity="other">%d neurodanses gardées</item>
+    </plurals>
 </resources>

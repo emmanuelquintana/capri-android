@@ -21,6 +21,10 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Mode réaction :** dis-lui « Capri, regardons des vidéos ensemble » et, pendant que tu regardes une vidéo, elle la
   regarde avec toi, donne son avis de temps en temps et le note dans son chat pour s’en souvenir. « Désactive le mode réaction »
   l’éteint. Elle doit pouvoir voir ton écran.
+- **Neurodanses :** donne-lui beaucoup d’affection (caresse-la, parle-lui) et de temps en temps elle t’enregistre une
+  neurodanse : un de ses souvenirs, scène par scène, à regarder dans l’appli (Toi › Neurodanses). Passe en couche
+  thermique pour trouver des détails cachés. À la fin, elle te dit ce qu’elle en pense, et toi aussi. Aussi :
+  « Capri, donne-moi une neurodanse ».
 - **Elle parle au singulier :** plus de « nous » ni « on adore ». Elle parle d’elle comme d’une seule personne.
 - **Bouton FAIRE UN DON** sous Démarrer Capri, Discord et TikTok : ouvre la fenêtre pour la soutenir sur PayPal.
 - **Sa pilule dans la barre (Android 16+) :** à côté de l’heure, avec son humeur, et dans la Now Bar des Samsung,

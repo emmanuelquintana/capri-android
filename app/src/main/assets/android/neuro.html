@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Neurodanzas</title>
+  <!-- Her neurodanzas (1.11.0, PageActivity "neuro", Neuro.kt, neuro.js): braindances she recorded for you.
+       A braindance editor, Night City style: her memory scene by scene, three layers (visual, thermal,
+       audio), hidden details only the thermal layer shows, and at the end what she thinks of it, and you
+       rate it (she answers over your screen). -->
+  <link rel="stylesheet" href="../capri/src/renderer/styles/capri.css">
+  <style>
+    :root { --g-green: #36ff7a; --g-red: #ff2052; --g-cyan: #00f0ff; --g-panel: rgba(17, 16, 22, 0.92); --cut-s: 10px; }
+    html, body { margin: 0; min-height: 100%; background: #07060a; color: var(--paper); -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: var(--font-display); padding: 14px 16px 60px; box-sizing: border-box; user-select: none; overflow-x: hidden;
+      background:
+        repeating-linear-gradient(0deg, rgba(242, 241, 232, 0.035) 0 1px, transparent 1px 3px),
+        radial-gradient(120% 60% at 50% 0%, rgba(255, 32, 82, 0.16), transparent 60%),
+        radial-gradient(90% 50% at 100% 100%, rgba(0, 240, 255, 0.12), transparent 60%), #07060a;
+    }
+    button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+    .cut { clip-path: polygon(var(--cut-s) 0, 100% 0, 100% calc(100% - var(--cut-s)), calc(100% - var(--cut-s)) 100%, 0 100%, 0 var(--cut-s)); }
+    header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    header h1 { margin: 0; font-size: 22px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--g-red); text-shadow: 2px 0 var(--g-cyan); flex: 1; }
+    .back { width: 40px; height: 40px; background: var(--g-panel); border: 1px solid rgba(0, 240, 255, 0.4); font-size: 20px; }
+    .intro { color: var(--paper-2); font-size: 14px; line-height: 1.4; margin: 0 0 16px; }
+
+    /* the list */
+    .bd { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; margin-bottom: 10px; padding: 12px 14px; background: var(--g-panel); border-left: 3px solid var(--g-red); }
+    .bd__chip { flex: 0 0 auto; width: 46px; height: 46px; display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px; color: #07060a; background: linear-gradient(135deg, var(--g-red), #ff7a2a); }
+    .bd__txt { flex: 1; min-width: 0; }
+    .bd__title { font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bd__meta { font-family: var(--font-mono); font-size: 11px; color: var(--paper-3); margin-top: 3px; }
+    .bd__new { font-family: var(--font-mono); font-size: 10px; padding: 3px 6px; color: #07060a; background: var(--yellow); }
+    .empty { color: var(--paper-2); text-align: center; padding: 40px 10px; line-height: 1.5; }
+
+    /* the player: a braindance editor */
+    .player { display: none; }
+    body.is-playing .list, body.is-playing .intro { display: none; }
+    body.is-playing .player { display: block; }
+    .hud { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 11px; color: var(--paper-2); margin-bottom: 6px; }
+    .rec { color: var(--g-red); }
+    .rec::before { content: '●'; margin-right: 5px; animation: blink 1s steps(2) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .screen { position: relative; height: 330px; overflow: hidden; border: 1px solid rgba(255, 32, 82, 0.6); background: #0b0910; }
+    .scene { position: absolute; inset: 0; transition: filter 300ms; }
+    /* Night City far away: towers, a haze, rain */
+    .scene::before { content: ''; position: absolute; left: 0; right: 0; bottom: 70px; height: 170px; opacity: 0.85;
+      background:
+        linear-gradient(90deg, transparent 0 4%, #1a1630 4% 12%, transparent 12% 15%, #221b3a 15% 22%, transparent 22% 27%, #18142c 27% 36%, transparent 36% 41%, #241c3e 41% 47%, transparent 47% 55%, #1b1631 55% 66%, transparent 66% 70%, #221a3b 70% 78%, transparent 78% 83%, #19152e 83% 93%, transparent 93%);
+      -webkit-mask-image: linear-gradient(to top, #000 0 40%, rgba(0,0,0,.7) 40% 62%, rgba(0,0,0,.4) 62% 100%); mask-image: linear-gradient(to top, #000 0 40%, rgba(0,0,0,.7) 40% 62%, rgba(0,0,0,.4) 62% 100%); }
+    .scene::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: repeating-linear-gradient(105deg, transparent 0 22px, rgba(0, 240, 255, 0.08) 22px 23px), radial-gradient(80% 50% at 50% 100%, rgba(255, 32, 82, 0.25), transparent 70%);
+      animation: rain 0.6s linear infinite; }
+    @keyframes rain { to { background-position: -12px 40px, 0 0; } }
+    .floor { position: absolute; left: 0; right: 0; bottom: 0; height: 70px; background: linear-gradient(#1a0f1c, #07060a); border-top: 1px solid rgba(255, 32, 82, 0.5); }
+    .her-body { position: absolute; left: 50%; bottom: 48px; transform: translateX(-50%); background-repeat: no-repeat; image-rendering: auto; z-index: 2; }
+    .her-body.is-new { animation: glitch 300ms steps(3, end) 1; }
+    @keyframes glitch { 0% { filter: drop-shadow(-4px 0 var(--g-cyan)) drop-shadow(4px 0 var(--g-red)); transform: translateX(calc(-50% + 4px)); } 100% { filter: none; transform: translateX(-50%); } }
+    .caption { position: absolute; left: 12px; right: 12px; bottom: 10px; z-index: 3; font-size: 15px; line-height: 1.35; min-height: 40px; text-shadow: 0 1px 3px #000, 0 0 8px #000; }
+    .scan { position: absolute; left: 0; right: 0; height: 2px; top: 0; z-index: 3; background: rgba(0, 240, 255, 0.5); box-shadow: 0 0 10px var(--g-cyan); animation: scan 3.2s linear infinite; }
+    @keyframes scan { to { top: 100%; } }
+    /* thermal: everything in heat colors, and the hidden detail shows */
+    .screen.is-thermal .scene { filter: invert(1) hue-rotate(160deg) saturate(3.2) contrast(1.15); }
+    .screen.is-thermal .her-body { filter: invert(1) hue-rotate(180deg) saturate(4) brightness(1.2); }
+    .clue { position: absolute; z-index: 4; top: 16px; right: 12px; max-width: 70%; display: none; padding: 7px 10px; font-family: var(--font-mono); font-size: 12px; color: #07060a; background: var(--yellow); box-shadow: 3px 3px 0 var(--g-red); }
+    .clue::before { content: attr(data-label); display: block; font-size: 9px; letter-spacing: 0.1em; opacity: 0.7; }
+    .screen.is-thermal .clue.has { display: block; }
+    .ping { position: absolute; z-index: 4; top: 16px; right: 12px; width: 12px; height: 12px; border-radius: 50%; background: var(--yellow); display: none; animation: ping 1.2s ease-out infinite; }
+    .ping.has { display: block; }
+    .screen.is-thermal .ping { display: none; }
+    @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(252, 238, 8, 0.8); } 100% { box-shadow: 0 0 0 16px rgba(252, 238, 8, 0); } }
+    /* audio: her voice as a waveform */
+    .wave { position: absolute; left: 12px; right: 12px; top: 40%; height: 60px; z-index: 3; display: none; align-items: center; gap: 3px; }
+    .wave i { flex: 1; background: var(--g-green); box-shadow: 0 0 6px var(--g-green); animation: wave 0.7s ease-in-out infinite alternate; }
+    @keyframes wave { from { height: 6%; } to { height: 100%; } }
+    .screen.is-audio .wave { display: flex; }
+    .screen.is-audio .scene, .screen.is-audio .her-body { filter: grayscale(1) brightness(0.35); }
+
+    .layers { display: flex; gap: 6px; margin: 10px 0; }
+    .layers button { flex: 1; padding: 9px 4px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--g-panel); border: 1px solid rgba(243, 242, 233, 0.15); }
+    .layers button.is-on[data-layer="visual"] { border-color: var(--g-cyan); color: var(--g-cyan); }
+    .layers button.is-on[data-layer="thermal"] { border-color: #ff7a2a; color: #ff7a2a; }
+    .layers button.is-on[data-layer="audio"] { border-color: var(--g-green); color: var(--g-green); }
+    .timeline { position: relative; height: 26px; margin: 6px 0 4px; }
+    .timeline__bar { position: absolute; left: 0; right: 0; top: 11px; height: 4px; background: rgba(243, 242, 233, 0.15); }
+    .timeline__fill { position: absolute; left: 0; top: 11px; height: 4px; width: 0; background: linear-gradient(90deg, var(--g-red), var(--yellow)); }
+    .timeline__mark { position: absolute; top: 4px; width: 18px; height: 18px; margin-left: -9px; transform: rotate(45deg) scale(0.6); background: #07060a; border: 2px solid var(--paper-3); }
+    .timeline__mark.is-done { border-color: var(--g-red); background: var(--g-red); }
+    .timeline__mark.is-clue::after { content: ''; position: absolute; inset: 3px; background: var(--yellow); }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .controls button { padding: 10px 14px; background: var(--g-panel); border: 1px solid rgba(0, 240, 255, 0.35); font-size: 14px; }
+    .controls .clues { margin-left: auto; font-family: var(--font-mono); font-size: 12px; color: var(--yellow); }
+
+    .verdict { display: none; margin-top: 14px; padding: 14px; background: var(--g-panel); border-left: 3px solid var(--yellow); }
+    .verdict.is-on { display: block; }
+    .verdict h2 { margin: 0 0 6px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); }
+    .verdict p { margin: 0 0 12px; font-size: 15px; line-height: 1.4; }
+    .verdict .ask { color: var(--paper-2); font-size: 13px; margin-bottom: 8px; }
+    .rate { display: flex; gap: 8px; }
+    .rate button { flex: 1; padding: 11px 4px; font-size: 13px; background: #120f18; border: 1px solid rgba(243, 242, 233, 0.2); }
+    .rate button.is-on { border-color: var(--yellow); color: var(--yellow); }
+    @media (prefers-reduced-motion: reduce) { .scan, .scene::after, .wave i, .rec::before, .her-body.is-new, .ping { animation: none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="back cut" id="back" aria-label="back">‹</button>
+    <h1 id="h1">Neurodanzas</h1>
+  </header>
+  <p class="intro" id="intro"></p>
+  <div class="list" id="list"></div>
+
+  <section class="player">
+    <div class="hud"><span class="rec" id="rec">BD</span><span id="clock">00:00</span></div>
+    <div class="screen cut" id="screen">
+      <div class="scene"><div class="floor"></div></div>
+      <div class="her-body" id="body"></div>
+      <div class="wave" id="wave"></div>
+      <div class="scan"></div>
+      <div class="ping" id="ping"></div>
+      <div class="clue" id="clue"></div>
+      <div class="caption" id="caption"></div>
+    </div>
+    <div class="layers" id="layers">
+      <button class="cut is-on" data-layer="visual"></button>
+      <button class="cut" data-layer="thermal"></button>
+      <button class="cut" data-layer="audio"></button>
+    </div>
+    <div class="timeline" id="timeline"><div class="timeline__bar"></div><div class="timeline__fill" id="fill"></div></div>
+    <div class="controls">
+      <button class="cut" id="prev">⏮</button>
+      <button class="cut" id="play">⏸</button>
+      <button class="cut" id="next">⏭</button>
+      <span class="clues" id="clues"></span>
+    </div>
+    <div class="verdict cut" id="verdict">
+      <h2 id="vTitle"></h2>
+      <p id="vText"></p>
+      <div class="ask" id="vAsk"></div>
+      <div class="rate" id="rate">
+        <button class="cut" data-r="3"></button>
+        <button class="cut" data-r="2"></button>
+        <button class="cut" data-r="1"></button>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="neuro-page.js"></script>
+</body>
+</html>

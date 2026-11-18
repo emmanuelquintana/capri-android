@@ -489,6 +489,24 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.you_chatlog_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(ui.button(getString(R.string.you_chatlog_open), Ui.Kind.LINE) { PageActivity.open(this@MainActivity, "chatlog") }, ui.block(10))
         }, ui.block(16))
+        // (1.11.0) her neurodanzas: braindances she records for you after a lot of affection (Neuro.kt)
+        addView(ui.card(Hud.MANE, Hud.CYAN).apply {
+            addView(ui.label(getString(R.string.neuro_title), Hud.MANE))
+            addView(ui.text(getString(R.string.neuro_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            val count = ui.text("", 14f, Hud.PAPER, ui.body)
+            addView(count, ui.block(8))
+            addView(ui.button(getString(R.string.neuro_open), Ui.Kind.LINE) { PageActivity.open(this@MainActivity, "neuro") }, ui.block(10))
+            neuroDraw = {
+                val all = Neuro.all(this@MainActivity).length()
+                val fresh = Neuro.unseen(this@MainActivity)
+                count.text = when {
+                    all == 0 -> getString(R.string.neuro_none)
+                    fresh > 0 -> resources.getQuantityString(R.plurals.neuro_new, fresh, fresh)
+                    else -> resources.getQuantityString(R.plurals.neuro_count, all, all)
+                }
+            }
+            neuroDraw()
+        }, ui.block(16))
         // (1.11.0) her sleep mode: she sleeps with you, counts your night, and wakes you (Sleep.kt)
         addView(sleepCard(), ui.block(16))
         // your birthday (1.9.0, birthday.js): she celebrates you that day
@@ -609,6 +627,7 @@ class MainActivity : Activity() {
         draw()
     }
     private var sleepDraw: () -> Unit = {}
+    private var neuroDraw: () -> Unit = {}
 
     private fun birthdayCard() = ui.card(Hud.RED).apply {
         addView(ui.label(getString(R.string.you_birthday), Hud.RED))
@@ -1174,6 +1193,7 @@ class MainActivity : Activity() {
         showMemory()
         chat.status()
         sleepDraw()
+        neuroDraw()
         val running = CapriService.running
         statusDot.background = Hud.Plate(if (running) Hud.GREEN else Hud.RED, 0, cut = 0f, stroke = 0f, offset = 0f)
         statusWord.text = getString(if (running) R.string.main_status_on else R.string.main_status_off)

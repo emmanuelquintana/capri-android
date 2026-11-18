@@ -57,6 +57,11 @@ export function extraAsk(text, lang) {
     const reacting = window.dev?.reactMode?.ask(said);
     if (reacting) return reacting;
   }
+  // (1.11.0) "Capri, dame una neurodanza" / "mis neurodanzas" (neuro.js)
+  if (words <= 12) {
+    const bd = window.dev?.neuro?.ask(said);
+    if (bd) return bd;
+  }
   // (1.11.0) "Capri, modo sueño", "despiértame a las 7", "ya desperté": her sleep mode (sleep.js)
   if (words <= 14) {
     const slept = window.dev?.sleep?.ask(said);

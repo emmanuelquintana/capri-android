@@ -19,6 +19,9 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   não para até você desligar (com «Mais 5 minutos»). De manhã ela conta quanto você dormiu.
 - **Modo reação:** diga «Capri, vamos ver vídeos juntas» e, enquanto você vê um vídeo, ela assiste junto, dá a
   opinião de vez em quando e anota no chat dela para lembrar. «Desliga o modo reação» desliga. Ela precisa poder ver sua tela.
+- **Neurodanças:** dê muito carinho (faça carinho, converse com ela) e de vez em quando ela grava uma neurodança pra
+  você: uma lembrança dela, cena por cena, pra ver no app (Você › Neurodanças). Mude pra camada térmica pra achar
+  detalhes escondidos. No final ela diz o que achou, e você diz o que achou. Também: «Capri, me dá uma neurodança».
 - **Fala no singular:** nada de «nós» ou «a gente adora». Ela fala de si como uma pessoa só.
 - **Botão DOAR** embaixo de Iniciar Capri, Discord e TikTok: abre a janela para apoiá-la no PayPal.
 - **A pílula dela na barra (Android 16+):** ao lado do relógio, com o humor dela, e na Now Bar dos Samsung, com botões

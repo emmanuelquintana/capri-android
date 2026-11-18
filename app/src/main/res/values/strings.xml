@@ -478,4 +478,20 @@
         <item quantity="one">You turned on the screen %1$d time (%2$d min awake).</item>
         <item quantity="other">You turned on the screen %1$d times (%2$d min awake).</item>
     </plurals>
+    <!-- 1.11.0 neurodanzas (Neuro.kt) -->
+    <string name="neuro_title">Neurodances</string>
+    <string name="neuro_how">Braindances: her memories, recorded for you. Give her a lot of love (pet her, talk to her) and every so often she records one for you to watch. Then she tells you what she thinks. You can also ask her: “Capri, give me a braindance”.</string>
+    <string name="neuro_open">Watch her braindances</string>
+    <string name="neuro_none">None yet. Give her some love.</string>
+    <string name="neuro_channel">Capri’s braindances</string>
+    <string name="neuro_notify_title">Capri recorded a braindance for you</string>
+    <string name="neuro_notify_text">“%1$s”. Tap to watch it.</string>
+    <plurals name="neuro_new">
+        <item quantity="one">%d new braindance, unwatched</item>
+        <item quantity="other">%d new braindances, unwatched</item>
+    </plurals>
+    <plurals name="neuro_count">
+        <item quantity="one">%d braindance kept</item>
+        <item quantity="other">%d braindances kept</item>
+    </plurals>
 </resources>

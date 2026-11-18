@@ -20,6 +20,10 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Reaction mode:** tell her “Capri, watch videos with me” and, while you watch a video, she watches with
   you, gives her opinion now and then and notes it in her chat to remember it. “Turn off reaction mode” stops it. She needs
   to be able to see your screen.
+- **Braindances:** give her lots of love (pet her, talk to her) and every so often she records you a braindance: a
+  memory of hers, scene by scene, to watch in the app (You › Braindances). Switch to the thermal layer to find hidden
+  details. At the end she tells you what she thinks, and you tell her what you thought. Also: “Capri, give me a
+  braindance”.
 - **She talks in the singular:** no more “we” or “we love”. She talks about herself as one person.
 - **DONATE button** under Start Capri, Discord and TikTok: opens the window to support her on PayPal.
 - **Her pill in the status bar (Android 16+):** next to the clock, with her mood, and in Samsung’s Now Bar, with

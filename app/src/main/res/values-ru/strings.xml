@@ -480,4 +480,24 @@
         <item quantity="many">Ты включил(а) экран %1$d раз (%2$d мин без сна).</item>
         <item quantity="other">Ты включил(а) экран %1$d раз (%2$d мин без сна).</item>
     </plurals>
+    <!-- 1.11.0 neurodanzas (Neuro.kt) -->
+    <string name="neuro_title">Нейротанцы</string>
+    <string name="neuro_how">Нейротанцы: её воспоминания, записанные для тебя. Дай ей много ласки (гладь её, говори с ней), и время от времени она будет записывать тебе один. Потом она скажет, что о нём думает. Можно и попросить: «Капри, дай мне нейротанец».</string>
+    <string name="neuro_open">Смотреть её нейротанцы</string>
+    <string name="neuro_none">Пока ни одного. Дай ей ласки.</string>
+    <string name="neuro_channel">Нейротанцы Капри</string>
+    <string name="neuro_notify_title">Капри записала тебе нейротанец</string>
+    <string name="neuro_notify_text">«%1$s». Нажми, чтобы посмотреть.</string>
+    <plurals name="neuro_new">
+        <item quantity="one">%d новый нейротанец, не просмотрен</item>
+        <item quantity="few">%d новых нейротанца, не просмотрены</item>
+        <item quantity="many">%d новых нейротанцев, не просмотрены</item>
+        <item quantity="other">%d новых нейротанца, не просмотрены</item>
+    </plurals>
+    <plurals name="neuro_count">
+        <item quantity="one">%d нейротанец сохранён</item>
+        <item quantity="few">%d нейротанца сохранено</item>
+        <item quantity="many">%d нейротанцев сохранено</item>
+        <item quantity="other">%d нейротанца сохранено</item>
+    </plurals>
 </resources>

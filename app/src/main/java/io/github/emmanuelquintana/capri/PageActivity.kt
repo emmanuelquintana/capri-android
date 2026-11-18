@@ -19,6 +19,7 @@ import org.json.JSONObject
  * A screen of the app drawn by one of her pages (1.10.0), like her Vestuario (ClosetActivity):
  * - "chatlog": your chat history with her (ChatLog.kt), to read again or empty.
  * - "games": games with her (assets/android/games.html): chess, minesweeper, 21, tic-tac-toe, ping pong, rock-paper-scissors.
+ * - "neuro": her neurodanzas (1.11.0, Neuro.kt, assets/android/neuro.html), to watch and rate.
  * Only her own files are served; nothing here goes on the internet.
  */
 class PageActivity : Activity() {
@@ -142,6 +143,13 @@ class PageActivity : Activity() {
             p.edit().putString("last", json.take(400)).apply()
         }
 
+        /** (1.11.0) her neurodanzas, newest first; and you watched one (rated 1 to 3, or 0). */
+        @JavascriptInterface
+        fun neuroList(): String = Neuro.all(this@PageActivity).toString()
+
+        @JavascriptInterface
+        fun neuroSeen(id: String, rating: Int) = Neuro.seen(this@PageActivity, id, rating)
+
         @JavascriptInterface
         fun haptic() = runOnUiThread { web?.performHapticFeedback(android.view.HapticFeedbackConstants.KEYBOARD_TAP) }
 
@@ -153,7 +161,7 @@ class PageActivity : Activity() {
         private const val HOST = "appassets.androidplatform.net"
         const val EXTRA_PAGE = "page"
         const val EXTRA_GAME = "game"
-        private val PAGES = setOf("chatlog", "games")
+        private val PAGES = setOf("chatlog", "games", "neuro")
 
         fun open(context: Context, page: String, game: String? = null) {
             context.startActivity(Intent(context, PageActivity::class.java).putExtra(EXTRA_PAGE, page).putExtra(EXTRA_GAME, game)

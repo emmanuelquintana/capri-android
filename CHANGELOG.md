@@ -20,6 +20,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   para hasta que la apagues (con «5 minutos más»). En la mañana te dice cuánto dormiste.
 - **Modo reacción:** dile «Capri, veamos videos juntas» y, mientras ves un video, ella lo mira contigo, opina de
   vez en cuando y lo anota en su chat para recordarlo. «Quita el modo reacción» lo apaga. Necesita que pueda ver tu pantalla.
+- **Neurodanzas:** dale mucho cariño (acaríciala, platica con ella) y de vez en cuando te graba una neurodanza: un
+  recuerdo suyo, escena por escena, para verlo en la app (Tú › Neurodanzas). Cambia a la capa térmica para encontrar
+  detalles escondidos. Al final te dice qué opina, y tú le dices qué te pareció. También: «Capri, dame una neurodanza».
 - **Habla en singular:** ya no dice «nosotras» ni «nos encanta». Habla de ella como una sola persona.
 - **Botón DONAR** debajo de Iniciar Capri, Discord y TikTok: abre la ventana para apoyarla en PayPal.
 - **Su píldora en la barra (Android 16+):** junto a la hora, con su ánimo, y en la Now Bar de los Samsung, con
