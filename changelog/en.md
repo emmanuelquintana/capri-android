@@ -10,6 +10,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   missing it was the phone’s speech app. Now she tries another recognizer and, if none can, tells you which app
   needs the permission.
 - **Spotify plays the song:** if you chose Spotify, “play this song” now plays it, not just searches for it.
+- **Installs on Huawei and Honor:** the APK now also carries the classic signature some installers (Huawei’s among
+  them) ask for. If it still won’t install, the website explains what to turn off (“Pure mode”).
 
 ## 1.10.0
 

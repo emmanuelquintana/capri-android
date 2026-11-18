@@ -12,6 +12,8 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   aucun ne peut, elle te dit quelle app a besoin de la permission.
 - **Spotify joue la chanson :** si tu as choisi Spotify, « mets telle chanson » la lance vraiment, au lieu de juste
   la chercher.
+- **S’installe sur Huawei et Honor :** l’APK porte aussi la signature classique que certains installateurs (dont
+  ceux de Huawei) demandent. Si ça ne s’installe toujours pas, le site explique quoi désactiver (le « Mode pur »).
 
 ## 1.10.0
 

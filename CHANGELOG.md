@@ -11,6 +11,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   lo tenía era la app de voz del teléfono. Ahora prueba con otro reconocedor y, si ninguno puede, te dice cuál app
   necesita el permiso.
 - **Spotify reproduce la canción:** si elegiste Spotify, «pon tal canción» ahora la pone a sonar, no solo la busca.
+- **Se instala en Huawei y Honor:** el APK ahora lleva también la firma clásica, que algunos instaladores (los de
+  Huawei entre ellos) piden. Si aun así no se instala, la web explica qué apagar (el «Modo puro»).
 
 ## 1.10.0
 

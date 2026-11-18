@@ -31,6 +31,11 @@ android {
                 storePassword = System.getenv("CAPRI_KEYSTORE_PASSWORD")
                 keyAlias = System.getenv("CAPRI_KEY_ALIAS")
                 keyPassword = System.getenv("CAPRI_KEY_PASSWORD")
+                // (1.10.1) "no pueden instalar en Huawei": the old signature too (v1, JAR), next to v2/v3.
+                // Some phones' installers and file managers (Huawei's among them) check only that one.
+                enableV1Signing = true
+                enableV2Signing = true
+                enableV3Signing = true
             }
         }
     }
