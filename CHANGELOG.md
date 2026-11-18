@@ -15,6 +15,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   desde la esquina.
 - **Vuelven sus animaciones de antes,** incluida la de comer fideos instantáneos. Las redibujadas en 1.10.0 se van
   (sí, también la del six seven). Solo se queda la de acostarse en el teclado, ahora más tranquila.
+- **Modo sueño:** Capri duerme contigo. En Tú › Modo sueño (o «Capri, modo sueño, despiértame a las 7») se acurruca
+  en tu pantalla, cuenta cuántas veces la prendes en la noche y te regaña si lo haces. Con alarma, te despierta y no
+  para hasta que la apagues (con «5 minutos más»). En la mañana te dice cuánto dormiste.
 - **Habla en singular:** ya no dice «nosotras» ni «nos encanta». Habla de ella como una sola persona.
 - **Botón DONAR** debajo de Iniciar Capri, Discord y TikTok: abre la ventana para apoyarla en PayPal.
 - **Su píldora en la barra (Android 16+):** junto a la hora, con su ánimo, y en la Now Bar de los Samsung, con

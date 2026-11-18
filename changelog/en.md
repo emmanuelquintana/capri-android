@@ -14,6 +14,9 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   still watches from the corner.
 - **Her old animations are back,** including eating instant noodles. The ones redrawn in 1.10.0 are gone (yes, the
   six seven one too). Only the one lying on the keyboard stays, now calmer.
+- **Sleep mode:** Capri sleeps with you. In You › Sleep mode (or “Capri, sleep mode, wake me at 7”) she curls up on
+  your screen, counts how many times you turn it on during the night and scolds you when you do. With an alarm, she
+  wakes you and doesn’t stop until you turn it off (with “5 more minutes”). In the morning she tells you how long you slept.
 - **She talks in the singular:** no more “we” or “we love”. She talks about herself as one person.
 - **DONATE button** under Start Capri, Discord and TikTok: opens the window to support her on PayPal.
 - **Her pill in the status bar (Android 16+):** next to the clock, with her mood, and in Samsung’s Now Bar, with

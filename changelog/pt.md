@@ -14,6 +14,9 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   continua olhando do canto.
 - **As animações de antes voltaram,** incluindo a de comer miojo. As redesenhadas na 1.10.0 saíram (sim, a do six
   seven também). Só fica a de deitar no teclado, agora mais tranquila.
+- **Modo sono:** a Capri dorme com você. Em Você › Modo sono (ou «Capri, modo sono, me acorda às 7») ela se aconchega
+  na sua tela, conta quantas vezes você liga a tela de noite e dá bronca quando você liga. Com alarme, ela te acorda e
+  não para até você desligar (com «Mais 5 minutos»). De manhã ela conta quanto você dormiu.
 - **Fala no singular:** nada de «nós» ou «a gente adora». Ela fala de si como uma pessoa só.
 - **Botão DOAR** embaixo de Iniciar Capri, Discord e TikTok: abre a janela para apoiá-la no PayPal.
 - **A pílula dela na barra (Android 16+):** ao lado do relógio, com o humor dela, e na Now Bar dos Samsung, com botões

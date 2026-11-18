@@ -15,6 +15,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   Elle te regarde quand même depuis le coin.
 - **Ses anciennes animations reviennent,** dont celle où elle mange des nouilles instantanées. Celles redessinées en
   1.10.0 s’en vont (oui, aussi celle du six seven). Seule reste celle allongée sur le clavier, plus calme.
+- **Mode sommeil :** Capri dort avec toi. Dans Toi › Mode sommeil (ou « Capri, mode sommeil, réveille-moi à 7 h ») elle
+  se blottit sur ton écran, compte combien de fois tu l’allumes la nuit et te gronde quand tu le fais. Avec un réveil,
+  elle te réveille et ne s’arrête pas tant que tu ne l’éteins pas (avec « 5 minutes de plus »). Le matin, elle te dit combien tu as dormi.
 - **Elle parle au singulier :** plus de « nous » ni « on adore ». Elle parle d’elle comme d’une seule personne.
 - **Bouton FAIRE UN DON** sous Démarrer Capri, Discord et TikTok : ouvre la fenêtre pour la soutenir sur PayPal.
 - **Sa pilule dans la barre (Android 16+) :** à côté de l’heure, avec son humeur, et dans la Now Bar des Samsung,
