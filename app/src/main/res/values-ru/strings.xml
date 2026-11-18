@@ -440,4 +440,13 @@
         <item>Мемори</item>
         <item>Нейропоследовательность</item>
     </string-array>
+    <!-- 1.11.0: Huawei / Honor -->
+    <string name="huawei_title">Твой Huawei / Honor</string>
+    <string name="huawei_how">Эти телефоны закрывают приложения в фоне, а на некоторых нет сервисов Google. Три шага, чтобы Капри работала полностью:</string>
+    <string name="huawei_background">Разрешить работу в фоне</string>
+    <string name="huawei_background_how">В «Запуске приложений» найди Капри, выключи «Автоматическое управление» и включи все три пункта (автозапуск, косвенный запуск, работа в фоне).</string>
+    <string name="huawei_battery">Без ограничений батареи для Капри</string>
+    <string name="huawei_voice">Её голос: установить голос</string>
+    <string name="huawei_voice_how">Если она не говорит вслух, выбери или установи там движок синтеза речи с твоим языком. Чтобы слышать тебя, телефону нужен распознаватель речи (приложение Google или от Huawei); без него пиши ей в чат.</string>
+    <string name="settings_voice_none_huawei">На этом Huawei нет распознавания речи для приложений. Пиши ей в чат или установи распознаватель (Настройки › Твой Huawei подскажет как).</string>
 </resources>

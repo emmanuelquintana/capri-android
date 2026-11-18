@@ -420,7 +420,7 @@ object Permissions {
 
     fun all(a: Activity): List<Perm> = listOf(
         Perm(R.string.perm_overlay_title, R.string.perm_overlay_why, true, { Settings.canDrawOverlays(a) }) {
-            a.startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${a.packageName}")))
+            Vendor.overlay(a) // (1.11.0: with fallbacks, Huawei)
         },
         Perm(R.string.perm_notify_title, R.string.perm_notify_why, true, {
             Build.VERSION.SDK_INT < 33 || a.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
@@ -428,10 +428,10 @@ object Permissions {
             if (Build.VERSION.SDK_INT >= 33) a.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1)
         },
         Perm(R.string.perm_notes_title, R.string.perm_notes_why, false, { CapriNotifications.allowed(a) }) {
-            a.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+            Vendor.notificationAccess(a)
         },
         Perm(R.string.perm_install_title, R.string.perm_install_why, false, { a.packageManager.canRequestPackageInstalls() }) {
-            a.startActivity(Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${a.packageName}")))
+            Vendor.open(a, Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${a.packageName}")), Intent(Settings.ACTION_SECURITY_SETTINGS))
         },
         Perm(R.string.perm_mic_title, R.string.perm_mic_why, false, { Ears.allowed(a) }) {
             a.requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), MIC)

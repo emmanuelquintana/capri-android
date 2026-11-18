@@ -259,7 +259,7 @@ class MainActivity : Activity() {
     private fun toggleVoice() {
         if (Ears.enabled(this)) return Ears.setEnabled(this, false).also { refresh() }
         if (!android.speech.SpeechRecognizer.isRecognitionAvailable(this)) {
-            Toast.makeText(this, R.string.settings_voice_none, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, if (Vendor.huawei) R.string.settings_voice_none_huawei else R.string.settings_voice_none, Toast.LENGTH_LONG).show()
             return
         }
         if (!Ears.allowed(this)) {
@@ -306,8 +306,7 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.webview_old_how, Perf.webView()), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
             addView(ui.button(getString(R.string.webview_update) + " ↗", Ui.Kind.MAIN) {
                 val pkg = Perf.webViewPackage()
-                runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg"))) }
-                    .onFailure { openLink("https://play.google.com/store/apps/details?id=$pkg") }
+                Vendor.store(this@MainActivity, pkg) // (1.11.0: AppGallery on a Huawei without Play)
             }, ui.block(10))
         }, ui.block(16))
 
@@ -903,7 +902,7 @@ class MainActivity : Activity() {
                 GameWatch.setEnabled(this@MainActivity, it)
                 if (it && !GameWatch.allowed(this@MainActivity)) {
                     Toast.makeText(this@MainActivity, R.string.settings_gamer_auto_grant, Toast.LENGTH_LONG).show()
-                    runCatching { startActivity(Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS)) }
+                    Vendor.usageAccess(this@MainActivity)
                 }
             }, ui.block(6))
             // her tips while you play (1.9.0: coach.js)
@@ -964,6 +963,18 @@ class MainActivity : Activity() {
                 .show()
         }, ui.block(16))
 
+        // (1.11.0) on a Huawei or Honor: what those phones need for her to work well (Vendor.kt)
+        if (Vendor.huawei) addView(ui.card(Hud.RED).apply {
+            addView(ui.label(getString(R.string.huawei_title), Hud.RED))
+            addView(ui.text(getString(R.string.huawei_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.button(getString(R.string.huawei_background) + " ›", Ui.Kind.GREEN) { Vendor.keepAlive(this@MainActivity) }, ui.block(12))
+            addView(ui.text(getString(R.string.huawei_background_how), 12f, Hud.PAPER_3, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.button(getString(R.string.huawei_battery) + " ›", Ui.Kind.LINE) {
+                Vendor.open(this@MainActivity, Intent(android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
+            }, ui.block(10))
+            addView(ui.button(getString(R.string.huawei_voice) + " ›", Ui.Kind.LINE) { Vendor.voices(this@MainActivity) }, ui.block(10))
+            addView(ui.text(getString(R.string.huawei_voice_how), 12f, Hud.PAPER_3, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+        }, ui.block(16))
         // report a bug (1.9.0, Report.kt): to Emma's Discord, with her internal log (never shown here)
         addView(reportCard(), ui.block(16))
     }

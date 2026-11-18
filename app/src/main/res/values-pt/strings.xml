@@ -439,4 +439,13 @@
         <item>Memória</item>
         <item>Sequência neural</item>
     </string-array>
+    <!-- 1.11.0: Huawei / Honor -->
+    <string name="huawei_title">Seu Huawei / Honor</string>
+    <string name="huawei_how">Esses celulares fecham os apps em segundo plano e alguns não têm os serviços do Google. Três passos para a Capri funcionar completa:</string>
+    <string name="huawei_background">Deixar rodar em segundo plano</string>
+    <string name="huawei_background_how">Em «Inicialização de apps», procure a Capri, desligue «Gerenciar automaticamente» e ligue as três opções (início automático, início secundário e execução em segundo plano).</string>
+    <string name="huawei_battery">Sem restrição de bateria para a Capri</string>
+    <string name="huawei_voice">A voz dela: instalar uma voz</string>
+    <string name="huawei_voice_how">Se ela não fala em voz alta, escolha ou instale ali um mecanismo de texto para fala com o seu idioma. Para te ouvir, o celular precisa de um reconhecedor de voz (o app do Google ou um da Huawei); sem ele, escreva no chat dela.</string>
+    <string name="settings_voice_none_huawei">Este Huawei não tem reconhecedor de voz para apps. Escreva no chat dela, ou instale um (Ajustes › Seu Huawei explica como).</string>
 </resources>

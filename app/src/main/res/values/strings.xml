@@ -440,4 +440,13 @@
         <item>Memory</item>
         <item>Neural sequence</item>
     </string-array>
+    <!-- 1.11.0: Huawei / Honor -->
+    <string name="huawei_title">Your Huawei / Honor</string>
+    <string name="huawei_how">These phones close apps in the background and some don’t have Google’s services. Three steps so Capri works fully:</string>
+    <string name="huawei_background">Let her run in the background</string>
+    <string name="huawei_background_how">In “App launch”, find Capri, switch off “Manage automatically” and switch on the three options (auto-launch, secondary launch, run in background).</string>
+    <string name="huawei_battery">No battery restriction for Capri</string>
+    <string name="huawei_voice">Her voice: install a voice</string>
+    <string name="huawei_voice_how">If she doesn’t talk out loud, pick or install a text-to-speech engine with your language there. To hear you, the phone needs a speech recognizer (Google’s app or a Huawei one); without it, write to her in her chat.</string>
+    <string name="settings_voice_none_huawei">This Huawei has no speech recognizer for apps. Write to her in her chat, or install one (Ajustes › Your Huawei explains how).</string>
 </resources>
