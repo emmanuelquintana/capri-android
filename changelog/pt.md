@@ -17,6 +17,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Modo sono:** a Capri dorme com você. Em Você › Modo sono (ou «Capri, modo sono, me acorda às 7») ela se aconchega
   na sua tela, conta quantas vezes você liga a tela de noite e dá bronca quando você liga. Com alarme, ela te acorda e
   não para até você desligar (com «Mais 5 minutos»). De manhã ela conta quanto você dormiu.
+- **Modo reação:** diga «Capri, vamos ver vídeos juntas» e, enquanto você vê um vídeo, ela assiste junto, dá a
+  opinião de vez em quando e anota no chat dela para lembrar. «Desliga o modo reação» desliga. Ela precisa poder ver sua tela.
 - **Fala no singular:** nada de «nós» ou «a gente adora». Ela fala de si como uma pessoa só.
 - **Botão DOAR** embaixo de Iniciar Capri, Discord e TikTok: abre a janela para apoiá-la no PayPal.
 - **A pílula dela na barra (Android 16+):** ao lado do relógio, com o humor dela, e na Now Bar dos Samsung, com botões

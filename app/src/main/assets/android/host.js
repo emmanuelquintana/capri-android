@@ -54,6 +54,7 @@ import { checkIn } from './checkin.js';
 import { typing } from './typing.js';
 import { appChat } from './appchat.js';
 import { sleepMode } from './sleep.js';
+import { reactMode } from './reactmode.js';
 import { twins } from './twin.js';
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
@@ -79,7 +80,7 @@ const DEFAULTS = {
   welcomed: false, assistant: 'auto', linked: false, chatModel: null, provider: 'pollinations', apiKeys: {},
   customUrl: '', claudeCwd: null, userName: '', persona: '', myLines: [], memories: [], claudeMode: 'default',
   claude: true, rest: 'corner', theme: 'nightcity', motion: 'auto', motionAsked: false, render: 'auto', follow: true,
-  jealous: true, closePages: true, reminders: [], bond: null, pcReact: true, watchScreen: false, lookAsked: false, gamer: false,
+  jealous: true, closePages: true, reminders: [], bond: null, pcReact: true, watchScreen: false, reactMode: false, lookAsked: false, gamer: false,
   // Android
   ollamaHost: '127.0.0.1:11434', // Ollama in Termux on the phone, or your PC's address on your network
   hooksCopied: false,            // the Termux command to plug her in was handed to you
@@ -1656,6 +1657,7 @@ ready.then(() => {
     // 1.11.0
     appChat({ lang: () => resolveLang(cfg.lang) }); // her chat inside the app (its Chat tab)
     window.dev.sleep = sleepMode({ cfg: () => cfg, lang: () => resolveLang(cfg.lang) }); // she sleeps with you (Sleep.kt)
+    window.dev.reactMode = reactMode({ cfg: () => cfg, setConfig: updateConfig, lang: () => resolveLang(cfg.lang) }); // she watches your videos with you
   }, 300);
 });
 

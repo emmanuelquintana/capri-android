@@ -52,6 +52,11 @@ export function extraAsk(text, lang) {
   if (twin && words <= 8 && MERGE_ASK.test(said)) {
     return twin.merge(false) ? { line: twin.lines().merge[0], face: 'laugh' } : { line: twin.lines().alone, face: 'look' };
   }
+  // (1.11.0) "Capri, modo reacción": she watches your videos with you (reactmode.js)
+  if (words <= 12) {
+    const reacting = window.dev?.reactMode?.ask(said);
+    if (reacting) return reacting;
+  }
   // (1.11.0) "Capri, modo sueño", "despiértame a las 7", "ya desperté": her sleep mode (sleep.js)
   if (words <= 14) {
     const slept = window.dev?.sleep?.ask(said);

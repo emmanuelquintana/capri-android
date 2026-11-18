@@ -18,6 +18,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Modo sueño:** Capri duerme contigo. En Tú › Modo sueño (o «Capri, modo sueño, despiértame a las 7») se acurruca
   en tu pantalla, cuenta cuántas veces la prendes en la noche y te regaña si lo haces. Con alarma, te despierta y no
   para hasta que la apagues (con «5 minutos más»). En la mañana te dice cuánto dormiste.
+- **Modo reacción:** dile «Capri, veamos videos juntas» y, mientras ves un video, ella lo mira contigo, opina de
+  vez en cuando y lo anota en su chat para recordarlo. «Quita el modo reacción» lo apaga. Necesita que pueda ver tu pantalla.
 - **Habla en singular:** ya no dice «nosotras» ni «nos encanta». Habla de ella como una sola persona.
 - **Botón DONAR** debajo de Iniciar Capri, Discord y TikTok: abre la ventana para apoyarla en PayPal.
 - **Su píldora en la barra (Android 16+):** junto a la hora, con su ánimo, y en la Now Bar de los Samsung, con
