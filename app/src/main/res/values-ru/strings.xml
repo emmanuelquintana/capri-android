@@ -449,4 +449,11 @@
     <string name="huawei_voice">Её голос: установить голос</string>
     <string name="huawei_voice_how">Если она не говорит вслух, выбери или установи там движок синтеза речи с твоим языком. Чтобы слышать тебя, телефону нужен распознаватель речи (приложение Google или от Huawei); без него пиши ей в чат.</string>
     <string name="settings_voice_none_huawei">На этом Huawei нет распознавания речи для приложений. Пиши ей в чат или установи распознаватель (Настройки › Твой Huawei подскажет как).</string>
+    <!-- 1.11.0: her pill (Android 16 live updates, Samsung Now Bar) -->
+    <string name="live_chat">Чат</string>
+    <string name="live_title">Её капсула в строке состояния</string>
+    <string name="live_how">На Android 16 и новее Капри может жить в капсуле рядом с часами (с её настроением), а на Samsung — в Now Bar на экране блокировки, с кнопками: поболтать, открыть её меню или спрятать. Зависит от телефона: если не появляется, разреши «обновления в реальном времени» для Капри.</string>
+    <string name="live_on">Вкл.</string>
+    <string name="live_off">Выкл.</string>
+    <string name="live_allow">Разрешить в Android</string>
 </resources>

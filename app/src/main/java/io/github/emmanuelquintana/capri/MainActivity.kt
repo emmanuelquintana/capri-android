@@ -963,6 +963,15 @@ class MainActivity : Activity() {
                 .show()
         }, ui.block(16))
 
+        // (1.11.0) her pill by the clock and in Samsung's Now Bar (Android 16+, LiveBar.kt)
+        if (LiveBar.available()) addView(ui.card(Hud.CYAN).apply {
+            addView(ui.label(getString(R.string.live_title), Hud.CYAN))
+            addView(ui.text(getString(R.string.live_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(choice(listOf(R.string.live_on to true, R.string.live_off to false), { LiveBar.enabled(this@MainActivity) }, { x, y -> x == y }) {
+                LiveBar.setEnabled(this@MainActivity, it)
+            }, ui.block(10))
+            addView(ui.button(getString(R.string.live_allow) + " ›", Ui.Kind.LINE) { LiveBar.settings(this@MainActivity) }, ui.block(10))
+        }, ui.block(16))
         // (1.11.0) on a Huawei or Honor: what those phones need for her to work well (Vendor.kt)
         if (Vendor.huawei) addView(ui.card(Hud.RED).apply {
             addView(ui.label(getString(R.string.huawei_title), Hud.RED))

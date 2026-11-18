@@ -356,16 +356,21 @@ class CapriService : Service() {
                 } else b.setShowWhen(false)
                 face(if (said != null) winkFace else "smug")?.let { b.setLargeIcon(it) }
             }
-            // her colours: the shade shows her plate in ink, with her yellow
+            // her colours: the shade shows her plate in ink, with her yellow (not as a live update:
+            // Android 16 only promotes notifications that aren't colorized)
             .setColor(Hud.INK)
-            .setColorized(true)
+            .setColorized(!LiveBar.wanted(this))
             .setContentIntent(pending(ACTION_MENU, 1)) // a tap on it is a click on her tray icon: her menu
             .setOngoing(true)
             .setOnlyAlertOnce(true)
+            .also { if (LiveBar.wanted(this)) it.addAction(Notification.Action.Builder(null, getString(R.string.live_chat), LiveBar.chat(this)).build()) }
             .addAction(Notification.Action.Builder(null, getString(R.string.action_menu), pending(ACTION_MENU, 2)).build())
             .addAction(Notification.Action.Builder(null, getString(if (visible) R.string.action_hide else R.string.action_show), pending(ACTION_TOGGLE, 3)).build())
             .addAction(Notification.Action.Builder(null, getString(R.string.action_quit), pending(ACTION_QUIT, 4)).build())
             .also { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) it.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE) }
+            // (1.11.0, Emma: "en Samsung o los que tengan islas dinámicas, unas interacciones en su píldora, como
+            // en la Now Bar, depende del dispositivo y si está disponible"): a live update on Android 16+
+            .also { LiveBar.promote(this, it, if (said != null) winkFace else "smug", visible) }
             .build()
     }
 

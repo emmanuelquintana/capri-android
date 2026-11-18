@@ -448,4 +448,11 @@
     <string name="huawei_voice">A voz dela: instalar uma voz</string>
     <string name="huawei_voice_how">Se ela não fala em voz alta, escolha ou instale ali um mecanismo de texto para fala com o seu idioma. Para te ouvir, o celular precisa de um reconhecedor de voz (o app do Google ou um da Huawei); sem ele, escreva no chat dela.</string>
     <string name="settings_voice_none_huawei">Este Huawei não tem reconhecedor de voz para apps. Escreva no chat dela, ou instale um (Ajustes › Seu Huawei explica como).</string>
+    <!-- 1.11.0: her pill (Android 16 live updates, Samsung Now Bar) -->
+    <string name="live_chat">Chat</string>
+    <string name="live_title">A pílula dela na barra</string>
+    <string name="live_how">No Android 16 ou mais novo, a Capri pode morar numa pílula ao lado do relógio (com o humor dela) e, nos Samsung, na Now Bar da tela de bloqueio, com botões para conversar, abrir o menu dela ou escondê-la. Depende do seu celular: se não aparecer, permita as «atualizações ao vivo» para a Capri.</string>
+    <string name="live_on">Ligada</string>
+    <string name="live_off">Desligada</string>
+    <string name="live_allow">Permitir no Android</string>
 </resources>

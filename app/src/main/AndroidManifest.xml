@@ -19,6 +19,8 @@
     <!-- "Capri, mira mi pantalla": Android's screen capture, asked each time (Eyes.kt) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- (1.11.0) Android 16: her notification as a live update (status bar chip, Samsung Now Bar) -->
+    <uses-permission android:name="android.permission.POST_PROMOTED_NOTIFICATIONS" />
     <!-- gamer mode on its own when a game is in front: only if you turn it on and give "Acceso de uso" -->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
     <!-- "Start with Windows", here "start with the phone" -->
