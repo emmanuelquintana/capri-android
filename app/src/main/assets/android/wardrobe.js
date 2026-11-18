@@ -54,6 +54,15 @@ const OUTFITS = [
   ['cineasta', 'Roman Carax', 'Roman Carax', 'Roman Carax', 'Roman Carax', 'Роман Каракс'],
   ['avida', 'Avida', 'Avida', 'Avida', 'Avida', 'Авида'],
   ['kyoko', 'Kyoko Tanaami', 'Kyoko Tanaami', 'Kyoko Tanaami', 'Kyoko Tanaami', 'Кёко Танаами'],
+  // 1.11.0 (Emma: "roupa de empregada / maid na Capri" y trajes nuevos): shown once their drawing is in
+  ['sirvienta', 'Sirvienta', 'Maid', 'Soubrette', 'Empregada', 'Горничная'],
+  ['maidneon', 'Sirvienta neón', 'Neon maid', 'Soubrette néon', 'Empregada neon', 'Неоновая горничная'],
+  ['astronauta', 'Astronauta (su satélite)', 'Astronaut (her satellite)', 'Astronaute (son satellite)', 'Astronauta (o satélite dela)', 'Космонавт (её спутник)'],
+  ['idol', 'Idol', 'Idol', 'Idol', 'Idol', 'Айдол'],
+  ['sudadera', 'Sudadera gamer', 'Gamer hoodie', 'Sweat gamer', 'Moletom gamer', 'Геймерское худи'],
+  ['rockera', 'Rockera punk', 'Punk rocker', 'Rockeuse punk', 'Roqueira punk', 'Панк-рокерша'],
+  ['charra', 'Charra', 'Charra', 'Charra', 'Charra', 'Чарра'],
+  ['invierno', 'Invierno', 'Winter', 'Hiver', 'Inverno', 'Зима'],
   ['novia', 'Vestido de novia', 'Wedding dress', 'Robe de mariée', 'Vestido de noiva', 'Свадебное платье', 'secret'],
 ];
 
