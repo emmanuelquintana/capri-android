@@ -133,7 +133,7 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
             val d = day.format(java.util.Date(e.optLong("at")))
             if (d != lastDay) { lastDay = d; dayLine(d) }
             val q = e.optString("q").trim()
-            if (q.isNotEmpty()) bubble(q, true)
+            if (q.isNotEmpty()) bubble(q, true, null)
             bubble(e.optString("a"), false, null)
         }
         scroll.post { scroll.fullScroll(View.FOCUS_DOWN) }

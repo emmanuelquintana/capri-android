@@ -31,7 +31,7 @@ object LiveBar {
 
     /** Whether the phone lets her be promoted (the person can turn it off per app). */
     fun allowed(context: Context): Boolean = available() && runCatching {
-        val nm = context.getSystemService(NotificationManager::class.java)
+        val nm = context.getSystemService(NotificationManager::class.java)!!
         nm.javaClass.getMethod("canPostPromotedNotifications").invoke(nm) as Boolean
     }.getOrDefault(false)
 
