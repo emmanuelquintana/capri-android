@@ -48,7 +48,7 @@ ANIMS = {
     'game-facepalm': (4, 1, 6, True, 'stand'),
     'game-idle': (4, 1, 4, True, 'stand'),
     'gamer-watch': (3, 2, 6, True, 'lie'),
-    'gamer-play': (4, 1, 6, True, 'sit'),  # (1.10.0: 4x1)
+    'gamer-play': (2, 2, 6, True, 'sit'),  # (1.11.0: back to the 1.9 drawing)
     'sleep': (2, 2, 3, True, 'curl'),
     'wake': (4, 1, 6, False, 'stand'),
     'wave': (4, 1, 8, True, 'stand'),
@@ -65,13 +65,13 @@ ANIMS = {
     'phone': (2, 2, 4, True, 'lie'),
     'charge': (4, 1, 6, True, 'stand'),
     'drained': (4, 1, 6, False, 'stand'),
-    'eat': (4, 1, 6, True, 'stand'),  # (1.10.0: standing)
+    'eat': (4, 1, 6, True, 'sit'),  # (1.11.0: her instant noodles again, sitting)
     'sandevistan': (3, 2, 10, False, 'stand'),
     # part 5
     'scan': (4, 1, 6, True, 'stand'),
     'bye': (4, 1, 8, False, 'stand'),
-    'dizzy': (4, 1, 6, True, 'stand'),  # (1.10.0: standing)
-    'music': (4, 1, 6, True, 'stand'),  # (1.10.0: standing, 4x1)
+    'dizzy': (4, 1, 6, True, 'sit'),
+    'music': (2, 2, 6, True, 'sit'),
     'stretch': (4, 1, 4, True, 'stand'),
     'yawn': (4, 1, 6, False, 'stand'),
     'hack': (4, 1, 8, True, 'stand'),
@@ -83,15 +83,15 @@ ANIMS = {
     'stream': (4, 1, 5, True, 'stand'),
     'birthday': (4, 1, 5, True, 'stand'),
     'party': (4, 2, 8, True, 'stand'),
-    # 1.10.0: lying on the keyboard, sitting with the phone in games (typing.js)
+    # 1.10.0: lying on the keyboard (typing.js). 1.11.0: the 1.10.0 redraws of the rest went back to the
+    # 1.9 ones (the community didn't like them); only this one stays, 2 calm cels until it's redrawn
     'keyboard': (2, 2, 4, True, 'lie'),
-    'type-phone': (4, 1, 6, True, 'sit'),
 }
 # the cel where she just stands there, for the ones she jumps or reaches up in: her real height is that cel's,
 # not the whole box's (else she looks smaller in them than in the rest)
 REST = {'surprised': 3, 'stretch': 3}
 # sitting ones GPT drew a little higher in some rows: each cel's seat put on the same line
-SEAT = {'gamer-play', 'type-phone'}
+SEAT = {'music'}
 ACC_IDS = {'cat-ears': 'catears', 'santa-hat': 'santahat', 'hat-cowboy': 'cowboyhat', 'heart-balloon': 'balloon'}
 
 FULL = Image.open(os.path.join(ROOT, 'capri-full.png')).convert('RGBA')

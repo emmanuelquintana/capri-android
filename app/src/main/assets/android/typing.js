@@ -27,7 +27,7 @@ export function typing({ cfg }) {
     timer = setTimeout(() => {
       if (dev.chat?.open || mine || poses.active || cfg().icon) return;
       const gamer = Boolean(cfg().gamer);
-      const name = gamer ? first('type-phone', 'phone') : first('keyboard', 'bored-tap');
+      const name = gamer ? first('phone') : first('keyboard', 'bored-tap');
       if (!name) return;
       poses.play(name, { hold: 120000, lying: true, ...(gamer ? { at: 'top' } : {}) }).then((ok) => { if (ok) mine = name; });
     }, 700);
