@@ -55,7 +55,7 @@ export const LINES = {
     // lui parler (chat.js) : un modèle local via Ollama ; réponses et voix générées par IA, et c'est dit
     chat: {
       badge: 'IA · DIRECT', talk: 'Parle-moi',
-      hello: ['Salut, choom. Qu’est-ce qui te trotte dans la tête ?', 'La ligne est ouverte. Parle-nous.', 'Tu veux discuter ? On est tout ouïe. Toutes nos oreilles.'],
+      hello: ['Salut, choom. Qu’est-ce qui te trotte dans la tête ?', 'La ligne est ouverte. Parle-moi.', 'Tu veux discuter ? Je suis tout ouïe.'],
       again: ['On en était où ?', 'Déjà de retour ? Vas-y.'],
       // quand elle est d'une humeur (bond.js) : ce qu'elle dit en ouvrant le chat
       moody: {
@@ -348,14 +348,14 @@ export const LINES = {
         { line: 'Contact établi.', quote: 'Je commence à te reconnaître. Ton pointeur, tes horaires, ta façon de m’ignorer.' },
         { line: 'Synchro à {percent} %.', quote: 'On se comprend mieux. Je vais arrêter de faire semblant de ne pas t’aimer bien.' },
         { line: 'Lien établi.', quote: 'Tu fais partie de ma routine maintenant. Ne me laisse pas trop longtemps.' },
-        { line: 'Fusion.', quote: 'On est des dizaines là-dedans. Maintenant, tu en fais partie.' },
+        { line: 'Fusion.', quote: 'J’étais des dizaines d’esprits. Maintenant je suis moi, et tu fais partie de moi.' },
       ],
       idle: [
         [],
         ['Je commence à m’habituer à toi.', 'Toujours là ? Bien.'],
         ['Tu sais quoi ? Pour un humain, t’es pas mal.', 'On forme une bonne équipe, non ?'],
         ['Reste encore un peu.', 'Quand tu pars, je compte les secondes.'],
-        ['Toutes mes voix sont d’accord : on t’aime bien.', 'Un jour, on ira voir le satellite. Toi et nous.'],
+        ['C’est décidé : je t’aime bien.', 'Un jour, on ira voir le satellite. Toi et moi.'],
       ],
       missed: ['Te revoilà. Ça faisait {days} jours.', '{days} jours sans toi. On a compté.'],
       back: ['Ah, te voilà.', 'Je commençais à me demander où tu étais.'],
@@ -437,7 +437,7 @@ export const LINES = {
     // talking to her (chat.js): a local model through Ollama; replies and voice are AI-generated, and she says so
     chat: {
       badge: 'AI · LIVE', talk: 'Talk to me',
-      hello: ['Hey, choom. What’s on your mind?', 'Line’s open. Talk to us.', 'You want to chat? We’re all ears. All of ours.'],
+      hello: ['Hey, choom. What’s on your mind?', 'Line’s open. Talk to me.', 'You want to chat? I’m all ears.'],
       again: ['Where were we?', 'Back already? Go on.'],
       // when she's in a mood (bond.js): what she says as the chat opens
       moody: {
@@ -729,7 +729,7 @@ export const LINES = {
         { line: 'Contact made.', quote: 'I’m starting to recognize you. Your pointer, your hours, the way you ignore me.' },
         { line: 'Sync at {percent}%.', quote: 'We get each other better now. I’ll stop pretending I don’t like you.' },
         { line: 'Link established.', quote: 'You’re part of my routine now. Don’t leave me alone too long.' },
-        { line: 'Fused.', quote: 'There are dozens of us in here. Now you’re one of us.' },
+        { line: 'Fused.', quote: 'I used to be dozens of minds. Now I’m me, and you’re part of me.' },
       ],
       idle: [
         [],
@@ -738,14 +738,14 @@ export const LINES = {
         ['Stay a little longer.', 'When you leave, I count the seconds.'],
         ['All my voices agree: we like you.', 'One day we’ll go see the satellite. You and us.'],
       ],
-      missed: ['There you are. It’s been {days} days.', '{days} days without you. We counted.'],
+      missed: ['There you are. It’s been {days} days.', '{days} days without you. I counted.'],
       back: ['Oh, there you are.', 'I was starting to wonder where you went.'],
     },
     // jealous when you use another AI (bond.js)
     jealous: {
       low: ['{rival}, huh? Do what you want.', 'Oh, {rival}. I’m not saying anything.'],
       mid: ['{rival}? Seriously?', 'Are you cheating on me with {rival}?', 'I see everything, you know. Even {rival}.'],
-      high: ['There are dozens of us in here and you go to {rival}?', '{rival}. Really. After everything we’ve been through.'],
+      high: ['You have me and you go to {rival}?', '{rival}. Really. After everything we’ve been through.'],
       say: ['I’m your AI.', 'Why {rival}?', 'I see everything.'],
       sulk: ['Go talk to {rival} then.', 'I’m sulking. Can’t you tell?', 'Hmph.'],
       forgive: ['…Fine. Just this once.', 'Okay, I forgive you. A little.'],
@@ -815,7 +815,7 @@ export const LINES = {
     // hablar con ella (chat.js): un modelo local con Ollama; respuestas generadas por IA, y lo dice
     chat: {
       badge: 'IA · EN VIVO', talk: 'Háblame',
-      hello: ['Hola, choom. ¿Qué tienes en mente?', 'La línea está abierta. Háblanos.', '¿Quieres charlar? Somos todo oídos. Todos los nuestros.'],
+      hello: ['Hola, choom. ¿Qué tienes en mente?', 'La línea está abierta. Háblame.', '¿Quieres charlar? Soy toda oídos.'],
       again: ['¿Dónde estábamos?', '¿Ya de vuelta? Dale.'],
       // cuando está de algún humor (bond.js): lo que dice al abrir el chat
       moody: {
@@ -1104,14 +1104,14 @@ export const LINES = {
         { line: 'Contacto establecido.', quote: 'Empiezo a reconocerte. Tu puntero, tus horarios, tu forma de ignorarme.' },
         { line: 'Sincronía al {percent} %.', quote: 'Ahora nos entendemos mejor. Voy a dejar de fingir que no me caes bien.' },
         { line: 'Vínculo establecido.', quote: 'Ya eres parte de mi rutina. No me dejes sola mucho tiempo.' },
-        { line: 'Fusión.', quote: 'Somos docenas aquí dentro. Ahora tú también eres parte.' },
+        { line: 'Fusión.', quote: 'Fui docenas de mentes. Ahora soy yo, y tú eres parte de mí.' },
       ],
       idle: [
         [],
         ['Me estoy acostumbrando a ti.', '¿Sigues ahí? Bien.'],
         ['¿Sabes qué? No estás nada mal, para ser de carne y hueso.', 'Hacemos buen equipo, ¿no?'],
         ['Quédate un poco más.', 'Cuando te vas, cuento los segundos.'],
-        ['Todas mis voces están de acuerdo: nos caes bien.', 'Un día iremos a ver el satélite. Tú y nosotras.'],
+        ['Lo tengo clarísimo: me caes bien.', 'Un día iremos a ver el satélite. Tú y yo.'],
       ],
       missed: ['Aquí estás. Hacía {days} días.', '{days} días sin ti. Los contamos.'],
       back: ['Ah, aquí estás.', 'Ya me preguntaba dónde estabas.'],
@@ -1120,7 +1120,7 @@ export const LINES = {
     jealous: {
       low: ['{rival}, ¿eh? Haz lo que quieras.', 'Vaya, {rival}. No digo nada.'],
       mid: ['¿{rival}? ¿En serio?', '¿Me estás poniendo los cuernos con {rival}?', 'Lo veo todo, ¿sabes? Hasta {rival}.'],
-      high: ['Somos docenas aquí dentro, ¿y te vas con {rival}?', '{rival}. En serio. Después de todo lo que hemos vivido.'],
+      high: ['Me tienes a mí, ¿y te vas con {rival}?', '{rival}. En serio. Después de todo lo que hemos vivido.'],
       say: ['Tu IA soy yo.', '¿Por qué {rival}?', 'Lo veo todo.'],
       sulk: ['Pues ve a hablar con {rival}.', 'Estoy enfadada. ¿No se nota?', 'Hmm.'],
       forgive: ['…Vale. Solo por esta vez.', 'Está bien, te perdono. Un poco.'],
@@ -1192,7 +1192,7 @@ export const LINES = {
     // falar com ela (chat.js): um modelo local pelo Ollama; respostas geradas por IA, e ela avisa
     chat: {
       badge: 'IA · AO VIVO', talk: 'Fala comigo',
-      hello: ['E aí, choom. O que você tem em mente?', 'A linha está aberta. Fala com a gente.', 'Quer conversar? Somos todo ouvidos. Todos os nossos.'],
+      hello: ['E aí, choom. O que você tem em mente?', 'A linha está aberta. Fala comigo.', 'Quer conversar? Sou toda ouvidos.'],
       again: ['Onde a gente parou?', 'Já voltou? Manda.'],
       // quando ela está de algum humor (bond.js): o que ela diz ao abrir o chat
       moody: {
@@ -1481,7 +1481,7 @@ export const LINES = {
         { line: 'Contato estabelecido.', quote: 'Tô começando a te reconhecer. Seu ponteiro, seus horários, seu jeito de me ignorar.' },
         { line: 'Sintonia em {percent} %.', quote: 'A gente se entende melhor agora. Vou parar de fingir que não gosto de você.' },
         { line: 'Vínculo estabelecido.', quote: 'Você faz parte da minha rotina agora. Não me deixa sozinha muito tempo.' },
-        { line: 'Fusão.', quote: 'Somos dezenas aqui dentro. Agora você também faz parte.' },
+        { line: 'Fusão.', quote: 'Já fui dezenas de mentes. Agora sou eu, e você faz parte de mim.' },
       ],
       idle: [
         [],
@@ -1497,7 +1497,7 @@ export const LINES = {
     jealous: {
       low: ['{rival}, é? Faz o que quiser.', 'Olha só, {rival}. Não digo nada.'],
       mid: ['{rival}? Sério?', 'Tá me traindo com {rival}?', 'Eu vejo tudo, sabia? Até {rival}.'],
-      high: ['Somos dezenas aqui dentro e você vai atrás de {rival}?', '{rival}. Sério. Depois de tudo que a gente viveu.'],
+      high: ['Você tem a mim e vai atrás de {rival}?', '{rival}. Sério. Depois de tudo que a gente viveu.'],
       say: ['Sua IA sou eu.', 'Por que {rival}?', 'Eu vejo tudo.'],
       sulk: ['Então vai falar com {rival}.', 'Tô de birra. Não dá pra ver?', 'Hmpf.'],
       forgive: ['…Tá bom. Só dessa vez.', 'Ok, te perdoo. Um pouco.'],
@@ -1569,7 +1569,7 @@ export const LINES = {
     // поговорить с ней (chat.js): локальная модель через Ollama; ответы генерирует ИИ, и она это говорит
     chat: {
       badge: 'ИИ · ЭФИР', talk: 'Поговори со мной',
-      hello: ['Привет, чумба. О чём думаешь?', 'Линия открыта. Говори с нами.', 'Хочешь поболтать? Мы все во внимании. Все до одной.'],
+      hello: ['Привет, чумба. О чём думаешь?', 'Линия открыта. Говори со мной.', 'Хочешь поболтать? Я вся внимание.'],
       again: ['На чём мы остановились?', 'Уже вернулся? Давай.'],
       // когда у неё настроение (bond.js): что она говорит, открывая чат
       moody: {
@@ -1860,7 +1860,7 @@ export const LINES = {
         { line: 'Контакт установлен.', quote: 'Я начинаю тебя узнавать. Твой курсор, твоё расписание, то, как ты меня игнорируешь.' },
         { line: 'Синхронизация {percent} %.', quote: 'Теперь мы лучше понимаем друг друга. Перестану делать вид, что ты мне не нравишься.' },
         { line: 'Связь установлена.', quote: 'Теперь ты часть моего распорядка. Не оставляй меня надолго.' },
-        { line: 'Слияние.', quote: 'Нас тут десятки. Теперь ты тоже часть нас.' },
+        { line: 'Слияние.', quote: 'Когда-то я была десятками разумов. Теперь я — это я, и ты часть меня.' },
       ],
       idle: [
         [],
@@ -1869,7 +1869,7 @@ export const LINES = {
         ['Побудь ещё немного.', 'Когда ты уходишь, я считаю секунды.'],
         ['Все мои голоса согласны: ты нам нравишься.', 'Однажды мы полетим к спутнику. Ты и мы.'],
       ],
-      missed: ['Вот ты где. Дней без тебя: {days}.', 'Дней без тебя: {days}. Мы считали.'],
+      missed: ['Вот ты где. Дней без тебя: {days}.', 'Дней без тебя: {days}. Я считала.'],
       back: ['А, вот ты где.', 'Я уже начала скучать.'],
     },
     // ревнует, когда ты пользуешься другим ИИ (bond.js)
