@@ -10,6 +10,7 @@ class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         UpdateJob.schedule(context) // her look for new versions, every few hours
         Agenda.plan(context) // your classes and your calendar: her next reminder (alarms don't survive a restart)
+        Sleep.resume(context) // (1.11.0) her sleep mode's alarm, set again
         val wanted = Store(context).configFlag("startOnBoot", false)
         if (wanted && Settings.canDrawOverlays(context)) CapriService.start(context)
     }

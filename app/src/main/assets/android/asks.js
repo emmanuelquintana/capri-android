@@ -52,6 +52,11 @@ export function extraAsk(text, lang) {
   if (twin && words <= 8 && MERGE_ASK.test(said)) {
     return twin.merge(false) ? { line: twin.lines().merge[0], face: 'laugh' } : { line: twin.lines().alone, face: 'look' };
   }
+  // (1.11.0) "Capri, modo sueño", "despiértame a las 7", "ya desperté": her sleep mode (sleep.js)
+  if (words <= 14) {
+    const slept = window.dev?.sleep?.ask(said);
+    if (slept) return slept;
+  }
   // (1.10.0) "ve atrás", "baja", "toca Ajustes", "escribe aquí hola": she uses your phone (control.js)
   const acted = controlAsk(said, lang);
   if (acted) return acted;

@@ -40,9 +40,11 @@ class CapriService : Service() {
             when (intent.action) {
                 Intent.ACTION_SCREEN_OFF -> {
                     screenOffAt = System.currentTimeMillis()
+                    Sleep.screenOff(context) // (1.11.0) her sleep mode counts it
                     overlay?.pause()
                 }
                 Intent.ACTION_SCREEN_ON, Intent.ACTION_USER_PRESENT -> {
+                    if (intent.action == Intent.ACTION_SCREEN_ON) Sleep.screenOn(context)
                     overlay?.resume()
                     rebindNotes()
                     // how long the phone was put down (her breaks: phone-care.js)

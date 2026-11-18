@@ -489,6 +489,8 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.you_chatlog_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(ui.button(getString(R.string.you_chatlog_open), Ui.Kind.LINE) { PageActivity.open(this@MainActivity, "chatlog") }, ui.block(10))
         }, ui.block(16))
+        // (1.11.0) her sleep mode: she sleeps with you, counts your night, and wakes you (Sleep.kt)
+        addView(sleepCard(), ui.block(16))
         // your birthday (1.9.0, birthday.js): she celebrates you that day
         addView(birthdayCard(), ui.block(16))
         // your classes and your calendar (1.9.0, Agenda.kt): she reminds you
@@ -537,6 +539,77 @@ class MainActivity : Activity() {
     }
 
     // your birthday: a date (no year: only the day matters to her), or none
+    // ---------- Modo sueño (1.11.0) ----------
+
+    private var sleepAlarm = -1 // minutes after midnight for her alarm; -1 none
+    private fun sleepCard() = ui.card(Hud.CYAN, Hud.MANE).apply {
+        val prefs = getSharedPreferences("sleep", MODE_PRIVATE)
+        sleepAlarm = prefs.getInt("lastAlarm", 7 * 60)
+        addView(ui.label(getString(R.string.sleep_title), Hud.CYAN))
+        addView(ui.text(getString(R.string.sleep_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+        val state = ui.text("", 14f, Hud.PAPER, ui.body).apply { setLineSpacing(0f, 1.15f) }
+        addView(state, ui.block(10))
+        val alarmBtn = ui.button("", Ui.Kind.LINE) {}
+        val goBtn = ui.button(getString(R.string.sleep_go), Ui.Kind.MAIN) {}
+        val exactBtn = ui.button(getString(R.string.sleep_exact_btn) + " ›", Ui.Kind.LINE) { Sleep.askExact(this@MainActivity) }
+        addView(alarmBtn, ui.block(10))
+        addView(goBtn, ui.block(10))
+        addView(exactBtn, ui.block(8))
+        val time = { m: Int ->
+            val cal = java.util.Calendar.getInstance().apply { set(java.util.Calendar.HOUR_OF_DAY, m / 60); set(java.util.Calendar.MINUTE, m % 60) }
+            android.text.format.DateFormat.getTimeFormat(this@MainActivity).format(cal.time)
+        }
+        fun draw() {
+            val on = Sleep.on(this@MainActivity)
+            alarmBtn.visibility = if (on) View.GONE else View.VISIBLE
+            exactBtn.visibility = if (!on && sleepAlarm >= 0 && !Sleep.exact(this@MainActivity)) View.VISIBLE else View.GONE
+            alarmBtn.text = (if (sleepAlarm >= 0) getString(R.string.sleep_alarm_at, time(sleepAlarm)) else getString(R.string.sleep_alarm_none)).uppercase()
+            goBtn.text = getString(if (on) R.string.sleep_woke else R.string.sleep_go).uppercase()
+            val nights = Sleep.nights(this@MainActivity)
+            state.text = when {
+                on -> getString(R.string.sleep_now, android.text.format.DateFormat.getTimeFormat(this@MainActivity).format(java.util.Date(Sleep.startedAt(this@MainActivity))), Sleep.wakes(this@MainActivity).length())
+                nights.length() > 0 -> getString(R.string.sleep_last) + "\n" + Sleep.describe(this@MainActivity, nights.getJSONObject(nights.length() - 1))
+                else -> ""
+            }
+            state.visibility = if (state.text.isEmpty()) View.GONE else View.VISIBLE
+        }
+        alarmBtn.setOnClickListener {
+            // a time, or none (Cancel on the clock = no alarm)
+            val start = if (sleepAlarm >= 0) sleepAlarm else 7 * 60
+            android.app.TimePickerDialog(this@MainActivity, { _, h, m ->
+                sleepAlarm = h * 60 + m
+                prefs.edit().putInt("lastAlarm", sleepAlarm).apply()
+                draw()
+            }, start / 60, start % 60, android.text.format.DateFormat.is24HourFormat(this@MainActivity)).apply {
+                setButton(android.content.DialogInterface.BUTTON_NEUTRAL, getString(R.string.sleep_alarm_none)) { _, _ ->
+                    sleepAlarm = -1
+                    prefs.edit().putInt("lastAlarm", -1).apply()
+                    draw()
+                }
+            }.show()
+        }
+        goBtn.setOnClickListener {
+            if (Sleep.on(this@MainActivity)) {
+                val night = Sleep.stop(this@MainActivity)
+                if (night != null) Toast.makeText(this@MainActivity, Sleep.describe(this@MainActivity, night), Toast.LENGTH_LONG).show()
+            } else {
+                val at = if (sleepAlarm < 0) 0L else java.util.Calendar.getInstance().run {
+                    set(java.util.Calendar.HOUR_OF_DAY, sleepAlarm / 60); set(java.util.Calendar.MINUTE, sleepAlarm % 60)
+                    set(java.util.Calendar.SECOND, 0); set(java.util.Calendar.MILLISECOND, 0)
+                    if (timeInMillis <= System.currentTimeMillis() + 60_000) add(java.util.Calendar.DAY_OF_YEAR, 1)
+                    timeInMillis
+                }
+                // she sleeps on your screen: on, if she wasn't
+                if (!CapriService.running && Settings.canDrawOverlays(this@MainActivity)) CapriService.start(this@MainActivity)
+                Sleep.start(this@MainActivity, at)
+            }
+            draw()
+        }
+        sleepDraw = { draw() }
+        draw()
+    }
+    private var sleepDraw: () -> Unit = {}
+
     private fun birthdayCard() = ui.card(Hud.RED).apply {
         addView(ui.label(getString(R.string.you_birthday), Hud.RED))
         addView(ui.text(getString(R.string.you_birthday_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
@@ -1100,6 +1173,7 @@ class MainActivity : Activity() {
         if (!::ui.isInitialized) return
         showMemory()
         chat.status()
+        sleepDraw()
         val running = CapriService.running
         statusDot.background = Hud.Plate(if (running) Hud.GREEN else Hud.RED, 0, cut = 0f, stroke = 0f, offset = 0f)
         statusWord.text = getString(if (running) R.string.main_status_on else R.string.main_status_off)

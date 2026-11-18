@@ -455,4 +455,26 @@
     <string name="live_on">Activada</string>
     <string name="live_off">Apagada</string>
     <string name="live_allow">Permitirlo en Android</string>
+    <!-- 1.11.0: sleep mode (Sleep.kt) -->
+    <string name="sleep_channel">Alarma de Capri</string>
+    <string name="sleep_ring_title">Capri: ¡hora de levantarse!</string>
+    <string name="sleep_ring_text">¡Despierta, choom! Apaga la alarma.</string>
+    <string name="sleep_ring_text_name">¡Despierta, %1$s! Apaga la alarma.</string>
+    <string name="sleep_off">Apagar</string>
+    <string name="sleep_snooze">5 minutos más</string>
+    <string name="sleep_summary">Dormiste %1$d h %2$d min.</string>
+    <string name="sleep_summary_none">No prendiste la pantalla en toda la noche. Orgullosa de ti.</string>
+    <string name="sleep_title">Modo sueño</string>
+    <string name="sleep_how">Capri duerme contigo: se acurruca en tu pantalla, cuenta cuántas veces la prendes en la noche y, si quieres, te despierta con su alarma (y no para hasta que la apagues). Tus noches se quedan solo en este teléfono.</string>
+    <string name="sleep_alarm_none">Sin alarma</string>
+    <string name="sleep_alarm_at">Alarma: %1$s</string>
+    <string name="sleep_go">Dormir con Capri</string>
+    <string name="sleep_woke">Ya desperté</string>
+    <string name="sleep_now">Durmiendo desde las %1$s · pantalla encendida %2$d veces</string>
+    <string name="sleep_last">Anoche:</string>
+    <string name="sleep_exact_btn">Que suene a la hora exacta</string>
+    <plurals name="sleep_summary_times">
+        <item quantity="one">Prendiste la pantalla %1$d vez (%2$d min despierta/o).</item>
+        <item quantity="other">Prendiste la pantalla %1$d veces (%2$d min despierta/o).</item>
+    </plurals>
 </resources>

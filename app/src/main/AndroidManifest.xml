@@ -21,6 +21,10 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- (1.11.0) Android 16: her notification as a live update (status bar chip, Samsung Now Bar) -->
     <uses-permission android:name="android.permission.POST_PROMOTED_NOTIFICATIONS" />
+    <!-- (1.11.0) her sleep mode's alarm: on time, and over the lock screen when it rings (Sleep.kt) -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!-- gamer mode on its own when a game is in front: only if you turn it on and give "Acceso de uso" -->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
     <!-- "Start with Windows", here "start with the phone" -->
@@ -202,6 +206,21 @@
         <receiver
             android:name=".Agenda$Fire"
             android:exported="false" />
+
+        <!-- (1.11.0) her sleep mode: her alarm and its buttons, her screen over the lock screen -->
+        <receiver
+            android:name=".Sleep$Ring"
+            android:exported="false" />
+        <receiver
+            android:name=".Sleep$Act"
+            android:exported="false" />
+        <activity
+            android:name=".Sleep$WakeActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true" />
 
         <receiver
             android:name=".BootReceiver"

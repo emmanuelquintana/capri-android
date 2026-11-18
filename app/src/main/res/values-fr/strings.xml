@@ -455,4 +455,26 @@
     <string name="live_on">Activée</string>
     <string name="live_off">Désactivée</string>
     <string name="live_allow">L’autoriser dans Android</string>
+    <!-- 1.11.0: sleep mode (Sleep.kt) -->
+    <string name="sleep_channel">Réveil de Capri</string>
+    <string name="sleep_ring_title">Capri : debout !</string>
+    <string name="sleep_ring_text">Réveille-toi, choom ! Éteins le réveil.</string>
+    <string name="sleep_ring_text_name">Réveille-toi, %1$s ! Éteins le réveil.</string>
+    <string name="sleep_off">Éteindre</string>
+    <string name="sleep_snooze">5 minutes de plus</string>
+    <string name="sleep_summary">Tu as dormi %1$d h %2$d min.</string>
+    <string name="sleep_summary_none">Tu n’as pas allumé l’écran de la nuit. Fière de toi.</string>
+    <string name="sleep_title">Mode sommeil</string>
+    <string name="sleep_how">Capri dort avec toi : elle se blottit sur ton écran, compte combien de fois tu l’allumes la nuit et, si tu veux, te réveille avec son réveil (qui ne s’arrête pas tant que tu ne l’éteins pas). Tes nuits restent sur ce téléphone.</string>
+    <string name="sleep_alarm_none">Sans réveil</string>
+    <string name="sleep_alarm_at">Réveil : %1$s</string>
+    <string name="sleep_go">Dormir avec Capri</string>
+    <string name="sleep_woke">Je suis réveillé·e</string>
+    <string name="sleep_now">Endormie depuis %1$s · écran allumé %2$d fois</string>
+    <string name="sleep_last">La nuit dernière :</string>
+    <string name="sleep_exact_btn">Sonner à l’heure pile</string>
+    <plurals name="sleep_summary_times">
+        <item quantity="one">Tu as allumé l’écran %1$d fois (%2$d min éveillé·e).</item>
+        <item quantity="other">Tu as allumé l’écran %1$d fois (%2$d min éveillé·e).</item>
+    </plurals>
 </resources>

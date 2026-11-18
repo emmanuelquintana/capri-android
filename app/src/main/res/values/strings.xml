@@ -456,4 +456,26 @@
     <string name="live_on">On</string>
     <string name="live_off">Off</string>
     <string name="live_allow">Allow it in Android</string>
+    <!-- 1.11.0: sleep mode (Sleep.kt) -->
+    <string name="sleep_channel">Capri’s alarm</string>
+    <string name="sleep_ring_title">Capri: time to get up!</string>
+    <string name="sleep_ring_text">Wake up, choom! Turn off the alarm.</string>
+    <string name="sleep_ring_text_name">Wake up, %1$s! Turn off the alarm.</string>
+    <string name="sleep_off">Turn off</string>
+    <string name="sleep_snooze">5 more minutes</string>
+    <string name="sleep_summary">You slept %1$d h %2$d min.</string>
+    <string name="sleep_summary_none">You didn’t turn on the screen all night. Proud of you.</string>
+    <string name="sleep_title">Sleep mode</string>
+    <string name="sleep_how">Capri sleeps with you: she curls up on your screen, counts how many times you turn it on during the night and, if you want, wakes you up with her alarm (and doesn’t stop until you turn it off). Your nights stay on this phone only.</string>
+    <string name="sleep_alarm_none">No alarm</string>
+    <string name="sleep_alarm_at">Alarm: %1$s</string>
+    <string name="sleep_go">Sleep with Capri</string>
+    <string name="sleep_woke">I’m awake</string>
+    <string name="sleep_now">Sleeping since %1$s · screen turned on %2$d times</string>
+    <string name="sleep_last">Last night:</string>
+    <string name="sleep_exact_btn">Let her ring on the dot</string>
+    <plurals name="sleep_summary_times">
+        <item quantity="one">You turned on the screen %1$d time (%2$d min awake).</item>
+        <item quantity="other">You turned on the screen %1$d times (%2$d min awake).</item>
+    </plurals>
 </resources>
