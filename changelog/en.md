@@ -2,6 +2,28 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.11.0
+
+- **Chat is the heart of the app:** opening Capri now takes you straight to her chat, to talk with her comfortably,
+  with your whole history (what you write in her bubble too). She answers with her same memory, mood and powers. If
+  she was asleep, she wakes up on her own. What you can ask her is behind the “?” button.
+- **Games get their own tab** in the pill menu, each game one tap away.
+- **3 new games:** Connect 4, Memory (with her faces) and Neural sequence. In the first two she plays against you
+  and remembers, like in the others.
+- **Floating Capri steps aside while you play** in the app, so she doesn’t cover the game (optional, in Games). She
+  still watches from the corner.
+- **Her old animations are back,** including eating instant noodles. The ones redrawn in 1.10.0 are gone (yes, the
+  six seven one too). Only the one lying on the keyboard stays, now calmer.
+- **She talks in the singular:** no more “we” or “we love”. She talks about herself as one person.
+- **DONATE button** under Start Capri, Discord and TikTok: opens the window to support her on PayPal.
+- **Her pill in the status bar (Android 16+):** next to the clock, with her mood, and in Samsung’s Now Bar, with
+  buttons to chat, open her menu or hide her. Depends on the phone; it can be turned off in Settings.
+- **Better on Huawei and Honor:** in Settings, a card to let her run in the background (otherwise the phone closes
+  her), lift her battery restriction and install a voice. Permissions open the right screen on those phones, and
+  store links go to AppGallery when there’s no Play Store.
+- **New Discord link.**
+- The Community tab moved into What’s new, and Commands behind the chat’s “?”.
+
 ## 1.10.1
 
 - **The second Capri no longer spins:** when you split her and music plays, her twin kept turning around as if it

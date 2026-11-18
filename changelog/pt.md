@@ -2,6 +2,28 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.11.0
+
+- **O chat é o centro do app:** ao abrir a Capri você cai direto no chat dela, para conversar com calma, com todo o
+  seu histórico (também o que você escreve na bolha dela). Ela responde com a mesma memória, humor e poderes. Se
+  estava dormindo, acorda sozinha. O que você pode pedir está no botão «?».
+- **Jogos com aba própria** no menu de pílula, cada jogo a um toque.
+- **3 jogos novos:** Lig 4, Jogo da memória (com as caras dela) e Sequência neural. Nos dois primeiros ela joga
+  contra você e lembra, como nos outros.
+- **A Capri flutuante sai da frente enquanto você joga** no app, para não cobrir o jogo (opcional, em Jogos). Ela
+  continua olhando do canto.
+- **As animações de antes voltaram,** incluindo a de comer miojo. As redesenhadas na 1.10.0 saíram (sim, a do six
+  seven também). Só fica a de deitar no teclado, agora mais tranquila.
+- **Fala no singular:** nada de «nós» ou «a gente adora». Ela fala de si como uma pessoa só.
+- **Botão DOAR** embaixo de Iniciar Capri, Discord e TikTok: abre a janela para apoiá-la no PayPal.
+- **A pílula dela na barra (Android 16+):** ao lado do relógio, com o humor dela, e na Now Bar dos Samsung, com botões
+  para conversar, abrir o menu dela ou escondê-la. Depende do celular; dá para desligar em Ajustes.
+- **Melhor em Huawei e Honor:** em Ajustes, um cartão para deixá-la rodar em segundo plano (senão o celular a fecha),
+  tirar a restrição de bateria e instalar uma voz. As permissões abrem a tela certa nesses celulares, e os links da
+  loja vão para a AppGallery quando não há Play Store.
+- **Novo link do Discord.**
+- A aba Comunidade foi para Novidades, e Comandos para o «?» do chat.
+
 ## 1.10.1
 
 - **A segunda Capri não fica mais girando:** quando você a divide e toca música, a gêmea virava sem parar como se

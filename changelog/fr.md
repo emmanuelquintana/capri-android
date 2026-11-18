@@ -2,6 +2,29 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.11.0
+
+- **Le chat est le cœur de l’appli :** en ouvrant Capri, tu arrives directement sur son chat, pour lui parler
+  tranquillement, avec tout ton historique (aussi ce que tu lui écris dans sa bulle). Elle répond avec sa mémoire,
+  son humeur et ses pouvoirs. Si elle dormait, elle se réveille toute seule. Ce que tu peux lui demander est derrière
+  le bouton « ? ».
+- **Les jeux ont leur onglet** dans le menu pilule, chaque jeu à un toucher.
+- **3 nouveaux jeux :** Puissance 4, Memory (avec ses visages) et Séquence neurale. Dans les deux premiers, elle joue
+  contre toi et se souvient, comme dans les autres.
+- **Capri flottante s’écarte pendant que tu joues** dans l’appli, pour ne pas cacher le jeu (optionnel, dans Jeux).
+  Elle te regarde quand même depuis le coin.
+- **Ses anciennes animations reviennent,** dont celle où elle mange des nouilles instantanées. Celles redessinées en
+  1.10.0 s’en vont (oui, aussi celle du six seven). Seule reste celle allongée sur le clavier, plus calme.
+- **Elle parle au singulier :** plus de « nous » ni « on adore ». Elle parle d’elle comme d’une seule personne.
+- **Bouton FAIRE UN DON** sous Démarrer Capri, Discord et TikTok : ouvre la fenêtre pour la soutenir sur PayPal.
+- **Sa pilule dans la barre (Android 16+) :** à côté de l’heure, avec son humeur, et dans la Now Bar des Samsung,
+  avec des boutons pour discuter, ouvrir son menu ou la cacher. Ça dépend du téléphone ; désactivable dans Réglages.
+- **Mieux sur Huawei et Honor :** dans Réglages, une carte pour la laisser tourner en arrière-plan (sinon le
+  téléphone la ferme), lever sa restriction de batterie et installer une voix. Les autorisations ouvrent le bon écran
+  sur ces téléphones, et les liens de boutique vont vers AppGallery s’il n’y a pas de Play Store.
+- **Nouveau lien Discord.**
+- L’onglet Communauté est passé dans Nouveautés, et Commandes derrière le « ? » du chat.
+
 ## 1.10.1
 
 - **La deuxième Capri ne tourne plus sur elle-même :** quand tu la divises et que la musique joue, sa jumelle se

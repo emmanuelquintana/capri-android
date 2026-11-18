@@ -3,6 +3,28 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.11.0
+
+- **El chat es el centro de la app:** al abrir Capri ahora llegas directo a su chat, para hablar con ella
+  cómodamente, con todo tu historial (también lo que le escribes en su burbuja). Te contesta con su misma memoria,
+  ánimo y poderes. Si estaba dormida, despierta sola. Lo que le puedes pedir está en el botón «?».
+- **Juegos con pestaña propia** en el menú de píldora, con cada juego a un toque.
+- **3 juegos nuevos:** Conecta 4, Memorama (con sus caras) y Secuencia neural. En los dos primeros juega contra ti
+  y recuerda, como en los demás.
+- **Capri flotante se aparta mientras juegas** en la app, para no tapar el juego (opcional, en Juegos). Igual te mira
+  desde la esquina.
+- **Vuelven sus animaciones de antes,** incluida la de comer fideos instantáneos. Las redibujadas en 1.10.0 se van
+  (sí, también la del six seven). Solo se queda la de acostarse en el teclado, ahora más tranquila.
+- **Habla en singular:** ya no dice «nosotras» ni «nos encanta». Habla de ella como una sola persona.
+- **Botón DONAR** debajo de Iniciar Capri, Discord y TikTok: abre la ventana para apoyarla en PayPal.
+- **Su píldora en la barra (Android 16+):** junto a la hora, con su ánimo, y en la Now Bar de los Samsung, con
+  botones para chatear, abrir su menú o esconderla. Depende del teléfono; se apaga en Ajustes.
+- **Mejor en Huawei y Honor:** en Ajustes, una tarjeta para dejarla en segundo plano (si no, el teléfono la cierra),
+  quitarle la restricción de batería e instalar una voz. Los permisos abren la pantalla correcta en esos teléfonos y
+  los enlaces a la tienda van a AppGallery si no hay Play Store.
+- **Nuevo enlace del Discord.**
+- La pestaña Comunidad pasó a Novedades y Comandos al «?» del chat.
+
 ## 1.10.1
 
 - **La segunda Capri ya no da vueltas:** cuando la divides y suena música, su gemela giraba sin parar como si no
