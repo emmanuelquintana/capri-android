@@ -1482,7 +1482,8 @@ window.host = {
   },
   launch: (item) => hack() && call('apps:launch', item).then(() => ({ ok: true }), (err) => ({ ok: false, error: err.message })),
   media: ask('apps:media', false),
-  music: (query) => launch.music(query).catch(() => false),
+  // (1.10.1) "en Spotify solo la busca y ya": Spotify plays it (Android's play-from-search); the search, if not
+  music: (query) => call('music:play', { query: String(query || '') }).then((ok) => ok || launch.music(query), () => launch.music(query)).catch(() => false),
   youtube: (query) => launch.youtube(query).catch(() => null),
   musicApp: () => cfg.musicApp || 'youtube', // (1.10.0) where a song you ask for plays (the app's Settings)
   roblox: (query) => launch.roblox(query).catch(() => null),

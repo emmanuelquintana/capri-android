@@ -162,7 +162,12 @@ export function twins({ lang, cfg }) {
       const since = now - (twin.hop || -1e9);
       if (!calm && since < 450) twin.bob = -Math.sin((since / 450) * Math.PI) * 26 * s; // a hop
       else if (calm) twin.bob = 0;
-      else if (twin.state === 'dance') { twin.bob = -Math.abs(Math.sin(now / 160)) * 10 * s; if (Math.floor(now / 640) % 2) twin.dir = -twin.dir || 1; }
+      else if (twin.state === 'dance') {
+        twin.bob = -Math.abs(Math.sin(now / 160)) * 10 * s;
+        // a turn every couple of beats, once (it used to flip on every frame of half the beats: she spun)
+        const beat = Math.floor(now / 1280);
+        if (beat !== twin.beat) { if (twin.beat != null) twin.dir = -twin.dir || 1; twin.beat = beat; }
+      }
       else if (twin.state === 'walk') twin.bob = -Math.abs(Math.sin(now / 120)) * 4 * s;
       else twin.bob = Math.sin(now / 700) * 1.5 * s;
     } else twin.bob = 0;

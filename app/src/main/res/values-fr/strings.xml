@@ -125,6 +125,7 @@
     <string name="voice_busy">Le micro est occupé (un appel ou une autre appli).</string>
     <string name="voice_media">En pause pendant une vidéo ou de la musique : écouter la mettrait en pause. Ça reprend tout seul à la fin.</string>
     <string name="voice_nomic">Pas d’autorisation pour le micro : donne-la dans Autorisations.</string>
+    <string name="voice_recmic">J\'ai le micro, mais l\'app vocale de ton téléphone non. Donne-lui l\'accès au micro : Paramètres › Applis › Google (ou le service vocal de Huawei).</string>
     <string name="voice_screenoff">En repos : l’écran est éteint.</string>
     <string name="voice_norecognizer">Ce téléphone n’a pas de reconnaissance vocale (installe ou mets à jour l’appli Google).</string>
     <string name="voice_error">La reconnaissance vocale a échoué (erreur %1$s). Nouvel essai…</string>

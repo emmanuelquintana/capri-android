@@ -127,6 +127,7 @@
     <string name="voice_busy">The microphone is busy (a call or another app).</string>
     <string name="voice_media">Paused while a video or music plays: listening would pause it. Back on its own when it ends.</string>
     <string name="voice_nomic">No microphone permission: give it in Permissions.</string>
+    <string name="voice_recmic">I have the microphone, but your phone\'s speech app doesn\'t. Give it microphone permission: Settings › Apps › Google (or Huawei\'s voice service).</string>
     <string name="voice_screenoff">Resting: the screen is off.</string>
     <string name="voice_norecognizer">This phone has no speech recognizer (install or update the Google app).</string>
     <string name="voice_error">The speech recognizer failed (error %1$s). Trying again…</string>

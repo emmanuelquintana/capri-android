@@ -125,6 +125,7 @@
     <string name="voice_busy">O microfone está ocupado (uma ligação ou outro app).</string>
     <string name="voice_media">Em pausa enquanto toca um vídeo ou música: escutar pausaria. Volta sozinho quando acabar.</string>
     <string name="voice_nomic">Sem permissão de microfone: dê em Permissões.</string>
+    <string name="voice_recmic">Eu já tenho o microfone, mas o app de voz do seu celular não. Dê permissão de microfone em Configurações › Apps › Google (ou o serviço de voz da Huawei).</string>
     <string name="voice_screenoff">Descansando: a tela está desligada.</string>
     <string name="voice_norecognizer">Este celular não tem reconhecimento de voz (instale ou atualize o app do Google).</string>
     <string name="voice_error">O reconhecimento de voz falhou (erro %1$s). Tentando de novo…</string>

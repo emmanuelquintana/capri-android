@@ -2,6 +2,15 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.10.1
+
+- **The second Capri no longer spins:** when you split her and music plays, her twin kept turning around as if it
+  couldn’t decide where to go. Now it dances and turns on the beat, once in a while.
+- **Microphone on Huawei (and others):** Capri said she had no microphone permission even when she did. The one
+  missing it was the phone’s speech app. Now she tries another recognizer and, if none can, tells you which app
+  needs the permission.
+- **Spotify plays the song:** if you chose Spotify, “play this song” now plays it, not just searches for it.
+
 ## 1.10.0
 
 - **Her new look:** all her animations, poses and faces are redrawn with her real mask (the green plate with her

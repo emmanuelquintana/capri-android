@@ -2,6 +2,15 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.10.1
+
+- **A segunda Capri não fica mais girando:** quando você a divide e toca música, a gêmea virava sem parar como se
+  não soubesse para onde ir. Agora ela dança e se vira no ritmo, de vez em quando.
+- **Microfone na Huawei (e outros):** a Capri dizia que não tinha permissão de microfone mesmo tendo. Quem não tinha
+  era o app de voz do celular. Agora ela tenta outro reconhecedor e, se nenhum conseguir, diz qual app precisa da
+  permissão.
+- **O Spotify toca a música:** se você escolheu o Spotify, “toca tal música” agora toca, não só pesquisa.
+
 ## 1.10.0
 
 - **O rosto novo dela:** todas as animações, poses e expressões foram redesenhadas com a máscara de verdade (a placa

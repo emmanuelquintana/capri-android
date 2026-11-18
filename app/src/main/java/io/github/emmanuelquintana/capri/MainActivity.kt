@@ -1006,6 +1006,7 @@ class MainActivity : Activity() {
             s == "media" -> getString(R.string.voice_media)
             s == "gamer" -> getString(R.string.voice_gamer)
             s == "nomic" -> getString(R.string.voice_nomic)
+            s == "recmic" -> getString(R.string.voice_recmic)
             s == "screenoff" -> getString(R.string.voice_screenoff)
             s == "norecognizer" -> getString(R.string.voice_norecognizer)
             s.startsWith("error:") -> getString(R.string.voice_error, s.removePrefix("error:"))

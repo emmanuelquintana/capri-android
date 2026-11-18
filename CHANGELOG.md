@@ -3,6 +3,15 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.10.1
+
+- **La segunda Capri ya no da vueltas:** cuando la divides y suena música, su gemela giraba sin parar como si no
+  supiera a dónde ir. Ahora baila y se voltea a ritmo, de vez en cuando.
+- **Micrófono en Huawei (y otros):** Capri decía que no tenía permiso de micrófono aunque sí lo tuviera. El que no
+  lo tenía era la app de voz del teléfono. Ahora prueba con otro reconocedor y, si ninguno puede, te dice cuál app
+  necesita el permiso.
+- **Spotify reproduce la canción:** si elegiste Spotify, «pon tal canción» ahora la pone a sonar, no solo la busca.
+
 ## 1.10.0
 
 - **Su cara nueva:** todas sus animaciones, poses y caras están redibujadas con su máscara de verdad (la placa verde

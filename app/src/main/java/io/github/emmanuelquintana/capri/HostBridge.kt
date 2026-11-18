@@ -126,6 +126,7 @@ class HostBridge(private val service: CapriService) {
         "sounds:list" -> actions.sounds()
         "sounds:open" -> actions.toast(store.soundsDir.absolutePath)
         "open:url" -> actions.openUrl(obj(args).optString("url"))
+        "music:play" -> actions.playSong(obj(args).optString("query"))
         "app:open" -> actions.openApp()
 
         // the phone itself

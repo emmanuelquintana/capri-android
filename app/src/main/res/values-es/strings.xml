@@ -125,6 +125,7 @@
     <string name="voice_busy">El micrófono está ocupado (una llamada u otra app).</string>
     <string name="voice_media">En pausa mientras suena un video o música: si escuchara, te los pausaría. Vuelve sola cuando termine.</string>
     <string name="voice_nomic">Sin permiso de micrófono: dáselo en Permisos.</string>
+    <string name="voice_recmic">Yo ya tengo el micrófono, pero la app de voz de tu teléfono no. Dale permiso de micrófono en Ajustes › Apps › Google (o el servicio de voz de Huawei).</string>
     <string name="voice_screenoff">Descansando: la pantalla está apagada.</string>
     <string name="voice_norecognizer">Este teléfono no tiene reconocedor de voz (instala o actualiza la app de Google).</string>
     <string name="voice_error">Falló el reconocedor de voz (error %1$s). Reintentando…</string>

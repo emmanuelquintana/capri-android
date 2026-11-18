@@ -56,6 +56,10 @@ class Ears(private val service: CapriService) {
         .getString(SEG_PREF, null)?.takeIf { it.startsWith(SEG_KEY) }?.let { it.endsWith(":1") }
     private var longNow = false     // this session is a segmented one
     private var langStep = 0        // (1.10.0) how plainly the recognizer is asked, after errors 12/13
+    // (1.10.1) "en Huawei nunca reconoce el permiso de micrófono": error 9 there comes from the phone's
+    // speech app (Google's or Huawei's) lacking the microphone, not from her. Another recognizer is
+    // tried; when none can, she says it's that app that needs it ("recmic"), not her.
+    private var permMiss = 0
     private var sessionAt = 0L
     private var segments = 0
     private var shortOnes = 0
@@ -325,13 +329,14 @@ class Ears(private val service: CapriService) {
             runCatching { SpeechRecognizer.isOnDeviceRecognitionAvailable(service) }.getOrDefault(false)
         val r = when {
             local -> SpeechRecognizer.createOnDeviceSpeechRecognizer(service)
-            google != null && langStep < 3 && failures % 3 != 2 -> SpeechRecognizer.createSpeechRecognizer(service, google)
+            google != null && langStep < 3 && failures % 3 != 2 && permMiss % 2 == 0 -> SpeechRecognizer.createSpeechRecognizer(service, google)
             else -> SpeechRecognizer.createSpeechRecognizer(service)
         }
         r.setRecognitionListener(object : RecognitionListener {
             override fun onResults(results: Bundle?) {
                 listening = false
                 failures = 0
+                permMiss = 0
                 quiet = 0
                 hush(800) // (her closing beep; the next session starts before it ends)
                 val words = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).orEmpty()
@@ -435,8 +440,16 @@ class Ears(private val service: CapriService) {
                 next(minOf(60_000L, 1000L * failures * failures))
             }
             SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> {
-                status = "nomic"
-                Diag.add("W", "voice: no microphone permission")
+                if (allowed(service) && permMiss < 3) {
+                    // she has it: the speech app doesn't. Another recognizer, a moment later.
+                    permMiss++
+                    Diag.add("W", "voice: the speech app has no microphone (try $permMiss)")
+                    recognizer?.let { runCatching { it.destroy() } }
+                    recognizer = null
+                    return next(1500)
+                }
+                status = if (allowed(service)) "recmic" else "nomic"
+                Diag.add("W", if (status == "recmic") "voice: the phone's speech app has no microphone" else "voice: no microphone permission")
                 wanted = false
                 stop()
             }

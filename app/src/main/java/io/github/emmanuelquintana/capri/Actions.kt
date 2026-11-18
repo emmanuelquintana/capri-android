@@ -67,6 +67,22 @@ class Actions(private val context: Context, private val store: Store) {
     }
 
     /**
+     * (1.10.1) "en Spotify solo la busca y ya": the song itself, playing. Android's "play from search"
+     * (what the Assistant uses: "pon X en Spotify"), aimed at Spotify, which looks it up and plays it.
+     * False when Spotify isn't there or won't take it (her page then opens the search, as before).
+     */
+    fun playSong(query: String): Boolean {
+        val q = query.trim().take(200)
+        if (q.isEmpty()) return false
+        val intent = Intent(android.provider.MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH)
+            .setPackage(SPOTIFY)
+            .putExtra(android.app.SearchManager.QUERY, q)
+            .putExtra(android.provider.MediaStore.EXTRA_MEDIA_FOCUS, "vnd.android.cursor.item/*")
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        return runCatching { context.startActivity(intent) }.isSuccess
+    }
+
+    /**
      * (1.10.0) "Mándale a Ana por WhatsApp que ya voy" (asks.js): that app opens with the message
      * written, and you pick who and send it. Android has no way for an app to send it for you, and
      * she wouldn't: you always see it first. SMS: the phone's messages app. No such app: Android's
@@ -283,6 +299,7 @@ class Actions(private val context: Context, private val store: Store) {
     }
 
     companion object {
+        const val SPOTIFY = "com.spotify.music"
         const val TERMUX = "com.termux"
         private val SOUND_EXT = Regex("\\.(mp3|wav|ogg|m4a)$", RegexOption.IGNORE_CASE)
     }
