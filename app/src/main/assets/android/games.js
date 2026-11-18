@@ -185,6 +185,75 @@ const W = {
     hitLine: ['Ещё? Смело.', 'Рискованно…'],
   },
 }[lang];
+// (1.11.0) three more games: Conecta 4, Memorama (her faces), Secuencia neural
+const W_MORE = {
+  es: {
+    c4: 'Conecta 4', c4How: 'Cuatro en línea antes que yo. Tú amarillo.',
+    memo: 'Memorama', memoHow: 'Parejas de mis caras. Por turnos, yo también recuerdo.',
+    simon: 'Secuencia neural', simonHow: 'Repite la secuencia. Supera mi marca.',
+    memoMine: ['Pareja. Mía.', 'Te dije que me acuerdo de todo.', 'Fácil.'],
+    memoYours: ['Ok, buena memoria.', 'Hmph. Esa me la sabía.', 'Bien visto.'],
+    memoMiss: ['Uy, no.', 'Juraría que estaba ahí…', 'Ups.'],
+    simonWatch: ['Mira bien.', 'Atención…', 'Sigue el patrón.'],
+    simonGo: ['Tu turno.', 'Ahora tú.', 'Repítela.'],
+    simonGood: ['Bien. Otra más larga.', 'Nada mal.', 'Sigue así.'],
+    simonFail: ['Te perdiste en la ronda {n}.', 'Error en la {n}. Mi chip no se equivoca.'],
+    simonGoal: 'Mi marca: {n}', round: 'Ronda',
+  },
+  en: {
+    c4: 'Connect 4', c4How: 'Four in a row before me. You’re yellow.',
+    memo: 'Memory', memoHow: 'Pairs of my faces. Taking turns, I remember too.',
+    simon: 'Neural sequence', simonHow: 'Repeat the sequence. Beat my record.',
+    memoMine: ['Pair. Mine.', 'Told you I remember everything.', 'Easy.'],
+    memoYours: ['Ok, good memory.', 'Hmph. I knew that one.', 'Nice catch.'],
+    memoMiss: ['Nope.', 'I swear it was there…', 'Oops.'],
+    simonWatch: ['Watch closely.', 'Eyes on me…', 'Follow the pattern.'],
+    simonGo: ['Your turn.', 'Now you.', 'Repeat it.'],
+    simonGood: ['Good. A longer one.', 'Not bad.', 'Keep going.'],
+    simonFail: ['You lost it in round {n}.', 'Wrong in round {n}. My chip doesn’t miss.'],
+    simonGoal: 'My record: {n}', round: 'Round',
+  },
+  fr: {
+    c4: 'Puissance 4', c4How: 'Quatre alignés avant moi. Tu es jaune.',
+    memo: 'Memory', memoHow: 'Des paires de mes visages. Chacun son tour, je me souviens aussi.',
+    simon: 'Séquence neurale', simonHow: 'Répète la séquence. Bats mon record.',
+    memoMine: ['Paire. À moi.', 'Je t’avais dit que je me souviens de tout.', 'Facile.'],
+    memoYours: ['Ok, bonne mémoire.', 'Hmph. Je la connaissais.', 'Bien vu.'],
+    memoMiss: ['Raté.', 'J’aurais juré qu’elle était là…', 'Oups.'],
+    simonWatch: ['Regarde bien.', 'Attention…', 'Suis le motif.'],
+    simonGo: ['À toi.', 'Maintenant toi.', 'Répète.'],
+    simonGood: ['Bien. Une plus longue.', 'Pas mal.', 'Continue.'],
+    simonFail: ['Perdu à la manche {n}.', 'Erreur à la manche {n}. Ma puce ne rate jamais.'],
+    simonGoal: 'Mon record : {n}', round: 'Manche',
+  },
+  pt: {
+    c4: 'Lig 4', c4How: 'Quatro em linha antes de mim. Você é amarelo.',
+    memo: 'Jogo da memória', memoHow: 'Pares das minhas caras. Por turnos, eu também lembro.',
+    simon: 'Sequência neural', simonHow: 'Repita a sequência. Supere meu recorde.',
+    memoMine: ['Par. Meu.', 'Eu disse que lembro de tudo.', 'Fácil.'],
+    memoYours: ['Ok, boa memória.', 'Hmph. Essa eu sabia.', 'Boa.'],
+    memoMiss: ['Ih, não.', 'Juro que estava ali…', 'Ops.'],
+    simonWatch: ['Olha bem.', 'Atenção…', 'Siga o padrão.'],
+    simonGo: ['Sua vez.', 'Agora você.', 'Repete.'],
+    simonGood: ['Boa. Uma mais longa.', 'Nada mal.', 'Continua.'],
+    simonFail: ['Você se perdeu na rodada {n}.', 'Erro na rodada {n}. Meu chip não erra.'],
+    simonGoal: 'Meu recorde: {n}', round: 'Rodada',
+  },
+  ru: {
+    c4: 'Четыре в ряд', c4How: 'Собери четыре в ряд раньше меня. Ты жёлтые.',
+    memo: 'Мемори', memoHow: 'Пары моих лиц. По очереди, я тоже запоминаю.',
+    simon: 'Нейропоследовательность', simonHow: 'Повтори последовательность. Побей мой рекорд.',
+    memoMine: ['Пара. Моя.', 'Я же говорила, что всё помню.', 'Легко.'],
+    memoYours: ['Ок, хорошая память.', 'Хмф. Я её знала.', 'Неплохо.'],
+    memoMiss: ['Не-а.', 'Клянусь, она была тут…', 'Упс.'],
+    simonWatch: ['Смотри внимательно.', 'Внимание…', 'Следи за узором.'],
+    simonGo: ['Твой ход.', 'Теперь ты.', 'Повтори.'],
+    simonGood: ['Хорошо. Длиннее.', 'Неплохо.', 'Продолжай.'],
+    simonFail: ['Ты сбился в раунде {n}.', 'Ошибка в раунде {n}. Мой чип не ошибается.'],
+    simonGoal: 'Мой рекорд: {n}', round: 'Раунд',
+  },
+};
+Object.assign(W, W_MORE[lang] || W_MORE.es);
 const fill = (s) => s.replace(/\{name\}/g, you || (lang === 'en' ? 'you' : lang === 'ru' ? 'ты' : lang === 'fr' ? 'toi' : lang === 'pt' ? 'você' : 'tú')).replace(/,\s*(tú|you|toi|você|ты)([.!?])/i, '$2');
 
 // her face and her line, at the top
@@ -292,6 +361,9 @@ const GAMES = [
   { id: 'ttt', icon: '✕', how: 'tttHow', run: ttt },
   { id: 'pong', icon: '◐', how: 'pongHow', run: pong },
   { id: 'rps', icon: '✊', how: 'rpsHow', run: rps },
+  { id: 'c4', icon: '◉', how: 'c4How', run: connect4 },
+  { id: 'memo', icon: '▣', how: 'memoHow', run: memory },
+  { id: 'simon', icon: '◈', how: 'simonHow', run: sequence },
 ];
 let level = (() => { try { return localStorage.getItem('capri.games.level') || 'normal'; } catch { return 'normal'; } })();
 let current = null;
@@ -1219,4 +1291,276 @@ function rps(box) {
   }
 }
 
-menu();
+
+// ---------- Conecta 4 (1.11.0) ----------
+// 7 columns, 6 rows; you drop yellow, she drops her mask. Her eye: minimax with a cut-off, deeper the
+// harder the level, scored by the lines of four still open for each side.
+function connect4(box) {
+  const C = 7, R = 6;
+  const b = Array(C * R).fill(0); // 1 you, 2 her; row 0 at the top
+  const at = (c, r) => b[r * C + c];
+  const grid = el('div', 'c4');
+  const cells = [];
+  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {
+    const d = el('button', 'c4__cell');
+    d.addEventListener('click', () => mine(c));
+    grid.append(d);
+    cells.push(d);
+  }
+  box.append(grid);
+  const depth = { easy: 2, normal: 4, hard: 6 }[level] || 4;
+  let over = false, busy = false, eye = -1, last = -1;
+  const drawB = () => b.forEach((v, i) => {
+    cells[i].className = `c4__cell${v === 1 ? ' is-you' : v === 2 ? ' is-her' : ''}${i === last ? ' is-last' : ''}${!v && i % C === eye ? ' is-eye' : ''}`;
+  });
+  const free = (c) => { for (let r = R - 1; r >= 0; r--) if (!at(c, r)) return r; return -1; };
+  const WIN4 = [];
+  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) for (const [dc, dr] of [[1, 0], [0, 1], [1, 1], [1, -1]]) {
+    const ce = c + dc * 3, re = r + dr * 3;
+    if (ce < 0 || ce >= C || re < 0 || re >= R) continue;
+    WIN4.push([0, 1, 2, 3].map((k) => (r + dr * k) * C + c + dc * k));
+  }
+  const winner = () => {
+    for (const w of WIN4) { const v = b[w[0]]; if (v && w.every((i) => b[i] === v)) return v; }
+    return b.every(Boolean) ? 3 : 0;
+  };
+  // how good the board is for her: open lines, weighted by how full they are
+  const heur = () => {
+    let s = 0;
+    for (const w of WIN4) {
+      let h = 0, y = 0;
+      for (const i of w) { if (b[i] === 2) h++; else if (b[i] === 1) y++; }
+      if (h && !y) s += h === 3 ? 12 : h === 2 ? 3 : 1;
+      else if (y && !h) s -= y === 3 ? 14 : y === 2 ? 3 : 1;
+    }
+    return s;
+  };
+  const ORDER = [3, 2, 4, 1, 5, 0, 6];
+  const search = (who, d, alpha, beta) => {
+    const w = winner();
+    if (w === 2) return 1000 + d;
+    if (w === 1) return -1000 - d;
+    if (w === 3) return 0;
+    if (!d) return heur();
+    let best = who === 2 ? -1e9 : 1e9;
+    for (const c of ORDER) {
+      const r = free(c);
+      if (r < 0) continue;
+      b[r * C + c] = who;
+      const v = search(who === 2 ? 1 : 2, d - 1, alpha, beta);
+      b[r * C + c] = 0;
+      if (who === 2) { best = Math.max(best, v); alpha = Math.max(alpha, v); } else { best = Math.min(best, v); beta = Math.min(beta, v); }
+      if (beta <= alpha) break;
+    }
+    return best;
+  };
+  const options = (who) => {
+    const out = [];
+    for (const c of ORDER) {
+      const r = free(c);
+      if (r < 0) continue;
+      b[r * C + c] = who;
+      const v = search(who === 2 ? 1 : 2, depth - 1, -1e9, 1e9);
+      b[r * C + c] = 0;
+      out.push({ move: c, score: who === 2 ? v : -v });
+    }
+    return out;
+  };
+  function end(w) {
+    over = true;
+    if (w === 1) { say('youWin', 'surprised'); played('c4', 'you'); }
+    else if (w === 2) { say('herWin', 'smug'); played('c4', 'her'); }
+    else { say('draw', 'calm'); played('c4', 'draw'); }
+  }
+  function drop(c, who) {
+    const r = free(c);
+    b[r * C + c] = who;
+    last = r * C + c;
+    drawB();
+    return winner();
+  }
+  function mine(c) {
+    if (over || busy || free(c) < 0) return;
+    buzz();
+    const yours = options(1);
+    const top = Math.max(...yours.map((o) => o.score)), low = Math.min(...yours.map((o) => o.score));
+    const sc = yours.find((o) => o.move === c).score;
+    const w = drop(c, 1);
+    if (w) return end(w);
+    if (top !== low) brain.yourMove(sc === top ? 1 : Math.max(0, (sc - low) / (top - low)) * 0.7, { missed: sc < top });
+    busy = true;
+    const choice = brain.choose(options(2), { scale: 30 });
+    face.src = `${FACES}face-thinking.png`;
+    act('think', 1500);
+    const wait = brain.hesitation(choice, (k) => { eye = k ?? -1; drawB(); });
+    setTimeout(() => {
+      eye = -1;
+      busy = false;
+      const w2 = drop(choice.move, 2);
+      if (w2) return end(w2);
+      brain.afterHer(choice);
+      brain.standing(Math.max(-1, Math.min(1, heur() / 40)));
+      face.src = `${FACES}face-${brain.face()}.png`;
+      brain.yourTurn();
+    }, wait + brain.thinkTime({ choice, many: 7 }));
+  }
+  drawB();
+  brain.yourTurn();
+}
+
+// ---------- Memorama (1.11.0) ----------
+// 16 cards, 8 pairs of her faces. You and her by turns: a pair = a point and you go again. She remembers
+// the cards she has seen, not perfectly: the better she plays, the more of them she keeps.
+function memory(box) {
+  const KINDS = ['smug', 'laugh', 'love', 'wink', 'angry', 'surprised', 'sleepy', 'cringe', 'thinking', 'focus', 'bored', 'sad'];
+  const kinds = [...KINDS].sort(() => Math.random() - 0.5).slice(0, 8);
+  const deck = [...kinds, ...kinds].sort(() => Math.random() - 0.5);
+  const state = deck.map(() => 'down'); // down | up | gone
+  const seen = new Map(); // index -> kind she remembers
+  const score = el('div', 'mines__info');
+  const youS = el('span', '', `${W.you} 0`), herS = el('span', '', `${W.her} 0`);
+  score.append(youS, herS);
+  const grid = el('div', 'memo');
+  const btns = deck.map((k, i) => {
+    const d = el('button', 'memo__card');
+    d.addEventListener('click', () => mine(i));
+    grid.append(d);
+    return d;
+  });
+  box.append(score, grid);
+  let pts = { you: 0, her: 0 }, open = [], turn = 'you', busy = false, over = false;
+  const drawM = () => deck.forEach((k, i) => {
+    const st = state[i];
+    btns[i].className = `memo__card is-${st}`;
+    btns[i].style.backgroundImage = st === 'down' ? '' : `url(${FACES}face-${k}.png)`;
+  });
+  const keep = () => Math.random() < 0.35 + brain.skill() * 0.6;
+  const remember = (i) => { if (keep()) seen.set(i, deck[i]); };
+  const forgetGone = () => { for (const i of [...seen.keys()]) if (state[i] === 'gone') seen.delete(i); };
+  function check() {
+    const [a, c] = open;
+    const pair = deck[a] === deck[c];
+    setTimeout(() => {
+      if (pair) {
+        state[a] = state[c] = 'gone';
+        pts[turn] += 1;
+        youS.textContent = `${W.you} ${pts.you}`; herS.textContent = `${W.her} ${pts.her}`;
+        brain.event(turn === 'her' ? 'herPoint' : 'yourPoint');
+        say(turn === 'her' ? 'memoMine' : 'memoYours', turn === 'her' ? 'smug' : 'surprised');
+      } else {
+        state[a] = state[c] = 'down';
+        if (turn === 'her') say('memoMiss', 'cringe');
+        turn = turn === 'you' ? 'her' : 'you';
+      }
+      open = [];
+      forgetGone();
+      drawM();
+      brain.standing((pts.her - pts.you) / 8);
+      if (state.every((x) => x === 'gone')) {
+        over = true;
+        const r = pts.you > pts.her ? 'you' : pts.her > pts.you ? 'her' : 'draw';
+        say(r === 'you' ? 'youWin' : r === 'her' ? 'herWin' : 'draw', r === 'you' ? 'surprised' : r === 'her' ? 'smug' : 'calm');
+        return played('memo', r);
+      }
+      busy = false;
+      if (turn === 'her') herTurn(); else brain.yourTurn();
+    }, pair ? 600 : 1000);
+  }
+  function flip(i) {
+    state[i] = 'up';
+    open.push(i);
+    remember(i);
+    drawM();
+  }
+  function mine(i) {
+    if (over || busy || turn !== 'you' || state[i] !== 'down') return;
+    buzz();
+    flip(i);
+    if (open.length === 2) { busy = true; check(); }
+  }
+  function herTurn() {
+    busy = true;
+    face.src = `${FACES}face-thinking.png`;
+    act('think', 1400);
+    const down = state.map((s, i) => (s === 'down' ? i : -1)).filter((i) => i >= 0);
+    // a pair she knows?
+    const byKind = {};
+    for (const [i, k] of seen) if (state[i] === 'down') (byKind[k] = byKind[k] || []).push(i);
+    const known = Object.values(byKind).find((l) => l.length >= 2);
+    let first = known ? known[0] : down.filter((i) => !seen.has(i))[0] ?? down[0];
+    if (!known) { const unknown = down.filter((i) => !seen.has(i)); first = unknown.length ? unknown[Math.floor(Math.random() * unknown.length)] : down[Math.floor(Math.random() * down.length)]; }
+    setTimeout(() => {
+      flip(first);
+      const k = deck[first];
+      const match = [...seen].find(([i, kk]) => kk === k && i !== first && state[i] === 'down');
+      const rest = state.map((s, i) => (s === 'down' ? i : -1)).filter((i) => i >= 0);
+      const unknown = rest.filter((i) => !seen.has(i));
+      const second = match ? match[0] : (unknown.length ? unknown : rest)[Math.floor(Math.random() * (unknown.length ? unknown : rest).length)];
+      setTimeout(() => { flip(second); check(); }, 700 + Math.random() * 500);
+    }, 700 + Math.random() * 600);
+  }
+  drawM();
+  brain.yourTurn();
+}
+
+// ---------- Secuencia neural (1.11.0) ----------
+// Four neon pads; she shows a sequence one longer each round, you repeat it. Her record to beat depends
+// on the level; your best stays on this phone.
+function sequence(box) {
+  const goal = { easy: 6, normal: 9, hard: 13 }[level] || 9;
+  const info = el('div', 'mines__info');
+  const roundS = el('span', '', `${W.round} 0`);
+  info.append(roundS, el('span', '', fillN(W.simonGoal, goal)));
+  const pads = el('div', 'simon');
+  const COLORS = ['green', 'red', 'cyan', 'yellow'];
+  const btns = COLORS.map((c, i) => {
+    const d = el('button', `simon__pad is-${c}`);
+    d.addEventListener('click', () => press(i));
+    pads.append(d);
+    return d;
+  });
+  box.append(info, pads);
+  const seq = [];
+  let pos = 0, listening = false, over = false;
+  const timers = [];
+  stopGame = () => timers.forEach(clearTimeout);
+  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+  const flash = (i, ms = 360) => { btns[i].classList.add('is-lit'); later(() => btns[i].classList.remove('is-lit'), ms); };
+  function round() {
+    seq.push(Math.floor(Math.random() * 4));
+    roundS.textContent = `${W.round} ${seq.length}`;
+    listening = false;
+    pos = 0;
+    say('simonWatch', 'look');
+    act('think');
+    const step = Math.max(260, 620 - seq.length * 25);
+    seq.forEach((v, k) => later(() => flash(v, step * 0.7), 700 + k * step));
+    later(() => { listening = true; say('simonGo', 'smug'); act('watch'); brain.yourTurn(); }, 700 + seq.length * step);
+  }
+  function press(i) {
+    if (!listening || over) return;
+    buzz();
+    flash(i, 220);
+    if (i !== seq[pos]) {
+      over = true;
+      listening = false;
+      const reached = seq.length - 1;
+      say(fillN(pickOne(W.simonFail), seq.length), reached >= goal ? 'surprised' : 'smug');
+      return later(() => played('simon', reached >= goal ? 'you' : 'her'), 900);
+    }
+    pos += 1;
+    if (pos === seq.length) {
+      listening = false;
+      brain.event('yourPoint');
+      if (seq.length === goal) brain.line('youGood', 'surprised', {}, 2); else if (Math.random() < 0.4) say('simonGood', 'look');
+      later(round, 900);
+    }
+  }
+  later(round, 600);
+}
+function fillN(s, n) { return String(s).replace('{n}', n); }
+function pickOne(list) { return Array.isArray(list) ? list[Math.floor(Math.random() * list.length)] : list; }
+
+// (1.11.0) opened from the app's Juegos tab: straight into that game
+const asked = GAMES.find((g) => g.id === info.game);
+if (asked) open(asked); else menu();

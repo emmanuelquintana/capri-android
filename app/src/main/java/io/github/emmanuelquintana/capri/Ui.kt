@@ -286,6 +286,28 @@ class Ui(private val a: Activity) {
                     c.drawCircle(cx, cy - s * 0.16f, s * 0.18f, p)
                     c.drawArc(cx - s * 0.36f, cy + s * 0.1f, cx + s * 0.36f, cy + s * 0.74f, 200f, 140f, false, p)
                 }
+                "chat" -> { // (1.11.0) her chat: a speech bubble with a cut corner and three dots
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = s * 0.09f
+                    p.strokeJoin = Paint.Join.MITER
+                    val l = cx - s * 0.42f; val r = cx + s * 0.42f; val t = cy - s * 0.34f; val bt = cy + s * 0.2f
+                    path.moveTo(l, t); path.lineTo(r - s * 0.12f, t); path.lineTo(r, t + s * 0.12f); path.lineTo(r, bt)
+                    path.lineTo(cx - s * 0.06f, bt); path.lineTo(cx - s * 0.26f, cy + s * 0.42f); path.lineTo(cx - s * 0.24f, bt)
+                    path.lineTo(l, bt); path.close()
+                    c.drawPath(path, p)
+                    p.style = Paint.Style.FILL
+                    for (k in -1..1) c.drawCircle(cx + k * s * 0.17f, cy - s * 0.07f, s * 0.055f, p)
+                }
+                "pad" -> { // (1.11.0) the games: a gamepad
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = s * 0.09f
+                    c.drawRoundRect(cx - s * 0.46f, cy - s * 0.24f, cx + s * 0.46f, cy + s * 0.26f, s * 0.2f, s * 0.2f, p)
+                    c.drawLine(cx - s * 0.3f, cy, cx - s * 0.1f, cy, p)
+                    c.drawLine(cx - s * 0.2f, cy - s * 0.1f, cx - s * 0.2f, cy + s * 0.1f, p)
+                    p.style = Paint.Style.FILL
+                    c.drawCircle(cx + s * 0.16f, cy + s * 0.04f, s * 0.055f, p)
+                    c.drawCircle(cx + s * 0.29f, cy - s * 0.07f, s * 0.055f, p)
+                }
                 "hanger" -> { // her wardrobe: a hook and a hanger
                     p.style = Paint.Style.STROKE
                     p.strokeWidth = s * 0.09f

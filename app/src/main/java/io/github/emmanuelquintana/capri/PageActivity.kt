@@ -23,13 +23,14 @@ import org.json.JSONObject
  */
 class PageActivity : Activity() {
     private var web: WebView? = null
+    private var page = ""
 
     override fun attachBaseContext(newBase: Context) = super.attachBaseContext(Lang.wrap(newBase))
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val page = intent.getStringExtra(EXTRA_PAGE)?.takeIf { it in PAGES } ?: return finish()
+        page = intent.getStringExtra(EXTRA_PAGE)?.takeIf { it in PAGES } ?: return finish()
         window.statusBarColor = Hud.INK
         window.navigationBarColor = Hud.INK
         val view = WebView(this).apply {
@@ -68,6 +69,18 @@ class PageActivity : Activity() {
         web = view
         setContentView(view)
         view.loadUrl("https://$HOST/android/$page.html")
+    }
+
+    // (1.11.0, Emma: "cuando juegues en la app debe desaparecer la capri de encima, como opcional"): while
+    // the games are in front, her floating self steps aside (Juegos › «Capri flotante mientras juegas»)
+    override fun onResume() {
+        super.onResume()
+        if (page == "games" && hideWhilePlaying(this)) CapriService.current?.overlay?.shy(true, "games")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        CapriService.current?.overlay?.shy(false, "games")
     }
 
     override fun onDestroy() {
@@ -112,6 +125,7 @@ class PageActivity : Activity() {
         fun info(): String = JSONObject()
             .put("lang", Lang.current(this@PageActivity))
             .put("name", CapriSettings.name(this@PageActivity))
+            .put("game", intent.getStringExtra(EXTRA_GAME) ?: "") // (1.11.0) straight into one, from the Juegos tab
             .toString()
 
         /** Your chat history, oldest first. */
@@ -138,11 +152,16 @@ class PageActivity : Activity() {
     companion object {
         private const val HOST = "appassets.androidplatform.net"
         const val EXTRA_PAGE = "page"
+        const val EXTRA_GAME = "game"
         private val PAGES = setOf("chatlog", "games")
 
-        fun open(context: Context, page: String) {
-            context.startActivity(Intent(context, PageActivity::class.java).putExtra(EXTRA_PAGE, page)
+        fun open(context: Context, page: String, game: String? = null) {
+            context.startActivity(Intent(context, PageActivity::class.java).putExtra(EXTRA_PAGE, page).putExtra(EXTRA_GAME, game)
                 .addFlags(if (context is Activity) 0 else Intent.FLAG_ACTIVITY_NEW_TASK))
         }
+
+        /** Her floating self hidden while you play in the app (on unless you turn it off). */
+        fun hideWhilePlaying(context: Context) = context.getSharedPreferences("games", Context.MODE_PRIVATE).getBoolean("hideCapri", true)
+        fun setHideWhilePlaying(context: Context, on: Boolean) = context.getSharedPreferences("games", Context.MODE_PRIVATE).edit().putBoolean("hideCapri", on).apply()
     }
 }

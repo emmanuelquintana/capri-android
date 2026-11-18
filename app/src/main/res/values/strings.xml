@@ -385,7 +385,6 @@
     <string name="report_bad">It couldn’t be sent. Try again later.</string>
     <!-- 1.10.0 -->
     <string name="you_games_title">Play with her</string>
-    <string name="you_games_how">Chess, minesweeper, 21 and tic-tac-toe, here on your phone with no internet. She plays against you and says what she thinks. You can also tell her “Capri, let’s play”.</string>
     <string name="you_games_open">Play</string>
     <string name="you_chatlog_title">Chat history</string>
     <string name="you_chatlog_how">Everything you told her in her chat and what she answered, by day, with a search. It stays on this phone only.</string>
@@ -409,4 +408,36 @@
     <string name="support_text">Capri is free, with no ads and no account, and I make her on my own. If you like her and can, a donation on PayPal helps me keep improving her. If not, no worries: she stays exactly the same.</string>
     <string name="support_paypal">Support on PayPal</string>
     <string name="support_never">Don\'t show again</string>
+    <!-- 1.11.0: her chat as the center, the games' tab, DONAR -->
+    <string name="tab_chat">Chat</string>
+    <string name="tab_games">Games</string>
+    <string name="chat_hint">Write to her…</string>
+    <string name="chat_send">Send</string>
+    <string name="chat_help">What can I ask her?</string>
+    <string name="chat_hello">Hey, %1$s. This is our chat now: write me whatever you want.</string>
+    <string name="chat_you">choom</string>
+    <string name="chat_typing">Writing…</string>
+    <string name="chat_online">Online</string>
+    <string name="chat_asleep">Asleep · write to wake her</string>
+    <string name="chat_waking">(waking up… give me a few seconds)</string>
+    <string name="chat_noreply">My connection dropped. Try again in a moment?</string>
+    <string name="main_donate">Donate</string>
+    <string name="games_open">Open the arcade</string>
+    <string name="games_new">NEW</string>
+    <string name="games_hide_title">Floating Capri while you play</string>
+    <string name="games_hide_how">While you play here, her floating self over your screen can step aside so it doesn’t cover the game. She still watches from the corner of the game.</string>
+    <string name="games_hide_on">Hide her</string>
+    <string name="games_hide_off">Leave her</string>
+    <string name="you_games_how">Chess, minesweeper, 21, tic-tac-toe, ping pong, rock-paper-scissors, Connect 4, memory and the neural sequence, here on your phone with no internet. She plays against you and says what she thinks. You can also tell her “Capri, let’s play”.</string>
+    <string-array name="game_names">
+        <item>Chess</item>
+        <item>Minesweeper</item>
+        <item>21</item>
+        <item>Tic-tac-toe</item>
+        <item>Ping pong</item>
+        <item>Rock paper scissors</item>
+        <item>Connect 4</item>
+        <item>Memory</item>
+        <item>Neural sequence</item>
+    </string-array>
 </resources>

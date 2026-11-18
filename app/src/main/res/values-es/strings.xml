@@ -384,7 +384,6 @@
     <string name="report_bad">No se pudo enviar. Prueba más tarde.</string>
     <!-- 1.10.0 -->
     <string name="you_games_title">Juega con ella</string>
-    <string name="you_games_how">Ajedrez, buscaminas, 21 y tres en raya, aquí en tu teléfono y sin internet. Ella juega contra ti y te dice lo que piensa. También puedes decirle «Capri, juguemos».</string>
     <string name="you_games_open">Jugar</string>
     <string name="you_chatlog_title">Historial de chat</string>
     <string name="you_chatlog_how">Todo lo que le dijiste en su chat y lo que te respondió, por día y con buscador. Se queda solo en este teléfono.</string>
@@ -408,4 +407,36 @@
     <string name="support_text">Capri es gratis, sin anuncios y sin cuenta, y la hago yo. Si te gusta y puedes, una donación en PayPal me ayuda a seguir mejorándola. Si no, no pasa nada: sigue igualita.</string>
     <string name="support_paypal">Apoyar en PayPal</string>
     <string name="support_never">No mostrar otra vez</string>
+    <!-- 1.11.0: her chat as the center, the games' tab, DONAR -->
+    <string name="tab_chat">Chat</string>
+    <string name="tab_games">Juegos</string>
+    <string name="chat_hint">Escríbele…</string>
+    <string name="chat_send">Enviar</string>
+    <string name="chat_help">¿Qué le puedo pedir?</string>
+    <string name="chat_hello">Hola, %1$s. Este es nuestro chat: escríbeme lo que quieras.</string>
+    <string name="chat_you">choom</string>
+    <string name="chat_typing">Escribiendo…</string>
+    <string name="chat_online">En línea</string>
+    <string name="chat_asleep">Dormida · escríbele para despertarla</string>
+    <string name="chat_waking">(despertando… dame unos segundos)</string>
+    <string name="chat_noreply">Se me cayó la conexión. ¿Lo intentas otra vez en un momento?</string>
+    <string name="main_donate">Donar</string>
+    <string name="games_open">Abrir la sala de juegos</string>
+    <string name="games_new">NUEVO</string>
+    <string name="games_hide_title">Capri flotante mientras juegas</string>
+    <string name="games_hide_how">Mientras juegas aquí, la Capri que flota sobre tu pantalla puede apartarse para no tapar el juego. Igual te mira desde la esquina del juego.</string>
+    <string name="games_hide_on">Ocultarla</string>
+    <string name="games_hide_off">Dejarla</string>
+    <string name="you_games_how">Ajedrez, buscaminas, 21, tres en raya, ping pong, piedra papel o tijera, Conecta 4, memorama y la secuencia neural, aquí en tu teléfono y sin internet. Ella juega contra ti y te dice lo que piensa. También puedes decirle «Capri, juguemos».</string>
+    <string-array name="game_names">
+        <item>Ajedrez</item>
+        <item>Buscaminas</item>
+        <item>21</item>
+        <item>Tres en raya</item>
+        <item>Ping pong</item>
+        <item>Piedra, papel o tijera</item>
+        <item>Conecta 4</item>
+        <item>Memorama</item>
+        <item>Secuencia neural</item>
+    </string-array>
 </resources>

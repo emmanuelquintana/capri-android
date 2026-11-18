@@ -384,7 +384,6 @@
     <string name="report_bad">Não deu pra enviar. Tenta mais tarde.</string>
     <!-- 1.10.0 -->
     <string name="you_games_title">Jogue com ela</string>
-    <string name="you_games_how">Xadrez, campo minado, 21 e jogo da velha, aqui no seu celular e sem internet. Ela joga contra você e diz o que pensa. Você também pode dizer “Capri, vamos jogar”.</string>
     <string name="you_games_open">Jogar</string>
     <string name="you_chatlog_title">Histórico do chat</string>
     <string name="you_chatlog_how">Tudo o que você disse no chat dela e o que ela respondeu, por dia e com busca. Fica só neste celular.</string>
@@ -408,4 +407,36 @@
     <string name="support_text">A Capri é grátis, sem anúncios e sem conta, e eu faço ela por conta própria. Se você gosta e pode, uma doação no PayPal me ajuda a continuar melhorando. Se não, tudo bem: ela continua igualzinha.</string>
     <string name="support_paypal">Apoiar no PayPal</string>
     <string name="support_never">Não mostrar de novo</string>
+    <!-- 1.11.0: her chat as the center, the games' tab, DONAR -->
+    <string name="tab_chat">Chat</string>
+    <string name="tab_games">Jogos</string>
+    <string name="chat_hint">Escreva pra ela…</string>
+    <string name="chat_send">Enviar</string>
+    <string name="chat_help">O que posso pedir pra ela?</string>
+    <string name="chat_hello">Oi, %1$s. Este é o nosso chat: me escreve o que quiser.</string>
+    <string name="chat_you">choom</string>
+    <string name="chat_typing">Escrevendo…</string>
+    <string name="chat_online">Online</string>
+    <string name="chat_asleep">Dormindo · escreva pra acordá-la</string>
+    <string name="chat_waking">(acordando… me dá uns segundos)</string>
+    <string name="chat_noreply">Minha conexão caiu. Tenta de novo daqui a pouco?</string>
+    <string name="main_donate">Doar</string>
+    <string name="games_open">Abrir a sala de jogos</string>
+    <string name="games_new">NOVO</string>
+    <string name="games_hide_title">Capri flutuante enquanto você joga</string>
+    <string name="games_hide_how">Enquanto você joga aqui, a Capri que flutua na sua tela pode sair da frente pra não cobrir o jogo. Ela continua te olhando do canto do jogo.</string>
+    <string name="games_hide_on">Esconder</string>
+    <string name="games_hide_off">Deixar</string>
+    <string name="you_games_how">Xadrez, campo minado, 21, jogo da velha, pingue-pongue, pedra-papel-tesoura, Lig 4, jogo da memória e a sequência neural, aqui no seu celular e sem internet. Ela joga contra você e diz o que pensa. Você também pode dizer “Capri, vamos jogar”.</string>
+    <string-array name="game_names">
+        <item>Xadrez</item>
+        <item>Campo minado</item>
+        <item>21</item>
+        <item>Jogo da velha</item>
+        <item>Pingue-pongue</item>
+        <item>Pedra, papel e tesoura</item>
+        <item>Lig 4</item>
+        <item>Memória</item>
+        <item>Sequência neural</item>
+    </string-array>
 </resources>

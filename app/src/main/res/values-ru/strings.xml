@@ -385,7 +385,6 @@
     <string name="report_bad">Не удалось отправить. Попробуй позже.</string>
     <!-- 1.10.0 -->
     <string name="you_games_title">Играй с ней</string>
-    <string name="you_games_how">Шахматы, сапёр, 21 и крестики-нолики прямо на телефоне, без интернета. Она играет против тебя и говорит, что думает. Можно сказать ей «Капри, давай сыграем».</string>
     <string name="you_games_open">Играть</string>
     <string name="you_chatlog_title">История чата</string>
     <string name="you_chatlog_how">Всё, что ты писал ей в чате, и её ответы — по дням и с поиском. Хранится только на этом телефоне.</string>
@@ -409,4 +408,36 @@
     <string name="support_text">Капри бесплатная, без рекламы и без аккаунта, и её делаю я, без команды. Если она тебе нравится и есть возможность, донат на PayPal поможет мне её улучшать. Если нет — ничего страшного: она останется такой же.</string>
     <string name="support_paypal">Поддержать через PayPal</string>
     <string name="support_never">Больше не показывать</string>
+    <!-- 1.11.0: her chat as the center, the games' tab, DONAR -->
+    <string name="tab_chat">Чат</string>
+    <string name="tab_games">Игры</string>
+    <string name="chat_hint">Напиши ей…</string>
+    <string name="chat_send">Отправить</string>
+    <string name="chat_help">Что у неё можно попросить?</string>
+    <string name="chat_hello">Привет, %1$s. Теперь это наш чат: пиши мне что хочешь.</string>
+    <string name="chat_you">чумба</string>
+    <string name="chat_typing">Пишет…</string>
+    <string name="chat_online">В сети</string>
+    <string name="chat_asleep">Спит · напиши, чтобы разбудить</string>
+    <string name="chat_waking">(просыпаюсь… дай пару секунд)</string>
+    <string name="chat_noreply">Связь пропала. Попробуешь ещё раз чуть позже?</string>
+    <string name="main_donate">Поддержать</string>
+    <string name="games_open">Открыть игровой зал</string>
+    <string name="games_new">НОВОЕ</string>
+    <string name="games_hide_title">Летающая Капри во время игры</string>
+    <string name="games_hide_how">Пока ты играешь здесь, Капри, парящая над экраном, может отойти, чтобы не закрывать игру. Она всё равно смотрит из угла игры.</string>
+    <string name="games_hide_on">Скрыть</string>
+    <string name="games_hide_off">Оставить</string>
+    <string name="you_games_how">Шахматы, сапёр, 21, крестики-нолики, пинг-понг, камень-ножницы-бумага, четыре в ряд, мемори и нейропоследовательность прямо на телефоне, без интернета. Она играет против тебя и говорит, что думает. Можно сказать ей «Капри, давай сыграем».</string>
+    <string-array name="game_names">
+        <item>Шахматы</item>
+        <item>Сапёр</item>
+        <item>21</item>
+        <item>Крестики-нолики</item>
+        <item>Пинг-понг</item>
+        <item>Камень-ножницы-бумага</item>
+        <item>Четыре в ряд</item>
+        <item>Мемори</item>
+        <item>Нейропоследовательность</item>
+    </string-array>
 </resources>

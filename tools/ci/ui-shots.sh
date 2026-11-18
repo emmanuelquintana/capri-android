@@ -106,6 +106,9 @@ shot 11-main 3
 shot 11b-community 1
 tap "ahora no"
 sleep 1
+# 1.11.0: the app opens on her chat; Novedades is the second tab
+tap "novedades"
+shot 12a-news 2
 adb shell input swipe 500 1800 500 600 300
 shot 12-main-scrolled 2
 # 1.9.0: «Tú» (you), «Personalizar» (her looks) and «Ajustes» (the general, permissions first)
@@ -143,12 +146,19 @@ sleep 4
 tap "tú"
 adb shell input swipe 500 1800 500 900 300
 shot 14m-memory 3
-tap "comunidad"
-shot 14a-community-tab 2
-tap "comandos"
-shot 14b-commands-tab 2
-adb shell input swipe 500 1800 500 700 300
-shot 14c-commands-more 2
+# 1.11.0: the games' tab and her chat (Comandos behind its «?»)
+tap "juegos"
+shot 14a-games-tab 2
+tap "conecta 4"
+shot 14a2-connect4 4
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+tap "chat"
+shot 14b-chat-tab 2
+tap "¿qué le puedo pedir?"
+shot 14c-commands 2
+adb shell input keyevent KEYCODE_BACK
+sleep 1
 tap "novedades"
 adb shell input swipe 500 1800 500 600 300
 shot 14d-news-folded 2
@@ -210,7 +220,7 @@ shot 22-other-app 3
 # adb hand her service the words: the emulator has no microphone)
 adb shell input keyevent KEYCODE_BACK
 adb shell pm grant $PKG android.permission.RECORD_AUDIO
-adb shell am start -n $PKG/.MainActivity --ei tab 4 # straight to Ajustes (Capri may sit on the pill bar)
+adb shell am start -n $PKG/.MainActivity --ei tab 5 # straight to Ajustes (Capri may sit on the pill bar)
 sleep 4
 adb shell input swipe 500 1800 500 900 300
 shot 23-voice-card 2

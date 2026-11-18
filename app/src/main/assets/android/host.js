@@ -52,6 +52,7 @@ import { autoDress } from './autodress.js';
 import { iconFaces } from './icon-faces.js';
 import { checkIn } from './checkin.js';
 import { typing } from './typing.js';
+import { appChat } from './appchat.js';
 import { twins } from './twin.js';
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
@@ -1651,6 +1652,8 @@ ready.then(() => {
     typing({ cfg: () => cfg }); // you type: she lies on top of the keyboard (in a game: on her phone)
     window.dev.twin = twins({ cfg: () => cfg, lang: () => resolveLang(cfg.lang) }); // two of her (two fingers pulled apart)
     window.dev.saver = saver({ cfg: () => cfg, lang: () => resolveLang(cfg.lang), setConfig: updateConfig }); // battery saver
+    // 1.11.0
+    appChat({ lang: () => resolveLang(cfg.lang) }); // her chat inside the app (its Chat tab)
   }, 300);
 });
 

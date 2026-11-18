@@ -102,6 +102,8 @@ class MainActivity : Activity() {
         }
     }
 
+    private lateinit var chat: ChatTab
+
     private class Tab(val icon: Ui.Icon, val label: TextView, val button: LinearLayout, val page: View)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,14 +126,18 @@ class MainActivity : Activity() {
         root.addView(content, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
 
         // 1.9.0 (Emma: "necesitamos organizar mejor la UI"): you, her looks and the general settings
-        // each in its own tab; the permissions moved into Ajustes
-        val pages = listOf(newsPage(), cmdsPage(), youPage(), stylePage(), settingsPage(), communityPage())
+        // each in its own tab; the permissions moved into Ajustes.
+        // 1.11.0 (Emma: "que el centro de la app sea un chat con ella… el menú de juegos debe tener su parte
+        // en el menú de píldora"): her chat first, where the app opens; the games get a tab; Comunidad
+        // went into Novedades (Discord, TikTok, Donar) and Comandos behind the «?» of her chat.
+        chat = ChatTab(this, ui) { showCommands() }
+        val pages = listOf(chat.build(), newsPage(), gamesPage(), youPage(), stylePage(), settingsPage())
         val bar = ui.row().apply {
             background = Ui.Pill(Hud.INK, Hud.MANE, ui.dp(1.5f))
             setPadding(ui.dpi(6), ui.dpi(6), ui.dpi(6), ui.dpi(6))
             elevation = ui.dp(6f)
         }
-        val labels = listOf(R.string.tab_news to "spark", R.string.tab_cmds to "mic", R.string.tab_you to "person", R.string.tab_style to "hanger", R.string.tab_settings to "sliders", R.string.tab_community to "people")
+        val labels = listOf(R.string.tab_chat to "chat", R.string.tab_news to "spark", R.string.tab_games to "pad", R.string.tab_you to "person", R.string.tab_style to "hanger", R.string.tab_settings to "sliders")
         for ((i, pair) in labels.withIndex()) {
             val (label, kind) = pair
             val icon = Ui.Icon(kind, Hud.PAPER_2)
@@ -157,11 +163,16 @@ class MainActivity : Activity() {
         // first and the pill bar sits above the second
         ui.underSystemBars(root) { top, bottom ->
             content.setPadding(0, top, 0, 0)
+            // (1.11.0) the keyboard up (writing to her): the pill bar steps aside, her chat sits right on it
+            val typing = bottom > ui.dpi(160)
+            bar.visibility = if (typing) View.GONE else View.VISIBLE
             barParams.bottomMargin = ui.dpi(16) + bottom
             bar.layoutParams = barParams
+            content.setPadding(0, top, 0, if (typing) bottom else 0)
+            chat.setBottom(if (typing) ui.dpi(8) else ui.dpi(92) + bottom)
         }
         setContentView(root)
-        show(savedInstanceState?.getInt("tab") ?: tabAsked(intent) ?: 0, animate = false)
+        show(savedInstanceState?.getInt("tab") ?: tabAsked(intent) ?: if (wantsUpdate) TAB_NEWS else TAB_CHAT, animate = false)
         if (savedInstanceState == null && tabAsked(intent) == null) root.postDelayed({ if (!isFinishing) inviteOnce() }, 1500)
     }
 
@@ -190,6 +201,7 @@ class MainActivity : Activity() {
         // 1.9.0 ("cuando cambio entre pestañas se traba un poco"): a short smooth slide on the GPU, and
         // the page brought up to date once it's in, not in the middle of it
         if (i == TAB_SETTINGS) (tabs[i].page as? ScrollView)?.scrollTo(0, 0)
+        if (i == TAB_CHAT) chat.onShow()
         if (animate) {
             ui.slideIn(tabs[i].page)
             content.removeCallbacks(refreshLater)
@@ -215,6 +227,11 @@ class MainActivity : Activity() {
         ticker.removeCallbacks(tick)
     }
 
+    override fun onDestroy() {
+        AppChat.listener = null
+        super.onDestroy()
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         // the microphone just allowed from "Turn on": her ears go on with it
         if (requestCode == Permissions.MIC && wantVoice && Ears.allowed(this)) Ears.setEnabled(this, true)
@@ -235,7 +252,7 @@ class MainActivity : Activity() {
         super.onNewIntent(intent)
         if (intent.getBooleanExtra(EXTRA_UPDATE, false)) {
             wantsUpdate = true
-            if (::ui.isInitialized) show(0)
+            if (::ui.isInitialized) show(TAB_NEWS)
         } else tabAsked(intent)?.let { if (::ui.isInitialized) show(it) }
     }
 
@@ -315,8 +332,12 @@ class MainActivity : Activity() {
             startBtn.postDelayed({ refresh() }, 700)
         }
         addView(startBtn, ui.block(14))
-        // her Discord, right under her button (1.9.0, the community asked)
+        // her Discord, right under her button (1.9.0, the community asked); TikTok with it (1.11.0: the
+        // Comunidad tab went here) and DONAR (1.11.0, Emma: "debajo del botón de iniciar Capri y Discord que
+        // diga DONAR y abra el popup con el link de donar")
         addView(ui.button(getString(R.string.community_discord) + " ↗", Ui.Kind.LINE) { openLink(DISCORD) }, ui.block(10))
+        addView(ui.button(getString(R.string.community_tiktok) + " ↗", Ui.Kind.LINE) { openLink(TIKTOK) }, ui.block(8))
+        addView(ui.button("♥ " + getString(R.string.main_donate), Ui.Kind.GREEN) { showSupport(asked = true) }, ui.block(8))
 
         // updates
         updateText = ui.text("", 13f, Hud.PAPER_2, ui.mono).apply { letterSpacing = 0.02f; setLineSpacing(0f, 1.15f) }
@@ -463,12 +484,9 @@ class MainActivity : Activity() {
             addView(ui.button(getString(R.string.settings_save), Ui.Kind.GREEN) { saveName() }, ui.block(12))
         }, ui.block(16))
 
-        // (1.10.0) games with her, and your chat history (PageActivity)
+        // (1.10.0) your chat history (PageActivity); the games have their own tab since 1.11.0
         addView(ui.card(Hud.GREEN).apply {
-            addView(ui.label(getString(R.string.you_games_title), Hud.GREEN))
-            addView(ui.text(getString(R.string.you_games_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-            addView(ui.button(getString(R.string.you_games_open), Ui.Kind.GREEN) { PageActivity.open(this@MainActivity, "games") }, ui.block(12))
-            addView(ui.text(getString(R.string.you_chatlog_title), 14f, Hud.PAPER, ui.head), ui.block(18))
+            addView(ui.label(getString(R.string.you_chatlog_title), Hud.GREEN))
             addView(ui.text(getString(R.string.you_chatlog_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(ui.button(getString(R.string.you_chatlog_open), Ui.Kind.LINE) { PageActivity.open(this@MainActivity, "chatlog") }, ui.block(10))
         }, ui.block(16))
@@ -1061,6 +1079,7 @@ class MainActivity : Activity() {
     private fun refresh() {
         if (!::ui.isInitialized) return
         showMemory()
+        chat.status()
         val running = CapriService.running
         statusDot.background = Hud.Plate(if (running) Hud.GREEN else Hud.RED, 0, cut = 0f, stroke = 0f, offset = 0f)
         statusWord.text = getString(if (running) R.string.main_status_on else R.string.main_status_off)
@@ -1094,10 +1113,54 @@ class MainActivity : Activity() {
 
     // ---------- Community ----------
 
-    // its own tab in the pill bar: Emma's Discord and TikTok now, more of the community later
-    private fun communityPage() = page {
-        addView(ui.label(getString(R.string.tab_community)))
-        addView(communityCard(), ui.block(8))
+    // ---------- Games (1.11.0: their own tab) ----------
+
+    private fun gamesPage() = page {
+        addView(ui.label(getString(R.string.tab_games)))
+        addView(ui.text(getString(R.string.you_games_how), 14f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.18f) }, ui.block(8))
+        addView(ui.button(getString(R.string.games_open), Ui.Kind.MAIN) { PageActivity.open(this@MainActivity, "games") }, ui.block(16))
+        // each game, straight in
+        val games = listOf("chess" to "♞", "mines" to "✹", "cards" to "♠", "ttt" to "✕", "pong" to "◐", "rps" to "✊", "c4" to "◉", "memo" to "▣", "simon" to "◈")
+        val names = resources.getStringArray(R.array.game_names)
+        val fresh = setOf("c4", "memo", "simon")
+        var row: LinearLayout? = null
+        for ((i, g) in games.withIndex()) {
+            if (i % 3 == 0) row = ui.row().also { addView(it, ui.block(10)) }
+            val (id, icon) = g
+            val cell = ui.col().apply {
+                gravity = Gravity.CENTER
+                background = ui.plate(if (id in fresh) Hud.GREEN else Hud.LINE_STRONG)
+                setPadding(ui.dpi(6), ui.dpi(14), ui.dpi(6), ui.dpi(12))
+                isClickable = true
+                setOnClickListener { PageActivity.open(this@MainActivity, "games", id) }
+                addView(ui.text(icon, 26f, if (id in fresh) Hud.GREEN else Hud.YELLOW, ui.head).apply { gravity = Gravity.CENTER })
+                addView(ui.text(names.getOrElse(i) { id }, 12f, Hud.PAPER, ui.mono).apply { gravity = Gravity.CENTER; maxLines = 2 }, ui.block(6))
+                if (id in fresh) addView(ui.text(getString(R.string.games_new), 9f, Hud.GREEN, ui.mono).apply { gravity = Gravity.CENTER; letterSpacing = 0.12f }, ui.block(2))
+            }
+            row?.addView(cell, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply { rightMargin = if (i % 3 < 2) ui.dpi(8) else 0 })
+        }
+        // (1.11.0, Emma: "cuando juegues en la app debe desaparecer la Capri de encima, como opcional")
+        addView(ui.card(Hud.CYAN).apply {
+            addView(ui.label(getString(R.string.games_hide_title), Hud.CYAN))
+            addView(ui.text(getString(R.string.games_hide_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(choice(listOf(R.string.games_hide_on to true, R.string.games_hide_off to false),
+                { PageActivity.hideWhilePlaying(this@MainActivity) }, { x, y -> x == y }) { PageActivity.setHideWhilePlaying(this@MainActivity, it) }, ui.block(10))
+        }, ui.block(18))
+    }
+
+    // what you can ask her (the old «Comandos» tab): behind the «?» of her chat
+    private fun showCommands() {
+        val dialog = android.app.Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        val box = FrameLayout(this).apply { background = Hud.Backdrop(ui.dp(3f)) }
+        val page = cmdsPage()
+        box.addView(page, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
+        box.addView(ui.text("✕", 22f, Hud.YELLOW, ui.head).apply {
+            gravity = Gravity.CENTER
+            isClickable = true
+            setOnClickListener { dialog.dismiss() }
+        }, FrameLayout.LayoutParams(ui.dpi(56), ui.dpi(56), Gravity.TOP or Gravity.END))
+        dialog.setContentView(box)
+        dialog.show()
     }
 
     // Emma's TikTok and Discord, as a card (the Comunidad tab, and the one-time invite)
@@ -1141,13 +1204,19 @@ class MainActivity : Activity() {
         val day = 24 * 60 * 60 * 1000L
         if (now - first < 3 * day || now - prefs.getLong("supportAt", 0L) < 14 * day) return
         prefs.edit().putLong("supportAt", now).apply()
+        showSupport(asked = false)
+    }
+
+    /** The PayPal window: on its own now and then (supportMaybe), or from DONAR (asked: no «No mostrar otra vez»). */
+    private fun showSupport(asked: Boolean) {
+        val prefs = getSharedPreferences("app", MODE_PRIVATE)
         val never = { prefs.edit().putBoolean("supportNever", true).apply() }
         val dialog = android.app.Dialog(this)
         val card = ui.card(Hud.YELLOW).apply {
             addView(ui.label(getString(R.string.support_title), Hud.YELLOW))
             addView(ui.text(getString(R.string.support_text), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
             addView(ui.button(getString(R.string.support_paypal) + " ↗", Ui.Kind.MAIN) { never(); dialog.dismiss(); openLink(PAYPAL) }, ui.block(12))
-            addView(ui.button(getString(R.string.support_never), Ui.Kind.GREEN) { never(); dialog.dismiss() }.apply { textSize = 17f }, ui.block(10)) // (in big letters)
+            if (!asked) addView(ui.button(getString(R.string.support_never), Ui.Kind.GREEN) { never(); dialog.dismiss() }.apply { textSize = 17f }, ui.block(10)) // (in big letters)
             addView(ui.button(getString(R.string.community_later), Ui.Kind.LINE) { dialog.dismiss() }, ui.block(8))
         }
         val pad = FrameLayout(this).apply { setPadding(ui.dpi(4), ui.dpi(4), ui.dpi(10), ui.dpi(10)); addView(card) }
@@ -1188,7 +1257,10 @@ class MainActivity : Activity() {
     companion object {
         const val EXTRA_UPDATE = "update"
         const val EXTRA_TAB = "tab"
-        const val TAB_SETTINGS = 4
+        const val TAB_CHAT = 0
+        const val TAB_NEWS = 1
+        const val TAB_GAMES = 2
+        const val TAB_SETTINGS = 5
         private const val TABS = 6
         private const val TIKTOK = "https://www.tiktok.com/@emma180516_"
         private const val DISCORD = "https://discord.gg/hmh783tfn"

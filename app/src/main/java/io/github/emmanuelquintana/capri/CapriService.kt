@@ -194,6 +194,7 @@ class CapriService : Service() {
         // after her intro, so her panel doesn't land on top of her first hello
         queued?.let { queued = null; android.os.Handler(mainLooper).postDelayed({ command(it) }, 6000) }
         if (shareQueued) { shareQueued = false; android.os.Handler(mainLooper).postDelayed({ shared() }, 6000) }
+        AppChat.flush(this) // (1.11.0) what you wrote in the app's Chat while she was starting
     }
 
     private var shareQueued = false

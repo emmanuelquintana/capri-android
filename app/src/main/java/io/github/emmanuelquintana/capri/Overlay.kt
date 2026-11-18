@@ -346,12 +346,16 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     // touches) while another app's window is over them, even an invisible one like hers. With one of
     // them in front (GameWatch, with "Acceso de uso"), her window and her touch pads are hidden, and
     // back as they were when you leave it.
+    // (1.11.0) also while you play in the app's Juegos, if you chose so ("games"): each reason on its own
     private var shyNow = false
+    private val shyWhy = mutableSetOf<String>()
 
-    fun shy(on: Boolean) = main.post {
-        if (on == shyNow) return@post
-        shyNow = on
-        webView?.visibility = if (on) View.GONE else View.VISIBLE
+    fun shy(on: Boolean, why: String = "bank") = main.post {
+        if (on) shyWhy.add(why) else shyWhy.remove(why)
+        val want = shyWhy.isNotEmpty()
+        if (want == shyNow) return@post
+        shyNow = want
+        webView?.visibility = if (want) View.GONE else View.VISIBLE
         pads.reapply()
     }
 

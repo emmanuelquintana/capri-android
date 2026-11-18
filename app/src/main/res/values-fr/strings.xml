@@ -384,7 +384,6 @@
     <string name="report_bad">Impossible d’envoyer. Réessaie plus tard.</string>
     <!-- 1.10.0 -->
     <string name="you_games_title">Joue avec elle</string>
-    <string name="you_games_how">Échecs, démineur, 21 et morpion, ici sur ton téléphone, sans internet. Elle joue contre toi et dit ce qu’elle en pense. Tu peux aussi lui dire « Capri, on joue ».</string>
     <string name="you_games_open">Jouer</string>
     <string name="you_chatlog_title">Historique du chat</string>
     <string name="you_chatlog_how">Tout ce que tu lui as dit dans son chat et ce qu’elle a répondu, par jour, avec une recherche. Ça reste sur ce téléphone.</string>
@@ -408,4 +407,36 @@
     <string name="support_text">Capri est gratuite, sans pub et sans compte, et je la développe moi-même. Si elle te plaît et que tu peux, un don sur PayPal m’aide à continuer de l’améliorer. Sinon, aucun souci : elle reste pareille.</string>
     <string name="support_paypal">Soutenir sur PayPal</string>
     <string name="support_never">Ne plus afficher</string>
+    <!-- 1.11.0: her chat as the center, the games' tab, DONAR -->
+    <string name="tab_chat">Chat</string>
+    <string name="tab_games">Jeux</string>
+    <string name="chat_hint">Écris-lui…</string>
+    <string name="chat_send">Envoyer</string>
+    <string name="chat_help">Que puis-je lui demander ?</string>
+    <string name="chat_hello">Salut, %1$s. C’est notre chat maintenant : écris-moi ce que tu veux.</string>
+    <string name="chat_you">choom</string>
+    <string name="chat_typing">Elle écrit…</string>
+    <string name="chat_online">En ligne</string>
+    <string name="chat_asleep">Endormie · écris-lui pour la réveiller</string>
+    <string name="chat_waking">(je me réveille… quelques secondes)</string>
+    <string name="chat_noreply">Ma connexion a sauté. Tu réessaies dans un instant ?</string>
+    <string name="main_donate">Faire un don</string>
+    <string name="games_open">Ouvrir la salle de jeux</string>
+    <string name="games_new">NOUVEAU</string>
+    <string name="games_hide_title">Capri flottante pendant que tu joues</string>
+    <string name="games_hide_how">Pendant que tu joues ici, la Capri qui flotte sur ton écran peut s’écarter pour ne pas cacher le jeu. Elle te regarde quand même depuis le coin du jeu.</string>
+    <string name="games_hide_on">La cacher</string>
+    <string name="games_hide_off">La laisser</string>
+    <string name="you_games_how">Échecs, démineur, 21, morpion, ping-pong, pierre-feuille-ciseaux, Puissance 4, memory et la séquence neurale, ici sur ton téléphone, sans internet. Elle joue contre toi et dit ce qu’elle en pense. Tu peux aussi lui dire « Capri, on joue ».</string>
+    <string-array name="game_names">
+        <item>Échecs</item>
+        <item>Démineur</item>
+        <item>21</item>
+        <item>Morpion</item>
+        <item>Ping-pong</item>
+        <item>Pierre-feuille-ciseaux</item>
+        <item>Puissance 4</item>
+        <item>Memory</item>
+        <item>Séquence neurale</item>
+    </string-array>
 </resources>
