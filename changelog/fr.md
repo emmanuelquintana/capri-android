@@ -14,6 +14,8 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   la chercher.
 - **S’installe sur Huawei et Honor :** l’APK porte aussi la signature classique que certains installateurs (dont
   ceux de Huawei) demandent. Si ça ne s’installe toujours pas, le site explique quoi désactiver (le « Mode pur »).
+- **Soutenir Capri (facultatif) :** de temps en temps, jamais les premiers jours, un message propose de la soutenir
+  sur PayPal. Avec « Ne plus afficher », il ne revient plus.
 
 ## 1.10.0
 

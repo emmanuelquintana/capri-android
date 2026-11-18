@@ -404,4 +404,8 @@
     <string name="control_service_label">Capri utilise ton téléphone</string>
     <string name="control_service_desc">Permet à Capri de faire ce que tu lui demandes, seulement quand tu le demandes : retour, écran d’accueil, notifications ou apps récentes, défiler, toucher un bouton par son nom ou écrire dans le champ où tu es. Elle ne lit l’app au premier plan qu’à ce moment, pour trouver ce que tu as nommé, et ne garde rien. Jamais dans les apps de banque ou de paiement, jamais dans un mot de passe, rien sur l’écran verrouillé.</string>
     <string name="control_service_summary">Capri revient, défile, touche et écrit quand tu le lui demandes</string>
+    <string name="support_title">Tu veux soutenir Capri ?</string>
+    <string name="support_text">Capri est gratuite, sans pub et sans compte, et je la développe moi-même. Si elle te plaît et que tu peux, un don sur PayPal m’aide à continuer de l’améliorer. Sinon, aucun souci : elle reste pareille.</string>
+    <string name="support_paypal">Soutenir sur PayPal</string>
+    <string name="support_never">Ne plus afficher</string>
 </resources>

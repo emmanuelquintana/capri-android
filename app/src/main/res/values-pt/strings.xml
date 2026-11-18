@@ -404,4 +404,8 @@
     <string name="control_service_label">Capri usa seu celular</string>
     <string name="control_service_desc">Deixa a Capri fazer o que você pede, só quando você pede: voltar, ir pro início, abrir as notificações ou os apps recentes, rolar, tocar num botão pelo nome ou escrever no campo em que você está. Ela lê o app da frente só naquele momento, pra achar o que você falou, e não guarda nada. Nunca age em apps de banco ou pagamento, nunca escreve em senhas e não faz nada com a tela bloqueada.</string>
     <string name="control_service_summary">A Capri volta, rola, toca e escreve quando você pede</string>
+    <string name="support_title">Quer apoiar a Capri?</string>
+    <string name="support_text">A Capri é grátis, sem anúncios e sem conta, e eu faço ela por conta própria. Se você gosta e pode, uma doação no PayPal me ajuda a continuar melhorando. Se não, tudo bem: ela continua igualzinha.</string>
+    <string name="support_paypal">Apoiar no PayPal</string>
+    <string name="support_never">Não mostrar de novo</string>
 </resources>

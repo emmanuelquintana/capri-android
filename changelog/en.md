@@ -12,6 +12,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Spotify plays the song:** if you chose Spotify, “play this song” now plays it, not just searches for it.
 - **Installs on Huawei and Honor:** the APK now also carries the classic signature some installers (Huawei’s among
   them) ask for. If it still won’t install, the website explains what to turn off (“Pure mode”).
+- **Support Capri (optional):** once in a while, never in the first days, a note shows up to support her on PayPal.
+  Tap “Don’t show again” and it never comes back.
 
 ## 1.10.0
 

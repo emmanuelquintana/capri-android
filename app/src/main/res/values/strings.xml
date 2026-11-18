@@ -405,4 +405,8 @@
     <string name="control_service_label">Capri uses your phone</string>
     <string name="control_service_desc">Lets Capri do what you ask her, only when you ask: go back, go home, open notifications or recent apps, scroll, tap a button by its name or type into the field you’re on. She reads the app in front only at that moment, to find what you named, and keeps nothing. She never acts in banking or payment apps, never types into passwords and does nothing on the lock screen.</string>
     <string name="control_service_summary">Capri goes back, scrolls, taps and types when you ask her</string>
+    <string name="support_title">Want to support Capri?</string>
+    <string name="support_text">Capri is free, with no ads and no account, and I make her on my own. If you like her and can, a donation on PayPal helps me keep improving her. If not, no worries: she stays exactly the same.</string>
+    <string name="support_paypal">Support on PayPal</string>
+    <string name="support_never">Don\'t show again</string>
 </resources>

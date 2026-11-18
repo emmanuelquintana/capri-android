@@ -12,6 +12,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **O Spotify toca a música:** se você escolheu o Spotify, “toca tal música” agora toca, não só pesquisa.
 - **Instala em Huawei e Honor:** o APK agora também leva a assinatura clássica que alguns instaladores (os da
   Huawei entre eles) pedem. Se mesmo assim não instalar, o site explica o que desativar (o “Modo puro”).
+- **Apoie a Capri (opcional):** de vez em quando, nunca nos primeiros dias, aparece um aviso para apoiá-la no
+  PayPal. Com “Não mostrar de novo” ele não volta mais.
 
 ## 1.10.0
 

@@ -1115,11 +1115,41 @@ class MainActivity : Activity() {
     // once, ever: "join the community" (and then it lives in the Comunidad tab)
     private fun inviteOnce() {
         val prefs = getSharedPreferences("app", MODE_PRIVATE)
-        if (prefs.getBoolean("communityShown", false) || wantsUpdate) return
+        if (wantsUpdate) return
+        if (prefs.getBoolean("communityShown", false)) return supportMaybe()
         prefs.edit().putBoolean("communityShown", true).apply()
         val dialog = android.app.Dialog(this)
         val card = communityCard { dialog.dismiss() }
         card.addView(ui.button(getString(R.string.community_later), Ui.Kind.LINE) { dialog.dismiss() }, ui.block(8))
+        val pad = FrameLayout(this).apply { setPadding(ui.dpi(4), ui.dpi(4), ui.dpi(10), ui.dpi(10)); addView(card) }
+        dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+        dialog.setContentView(pad)
+        dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setLayout((resources.displayMetrics.widthPixels * 0.9).toInt(), WRAP_CONTENT)
+        dialog.show()
+    }
+
+    // (1.10.1, Emma: "una ventana flotante: ¿quieres apoyar a Capri?, con mi PayPal, que diga en grande «no
+    // mostrar otra vez» y que no sea molesto"): never on the first days, at most once every two weeks, never
+    // on top of an update, and gone for good with one tap (or once you've opened PayPal).
+    private fun supportMaybe() {
+        val prefs = getSharedPreferences("app", MODE_PRIVATE)
+        if (prefs.getBoolean("supportNever", false)) return
+        val now = System.currentTimeMillis()
+        val first = prefs.getLong("supportFirst", 0L)
+        if (first == 0L) return prefs.edit().putLong("supportFirst", now).apply()
+        val day = 24 * 60 * 60 * 1000L
+        if (now - first < 3 * day || now - prefs.getLong("supportAt", 0L) < 14 * day) return
+        prefs.edit().putLong("supportAt", now).apply()
+        val never = { prefs.edit().putBoolean("supportNever", true).apply() }
+        val dialog = android.app.Dialog(this)
+        val card = ui.card(Hud.YELLOW).apply {
+            addView(ui.label(getString(R.string.support_title), Hud.YELLOW))
+            addView(ui.text(getString(R.string.support_text), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.button(getString(R.string.support_paypal) + " ↗", Ui.Kind.MAIN) { never(); dialog.dismiss(); openLink(PAYPAL) }, ui.block(12))
+            addView(ui.button(getString(R.string.support_never), Ui.Kind.GREEN) { never(); dialog.dismiss() }.apply { textSize = 17f }, ui.block(10)) // (in big letters)
+            addView(ui.button(getString(R.string.community_later), Ui.Kind.LINE) { dialog.dismiss() }, ui.block(8))
+        }
         val pad = FrameLayout(this).apply { setPadding(ui.dpi(4), ui.dpi(4), ui.dpi(10), ui.dpi(10)); addView(card) }
         dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
         dialog.setContentView(pad)
@@ -1162,6 +1192,7 @@ class MainActivity : Activity() {
         private const val TABS = 6
         private const val TIKTOK = "https://www.tiktok.com/@emma180516_"
         private const val DISCORD = "https://discord.gg/d8tsTKMhN"
+        private const val PAYPAL = "https://paypal.me/Joseemmanuelq"
     }
 
     /** Download it and hand it to Android's installer (after letting Capri install apps, once). */

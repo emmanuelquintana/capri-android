@@ -13,6 +13,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Spotify reproduce la canción:** si elegiste Spotify, «pon tal canción» ahora la pone a sonar, no solo la busca.
 - **Se instala en Huawei y Honor:** el APK ahora lleva también la firma clásica, que algunos instaladores (los de
   Huawei entre ellos) piden. Si aun así no se instala, la web explica qué apagar (el «Modo puro»).
+- **Apoya a Capri (opcional):** de vez en cuando, nunca los primeros días, aparece un aviso para apoyarla en PayPal.
+  Con «No mostrar otra vez» no vuelve a salir.
 
 ## 1.10.0
 
