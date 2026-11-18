@@ -966,7 +966,7 @@ function summon() {
 // Her menu's desktop words, the phone's way (the desktop-only entries are left out of it:
 // looking at your PC's screen, being jealous of other AIs' browser pages)
 // Emma's community: her Discord and her TikTok (also at the end of the app's Ajustes)
-const COMMUNITY = { discord: 'https://discord.gg/d8tsTKMhN', tiktok: 'https://www.tiktok.com/@emma180516_' };
+const COMMUNITY = { discord: 'https://discord.gg/hmh783tfn', tiktok: 'https://www.tiktok.com/@emma180516_' };
 
 const PHONE_LABELS = {
   es: {

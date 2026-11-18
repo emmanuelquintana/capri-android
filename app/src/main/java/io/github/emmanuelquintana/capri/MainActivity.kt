@@ -1191,7 +1191,7 @@ class MainActivity : Activity() {
         const val TAB_SETTINGS = 4
         private const val TABS = 6
         private const val TIKTOK = "https://www.tiktok.com/@emma180516_"
-        private const val DISCORD = "https://discord.gg/d8tsTKMhN"
+        private const val DISCORD = "https://discord.gg/hmh783tfn"
         private const val PAYPAL = "https://paypal.me/Joseemmanuelq"
     }
 
