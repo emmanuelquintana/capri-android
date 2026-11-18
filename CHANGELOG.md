@@ -15,6 +15,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   Huawei entre ellos) piden. Si aun así no se instala, la web explica qué apagar (el «Modo puro»).
 - **Apoya a Capri (opcional):** de vez en cuando, nunca los primeros días, aparece un aviso para apoyarla en PayPal.
   Con «No mostrar otra vez» no vuelve a salir.
+- **Animaciones más limpias:** en varias (bailar, guitarra, reírse, estirarse, escuchar, varias de los juegos…)
+  Capri se deslizaba de lado entre un cuadro y otro. Ahora se queda en su lugar. Donde su melena salía cortada en
+  línea recta, ahora se desvanece suave.
 
 ## 1.10.0
 

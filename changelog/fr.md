@@ -16,6 +16,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   ceux de Huawei) demandent. Si ça ne s’installe toujours pas, le site explique quoi désactiver (le « Mode pur »).
 - **Soutenir Capri (facultatif) :** de temps en temps, jamais les premiers jours, un message propose de la soutenir
   sur PayPal. Avec « Ne plus afficher », il ne revient plus.
+- **Animations plus propres :** dans plusieurs (danser, guitare, rire, s’étirer, écouter, certaines des jeux…)
+  Capri glissait de côté d’une image à l’autre. Maintenant elle reste en place. Là où sa crinière était coupée net,
+  elle s’estompe en douceur.
 
 ## 1.10.0
 

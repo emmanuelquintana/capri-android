@@ -14,6 +14,9 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   them) ask for. If it still won’t install, the website explains what to turn off (“Pure mode”).
 - **Support Capri (optional):** once in a while, never in the first days, a note shows up to support her on PayPal.
   Tap “Don’t show again” and it never comes back.
+- **Cleaner animations:** in several of them (dancing, guitar, laughing, stretching, listening, some game ones…)
+  Capri slid sideways from one frame to the next. Now she stays in place. Where her mane was cut in a straight
+  line, it now fades out softly.
 
 ## 1.10.0
 
