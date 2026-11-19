@@ -1,0 +1,3 @@
+[submodule "voice-components"]
+	path = voice-components
+	url = https://github.com/emmanuelquintana/capri-voice-packs.git
