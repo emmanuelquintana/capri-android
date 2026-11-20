@@ -106,7 +106,7 @@ object CapriVoice {
     /** Reads what's installed again (on the packs' worker when called from the main thread). */
     fun reload(context: Context) {
         val app = context.applicationContext
-        val read = {
+        val read: () -> Unit = {
             val map = HashMap<String, VoiceClipLibrary>()
             runCatching { manager(app).listPacks() }.getOrDefault(emptyList()).forEach { id ->
                 runCatching { VoiceClipLibrary(File(root(app), id), allowPrivate = true) }
@@ -121,7 +121,7 @@ object CapriVoice {
         if (Looper.myLooper() == Looper.getMainLooper() && !loaded) {
             // first time on the main thread: just the manifests (small), so a phrase isn't missed
             read()
-        } else if (Looper.myLooper() == Looper.getMainLooper()) worker.execute(read) else read()
+        } else if (Looper.myLooper() == Looper.getMainLooper()) worker.execute { read() } else read()
     }
 
     /** A pack from your phone's files: it must be one of V8's, byte for byte. */
