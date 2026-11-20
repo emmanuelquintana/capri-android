@@ -10,6 +10,8 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
+import android.media.AudioAttributes
+import android.media.AudioFocusRequest
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +23,10 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import io.github.emmanuelquintana.voice.CapriVoiceClipPlayer
+import io.github.emmanuelquintana.voice.ClipPlaybackResult
+import io.github.emmanuelquintana.voice.VoiceClip
+import io.github.emmanuelquintana.voice.VoiceClipLibrary
 import org.json.JSONObject
 import java.util.Locale
 
@@ -208,6 +214,7 @@ class Ears(private val service: CapriService) {
         watchPlayers(false)
         wanted = false
         stop()
+        stopVoice()
         tts?.shutdown()
         tts = null
     }
@@ -522,16 +529,131 @@ class Ears(private val service: CapriService) {
         service.overlay?.emit("capri:heard", JSONObject().put("text", text).toString())
     }
 
-    /** Her answer, out loud (not on silent or vibrate), and not heard by her own ears meanwhile. */
-    fun say(text: String, lang: String) = main.post {
+    // (1.11.0) Capri Voice V8 (CapriVoice.kt): one voice at a time, her recorded phrase when there's one for
+    // exactly that, else her answer as it was written, in the voice you picked. Her page hears how it goes
+    // ("voice:event": VOICE_REQUESTED … VOICE_STARTED, VOICE_PROGRESS, VOICE_FINISHED, VOICE_CANCELLED,
+    // VOICE_ERROR, VOICE_UNAVAILABLE) and her ears open again when the sound really ended, not when it was ready.
+    private var sayId = ""
+    private var said = 0
+    private var clipPlayer: CapriVoiceClipPlayer? = null
+    private var focus: AudioFocusRequest? = null
+
+    private fun voiceEvent(id: String, state: String, extra: JSONObject.() -> Unit = {}) {
+        service.overlay?.emit("voice:event", JSONObject().put("id", id).put("state", state).apply(extra).toString())
+    }
+
+    /** Sound for her voice: others lower theirs a moment (a call or another app taking it stops her). */
+    private fun takeFocus(): Boolean {
+        val audio = service.getSystemService(AudioManager::class.java) ?: return true
+        val req = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+            .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ASSISTANT)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
+            .setOnAudioFocusChangeListener({ change ->
+                if (change == AudioManager.AUDIOFOCUS_LOSS || change == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) hushVoice()
+            }, main)
+            .build()
+        focus = req
+        return audio.requestAudioFocus(req) != AudioManager.AUDIOFOCUS_REQUEST_FAILED
+    }
+
+    private fun dropFocus() {
+        val req = focus ?: return
+        focus = null
+        service.getSystemService(AudioManager::class.java)?.abandonAudioFocusRequest(req)
+    }
+
+    /** Whatever she's saying stops now (a newer answer, you asked, her page closed it). */
+    fun hushVoice(id: String = "") = main.post {
+        if (id.isNotEmpty() && id != sayId) return@post
+        stopVoice()
+        if (speaking) spoke()
+    }
+
+    private fun stopVoice() {
+        val p = clipPlayer
+        clipPlayer = null
+        p?.let { runCatching { it.stop() } } // (its VOICE_CANCELLED goes to her page)
+        if (speaking && tts != null) runCatching { tts?.stop() } // (and the phone voice's, from onStop)
+        dropFocus()
+    }
+
+    /** Her answer, out loud (not on silent or vibrate), and not heard by her own ears meanwhile.
+     *  [opts]: id (to follow or cancel it), kind ("answer": her words as written; "event": one of her
+     *  phrases, shown only if it can't play), clip (that phrase's id). */
+    fun say(text: String, lang: String, opts: JSONObject = JSONObject()) = main.post {
+        val id = opts.optString("id").ifEmpty { "say-${++said}" }
+        val kind = opts.optString("kind", "answer")
         val audio = service.getSystemService(AudioManager::class.java)!!
+        voiceEvent(id, "VOICE_REQUESTED") { put("kind", kind) }
         // her own beep's mute off first: her voice goes through the media volume too
         unhush()
         main.removeCallbacks(hushEnd)
-        // out loud through the media volume (what music uses): her ears asked you for it, even on silent
-        if (text.isBlank() || audio.getStreamVolume(AudioManager.STREAM_MUSIC) == 0) return@post
-        // (1.10.0) her voice switched off (Personalizar › Su voz): she answers in writing only
-        if (!Store(service).configFlag("speak", true)) return@post
+        val why = when {
+            text.isBlank() -> "empty"
+            // out loud through the media volume (what music uses): her ears asked you for it, even on silent
+            audio.getStreamVolume(AudioManager.STREAM_MUSIC) == 0 -> "muted"
+            // (1.10.0) her voice switched off (Personalizar › Su voz): she answers in writing only
+            !Store(service).configFlag("speak", true) -> "off"
+            // a phrase of her own (a pat, a hello) on silent or vibrate: shown, not heard
+            kind == "event" && audio.ringerMode != AudioManager.RINGER_MODE_NORMAL -> "silent"
+            else -> null
+        }
+        if (why != null) return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why) }
+        // one voice at a time: the newer one cancels the one before
+        stopVoice()
+        sayId = id
+        val found = runCatching { CapriVoice.clipFor(service, lang, opts.optString("clip"), text) }.getOrNull()
+        if (found != null) return@post playClip(id, found.first, found.second)
+        // one of her phrases without its recording: she doesn't read it out in another voice
+        if (kind == "event") return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "noclip") }
+        // her new answers: in the voice you picked (the phone's, as before), or in writing only
+        if (CapriVoice.engine(service) == "text") return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "text") }
+        systemVoice(id, text, lang)
+    }
+
+    private fun playClip(id: String, lib: VoiceClipLibrary, clip: VoiceClip) {
+        val store = Store(service)
+        val player = CapriVoiceClipPlayer(lib)
+        clipPlayer = player
+        speaking = true
+        recognizer?.let { runCatching { it.cancel() } }
+        listening = false
+        takeFocus()
+        main.removeCallbacks(unstuck)
+        main.postDelayed(unstuck, clip.durationMs + 10_000L)
+        val res = runCatching {
+            player.playEvent(id, clip.eventId, clip.language, clip.emotion,
+                volume = store.configNumber("voiceClipVolume", 1.0).toFloat().coerceIn(0f, 1f),
+                speed = store.configNumber("voiceClipSpeed", 1.0).toFloat().coerceIn(0.75f, 1.25f)) { ev ->
+                val state = ev.state.name
+                if (state == "VOICE_REQUESTED") return@playEvent // (already said, above)
+                if (state == "VOICE_PROGRESS" && ev.positionMs % 500 >= 100) return@playEvent // (every half second is plenty)
+                voiceEvent(ev.requestId, state) {
+                    put("source", "clip").put("clip", clip.id).put("ms", ev.positionMs).put("duration", clip.durationMs)
+                        .put("hint", clip.animationHint).put("text", clip.text)
+                    ev.error?.let { put("error", it) }
+                }
+                // (stopped by a newer one: that one goes on, her ears don't open in between)
+                if (state in END && clipPlayer === player) {
+                    clipPlayer = null
+                    dropFocus()
+                    if (state == "VOICE_ERROR") Diag.add("W", "voice clip ${clip.id}: ${ev.error}")
+                    spoke()
+                }
+            }
+        }.getOrElse {
+            Diag.add("W", "voice clip ${clip.id}: ${it.message}")
+            null
+        }
+        if (res != ClipPlaybackResult.QUEUED) {
+            clipPlayer = null
+            dropFocus()
+            voiceEvent(id, "VOICE_ERROR") { put("source", "clip").put("error", res?.name ?: "error") }
+            spoke()
+        }
+    }
+
+    private fun systemVoice(id: String, text: String, lang: String) {
         val speak = {
             voice(accent(lang))
             // her voice as you set it (the app's Settings › Her ears)
@@ -541,7 +663,8 @@ class Ears(private val service: CapriService) {
             speaking = true
             recognizer?.let { runCatching { it.cancel() } }
             listening = false
-            tts?.speak(text.take(600), TextToSpeech.QUEUE_FLUSH, null, "capri")
+            voiceEvent(id, "VOICE_PREPARING") { put("source", "system") }
+            tts?.speak(text.take(600), TextToSpeech.QUEUE_FLUSH, null, id)
             // never deaf for good if the voice engine forgets to say it's done
             main.removeCallbacks(unstuck)
             main.postDelayed(unstuck, 30_000)
@@ -549,30 +672,42 @@ class Ears(private val service: CapriService) {
         }
         if (tts != null && ttsReady) {
             speak()
-            return@post
+            return
         }
         if (tts == null) {
             tts = TextToSpeech(service) { status ->
                 main.post {
                     ttsReady = status == TextToSpeech.SUCCESS
-                    if (ttsReady) speak()
+                    if (ttsReady && sayId == id) speak()
+                    else if (!ttsReady) voiceEvent(id, "VOICE_ERROR") { put("source", "system").put("error", "tts") }
                 }
             }.apply {
                 setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-                    override fun onStart(utteranceId: String?) {}
-                    override fun onDone(utteranceId: String?) = main.post { spoke() }.let {}
+                    override fun onStart(utteranceId: String?) = main.post {
+                        voiceEvent(utteranceId.orEmpty(), "VOICE_STARTED") { put("source", "system") }
+                    }.let {}
+                    override fun onDone(utteranceId: String?) = main.post { ttsEnded(utteranceId.orEmpty(), "VOICE_FINISHED") }.let {}
                     @Deprecated("Deprecated in Java")
-                    override fun onError(utteranceId: String?) = main.post { spoke() }.let {}
+                    override fun onError(utteranceId: String?) = main.post { ttsEnded(utteranceId.orEmpty(), "VOICE_ERROR") }.let {}
+                    override fun onStop(utteranceId: String?, interrupted: Boolean) = main.post { ttsEnded(utteranceId.orEmpty(), "VOICE_CANCELLED") }.let {}
                 })
             }
         }
     }
 
-    private val unstuck = Runnable { if (speaking) spoke() }
+    private fun ttsEnded(id: String, state: String) {
+        voiceEvent(id, state) { put("source", "system") }
+        // an older answer's end isn't the newer one's
+        if (id != sayId || clipPlayer != null) return
+        spoke()
+    }
+
+    private val unstuck = Runnable { if (speaking) { stopVoice(); spoke() } }
 
     private fun spoke() {
         main.removeCallbacks(unstuck)
         speaking = false
+        dropFocus()
         if (wanted) next(300)
     }
 
@@ -645,6 +780,8 @@ class Ears(private val service: CapriService) {
             "pt" to listOf("pt-BR" to R.string.accent_br, "pt-PT" to R.string.accent_pt),
             "fr" to listOf("fr-FR" to R.string.accent_fr, "fr-CA" to R.string.accent_ca),
         )
+
+        private val END = setOf("VOICE_FINISHED", "VOICE_CANCELLED", "VOICE_ERROR")
 
         /** What her ears are doing, for the app's Settings: "", listening, heard, other, busy, media, nomic, screenoff, error:N */
         @Volatile var status = ""

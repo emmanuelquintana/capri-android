@@ -493,4 +493,43 @@
         <item quantity="one">%d neurodanse gardée</item>
         <item quantity="other">%d neurodanses gardées</item>
     </plurals>
+    <!-- (1.11.0) Capri Voice V8 -->
+    <string name="cv_title">Capri Voice (sa voix enregistrée)</string>
+    <string name="cv_how">Sa propre voix, phrase par phrase, hors ligne et sans charger de modèle : bonjours, au revoir, caresses, bonne nuit. Paquets optionnels, un par langue.</string>
+    <string name="cv_clips">Phrases avec sa voix</string>
+    <string name="cv_answers">Ses nouvelles réponses</string>
+    <string name="cv_answers_how">Les réponses de son IA (Gemini, Grok…) sont dites telles quelles. Sa voix approuvée pour les nouvelles phrases n’est pas encore sur Android (seulement sur PC) : la voix du téléphone ou seulement le texte.</string>
+    <string name="cv_engine_system">Voix du téléphone</string>
+    <string name="cv_engine_text">Texte seul</string>
+    <string name="cv_mode">Performances</string>
+    <string name="cv_mode_how">Fidélité maximale : seulement sa voix approuvée (phrases), le reste en texte. Équilibré : phrases, et la voix du téléphone pour le reste. Ses phrases ne chargent aucun modèle : c’est déjà le plus léger.</string>
+    <string name="cv_mode_fidelity">Fidélité max</string>
+    <string name="cv_mode_balanced">Équilibré</string>
+    <string name="cv_mode_custom">Perso</string>
+    <string name="cv_volume">Volume de ses phrases</string>
+    <string name="cv_speed">Débit de ses phrases</string>
+    <string name="cv_vol_low">Bas</string>
+    <string name="cv_vol_mid">Moyen</string>
+    <string name="cv_vol_high">Fort</string>
+    <string name="cv_signature">Finition SIGNATURE V7.2 : déjà dans ses phrases en espagnol (jamais appliquée deux fois). L’anglais reste sans effet, comme approuvé.</string>
+    <string name="cv_engine_state">Moteur : phrases prêtes sans modèle · sa voix pour les nouvelles phrases sur Android : en attente (pas de profil validé)</string>
+    <string name="cv_test">Écouter sa voix</string>
+    <string name="cv_lang_es">Espagnol latino</string>
+    <string name="cv_lang_en">Anglais</string>
+    <string name="cv_installed">%1$s · v%2$s · %3$d phrases</string>
+    <string name="cv_missing">%1$s · non installé</string>
+    <string name="cv_install">Installer depuis un fichier</string>
+    <string name="cv_download">Télécharger</string>
+    <string name="cv_repair">Réparer</string>
+    <string name="cv_remove">Supprimer</string>
+    <string name="cv_verify">Vérifier</string>
+    <string name="cv_storage">Occupe %s sur le téléphone</string>
+    <string name="cv_private">Ses paquets de voix sont privés pour l’instant : l’app ne les apporte ni ne les télécharge tant qu’il n’y a pas de canal autorisé. N’installe que celui qu’on t’a donné pour tester.</string>
+    <string name="cv_nochannel">Téléchargement : pas encore de canal autorisé.</string>
+    <string name="cv_ok">C’est fait.</string>
+    <string name="cv_err">Impossible : %s</string>
+    <string name="cv_err_notv8">Ce fichier n’est pas un paquet Capri Voice V8 vérifié.</string>
+    <string name="cv_err_needfile">Le paquet d’origine manque : réinstalle-le depuis son fichier.</string>
+    <string name="cv_busy">En cours…</string>
+    <string name="cv_no_phrase">Pas encore de phrase dans cette langue : installe son paquet.</string>
 </resources>

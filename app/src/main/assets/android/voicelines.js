@@ -1,0 +1,132 @@
+// (1.11.0) Capri Voice V8: her own recorded phrases (CapriVoice.kt), on the moments made for them.
+//
+// The rule (Emma's): a visual moment stays visual; a spoken moment plays its phrase; her AI's answers are
+// said word for word as her AI wrote them (Ears.kt plays a phrase for one only if it's exactly the same
+// words); her sound effects (voice.js) stay as they are. So only some of the lines she already says here
+// (a pat, a throw, back after a while, a goodbye) become one of her phrases, now and then, and when one
+// does, the bubble shows the words she really says. Without her packs, or with her voice off, nothing
+// changes: the same line as always, shown.
+//
+// Her phrases are found by the catalog's own ids (eventId, from the V8 pack's manifest), never by file.
+
+import { call, send, on } from './native.js';
+import { cutin } from './moods.js';
+
+const LOCALES = { es: 'es-MX', en: 'en-US' };
+
+// her moments → the V8 events that fit them (eventId, or its family: "pet" is pet.original-02, -03…),
+// how often she says one instead of the usual line, and how long before another of the same
+const MOMENTS = {
+  pet: { events: ['pet'], chance: 0.6, every: 60e3 },
+  drag: { events: ['drag'], chance: 0.5, every: 45e3 },
+  move: { events: ['move', 'gesture'], chance: 0.4, every: 60e3 },
+  anger: { events: ['anger'], chance: 1, every: 120e3 },
+  back: { events: ['greeting.return'], chance: 1, every: 10 * 60e3 },
+  hello: { events: ['greeting'], chance: 1, every: 3 * 3600e3 },
+  morning: { events: ['morning'], chance: 1, every: 3 * 3600e3 },
+  bye: { events: ['goodbye'], chance: 1, every: 0 },
+  night: { events: ['night', 'sleep'], chance: 1, every: 0 },
+};
+// the lines of hers that are those moments (lines.js), wherever she says them from
+const POOLS = {
+  pet: ['pet.high', 'pet.low', 'pet.enough'],
+  drag: ['thrown.ow', 'thrown.fun', 'thrown.screen', 'thrown.ledge', 'thrown.feet', 'thrown.again'],
+  anger: ['thrown.angry'],
+  move: ['thrown.dodge', 'screens.hello'],
+  back: ['bond.back'],
+};
+const GAP = 20e3; // never two of her phrases closer than this (she isn't a talking toy)
+
+export function voiceLines({ cfg, lang }) {
+  const dev = window.dev;
+  if (!dev?.panel) return null;
+  const { panel } = dev;
+  let catalog = {};
+  const load = (c) => { catalog = c && typeof c === 'object' ? c : {}; };
+  call('voice:packs').then(load).catch(() => {});
+  on('voice:packs', load);
+
+  const last = {};      // moment → when
+  const lastClip = {};  // moment → the phrase before (not the same twice in a row)
+  let lastAny = 0;
+  let seq = 0;
+
+  const locale = () => LOCALES[lang()] || null;
+  const allowed = () => {
+    const c = cfg();
+    return c.speak !== false && c.voiceClips !== false && !c.gamer && !dev.chat?.open && !dev.capri?.hidden;
+  };
+
+  // one phrase for that moment, if her pack for this language has one (and now is a good time)
+  const phrase = (moment, force = false) => {
+    const rule = MOMENTS[moment];
+    const loc = locale();
+    const list = loc && catalog[loc];
+    if (!rule || !list?.length || !allowed()) return null;
+    const now = Date.now();
+    if (!force && (now - lastAny < GAP || now - (last[moment] || 0) < rule.every || Math.random() > rule.chance)) return null;
+    const fits = list.filter((c) => rule.events.some((e) => c.eventId === e || c.eventId.startsWith(`${e}.`)));
+    const fresh = fits.filter((c) => c.id !== lastClip[moment]);
+    const pool = fresh.length ? fresh : fits;
+    if (!pool.length) return null;
+    const clip = pool[Math.floor(Math.random() * pool.length)];
+    last[moment] = lastAny = now;
+    lastClip[moment] = clip.id;
+    return clip;
+  };
+
+  const speak = (clip) => {
+    const id = `clip-${++seq}`;
+    send('voice:say', { id, text: clip.text, lang: locale(), clip: clip.id, kind: 'event' });
+    return id;
+  };
+
+  // which moment a line of hers is (its pool in lines.js)
+  const poolOf = (line) => {
+    const t = dev.brain?.t;
+    if (!t || !line) return null;
+    for (const [moment, paths] of Object.entries(POOLS)) {
+      for (const path of paths) {
+        const pool = path.split('.').reduce((o, k) => o?.[k], t);
+        if (Array.isArray(pool) && pool.includes(line)) return moment;
+      }
+    }
+    return null;
+  };
+
+  // her lines: one that is such a moment may become her phrase (shown as she says it)
+  const say = panel.say.bind(panel);
+  panel.say = (msg = {}) => {
+    const moment = !msg.reply && !msg.chat && !msg.guide && poolOf(msg.line);
+    const clip = moment && phrase(moment);
+    if (!clip) return say(msg);
+    const shown = say({ ...msg, line: clip.text, hold: Math.max(msg.hold || 0, clip.ms + 1500) });
+    if (shown !== false) speak(clip);
+    return shown;
+  };
+
+  // her phrase's own gesture as it starts (the catalog's animationHint): her cut-ins, her wave
+  const CUTS = { angry: 'angry', cry: 'cry', love: 'love', sleepy: 'sleepy' };
+  on('voice:event', (e = {}) => {
+    if (e.state === 'VOICE_STARTED' && e.source === 'clip') {
+      dev.voiceTalking = true;
+      if (CUTS[e.hint]) cutin(CUTS[e.hint]);
+    } else if (['VOICE_FINISHED', 'VOICE_CANCELLED', 'VOICE_ERROR', 'VOICE_UNAVAILABLE'].includes(e.state)) {
+      dev.voiceTalking = false;
+    }
+  });
+
+  return {
+    /** A spoken moment of hers (listen.js: a goodbye, she's back): her phrase for it, or the usual line.
+     *  Returns the line to show and, when a phrase plays, true as `spoken`. */
+    moment(moment, line) {
+      const clip = phrase(moment, true);
+      if (!clip) return { line, spoken: false };
+      speak(clip);
+      return { line: clip.text, spoken: true, ms: clip.ms };
+    },
+    /** What she's saying stops (a newer request, she was hidden). */
+    stop: () => send('voice:stop', {}),
+    has: () => Boolean(catalog[locale()]?.length),
+  };
+}

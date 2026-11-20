@@ -34,6 +34,10 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   sur ces téléphones, et les liens de boutique vont vers AppGallery s’il n’y a pas de Play Store.
 - **Nouveau lien Discord.**
 - L’onglet Communauté est passé dans Nouveautés, et Commandes derrière le « ? » du chat.
+- **Capri Voice (sa voix enregistrée) :** Capri peut parler avec sa propre voix, phrase par phrase et hors ligne, en
+  espagnol latino et en anglais : quand tu la caresses, la lances, reviens, lui dis au revoir ou bonne nuit, avec le
+  texte exact de ce qu’elle dit. Les réponses de son IA sont dites telles quelles (voix du téléphone ou texte seul, à
+  toi de choisir). Réglages dans Personnaliser › Capri Voice. Ses paquets de voix sont optionnels et arriveront à part.
 
 ## 1.10.1
 

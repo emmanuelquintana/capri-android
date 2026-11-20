@@ -210,6 +210,7 @@ const HELP_ASK = /^(?:qu[ée] (?:puedes|sabes) hacer|ayuda|comandos|what can you
 const NAME = /^.*?(?<![\p{L}])(?:[ck]a[pb]r[iíy]s?|ка[пб]р[иы])(?![\p{L}])[\s,.!?:]*/iu;
 
 let busy = 0;
+let turns = 0; // (1.11.0) each request of yours: an answer to an older one stays silent
 
 export function listen({ toggleVisible, visible }) {
   on('capri:heard', (heard) => {
@@ -217,6 +218,7 @@ export function listen({ toggleVisible, visible }) {
     if (!window.dev || (busy && Date.now() - busy < 20000)) return;
     busy = Date.now();
     if (String(heard?.text || '').replace(NAME, '').trim()) window.dev.hearing?.off(); // (heard you: she answers now)
+    window.dev.voicelines?.stop(); // (1.11.0) whatever she was still saying: you're talking now
     handle(String(heard?.text || '').replace(NAME, '').trim(), { toggleVisible, visible })
       .catch((err) => console.error('[capri] voice', err))
       .finally(() => { busy = 0; });
@@ -233,14 +235,21 @@ async function handle(text, { toggleVisible, visible }) {
   const t = WORDS[lang];
   const locale = LOCALES[lang];
 
-  // her answer: in her panel, and out loud
-  const answer = (line, face = 'smug', quote = text, aloud = true) => {
-    if (!chat.open) panel.say({ kind: 'info', face, line, quote: quote || '', hold: 5000 + line.length * 45 });
-    if (aloud) send('voice:say', { text: spoken(line), lang: locale });
+  // her answer: in her panel, and out loud. (1.11.0) Exactly as written (Ears.kt plays one of her recorded
+  // phrases only when it's word for word the same), and never one that came too late: a newer request
+  // makes an older answer silent (Capri Voice V8).
+  const turn = ++turns;
+  const answer = (line, face = 'smug', quote = text, aloud = true, moment = null) => {
+    if (turn !== turns) return;
+    // a spoken moment of hers (a goodbye, she's back): her recorded phrase for it, when she has one
+    const own = moment && aloud ? dev.voicelines?.moment(moment, line) : null;
+    if (own?.spoken) line = own.line;
+    if (!chat.open) panel.say({ kind: 'info', face, line, quote: quote || '', hold: Math.max(5000 + line.length * 45, (own?.ms || 0) + 1500) });
+    if (aloud && !own?.spoken) send('voice:say', { id: `answer-${turn}`, kind: 'answer', text: spoken(line), lang: locale });
   };
 
   if (HIDE_ASK.test(text)) {
-    answer(t.bye, 'aside');
+    answer(t.bye, 'aside', text, true, 'bye');
     window.dev?.poses?.cue('bye', { times: 1 }); // a wave and she glitches out, when it's drawn
     setTimeout(() => toggleVisible(false), 1800);
     return;
@@ -269,7 +278,7 @@ async function handle(text, { toggleVisible, visible }) {
   }
   if (SHOW_ASK.test(text)) {
     setTimeout(() => dev.poses?.wave(), 400);
-    return answer(t.back, 'laugh');
+    return answer(t.back, 'laugh', text, true, 'hello');
   }
   // (a secret: wedding.js)
   if (await dev.wedding?.heard(text, (line) => send('voice:say', { text: spoken(line), lang: locale }))) return;

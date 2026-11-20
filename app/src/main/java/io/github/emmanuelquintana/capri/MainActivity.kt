@@ -866,6 +866,128 @@ class MainActivity : Activity() {
             }
         }, ui.block(16))
 
+        // (1.11.0) Capri Voice V8 (CapriVoice.kt): her recorded voice, phrase by phrase, offline; optional
+        // packs per language. Here with the rest of her voice, not on a screen of its own.
+        addView(ui.card(Hud.MANE).apply {
+            addView(ui.label(getString(R.string.cv_title)))
+            val store = Store(this@MainActivity)
+            addView(ui.text(getString(R.string.cv_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            val engineState = ui.text(getString(R.string.cv_engine_state), 12f, Hud.PAPER_2, ui.mono)
+            addView(engineState, ui.block(8))
+            addView(ui.text(getString(R.string.cv_clips), 14f, Hud.PAPER, ui.head), ui.block(12))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { store.configFlag("voiceClips", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceClips", it) }, ui.block(6))
+            // how she trades fidelity for coverage: her approved phrases only, or phrases + the phone's voice
+            addView(ui.text(getString(R.string.cv_mode), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(ui.text(getString(R.string.cv_mode_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.cv_mode_fidelity to "fidelity", R.string.cv_mode_balanced to "balanced", R.string.cv_mode_custom to "custom"),
+                { store.configString("voiceMode") ?: "balanced" }, { a, b -> a == b }) { mode ->
+                CapriSettings.set(this@MainActivity, "voiceMode", mode)
+                when (mode) {
+                    "fidelity" -> CapriSettings.set(this@MainActivity, "voiceEngine", "text")
+                    "balanced" -> CapriSettings.set(this@MainActivity, "voiceEngine", "system")
+                }
+                if (mode != "custom") CapriSettings.set(this@MainActivity, "voiceClips", true)
+            }, ui.block(6))
+            addView(ui.text(getString(R.string.cv_answers), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(ui.text(getString(R.string.cv_answers_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.cv_engine_system to "system", R.string.cv_engine_text to "text"),
+                { CapriVoice.engine(this@MainActivity) }, { a, b -> a == b }) {
+                CapriSettings.set(this@MainActivity, "voiceEngine", it)
+                CapriSettings.set(this@MainActivity, "voiceMode", "custom")
+            }, ui.block(6))
+            addView(ui.text(getString(R.string.cv_volume), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.cv_vol_low to 0.5, R.string.cv_vol_mid to 0.8, R.string.cv_vol_high to 1.0),
+                { store.configNumber("voiceClipVolume", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceClipVolume", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.cv_speed), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.voice_slower to 0.9, R.string.voice_pace_normal to 1.0, R.string.voice_faster to 1.1),
+                { store.configNumber("voiceClipSpeed", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceClipSpeed", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.cv_signature), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(10))
+            addView(ui.button(getString(R.string.cv_test), Ui.Kind.LINE) { testVoice() }, ui.block(10))
+
+            // her packs, one per language: installed or not, its version, and what to do with it
+            addView(ui.text(getString(R.string.cv_private), 12f, Hud.YELLOW, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(14))
+            val storage = ui.text("", 12f, Hud.PAPER_2, ui.mono)
+            for (pack in CapriVoice.PACKS) {
+                val name = getString(if (pack.lang == "es-MX") R.string.cv_lang_es else R.string.cv_lang_en)
+                val line = ui.text("", 14f, Hud.PAPER, ui.head)
+                addView(line, ui.block(12))
+                val row1 = ui.row()
+                val row2 = ui.row()
+                val lp = { LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply { rightMargin = ui.dpi(4) } }
+                row1.addView(ui.button(getString(R.string.cv_install), Ui.Kind.LINE) {
+                    runCatching {
+                        @Suppress("DEPRECATION")
+                        startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
+                            .setType("*/*").putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/zip", "application/octet-stream")), PICK_VOICE)
+                    }
+                }, lp())
+                row1.addView(ui.button(getString(R.string.cv_download), Ui.Kind.LINE) {
+                    if (CapriVoice.CHANNEL.isEmpty()) Toast.makeText(this@MainActivity, R.string.cv_nochannel, Toast.LENGTH_LONG).show()
+                    else voiceJob { done -> CapriVoice.download(this@MainActivity, pack.lang, done) }
+                }, lp())
+                row2.addView(ui.button(getString(R.string.cv_verify), Ui.Kind.LINE) { voiceJob { CapriVoice.verify(this@MainActivity, pack.lang, it) } }, lp())
+                row2.addView(ui.button(getString(R.string.cv_repair), Ui.Kind.LINE) { voiceJob { CapriVoice.repair(this@MainActivity, pack.lang, it) } }, lp())
+                row2.addView(ui.button(getString(R.string.cv_remove), Ui.Kind.LINE) { voiceJob { CapriVoice.remove(this@MainActivity, pack.lang, it) } }, lp())
+                addView(row1, ui.block(6))
+                addView(row2, ui.block(4))
+                val show = {
+                    val lib = CapriVoice.installed(pack.lang)
+                    line.text = if (lib != null) getString(R.string.cv_installed, name, pack.version, lib.listClips().size) else getString(R.string.cv_missing, name)
+                    line.setTextColor(if (lib != null) Hud.GREEN else Hud.PAPER_2)
+                    row2.visibility = if (lib != null) View.VISIBLE else View.GONE
+                }
+                show()
+                choices.add(show)
+            }
+            addView(storage, ui.block(10))
+            val showStorage = {
+                val busy = CapriVoice.busy
+                storage.text = if (busy.isNotEmpty()) getString(R.string.cv_busy) + (CapriVoice.progress.takeIf { it >= 0 }?.let { " ${(it * 100).toInt()}%" } ?: "")
+                else getString(R.string.cv_storage, android.text.format.Formatter.formatShortFileSize(this@MainActivity, CapriVoice.bytes(this@MainActivity)))
+            }
+            showStorage()
+            choices.add(showStorage)
+        }, ui.block(16))
+
+    }
+
+    // (1.11.0) Capri Voice V8: the pack you picked in your files, its jobs, a test of her voice
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        @Suppress("DEPRECATION")
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode != PICK_VOICE || resultCode != RESULT_OK) return
+        val uri = data?.data ?: return
+        voiceJob { CapriVoice.installFrom(this, uri, it) }
+    }
+
+    private fun voiceJob(work: ((String?) -> Unit) -> Unit) {
+        Toast.makeText(this, R.string.cv_busy, Toast.LENGTH_SHORT).show()
+        choices.forEach { it() }
+        work { err ->
+            val msg = when (err) {
+                null -> getString(R.string.cv_ok)
+                "notV8" -> getString(R.string.cv_err_notv8)
+                "needFile" -> getString(R.string.cv_err_needfile)
+                "nochannel" -> getString(R.string.cv_nochannel)
+                else -> getString(R.string.cv_err, err)
+            }
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+            choices.forEach { it() }
+        }
+    }
+
+    private fun testVoice() {
+        val lang = CapriVoice.voiceLang(Lang.current(this)) ?: "es-MX"
+        val clip = CapriVoice.installed(lang)?.listClips()?.let { all -> all.filter { it.eventId.startsWith("greeting") }.ifEmpty { all } }?.randomOrNull()
+        val ears = CapriService.current?.ears
+        if (clip == null || ears == null || !CapriVoice.clipsOn(this)) {
+            Toast.makeText(this, if (clip == null) R.string.cv_no_phrase else R.string.cv_busy, Toast.LENGTH_LONG).show()
+            return
+        }
+        Toast.makeText(this, clip.text, Toast.LENGTH_LONG).show()
+        ears.say(clip.text, lang, org.json.JSONObject().put("id", "test").put("clip", clip.id).put("kind", "test"))
     }
 
     // ---------- Settings: what's general about her (1.9.0: you and her looks have their own tabs) ----------
@@ -1372,6 +1494,7 @@ class MainActivity : Activity() {
         const val EXTRA_UPDATE = "update"
         const val EXTRA_TAB = "tab"
         const val TAB_CHAT = 0
+        private const val PICK_VOICE = 4711 // (1.11.0) a Capri Voice pack from your files
         const val TAB_NEWS = 1
         const val TAB_GAMES = 2
         const val TAB_SETTINGS = 5

@@ -57,6 +57,7 @@ import { sleepMode } from './sleep.js';
 import { reactMode } from './reactmode.js';
 import { neuroDances } from './neuro.js';
 import { twins } from './twin.js';
+import { voiceLines } from './voicelines.js'; // (1.11.0) Capri Voice V8: her recorded phrases
 import { watchGpu } from './gpu.js'; // (before app.js builds her: her picture kept alive, 2D without WebGL)
 
 const llm = load('llm');
@@ -1576,6 +1577,16 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
   if ('speak' in p) updateConfig({ speak: Boolean(p.speak) }); // (1.10.0) her voice on or off (Ears.kt reads it)
+  // (1.11.0) Capri Voice V8 (CapriVoice.kt, voicelines.js): her recorded phrases, what says her new answers,
+  // and her phrases' volume and pace
+  if ('voiceClips' in p) {
+    updateConfig({ voiceClips: Boolean(p.voiceClips) });
+    call('voice:packs').then((c) => emit('voice:packs', c)).catch(() => {});
+  }
+  if (['system', 'text'].includes(p.voiceEngine)) updateConfig({ voiceEngine: p.voiceEngine });
+  if (['fidelity', 'balanced', 'custom'].includes(p.voiceMode)) updateConfig({ voiceMode: p.voiceMode });
+  if (typeof p.voiceClipVolume === 'number') updateConfig({ voiceClipVolume: Math.min(1, Math.max(0, p.voiceClipVolume)) });
+  if (typeof p.voiceClipSpeed === 'number') updateConfig({ voiceClipSpeed: Math.min(1.25, Math.max(0.75, p.voiceClipSpeed)) });
   if ('gameTips' in p) updateConfig({ gameTips: Boolean(p.gameTips) });
   // the app (1.9.0): Ajustes › Rendimiento, and your birthday from the «Tú» tab ({ m, d }, or none)
   if (['auto', 'lite', 'full'].includes(p.perfMode)) updateConfig({ perfMode: p.perfMode });
@@ -1632,6 +1643,7 @@ ready.then(() => {
     longMemory({ cfg: () => cfg, readMemory, saveMemory });
     phoneCare({ cfg: () => cfg });
     moods({ cfg: () => cfg });
+    window.dev.voicelines = voiceLines({ cfg: () => cfg, lang: () => resolveLang(cfg.lang) }); // (after moods: her phrase gets its face too)
     closet = wardrobe({ cfg: () => cfg, setConfig: updateConfig, onToggle: () => setTimeout(blur, 0) });
     window.dev.wardrobe = closet;
     window.dev.notes = notes; // (her wardrobe sheet joins its cards as a ledge for her)

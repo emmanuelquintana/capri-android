@@ -33,6 +33,10 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   store links go to AppGallery when there’s no Play Store.
 - **New Discord link.**
 - The Community tab moved into What’s new, and Commands behind the chat’s “?”.
+- **Capri Voice (her recorded voice):** Capri can now speak in her own voice, phrase by phrase and offline, in Latin
+  American Spanish and English: when you pet her, throw her, come back, say goodbye or go to sleep, with the exact
+  words she says. Her AI's answers are said as written (phone voice or text only, your choice) and are never swapped
+  for another phrase. Set it up in Customize › Capri Voice. Her voice packs are optional and will arrive separately.
 
 ## 1.10.1
 

@@ -122,7 +122,10 @@ export function sleepMode({ cfg, lang }) {
 
   on('sleep:on', ({ alarm = 0 } = {}) => {
     stopRing();
-    say(fill(pick(t().night)) + (alarm ? ` ${fill(t().alarmSet, { time: clock(alarm) })}` : ''), 'calm', 5000);
+    // (1.11.0) without an alarm to tell you about: her recorded good night, when she has it (voicelines.js)
+    const own = alarm ? null : window.dev?.voicelines?.moment('night', '');
+    if (own?.spoken) say(own.line, 'calm', Math.max(5000, own.ms + 1500));
+    else say(fill(pick(t().night)) + (alarm ? ` ${fill(t().alarmSet, { time: clock(alarm) })}` : ''), 'calm', 5000);
     asleep();
   });
   on('sleep:peek', ({ times = 1 } = {}) => {

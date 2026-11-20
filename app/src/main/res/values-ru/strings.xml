@@ -500,4 +500,43 @@
         <item quantity="many">%d нейротанцев сохранено</item>
         <item quantity="other">%d нейротанца сохранено</item>
     </plurals>
+    <!-- (1.11.0) Capri Voice V8 -->
+    <string name="cv_title">Capri Voice (её записанный голос)</string>
+    <string name="cv_how">Её собственный голос, фраза за фразой, без интернета и без загрузки моделей: приветствия, прощания, поглаживания, спокойной ночи. Необязательные пакеты, по одному на язык.</string>
+    <string name="cv_clips">Фразы её голосом</string>
+    <string name="cv_answers">Её новые ответы</string>
+    <string name="cv_answers_how">Ответы её ИИ (Gemini, Grok…) звучат дословно. Её одобренного голоса для новых фраз на Android пока нет (только на ПК), поэтому выбери: голос телефона или только текст.</string>
+    <string name="cv_engine_system">Голос телефона</string>
+    <string name="cv_engine_text">Только текст</string>
+    <string name="cv_mode">Производительность</string>
+    <string name="cv_mode_how">Максимальная точность: только её одобренный голос (фразы), новое текстом. Баланс: фразы и голос телефона для нового. Фразы не загружают модель, так что это и так самое лёгкое.</string>
+    <string name="cv_mode_fidelity">Макс. точность</string>
+    <string name="cv_mode_balanced">Баланс</string>
+    <string name="cv_mode_custom">Своё</string>
+    <string name="cv_volume">Громкость фраз</string>
+    <string name="cv_speed">Темп фраз</string>
+    <string name="cv_vol_low">Тихо</string>
+    <string name="cv_vol_mid">Средне</string>
+    <string name="cv_vol_high">Громко</string>
+    <string name="cv_signature">Обработка SIGNATURE V7.2 уже есть в её испанских фразах (дважды не применяется). Английский — без эффекта, как одобрено.</string>
+    <string name="cv_engine_state">Движок: фразы готовы без модели · её голос для новых фраз на Android: в ожидании (нет проверенного профиля)</string>
+    <string name="cv_test">Послушать её голос</string>
+    <string name="cv_lang_es">Латиноамериканский испанский</string>
+    <string name="cv_lang_en">Английский</string>
+    <string name="cv_installed">%1$s · v%2$s · фраз: %3$d</string>
+    <string name="cv_missing">%1$s · не установлен</string>
+    <string name="cv_install">Установить из файла</string>
+    <string name="cv_download">Скачать</string>
+    <string name="cv_repair">Починить</string>
+    <string name="cv_remove">Удалить</string>
+    <string name="cv_verify">Проверить</string>
+    <string name="cv_storage">Занимает %s на телефоне</string>
+    <string name="cv_private">Пакеты её голоса пока приватные: приложение не содержит и не скачивает их, пока нет разрешённого канала. Устанавливай только тот, что тебе дали для тестов.</string>
+    <string name="cv_nochannel">Загрузка: разрешённого канала пока нет.</string>
+    <string name="cv_ok">Готово.</string>
+    <string name="cv_err">Не получилось: %s</string>
+    <string name="cv_err_notv8">Этот файл не проверенный пакет Capri Voice V8.</string>
+    <string name="cv_err_needfile">Нет исходного пакета: установи его снова из файла.</string>
+    <string name="cv_busy">Работаю…</string>
+    <string name="cv_no_phrase">Пока нет её фраз на этом языке: установи пакет.</string>
 </resources>

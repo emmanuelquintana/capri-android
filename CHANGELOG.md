@@ -32,6 +32,11 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   los enlaces a la tienda van a AppGallery si no hay Play Store.
 - **Nuevo enlace del Discord.**
 - La pestaña Comunidad pasó a Novedades y Comandos al «?» del chat.
+- **Capri Voice (su voz grabada):** Capri ya puede hablar con su propia voz, frase por frase y sin internet, en
+  español latino e inglés: al acariciarla, al lanzarla, al volver, al despedirse y al darte las buenas noches, con el
+  texto exacto de lo que dice. Sus respuestas de IA se dicen tal cual (voz del teléfono o solo texto, tú eliges) y
+  nunca se cambian por otra frase. Se configura en Personalizar › Capri Voice. Sus paquetes de voz son opcionales y
+  llegarán por separado.
 
 ## 1.10.1
 

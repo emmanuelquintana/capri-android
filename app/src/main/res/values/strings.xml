@@ -494,4 +494,43 @@
         <item quantity="one">%d braindance kept</item>
         <item quantity="other">%d braindances kept</item>
     </plurals>
+    <!-- (1.11.0) Capri Voice V8 -->
+    <string name="cv_title">Capri Voice (her recorded voice)</string>
+    <string name="cv_how">Her own voice, phrase by phrase, offline and without loading any model: hellos, goodbyes, pats, good night. Optional packs, one per language.</string>
+    <string name="cv_clips">Phrases in her voice</string>
+    <string name="cv_answers">Her new answers</string>
+    <string name="cv_answers_how">Her AI\'s answers (Gemini, Grok…) are said exactly as written. Her approved voice for new sentences isn\'t on Android yet (only on PC), so you choose: the phone\'s voice or text only.</string>
+    <string name="cv_engine_system">Phone\'s voice</string>
+    <string name="cv_engine_text">Text only</string>
+    <string name="cv_mode">Performance</string>
+    <string name="cv_mode_how">Maximum fidelity: only her approved voice (phrases), anything new in writing. Balanced: phrases, and the phone\'s voice for anything new. Her phrases load no model, so they\'re already the lightest.</string>
+    <string name="cv_mode_fidelity">Max fidelity</string>
+    <string name="cv_mode_balanced">Balanced</string>
+    <string name="cv_mode_custom">Custom</string>
+    <string name="cv_volume">Her phrases\' volume</string>
+    <string name="cv_speed">Her phrases\' pace</string>
+    <string name="cv_vol_low">Low</string>
+    <string name="cv_vol_mid">Medium</string>
+    <string name="cv_vol_high">High</string>
+    <string name="cv_signature">SIGNATURE V7.2 finish: already inside her Spanish phrases (never applied twice). English goes without it, as approved.</string>
+    <string name="cv_engine_state">Engine: phrases ready without a model · her own voice for new sentences on Android: pending (no validated profile)</string>
+    <string name="cv_test">Hear her voice</string>
+    <string name="cv_lang_es">Latin American Spanish</string>
+    <string name="cv_lang_en">English</string>
+    <string name="cv_installed">%1$s · v%2$s · %3$d phrases</string>
+    <string name="cv_missing">%1$s · not installed</string>
+    <string name="cv_install">Install from file</string>
+    <string name="cv_download">Download</string>
+    <string name="cv_repair">Repair</string>
+    <string name="cv_remove">Remove</string>
+    <string name="cv_verify">Check</string>
+    <string name="cv_storage">Takes %s on the phone</string>
+    <string name="cv_private">Her voice packs are private for now: the app doesn\'t bring or download them until there\'s an authorized channel. Only install one you were given for testing.</string>
+    <string name="cv_nochannel">Download: no authorized channel yet.</string>
+    <string name="cv_ok">Done.</string>
+    <string name="cv_err">Couldn\'t: %s</string>
+    <string name="cv_err_notv8">That file isn\'t a verified Capri Voice V8 pack.</string>
+    <string name="cv_err_needfile">The original pack is missing: install it again from its file.</string>
+    <string name="cv_busy">Working…</string>
+    <string name="cv_no_phrase">No phrase of hers in this language yet: install its pack.</string>
 </resources>
