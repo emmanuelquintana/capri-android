@@ -2,6 +2,11 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.11.4
+
+- **Le menu pilule ne cache plus là où tu lui écris :** dans le chat, la ligne pour écrire restait sous le menu sur
+  beaucoup de téléphones (Android 14 ou plus ancien). Maintenant elle est toujours au-dessus, même avec une grande police.
+
 ## 1.11.3
 
 - **Tu vois où en est chaque téléchargement :** quand tu télécharges sa voix, ses moteurs ou une mise à jour, une

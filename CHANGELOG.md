@@ -3,6 +3,11 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.11.4
+
+- **El menú de píldora ya no tapa donde le escribes:** en el chat, la línea para escribirle quedaba debajo del menú en
+  muchos teléfonos (Android 14 o anterior). Ahora siempre queda arriba del menú, aunque uses letra grande.
+
 ## 1.11.3
 
 - **Ves cuánto lleva cada descarga:** al bajar su voz, sus motores o una actualización, una notificación te muestra

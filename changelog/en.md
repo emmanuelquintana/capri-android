@@ -2,6 +2,11 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.11.4
+
+- **The pill menu no longer covers where you write to her:** in the chat, the line to write in sat under the menu on
+  many phones (Android 14 or older). Now it's always above the menu, even with a large font.
+
 ## 1.11.3
 
 - **See how far each download is:** when you download her voice, her engines or an update, a notification shows the

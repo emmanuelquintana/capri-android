@@ -2,6 +2,11 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.11.4
+
+- **O menu de pílula não cobre mais onde você escreve para ela:** no chat, a linha para escrever ficava embaixo do
+  menu em muitos celulares (Android 14 ou anterior). Agora fica sempre acima do menu, mesmo com letra grande.
+
 ## 1.11.3
 
 - **Você vê quanto falta em cada download:** ao baixar a voz dela, os motores ou uma atualização, uma notificação

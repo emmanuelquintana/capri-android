@@ -240,15 +240,38 @@ class MainActivity : Activity() {
         pill = bar
         // Android 15 draws the app under the status and navigation bars: her pages start below the
         // first and the pill bar sits above the second
+        // (1.11.3, Emma: "la pantalla para elegir tapa la de los mensajes") her chat's line to write in always sits
+        // above the pill bar, measured from the bar itself (a bigger font makes it taller). Before Android 15 the
+        // system keeps the window off its bars and the insets below may never arrive here: then the keyboard is
+        // found by how much of the window it covers, and nothing waits for insets to set the room under the chat.
+        var insetsSeen = false
+        var typingNow = false
+        val roomUnderChat = {
+            if (!typingNow) chat.setBottom(maxOf(ui.dpi(92), bar.height + barParams.bottomMargin + ui.dpi(12)))
+        }
+        bar.addOnLayoutChangeListener { _, _, top, _, bottom, _, oldTop, _, oldBottom -> if (bottom - top != oldBottom - oldTop) roomUnderChat() }
+        roomUnderChat()
+        root.viewTreeObserver.addOnGlobalLayoutListener {
+            if (insetsSeen) return@addOnGlobalLayoutListener
+            val r = android.graphics.Rect()
+            root.getWindowVisibleDisplayFrame(r)
+            val typing = root.rootView.height - r.bottom > ui.dpi(160)
+            if (typing == typingNow) return@addOnGlobalLayoutListener
+            typingNow = typing
+            bar.visibility = if (typing) View.GONE else View.VISIBLE
+            if (typing) chat.setBottom(ui.dpi(8)) else roomUnderChat()
+        }
         ui.underSystemBars(root) { top, bottom ->
             content.setPadding(0, top, 0, 0)
             // (1.11.0) the keyboard up (writing to her): the pill bar steps aside, her chat sits right on it
             val typing = bottom > ui.dpi(160)
+            if (top > 0 || bottom > 0) insetsSeen = true
+            typingNow = typing
             bar.visibility = if (typing) View.GONE else View.VISIBLE
             barParams.bottomMargin = ui.dpi(16) + bottom
             bar.layoutParams = barParams
             content.setPadding(0, top, 0, if (typing) bottom else 0)
-            chat.setBottom(if (typing) ui.dpi(8) else ui.dpi(92) + bottom)
+            if (typing) chat.setBottom(ui.dpi(8)) else roomUnderChat()
         }
         setContentView(root)
         show(savedInstanceState?.getInt("tab") ?: tabAsked(intent) ?: if (wantsUpdate) TAB_NEWS else TAB_CHAT, animate = false)
