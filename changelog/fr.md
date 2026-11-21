@@ -2,6 +2,15 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.11.1
+
+- **Sa voix fidèle se télécharge enfin sur les téléphones de 6 et 8 Go :** l’app mesurait mal la mémoire (Android
+  indique un peu moins que ce qu’a le téléphone) et bloquait les moteurs Haute et Maximale sur des téléphones qui
+  peuvent les faire tourner. Maintenant : Légère dès 3 Go de RAM, Haute dès 4 Go et Maximale dès 6 Go. Si ça ne
+  rentre vraiment pas, l’app te dit pourquoi.
+- **Rappel :** son moteur de voix (expérimental) demande Android 12 ou plus récent. Sur Android 8 à 11, ses phrases
+  enregistrées sonnent bien avec sa voix ; le reste utilise la voix du téléphone ou seulement le texte.
+
 ## 1.11.0
 
 - **Le chat est le cœur de l’appli :** en ouvrant Capri, tu arrives directement sur son chat, pour lui parler

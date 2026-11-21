@@ -607,6 +607,7 @@
     <string name="cv_var_installed">установлена</string>
     <string name="cv_var_missing">не установлена</string>
     <string name="cv_var_nofit">не для этого телефона (память или процессор)</string>
+    <string name="cv_var_nofit_ram">нужен телефон с %1$d ГБ ОЗУ или больше</string>
     <string name="cv_neural_download_profile">Скачать профили</string>
     <string name="cv_get_title">Её голос</string>
     <string name="cv_get">Скачать её голос (8 МБ)</string>

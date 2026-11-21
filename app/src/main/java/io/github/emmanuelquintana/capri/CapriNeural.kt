@@ -61,10 +61,10 @@ object CapriNeural {
     data class Model(val name: String, val bytes: Long, val sha: String, val local: String = name)
     /**
      * The precisions you can install, each on its own, side by side (and remove each one): more precision is
-     * closer to PC and needs more memory. [ramTotalMb] is the least total RAM it's offered on, [needMb] the free
+     * closer to PC and needs more memory. [ramGb] is the least RAM it's offered on, as phones are sold, [needMb] the free
      * memory it needs while it speaks. The native library looks for the tokenizer by these lowercase names.
      */
-    data class Variant(val id: String, val dir: String, val files: List<Model>, val ramTotalMb: Long, val needMb: Long, val fidelity: String) {
+    data class Variant(val id: String, val dir: String, val files: List<Model>, val ramGb: Int, val needMb: Long, val fidelity: String) {
         val bytes get() = files.sumOf { it.bytes }
         val talker get() = files.first()
         val tokenizer get() = files.last()
@@ -73,15 +73,15 @@ object CapriNeural {
         Variant("q4", "qwen-0.6b-q4km", listOf(
             Model("qwen-talker-0.6b-base-Q4_K_M.gguf", 628_905_056L, "4b468ec7b1f62b90ef4ca316c0aa57deadfd54b2cf9651703ea753cedaf04226"),
             Model("qwen-tokenizer-12hz-Q4_K_M.gguf", 254_974_752L, "cf3788b4d50aaa665fb6e57c170396aae03a3555fea52d2b5d0cda902d658039"),
-        ), ramTotalMb = 3_500, needMb = 1_400, fidelity = "light"),
+        ), ramGb = 3, needMb = 1_400, fidelity = "light"),
         Variant("q8", "qwen-0.6b-q8", listOf(
             Model("qwen-talker-0.6b-base-Q8_0.gguf", 992_615_488L, "d54dbaf10591421fa764ed630d764efa717ae40cd959bd48c66d4eb1af226426"),
             Model("qwen-tokenizer-12hz-Q8_0.gguf", 291_150_624L, "1883beeed99348fc35e23dd225e9082f93f6f8c109330a33d935baa8acdbfd94", "qwen-tokenizer-12hz-q8_0.gguf"),
-        ), ramTotalMb = 5_500, needMb = 2_000, fidelity = "high"),
+        ), ramGb = 4, needMb = 2_000, fidelity = "high"),
         Variant("bf16", "qwen-0.6b-bf16", listOf(
             Model("qwen-talker-0.6b-base-BF16.gguf", 1_841_716_288L, "f0070d96aa4e1a437e2963cc2925b0c9b1e307e334faa36c2120f39fc0b729eb"),
             Model("qwen-tokenizer-12hz-BF16.gguf", 358_980_384L, "cc04d7352ff4cb339435cdccf59cf38e6e92f3cf789bc94a6a1b467093bafa18", "qwen-tokenizer-12hz-bf16.gguf"),
-        ), ramTotalMb = 7_500, needMb = 3_000, fidelity = "max"),
+        ), ramGb = 6, needMb = 3_000, fidelity = "max"),
     )
     /** The light one: what CI tests on its emulator. */
     val MODELS = VARIANTS[0].files
@@ -156,12 +156,18 @@ object CapriNeural {
     fun installed(context: Context, v: Variant) = v.files.all { File(models(context, v), it.local).length() == it.bytes } &&
         File(models(context, v), ".verified").isFile
     fun modelsInstalled(context: Context) = VARIANTS.any { installed(context, it) }
-    /** Offered on this phone: enough total memory for it. */
-    fun fits(context: Context, v: Variant): Boolean {
+    /**
+     * The phone's RAM as it's sold (6 GB, 8 GB…). Android reports less than that (the system keeps part of it: a
+     * "6 GB" phone says about 5.3–5.6 GiB), and 1.11.0 compared that against 5.5/7.5 GB, so 6 and 8 GB phones were
+     * turned away (1.11.1, Discord). Rounded up to the next whole GB, with 0.3 GB of slack under it.
+     */
+    fun ramGb(context: Context): Int {
         val mem = ActivityManager.MemoryInfo()
         context.getSystemService(ActivityManager::class.java).getMemoryInfo(mem)
-        return mem.totalMem >= v.ramTotalMb * 1024 * 1024
+        return Math.ceil(mem.totalMem / 1073741824.0 + 0.3).toInt()
     }
+    /** Offered on this phone: enough RAM for it (whether it has room right now is checked when she speaks). */
+    fun fits(context: Context, v: Variant): Boolean = ramGb(context) >= v.ramGb
     /** The precision her voice uses: the one you chose if it's installed, else the most precise installed. */
     fun variant(context: Context): Variant? {
         val want = Store(context).configString("voiceNeuralModel")

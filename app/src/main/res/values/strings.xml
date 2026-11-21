@@ -601,6 +601,7 @@
     <string name="cv_var_installed">installed</string>
     <string name="cv_var_missing">not installed</string>
     <string name="cv_var_nofit">not for this phone (memory or processor)</string>
+    <string name="cv_var_nofit_ram">needs a phone with %1$d GB of RAM or more</string>
     <string name="cv_neural_download_profile">Download profiles</string>
     <string name="cv_get_title">Her voice</string>
     <string name="cv_get">Download her voice (8 MB)</string>

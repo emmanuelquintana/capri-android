@@ -2,6 +2,14 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.11.1
+
+- **Her faithful voice can now be downloaded on 6 and 8 GB phones:** the app measured memory wrong (Android reports
+  a bit less than the phone has) and blocked the High and Maximum engines on phones that can run them. Now: Light
+  from 3 GB of RAM, High from 4 GB and Maximum from 6 GB. If it really doesn't fit, the app tells you why.
+- **Reminder:** her voice engine (experimental) needs Android 12 or newer. On Android 8 to 11 her recorded phrases
+  still play in her voice; everything else uses the phone's voice or text only.
+
 ## 1.11.0
 
 - **Chat is the heart of the app:** opening Capri now takes you straight to her chat, to talk with her comfortably,

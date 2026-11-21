@@ -1021,7 +1021,7 @@ class MainActivity : Activity() {
                 val add = ui.button(getString(R.string.cv_var_add), Ui.Kind.LINE) {
                     when {
                         CapriNeural.unsupported() != null -> Toast.makeText(this@MainActivity, neuralStatus("es-MX"), Toast.LENGTH_LONG).show()
-                        !CapriNeural.fits(this@MainActivity, v) -> Toast.makeText(this@MainActivity, R.string.cv_var_nofit, Toast.LENGTH_LONG).show()
+                        !CapriNeural.fits(this@MainActivity, v) -> Toast.makeText(this@MainActivity, getString(R.string.cv_var_nofit_ram, v.ramGb), Toast.LENGTH_LONG).show()
                         else -> voiceJob { CapriNeural.download(this@MainActivity, v, it) }
                     }
                 }
@@ -1037,12 +1037,15 @@ class MainActivity : Activity() {
                     val fmt = android.text.format.Formatter.formatShortFileSize(this@MainActivity, v.bytes)
                     line.text = getString(R.string.cv_var_line, getString(when (v.id) { "q4" -> R.string.cv_var_q4; "q8" -> R.string.cv_var_q8; else -> R.string.cv_var_bf16 }), fmt)
                     line.setTextColor(if (inUse) Hud.GREEN else if (have) Hud.PAPER else Hud.PAPER_2)
-                    note.text = getString(when (v.id) { "q4" -> R.string.cv_fid_light; "q8" -> R.string.cv_fid_high; else -> R.string.cv_fid_max }) + " · " + getString(when {
+                    note.text = getString(when (v.id) { "q4" -> R.string.cv_fid_light; "q8" -> R.string.cv_fid_high; else -> R.string.cv_fid_max }) + " · " + (when {
                         inUse -> R.string.cv_var_inuse
                         have -> R.string.cv_var_installed
-                        CapriNeural.unsupported() != null || !CapriNeural.fits(this@MainActivity, v) -> R.string.cv_var_nofit
-                        else -> R.string.cv_var_missing
-                    })
+                        else -> 0
+                    }).let { if (it != 0) getString(it) else when {
+                        CapriNeural.unsupported() != null -> neuralStatus("es-MX")
+                        !CapriNeural.fits(this@MainActivity, v) -> getString(R.string.cv_var_nofit_ram, v.ramGb)
+                        else -> getString(R.string.cv_var_missing)
+                    } }
                     add.visibility = if (have) View.GONE else View.VISIBLE
                     use.visibility = if (have && !inUse) View.VISIBLE else View.GONE
                     drop.visibility = if (have) View.VISIBLE else View.GONE

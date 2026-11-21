@@ -3,6 +3,14 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.11.1
+
+- **Su voz fiel ya se puede bajar en teléfonos de 6 y 8 GB:** la app medía mal la memoria (Android reporta un poco
+  menos de la que trae el teléfono) y no dejaba bajar los motores Alta y Máxima en teléfonos que sí pueden. Ahora:
+  Ligera desde 3 GB de RAM, Alta desde 4 GB y Máxima desde 6 GB. Si de verdad no cabe, la app te dice por qué.
+- **Recordatorio:** su motor de voz (experimental) necesita Android 12 o más nuevo. En Android 8 a 11 sus frases
+  grabadas sí suenan con su voz; lo demás usa la voz del teléfono o solo texto.
+
 ## 1.11.0
 
 - **El chat es el centro de la app:** al abrir Capri ahora llegas directo a su chat, para hablar con ella

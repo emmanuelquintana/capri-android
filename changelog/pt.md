@@ -2,6 +2,15 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.11.1
+
+- **A voz fiel dela já pode ser baixada em celulares de 6 e 8 GB:** o app mediu errado a memória (o Android informa
+  um pouco menos do que o celular tem) e bloqueava os motores Alta e Máxima em celulares que conseguem rodá-los.
+  Agora: Leve a partir de 3 GB de RAM, Alta a partir de 4 GB e Máxima a partir de 6 GB. Se realmente não couber, o
+  app diz o porquê.
+- **Lembrete:** o motor de voz dela (experimental) precisa do Android 12 ou mais novo. No Android 8 a 11 as frases
+  gravadas dela tocam com a voz dela; o resto usa a voz do celular ou só texto.
+
 ## 1.11.0
 
 - **O chat é o centro do app:** ao abrir a Capri você cai direto no chat dela, para conversar com calma, com todo o
