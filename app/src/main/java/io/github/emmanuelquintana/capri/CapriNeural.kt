@@ -332,7 +332,7 @@ object CapriNeural {
         }
         if (lang == "en-US" && !embedding(app, lang).isFile) {
             // the English vector, made once from the English source sound (24 kHz mono PCM16)
-            val tmp = File(profiles(app), "en-US.tmp")
+            val tmp = File(profiles(app), "en-US.tmp.json") // el motor nativo elige JSON o binario por la extensión
             e.resetCancel()
             check(e.extractSpeakerEmbedding(englishWav(app).absolutePath, tmp.absolutePath)) { e.getLastError() ?: "embedding" }
             validate(e, tmp)
@@ -345,10 +345,20 @@ object CapriNeural {
 
     private fun validate(e: QwenEngine, file: File) {
         require(file.length() in 1..1024 * 1024) { "embedding" }
-        val values = JSONArray(file.readText())
         val dim = e.getModelCapabilities()?.speakerEmbeddingDim ?: error("capabilities")
-        require(dim > 0 && values.length() == dim) { "embedding:$dim" }
-        for (i in 0 until values.length()) require(values.getDouble(i).toFloat().isFinite()) { "embedding" }
+        require(dim > 0) { "embedding:$dim" }
+        val bytes = file.readBytes()
+        val first = bytes.firstOrNull { it > 32 }
+        val values: FloatArray = if (first == '['.code.toByte()) {
+            val a = JSONArray(String(bytes, Charsets.UTF_8)); FloatArray(a.length()) { a.getDouble(it).toFloat() }
+        } else {
+            // Formato binario del motor nativo: float32 little-endian, sin cabecera.
+            require(bytes.size == dim * 4) { "embedding:bin" }
+            val b = java.nio.ByteBuffer.wrap(bytes).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+            FloatArray(dim) { b.getFloat() }
+        }
+        require(values.size == dim) { "embedding:$dim" }
+        require(values.all { it.isFinite() }) { "embedding" }
     }
 
     private fun synth(app: Context, text: String, lang: String): FloatArray {
