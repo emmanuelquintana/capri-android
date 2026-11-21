@@ -2,6 +2,16 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.11.3
+
+- **See how far each download is:** when you download her voice, her engines or an update, a notification shows the
+  progress and then whether it's done (or why not). Voice settings shows the percentage too.
+- **«How do I give her her voice?» tutorial:** step by step, with everything else dimmed: where to download it, how
+  to hear her, and how to make all her answers sound in her voice. It's in Voice settings and What's new.
+- **«Hear her voice» always answers:** it now plays even when Capri isn't started, and if it can't play it tells you
+  why (not downloaded yet, media volume at 0, her voice off).
+- **The A/B comparison of her voice is gone:** it was confusing and didn't play.
+
 ## 1.11.2
 
 - **«Download her voice» works now:** downloading her voice data (about 8 MB) showed «Couldn't: npy…» and her profile

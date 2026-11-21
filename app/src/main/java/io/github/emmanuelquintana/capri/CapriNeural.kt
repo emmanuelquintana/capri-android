@@ -413,6 +413,11 @@ object CapriNeural {
         return if (fresh) SystemClock.elapsedRealtime() - t0 else 0L
     }
 
+    /** (debug self-test) The installed ICL prompt of [lang], checked, in one line; null if there's none. */
+    internal fun iclSummary(context: Context, lang: String): String? = icl(context, lang).takeIf { it.isFile }?.let { f ->
+        readIcl(f).let { "frames=${it.frames} codebooks=${it.codebooks} text_chars=${it.text.length} codes0=${it.codes.take(16).joinToString(",")}" }
+    }
+
     /** An ICL prompt (qwen3_tts_icl_prompt_v1), checked: its words, her 1024-float vector, whole frames of codes. */
     internal class Icl(val text: String, val embedding: FloatArray, val frames: Int, val codebooks: Int, val codes: LongArray)
 

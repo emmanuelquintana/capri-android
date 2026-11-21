@@ -3,6 +3,16 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.11.3
+
+- **Ves cuánto lleva cada descarga:** al bajar su voz, sus motores o una actualización, una notificación te muestra
+  el avance y luego si quedó lista (o por qué no). En Ajustes de voz también ves el porcentaje.
+- **Tutorial «¿Cómo le pongo su voz?»:** paso a paso, con lo demás oscurecido: dónde bajarla, cómo escucharla y cómo
+  hacer que todas sus respuestas suenen con su voz. Está en Ajustes de voz y en Novedades.
+- **«Probar su voz» siempre responde:** ahora suena aunque Capri no esté iniciada, y si no puede sonar te dice por
+  qué (falta bajarla, volumen multimedia en 0, su voz apagada).
+- **Se quita el comparador A/B** de su voz: confundía y no sonaba.
+
 ## 1.11.2
 
 - **«Bajar su voz» ya funciona:** al bajar sus datos de voz (unos 8 MB) salía «No se pudo: npy…» y no se instalaba

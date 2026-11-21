@@ -21,7 +21,7 @@ import org.json.JSONObject
  * Reusable: the steps live in assets/android/tour.json, one list per version. For a new version, change its
  * "id" (shown once per id) and its steps; this code stays. Each step names what to light up by a key the app
  * knows (MainActivity.tourTarget): "bar", "tab:<chat|news|community|games|style|cmds|settings>",
- * "settings:<group key>" (an entry of Ajustes), and its words in es/en/fr/pt/ru (Spanish if one is missing).
+ * "settings:<group key>" (an entry of Ajustes), "voice:<get|test|engines|answers>" (on Ajustes de voz), and its words in es/en/fr/pt/ru (Spanish if one is missing).
  * Everything but that is dimmed; a tap on the dim does nothing (Siguiente or Saltar move on).
  */
 class Tour(
@@ -123,9 +123,12 @@ class Tour(
     }
 
     companion object {
-        /** This version's tour (assets/android/tour.json): its id and its steps in the app's language, or null. */
-        fun load(a: android.content.Context): Pair<String, List<Step>>? = runCatching {
-            val json = JSONObject(a.assets.open("android/tour.json").bufferedReader().use { it.readText() })
+        /**
+         * This version's tour (assets/android/tour.json), or another tour in the same format (1.11.3: the voice
+         * tutorial, assets/android/tour-voz.json): its id and its steps in the app's language, or null.
+         */
+        fun load(a: android.content.Context, file: String = "android/tour.json"): Pair<String, List<Step>>? = runCatching {
+            val json = JSONObject(a.assets.open(file).bufferedReader().use { it.readText() })
             val lang = Lang.current(a).take(2)
             fun word(o: JSONObject) = o.optString(lang).ifEmpty { o.optString("es") }
             val list = json.getJSONArray("steps")

@@ -631,4 +631,16 @@
     <string name="tour_next">Suivant</string>
     <string name="tour_done">Terminé</string>
     <string name="tour_again">Voir les nouveautés (visite)</string>
+    <string name="dl_channel">Téléchargements</string>
+    <string name="dl_starting">ça démarre…</string>
+    <string name="dl_progress">%1$d %%</string>
+    <string name="dl_done">C’est fait.</string>
+    <string name="dl_voice">Téléchargement de sa voix</string>
+    <string name="dl_engine">Téléchargement de son moteur : %1$s</string>
+    <string name="dl_update">Téléchargement de Capri %1$s</string>
+    <string name="cv_test_noclips">Ses phrases ne sont pas encore là : touche d’abord « Télécharger sa voix ».</string>
+    <string name="cv_test_clipsoff">« Phrases avec sa voix » est désactivé : active-le pour l’entendre.</string>
+    <string name="cv_test_speakoff">Sa voix est coupée (Sa voix › Activé).</string>
+    <string name="cv_test_muted">Ton volume multimédia est à 0 : monte-le et réessaie.</string>
+    <string name="vt_open">Comment lui donner sa voix ?</string>
 </resources>

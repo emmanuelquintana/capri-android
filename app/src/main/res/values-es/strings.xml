@@ -631,4 +631,16 @@
     <string name="tour_next">Siguiente</string>
     <string name="tour_done">Listo</string>
     <string name="tour_again">Ver lo nuevo (recorrido)</string>
+    <string name="dl_channel">Descargas</string>
+    <string name="dl_starting">empezando…</string>
+    <string name="dl_progress">%1$d %%</string>
+    <string name="dl_done">Listo.</string>
+    <string name="dl_voice">Bajando su voz</string>
+    <string name="dl_engine">Bajando su motor: %1$s</string>
+    <string name="dl_update">Bajando Capri %1$s</string>
+    <string name="cv_test_noclips">Aún no están sus frases: primero toca «Bajar su voz».</string>
+    <string name="cv_test_clipsoff">«Frases con su voz» está apagado: préndelo para oírla.</string>
+    <string name="cv_test_speakoff">Su voz está apagada (Su voz › Activado).</string>
+    <string name="cv_test_muted">Tu volumen multimedia está en 0: súbelo y prueba otra vez.</string>
+    <string name="vt_open">¿Cómo le pongo su voz?</string>
 </resources>

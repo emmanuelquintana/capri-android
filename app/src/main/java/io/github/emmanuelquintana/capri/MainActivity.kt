@@ -432,6 +432,7 @@ class MainActivity : Activity() {
         // what each version brought (CHANGELOG.md)
         // (1.11.0) the guided tour of what's new, again whenever you want (tour.json)
         addView(ui.button(getString(R.string.tour_again), Ui.Kind.LINE) { tourOnce(force = true) }, ui.block(16))
+        addView(ui.button(getString(R.string.vt_open), Ui.Kind.LINE) { voiceTutorial() }, ui.block(8))
         addView(ui.label(getString(R.string.news_head)), ui.block(26))
         // folded: just the version and how many changes; a tap opens it (and folds it again)
         for ((i, v) in changelog().take(8).withIndex()) {
@@ -935,7 +936,8 @@ class MainActivity : Activity() {
         addView(backRow())
         addView(ui.label(getString(R.string.settings_voice_screen)))
         addView(ui.text(getString(R.string.settings_voice_screen_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-        addView(voiceGetCard(), ui.block(16))
+        addView(ui.button(getString(R.string.vt_open), Ui.Kind.LINE) { voiceTutorial() }, ui.block(12))
+        addView(voiceGetCard().also { voiceSpots["get"] = it }, ui.block(16))
         // how she sounds: her voice's pitch and speed, her accent (Ears.kt reads these each time)
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_her_voice)))
@@ -987,7 +989,7 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.cv_answers), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(ui.text(getString(R.string.cv_answers_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(choice(listOf(R.string.cv_engine_system to "system", R.string.cv_engine_neural to CapriNeural.ID, R.string.cv_engine_text to "text"),
-                { CapriVoice.engine(this@MainActivity) }, { a, b -> a == b }) { pickEngine(it) }, ui.block(6))
+                { CapriVoice.engine(this@MainActivity) }, { a, b -> a == b }) { pickEngine(it) }.also { voiceSpots["answers"] = it }, ui.block(6))
             val showWhy = {
                 val lang = CapriVoice.voiceLang(Lang.current(this@MainActivity)) ?: "es-MX"
                 why.text = getString(when (store.configString("voiceMode") ?: "automatic") {
@@ -1006,12 +1008,13 @@ class MainActivity : Activity() {
             addView(choice(listOf(R.string.voice_slower to 0.9, R.string.voice_pace_normal to 1.0, R.string.voice_faster to 1.1),
                 { store.configNumber("voiceClipSpeed", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceClipSpeed", it) }, ui.block(6))
             addView(ui.text(getString(R.string.cv_signature), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(10))
-            addView(ui.button(getString(R.string.cv_test), Ui.Kind.LINE) { testVoice() }, ui.block(10))
+            addView(ui.button(getString(R.string.cv_test), Ui.Kind.LINE) { testVoice() }.also { voiceSpots["test"] = it }, ui.block(10))
 
             // (1.11.0) her engines for new answers: each precision added or removed on its own (Emma: "que el usuario
             // pueda eliminar o añadir de nuestras opciones, cada una con mayor o menor fidelidad")
-            addView(ui.text(getString(R.string.cv_engines), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.cv_engines), 14f, Hud.PAPER, ui.head).also { voiceSpots["engines"] = it }, ui.block(16))
             addView(ui.text(getString(R.string.cv_engines_how), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(ui.text("", 13f, Hud.YELLOW, ui.mono).apply { visibility = View.GONE; dlViews += this }, ui.block(6))
             for (v in CapriNeural.VARIANTS) {
                 val line = ui.text("", 14f, Hud.PAPER, ui.head)
                 val note = ui.text("", 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }
@@ -1022,7 +1025,7 @@ class MainActivity : Activity() {
                     when {
                         CapriNeural.unsupported() != null -> Toast.makeText(this@MainActivity, neuralStatus("es-MX"), Toast.LENGTH_LONG).show()
                         !CapriNeural.fits(this@MainActivity, v) -> Toast.makeText(this@MainActivity, getString(R.string.cv_var_nofit_ram, v.ramGb), Toast.LENGTH_LONG).show()
-                        else -> voiceJob { CapriNeural.download(this@MainActivity, v, it) }
+                        else -> voiceJob(getString(R.string.dl_engine, getString(when (v.id) { "q4" -> R.string.cv_var_q4; "q8" -> R.string.cv_var_q8; else -> R.string.cv_var_bf16 }))) { CapriNeural.download(this@MainActivity, v, it) }
                     }
                 }
                 val use = ui.button(getString(R.string.cv_var_use), Ui.Kind.LINE) {
@@ -1054,29 +1057,8 @@ class MainActivity : Activity() {
                 choices.add(showV)
             }
 
-            // A/B: the same new sentence in two engines, one after the other (never both at once)
-            addView(ui.text(getString(R.string.cv_ab), 14f, Hud.PAPER, ui.head), ui.block(16))
-            addView(ui.text(getString(R.string.cv_ab_how), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            val sources = listOf(R.string.cv_src_clip to "clip", R.string.cv_engine_system to "system", R.string.cv_engine_neural to CapriNeural.ID)
-            addView(ui.text("A", 12f, Hud.PAPER_2, ui.mono), ui.block(6))
-            addView(choice(sources, { abA }, { a, b -> a == b }) { abA = it }, ui.block(2))
-            addView(ui.text("B", 12f, Hud.PAPER_2, ui.mono), ui.block(6))
-            addView(choice(sources, { abB }, { a, b -> a == b }) { abB = it }, ui.block(2))
-            val abRow = ui.row()
+            // (1.11.3, Emma: "de la voz elimina lo de comparar voces") no A/B here any more: «Probar su voz» is the test
             val lpw = { LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply { rightMargin = ui.dpi(4) } }
-            abRow.addView(ui.button(getString(R.string.cv_ab_play, "A"), Ui.Kind.LINE) { abPlay(abA) }, lpw())
-            abRow.addView(ui.button(getString(R.string.cv_ab_play, "B"), Ui.Kind.LINE) { abPlay(abB) }, lpw())
-            abRow.addView(ui.button(getString(R.string.cv_ab_stop), Ui.Kind.LINE) { CapriService.current?.ears?.hushVoice() }, lpw())
-            addView(abRow, ui.block(8))
-            val pickRow = ui.row()
-            pickRow.addView(ui.button(getString(R.string.cv_ab_pick, "A"), Ui.Kind.LINE) { abChoose(abA) }, lpw())
-            pickRow.addView(ui.button(getString(R.string.cv_ab_pick, "B"), Ui.Kind.LINE) { abChoose(abB) }, lpw())
-            addView(pickRow, ui.block(4))
-            val abInfo = ui.text("", 12f, Hud.PAPER_2, ui.mono)
-            addView(abInfo, ui.block(6))
-            val showAb = { abInfo.text = abReport() }
-            showAb()
-            choices.add(showAb)
 
             // advanced: the neural engine itself, its files and its limits
             val advanced = ui.col().apply { visibility = View.GONE }
@@ -1090,7 +1072,7 @@ class MainActivity : Activity() {
                 val nState = ui.text("", 12f, Hud.PAPER, ui.mono)
                 addView(nState, ui.block(8))
                 val r1 = ui.row(); val r2 = ui.row(); val r3 = ui.row()
-                r1.addView(ui.button(getString(R.string.cv_neural_download_profile), Ui.Kind.LINE) { voiceJob { CapriNeural.downloadProfiles(this@MainActivity, it) } }, lpw())
+                r1.addView(ui.button(getString(R.string.cv_neural_download_profile), Ui.Kind.LINE) { voiceJob(getString(R.string.dl_voice)) { CapriNeural.downloadProfiles(this@MainActivity, it) } }, lpw())
                 r1.addView(ui.button(getString(R.string.cv_neural_import), Ui.Kind.LINE) { pickFile(PICK_MODEL) }, lpw())
                 r2.addView(ui.button(getString(R.string.cv_neural_profile), Ui.Kind.LINE) { pickFile(PICK_PROFILE) }, lpw())
                 r2.addView(ui.button(getString(R.string.cv_verify), Ui.Kind.LINE) { voiceJob { CapriNeural.verify(this@MainActivity, it) } }, lpw())
@@ -1148,7 +1130,7 @@ class MainActivity : Activity() {
                     }
                 }, lp())
                 row1.addView(ui.button(getString(R.string.cv_download), Ui.Kind.LINE) {
-                    voiceJob { done -> CapriVoice.download(this@MainActivity, pack.lang, done) }
+                    voiceJob(getString(R.string.dl_voice)) { done -> CapriVoice.download(this@MainActivity, pack.lang, done) }
                 }, lp())
                 row2.addView(ui.button(getString(R.string.cv_verify), Ui.Kind.LINE) { voiceJob { CapriVoice.verify(this@MainActivity, pack.lang, it) } }, lp())
                 row2.addView(ui.button(getString(R.string.cv_repair), Ui.Kind.LINE) { voiceJob { CapriVoice.repair(this@MainActivity, pack.lang, it) } }, lp())
@@ -1252,50 +1234,30 @@ class MainActivity : Activity() {
         }
     }
 
-    private var abA = "clip"
-    private var abB = CapriNeural.ID
-    private var abLast = ""
-
-    private fun abPlay(source: String) {
-        val ears = CapriService.current?.ears ?: return run { Toast.makeText(this, R.string.cv_need_capri, Toast.LENGTH_LONG).show() }
-        val lang = CapriVoice.voiceLang(Lang.current(this)) ?: "es-MX"
-        abLast = source
-        if (source == "clip") {
-            val clip = CapriVoice.installed(lang)?.listClips()?.let { all -> all.filter { it.eventId.startsWith("greeting") }.ifEmpty { all } }?.randomOrNull()
-                ?: return run { Toast.makeText(this, R.string.cv_no_phrase, Toast.LENGTH_LONG).show() }
-            Toast.makeText(this, getString(R.string.cv_ab_clip_note, clip.text), Toast.LENGTH_LONG).show()
-            ears.say(clip.text, lang, org.json.JSONObject().put("id", "ab-clip").put("clip", clip.id).put("kind", "test"))
-        } else {
-            val text = getString(R.string.cv_ab_sentence)
-            ears.say(text, lang, org.json.JSONObject().put("id", "ab-$source").put("kind", "test").put("engine", source))
+    // (1.11.3) what's downloading right now, with its progress: in a notification and on the voice screen
+    private val dlViews = mutableListOf<TextView>()
+    private var dlTitle: String? = null
+    private val dlTick = object : Runnable {
+        override fun run() {
+            val title = dlTitle ?: return
+            val p = maxOf(CapriVoice.progress, CapriNeural.progress)
+            DownloadNote.progress(this@MainActivity, title, p)
+            val line = if (p < 0f) getString(R.string.dl_starting) else getString(R.string.dl_progress, (p * 100).toInt().coerceIn(0, 100))
+            for (v in dlViews) { v.text = "$title · $line"; v.visibility = View.VISIBLE }
+            shell.postDelayed(this, 500)
         }
-        choices.forEach { it() }
     }
 
-    private fun abChoose(source: String) {
-        if (source == "clip") {
-            CapriSettings.set(this, "voiceClips", true)
-            Toast.makeText(this, R.string.cv_ab_clip_kept, Toast.LENGTH_LONG).show()
-        } else pickEngine(source)
+    private fun voiceJob(title: String? = null, work: ((String?) -> Unit) -> Unit) {
+        Toast.makeText(this, title ?: getString(R.string.cv_busy), Toast.LENGTH_SHORT).show()
         choices.forEach { it() }
-    }
-
-    private fun abReport(): String {
-        val lang = CapriVoice.voiceLang(Lang.current(this)) ?: "es-MX"
-        val line = { src: String -> when (src) {
-            "clip" -> getString(R.string.cv_ab_r_clip, lang, if (CapriVoice.installed(lang) != null) getString(R.string.cv_n_ready) else getString(R.string.cv_missing, lang))
-            "system" -> getString(R.string.cv_ab_r_system, lang)
-            else -> getString(R.string.cv_ab_r_neural, lang, neuralStatus(lang)) + CapriNeural.metrics.takeIf { it.optString("lang") == lang && it.has("generationMs") }
-                ?.let { "\n  " + getString(R.string.cv_metrics, lang, it.optLong("loadMs"), it.optLong("firstAudioMs"), it.optDouble("rtf", 0.0),
-                    android.text.format.Formatter.formatShortFileSize(this, it.optLong("pssPeakBytes"))) }.orEmpty()
-        } }
-        return "A · " + line(abA) + "\nB · " + line(abB)
-    }
-
-    private fun voiceJob(work: ((String?) -> Unit) -> Unit) {
-        Toast.makeText(this, R.string.cv_busy, Toast.LENGTH_SHORT).show()
-        choices.forEach { it() }
+        if (title != null) { dlTitle = title; shell.removeCallbacks(dlTick); dlTick.run() }
         work { err ->
+            if (title != null) {
+                dlTitle = null; shell.removeCallbacks(dlTick)
+                DownloadNote.done(this, title, err)
+                for (v in dlViews) v.visibility = View.GONE
+            }
             val msg = when (err) {
                 null -> getString(R.string.cv_ok)
                 "notV8" -> getString(R.string.cv_err_notv8)
@@ -1326,8 +1288,9 @@ class MainActivity : Activity() {
         addView(ui.label(getString(R.string.cv_get_title)))
         val state = ui.text("", 13f, Hud.PAPER, ui.body).apply { setLineSpacing(0f, 1.2f) }
         addView(state, ui.block(6))
-        val btn = ui.button(getString(R.string.cv_get), Ui.Kind.MAIN) { voiceJob { getVoice(it) } }
+        val btn = ui.button(getString(R.string.cv_get), Ui.Kind.MAIN) { voiceJob(getString(R.string.dl_voice)) { getVoice(it) } }
         addView(btn, ui.block(10))
+        addView(ui.text("", 13f, Hud.YELLOW, ui.mono).apply { visibility = View.GONE; dlViews += this }, ui.block(6))
         addView(ui.text(getString(R.string.cv_get_how), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
         val show = {
             val phrases = CapriVoice.PACKS.count { CapriVoice.installed(it.lang) != null }
@@ -1374,6 +1337,16 @@ class MainActivity : Activity() {
         return true
     }
 
+    // (1.11.3, Emma: "añade un tutorial específico… no entienden cómo ponerle voz a su Capri") the voice
+    // tutorial: the same guided view as the tour, its steps in assets/android/tour-voz.json, from Ajustes de voz,
+    // Novedades and the offer to get her voice
+    private val voiceSpots = HashMap<String, View>()
+
+    private fun voiceTutorial() {
+        val (_, steps) = Tour.load(this, "android/tour-voz.json") ?: return
+        Tour(this, ui, shell, steps, ::tourTarget) { if (sub !== voice) openSub(voice) }.start()
+    }
+
     /** What a tour step lights up (its "target" in tour.json), with its tab on screen first. */
     private fun tourTarget(key: String): View? {
         val (kind, name) = key.split(":", limit = 2).let { it[0] to it.getOrElse(1) { "" } }
@@ -1382,6 +1355,7 @@ class MainActivity : Activity() {
             "bar" -> pill
             "tab" -> tab.indexOf(name).takeIf { it >= 0 }?.let { show(it, animate = false); tabs[it].button }
             "settings" -> { show(TAB_SETTINGS, animate = false); entries[name] }
+            "voice" -> { if (sub !== voice) openSub(voice, animate = false); voiceSpots[name] }
             else -> null
         }
     }
@@ -1395,8 +1369,9 @@ class MainActivity : Activity() {
         val card = ui.card(Hud.YELLOW, Hud.MANE).apply {
             addView(ui.label(getString(R.string.offer_title)))
             addView(ui.text(getString(R.string.offer_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.2f) }, ui.block(6))
-            addView(ui.button(getString(R.string.offer_get), Ui.Kind.MAIN) { dialog.dismiss(); voiceJob { getVoice(it) } }, ui.block(12))
+            addView(ui.button(getString(R.string.offer_get), Ui.Kind.MAIN) { dialog.dismiss(); voiceJob(getString(R.string.dl_voice)) { getVoice(it) } }, ui.block(12))
             addView(ui.button(getString(R.string.offer_more), Ui.Kind.LINE) { dialog.dismiss(); openSub(voice) }, ui.block(8))
+            addView(ui.button(getString(R.string.vt_open), Ui.Kind.LINE) { dialog.dismiss(); voiceTutorial() }, ui.block(8))
             addView(ui.button(getString(R.string.community_later), Ui.Kind.LINE) { dialog.dismiss() }, ui.block(8))
         }
         val pad = FrameLayout(this).apply { setPadding(ui.dpi(4), ui.dpi(4), ui.dpi(10), ui.dpi(10)); addView(card) }
@@ -1408,16 +1383,49 @@ class MainActivity : Activity() {
         return true
     }
 
+    /**
+     * «Probar su voz»: one of her phrases, out loud. (1.11.3, Emma: "revisa que la voz sí funcione") It used to need
+     * Capri running and said nothing when it couldn't; now it plays here even with Capri off, and says why if not.
+     */
+    private var preview: io.github.emmanuelquintana.voice.CapriVoiceClipPlayer? = null
+
     private fun testVoice() {
         val lang = CapriVoice.voiceLang(Lang.current(this)) ?: "es-MX"
-        val clip = CapriVoice.installed(lang)?.listClips()?.let { all -> all.filter { it.eventId.startsWith("greeting") }.ifEmpty { all } }?.randomOrNull()
+        val lib = CapriVoice.installed(lang)
+        val clip = lib?.listClips()?.let { all -> all.filter { it.eventId.startsWith("greeting") }.ifEmpty { all } }?.randomOrNull()
+        val audio = getSystemService(android.media.AudioManager::class.java)
+        val why = when {
+            lib == null || clip == null -> R.string.cv_test_noclips
+            !CapriVoice.clipsOn(this) -> R.string.cv_test_clipsoff
+            !Store(this).configFlag("speak", true) -> R.string.cv_test_speakoff
+            audio != null && audio.getStreamVolume(android.media.AudioManager.STREAM_MUSIC) == 0 -> R.string.cv_test_muted
+            else -> 0
+        }
+        if (why != 0) return run { Toast.makeText(this, why, Toast.LENGTH_LONG).show() }
+        lib!!; clip!!
         val ears = CapriService.current?.ears
-        if (clip == null || ears == null || !CapriVoice.clipsOn(this)) {
-            Toast.makeText(this, if (clip == null) R.string.cv_no_phrase else R.string.cv_busy, Toast.LENGTH_LONG).show()
+        if (ears != null) {
+            Toast.makeText(this, clip.text, Toast.LENGTH_LONG).show()
+            ears.say(clip.text, lang, org.json.JSONObject().put("id", "test").put("clip", clip.id).put("kind", "test"))
             return
         }
-        Toast.makeText(this, clip.text, Toast.LENGTH_LONG).show()
-        ears.say(clip.text, lang, org.json.JSONObject().put("id", "test").put("clip", clip.id).put("kind", "test"))
+        // Capri isn't running: the phrase plays from here
+        preview?.let { runCatching { it.stop() } }
+        val store = Store(this)
+        val player = io.github.emmanuelquintana.voice.CapriVoiceClipPlayer(lib)
+        preview = player
+        val res = runCatching {
+            player.playEvent("test", clip.eventId, clip.language, clip.emotion,
+                volume = store.configNumber("voiceClipVolume", 1.0).toFloat().coerceIn(0f, 1f),
+                speed = store.configNumber("voiceClipSpeed", 1.0).toFloat().coerceIn(0.75f, 1.25f)) { ev ->
+                when (ev.state.name) {
+                    "VOICE_STARTED" -> Toast.makeText(this, ev.clip.text, Toast.LENGTH_LONG).show()
+                    "VOICE_ERROR" -> Toast.makeText(this, getString(R.string.cv_err, ev.error ?: "?"), Toast.LENGTH_LONG).show()
+                }
+                if (ev.state.name in setOf("VOICE_FINISHED", "VOICE_CANCELLED", "VOICE_ERROR") && preview === player) preview = null
+            }
+        }
+        res.exceptionOrNull()?.let { Toast.makeText(this, getString(R.string.cv_err, it.message ?: it.javaClass.simpleName), Toast.LENGTH_LONG).show() }
     }
 
     // ---------- Settings: what's general about her (1.9.0: you and her looks have their own tabs) ----------
@@ -1957,13 +1965,18 @@ class MainActivity : Activity() {
         Threads.make {
             try {
                 var shown = -1
-                val apk = Updater.download(this, r) { k ->
-                    val pct = (k * 100).toInt()
-                    if (pct != shown) {
-                        shown = pct
-                        runOnUiThread { updateBtn.text = getString(R.string.update_downloading, pct) }
-                    }
-                }
+                val title = getString(R.string.dl_update, r.version)
+                DownloadNote.progress(this, title, -1f)
+                val apk = try {
+                    Updater.download(this, r) { k ->
+                        val pct = (k * 100).toInt()
+                        if (pct != shown) {
+                            shown = pct
+                            DownloadNote.progress(this, title, k)
+                            runOnUiThread { updateBtn.text = getString(R.string.update_downloading, pct) }
+                        }
+                    }.also { DownloadNote.done(this, title, null) }
+                } catch (e: Exception) { DownloadNote.done(this, title, e.message ?: "?"); throw e }
                 Updater.install(this, apk)
                 runOnUiThread { updateBtn.text = getString(R.string.update_installing) }
             } catch (e: Exception) {

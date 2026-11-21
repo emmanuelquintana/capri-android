@@ -631,4 +631,16 @@
     <string name="tour_next">Próximo</string>
     <string name="tour_done">Pronto</string>
     <string name="tour_again">Ver as novidades (tour)</string>
+    <string name="dl_channel">Downloads</string>
+    <string name="dl_starting">começando…</string>
+    <string name="dl_progress">%1$d %%</string>
+    <string name="dl_done">Pronto.</string>
+    <string name="dl_voice">Baixando a voz dela</string>
+    <string name="dl_engine">Baixando o motor dela: %1$s</string>
+    <string name="dl_update">Baixando Capri %1$s</string>
+    <string name="cv_test_noclips">As frases dela ainda não estão aqui: primeiro toque em «Baixar a voz dela».</string>
+    <string name="cv_test_clipsoff">«Frases com a voz dela» está desligado: ligue para ouvi-la.</string>
+    <string name="cv_test_speakoff">A voz dela está desligada (Voz dela › Ativado).</string>
+    <string name="cv_test_muted">Seu volume de mídia está em 0: aumente e tente de novo.</string>
+    <string name="vt_open">Como coloco a voz dela?</string>
 </resources>

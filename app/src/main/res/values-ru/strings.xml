@@ -638,4 +638,16 @@
     <string name="tour_next">Далее</string>
     <string name="tour_done">Готово</string>
     <string name="tour_again">Что нового (экскурсия)</string>
+    <string name="dl_channel">Загрузки</string>
+    <string name="dl_starting">начинаю…</string>
+    <string name="dl_progress">%1$d %%</string>
+    <string name="dl_done">Готово.</string>
+    <string name="dl_voice">Скачиваю её голос</string>
+    <string name="dl_engine">Скачиваю её движок: %1$s</string>
+    <string name="dl_update">Скачиваю Capri %1$s</string>
+    <string name="cv_test_noclips">Её фраз ещё нет: сначала нажми «Скачать её голос».</string>
+    <string name="cv_test_clipsoff">«Фразы её голосом» выключены: включи, чтобы её услышать.</string>
+    <string name="cv_test_speakoff">Её голос выключен (Её голос › Вкл.).</string>
+    <string name="cv_test_muted">Громкость мультимедиа на нуле: прибавь и попробуй ещё раз.</string>
+    <string name="vt_open">Как дать ей её голос?</string>
 </resources>

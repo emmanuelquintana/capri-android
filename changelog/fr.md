@@ -2,6 +2,17 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.11.3
+
+- **Tu vois où en est chaque téléchargement :** quand tu télécharges sa voix, ses moteurs ou une mise à jour, une
+  notification montre l’avancement, puis si c’est fini (ou pourquoi pas). Les Réglages de la voix montrent aussi le
+  pourcentage.
+- **Tutoriel « Comment lui donner sa voix ? » :** pas à pas, avec le reste assombri : où la télécharger, comment
+  l’écouter et comment faire que toutes ses réponses aient sa voix. Dans les Réglages de la voix et les Nouveautés.
+- **« Écouter sa voix » répond toujours :** ça sonne maintenant même si Capri n’est pas lancée, et si ça ne peut pas
+  sonner, l’app te dit pourquoi (pas encore téléchargée, volume multimédia à 0, sa voix coupée).
+- **Le comparateur A/B de sa voix disparaît :** il embrouillait et ne sonnait pas.
+
 ## 1.11.2
 
 - **« Télécharger sa voix » marche enfin :** en téléchargeant ses données de voix (environ 8 Mo), on voyait

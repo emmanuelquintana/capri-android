@@ -184,6 +184,7 @@ class CapriService : Service() {
             // (as if your phone were playing something, or that kind of app were in front: react.js)
             ACTION_AGENDA -> if (BuildConfig.DEBUG) Agenda.demo(this)
             ACTION_NEURALTEST -> if (BuildConfig.DEBUG) CapriNeural.selfTest(this)
+            ACTION_VOICETEST -> if (BuildConfig.DEBUG) VoiceSelfTest.run(this)
             ACTION_SENSE -> if (BuildConfig.DEBUG) overlay?.emit("phone:activity", JSONObject().put("sound", intent.getBooleanExtra("sound", false)).put("kind", intent.getStringExtra("kind") ?: "").toString())
         }
         return START_STICKY
@@ -407,6 +408,7 @@ class CapriService : Service() {
         const val ACTION_CHAT = "capri.CHAT"
         const val ACTION_LOOK = "capri.LOOK" // her widget: look at my screen
         const val ACTION_HEAR = "capri.HEAR"
+        const val ACTION_VOICETEST = "capri.VOICETEST" // (1.11.3, debug only) VoiceSelfTest: «Bajar su voz» + a phrase out loud
         const val ACTION_NEURALTEST = "capri.NEURALTEST" // (V8.5, debug only) CapriNeural.selfTest
         const val ACTION_SENSE = "capri.SENSE"
         const val ACTION_AGENDA = "capri.AGENDA" // (debug: her class notification now)

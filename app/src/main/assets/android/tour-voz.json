@@ -1,0 +1,91 @@
+{
+  "_como": "Tutorial «Ponle su voz» (Tour.kt, MainActivity.voiceTutorial). target: settings:voice | voice:<get|test|engines|answers>. Textos en es/en/fr/pt/ru.",
+  "id": "voz-1",
+  "steps": [
+    {
+      "target": "settings:voice",
+      "title": {
+        "es": "1 · Ajustes de voz",
+        "en": "1 · Voice settings",
+        "fr": "1 · Réglages de la voix",
+        "pt": "1 · Ajustes de voz",
+        "ru": "1 · Настройки голоса"
+      },
+      "text": {
+        "es": "Todo lo de su voz está aquí: Ajustes › Ajustes de voz.",
+        "en": "Everything about her voice is here: Settings › Voice settings.",
+        "fr": "Tout ce qui touche à sa voix est ici : Réglages › Réglages de la voix.",
+        "pt": "Tudo sobre a voz dela está aqui: Ajustes › Ajustes de voz.",
+        "ru": "Всё о её голосе здесь: Настройки › Настройки голоса."
+      }
+    },
+    {
+      "target": "voice:get",
+      "title": {
+        "es": "2 · Bájala (8 MB)",
+        "en": "2 · Download it (8 MB)",
+        "fr": "2 · Télécharge-la (8 Mo)",
+        "pt": "2 · Baixe (8 MB)",
+        "ru": "2 · Скачай (8 МБ)"
+      },
+      "text": {
+        "es": "Toca «Bajar su voz». Bajan sus 202 frases y su perfil; ves el avance aquí y en la notificación. Con eso ya dice sus frases con su voz: al acariciarla, saludarte, lanzarla, despedirse y darte las buenas noches. Funciona desde Android 8.",
+        "en": "Tap «Download her voice». Her 202 phrases and her profile come down; you see the progress here and in the notification. With that she already says her phrases in her voice: when you pet her, greet you, throw her, say goodbye and good night. Works from Android 8.",
+        "fr": "Touche « Télécharger sa voix ». Ses 202 phrases et son profil arrivent ; tu vois l’avancement ici et dans la notification. Avec ça, elle dit déjà ses phrases avec sa voix : quand tu la caresses, quand elle te salue, quand tu la lances, pour dire au revoir et bonne nuit. Marche dès Android 8.",
+        "pt": "Toque em «Baixar a voz dela». As 202 frases e o perfil dela são baixados; você vê o progresso aqui e na notificação. Com isso ela já diz as frases com a voz dela: quando você faz carinho, cumprimenta, joga, se despede e dá boa noite. Funciona a partir do Android 8.",
+        "ru": "Нажми «Скачать её голос». Скачаются её 202 фразы и профиль; ход загрузки видно здесь и в уведомлении. После этого она уже говорит свои фразы своим голосом: когда её гладишь, когда она здоровается, когда её бросаешь, прощается и желает спокойной ночи. Работает с Android 8."
+      }
+    },
+    {
+      "target": "voice:test",
+      "title": {
+        "es": "3 · Escúchala",
+        "en": "3 · Hear her",
+        "fr": "3 · Écoute-la",
+        "pt": "3 · Ouça",
+        "ru": "3 · Послушай"
+      },
+      "text": {
+        "es": "Sube el volumen multimedia (el de la música) y toca «Probar su voz». Si no suena, la app te dice por qué.",
+        "en": "Turn up the media volume (the music one) and tap «Hear her voice». If nothing plays, the app tells you why.",
+        "fr": "Monte le volume multimédia (celui de la musique) et touche « Écouter sa voix ». Si rien ne sort, l’app te dit pourquoi.",
+        "pt": "Aumente o volume de mídia (o da música) e toque em «Ouvir a voz dela». Se não tocar, o app diz o porquê.",
+        "ru": "Прибавь громкость мультимедиа (как для музыки) и нажми «Послушать её голос». Если не звучит, приложение скажет почему."
+      }
+    },
+    {
+      "target": "voice:engines",
+      "title": {
+        "es": "4 · Todas sus respuestas (opcional)",
+        "en": "4 · All her answers (optional)",
+        "fr": "4 · Toutes ses réponses (optionnel)",
+        "pt": "4 · Todas as respostas (opcional)",
+        "ru": "4 · Все её ответы (необязательно)"
+      },
+      "text": {
+        "es": "Sus frases ya suenan con su voz. Para que lo que te contesta su IA también suene con su voz, añade aquí un motor: «Ligera» va en casi todos. Es experimental, necesita Android 12 o más nuevo y 3 GB de RAM, y en teléfonos sencillos tarda en empezar a hablar.",
+        "en": "Her phrases already sound in her voice. For what her AI answers to sound in her voice too, add an engine here: «Light» fits almost every phone. It's experimental, needs Android 12 or newer and 3 GB of RAM, and on simple phones it takes a while to start talking.",
+        "fr": "Ses phrases ont déjà sa voix. Pour que ce que répond son IA ait aussi sa voix, ajoute ici un moteur : « Légère » va sur presque tous. C’est expérimental, ça demande Android 12 ou plus récent et 3 Go de RAM, et sur les téléphones simples elle met du temps à commencer à parler.",
+        "pt": "As frases dela já soam com a voz dela. Para que o que a IA dela responde também soe com a voz dela, adicione aqui um motor: «Leve» roda em quase todos. É experimental, precisa do Android 12 ou mais novo e 3 GB de RAM, e em celulares simples demora para começar a falar.",
+        "ru": "Её фразы уже звучат её голосом. Чтобы и ответы её ИИ звучали её голосом, добавь здесь движок: «Лёгкая» подходит почти всем. Это экспериментально, нужен Android 12 или новее и 3 ГБ ОЗУ, а на простых телефонах она не сразу начинает говорить."
+      }
+    },
+    {
+      "target": "voice:answers",
+      "title": {
+        "es": "5 · Elige «Su voz»",
+        "en": "5 · Pick «Her voice»",
+        "fr": "5 · Choisis « Sa voix »",
+        "pt": "5 · Escolha «Voz dela»",
+        "ru": "5 · Выбери «Её голос»"
+      },
+      "text": {
+        "es": "Con el motor instalado, en «Sus respuestas nuevas» elige «Su voz». Si no, sus respuestas usan la voz del teléfono. Listo: inicia a Capri y háblale.",
+        "en": "With the engine installed, under «Her new answers» pick «Her voice». Otherwise her answers use the phone's voice. Done: start Capri and talk to her.",
+        "fr": "Avec le moteur installé, dans « Ses nouvelles réponses », choisis « Sa voix ». Sinon ses réponses utilisent la voix du téléphone. C’est tout : lance Capri et parle-lui.",
+        "pt": "Com o motor instalado, em «As respostas novas dela» escolha «Voz dela». Se não, as respostas usam a voz do celular. Pronto: inicie a Capri e fale com ela.",
+        "ru": "Когда движок установлен, в «Её новые ответы» выбери «Её голос». Иначе ответы звучат голосом телефона. Готово: запусти Capri и поговори с ней."
+      }
+    }
+  ]
+}

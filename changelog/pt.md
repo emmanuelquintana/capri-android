@@ -2,6 +2,16 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.11.3
+
+- **Você vê quanto falta em cada download:** ao baixar a voz dela, os motores ou uma atualização, uma notificação
+  mostra o progresso e depois se terminou (ou por que não). Nos Ajustes de voz também aparece a porcentagem.
+- **Tutorial «Como coloco a voz dela?»:** passo a passo, com o resto escurecido: onde baixar, como ouvir e como fazer
+  todas as respostas soarem com a voz dela. Está nos Ajustes de voz e em Novidades.
+- **«Ouvir a voz dela» sempre responde:** agora toca mesmo com a Capri desligada, e se não puder tocar diz o porquê
+  (falta baixar, volume de mídia em 0, voz dela desligada).
+- **Sai o comparador A/B da voz dela:** confundia e não tocava.
+
 ## 1.11.2
 
 - **«Baixar a voz dela» já funciona:** ao baixar os dados de voz dela (uns 8 MB) aparecia «Não deu: npy…» e o perfil

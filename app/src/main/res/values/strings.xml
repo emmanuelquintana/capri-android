@@ -632,4 +632,16 @@
     <string name="tour_next">Next</string>
     <string name="tour_done">Done</string>
     <string name="tour_again">See what’s new (guided tour)</string>
+    <string name="dl_channel">Downloads</string>
+    <string name="dl_starting">starting…</string>
+    <string name="dl_progress">%1$d %%</string>
+    <string name="dl_done">Done.</string>
+    <string name="dl_voice">Downloading her voice</string>
+    <string name="dl_engine">Downloading her engine: %1$s</string>
+    <string name="dl_update">Downloading Capri %1$s</string>
+    <string name="cv_test_noclips">Her phrases aren\'t here yet: tap «Download her voice» first.</string>
+    <string name="cv_test_clipsoff">«Phrases in her voice» is off: turn it on to hear her.</string>
+    <string name="cv_test_speakoff">Her voice is off (Her voice › On).</string>
+    <string name="cv_test_muted">Your media volume is at 0: turn it up and try again.</string>
+    <string name="vt_open">How do I give her her voice?</string>
 </resources>
