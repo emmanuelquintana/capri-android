@@ -570,6 +570,12 @@ class Ears(private val service: CapriService) {
     }
 
     private fun stopVoice() {
+        if (neuralId.isNotEmpty()) {
+            val was = neuralId
+            neuralId = ""
+            CapriNeural.cancel()
+            voiceEvent(was, "VOICE_CANCELLED") { put("source", CapriNeural.ID) }
+        }
         val p = clipPlayer
         clipPlayer = null
         p?.let { runCatching { it.stop() } } // (its VOICE_CANCELLED goes to her page)
@@ -607,8 +613,56 @@ class Ears(private val service: CapriService) {
         // one of her phrases without its recording: she doesn't read it out in another voice
         if (kind == "event") return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "noclip") }
         // her new answers: in the voice you picked (the phone's, as before), or in writing only
-        if (CapriVoice.engine(service) == "text") return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "text") }
+        // (V8.5) the A/B comparison asks for one engine by name (only for tests, never for her answers)
+        val engine = opts.optString("engine").takeIf { kind == "test" && it in CapriVoice.ENGINES } ?: CapriVoice.engine(service)
+        if (engine == "text") return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "text") }
+        if (engine == CapriNeural.ID) return@post neuralVoice(id, text, lang)
         systemVoice(id, text, lang)
+    }
+
+    // (1.11.0, V8.5) her new answer in the neural engine you picked (CapriNeural.kt). If it can't now (no model,
+    // short of memory, too hot) it never switches voice behind your back: VOICE_UNAVAILABLE says why and she
+    // answers in writing, unless you chose "if it can't, the phone's voice" (voiceFallback), and then the
+    // event says so (fallback: system).
+    private var neuralId = ""
+
+    private fun neuralVoice(id: String, text: String, lang: String) {
+        val tag = CapriVoice.voiceLang(lang)
+        if (tag == null) return neuralFailed(id, text, lang, "lang")
+        neuralId = id
+        speaking = true
+        recognizer?.let { runCatching { it.cancel() } }
+        listening = false
+        takeFocus()
+        main.removeCallbacks(unstuck)
+        main.postDelayed(unstuck, 180_000)
+        CapriNeural.speak(service, id, text, tag) { state, extra ->
+            if (neuralId != id) return@speak
+            if (state == "VOICE_UNAVAILABLE") {
+                neuralId = ""
+                return@speak neuralFailed(id, text, lang, extra.optString("why"))
+            }
+            voiceEvent(id, state) {
+                val keys = extra.keys()
+                while (keys.hasNext()) { val k = keys.next(); put(k, extra.get(k)) }
+            }
+            if (state == "VOICE_PROGRESS") { main.removeCallbacks(unstuck); main.postDelayed(unstuck, 60_000) }
+            if (state in END) {
+                neuralId = ""
+                dropFocus()
+                spoke()
+            }
+        }
+    }
+
+    private fun neuralFailed(id: String, text: String, lang: String, why: String) {
+        voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", CapriNeural.ID) }
+        CapriNeural.lastFallback = why
+        if (Store(service).configString("voiceFallback") == "system") {
+            voiceEvent(id, "VOICE_REQUESTED") { put("kind", "answer").put("fallback", "system") }
+            return systemVoice(id, text, lang)
+        }
+        if (speaking) spoke()
     }
 
     private fun playClip(id: String, lib: VoiceClipLibrary, clip: VoiceClip) {
@@ -698,7 +752,7 @@ class Ears(private val service: CapriService) {
     private fun ttsEnded(id: String, state: String) {
         voiceEvent(id, state) { put("source", "system") }
         // an older answer's end isn't the newer one's
-        if (id != sayId || clipPlayer != null) return
+        if (id != sayId || clipPlayer != null || neuralId.isNotEmpty()) return
         spoke()
     }
 

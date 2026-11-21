@@ -1,0 +1,24 @@
+#!/bin/bash
+# (V8.5) Her neural voice on an emulator: the APK, the model (from CI's cache), a technical fixture sound
+# (a synthetic tone, NOT Capri's voice: her profile is private), then CapriNeural.selfTest through the
+# debug-only service action, read back from logcat.
+set -u
+PKG=io.github.emmanuelquintana.capri
+adb install -r -g app/build/outputs/apk/debug/app-debug.apk
+adb shell appops set $PKG SYSTEM_ALERT_WINDOW allow
+EXT=/sdcard/Android/data/$PKG/files
+adb shell mkdir -p $EXT
+if [ "${NEURAL_MODELS:-}" != "" ]; then
+  for f in qwen-talker-0.6b-base-Q4_K_M.gguf qwen-tokenizer-12hz-Q4_K_M.gguf; do adb push "$NEURAL_MODELS/$f" $EXT/ >/dev/null && echo "pushed $f"; done
+fi
+adb push fixture.wav $EXT/ >/dev/null
+adb logcat -c
+adb shell am start-foreground-service -n $PKG/.CapriService -a capri.NEURALTEST
+for i in $(seq 1 180); do
+  sleep 5
+  if adb logcat -d -s CapriNeuralTest:I | grep -qE "DONE|FAIL"; then break; fi
+done
+adb logcat -d -s CapriNeuralTest:I | grep CapriNeuralTest | tee neural.log
+adb logcat -d | grep -iE "FATAL|AndroidRuntime: |libc  |CapriNeural|qwen" | tail -30
+for l in es-MX en-US; do adb pull $EXT/neural-$l.wav . 2>/dev/null && ls -la neural-$l.wav; done
+grep -q "DONE" neural.log

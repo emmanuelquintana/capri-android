@@ -877,25 +877,31 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.cv_clips), 14f, Hud.PAPER, ui.head), ui.block(12))
             addView(choice(listOf(R.string.off to false, R.string.on to true),
                 { store.configFlag("voiceClips", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceClips", it) }, ui.block(6))
-            // how she trades fidelity for coverage: her approved phrases only, or phrases + the phone's voice
+            // (V8.5) how she trades fidelity for performance. Every mode only picks among engines that really
+            // work here; none switches her identity behind your back (an experimental engine is only used if
+            // you choose it yourself, in Custom).
             addView(ui.text(getString(R.string.cv_mode), 14f, Hud.PAPER, ui.head), ui.block(14))
-            addView(ui.text(getString(R.string.cv_mode_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(choice(listOf(R.string.cv_mode_fidelity to "fidelity", R.string.cv_mode_balanced to "balanced", R.string.cv_mode_custom to "custom"),
-                { store.configString("voiceMode") ?: "balanced" }, { a, b -> a == b }) { mode ->
-                CapriSettings.set(this@MainActivity, "voiceMode", mode)
-                when (mode) {
-                    "fidelity" -> CapriSettings.set(this@MainActivity, "voiceEngine", "text")
-                    "balanced" -> CapriSettings.set(this@MainActivity, "voiceEngine", "system")
-                }
-                if (mode != "custom") CapriSettings.set(this@MainActivity, "voiceClips", true)
-            }, ui.block(6))
+            addView(choice(listOf(R.string.cv_mode_auto to "automatic", R.string.cv_mode_light to "light", R.string.cv_mode_balanced to "balanced"),
+                { store.configString("voiceMode") ?: "balanced" }, { a, b -> a == b }) { setVoiceMode(it) }, ui.block(6))
+            addView(choice(listOf(R.string.cv_mode_fidelity to "fidelity", R.string.cv_mode_custom to "custom"),
+                { store.configString("voiceMode") ?: "balanced" }, { a, b -> a == b }) { setVoiceMode(it) }, ui.block(4))
+            val why = ui.text("", 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }
+            addView(why, ui.block(6))
             addView(ui.text(getString(R.string.cv_answers), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(ui.text(getString(R.string.cv_answers_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(choice(listOf(R.string.cv_engine_system to "system", R.string.cv_engine_text to "text"),
-                { CapriVoice.engine(this@MainActivity) }, { a, b -> a == b }) {
-                CapriSettings.set(this@MainActivity, "voiceEngine", it)
-                CapriSettings.set(this@MainActivity, "voiceMode", "custom")
-            }, ui.block(6))
+            addView(choice(listOf(R.string.cv_engine_system to "system", R.string.cv_engine_neural to CapriNeural.ID, R.string.cv_engine_text to "text"),
+                { CapriVoice.engine(this@MainActivity) }, { a, b -> a == b }) { pickEngine(it) }, ui.block(6))
+            val showWhy = {
+                val lang = CapriVoice.voiceLang(Lang.current(this@MainActivity)) ?: "es-MX"
+                why.text = getString(when (store.configString("voiceMode") ?: "balanced") {
+                    "fidelity" -> R.string.cv_why_fidelity
+                    "custom" -> if (CapriVoice.engine(this@MainActivity) == CapriNeural.ID) R.string.cv_why_custom_neural else R.string.cv_why_custom
+                    "light" -> R.string.cv_why_light
+                    else -> R.string.cv_why_auto
+                }) + "\n" + getString(R.string.cv_neural_now, neuralStatus(lang))
+            }
+            showWhy()
+            choices.add(showWhy)
             addView(ui.text(getString(R.string.cv_volume), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(choice(listOf(R.string.cv_vol_low to 0.5, R.string.cv_vol_mid to 0.8, R.string.cv_vol_high to 1.0),
                 { store.configNumber("voiceClipVolume", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceClipVolume", it) }, ui.block(6))
@@ -904,6 +910,86 @@ class MainActivity : Activity() {
                 { store.configNumber("voiceClipSpeed", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceClipSpeed", it) }, ui.block(6))
             addView(ui.text(getString(R.string.cv_signature), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(10))
             addView(ui.button(getString(R.string.cv_test), Ui.Kind.LINE) { testVoice() }, ui.block(10))
+
+            // A/B: the same new sentence in two engines, one after the other (never both at once)
+            addView(ui.text(getString(R.string.cv_ab), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.cv_ab_how), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            val sources = listOf(R.string.cv_src_clip to "clip", R.string.cv_engine_system to "system", R.string.cv_engine_neural to CapriNeural.ID)
+            addView(ui.text("A", 12f, Hud.PAPER_2, ui.mono), ui.block(6))
+            addView(choice(sources, { abA }, { a, b -> a == b }) { abA = it }, ui.block(2))
+            addView(ui.text("B", 12f, Hud.PAPER_2, ui.mono), ui.block(6))
+            addView(choice(sources, { abB }, { a, b -> a == b }) { abB = it }, ui.block(2))
+            val abRow = ui.row()
+            val lpw = { LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply { rightMargin = ui.dpi(4) } }
+            abRow.addView(ui.button(getString(R.string.cv_ab_play, "A"), Ui.Kind.LINE) { abPlay(abA) }, lpw())
+            abRow.addView(ui.button(getString(R.string.cv_ab_play, "B"), Ui.Kind.LINE) { abPlay(abB) }, lpw())
+            abRow.addView(ui.button(getString(R.string.cv_ab_stop), Ui.Kind.LINE) { CapriService.current?.ears?.hushVoice() }, lpw())
+            addView(abRow, ui.block(8))
+            val pickRow = ui.row()
+            pickRow.addView(ui.button(getString(R.string.cv_ab_pick, "A"), Ui.Kind.LINE) { abChoose(abA) }, lpw())
+            pickRow.addView(ui.button(getString(R.string.cv_ab_pick, "B"), Ui.Kind.LINE) { abChoose(abB) }, lpw())
+            addView(pickRow, ui.block(4))
+            val abInfo = ui.text("", 12f, Hud.PAPER_2, ui.mono)
+            addView(abInfo, ui.block(6))
+            val showAb = { abInfo.text = abReport() }
+            showAb()
+            choices.add(showAb)
+
+            // advanced: the neural engine itself, its files and its limits
+            val advanced = ui.col().apply { visibility = View.GONE }
+            addView(ui.button(getString(R.string.cv_advanced), Ui.Kind.LINE) {
+                advanced.visibility = if (advanced.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+            }, ui.block(14))
+            addView(advanced)
+            advanced.apply {
+                addView(ui.text(getString(R.string.cv_neural_title), 14f, Hud.PAPER, ui.head), ui.block(10))
+                addView(ui.text(getString(R.string.cv_neural_how), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+                val nState = ui.text("", 12f, Hud.PAPER, ui.mono)
+                addView(nState, ui.block(8))
+                val r1 = ui.row(); val r2 = ui.row(); val r3 = ui.row()
+                r1.addView(ui.button(getString(R.string.cv_neural_download), Ui.Kind.LINE) {
+                    if (CapriNeural.unsupported() != null) Toast.makeText(this@MainActivity, neuralStatus("es-MX"), Toast.LENGTH_LONG).show()
+                    else voiceJob { CapriNeural.download(this@MainActivity, it) }
+                }, lpw())
+                r1.addView(ui.button(getString(R.string.cv_neural_import), Ui.Kind.LINE) { pickFile(PICK_MODEL) }, lpw())
+                r2.addView(ui.button(getString(R.string.cv_neural_profile), Ui.Kind.LINE) { pickFile(PICK_PROFILE) }, lpw())
+                r2.addView(ui.button(getString(R.string.cv_verify), Ui.Kind.LINE) { voiceJob { CapriNeural.verify(this@MainActivity, it) } }, lpw())
+                r3.addView(ui.button(getString(R.string.cv_neural_cancel), Ui.Kind.LINE) { CapriNeural.cancelDownload() }, lpw())
+                r3.addView(ui.button(getString(R.string.cv_neural_rm_model), Ui.Kind.LINE) { voiceJob { CapriNeural.remove(this@MainActivity, "model", it) } }, lpw())
+                r3.addView(ui.button(getString(R.string.cv_neural_rm_profile), Ui.Kind.LINE) { voiceJob { CapriNeural.remove(this@MainActivity, "profile", it) } }, lpw())
+                addView(r1, ui.block(6)); addView(r2, ui.block(4)); addView(r3, ui.block(4))
+                addView(ui.text(getString(R.string.cv_dsp), 13f, Hud.PAPER, ui.head), ui.block(12))
+                addView(choice(listOf(R.string.off to false, R.string.on to true), { store.configFlag("voiceDsp", true) }, { a, b -> a == b }) {
+                    CapriSettings.set(this@MainActivity, "voiceDsp", it) }, ui.block(4))
+                addView(ui.text(getString(R.string.cv_threads), 13f, Hud.PAPER, ui.head), ui.block(12))
+                addView(choiceText(listOf(getString(R.string.cv_auto) to 0.0, "2" to 2.0, "4" to 4.0), { store.configNumber("voiceThreads", 0.0) }, { a, b -> a == b }) {
+                    CapriSettings.set(this@MainActivity, "voiceThreads", it); CapriNeural.release("threads") }, ui.block(4))
+                addView(ui.text(getString(R.string.cv_unload), 13f, Hud.PAPER, ui.head), ui.block(12))
+                addView(choiceText(listOf("1 min" to 1.0, "2 min" to 2.0, "5 min" to 5.0, "10 min" to 10.0), { store.configNumber("voiceUnloadMin", 2.0) }, { a, b -> a == b }) {
+                    CapriSettings.set(this@MainActivity, "voiceUnloadMin", it) }, ui.block(4))
+                addView(ui.text(getString(R.string.cv_fallback), 13f, Hud.PAPER, ui.head), ui.block(12))
+                addView(choice(listOf(R.string.cv_engine_text to "text", R.string.cv_engine_system to "system"), { store.configString("voiceFallback") ?: "text" }, { a, b -> a == b }) {
+                    CapriSettings.set(this@MainActivity, "voiceFallback", it) }, ui.block(4))
+                val showN = {
+                    val h = CapriNeural.hardware(this@MainActivity)
+                    val fmt = { b: Long -> android.text.format.Formatter.formatShortFileSize(this@MainActivity, b) }
+                    val m = CapriNeural.metrics
+                    nState.text = buildString {
+                        append("es-MX: ").append(neuralStatus("es-MX")).append('\n')
+                        append("en-US: ").append(neuralStatus("en-US")).append('\n')
+                        append(getString(R.string.cv_hw, h.optInt("api"), h.optJSONArray("abis")?.optString(0) ?: "?", h.optInt("cores"),
+                            fmt(h.optLong("ramFree")), fmt(h.optLong("ramTotal")), fmt(h.optLong("disk"))))
+                        if (m.has("generationMs")) append('\n').append(getString(R.string.cv_metrics, m.optString("lang"), m.optLong("loadMs"),
+                            m.optLong("firstAudioMs"), m.optDouble("rtf", 0.0), fmt(m.optLong("pssPeakBytes"))))
+                        if (CapriNeural.busy.isNotEmpty()) append('\n').append(getString(R.string.cv_busy))
+                            .append(CapriNeural.progress.takeIf { it >= 0 }?.let { " ${(it * 100).toInt()}%" } ?: "")
+                        append('\n').append(getString(R.string.cv_storage, fmt(CapriNeural.bytes(this@MainActivity))))
+                        if (CapriNeural.lastFallback.isNotEmpty()) append('\n').append(getString(R.string.cv_last_fallback, CapriNeural.lastFallback))
+                    }
+                }
+                showN()
+                choices.add(showN)
+            }
 
             // her packs, one per language: installed or not, its version, and what to do with it
             addView(ui.text(getString(R.string.cv_private), 12f, Hud.YELLOW, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(14))
@@ -957,9 +1043,98 @@ class MainActivity : Activity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         @Suppress("DEPRECATION")
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode != PICK_VOICE || resultCode != RESULT_OK) return
+        if (resultCode != RESULT_OK) return
         val uri = data?.data ?: return
-        voiceJob { CapriVoice.installFrom(this, uri, it) }
+        when (requestCode) {
+            PICK_VOICE -> voiceJob { CapriVoice.installFrom(this, uri, it) }
+            PICK_MODEL -> voiceJob { CapriNeural.importModel(this, uri, it) }
+            PICK_PROFILE -> voiceJob { CapriNeural.importProfiles(this, uri, it) }
+        }
+    }
+
+    private fun pickFile(code: Int) = runCatching {
+        @Suppress("DEPRECATION")
+        startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*"), code)
+    }
+
+    // (V8.5) the modes: each one only picks among engines that really work here. Automatic, light and
+    // balanced can't pick the neural engine (no validated identity on Android yet): her phrases + the phone's voice.
+    private fun setVoiceMode(mode: String) {
+        CapriSettings.set(this, "voiceMode", mode)
+        when (mode) {
+            "fidelity" -> CapriSettings.set(this, "voiceEngine", "text")
+            "automatic", "light", "balanced" -> CapriSettings.set(this, "voiceEngine", "system")
+        }
+        if (mode != "custom") CapriSettings.set(this, "voiceClips", true)
+        if (mode != "custom") CapriNeural.release("mode")
+    }
+
+    private fun pickEngine(engine: String) {
+        if (engine == CapriNeural.ID) {
+            val lang = CapriVoice.voiceLang(Lang.current(this)) ?: "es-MX"
+            val st = CapriNeural.status(this, lang)
+            if (st != "ready" && st != "loaded") {
+                Toast.makeText(this, getString(R.string.cv_neural_cant, neuralStatus(lang)), Toast.LENGTH_LONG).show()
+                return
+            }
+            Toast.makeText(this, R.string.cv_neural_experimental, Toast.LENGTH_LONG).show()
+        } else CapriNeural.release("engine")
+        CapriSettings.set(this, "voiceEngine", engine)
+        CapriSettings.set(this, "voiceMode", "custom")
+    }
+
+    /** The neural engine's real state for [lang], in words. */
+    private fun neuralStatus(lang: String): String {
+        val st = CapriNeural.status(this, lang)
+        return when {
+            st == "unsupported:api" -> getString(R.string.cv_n_api)
+            st == "unsupported:abi" -> getString(R.string.cv_n_abi)
+            st.startsWith("unsupported") -> getString(R.string.cv_n_native)
+            st == "nomodel" -> getString(R.string.cv_n_nomodel, android.text.format.Formatter.formatShortFileSize(this, CapriNeural.MODEL_BYTES))
+            st == "noprofile" -> getString(R.string.cv_n_noprofile)
+            st == "loaded" -> getString(R.string.cv_n_loaded)
+            else -> getString(R.string.cv_n_ready)
+        }
+    }
+
+    private var abA = "clip"
+    private var abB = CapriNeural.ID
+    private var abLast = ""
+
+    private fun abPlay(source: String) {
+        val ears = CapriService.current?.ears ?: return run { Toast.makeText(this, R.string.cv_need_capri, Toast.LENGTH_LONG).show() }
+        val lang = CapriVoice.voiceLang(Lang.current(this)) ?: "es-MX"
+        abLast = source
+        if (source == "clip") {
+            val clip = CapriVoice.installed(lang)?.listClips()?.let { all -> all.filter { it.eventId.startsWith("greeting") }.ifEmpty { all } }?.randomOrNull()
+                ?: return run { Toast.makeText(this, R.string.cv_no_phrase, Toast.LENGTH_LONG).show() }
+            Toast.makeText(this, getString(R.string.cv_ab_clip_note, clip.text), Toast.LENGTH_LONG).show()
+            ears.say(clip.text, lang, org.json.JSONObject().put("id", "ab-clip").put("clip", clip.id).put("kind", "test"))
+        } else {
+            val text = getString(R.string.cv_ab_sentence)
+            ears.say(text, lang, org.json.JSONObject().put("id", "ab-$source").put("kind", "test").put("engine", source))
+        }
+        choices.forEach { it() }
+    }
+
+    private fun abChoose(source: String) {
+        if (source == "clip") {
+            CapriSettings.set(this, "voiceClips", true)
+            Toast.makeText(this, R.string.cv_ab_clip_kept, Toast.LENGTH_LONG).show()
+        } else pickEngine(source)
+        choices.forEach { it() }
+    }
+
+    private fun abReport(): String {
+        val lang = CapriVoice.voiceLang(Lang.current(this)) ?: "es-MX"
+        val line = { src: String -> when (src) {
+            "clip" -> getString(R.string.cv_ab_r_clip, lang, if (CapriVoice.installed(lang) != null) getString(R.string.cv_n_ready) else getString(R.string.cv_missing, lang))
+            "system" -> getString(R.string.cv_ab_r_system, lang)
+            else -> getString(R.string.cv_ab_r_neural, lang, neuralStatus(lang)) + CapriNeural.metrics.takeIf { it.optString("lang") == lang && it.has("generationMs") }
+                ?.let { "\n  " + getString(R.string.cv_metrics, lang, it.optLong("loadMs"), it.optLong("firstAudioMs"), it.optDouble("rtf", 0.0),
+                    android.text.format.Formatter.formatShortFileSize(this, it.optLong("pssPeakBytes"))) }.orEmpty()
+        } }
+        return "A · " + line(abA) + "\nB · " + line(abB)
     }
 
     private fun voiceJob(work: ((String?) -> Unit) -> Unit) {
@@ -1495,6 +1670,8 @@ class MainActivity : Activity() {
         const val EXTRA_TAB = "tab"
         const val TAB_CHAT = 0
         private const val PICK_VOICE = 4711 // (1.11.0) a Capri Voice pack from your files
+        private const val PICK_MODEL = 4712 // (V8.5) one of the neural engine's .gguf files
+        private const val PICK_PROFILE = 4713 // (V8.5) the private profiles ZIP
         const val TAB_NEWS = 1
         const val TAB_GAMES = 2
         const val TAB_SETTINGS = 5

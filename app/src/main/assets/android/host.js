@@ -1583,8 +1583,13 @@ on('settings:apply', async (p = {}) => {
     updateConfig({ voiceClips: Boolean(p.voiceClips) });
     call('voice:packs').then((c) => emit('voice:packs', c)).catch(() => {});
   }
-  if (['system', 'text'].includes(p.voiceEngine)) updateConfig({ voiceEngine: p.voiceEngine });
-  if (['fidelity', 'balanced', 'custom'].includes(p.voiceMode)) updateConfig({ voiceMode: p.voiceMode });
+  if (['system', 'text', 'qwen-mobile'].includes(p.voiceEngine)) updateConfig({ voiceEngine: p.voiceEngine });
+  if (['automatic', 'light', 'fidelity', 'balanced', 'custom'].includes(p.voiceMode)) updateConfig({ voiceMode: p.voiceMode });
+  // (V8.5) her neural voice on the phone (CapriNeural.kt): SIGNATURE once, threads, idle unload, what if it can't
+  if ('voiceDsp' in p) updateConfig({ voiceDsp: Boolean(p.voiceDsp) });
+  if (typeof p.voiceThreads === 'number') updateConfig({ voiceThreads: Math.min(8, Math.max(0, Math.round(p.voiceThreads))) });
+  if (typeof p.voiceUnloadMin === 'number') updateConfig({ voiceUnloadMin: Math.min(30, Math.max(0.5, p.voiceUnloadMin)) });
+  if (['text', 'system'].includes(p.voiceFallback)) updateConfig({ voiceFallback: p.voiceFallback });
   if (typeof p.voiceClipVolume === 'number') updateConfig({ voiceClipVolume: Math.min(1, Math.max(0, p.voiceClipVolume)) });
   if (typeof p.voiceClipSpeed === 'number') updateConfig({ voiceClipSpeed: Math.min(1.25, Math.max(0.75, p.voiceClipSpeed)) });
   if ('gameTips' in p) updateConfig({ gameTips: Boolean(p.gameTips) });

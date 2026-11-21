@@ -1,0 +1,89 @@
+name: Voz neuronal (emulador)
+
+# (V8.5) Su voz neuronal en el teléfono (CapriNeural.kt): compila la versión de depuración, descarga el modelo
+# Qwen3-TTS 0.6B Q4_K_M de Hugging Face (público, Apache-2.0, revisión fija, comprobado por SHA-256), y en un
+# emulador x86_64 de Android 13 sintetiza frases nuevas, mide tiempos y memoria, cancela a mitad y descarga
+# el modelo. En Android 8 (API 26) comprueba que el motor no se ofrece y que la app sigue funcionando.
+# Usa un sonido técnico sintético para el vector de voz: el perfil de Capri es privado y no entra en CI.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [next]
+    paths:
+      - 'app/src/main/java/io/github/emmanuelquintana/capri/CapriNeural.kt'
+      - 'app/src/main/jniLibs/**'
+      - 'tools/ci/neural-test.sh'
+      - '.github/workflows/voice-neural.yml'
+
+jobs:
+  neural:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [33, 26]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew --no-daemon assembleDebug
+      - name: Modelo (caché por revisión)
+        if: matrix.api == 33
+        uses: actions/cache@v4
+        with:
+          path: gguf
+          key: qwen3-tts-gguf-b7ee2e8c7459c3bea99da23e3d178125a7d1713c
+      - name: Descargar y comprobar el modelo
+        if: matrix.api == 33
+        run: |
+          mkdir -p gguf
+          base=https://huggingface.co/Serveurperso/Qwen3-TTS-GGUF/resolve/b7ee2e8c7459c3bea99da23e3d178125a7d1713c
+          for f in qwen-talker-0.6b-base-Q4_K_M.gguf qwen-tokenizer-12hz-Q4_K_M.gguf; do
+            [ -f gguf/$f ] || curl -fL --retry 4 -o gguf/$f $base/$f
+          done
+          cd gguf && sha256sum -c - <<'SUMS'
+          4b468ec7b1f62b90ef4ca316c0aa57deadfd54b2cf9651703ea753cedaf04226  qwen-talker-0.6b-base-Q4_K_M.gguf
+          cf3788b4d50aaa665fb6e57c170396aae03a3555fea52d2b5d0cda902d658039  qwen-tokenizer-12hz-Q4_K_M.gguf
+          SUMS
+      - name: Sonido técnico (no es la voz de Capri)
+        run: |
+          python3 - <<'PY'
+          import math, struct
+          rate, secs = 24000, 6
+          out = []
+          for i in range(rate * secs):
+              t = i / rate
+              f0 = 180 + 40 * math.sin(2 * math.pi * 0.7 * t)
+              env = 0.5 + 0.5 * math.sin(2 * math.pi * 3.1 * t) ** 2
+              v = sum(math.sin(2 * math.pi * f0 * k * t) / k for k in range(1, 8)) * 0.18 * env
+              out.append(max(-1, min(1, v)))
+          data = b''.join(struct.pack('<h', int(v * 32767)) for v in out)
+          with open('fixture.wav', 'wb') as w:
+              w.write(b'RIFF' + struct.pack('<I', 36 + len(data)) + b'WAVE' + b'fmt ' + struct.pack('<IHHIIHH', 16, 1, 1, rate, rate * 2, 2, 16) + b'data' + struct.pack('<I', len(data)) + data)
+          PY
+      - name: KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        env:
+          NEURAL_MODELS: ${{ matrix.api == 33 && 'gguf' || '' }}
+        with:
+          api-level: ${{ matrix.api }}
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          ram-size: 4096M
+          heap-size: 576M
+          disk-size: 6000M
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: bash tools/ci/neural-test.sh
+      - name: Audio generado (base64, voz técnica)
+        if: always() && matrix.api == 33
+        run: for f in neural-*.wav; do [ -f "$f" ] && { echo "===WAV $f==="; base64 -w0 "$f"; echo; echo "===END==="; }; done; true

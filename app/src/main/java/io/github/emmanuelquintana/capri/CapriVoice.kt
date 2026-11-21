@@ -72,9 +72,10 @@ object CapriVoice {
 
     fun clipsOn(context: Context) = Store(context).configFlag("voiceClips", true)
 
-    /** What says her new answers: "system" (the phone's voice, as before) or "text" (in writing only). */
+    /** What says her new answers: "system" (the phone's voice, as before), "text" (in writing only) or
+     *  "qwen-mobile" (V8.5: her neural voice on the phone, experimental, CapriNeural.kt). */
     fun engine(context: Context): String = Store(context).configString("voiceEngine")?.takeIf { it in ENGINES } ?: "system"
-    val ENGINES = setOf("system", "text")
+    val ENGINES = setOf("system", "text", CapriNeural.ID)
 
     fun installed(lang: String): VoiceClipLibrary? = libs[lang]
 

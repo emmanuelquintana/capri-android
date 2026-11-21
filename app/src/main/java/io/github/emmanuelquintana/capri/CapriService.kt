@@ -114,6 +114,8 @@ class CapriService : Service() {
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
         if (level >= TRIM_MEMORY_RUNNING_LOW) overlay?.trim()
+        // (1.11.0, V8.5) her neural voice's model (~1 GB) goes first; it loads again on her next answer
+        if (level >= TRIM_MEMORY_RUNNING_LOW) CapriNeural.release("memory")
     }
 
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
@@ -181,6 +183,7 @@ class CapriService : Service() {
             ACTION_HEAR -> if (BuildConfig.DEBUG) overlay?.emit("capri:heard", JSONObject().put("text", intent.getStringExtra("text") ?: "").toString())
             // (as if your phone were playing something, or that kind of app were in front: react.js)
             ACTION_AGENDA -> if (BuildConfig.DEBUG) Agenda.demo(this)
+            ACTION_NEURALTEST -> if (BuildConfig.DEBUG) CapriNeural.selfTest(this)
             ACTION_SENSE -> if (BuildConfig.DEBUG) overlay?.emit("phone:activity", JSONObject().put("sound", intent.getBooleanExtra("sound", false)).put("kind", intent.getStringExtra("kind") ?: "").toString())
         }
         return START_STICKY
@@ -248,6 +251,8 @@ class CapriService : Service() {
 
     override fun onDestroy() {
         running = false
+        CapriNeural.cancel()
+        CapriNeural.release("stop")
         ticker.removeCallbacks(check)
         if (current === this) current = null
         Diag.add("I", "service stopped")
@@ -402,6 +407,7 @@ class CapriService : Service() {
         const val ACTION_CHAT = "capri.CHAT"
         const val ACTION_LOOK = "capri.LOOK" // her widget: look at my screen
         const val ACTION_HEAR = "capri.HEAR"
+        const val ACTION_NEURALTEST = "capri.NEURALTEST" // (V8.5, debug only) CapriNeural.selfTest
         const val ACTION_SENSE = "capri.SENSE"
         const val ACTION_AGENDA = "capri.AGENDA" // (debug: her class notification now)
         const val ACTION_SHARE = "capri.SHARE"
