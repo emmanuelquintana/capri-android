@@ -1,0 +1,29 @@
+name: Publicar datos de voz
+
+# Datos opcionales de la voz de Capri (Capri Voice V8): frases grabadas por idioma, perfiles de voz y el
+# servicio de voz de PC. Las apps los bajan solo si el usuario quiere y comprueban cada archivo por SHA-256.
+# Van como pre-release: no cuentan como versión de la app (el actualizador lee /releases/latest) ni salen en la web.
+
+on:
+  push:
+    branches: [voz-datos]
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sha256sum -c SHA256SUMS
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: capri-voz-8.0.0
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" *.zip SHA256SUMS --clobber
+          else
+            gh release create "$TAG" *.zip SHA256SUMS --prerelease --target voz-datos \
+              --title "Datos de voz de Capri 8.0.0" --notes-file NOTAS.md
+          fi
