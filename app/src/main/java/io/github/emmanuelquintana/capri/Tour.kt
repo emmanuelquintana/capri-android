@@ -56,6 +56,9 @@ class Tour(
     }
 
     fun start() {
+        // over everything, the pill bar too (it has its own elevation: without this it stayed lit and un-ringed)
+        shade.elevation = ui.dp(24f)
+        card.elevation = ui.dp(26f)
         host.addView(shade, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
         host.addView(card, cardParams)
         shade.alpha = 0f
