@@ -94,8 +94,10 @@ class QwenEngine : AutoCloseable {
 
     // (Capri V8.5) ICL, the mode her approved voice uses on PC: her reference sound's codes + its words + her
     // vector. The native library always had it; these are its JNI entry points (checked on the x86_64 build).
-    fun loadIclPromptEncoder(modelDir: String, tokenizerName: String?): Boolean =
-        nativeLoadIclPromptEncoder(nativePtr, modelDir, tokenizerName)
+    // modelName: the talker's GGUF, like loadModels (its text tokenizer lives there; CI 2026-11-21: passing the
+    // speech tokenizer's file gives "tokenizer.ggml.tokens not found in GGUF")
+    fun loadIclPromptEncoder(modelDir: String, modelName: String?): Boolean =
+        nativeLoadIclPromptEncoder(nativePtr, modelDir, modelName)
 
     fun extractIclPrompt(referenceWav: String, referenceText: String, outputPath: String): Boolean =
         nativeExtractIclPrompt(nativePtr, referenceWav, referenceText, outputPath)

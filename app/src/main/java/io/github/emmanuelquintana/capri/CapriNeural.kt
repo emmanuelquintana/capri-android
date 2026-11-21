@@ -388,7 +388,7 @@ object CapriNeural {
         if (lang == "en-US" && !icl(app, lang).isFile) {
             // the English ICL prompt, made once from the English source sound and its words (as Qwen on PC does)
             if (!encoderLoaded) {
-                check(e.loadIclPromptEncoder(models(app, v).absolutePath, v.tokenizer.local)) { e.getLastError() ?: "encoder" }
+                check(e.loadIclPromptEncoder(models(app, v).absolutePath, v.talker.local)) { e.getLastError() ?: "encoder" }
                 encoderLoaded = true
             }
             val tmp = File(profiles(app), "en-US.tmp.icl.json")
