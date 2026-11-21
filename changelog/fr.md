@@ -2,6 +2,13 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.11.2
+
+- **« Télécharger sa voix » marche enfin :** en téléchargeant ses données de voix (environ 8 Mo), on voyait
+  « Impossible : npy… » et son profil ne s’installait pas. L’app ne savait pas lire le format de son profil approuvé ;
+  maintenant si, sans modifier le fichier. Ça arrivait sur tous les téléphones, Android 10 aussi. Si ça a échoué,
+  touche à nouveau « Télécharger sa voix ».
+
 ## 1.11.1
 
 - **Sa voix fidèle se télécharge enfin sur les téléphones de 6 et 8 Go :** l’app mesurait mal la mémoire (Android

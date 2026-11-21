@@ -816,19 +816,29 @@ object CapriNeural {
         error("npz:$name")
     }
 
-    /** A little-endian int64 .npy (C order) as its shape and values. */
+    /**
+     * A little-endian int64 .npy as its shape and values in C order (row by row). Her approved prompt.npz keeps
+     * ref_code [76, 16] in Fortran order (column by column): 1.11.0/1.11.1 refused it ("npy:… 'fortran_order':
+     * True"), so «Bajar su voz» failed for everyone. Now a 2-D Fortran array is read and put in C order; the file
+     * itself is never changed.
+     */
     internal fun npyLongs(npy: ByteArray): Pair<IntArray, LongArray> {
         require(npy.size > 10 && npy[0] == 0x93.toByte() && String(npy, 1, 5, Charsets.US_ASCII) == "NUMPY") { "npy" }
         val bb = ByteBuffer.wrap(npy).order(ByteOrder.LITTLE_ENDIAN)
         val (headerLen, start) = if (npy[6].toInt() == 1) bb.getShort(8).toInt() and 0xffff to 10 else bb.getInt(8) to 12
         val header = String(npy, start, headerLen, Charsets.US_ASCII)
-        require("'<i8'" in header && "False" in header) { "npy:$header" }
+        require("'<i8'" in header) { "npy:$header" }
+        val fortran = Regex("'fortran_order':\\s*True").containsMatchIn(header)
         val shape = Regex("'shape':\\s*\\(([^)]*)\\)").find(header)?.groupValues?.get(1)
             ?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }?.map { it.toInt() }?.toIntArray() ?: error("npy:shape")
         val data = start + headerLen
         val n = shape.fold(1) { a, b -> a * b }
         require(npy.size - data == n * 8) { "npy:size" }
-        return shape to LongArray(n) { bb.getLong(data + it * 8) }
+        if (!fortran || shape.size < 2) return shape to LongArray(n) { bb.getLong(data + it * 8) }
+        require(shape.size == 2) { "npy:$header" }
+        val (rows, cols) = shape[0] to shape[1]
+        // Fortran: [r][c] is stored at c * rows + r
+        return shape to LongArray(n) { i -> bb.getLong(data + ((i % cols) * rows + i / cols) * 8) }
     }
 
     /** A version 1 .npy (for the self-test). */
@@ -850,7 +860,10 @@ object CapriNeural {
         val bb = ByteBuffer.wrap(npy).order(ByteOrder.LITTLE_ENDIAN)
         val (headerLen, start) = if (major == 1) bb.getShort(8).toInt() and 0xffff to 10 else bb.getInt(8) to 12
         val header = String(npy, start, headerLen, Charsets.US_ASCII)
-        require("'<f4'" in header && "False" in header) { "npy:$header" }
+        require("'<f4'" in header) { "npy:$header" }
+        // a vector reads the same in either order; a Fortran table would need reordering, which a vector never is
+        val dims = Regex("'shape':\\s*\\(([^)]*)\\)").find(header)?.groupValues?.get(1)?.split(',')?.count { it.isNotBlank() } ?: 1
+        require(dims <= 1 || !Regex("'fortran_order':\\s*True").containsMatchIn(header) || header.contains(Regex("'shape':\\s*\\(1,"))) { "npy:$header" }
         val data = start + headerLen
         val n = (npy.size - data) / 4
         return FloatArray(n) { bb.getFloat(data + it * 4) }

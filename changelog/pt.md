@@ -2,6 +2,12 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.11.2
+
+- **«Baixar a voz dela» já funciona:** ao baixar os dados de voz dela (uns 8 MB) aparecia «Não deu: npy…» e o perfil
+  não era instalado. O app não sabia ler o formato em que o perfil aprovado dela vem salvo; agora sabe, sem mudar o
+  arquivo. Acontecia em todos os celulares, Android 10 também. Se falhou para você, toque de novo em «Baixar a voz dela».
+
 ## 1.11.1
 
 - **A voz fiel dela já pode ser baixada em celulares de 6 e 8 GB:** o app mediu errado a memória (o Android informa

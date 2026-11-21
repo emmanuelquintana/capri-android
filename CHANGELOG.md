@@ -3,6 +3,12 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.11.2
+
+- **«Bajar su voz» ya funciona:** al bajar sus datos de voz (unos 8 MB) salía «No se pudo: npy…» y no se instalaba
+  su perfil. La app no sabía leer el formato en que viene guardado su perfil aprobado; ahora sí, sin cambiar el
+  archivo. Pasaba en todos los teléfonos, también en Android 10. Si te falló, vuelve a tocar «Bajar su voz».
+
 ## 1.11.1
 
 - **Su voz fiel ya se puede bajar en teléfonos de 6 y 8 GB:** la app medía mal la memoria (Android reporta un poco

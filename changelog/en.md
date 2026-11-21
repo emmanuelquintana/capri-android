@@ -2,6 +2,12 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.11.2
+
+- **«Download her voice» works now:** downloading her voice data (about 8 MB) showed «Couldn't: npy…» and her profile
+  wasn't installed. The app couldn't read the format her approved profile is saved in; now it can, without changing
+  the file. It happened on every phone, Android 10 too. If it failed for you, tap «Download her voice» again.
+
 ## 1.11.1
 
 - **Her faithful voice can now be downloaded on 6 and 8 GB phones:** the app measured memory wrong (Android reports
