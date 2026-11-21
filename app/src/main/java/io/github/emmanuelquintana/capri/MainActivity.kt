@@ -114,6 +114,11 @@ class MainActivity : Activity() {
     // (1.11.0) Ajustes is a menu: each group a screen ("sub" names it, for the emulator's screenshots too)
     private class Group(val key: String, val icon: String, val color: Int, val title: Int, val how: Int, val page: View)
     private val groups = mutableListOf<Group>()
+    private val entries = mutableMapOf<String, View>()
+
+    // (1.11.0) the guided tour of what's new (Tour.kt + assets/android/tour.json): its frame, and the pill bar
+    private lateinit var shell: FrameLayout
+    private lateinit var pill: View
 
     private fun openSub(page: View, animate: Boolean = true) {
         if (current != TAB_SETTINGS || sub != null) show(TAB_SETTINGS, animate = false)
@@ -231,6 +236,8 @@ class MainActivity : Activity() {
             bottomMargin = ui.dpi(16)
         }
         root.addView(bar, barParams)
+        shell = root
+        pill = bar
         // Android 15 draws the app under the status and navigation bars: her pages start below the
         // first and the pill bar sits above the second
         ui.underSystemBars(root) { top, bottom ->
@@ -245,7 +252,7 @@ class MainActivity : Activity() {
         }
         setContentView(root)
         show(savedInstanceState?.getInt("tab") ?: tabAsked(intent) ?: if (wantsUpdate) TAB_NEWS else TAB_CHAT, animate = false)
-        if (savedInstanceState == null && tabAsked(intent) == null) root.postDelayed({ if (!isFinishing && !offerVoiceOnce()) inviteOnce() }, 1500)
+        if (savedInstanceState == null && tabAsked(intent) == null) root.postDelayed({ if (!isFinishing && !tourOnce() && !offerVoiceOnce()) inviteOnce() }, 1500)
         // a screen of Ajustes to open on ("sub": a Group key): the emulator's screenshots ask for one
         intent?.getStringExtra(EXTRA_SUB)?.let { k -> groups.firstOrNull { it.key == k }?.let { openSub(it.page, animate = false) } }
     }
@@ -423,6 +430,8 @@ class MainActivity : Activity() {
         }, ui.block(22))
 
         // what each version brought (CHANGELOG.md)
+        // (1.11.0) the guided tour of what's new, again whenever you want (tour.json)
+        addView(ui.button(getString(R.string.tour_again), Ui.Kind.LINE) { tourOnce(force = true) }, ui.block(16))
         addView(ui.label(getString(R.string.news_head)), ui.block(26))
         // folded: just the version and how many changes; a tap opens it (and folds it again)
         for ((i, v) in changelog().take(8).withIndex()) {
@@ -1335,6 +1344,45 @@ class MainActivity : Activity() {
      * siguiente vez en la actualización"): once, the first time the app opens with this version, if her
      * voice isn't here yet. Nothing is downloaded without a yes. True if it asked.
      */
+    /** (1.11.0) Once per tour (its id in tour.json), after an update: "¿Quieres conocer lo nuevo?", then her tour. */
+    private fun tourOnce(force: Boolean = false): Boolean {
+        val prefs = getSharedPreferences("app", MODE_PRIVATE)
+        val (id, steps) = Tour.load(this) ?: return false
+        if (!force && (wantsUpdate || prefs.getString("tourSeen", null) == id)) return false
+        prefs.edit().putString("tourSeen", id).apply()
+        val after = { if (!isFinishing) offerVoiceOnce() }
+        val dialog = android.app.Dialog(this)
+        val card = ui.card(Hud.YELLOW, Hud.MANE).apply {
+            addView(ui.label(getString(R.string.tour_ask_title)))
+            addView(ui.text(getString(R.string.tour_ask_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.2f) }, ui.block(6))
+            addView(ui.button(getString(R.string.tour_yes), Ui.Kind.MAIN) {
+                dialog.dismiss()
+                Tour(this@MainActivity, ui, shell, steps, ::tourTarget) { show(TAB_CHAT); shell.postDelayed({ after() }, 400) }.start()
+            }, ui.block(12))
+            addView(ui.button(getString(R.string.community_later), Ui.Kind.LINE) { dialog.dismiss(); after() }, ui.block(8))
+        }
+        val pad = FrameLayout(this).apply { setPadding(ui.dpi(4), ui.dpi(4), ui.dpi(10), ui.dpi(10)); addView(card) }
+        dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+        dialog.setContentView(pad)
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setLayout((resources.displayMetrics.widthPixels * 0.9).toInt(), WRAP_CONTENT)
+        dialog.show()
+        return true
+    }
+
+    /** What a tour step lights up (its "target" in tour.json), with its tab on screen first. */
+    private fun tourTarget(key: String): View? {
+        val (kind, name) = key.split(":", limit = 2).let { it[0] to it.getOrElse(1) { "" } }
+        val tab = listOf("chat", "news", "community", "games", "style", "cmds", "settings")
+        return when (kind) {
+            "bar" -> pill
+            "tab" -> tab.indexOf(name).takeIf { it >= 0 }?.let { show(it, animate = false); tabs[it].button }
+            "settings" -> { show(TAB_SETTINGS, animate = false); entries[name] }
+            else -> null
+        }
+    }
+
     private fun offerVoiceOnce(): Boolean {
         val prefs = getSharedPreferences("app", MODE_PRIVATE)
         if (wantsUpdate || prefs.getBoolean("voiceOffered", false)) return false
@@ -1376,7 +1424,7 @@ class MainActivity : Activity() {
         // (1.11.0, Emma: "en ajustes debe ser otro menú donde estén los ajustes agrupados en pantallas, clicables"):
         // only the menu here; each group is its own screen, with its way back
         addView(ui.text(getString(R.string.settings_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-        for ((n, g) in groups.withIndex()) addView(entry(g.icon, g.color, g.title, g.how) { openSub(g.page) }, ui.block(if (n == 0) 14 else 10))
+        for ((n, g) in groups.withIndex()) addView(entry(g.icon, g.color, g.title, g.how) { openSub(g.page) }.also { entries[g.key] = it }, ui.block(if (n == 0) 14 else 10))
     }
 
     private fun permsPage() = page {

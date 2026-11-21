@@ -622,4 +622,12 @@
     <string name="g_phone_how">Mode léger pour les vieux téléphones, ce dont ton téléphone a besoin, statistiques et accueil.</string>
     <string name="g_report">Signaler un bug</string>
     <string name="g_report_how">Raconte à Emma ce qui s’est passé, directement sur Discord.</string>
+    <string name="tour_ask_title">Les nouveautés</string>
+    <string name="tour_ask_how">Capri a été mise à jour. Tu veux découvrir les nouveautés ? Une petite visite d’une minute.</string>
+    <string name="tour_yes">Oui, montre-moi</string>
+    <string name="tour_step">Nouveau · %1$d sur %2$d</string>
+    <string name="tour_skip">Passer</string>
+    <string name="tour_next">Suivant</string>
+    <string name="tour_done">Terminé</string>
+    <string name="tour_again">Voir les nouveautés (visite)</string>
 </resources>

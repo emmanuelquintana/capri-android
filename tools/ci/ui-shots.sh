@@ -106,6 +106,17 @@ shot 11-main 3
 shot 11b-voice-offer 1
 tap "ahora no"
 sleep 1
+# 1.11.0: the guided tour of what's new (tour.json), from Novedades › «Ver lo nuevo» (after an update it asks by itself)
+tap "novedades"
+tapdown "ver lo nuevo (recorrido)" 6
+shot 11c-tour-ask 2
+tap "sí, muéstrame"
+for i in 1 2 3 4 5 6 7; do
+  shot "11d-tour-$i" 2
+  if [ $i -lt 7 ]; then tap "siguiente"; else tap "listo"; fi
+done
+sleep 1
+adb shell input swipe 500 600 500 1800 300
 # 1.11.0: the app opens on her chat; Novedades is the second tab
 tap "novedades"
 shot 12a-news 2

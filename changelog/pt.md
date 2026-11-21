@@ -35,6 +35,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Menus novos:** o menu em pílula agora tem Chat, Novidades, Comunidade, Jogos, Personalizar, Comandos e Ajustes. Os
   comandos de voz têm sua própria página (também no «?» do chat). Ajustes é um menu de telas: Ajustes pessoais,
   Ajustes de voz, Permissões, Idioma e a IA dela, Tela e modos, Desempenho e celular, e Relatar um erro.
+- **Tour guiado das novidades:** ao abrir o app depois de atualizar, a Capri pergunta se você quer conhecer as
+  novidades e te leva passo a passo, com o resto escurecido. Dá para repetir em Novidades › Ver as novidades.
 - **Capri Voice (a voz dela):** a Capri já fala com a própria voz, em espanhol latino e inglês. As frases gravadas
   (quando você faz carinho, joga, volta, se despede ou dá boa noite) tocam sem internet e sem carregar nenhum modelo,
   com o texto exato do que ela diz.

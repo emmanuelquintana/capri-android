@@ -37,6 +37,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   Ajustes. Los comandos de voz tienen su propia página (también en el «?» del chat). Ajustes es un menú con sus
   pantallas: Ajustes personales, Ajustes de voz, Permisos, Idioma y su IA, Pantalla y modos, Rendimiento y teléfono, y
   Reportar un fallo.
+- **Vista guiada de lo nuevo:** al abrir la app después de actualizar, Capri pregunta si quieres conocer lo nuevo y te
+  lleva paso a paso, con lo demás oscurecido. La puedes repetir en Novedades › Ver lo nuevo.
 - **Capri Voice (su voz):** Capri ya habla con su propia voz, en español latino e inglés. Sus frases grabadas (al
   acariciarla, lanzarla, volver, despedirse y darte las buenas noches) suenan sin internet y sin cargar ningún modelo,
   con el texto exacto de lo que dice.

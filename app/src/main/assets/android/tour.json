@@ -1,0 +1,83 @@
+{
+  "_como": "Vista guiada de lo nuevo (Tour.kt). Para una versión nueva: cambia el id (se muestra una vez por id) y los pasos. target: bar | tab:<chat|news|community|games|style|cmds|settings> | settings:<personal|voice|perms|ai|modes|phone|report>. Textos en es/en/fr/pt/ru (si falta uno, va en español).",
+  "id": "1.11.0",
+  "steps": [
+    {
+      "target": "bar",
+      "title": { "es": "Tu menú nuevo", "en": "Your new menu", "fr": "Ton nouveau menu", "pt": "Seu menu novo", "ru": "Твоё новое меню" },
+      "text": {
+        "es": "La píldora ahora tiene todo a la mano: Chat, Novedades, Comunidad, Juegos, Personalizar, Comandos y Ajustes.",
+        "en": "The pill now has everything at hand: Chat, What’s new, Community, Games, Customize, Commands and Settings.",
+        "fr": "La pilule a maintenant tout sous la main : Chat, Nouveautés, Communauté, Jeux, Personnaliser, Commandes et Réglages.",
+        "pt": "A pílula agora tem tudo à mão: Chat, Novidades, Comunidade, Jogos, Personalizar, Comandos e Ajustes.",
+        "ru": "В таблетке теперь всё под рукой: Чат, Новое, Сообщество, Игры, Облик, Команды и Настройки."
+      }
+    },
+    {
+      "target": "tab:community",
+      "title": { "es": "Comunidad", "en": "Community", "fr": "Communauté", "pt": "Comunidade", "ru": "Сообщество" },
+      "text": {
+        "es": "El Discord, su TikTok y cómo apoyarla, en su propia pestaña.",
+        "en": "The Discord, her TikTok and how to support her, in their own tab.",
+        "fr": "Le Discord, son TikTok et comment la soutenir, dans leur propre onglet.",
+        "pt": "O Discord, o TikTok dela e como apoiá-la, na própria aba.",
+        "ru": "Discord, её TikTok и как её поддержать — на отдельной вкладке."
+      }
+    },
+    {
+      "target": "tab:games",
+      "title": { "es": "Juegos", "en": "Games", "fr": "Jeux", "pt": "Jogos", "ru": "Игры" },
+      "text": {
+        "es": "Sus juegos, a un toque: Conecta 4, Memorama y Secuencia neural son nuevos.",
+        "en": "Her games, one tap away: Connect 4, Memory and Neural sequence are new.",
+        "fr": "Ses jeux, à portée de doigt : Puissance 4, Memory et Séquence neurale sont nouveaux.",
+        "pt": "Os jogos dela, a um toque: Lig 4, Jogo da memória e Sequência neural são novos.",
+        "ru": "Её игры в одно касание: «Четыре в ряд», «Мемори» и «Нейропоследовательность» — новые."
+      }
+    },
+    {
+      "target": "tab:cmds",
+      "title": { "es": "Comandos de voz", "en": "Voice commands", "fr": "Commandes vocales", "pt": "Comandos de voz", "ru": "Голосовые команды" },
+      "text": {
+        "es": "Todo lo que le puedes pedir, en voz alta o escrito, en su propia página.",
+        "en": "Everything you can ask her, out loud or written, on its own page.",
+        "fr": "Tout ce que tu peux lui demander, à voix haute ou par écrit, sur sa propre page.",
+        "pt": "Tudo o que você pode pedir, em voz alta ou por escrito, na própria página.",
+        "ru": "Всё, что можно у неё попросить вслух или текстом, — на отдельной странице."
+      }
+    },
+    {
+      "target": "settings:personal",
+      "title": { "es": "Ajustes, por pantallas", "en": "Settings, screen by screen", "fr": "Réglages, écran par écran", "pt": "Ajustes, por telas", "ru": "Настройки по экранам" },
+      "text": {
+        "es": "Ajustes ahora es un menú: cada grupo abre su pantalla. En Ajustes personales está lo tuyo: tu nombre, tu historial, el modo sueño y sus neurodanzas.",
+        "en": "Settings is now a menu: each group opens its own screen. Personal settings holds your things: your name, your history, sleep mode and her braindances.",
+        "fr": "Les Réglages sont maintenant un menu : chaque groupe ouvre son écran. Réglages personnels garde tes infos : ton nom, ton historique, le mode sommeil et ses neurodanses.",
+        "pt": "Ajustes agora é um menu: cada grupo abre a própria tela. Em Ajustes pessoais fica o que é seu: seu nome, seu histórico, o modo sono e as neurodanças dela.",
+        "ru": "Настройки теперь меню: каждая группа открывает свой экран. В Личных настройках — твоё: имя, история, режим сна и её нейротанцы."
+      }
+    },
+    {
+      "target": "settings:voice",
+      "title": { "es": "Su voz", "en": "Her voice", "fr": "Sa voix", "pt": "A voz dela", "ru": "Её голос" },
+      "text": {
+        "es": "Aquí bajas su voz y eliges su motor para que todas sus respuestas suenen con su voz, más o menos fiel según tu teléfono.",
+        "en": "Download her voice here and pick her engine so all her answers sound in her voice, more or less faithful depending on your phone.",
+        "fr": "Ici, tu télécharges sa voix et choisis son moteur pour que toutes ses réponses aient sa voix, plus ou moins fidèle selon ton téléphone.",
+        "pt": "Aqui você baixa a voz dela e escolhe o motor para que todas as respostas soem com a voz dela, mais ou menos fiel conforme o celular.",
+        "ru": "Здесь можно скачать её голос и выбрать движок, чтобы все ответы звучали её голосом — точнее или проще, в зависимости от телефона."
+      }
+    },
+    {
+      "target": "tab:style",
+      "title": { "es": "8 trajes nuevos", "en": "8 new outfits", "fr": "8 nouvelles tenues", "pt": "8 roupas novas", "ru": "8 новых нарядов" },
+      "text": {
+        "es": "En su Vestuario: Sirvienta, Sirvienta neón, Astronauta, Idol, Sudadera gamer, Rockera punk, Charra e Invierno.",
+        "en": "In her Wardrobe: Maid, Neon maid, Astronaut, Idol, Gamer hoodie, Punk rocker, Charra and Winter.",
+        "fr": "Dans sa Garde-robe : Soubrette, Soubrette néon, Astronaute, Idol, Sweat gamer, Rockeuse punk, Charra et Hiver.",
+        "pt": "No Guarda-roupa dela: Empregada, Empregada neon, Astronauta, Idol, Moletom gamer, Roqueira punk, Charra e Inverno.",
+        "ru": "В её Гардеробе: Горничная, Неоновая горничная, Космонавт, Айдол, Геймерское худи, Панк-рокерша, Чарра и Зима."
+      }
+    }
+  ]
+}

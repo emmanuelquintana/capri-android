@@ -623,4 +623,12 @@
     <string name="g_phone_how">Light mode for older phones, what your phone needs, statistics and the welcome tour.</string>
     <string name="g_report">Report a bug</string>
     <string name="g_report_how">Tell Emma what happened, straight to Discord.</string>
+    <string name="tour_ask_title">What’s new</string>
+    <string name="tour_ask_how">Capri was updated. Want a quick look at what’s new? It only takes a minute.</string>
+    <string name="tour_yes">Yes, show me</string>
+    <string name="tour_step">New · %1$d of %2$d</string>
+    <string name="tour_skip">Skip</string>
+    <string name="tour_next">Next</string>
+    <string name="tour_done">Done</string>
+    <string name="tour_again">See what’s new (guided tour)</string>
 </resources>

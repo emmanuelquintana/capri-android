@@ -39,6 +39,8 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   Réglages. Les commandes vocales ont leur propre page (aussi derrière le « ? » du chat). Les Réglages sont un menu
   d’écrans : Réglages personnels, Réglages de la voix, Autorisations, Langue et son IA, Écran et modes, Performances
   et téléphone, et Signaler un bug.
+- **Visite guidée des nouveautés :** quand tu ouvres l’appli après la mise à jour, Capri te demande si tu veux
+  découvrir les nouveautés et te guide pas à pas, le reste assombri. À revoir dans Nouveautés › Voir les nouveautés.
 - **Capri Voice (sa voix) :** Capri parle maintenant avec sa propre voix, en espagnol latino et en anglais. Ses
   phrases enregistrées (quand tu la caresses, la lances, reviens, lui dis au revoir ou bonne nuit) se jouent hors
   ligne sans charger de modèle, avec le texte exact de ce qu’elle dit.

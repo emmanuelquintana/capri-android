@@ -410,7 +410,7 @@ class OnboardingActivity : Activity() {
         private const val PREFS = "app"
 
         fun needed(context: Context) = !context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean("welcomed", false)
-        fun done(context: Context) = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putBoolean("welcomed", true).apply()
+        fun done(context: Context) { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putBoolean("welcomed", true).apply(); Tour.seen(context) }
     }
 }
 
