@@ -15,6 +15,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   desde la esquina.
 - **Vuelven sus animaciones de antes,** incluida la de comer fideos instantáneos. Las redibujadas en 1.10.0 se van
   (sí, también la del six seven). Solo se queda la de acostarse en el teclado, ahora más tranquila.
+- **8 trajes nuevos:** Sirvienta, Sirvienta neón, Astronauta, Idol, Sudadera gamer, Rockera punk, Charra e Invierno,
+  en su Vestuario. Y su animación acostada en el teclado está redibujada, con 4 cuadros tranquilos.
 - **Modo sueño:** Capri duerme contigo. En Ajustes › Ajustes personales › Modo sueño (o «Capri, modo sueño, despiértame a las 7») se acurruca
   en tu pantalla, cuenta cuántas veces la prendes en la noche y te regaña si lo haces. Con alarma, te despierta y no
   para hasta que la apagues (con «5 minutos más»). En la mañana te dice cuánto dormiste.

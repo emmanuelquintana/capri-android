@@ -84,8 +84,8 @@ ANIMS = {
     'birthday': (4, 1, 5, True, 'stand'),
     'party': (4, 2, 8, True, 'stand'),
     # 1.10.0: lying on the keyboard (typing.js). 1.11.0: the 1.10.0 redraws of the rest went back to the
-    # 1.9 ones (the community didn't like them); only this one stays, 2 calm cels until it's redrawn
-    'keyboard': (2, 2, 4, True, 'lie'),
+    # 1.9 ones (the community didn't like them); only this one stays, redrawn with 4 calm cels (1.11.0)
+    'keyboard': (2, 2, 2, True, 'lie'),
 }
 # the cel where she just stands there, for the ones she jumps or reaches up in: her real height is that cel's,
 # not the whole box's (else she looks smaller in them than in the rest)

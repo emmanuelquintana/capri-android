@@ -15,6 +15,8 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   Elle te regarde quand même depuis le coin.
 - **Ses anciennes animations reviennent,** dont celle où elle mange des nouilles instantanées. Celles redessinées en
   1.10.0 s’en vont (oui, aussi celle du six seven). Seule reste celle allongée sur le clavier, plus calme.
+- **8 nouvelles tenues :** Soubrette, Soubrette néon, Astronaute, Idol, Sweat gamer, Rockeuse punk, Charra et Hiver,
+  dans sa Garde-robe. Et son animation allongée sur le clavier est redessinée, en 4 images calmes.
 - **Mode sommeil :** Capri dort avec toi. Dans Réglages › Réglages personnels › Mode sommeil (ou « Capri, mode sommeil, réveille-moi à 7 h ») elle
   se blottit sur ton écran, compte combien de fois tu l’allumes la nuit et te gronde quand tu le fais. Avec un réveil,
   elle te réveille et ne s’arrête pas tant que tu ne l’éteins pas (avec « 5 minutes de plus »). Le matin, elle te dit combien tu as dormi.

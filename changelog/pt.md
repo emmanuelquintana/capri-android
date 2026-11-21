@@ -14,6 +14,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   continua olhando do canto.
 - **As animações de antes voltaram,** incluindo a de comer miojo. As redesenhadas na 1.10.0 saíram (sim, a do six
   seven também). Só fica a de deitar no teclado, agora mais tranquila.
+- **8 roupas novas:** Empregada, Empregada neon, Astronauta, Idol, Moletom gamer, Roqueira punk, Charra e Inverno, no
+  Guarda-roupa dela. E a animação deitada no teclado foi redesenhada, com 4 quadros tranquilos.
 - **Modo sono:** a Capri dorme com você. Em Ajustes › Ajustes pessoais › Modo sono (ou «Capri, modo sono, me acorda às 7») ela se aconchega
   na sua tela, conta quantas vezes você liga a tela de noite e dá bronca quando você liga. Com alarme, ela te acorda e
   não para até você desligar (com «Mais 5 minutos»). De manhã ela conta quanto você dormiu.

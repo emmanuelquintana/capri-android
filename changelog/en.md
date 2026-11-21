@@ -14,6 +14,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   still watches from the corner.
 - **Her old animations are back,** including eating instant noodles. The ones redrawn in 1.10.0 are gone (yes, the
   six seven one too). Only the one lying on the keyboard stays, now calmer.
+- **8 new outfits:** Maid, Neon maid, Astronaut, Idol, Gamer hoodie, Punk rocker, Charra and Winter, in her Wardrobe.
+  And her lying-on-the-keyboard animation is redrawn, with 4 calm frames.
 - **Sleep mode:** Capri sleeps with you. In Settings › Personal settings › Sleep mode (or “Capri, sleep mode, wake me at 7”) she curls up on
   your screen, counts how many times you turn it on during the night and scolds you when you do. With an alarm, she
   wakes you and doesn’t stop until you turn it off (with “5 more minutes”). In the morning she tells you how long you slept.

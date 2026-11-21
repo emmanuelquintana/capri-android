@@ -248,9 +248,9 @@
   "kind": "sit"
  },
  "keyboard": {
-  "n": 2,
+  "n": 4,
   "w": 440,
-  "h": 284,
+  "h": 299,
   "fps": 2,
   "loop": true,
   "kind": "lie"
