@@ -14,14 +14,14 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   still watches from the corner.
 - **Her old animations are back,** including eating instant noodles. The ones redrawn in 1.10.0 are gone (yes, the
   six seven one too). Only the one lying on the keyboard stays, now calmer.
-- **Sleep mode:** Capri sleeps with you. In You › Sleep mode (or “Capri, sleep mode, wake me at 7”) she curls up on
+- **Sleep mode:** Capri sleeps with you. In Settings › Personal settings › Sleep mode (or “Capri, sleep mode, wake me at 7”) she curls up on
   your screen, counts how many times you turn it on during the night and scolds you when you do. With an alarm, she
   wakes you and doesn’t stop until you turn it off (with “5 more minutes”). In the morning she tells you how long you slept.
 - **Reaction mode:** tell her “Capri, watch videos with me” and, while you watch a video, she watches with
   you, gives her opinion now and then and notes it in her chat to remember it. “Turn off reaction mode” stops it. She needs
   to be able to see your screen.
 - **Braindances:** give her lots of love (pet her, talk to her) and every so often she records you a braindance: a
-  memory of hers, scene by scene, to watch in the app (You › Braindances). Switch to the thermal layer to find hidden
+  memory of hers, scene by scene, to watch in the app (Settings › Personal settings › Braindances). Switch to the thermal layer to find hidden
   details. At the end she tells you what she thinks, and you tell her what you thought. Also: “Capri, give me a
   braindance”.
 - **She talks in the singular:** no more “we” or “we love”. She talks about herself as one person.
@@ -32,18 +32,23 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   her), lift her battery restriction and install a voice. Permissions open the right screen on those phones, and
   store links go to AppGallery when there’s no Play Store.
 - **New Discord link.**
-- The Community tab moved into What’s new, and Commands behind the chat’s “?”.
-- **Capri Voice (her recorded voice):** Capri can now speak in her own voice, phrase by phrase and offline, in Latin
-  American Spanish and English: when you pet her, throw her, come back, say goodbye or go to sleep, with the exact
-  words she says. Her AI's answers are said as written (phone voice or text only, your choice) and are never swapped
-  for another phrase. Set it up in Customize › Capri Voice. Her voice packs are optional and will arrive separately.
-- **Her neural voice on the phone (experimental):** to say what isn't recorded (AI answers, notices) in a voice close to
-  hers. Optional, downloaded separately (about 840 MB, verified), along with her voice profile, which will arrive separately. Needs Android 12 or newer, a 64-bit phone and about
-  1.4 GB of free memory. It's experimental: the phone uses a simplified version of her voice profile, not the exact
-  one, and on basic phones it may take a while to start talking. Only on in Custom mode; in the other modes her new
-  lines use the phone's voice or text only. In Customize › Capri Voice: modes (Automatic, Light, Balanced, Max
-  fidelity, Custom), an A/B comparer to hear the same line in two voices and keep one, and advanced options
-  (download, import, verify, remove).
+- **New menus:** the pill menu now has Chat, What’s new, Community, Games, Customize, Commands and Settings. Voice
+  commands have their own page (also behind the chat’s “?”), and Settings splits into Personal settings (what she
+  knows about you, sleep mode, braindances) and Voice settings (her voice, her engines and how she hears you).
+- **Capri Voice (her voice):** Capri now speaks in her own voice, in Latin American Spanish and English. Her recorded
+  phrases (when you pat her, toss her, come back, say goodbye or good night) play offline without loading any model,
+  with the exact text of what she says.
+- **Get it when you update:** the first time you open the app after updating, Capri asks if you want to download her
+  voice (about 8 MB: her phrases and her profile). It comes from Capri’s public channel on GitHub and is checked file
+  by file. If you say “later”, it’s in Settings › Voice settings.
+- **All her answers in her voice (optional, experimental):** with her voice engine installed, everything she answers
+  (AI replies, notices) is said in her voice, with the same approved profile as on PC. Add or remove the engine in
+  Voice settings, in three precisions: Light (about 880 MB), High (about 1.3 GB) and Max (about 2.2 GB); more
+  precision sounds closer to the PC and uses more memory. Needs Android 12 or newer, a 64-bit phone and enough free
+  memory (the app tells you which one fits yours). Without an engine, her answers use the phone’s voice or text only.
+  On basic phones she may take a while to start speaking.
+- Her voice modes (Automatic, Light, Balanced, Max fidelity, Custom), an A/B comparer and advanced options (import,
+  check, remove) in Settings › Voice settings.
 
 ## 1.10.1
 

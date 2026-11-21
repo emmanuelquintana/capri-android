@@ -15,14 +15,14 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   Elle te regarde quand même depuis le coin.
 - **Ses anciennes animations reviennent,** dont celle où elle mange des nouilles instantanées. Celles redessinées en
   1.10.0 s’en vont (oui, aussi celle du six seven). Seule reste celle allongée sur le clavier, plus calme.
-- **Mode sommeil :** Capri dort avec toi. Dans Toi › Mode sommeil (ou « Capri, mode sommeil, réveille-moi à 7 h ») elle
+- **Mode sommeil :** Capri dort avec toi. Dans Réglages › Réglages personnels › Mode sommeil (ou « Capri, mode sommeil, réveille-moi à 7 h ») elle
   se blottit sur ton écran, compte combien de fois tu l’allumes la nuit et te gronde quand tu le fais. Avec un réveil,
   elle te réveille et ne s’arrête pas tant que tu ne l’éteins pas (avec « 5 minutes de plus »). Le matin, elle te dit combien tu as dormi.
 - **Mode réaction :** dis-lui « Capri, regardons des vidéos ensemble » et, pendant que tu regardes une vidéo, elle la
   regarde avec toi, donne son avis de temps en temps et le note dans son chat pour s’en souvenir. « Désactive le mode réaction »
   l’éteint. Elle doit pouvoir voir ton écran.
 - **Neurodanses :** donne-lui beaucoup d’affection (caresse-la, parle-lui) et de temps en temps elle t’enregistre une
-  neurodanse : un de ses souvenirs, scène par scène, à regarder dans l’appli (Toi › Neurodanses). Passe en couche
+  neurodanse : un de ses souvenirs, scène par scène, à regarder dans l’appli (Réglages › Réglages personnels › Neurodanses). Passe en couche
   thermique pour trouver des détails cachés. À la fin, elle te dit ce qu’elle en pense, et toi aussi. Aussi :
   « Capri, donne-moi une neurodanse ».
 - **Elle parle au singulier :** plus de « nous » ni « on adore ». Elle parle d’elle comme d’une seule personne.
@@ -33,19 +33,25 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   téléphone la ferme), lever sa restriction de batterie et installer une voix. Les autorisations ouvrent le bon écran
   sur ces téléphones, et les liens de boutique vont vers AppGallery s’il n’y a pas de Play Store.
 - **Nouveau lien Discord.**
-- L’onglet Communauté est passé dans Nouveautés, et Commandes derrière le « ? » du chat.
-- **Capri Voice (sa voix enregistrée) :** Capri peut parler avec sa propre voix, phrase par phrase et hors ligne, en
-  espagnol latino et en anglais : quand tu la caresses, la lances, reviens, lui dis au revoir ou bonne nuit, avec le
-  texte exact de ce qu’elle dit. Les réponses de son IA sont dites telles quelles (voix du téléphone ou texte seul, à
-  toi de choisir). Réglages dans Personnaliser › Capri Voice. Ses paquets de voix sont optionnels et arriveront à part.
-- **Sa voix neuronale sur le téléphone (expérimental) :** pour dire ce qui n’est pas enregistré (réponses d’IA, avis)
-  avec une voix proche de la sienne. Optionnelle, téléchargée à part (environ 840 Mo, vérifiés), avec son profil de voix, qui arrivera à part. Il faut Android 12 ou
-  plus récent, un téléphone 64 bits et environ 1,4 Go de mémoire libre. C’est expérimental : le téléphone utilise une
-  version simplifiée de son profil de voix, pas l’exacte, et sur les téléphones modestes elle peut mettre du temps à
-  parler. Active seulement en mode Personnalisé ; sinon, ses nouvelles phrases passent par la voix du téléphone ou en
-  texte. Dans Personnaliser › Capri Voice : modes (Auto, Léger, Équilibré, Fidélité max, Personnalisé), un comparateur
-  A/B pour écouter la même phrase avec deux voix et en garder une, et des options avancées (télécharger, importer,
-  vérifier, supprimer).
+- **Nouveaux menus :** le menu en pilule a maintenant Chat, Nouveautés, Communauté, Jeux, Personnaliser, Commandes et
+  Réglages. Les commandes vocales ont leur propre page (aussi derrière le « ? » du chat), et les Réglages se divisent
+  en Réglages personnels (ce qu’elle sait de toi, mode sommeil, neurodanses) et Réglages de la voix (sa voix, ses
+  moteurs et comment elle t’écoute).
+- **Capri Voice (sa voix) :** Capri parle maintenant avec sa propre voix, en espagnol latino et en anglais. Ses
+  phrases enregistrées (quand tu la caresses, la lances, reviens, lui dis au revoir ou bonne nuit) se jouent hors
+  ligne sans charger de modèle, avec le texte exact de ce qu’elle dit.
+- **Télécharge-la à la mise à jour :** la première fois que tu ouvres l’appli après la mise à jour, Capri te demande
+  si tu veux télécharger sa voix (environ 8 Mo : ses phrases et son profil). Elle vient du canal public de Capri sur
+  GitHub et se vérifie fichier par fichier. Si tu dis « plus tard », c’est dans Réglages › Réglages de la voix.
+- **Toutes ses réponses avec sa voix (optionnel, expérimental) :** avec son moteur de voix installé, tout ce qu’elle
+  répond (réponses d’IA, avis) est dit avec sa voix, avec le même profil approuvé que sur PC. Le moteur s’ajoute ou se
+  retire dans Réglages de la voix, en trois précisions : Légère (environ 880 Mo), Haute (environ 1,3 Go) et Maximale
+  (environ 2,2 Go) ; plus de précision, c’est plus proche du PC et plus de mémoire. Il faut Android 12 ou plus récent,
+  un téléphone 64 bits et assez de mémoire libre (l’appli te dit laquelle convient). Sans moteur, ses réponses
+  utilisent la voix du téléphone ou le texte seul. Sur les téléphones modestes, elle peut mettre du temps à commencer
+  à parler.
+- Modes de sa voix (Auto, Léger, Équilibré, Fidélité max, Personnalisé), comparateur A/B et options avancées
+  (importer, vérifier, supprimer) dans Réglages › Réglages de la voix.
 
 ## 1.10.1
 
