@@ -14,7 +14,7 @@ fi
 adb push fixture.wav $EXT/ >/dev/null
 adb logcat -c
 adb shell am start-foreground-service -n $PKG/.CapriService -a capri.NEURALTEST
-for i in $(seq 1 456); do # hasta 38 min: en el emulador x86_64 de CI una frase tarda ~10 min
+for i in $(seq 1 1200); do # hasta 100 min: en el emulador x86_64 de CI (sin aceleración) una frase tarda ~10 min
   sleep 5
   if adb logcat -d -s CapriNeuralTest:I | grep -qE "DONE|FAIL"; then break; fi
 done
