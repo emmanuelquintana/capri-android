@@ -452,7 +452,7 @@ object CapriNeural {
             log("load_ms=$load pss_before=$pss0 pss_loaded=${Debug.getPss() * 1024L} threads=${engine?.getCpuThreads()} backend=${engine?.getActiveBackendName()}")
             for ((lang, text) in listOf(
                 "es-MX" to "¡Hey, choom! Encontré tres maneras de resolver ese problema.",
-                "en-US" to "Hey, choom! I found three ways to solve that problem.")) {
+                "en-US" to "Hi, choom. All good.") // corta: el emulador x86_64 de CI es muy lento) {
                 ensure(app, lang, store)
                 val t0 = SystemClock.elapsedRealtime()
                 val pcm = synth(app, text, lang)
