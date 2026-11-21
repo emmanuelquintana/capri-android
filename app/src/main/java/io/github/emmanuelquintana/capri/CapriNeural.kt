@@ -396,6 +396,11 @@ object CapriNeural {
             check(e.extractIclPrompt(englishWav(app).absolutePath, englishText(app).readText().trim(), tmp.absolutePath)) { e.getLastError() ?: "icl" }
             readIcl(tmp)
             check(tmp.renameTo(icl(app, lang))) { "rename" }
+            // the encoder leaves the engine unable to speak ("Models not loaded", CI 2026-11-21): once the prompt
+            // is saved, a clean engine is loaded for speaking (this happens only the first time, in English)
+            val made = SystemClock.elapsedRealtime() - t0
+            dispose("icl")
+            return made + ensure(app, lang, store, v)
         }
         readIcl(icl(app, lang))
         loadedLang = lang
