@@ -37,6 +37,13 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   texto exacto de lo que dice. Sus respuestas de IA se dicen tal cual (voz del teléfono o solo texto, tú eliges) y
   nunca se cambian por otra frase. Se configura en Personalizar › Capri Voice. Sus paquetes de voz son opcionales y
   llegarán por separado.
+- **Su voz neuronal en el teléfono (experimental):** para que diga con una voz parecida a la suya lo que no está
+  grabado (respuestas de IA, avisos). Es opcional y se baja aparte (unos 840 MB, con su verificación), junto con su perfil de voz, que llegará por separado. Necesita
+  Android 12 o más nuevo, un teléfono de 64 bits y unos 1.4 GB de memoria libre. Es experimental: el teléfono usa una
+  versión simplificada de su perfil de voz, no la exacta, y en teléfonos sencillos puede tardar en empezar a hablar.
+  Solo se activa en Personalizado; en los demás modos su voz nueva es la del teléfono o solo texto. En Personalizar ›
+  Capri Voice: modos (Automático, Ligero, Equilibrado, Máxima fidelidad, Personalizado), un comparador A/B para oír
+  la misma frase con dos voces y quedarte con una, y opciones avanzadas (descargar, importar, verificar, quitar).
 
 ## 1.10.1
 

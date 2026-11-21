@@ -38,6 +38,14 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   espagnol latino et en anglais : quand tu la caresses, la lances, reviens, lui dis au revoir ou bonne nuit, avec le
   texte exact de ce qu’elle dit. Les réponses de son IA sont dites telles quelles (voix du téléphone ou texte seul, à
   toi de choisir). Réglages dans Personnaliser › Capri Voice. Ses paquets de voix sont optionnels et arriveront à part.
+- **Sa voix neuronale sur le téléphone (expérimental) :** pour dire ce qui n’est pas enregistré (réponses d’IA, avis)
+  avec une voix proche de la sienne. Optionnelle, téléchargée à part (environ 840 Mo, vérifiés), avec son profil de voix, qui arrivera à part. Il faut Android 12 ou
+  plus récent, un téléphone 64 bits et environ 1,4 Go de mémoire libre. C’est expérimental : le téléphone utilise une
+  version simplifiée de son profil de voix, pas l’exacte, et sur les téléphones modestes elle peut mettre du temps à
+  parler. Active seulement en mode Personnalisé ; sinon, ses nouvelles phrases passent par la voix du téléphone ou en
+  texte. Dans Personnaliser › Capri Voice : modes (Auto, Léger, Équilibré, Fidélité max, Personnalisé), un comparateur
+  A/B pour écouter la même phrase avec deux voix et en garder une, et des options avancées (télécharger, importer,
+  vérifier, supprimer).
 
 ## 1.10.1
 

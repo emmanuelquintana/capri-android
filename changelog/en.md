@@ -37,6 +37,13 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   American Spanish and English: when you pet her, throw her, come back, say goodbye or go to sleep, with the exact
   words she says. Her AI's answers are said as written (phone voice or text only, your choice) and are never swapped
   for another phrase. Set it up in Customize › Capri Voice. Her voice packs are optional and will arrive separately.
+- **Her neural voice on the phone (experimental):** to say what isn't recorded (AI answers, notices) in a voice close to
+  hers. Optional, downloaded separately (about 840 MB, verified), along with her voice profile, which will arrive separately. Needs Android 12 or newer, a 64-bit phone and about
+  1.4 GB of free memory. It's experimental: the phone uses a simplified version of her voice profile, not the exact
+  one, and on basic phones it may take a while to start talking. Only on in Custom mode; in the other modes her new
+  lines use the phone's voice or text only. In Customize › Capri Voice: modes (Automatic, Light, Balanced, Max
+  fidelity, Custom), an A/B comparer to hear the same line in two voices and keep one, and advanced options
+  (download, import, verify, remove).
 
 ## 1.10.1
 
