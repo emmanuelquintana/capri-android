@@ -106,6 +106,60 @@ class MainActivity : Activity() {
 
     private class Tab(val icon: Ui.Icon, val label: TextView, val button: LinearLayout, val page: View)
 
+    // (1.11.0) the two screens of Ajustes, over the tabs, with their way back
+    private lateinit var personal: View
+    private lateinit var voice: View
+    private var sub: View? = null
+
+    private fun openSub(page: View, animate: Boolean = true) {
+        if (current != TAB_SETTINGS || sub != null) show(TAB_SETTINGS, animate = false)
+        hideKeyboard()
+        sub = page
+        tabs[current].page.visibility = View.GONE
+        (page as? ScrollView)?.scrollTo(0, 0)
+        page.visibility = View.VISIBLE
+        if (animate) ui.slideIn(page)
+        refresh()
+    }
+
+    private fun closeSub(animate: Boolean = true): Boolean {
+        val open = sub ?: return false
+        hideKeyboard()
+        open.visibility = View.GONE
+        sub = null
+        tabs.getOrNull(current)?.page?.let { it.visibility = View.VISIBLE; if (animate) ui.slideIn(it) }
+        return true
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (closeSub()) return
+        @Suppress("DEPRECATION")
+        super.onBackPressed()
+    }
+
+    /** "‹ Ajustes": back from one of its screens. */
+    private fun backRow() = ui.text("‹ " + getString(R.string.tab_settings).uppercase(), 13f, Hud.YELLOW, ui.mono).apply {
+        letterSpacing = 0.1f
+        isClickable = true
+        setPadding(0, ui.dpi(4), ui.dpi(16), ui.dpi(14))
+        setOnClickListener { closeSub() }
+    }
+
+    /** A row that opens a screen: its icon, its name and what's in it, and a chevron. */
+    private fun entry(icon: String, color: Int, title: Int, how: Int, open: () -> Unit) = ui.card(color).apply {
+        val row = ui.row().apply { gravity = Gravity.CENTER_VERTICAL }
+        row.addView(View(this@MainActivity).apply { background = Ui.Icon(icon, color) }, LinearLayout.LayoutParams(ui.dpi(26), ui.dpi(26)).apply { rightMargin = ui.dpi(14) })
+        val texts = ui.col()
+        texts.addView(ui.text(getString(title), 16f, Hud.PAPER, ui.head))
+        texts.addView(ui.text(getString(how), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(3))
+        row.addView(texts, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+        row.addView(ui.text("›", 22f, color, ui.head).apply { setPadding(ui.dpi(10), 0, 0, 0) })
+        addView(row)
+        isClickable = true
+        setOnClickListener { open() }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Diag.init(this)
@@ -130,20 +184,26 @@ class MainActivity : Activity() {
         // 1.11.0 (Emma: "que el centro de la app sea un chat con ella… el menú de juegos debe tener su parte
         // en el menú de píldora"): her chat first, where the app opens; the games get a tab; Comunidad
         // went into Novedades (Discord, TikTok, Donar) and Comandos behind the «?» of her chat.
-        chat = ChatTab(this, ui) { showCommands() }
-        val pages = listOf(chat.build(), newsPage(), gamesPage(), youPage(), stylePage(), settingsPage())
+        // (1.11.0, Emma: "el menú de píldora está llegando a un nivel sobrecargado, debe haber novedades,
+        // comunidad y personalizar Capri, y otro para comandos de voz, otro menú para ajustes"): Comunidad and
+        // Comandos are tabs again; Tú became Ajustes › Ajustes personales, her voice Ajustes › Ajustes de voz.
+        chat = ChatTab(this, ui) { show(TAB_CMDS) }
+        personal = youPage()
+        voice = voicePage()
+        val pages = listOf(chat.build(), newsPage(), communityPage(), gamesPage(), stylePage(), cmdsPage(), settingsPage())
         val bar = ui.row().apply {
             background = Ui.Pill(Hud.INK, Hud.MANE, ui.dp(1.5f))
             setPadding(ui.dpi(6), ui.dpi(6), ui.dpi(6), ui.dpi(6))
             elevation = ui.dp(6f)
         }
-        val labels = listOf(R.string.tab_chat to "chat", R.string.tab_news to "spark", R.string.tab_games to "pad", R.string.tab_you to "person", R.string.tab_style to "hanger", R.string.tab_settings to "sliders")
+        val labels = listOf(R.string.tab_chat to "chat", R.string.tab_news to "spark", R.string.tab_community to "people", R.string.tab_games to "pad",
+            R.string.tab_style to "hanger", R.string.tab_cmds to "mic", R.string.tab_settings to "sliders")
         for ((i, pair) in labels.withIndex()) {
             val (label, kind) = pair
             val icon = Ui.Icon(kind, Hud.PAPER_2)
             val btn = ui.row().apply {
                 gravity = Gravity.CENTER
-                setPadding(ui.dpi(11), ui.dpi(10), ui.dpi(11), ui.dpi(10)) // (six tabs: they fit a 360 dp phone)
+                setPadding(ui.dpi(9), ui.dpi(10), ui.dpi(9), ui.dpi(10)) // (seven tabs: they fit a 360 dp phone)
                 isClickable = true
                 contentDescription = getString(label)
                 setOnClickListener { show(i) }
@@ -155,6 +215,7 @@ class MainActivity : Activity() {
             content.addView(pages[i], FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
             tabs.add(Tab(icon, text, btn, pages[i]))
         }
+        for (sub in listOf(personal, voice)) content.addView(sub.apply { visibility = View.GONE }, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
         val barParams = FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL).apply {
             bottomMargin = ui.dpi(16)
         }
@@ -173,7 +234,9 @@ class MainActivity : Activity() {
         }
         setContentView(root)
         show(savedInstanceState?.getInt("tab") ?: tabAsked(intent) ?: if (wantsUpdate) TAB_NEWS else TAB_CHAT, animate = false)
-        if (savedInstanceState == null && tabAsked(intent) == null) root.postDelayed({ if (!isFinishing) inviteOnce() }, 1500)
+        if (savedInstanceState == null && tabAsked(intent) == null) root.postDelayed({ if (!isFinishing && !offerVoiceOnce()) inviteOnce() }, 1500)
+        // a screen of Ajustes to open on ("sub": personal | voice): the emulator's screenshots ask for one
+        when (intent?.getStringExtra(EXTRA_SUB)) { "personal" -> openSub(personal, animate = false); "voice" -> openSub(voice, animate = false) }
     }
 
     // a tab to open on ("tab", 0..4): the emulator's screenshots ask for one
@@ -186,6 +249,7 @@ class MainActivity : Activity() {
 
     /** One tab on: its icon and label in ink on a yellow capsule, the others quiet. */
     private fun show(i: Int, animate: Boolean = true) {
+        closeSub(animate = false)
         current = i
         hideKeyboard()
         for ((j, t) in tabs.withIndex()) {
@@ -254,6 +318,7 @@ class MainActivity : Activity() {
             wantsUpdate = true
             if (::ui.isInitialized) show(TAB_NEWS)
         } else tabAsked(intent)?.let { if (::ui.isInitialized) show(it) }
+        if (::ui.isInitialized) when (intent.getStringExtra(EXTRA_SUB)) { "personal" -> openSub(personal); "voice" -> openSub(voice) }
     }
 
     private fun toggleVoice() {
@@ -335,7 +400,6 @@ class MainActivity : Activity() {
         // Comunidad tab went here) and DONAR (1.11.0, Emma: "debajo del botón de iniciar Capri y Discord que
         // diga DONAR y abra el popup con el link de donar")
         addView(ui.button(getString(R.string.community_discord) + " ↗", Ui.Kind.LINE) { openLink(DISCORD) }, ui.block(10))
-        addView(ui.button(getString(R.string.community_tiktok) + " ↗", Ui.Kind.LINE) { openLink(TIKTOK) }, ui.block(8))
         addView(ui.button("♥ " + getString(R.string.main_donate), Ui.Kind.GREEN) { showSupport(asked = true) }, ui.block(8))
 
         // updates
@@ -449,6 +513,8 @@ class MainActivity : Activity() {
     private fun cmdsPage() = page {
         addView(ui.label(getString(R.string.tab_cmds)))
         addView(ui.text(getString(R.string.cmds_intro), 15f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.2f) }, ui.block(8))
+        // (1.11.0) her ears and her voice are one tap away: Ajustes › Ajustes de voz
+        addView(entry("mic", Hud.MANE, R.string.settings_voice_screen, R.string.cmds_voice_how) { openSub(voice) }, ui.block(14))
         val colors = listOf(Hud.MANE, Hud.GREEN, Hud.YELLOW)
         var card: LinearLayout? = null
         var n = 0
@@ -469,7 +535,8 @@ class MainActivity : Activity() {
     // ---------- You (1.9.0): what she calls you, your birthday, what she remembers, how she looks after you ----------
 
     private fun youPage() = page {
-        addView(ui.label(getString(R.string.tab_you)))
+        addView(backRow())
+        addView(ui.label(getString(R.string.settings_personal)))
         addView(ui.text(getString(R.string.you_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // what she calls you
         addView(ui.card(Hud.YELLOW).apply {
@@ -839,6 +906,16 @@ class MainActivity : Activity() {
             choices.add(show)
         }, ui.block(16))
 
+    }
+
+
+    // ---------- Ajustes de voz (1.11.0, Emma: "otra pantalla ajustes de voz"): everything about her voice ----------
+
+    private fun voicePage() = page {
+        addView(backRow())
+        addView(ui.label(getString(R.string.settings_voice_screen)))
+        addView(ui.text(getString(R.string.settings_voice_screen_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        addView(voiceGetCard(), ui.block(16))
         // how she sounds: her voice's pitch and speed, her accent (Ears.kt reads these each time)
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_her_voice)))
@@ -882,9 +959,9 @@ class MainActivity : Activity() {
             // you choose it yourself, in Custom).
             addView(ui.text(getString(R.string.cv_mode), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(choice(listOf(R.string.cv_mode_auto to "automatic", R.string.cv_mode_light to "light", R.string.cv_mode_balanced to "balanced"),
-                { store.configString("voiceMode") ?: "balanced" }, { a, b -> a == b }) { setVoiceMode(it) }, ui.block(6))
+                { store.configString("voiceMode") ?: "automatic" }, { a, b -> a == b }) { setVoiceMode(it) }, ui.block(6))
             addView(choice(listOf(R.string.cv_mode_fidelity to "fidelity", R.string.cv_mode_custom to "custom"),
-                { store.configString("voiceMode") ?: "balanced" }, { a, b -> a == b }) { setVoiceMode(it) }, ui.block(4))
+                { store.configString("voiceMode") ?: "automatic" }, { a, b -> a == b }) { setVoiceMode(it) }, ui.block(4))
             val why = ui.text("", 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }
             addView(why, ui.block(6))
             addView(ui.text(getString(R.string.cv_answers), 14f, Hud.PAPER, ui.head), ui.block(14))
@@ -893,7 +970,7 @@ class MainActivity : Activity() {
                 { CapriVoice.engine(this@MainActivity) }, { a, b -> a == b }) { pickEngine(it) }, ui.block(6))
             val showWhy = {
                 val lang = CapriVoice.voiceLang(Lang.current(this@MainActivity)) ?: "es-MX"
-                why.text = getString(when (store.configString("voiceMode") ?: "balanced") {
+                why.text = getString(when (store.configString("voiceMode") ?: "automatic") {
                     "fidelity" -> R.string.cv_why_fidelity
                     "custom" -> if (CapriVoice.engine(this@MainActivity) == CapriNeural.ID) R.string.cv_why_custom_neural else R.string.cv_why_custom
                     "light" -> R.string.cv_why_light
@@ -910,6 +987,49 @@ class MainActivity : Activity() {
                 { store.configNumber("voiceClipSpeed", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voiceClipSpeed", it) }, ui.block(6))
             addView(ui.text(getString(R.string.cv_signature), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(10))
             addView(ui.button(getString(R.string.cv_test), Ui.Kind.LINE) { testVoice() }, ui.block(10))
+
+            // (1.11.0) her engines for new answers: each precision added or removed on its own (Emma: "que el usuario
+            // pueda eliminar o añadir de nuestras opciones, cada una con mayor o menor fidelidad")
+            addView(ui.text(getString(R.string.cv_engines), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.cv_engines_how), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            for (v in CapriNeural.VARIANTS) {
+                val line = ui.text("", 14f, Hud.PAPER, ui.head)
+                val note = ui.text("", 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }
+                addView(line, ui.block(12)); addView(note, ui.block(2))
+                val row = ui.row()
+                val lpv = { LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply { rightMargin = ui.dpi(4) } }
+                val add = ui.button(getString(R.string.cv_var_add), Ui.Kind.LINE) {
+                    when {
+                        CapriNeural.unsupported() != null -> Toast.makeText(this@MainActivity, neuralStatus("es-MX"), Toast.LENGTH_LONG).show()
+                        !CapriNeural.fits(this@MainActivity, v) -> Toast.makeText(this@MainActivity, R.string.cv_var_nofit, Toast.LENGTH_LONG).show()
+                        else -> voiceJob { CapriNeural.download(this@MainActivity, v, it) }
+                    }
+                }
+                val use = ui.button(getString(R.string.cv_var_use), Ui.Kind.LINE) {
+                    CapriSettings.set(this@MainActivity, "voiceNeuralModel", v.id); CapriNeural.release("variant"); choices.forEach { it() }
+                }
+                val drop = ui.button(getString(R.string.cv_remove), Ui.Kind.LINE) { voiceJob { CapriNeural.remove(this@MainActivity, v.id, it) } }
+                row.addView(add, lpv()); row.addView(use, lpv()); row.addView(drop, lpv())
+                addView(row, ui.block(6))
+                val showV = {
+                    val have = CapriNeural.installed(this@MainActivity, v)
+                    val inUse = have && CapriNeural.variant(this@MainActivity)?.id == v.id
+                    val fmt = android.text.format.Formatter.formatShortFileSize(this@MainActivity, v.bytes)
+                    line.text = getString(R.string.cv_var_line, getString(when (v.id) { "q4" -> R.string.cv_var_q4; "q8" -> R.string.cv_var_q8; else -> R.string.cv_var_bf16 }), fmt)
+                    line.setTextColor(if (inUse) Hud.GREEN else if (have) Hud.PAPER else Hud.PAPER_2)
+                    note.text = getString(when (v.id) { "q4" -> R.string.cv_fid_light; "q8" -> R.string.cv_fid_high; else -> R.string.cv_fid_max }) + " · " + getString(when {
+                        inUse -> R.string.cv_var_inuse
+                        have -> R.string.cv_var_installed
+                        CapriNeural.unsupported() != null || !CapriNeural.fits(this@MainActivity, v) -> R.string.cv_var_nofit
+                        else -> R.string.cv_var_missing
+                    })
+                    add.visibility = if (have) View.GONE else View.VISIBLE
+                    use.visibility = if (have && !inUse) View.VISIBLE else View.GONE
+                    drop.visibility = if (have) View.VISIBLE else View.GONE
+                }
+                showV()
+                choices.add(showV)
+            }
 
             // A/B: the same new sentence in two engines, one after the other (never both at once)
             addView(ui.text(getString(R.string.cv_ab), 14f, Hud.PAPER, ui.head), ui.block(16))
@@ -947,15 +1067,11 @@ class MainActivity : Activity() {
                 val nState = ui.text("", 12f, Hud.PAPER, ui.mono)
                 addView(nState, ui.block(8))
                 val r1 = ui.row(); val r2 = ui.row(); val r3 = ui.row()
-                r1.addView(ui.button(getString(R.string.cv_neural_download), Ui.Kind.LINE) {
-                    if (CapriNeural.unsupported() != null) Toast.makeText(this@MainActivity, neuralStatus("es-MX"), Toast.LENGTH_LONG).show()
-                    else voiceJob { CapriNeural.download(this@MainActivity, it) }
-                }, lpw())
+                r1.addView(ui.button(getString(R.string.cv_neural_download_profile), Ui.Kind.LINE) { voiceJob { CapriNeural.downloadProfiles(this@MainActivity, it) } }, lpw())
                 r1.addView(ui.button(getString(R.string.cv_neural_import), Ui.Kind.LINE) { pickFile(PICK_MODEL) }, lpw())
                 r2.addView(ui.button(getString(R.string.cv_neural_profile), Ui.Kind.LINE) { pickFile(PICK_PROFILE) }, lpw())
                 r2.addView(ui.button(getString(R.string.cv_verify), Ui.Kind.LINE) { voiceJob { CapriNeural.verify(this@MainActivity, it) } }, lpw())
                 r3.addView(ui.button(getString(R.string.cv_neural_cancel), Ui.Kind.LINE) { CapriNeural.cancelDownload() }, lpw())
-                r3.addView(ui.button(getString(R.string.cv_neural_rm_model), Ui.Kind.LINE) { voiceJob { CapriNeural.remove(this@MainActivity, "model", it) } }, lpw())
                 r3.addView(ui.button(getString(R.string.cv_neural_rm_profile), Ui.Kind.LINE) { voiceJob { CapriNeural.remove(this@MainActivity, "profile", it) } }, lpw())
                 addView(r1, ui.block(6)); addView(r2, ui.block(4)); addView(r3, ui.block(4))
                 addView(ui.text(getString(R.string.cv_dsp), 13f, Hud.PAPER, ui.head), ui.block(12))
@@ -1009,8 +1125,7 @@ class MainActivity : Activity() {
                     }
                 }, lp())
                 row1.addView(ui.button(getString(R.string.cv_download), Ui.Kind.LINE) {
-                    if (CapriVoice.CHANNEL.isEmpty()) Toast.makeText(this@MainActivity, R.string.cv_nochannel, Toast.LENGTH_LONG).show()
-                    else voiceJob { done -> CapriVoice.download(this@MainActivity, pack.lang, done) }
+                    voiceJob { done -> CapriVoice.download(this@MainActivity, pack.lang, done) }
                 }, lp())
                 row2.addView(ui.button(getString(R.string.cv_verify), Ui.Kind.LINE) { voiceJob { CapriVoice.verify(this@MainActivity, pack.lang, it) } }, lp())
                 row2.addView(ui.button(getString(R.string.cv_repair), Ui.Kind.LINE) { voiceJob { CapriVoice.repair(this@MainActivity, pack.lang, it) } }, lp())
@@ -1035,6 +1150,27 @@ class MainActivity : Activity() {
             showStorage()
             choices.add(showStorage)
         }, ui.block(16))
+        // her ears: "Capri, …"
+        addView(ui.card(Hud.MANE).apply {
+            addView(ui.label(getString(R.string.settings_voice)))
+            voiceText = ui.text("", 17f, Hud.PAPER, ui.head)
+            addView(voiceText, ui.block(6))
+            // what her ears are doing right now (listening, what they heard, why not)
+            voiceState = ui.text("", 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.15f) }
+            addView(voiceState, ui.block(6))
+            addView(ui.text(getString(R.string.settings_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            voiceBtn = ui.button("", Ui.Kind.GREEN) { toggleVoice() }
+            addView(voiceBtn, ui.block(12))
+            // the noise around you, how you talk, how she sounds (Ears.kt reads these each time)
+            val store = Store(this@MainActivity)
+            addView(ui.text(getString(R.string.voice_filter), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.voice_filter_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.voice_filter_normal to "normal", R.string.voice_filter_strict to "strict", R.string.voice_filter_strictest to "strictest"),
+                { store.configString("voiceFilter") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceFilter", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.voice_pace), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.voice_pace_fast to "fast", R.string.voice_pace_normal to "normal", R.string.voice_pace_slow to "slow"),
+                { store.configString("voicePace") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voicePace", it) }, ui.block(6))
+        }, ui.block(16))
 
     }
 
@@ -1057,16 +1193,13 @@ class MainActivity : Activity() {
         startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*"), code)
     }
 
-    // (V8.5) the modes: each one only picks among engines that really work here. Automatic, light and
-    // balanced can't pick the neural engine (no validated identity on Android yet): her phrases + the phone's voice.
+    // (V8.5, 1.11.0) the modes: each one only picks among engines that really work here, each time she speaks
+    // (CapriVoice.answerEngine): automatic, balanced and fidelity use her neural voice (her approved identity,
+    // the same ICL prompt as PC) once it's installed; light never loads a model.
     private fun setVoiceMode(mode: String) {
         CapriSettings.set(this, "voiceMode", mode)
-        when (mode) {
-            "fidelity" -> CapriSettings.set(this, "voiceEngine", "text")
-            "automatic", "light", "balanced" -> CapriSettings.set(this, "voiceEngine", "system")
-        }
         if (mode != "custom") CapriSettings.set(this, "voiceClips", true)
-        if (mode != "custom") CapriNeural.release("mode")
+        if (mode == "light") CapriNeural.release("mode")
     }
 
     private fun pickEngine(engine: String) {
@@ -1077,7 +1210,6 @@ class MainActivity : Activity() {
                 Toast.makeText(this, getString(R.string.cv_neural_cant, neuralStatus(lang)), Toast.LENGTH_LONG).show()
                 return
             }
-            Toast.makeText(this, R.string.cv_neural_experimental, Toast.LENGTH_LONG).show()
         } else CapriNeural.release("engine")
         CapriSettings.set(this, "voiceEngine", engine)
         CapriSettings.set(this, "voiceMode", "custom")
@@ -1153,6 +1285,67 @@ class MainActivity : Activity() {
         }
     }
 
+    // ---------- Her voice in one tap (1.11.0) ----------
+
+    /** Everything small of her voice that's missing: her phrases (es, en) and her profiles, one after another. */
+    private fun getVoice(done: (String?) -> Unit) {
+        val steps = mutableListOf<((String?) -> Unit) -> Unit>()
+        for (pack in CapriVoice.PACKS) if (CapriVoice.installed(pack.lang) == null) steps += { d -> CapriVoice.download(this, pack.lang, d) }
+        if (!CapriNeural.profileInstalled(this, "es-MX") || !CapriNeural.profileInstalled(this, "en-US")) steps += { d -> CapriNeural.downloadProfiles(this, d) }
+        fun next(i: Int) {
+            if (i >= steps.size) return done(null)
+            steps[i] { err -> if (err != null) done(err) else next(i + 1) }
+        }
+        next(0)
+    }
+
+    private fun voiceGetCard() = ui.card(Hud.YELLOW, Hud.MANE).apply {
+        addView(ui.label(getString(R.string.cv_get_title)))
+        val state = ui.text("", 13f, Hud.PAPER, ui.body).apply { setLineSpacing(0f, 1.2f) }
+        addView(state, ui.block(6))
+        val btn = ui.button(getString(R.string.cv_get), Ui.Kind.MAIN) { voiceJob { getVoice(it) } }
+        addView(btn, ui.block(10))
+        addView(ui.text(getString(R.string.cv_get_how), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
+        val show = {
+            val phrases = CapriVoice.PACKS.count { CapriVoice.installed(it.lang) != null }
+            val profiles = CapriNeural.profileInstalled(this@MainActivity, "es-MX") && CapriNeural.profileInstalled(this@MainActivity, "en-US")
+            val v = CapriNeural.variant(this@MainActivity)
+            state.text = getString(R.string.cv_get_state, phrases, CapriVoice.PACKS.size,
+                getString(if (profiles) R.string.cv_get_yes else R.string.cv_get_no),
+                v?.let { getString(when (it.id) { "q4" -> R.string.cv_var_q4; "q8" -> R.string.cv_var_q8; else -> R.string.cv_var_bf16 }) } ?: getString(R.string.cv_get_noengine))
+            btn.visibility = if (phrases == CapriVoice.PACKS.size && profiles) View.GONE else View.VISIBLE
+        }
+        show()
+        choices.add(show)
+    }
+
+    /**
+     * (1.11.0, Emma: "las apps te deben preguntar si quieres bajar los datos de voz de Capri al iniciar la
+     * siguiente vez en la actualización"): once, the first time the app opens with this version, if her
+     * voice isn't here yet. Nothing is downloaded without a yes. True if it asked.
+     */
+    private fun offerVoiceOnce(): Boolean {
+        val prefs = getSharedPreferences("app", MODE_PRIVATE)
+        if (wantsUpdate || prefs.getBoolean("voiceOffered", false)) return false
+        prefs.edit().putBoolean("voiceOffered", true).apply()
+        if (CapriVoice.PACKS.all { CapriVoice.installed(it.lang) != null } && CapriNeural.profileInstalled(this, "es-MX")) return false
+        val dialog = android.app.Dialog(this)
+        val card = ui.card(Hud.YELLOW, Hud.MANE).apply {
+            addView(ui.label(getString(R.string.offer_title)))
+            addView(ui.text(getString(R.string.offer_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.2f) }, ui.block(6))
+            addView(ui.button(getString(R.string.offer_get), Ui.Kind.MAIN) { dialog.dismiss(); voiceJob { getVoice(it) } }, ui.block(12))
+            addView(ui.button(getString(R.string.offer_more), Ui.Kind.LINE) { dialog.dismiss(); openSub(voice) }, ui.block(8))
+            addView(ui.button(getString(R.string.community_later), Ui.Kind.LINE) { dialog.dismiss() }, ui.block(8))
+        }
+        val pad = FrameLayout(this).apply { setPadding(ui.dpi(4), ui.dpi(4), ui.dpi(10), ui.dpi(10)); addView(card) }
+        dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+        dialog.setContentView(pad)
+        dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setLayout((resources.displayMetrics.widthPixels * 0.9).toInt(), WRAP_CONTENT)
+        dialog.show()
+        return true
+    }
+
     private fun testVoice() {
         val lang = CapriVoice.voiceLang(Lang.current(this)) ?: "es-MX"
         val clip = CapriVoice.installed(lang)?.listClips()?.let { all -> all.filter { it.eventId.startsWith("greeting") }.ifEmpty { all } }?.randomOrNull()
@@ -1169,6 +1362,10 @@ class MainActivity : Activity() {
 
     private fun settingsPage() = page {
         addView(ui.label(getString(R.string.tab_settings)))
+        // (1.11.0, Emma: "otro menú para ajustes y ahí opciones con una pantalla para los ajustes personales,
+        // otra pantalla ajustes de voz"): the two screens first, then what's general
+        addView(entry("person", Hud.YELLOW, R.string.settings_personal, R.string.settings_personal_how) { openSub(personal) }, ui.block(12))
+        addView(entry("mic", Hud.MANE, R.string.settings_voice_screen, R.string.settings_voice_screen_how) { openSub(voice) }, ui.block(10))
         addView(ui.text(getString(R.string.settings_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // what she's allowed to do on your phone (1.9.0: here, no longer a tab of its own)
         addView(ui.card(Hud.GREEN).apply {
@@ -1249,28 +1446,6 @@ class MainActivity : Activity() {
                 lookBtn.postDelayed({ refresh() }, 1500)
             }
             addView(lookBtn, ui.block(8))
-        }, ui.block(16))
-
-        // her ears: "Capri, …"
-        addView(ui.card(Hud.MANE).apply {
-            addView(ui.label(getString(R.string.settings_voice)))
-            voiceText = ui.text("", 17f, Hud.PAPER, ui.head)
-            addView(voiceText, ui.block(6))
-            // what her ears are doing right now (listening, what they heard, why not)
-            voiceState = ui.text("", 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.15f) }
-            addView(voiceState, ui.block(6))
-            addView(ui.text(getString(R.string.settings_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            voiceBtn = ui.button("", Ui.Kind.GREEN) { toggleVoice() }
-            addView(voiceBtn, ui.block(12))
-            // the noise around you, how you talk, how she sounds (Ears.kt reads these each time)
-            val store = Store(this@MainActivity)
-            addView(ui.text(getString(R.string.voice_filter), 14f, Hud.PAPER, ui.head), ui.block(16))
-            addView(ui.text(getString(R.string.voice_filter_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(choice(listOf(R.string.voice_filter_normal to "normal", R.string.voice_filter_strict to "strict", R.string.voice_filter_strictest to "strictest"),
-                { store.configString("voiceFilter") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceFilter", it) }, ui.block(6))
-            addView(ui.text(getString(R.string.voice_pace), 14f, Hud.PAPER, ui.head), ui.block(14))
-            addView(choice(listOf(R.string.voice_pace_fast to "fast", R.string.voice_pace_normal to "normal", R.string.voice_pace_slow to "slow"),
-                { store.configString("voicePace") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voicePace", it) }, ui.block(6))
         }, ui.block(16))
 
         // her modes: gamer (by hand or on its own), her tips while you play, streaming
@@ -1559,19 +1734,12 @@ class MainActivity : Activity() {
         }, ui.block(18))
     }
 
-    // what you can ask her (the old «Comandos» tab): behind the «?» of her chat
-    private fun showCommands() {
-        val dialog = android.app.Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
-        val box = FrameLayout(this).apply { background = Hud.Backdrop(ui.dp(3f)) }
-        val page = cmdsPage()
-        box.addView(page, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
-        box.addView(ui.text("✕", 22f, Hud.YELLOW, ui.head).apply {
-            gravity = Gravity.CENTER
-            isClickable = true
-            setOnClickListener { dialog.dismiss() }
-        }, FrameLayout.LayoutParams(ui.dpi(56), ui.dpi(56), Gravity.TOP or Gravity.END))
-        dialog.setContentView(box)
-        dialog.show()
+    // ---------- Comunidad (a tab again in 1.11.0): Discord, TikTok and supporting Capri ----------
+
+    private fun communityPage() = page {
+        addView(ui.label(getString(R.string.tab_community)))
+        addView(communityCard(), ui.block(8))
+        addView(ui.button("♥ " + getString(R.string.main_donate), Ui.Kind.GREEN) { showSupport(asked = true) }, ui.block(16))
     }
 
     // Emma's TikTok and Discord, as a card (the Comunidad tab, and the one-time invite)
@@ -1673,9 +1841,12 @@ class MainActivity : Activity() {
         private const val PICK_MODEL = 4712 // (V8.5) one of the neural engine's .gguf files
         private const val PICK_PROFILE = 4713 // (V8.5) the private profiles ZIP
         const val TAB_NEWS = 1
-        const val TAB_GAMES = 2
-        const val TAB_SETTINGS = 5
-        private const val TABS = 6
+        const val TAB_COMMUNITY = 2
+        const val TAB_GAMES = 3
+        const val TAB_CMDS = 5
+        const val TAB_SETTINGS = 6
+        private const val TABS = 7
+        const val EXTRA_SUB = "sub"
         private const val TIKTOK = "https://www.tiktok.com/@emma180516_"
         private const val DISCORD = "https://discord.gg/hmh783tfn"
         private const val PAYPAL = "https://paypal.me/Joseemmanuelq"

@@ -36,16 +36,17 @@ import java.util.zip.ZipInputStream
  * arm64-v8a and x86_64. The library is built for Android 12 (API 31): below that, or on other processors,
  * this engine simply isn't offered and Capri goes on with her recorded phrases and the voice you picked.
  *
- * What it can and can't keep of her voice, said plainly in the app:
- * - es-MX: the approved voice es-MX-best is Qwen 0.6B in ICL mode (her reference sound codes + its words +
- *   her speaker vector). This native engine only takes a speaker vector (x-vector), so it uses exactly the
- *   approved profile's vector (ref_spk_embedding of its prompt.npz) without the ICL part. That is NOT
- *   es-MX-best: it's shown as "experimental" until someone approves it by ear. SIGNATURE V7.2 (0.26, 76 Hz)
- *   is applied once, after the clean synthesis, as in the approved chain.
- * - en-US: the approved en-US-best is Chatterbox Multilingual, which has no phone runtime. Here the vector is
- *   taken from the same English source sound en-US-best is conditioned with; also experimental, DSP off.
+ * Her identity, the same as on PC (Emma, 2026-11-21: "que alguna sea idéntica o lo más parecida a la de PC"):
+ * - es-MX: the approved voice es-MX-best is Qwen 0.6B in ICL mode: her reference sound's codes + its words +
+ *   her speaker vector, all from the approved prompt.npz and profile.json, untouched. The native library has
+ *   that ICL path (QwenEngine.synthesizeWithIclPrompt), so the phone uses exactly the same prompt as PC.
+ *   SIGNATURE V7.2 (0.26, 76 Hz) is applied once, after the clean synthesis, as in the approved chain.
+ * - en-US: Qwen in ICL mode from the English source sound and its words (conditioning.wav/.json), the same
+ *   prompt Capri PC's Qwen engines use for English (its Chatterbox has no phone runtime). DSP off.
+ * What changes is only the weights' precision, which you choose (and can add or remove) in its options:
+ * Q4_K_M (light), Q8_0 (high) or BF16 (the same precision as PC, for phones with plenty of memory).
  *
- * Weights (884 MB) are downloaded on request from Hugging Face (public, Apache-2.0) at a fixed revision or
+ * Weights (0.9 to 2.2 GB) are downloaded on request from Hugging Face (public, Apache-2.0) at a fixed revision or
  * imported from a file, checked byte for byte (size + SHA-256) and never shipped in the APK. The profile is
  * private: it's only installed from the private profiles ZIP you hand it (each file checked by SHA-256).
  * Nothing is loaded until her first new answer, one synthesis at a time, cancellable, and the model is
@@ -56,26 +57,57 @@ object CapriNeural {
     private const val REVISION = "b7ee2e8c7459c3bea99da23e3d178125a7d1713c"
     private const val SOURCE = "https://huggingface.co/Serveurperso/Qwen3-TTS-GGUF/resolve/$REVISION"
 
-    data class Model(val name: String, val bytes: Long, val sha: String)
-    val MODELS = listOf(
-        Model("qwen-talker-0.6b-base-Q4_K_M.gguf", 628_905_056L, "4b468ec7b1f62b90ef4ca316c0aa57deadfd54b2cf9651703ea753cedaf04226"),
-        Model("qwen-tokenizer-12hz-Q4_K_M.gguf", 254_974_752L, "cf3788b4d50aaa665fb6e57c170396aae03a3555fea52d2b5d0cda902d658039"),
+    /** One file of a variant: its name on Hugging Face, its size and SHA-256, and its name on the phone. */
+    data class Model(val name: String, val bytes: Long, val sha: String, val local: String = name)
+    /**
+     * The precisions you can install, each on its own, side by side (and remove each one): more precision is
+     * closer to PC and needs more memory. [ramTotalMb] is the least total RAM it's offered on, [needMb] the free
+     * memory it needs while it speaks. The native library looks for the tokenizer by these lowercase names.
+     */
+    data class Variant(val id: String, val dir: String, val files: List<Model>, val ramTotalMb: Long, val needMb: Long, val fidelity: String) {
+        val bytes get() = files.sumOf { it.bytes }
+        val talker get() = files.first()
+        val tokenizer get() = files.last()
+    }
+    val VARIANTS = listOf(
+        Variant("q4", "qwen-0.6b-q4km", listOf(
+            Model("qwen-talker-0.6b-base-Q4_K_M.gguf", 628_905_056L, "4b468ec7b1f62b90ef4ca316c0aa57deadfd54b2cf9651703ea753cedaf04226"),
+            Model("qwen-tokenizer-12hz-Q4_K_M.gguf", 254_974_752L, "cf3788b4d50aaa665fb6e57c170396aae03a3555fea52d2b5d0cda902d658039"),
+        ), ramTotalMb = 3_500, needMb = 1_400, fidelity = "light"),
+        Variant("q8", "qwen-0.6b-q8", listOf(
+            Model("qwen-talker-0.6b-base-Q8_0.gguf", 992_615_488L, "d54dbaf10591421fa764ed630d764efa717ae40cd959bd48c66d4eb1af226426"),
+            Model("qwen-tokenizer-12hz-Q8_0.gguf", 291_150_624L, "1883beeed99348fc35e23dd225e9082f93f6f8c109330a33d935baa8acdbfd94", "qwen-tokenizer-12hz-q8_0.gguf"),
+        ), ramTotalMb = 5_500, needMb = 2_000, fidelity = "high"),
+        Variant("bf16", "qwen-0.6b-bf16", listOf(
+            Model("qwen-talker-0.6b-base-BF16.gguf", 1_841_716_288L, "f0070d96aa4e1a437e2963cc2925b0c9b1e307e334faa36c2120f39fc0b729eb"),
+            Model("qwen-tokenizer-12hz-BF16.gguf", 358_980_384L, "cc04d7352ff4cb339435cdccf59cf38e6e92f3cf789bc94a6a1b467093bafa18", "qwen-tokenizer-12hz-bf16.gguf"),
+        ), ramTotalMb = 7_500, needMb = 3_000, fidelity = "max"),
     )
-    val MODEL_BYTES = MODELS.sumOf { it.bytes }
+    /** The light one: what CI tests on its emulator. */
+    val MODELS = VARIANTS[0].files
+    val MODEL_BYTES = VARIANTS[0].bytes
 
     /** The private profiles of Capri Voice V8 (capri-voice-profiles-private.zip): the files used, by SHA-256. */
+    /** Her profiles on the public channel (only what the phone and PC use). */
+    private const val PROFILES_FILE = "capri-voice-profiles.zip"
+    private const val PROFILES_BYTES = 2_443_571L
+    private const val PROFILES_SHA = "e217a9c89d32ed34275b69cd0ddb447d743350abc5d9f65a8915cba2d7e86dc6"
     private const val PROMPT = "runtime/profiles/es-MX-best/prompt.npz"
     private const val PROMPT_SHA = "27556e28d26e369b37de987873e325313032eea5d45d4193a1f6f1a13950637a"
     private const val ENGLISH = "runtime/profiles/en-US-source/conditioning.wav"
     private const val ENGLISH_SHA = "8fae883872eb306218cc84b520c0d298b2ad65dcdc282a6be5b98a437bd36233"
+    private const val SPANISH_INFO = "runtime/profiles/es-MX-best/profile.json"
+    private const val SPANISH_INFO_SHA = "7583a7b6a95cd9d6aea0916034e0cd9144a2dce0daa7b335c2f392e45e79c59e"
+    private const val ENGLISH_INFO = "runtime/profiles/en-US-source/conditioning.json"
+    private const val ENGLISH_INFO_SHA = "38df2eb853c6714b8dbffa55a99f660986fcf0a6abdbeda896d444431c2283dd"
 
     data class Profile(val id: String, val lang: String, val source: String, val dsp: String)
     val PROFILES = listOf(
-        Profile("es-MX-best-xvector", "es-MX", "es-MX-best (prompt.npz · ref_spk_embedding)", "SIGNATURE"),
-        Profile("en-US-source-xvector", "en-US", "en-US-best · conditioning.wav", "OFF"),
+        Profile("es-MX-best-icl", "es-MX", "es-MX-best (ICL: prompt.npz + profile.json, igual que PC)", "SIGNATURE"),
+        Profile("en-US-source-icl", "en-US", "en-US-source (ICL: conditioning.wav + conditioning.json, igual que Qwen en PC)", "OFF"),
     )
-    /** Validation state of every engine + profile (no listening test yet: none is "validated"). */
-    const val FIDELITY = "experimental"
+    /** Same identity as PC; the precision is still to be judged by ear on a phone (no listening test yet). */
+    const val FIDELITY = "pending-listening"
 
     private val main = Handler(Looper.getMainLooper())
     private val worker = Executors.newSingleThreadExecutor(Threads.factory)
@@ -99,10 +131,12 @@ object CapriNeural {
     private val unload = Runnable { worker.execute { dispose("idle") } }
 
     fun root(context: Context) = File(CapriVoice.root(context), "neural")
-    private fun models(context: Context) = File(root(context), "qwen-0.6b-q4km")
+    private fun models(context: Context, v: Variant = VARIANTS[0]) = File(root(context), v.dir)
     private fun profiles(context: Context) = File(root(context), "profiles")
-    private fun embedding(context: Context, lang: String) = File(profiles(context), "$lang.json")
+    private fun embedding(context: Context, lang: String) = File(profiles(context), "$lang.json") // (V8.5 x-vector, no longer used)
+    private fun icl(context: Context, lang: String) = File(profiles(context), "$lang.icl.json")
     private fun englishWav(context: Context) = File(profiles(context), "en-US-source-24k.wav")
+    private fun englishText(context: Context) = File(profiles(context), "en-US-source.txt")
 
     // ---- what this phone can do -------------------------------------------------------------------
 
@@ -119,9 +153,22 @@ object CapriNeural {
         Build.VERSION.SDK_INT >= 31 && runCatching { CpuFeatures.optimized }.isSuccess
     }
 
-    fun modelsInstalled(context: Context) = MODELS.all { File(models(context), it.name).length() == it.bytes } &&
-        File(models(context), ".verified").isFile
-    fun profileInstalled(context: Context, lang: String) = embedding(context, lang).isFile || (lang == "en-US" && englishWav(context).isFile)
+    fun installed(context: Context, v: Variant) = v.files.all { File(models(context, v), it.local).length() == it.bytes } &&
+        File(models(context, v), ".verified").isFile
+    fun modelsInstalled(context: Context) = VARIANTS.any { installed(context, it) }
+    /** Offered on this phone: enough total memory for it. */
+    fun fits(context: Context, v: Variant): Boolean {
+        val mem = ActivityManager.MemoryInfo()
+        context.getSystemService(ActivityManager::class.java).getMemoryInfo(mem)
+        return mem.totalMem >= v.ramTotalMb * 1024 * 1024
+    }
+    /** The precision her voice uses: the one you chose if it's installed, else the most precise installed. */
+    fun variant(context: Context): Variant? {
+        val want = Store(context).configString("voiceNeuralModel")
+        return VARIANTS.firstOrNull { it.id == want && installed(context, it) } ?: VARIANTS.lastOrNull { installed(context, it) }
+    }
+    fun profileInstalled(context: Context, lang: String) = icl(context, lang).isFile ||
+        (lang == "en-US" && englishWav(context).isFile && englishText(context).isFile)
 
     /** installed | unsupported:<why> | nomodel | noprofile | loaded | ready */
     fun status(context: Context, lang: String): String {
@@ -142,11 +189,12 @@ object CapriNeural {
             .put("fastArm", native && runCatching { CpuFeatures.optimized }.getOrDefault(false))
     }
 
-    /** Enough free memory right now for the model (it needs ~1.2 GB while it speaks). */
+    /** Enough free memory right now for the model (from ~1.4 GB for the light one while it speaks). */
     private fun roomFor(context: Context): String? {
         val mem = ActivityManager.MemoryInfo()
         context.getSystemService(ActivityManager::class.java).getMemoryInfo(mem)
-        if (mem.lowMemory || mem.availMem < 1_400L * 1024 * 1024) return "memory"
+        val need = (variant(context) ?: VARIANTS[0]).needMb
+        if (mem.lowMemory || mem.availMem < need * 1024 * 1024) return "memory"
         if (Build.VERSION.SDK_INT >= 29 &&
             context.getSystemService(PowerManager::class.java).currentThermalStatus >= PowerManager.THERMAL_STATUS_SEVERE) return "thermal"
         return null
@@ -311,8 +359,13 @@ object CapriNeural {
     private fun idleMs(store: Store) = (store.configNumber("voiceUnloadMin", 2.0).coerceIn(0.5, 30.0) * 60_000).toLong()
 
     /** The model (once) and her vector for [lang]; returns how long loading took (0 if it was loaded). */
-    private fun ensure(app: Context, lang: String, store: Store): Long {
+    @Volatile private var loadedVariant = ""
+    @Volatile private var encoderLoaded = false
+
+    private fun ensure(app: Context, lang: String, store: Store, pick: Variant? = null): Long {
         val t0 = SystemClock.elapsedRealtime()
+        val v = pick ?: variant(app) ?: error("nomodel")
+        if (engine != null && loadedVariant != v.id) dispose("variant")
         var e = engine
         val fresh = e == null
         if (e == null) {
@@ -322,26 +375,65 @@ object CapriNeural {
             val threads = store.configNumber("voiceThreads", 0.0).toInt().takeIf { it in 1..8 }
                 ?: Runtime.getRuntime().availableProcessors().coerceIn(2, 4)
             e.setCpuThreads(threads)
-            for (m in MODELS) require(File(models(app), m.name).length() == m.bytes) { "model" }
-            if (!e.loadModels(models(app).absolutePath, MODELS.first().name)) {
+            for (m in v.files) require(File(models(app, v), m.local).length() == m.bytes) { "model" }
+            if (!e.loadModels(models(app, v).absolutePath, v.talker.local)) {
                 val err = e.getLastError() ?: "load"
                 e.close()
                 error(err)
             }
             engine = e
+            loadedVariant = v.id
+            encoderLoaded = false
         }
-        if (lang == "en-US" && !embedding(app, lang).isFile) {
-            // the English vector, made once from the English source sound (24 kHz mono PCM16)
-            val tmp = File(profiles(app), "en-US.tmp.json") // el motor nativo elige JSON o binario por la extensión
+        if (lang == "en-US" && !icl(app, lang).isFile) {
+            // the English ICL prompt, made once from the English source sound and its words (as Qwen on PC does)
+            if (!encoderLoaded) {
+                check(e.loadIclPromptEncoder(models(app, v).absolutePath, v.tokenizer.local)) { e.getLastError() ?: "encoder" }
+                encoderLoaded = true
+            }
+            val tmp = File(profiles(app), "en-US.tmp.icl.json")
             e.resetCancel()
-            check(e.extractSpeakerEmbedding(englishWav(app).absolutePath, tmp.absolutePath)) { e.getLastError() ?: "embedding" }
-            validate(e, tmp)
-            tmp.renameTo(embedding(app, lang))
+            check(e.extractIclPrompt(englishWav(app).absolutePath, englishText(app).readText().trim(), tmp.absolutePath)) { e.getLastError() ?: "icl" }
+            readIcl(tmp)
+            check(tmp.renameTo(icl(app, lang))) { "rename" }
         }
-        validate(e, embedding(app, lang))
+        readIcl(icl(app, lang))
         loadedLang = lang
         return if (fresh) SystemClock.elapsedRealtime() - t0 else 0L
     }
+
+    /** An ICL prompt (qwen3_tts_icl_prompt_v1), checked: its words, her 1024-float vector, whole frames of codes. */
+    internal class Icl(val text: String, val embedding: FloatArray, val frames: Int, val codebooks: Int, val codes: LongArray)
+
+    internal fun readIcl(file: File): Icl {
+        require(file.length() in 1..8L * 1024 * 1024) { "icl" }
+        val o = JSONObject(file.readText())
+        require(o.optString("format") == "qwen3_tts_icl_prompt_v1") { "icl:format" }
+        val text = o.optString("reference_text")
+        val emb = o.getJSONArray("speaker_embedding").let { a -> FloatArray(a.length()) { a.getDouble(it).toFloat() } }
+        val rc = o.getJSONObject("reference_codes")
+        val frames = rc.getInt("frames"); val books = rc.getInt("codebooks")
+        val codes = rc.getJSONArray("codes").let { a -> LongArray(a.length()) { a.getLong(it) } }
+        require(emb.size == 1024 && emb.all { it.isFinite() }) { "icl:embedding" }
+        require(books == 16 && frames in 8..2000 && codes.size == frames * books && codes.all { it in 0..4095 }) { "icl:codes" }
+        return Icl(text, emb, frames, books, codes)
+    }
+
+    /** The ICL prompt of her approved voice from prompt.npz (codes [frames, 16], vector) + its words. */
+    internal fun iclFromNpz(npz: ByteArray, text: String): ByteArray {
+        val (shape, codes) = npyLongs(npzEntry(npz, "ref_code.npy"))
+        val vector = npyFloats(npzEntry(npz, "ref_spk_embedding.npy"))
+        require(shape.size == 2 && shape[1] == 16 && codes.size == shape[0] * 16) { "npz:codes" }
+        require(vector.size == 1024 && vector.all { it.isFinite() } && text.isNotBlank()) { "npz:embedding" }
+        return iclJson(text, vector, shape[0], 16, codes)
+    }
+
+    internal fun iclJson(text: String, vector: FloatArray, frames: Int, books: Int, codes: LongArray): ByteArray =
+        JSONObject().put("format", "qwen3_tts_icl_prompt_v1").put("reference_text", text)
+            .put("speaker_embedding", JSONArray().apply { vector.forEach { put(it.toDouble()) } })
+            .put("reference_codes", JSONObject().put("frames", frames).put("codebooks", books)
+                .put("codes", JSONArray().apply { codes.forEach { put(it) } }))
+            .toString(1).toByteArray()
 
     private fun validate(e: QwenEngine, file: File) {
         require(file.length() in 1..1024 * 1024) { "embedding" }
@@ -367,8 +459,8 @@ object CapriNeural {
         var limit = false
         e.setProgressCallback { count, max -> if (count >= max) { limit = true; e.cancel() } }
         try {
-            val r = e.synthesize(text, speakerEmbeddingPath = embedding(app, lang).absolutePath,
-                params = QwenEngine.NativeParams(languageId = if (lang == "es-MX") 2054 else 2050, maxAudioTokens = 320))
+            val r = e.synthesizeWithIclPrompt(text, icl(app, lang).absolutePath,
+                QwenEngine.NativeParams(languageId = if (lang == "es-MX") 2054 else 2050, maxAudioTokens = 320))
             check(!limit) { "limit" }
             check(r.success) { r.errorMsg ?: "synthesis" }
             val raw = r.audio ?: error("noaudio")
@@ -444,11 +536,22 @@ object CapriNeural {
             val fixture = File(ext, "fixture.wav")
             profiles(app).mkdirs()
             atomic(englishWav(app), pcm16Wav(fixture.readBytes()))
-            embedding(app, "en-US").delete(); embedding(app, "es-MX").delete()
+            englishText(app).writeText("This is only a technical test tone, made for the continuous integration check.")
+            icl(app, "en-US").delete(); icl(app, "es-MX").delete()
             val pss0 = Debug.getPss() * 1024L
             val store = Store(app)
-            val load = ensure(app, "en-US", store) // vector from the fixture, made by the native encoder
-            embedding(app, "en-US").copyTo(embedding(app, "es-MX"), overwrite = true)
+            val load = ensure(app, "en-US", store, VARIANTS[0]) // ICL prompt from the fixture, made by the native encoder
+            val made = readIcl(icl(app, "en-US"))
+            log("icl frames=${made.frames} codebooks=${made.codebooks} text_chars=${made.text.length} emb0=${made.embedding.take(4)} codes0=${made.codes.take(48).joinToString(",")}")
+            // the Spanish path, exactly as her real profile goes: an .npz (int64 codes [frames, 16] + float32
+            // vector) turned into the prompt by iclFromNpz (here made from the fixture's, never her voice)
+            val npz = java.io.ByteArrayOutputStream().also { bytes ->
+                java.util.zip.ZipOutputStream(bytes).use { z ->
+                    z.putNextEntry(java.util.zip.ZipEntry("ref_code.npy")); z.write(npy("<i8", intArrayOf(made.frames, 16), made.codes.size * 8) { b -> made.codes.forEach { b.putLong(it) } }); z.closeEntry()
+                    z.putNextEntry(java.util.zip.ZipEntry("ref_spk_embedding.npy")); z.write(npy("<f4", intArrayOf(1024), 4096) { b -> made.embedding.forEach { b.putFloat(it) } }); z.closeEntry()
+                }
+            }.toByteArray()
+            atomic(icl(app, "es-MX"), iclFromNpz(npz, "Porque esta es solo una prueba técnica, hecha para revisar la integración continua."))
             log("load_ms=$load pss_before=$pss0 pss_loaded=${Debug.getPss() * 1024L} threads=${engine?.getCpuThreads()} backend=${engine?.getActiveBackendName()}")
             for ((lang, text) in listOf(
                 "es-MX" to "¡Hey, choom! Encontré tres maneras de resolver ese problema.",
@@ -470,8 +573,8 @@ object CapriNeural {
             e.setProgressCallback { _, _ -> started.countDown() }
             var result: QwenEngine.NativeResult? = null
             e.resetCancel()
-            val th = Thread { result = e.synthesize("This long sentence is only here to be stopped halfway, before it ever finishes, by a cancel.",
-                speakerEmbeddingPath = embedding(app, "en-US").absolutePath, params = QwenEngine.NativeParams(languageId = 2050, maxAudioTokens = 320)) }
+            val th = Thread { result = e.synthesizeWithIclPrompt("This long sentence is only here to be stopped halfway, before it ever finishes, by a cancel.",
+                icl(app, "en-US").absolutePath, QwenEngine.NativeParams(languageId = 2050, maxAudioTokens = 320)) }
             th.start()
             val got = started.await(120, java.util.concurrent.TimeUnit.SECONDS)
             val c0 = SystemClock.elapsedRealtime()
@@ -501,13 +604,13 @@ object CapriNeural {
     // ---- installing --------------------------------------------------------------------------------
 
     /** Weights from Hugging Face at the fixed revision (resumes a cut download), checked by size and SHA-256. */
-    fun download(context: Context, done: (String?) -> Unit) = job(context, "download", done) { app ->
+    fun download(context: Context, v: Variant, done: (String?) -> Unit) = job(context, "download", done) { app ->
         cancelDownload.set(false)
-        val dir = models(app).apply { mkdirs() }
+        val dir = models(app, v).apply { mkdirs() }
         File(dir, ".verified").delete()
         var before = 0L
-        for (m in MODELS) {
-            val file = File(dir, m.name)
+        for (m in v.files) {
+            val file = File(dir, m.local)
             if (file.length() == m.bytes && sha(file) == m.sha) { before += m.bytes; continue }
             val part = File(dir, "${m.name}.part")
             var have = if (part.length() <= m.bytes) part.length() else 0L.also { part.delete() }
@@ -528,7 +631,7 @@ object CapriNeural {
                             have += n
                             require(have <= m.bytes) { "size" }
                             out.write(buf, 0, n)
-                            progress = (before + have).toFloat() / MODEL_BYTES
+                            progress = (before + have).toFloat() / v.bytes
                         }
                     }
                 }
@@ -537,67 +640,108 @@ object CapriNeural {
             check(part.renameTo(file)) { "rename" }
             before += m.bytes
         }
-        File(dir, ".verified").writeText(MODELS.joinToString("\n") { "${it.name} ${it.sha}" })
+        File(dir, ".verified").writeText(v.files.joinToString("\n") { "${it.local} ${it.sha}" })
+        if (Store(app).configString("voiceNeuralModel") == null) CapriSettings.set(app, "voiceNeuralModel", v.id)
     }
 
     fun cancelDownload() = cancelDownload.set(true)
 
     /** One of the two .gguf files from your phone's files (it must be that file, byte for byte). */
     fun importModel(context: Context, uri: Uri, done: (String?) -> Unit) = job(context, "install", done) { app ->
-        val dir = models(app).apply { mkdirs() }
-        val tmp = File(dir, "import.part")
+        val tmp = File(root(app).apply { mkdirs() }, "import.part")
         try {
-            copyIn(app, uri, tmp, MODELS.maxOf { it.bytes })
+            copyIn(app, uri, tmp, VARIANTS.maxOf { v -> v.files.maxOf { it.bytes } })
             val digest = sha(tmp)
-            val m = MODELS.firstOrNull { it.bytes == tmp.length() && it.sha == digest } ?: error("notmodel")
-            check(tmp.renameTo(File(dir, m.name))) { "rename" }
-            if (MODELS.all { File(dir, it.name).length() == it.bytes }) File(dir, ".verified").writeText(MODELS.joinToString("\n") { "${it.name} ${it.sha}" })
+            val v = VARIANTS.firstOrNull { v -> v.files.any { it.bytes == tmp.length() && it.sha == digest } } ?: error("notmodel")
+            val m = v.files.first { it.sha == digest }
+            val dir = models(app, v).apply { mkdirs() }
+            check(tmp.renameTo(File(dir, m.local))) { "rename" }
+            if (v.files.all { File(dir, it.local).length() == it.bytes }) File(dir, ".verified").writeText(v.files.joinToString("\n") { "${it.local} ${it.sha}" })
         } finally { tmp.delete() }
     }
 
     /** The private profiles ZIP of Capri Voice V8: her vector (es) and the English source sound (en). */
     fun importProfiles(context: Context, uri: Uri, done: (String?) -> Unit) = job(context, "install", done) { app ->
-        val dir = profiles(app).apply { mkdirs() }
+        app.contentResolver.openInputStream(uri).use { raw -> installProfiles(app, requireNotNull(raw) { "?" }) }
+    }
+
+    /** Her profiles from Capri's public voice channel (CapriVoice.CHANNEL), checked by SHA-256, then installed. */
+    fun downloadProfiles(context: Context, done: (String?) -> Unit) = job(context, "download", done) { app ->
+        require(CapriVoice.CHANNEL.startsWith("https://")) { "nochannel" }
+        cancelDownload.set(false)
+        val part = File(app.cacheDir, "$PROFILES_FILE.part").apply { delete() }
+        val conn = (URL("${CapriVoice.CHANNEL}/$PROFILES_FILE").openConnection() as HttpURLConnection).apply {
+            connectTimeout = 20_000; readTimeout = 60_000; instanceFollowRedirects = true
+        }
+        try {
+            require(conn.responseCode == 200) { "HTTP ${conn.responseCode}" }
+            conn.inputStream.use { input -> part.outputStream().use { out ->
+                val buf = ByteArray(64 * 1024); var have = 0L
+                while (true) {
+                    if (cancelDownload.get()) error("cancelled")
+                    val n = input.read(buf); if (n < 0) break
+                    have += n; require(have <= PROFILES_BYTES) { "size" }
+                    out.write(buf, 0, n); progress = have.toFloat() / PROFILES_BYTES
+                }
+            } }
+            require(part.length() == PROFILES_BYTES && sha(part) == PROFILES_SHA) { "sha" }
+            part.inputStream().use { installProfiles(app, it) }
+        } finally { conn.disconnect(); part.delete() }
+    }
+
+    private fun installProfiles(app: Context, raw: java.io.InputStream) {
+        profiles(app).mkdirs()
         var found = 0
-        app.contentResolver.openInputStream(uri).use { raw ->
-            requireNotNull(raw) { "?" }
+        val got = HashMap<String, ByteArray>()
+        run {
             ZipInputStream(raw.buffered()).use { zip ->
                 while (true) {
                     val entry = zip.nextEntry ?: break
                     val name = entry.name.replace('\\', '/').trimStart('/')
-                    if (name != PROMPT && name != ENGLISH) continue
+                    if (name != PROMPT && name != ENGLISH && name != SPANISH_INFO && name != ENGLISH_INFO) continue
                     val bytes = zip.readBytesLimited(4L * 1024 * 1024)
                     val digest = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
-                    if (name == PROMPT) {
-                        require(digest == PROMPT_SHA) { "sha" }
-                        val vector = npyFloats(npzEntry(bytes, "ref_spk_embedding.npy"))
-                        require(vector.size == 1024 && vector.all { it.isFinite() }) { "embedding" }
-                        atomic(embedding(app, "es-MX"), JSONArray(vector.map { it.toDouble() }).toString().toByteArray())
-                        found++
-                    } else {
-                        require(digest == ENGLISH_SHA) { "sha" }
-                        atomic(englishWav(app), pcm16Wav(bytes))
-                        embedding(app, "en-US").delete() // (made again from it, with the model)
-                        found++
-                    }
+                    require(digest == when (name) { PROMPT -> PROMPT_SHA; ENGLISH -> ENGLISH_SHA; SPANISH_INFO -> SPANISH_INFO_SHA; else -> ENGLISH_INFO_SHA }) { "sha" }
+                    got[name] = bytes
                 }
             }
+        }
+        // Spanish: her approved ICL prompt, as PC reads it (the codes and vector of prompt.npz + the words of profile.json)
+        val npz = got[PROMPT]; val info = got[SPANISH_INFO]
+        if (npz != null && info != null) {
+            val text = JSONObject(String(info, Charsets.UTF_8)).getJSONObject("reference").getString("text")
+            atomic(icl(app, "es-MX"), iclFromNpz(npz, text))
+            embedding(app, "es-MX").delete()
+            found++
+        }
+        // English: its source sound and words; the prompt is made by the native encoder the first time
+        val wav = got[ENGLISH]; val words = got[ENGLISH_INFO]
+        if (wav != null && words != null) {
+            atomic(englishWav(app), pcm16Wav(wav))
+            atomic(englishText(app), JSONObject(String(words, Charsets.UTF_8)).getString("text").toByteArray())
+            icl(app, "en-US").delete(); embedding(app, "en-US").delete()
+            found++
         }
         require(found > 0) { "noprofile" }
     }
 
+    /** what: a variant's id ("q4", "q8", "bf16") or "profile". */
     fun remove(context: Context, what: String, done: (String?) -> Unit) = job(context, "remove", done) { app ->
         dispose("removed")
-        if (what == "model") models(app).deleteRecursively() else profiles(app).deleteRecursively()
+        val v = VARIANTS.firstOrNull { it.id == what }
+        if (v != null) models(app, v).deleteRecursively() else profiles(app).deleteRecursively()
     }
 
     fun bytes(context: Context): Long = root(context).walkBottomUp().filter { it.isFile }.sumOf { it.length() }
 
     /** Every installed model file checked again by SHA-256. */
     fun verify(context: Context, done: (String?) -> Unit) = job(context, "verify", done) { app ->
-        for (m in MODELS) {
-            val f = File(models(app), m.name)
-            require(f.length() == m.bytes && sha(f) == m.sha) { File(models(app), ".verified").delete(); "sha:${m.name}" }
+        for (v in VARIANTS) {
+            if (!installed(app, v)) continue
+            for (m in v.files) {
+                val f = File(models(app, v), m.local)
+                require(f.length() == m.bytes && sha(f) == m.sha) { File(models(app, v), ".verified").delete(); "sha:${m.name}" }
+            }
         }
     }
 
@@ -659,6 +803,33 @@ object CapriNeural {
             }
         }
         error("npz:$name")
+    }
+
+    /** A little-endian int64 .npy (C order) as its shape and values. */
+    internal fun npyLongs(npy: ByteArray): Pair<IntArray, LongArray> {
+        require(npy.size > 10 && npy[0] == 0x93.toByte() && String(npy, 1, 5, Charsets.US_ASCII) == "NUMPY") { "npy" }
+        val bb = ByteBuffer.wrap(npy).order(ByteOrder.LITTLE_ENDIAN)
+        val (headerLen, start) = if (npy[6].toInt() == 1) bb.getShort(8).toInt() and 0xffff to 10 else bb.getInt(8) to 12
+        val header = String(npy, start, headerLen, Charsets.US_ASCII)
+        require("'<i8'" in header && "False" in header) { "npy:$header" }
+        val shape = Regex("'shape':\\s*\\(([^)]*)\\)").find(header)?.groupValues?.get(1)
+            ?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }?.map { it.toInt() }?.toIntArray() ?: error("npy:shape")
+        val data = start + headerLen
+        val n = shape.fold(1) { a, b -> a * b }
+        require(npy.size - data == n * 8) { "npy:size" }
+        return shape to LongArray(n) { bb.getLong(data + it * 8) }
+    }
+
+    /** A version 1 .npy (for the self-test). */
+    internal fun npy(dtype: String, shape: IntArray, bytes: Int, fill: (ByteBuffer) -> Unit): ByteArray {
+        val dims = if (shape.size == 1) "${shape[0]}," else shape.joinToString(", ")
+        var header = "{'descr': '$dtype', 'fortran_order': False, 'shape': ($dims), }"
+        while ((10 + header.length + 1) % 64 != 0) header += " "
+        header += "\n"
+        val b = ByteBuffer.allocate(10 + header.length + bytes).order(ByteOrder.LITTLE_ENDIAN)
+        b.put(0x93.toByte()).put("NUMPY".toByteArray()).put(1).put(0).putShort(header.length.toShort()).put(header.toByteArray())
+        fill(b)
+        return b.array()
     }
 
     /** A little-endian float32 .npy (version 1 or 2) as floats. */

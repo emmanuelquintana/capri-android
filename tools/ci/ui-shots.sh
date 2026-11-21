@@ -102,8 +102,8 @@ shot 10-done 3
 adb shell appops set $PKG SYSTEM_ALERT_WINDOW deny
 tap "iniciar"
 shot 11-main 3
-# the one-time "join the community" invite, then away
-shot 11b-community 1
+# 1.11.0: the one-time offer of her voice (instead of the community invite that first time), then away
+shot 11b-voice-offer 1
 tap "ahora no"
 sleep 1
 # 1.11.0: the app opens on her chat; Novedades is the second tab
@@ -111,8 +111,14 @@ tap "novedades"
 shot 12a-news 2
 adb shell input swipe 500 1800 500 600 300
 shot 12-main-scrolled 2
-# 1.9.0: «Tú» (you), «Personalizar» (her looks) and «Ajustes» (the general, permissions first)
-tap "tú"
+# 1.11.0: Comunidad and Comandos are tabs again; «Tú» is Ajustes › Ajustes personales
+tap "comunidad"
+shot 12b-community-tab 2
+tap "comandos"
+shot 12c-commands-tab 2
+tap "ajustes"
+shot 12d-settings-menu 2
+tap "ajustes personales"
 shot 13-you-tab 2
 adb shell input swipe 500 1800 500 700 300
 shot 13a-you-more 2
@@ -142,8 +148,8 @@ tap "réglages"
 sleep 2
 tapdown "automatique" 10
 sleep 4
-# what she remembers about you (empty on a fresh install), in «Tú»
-tap "tú"
+# what she remembers about you (empty on a fresh install), in Ajustes › Ajustes personales
+tap "ajustes personales"
 adb shell input swipe 500 1800 500 900 300
 shot 14m-memory 3
 # 1.11.0: the games' tab and her chat (Comandos behind its «?»)
@@ -157,8 +163,6 @@ tap "chat"
 shot 14b-chat-tab 2
 tap "¿qué le puedo pedir?"
 shot 14c-commands 2
-adb shell input keyevent KEYCODE_BACK
-sleep 1
 tap "novedades"
 adb shell input swipe 500 1800 500 600 300
 shot 14d-news-folded 2
@@ -220,9 +224,14 @@ shot 22-other-app 3
 # adb hand her service the words: the emulator has no microphone)
 adb shell input keyevent KEYCODE_BACK
 adb shell pm grant $PKG android.permission.RECORD_AUDIO
-adb shell am start -n $PKG/.MainActivity --ei tab 5 # straight to Ajustes (Capri may sit on the pill bar)
+adb shell am start -n $PKG/.MainActivity --ei tab 6 --es sub voice # straight to Ajustes › Ajustes de voz
 sleep 4
-adb shell input swipe 500 1800 500 900 300
+shot 23v-voice-screen 2
+adb shell input swipe 500 1800 500 700 300
+shot 23w-voice-engines 2
+adb shell input swipe 500 1800 500 700 300
+shot 23x-voice-more 2
+for i in 1 2 3 4 5 6 7 8 9 10; do adb shell input swipe 500 1800 500 700 150; done
 shot 23-voice-card 2
 adb shell input swipe 500 1800 500 700 300
 shot 23b-settings-more 2

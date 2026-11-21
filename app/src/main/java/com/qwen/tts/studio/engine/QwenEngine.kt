@@ -92,6 +92,17 @@ class QwenEngine : AutoCloseable {
     fun extractSpeakerEmbedding(referenceWav: String, outputPath: String): Boolean =
         nativeExtractSpeakerEmbedding(nativePtr, referenceWav, outputPath)
 
+    // (Capri V8.5) ICL, the mode her approved voice uses on PC: her reference sound's codes + its words + her
+    // vector. The native library always had it; these are its JNI entry points (checked on the x86_64 build).
+    fun loadIclPromptEncoder(modelDir: String, tokenizerName: String?): Boolean =
+        nativeLoadIclPromptEncoder(nativePtr, modelDir, tokenizerName)
+
+    fun extractIclPrompt(referenceWav: String, referenceText: String, outputPath: String): Boolean =
+        nativeExtractIclPrompt(nativePtr, referenceWav, referenceText, outputPath)
+
+    fun synthesizeWithIclPrompt(text: String, iclPromptPath: String, params: NativeParams = NativeParams()): NativeResult =
+        nativeSynthesizeWithIclPrompt(nativePtr, text, iclPromptPath, params)
+
     fun getAvailableSpeakers(): List<String> {
         val raw = nativeGetAvailableSpeakers(nativePtr).orEmpty()
         return raw.lineSequence()
@@ -131,4 +142,7 @@ class QwenEngine : AutoCloseable {
     private external fun nativeGetModelCapabilities(ptr: Long): NativeCapabilities?
     private external fun nativeExtractSpeakerEmbedding(ptr: Long, referenceWav: String, outputPath: String): Boolean
     private external fun nativeGetAvailableSpeakers(ptr: Long): String?
+    private external fun nativeLoadIclPromptEncoder(ptr: Long, modelDir: String, tokenizerName: String?): Boolean
+    private external fun nativeExtractIclPrompt(ptr: Long, referenceWav: String, referenceText: String, outputPath: String): Boolean
+    private external fun nativeSynthesizeWithIclPrompt(ptr: Long, text: String, iclPromptPath: String, params: NativeParams): NativeResult
 }

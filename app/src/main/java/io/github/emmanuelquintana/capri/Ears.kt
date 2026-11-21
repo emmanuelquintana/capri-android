@@ -614,7 +614,7 @@ class Ears(private val service: CapriService) {
         if (kind == "event") return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "noclip") }
         // her new answers: in the voice you picked (the phone's, as before), or in writing only
         // (V8.5) the A/B comparison asks for one engine by name (only for tests, never for her answers)
-        val engine = opts.optString("engine").takeIf { kind == "test" && it in CapriVoice.ENGINES } ?: CapriVoice.engine(service)
+        val engine = opts.optString("engine").takeIf { kind == "test" && it in CapriVoice.ENGINES } ?: CapriVoice.answerEngine(service, lang)
         if (engine == "text") return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "text") }
         if (engine == CapriNeural.ID) return@post neuralVoice(id, text, lang)
         systemVoice(id, text, lang)
@@ -658,7 +658,8 @@ class Ears(private val service: CapriService) {
     private fun neuralFailed(id: String, text: String, lang: String, why: String) {
         voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", CapriNeural.ID) }
         CapriNeural.lastFallback = why
-        if (Store(service).configString("voiceFallback") == "system") {
+        val store = Store(service)
+        if (store.configString("voiceFallback") == "system" || (store.configString("voiceMode") ?: "automatic") in setOf("automatic", "balanced")) {
             voiceEvent(id, "VOICE_REQUESTED") { put("kind", "answer").put("fallback", "system") }
             return systemVoice(id, text, lang)
         }

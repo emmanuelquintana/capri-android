@@ -24,9 +24,10 @@ import java.util.concurrent.atomic.AtomicBoolean
  * against the V8 catalog's SHA-256 before anything is unpacked, installed in one move (VoicePackManager)
  * and every phrase is checked again before it plays.
  *
- * The packs are private for now (their rights to share them with everyone are still pending): the app
- * only installs one you hand it from your phone's files, or downloads one from [CHANNEL] once an
- * authorized public channel exists. No token, no private repository.
+ * Since 2026-11-21 (Emma confirmed the permission of the people responsible) the packs are on Capri's public
+ * voice channel [CHANNEL], a pre-release of this app's GitHub repo that the updater and the web ignore: the
+ * app downloads one when you ask (and offers it once after the update). A pack from your files works too.
+ * No token, no private repository.
  *
  * Her new answers (Gemini, Grok, any other) are never swapped for a phrase that says something else:
  * a phrase plays only for the exact event it was made for, or when the answer is word for word one of them.
@@ -43,8 +44,8 @@ object CapriVoice {
             "72a382be2a249878a4efa12c818b508e36f73ee0c5df81a587fa740751994f7a", 102, "8.0.0"),
     )
 
-    /** Where authorized packs are downloaded from (`<CHANNEL>/<file>`). Empty: no public channel yet. */
-    const val CHANNEL = ""
+    /** Where her packs and profiles are downloaded from (`<CHANNEL>/<file>`): a public GitHub pre-release. */
+    const val CHANNEL = "https://github.com/emmanuelquintana/capri-android/releases/download/capri-voz-8.0.0"
 
     private val main = Handler(Looper.getMainLooper())
     private val worker = Executors.newSingleThreadExecutor(Threads.factory)
@@ -75,6 +76,24 @@ object CapriVoice {
     /** What says her new answers: "system" (the phone's voice, as before), "text" (in writing only) or
      *  "qwen-mobile" (V8.5: her neural voice on the phone, experimental, CapriNeural.kt). */
     fun engine(context: Context): String = Store(context).configString("voiceEngine")?.takeIf { it in ENGINES } ?: "system"
+
+    /**
+     * (1.11.0) The voice her new answers use now, by mode (Emma: "que responda con la voz de Capri, todo"):
+     * automatic and balanced use her neural voice when it's installed and fits this phone, else the phone's;
+     * fidelity uses only her own voice (neural or, without it, writing); light the phone's; custom what you
+     * picked. The neural voice is her approved identity (the same ICL prompt as PC), so no mode swaps her
+     * identity: without it she only falls back to the phone's voice, as before.
+     */
+    fun answerEngine(context: Context, lang: String): String {
+        val tag = voiceLang(lang)
+        val neural = tag != null && CapriNeural.status(context, tag).let { it == "ready" || it == "loaded" }
+        return when (Store(context).configString("voiceMode") ?: "automatic") {
+            "custom" -> engine(context)
+            "light" -> "system"
+            "fidelity" -> if (neural) CapriNeural.ID else "text"
+            else -> if (neural) CapriNeural.ID else "system"
+        }
+    }
     val ENGINES = setOf("system", "text", CapriNeural.ID)
 
     fun installed(lang: String): VoiceClipLibrary? = libs[lang]
