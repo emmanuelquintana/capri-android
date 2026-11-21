@@ -539,7 +539,9 @@ class Ears(private val service: CapriService) {
     private var focus: AudioFocusRequest? = null
 
     private fun voiceEvent(id: String, state: String, extra: JSONObject.() -> Unit = {}) {
-        service.overlay?.emit("voice:event", JSONObject().put("id", id).put("state", state).apply(extra).toString())
+        val ev = JSONObject().put("id", id).put("state", state).apply(extra)
+        if (BuildConfig.DEBUG && state != "VOICE_PROGRESS") android.util.Log.i("CapriVoiceEvent", ev.toString()) // (VoiceSelfTest reads these)
+        service.overlay?.emit("voice:event", ev.toString())
     }
 
     /** Sound for her voice: others lower theirs a moment (a call or another app taking it stops her). */

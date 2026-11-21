@@ -16,5 +16,11 @@ for i in $(seq 1 240); do # hasta 20 min
   n=$(wc -l < now.log); if [ "$n" -gt "$seen" ]; then tail -n $((n - seen)) now.log; seen=$n; fi
   if grep -qE "DONE|FAIL" now.log; then break; fi
 done
-adb logcat -d | grep -iE "FATAL|AndroidRuntime: |MediaPlayer|CapriVoice" | grep -v CapriVoiceTest | tail -30
-grep -q "DONE ok" now.log
+adb logcat -d | grep -iE "FATAL|AndroidRuntime: |MediaPlayer|CapriVoice" | grep -v "CapriVoiceTest\|CapriVoiceEvent" | tail -30
+# what Capri herself did with each phrase (Ears: VOICE_STARTED … VOICE_FINISHED, or why not)
+adb logcat -d -s CapriVoiceEvent:I | grep CapriVoiceEvent | tee events.log
+grep -q "DONE ok" now.log || exit 1
+# each phrase through Capri: started and finished
+for id in st-id-es-MX st-words-es-MX st-id-en-US st-words-en-US; do
+  grep "\"$id\"" events.log | grep -q VOICE_FINISHED && echo "ok $id" || { echo "FAIL $id"; exit 1; }
+done

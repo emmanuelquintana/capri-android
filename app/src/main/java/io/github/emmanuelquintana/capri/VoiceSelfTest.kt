@@ -61,6 +61,21 @@ object VoiceSelfTest {
                 end.await(clip.durationMs + 20_000L, TimeUnit.MILLISECONDS)
                 check(last == "VOICE_FINISHED") { "play $lang ended ${last.ifEmpty { "never" }}" }
             }
+            // the same phrases through Capri herself (Ears.say, what her page calls when you pet her, greet her…):
+            // by its id, and by its words alone, as her page sends them
+            val ears = CapriService.current?.ears
+            log("capri running=${ears != null}")
+            if (ears != null) for (lang in listOf("es-MX", "en-US")) {
+                val clip = CapriVoice.installed(lang)!!.listClips().first { it.eventId.startsWith("greeting") }
+                for ((how, opts) in listOf(
+                    "id" to org.json.JSONObject().put("id", "st-id-$lang").put("clip", clip.id).put("kind", "event"),
+                    "words" to org.json.JSONObject().put("id", "st-words-$lang").put("kind", "event"))) {
+                    android.util.Log.i("CapriVoiceEvent", "mark ${opts.getString("id")}")
+                    ears.say(clip.text, lang, opts)
+                    Thread.sleep(clip.durationMs + 4_000L)
+                    log("capri $how $lang text=\"${clip.text}\"")
+                }
+            }
             log("DONE ok")
         } catch (t: Throwable) {
             log("FAIL ${t.javaClass.simpleName}: ${t.message}")
