@@ -118,6 +118,17 @@ tap "comandos"
 shot 12c-commands-tab 2
 tap "ajustes"
 shot 12d-settings-menu 2
+# 1.11.0 (Emma: "en ajustes otro menú con los ajustes agrupados en pantallas, clicables"): each group, then back
+for g in "permisos:12e-set-perms" "idioma y su ia:12f-set-ai" "pantalla y modos:12g-set-modes" "rendimiento y teléfono:12h-set-phone" "reportar un fallo:12i-set-report"; do
+  tap "${g%%:*}"
+  shot "${g##*:}" 2
+  adb shell input keyevent KEYCODE_BACK
+  sleep 1
+done
+tap "ajustes de voz"
+shot 12j-set-voice 2
+adb shell input keyevent KEYCODE_BACK
+sleep 1
 tap "ajustes personales"
 shot 13-you-tab 2
 adb shell input swipe 500 1800 500 700 300
@@ -137,8 +148,8 @@ adb shell input swipe 500 1800 500 700 300
 shot 13c-style-more 2
 tap "ajustes"
 shot 14-settings-tab 2
-# the language card, under her permissions (folded)
-# the app in another language, then back to the phone's
+# the app in another language (Ajustes › Idioma y su IA), then back to the phone's
+tap "idioma y su ia"
 tapdown "français" 10
 shot 14f-french 4
 tap "nouveautés"
@@ -146,6 +157,7 @@ tap "changements"
 shot 14g-french-news 2
 tap "réglages"
 sleep 2
+tap "langue et son ia"
 tapdown "automatique" 10
 sleep 4
 # what she remembers about you (empty on a fresh install), in Ajustes › Ajustes personales

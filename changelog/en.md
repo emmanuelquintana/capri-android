@@ -35,8 +35,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   store links go to AppGallery when there’s no Play Store.
 - **New Discord link.**
 - **New menus:** the pill menu now has Chat, What’s new, Community, Games, Customize, Commands and Settings. Voice
-  commands have their own page (also behind the chat’s “?”), and Settings splits into Personal settings (what she
-  knows about you, sleep mode, braindances) and Voice settings (her voice, her engines and how she hears you).
+  commands have their own page (also behind the chat’s “?”). Settings is a menu of screens: Personal settings, Voice
+  settings, Permissions, Language and her AI, Screen and modes, Performance and phone, and Report a bug.
 - **Capri Voice (her voice):** Capri now speaks in her own voice, in Latin American Spanish and English. Her recorded
   phrases (when you pat her, toss her, come back, say goodbye or good night) play offline without loading any model,
   with the exact text of what she says.

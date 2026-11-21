@@ -613,4 +613,14 @@
     <string name="offer_how">Do you want to download Capri\'s voice? 8 MB: her recorded phrases and her voice profile. Later, in Settings › Voice settings, you can also add her voice for new answers (from 0.9 GB, more or less faithful).</string>
     <string name="offer_get">Yes, download it</string>
     <string name="offer_more">See options</string>
+    <string name="g_perms">Permissions</string>
+    <string name="g_perms_how">What she’s allowed to do on your phone, and what to do if a banking app complains.</string>
+    <string name="g_ai">Language and her AI</string>
+    <string name="g_ai_how">The app’s language and hers, and which AI answers you.</string>
+    <string name="g_modes">Screen and modes</string>
+    <string name="g_modes_how">What she sees on your screen, gamer and streaming modes, and her pill by the clock.</string>
+    <string name="g_phone">Performance and phone</string>
+    <string name="g_phone_how">Light mode for older phones, what your phone needs, statistics and the welcome tour.</string>
+    <string name="g_report">Report a bug</string>
+    <string name="g_report_how">Tell Emma what happened, straight to Discord.</string>
 </resources>

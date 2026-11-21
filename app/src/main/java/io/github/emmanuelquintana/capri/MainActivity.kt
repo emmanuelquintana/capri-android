@@ -111,6 +111,10 @@ class MainActivity : Activity() {
     private lateinit var voice: View
     private var sub: View? = null
 
+    // (1.11.0) Ajustes is a menu: each group a screen ("sub" names it, for the emulator's screenshots too)
+    private class Group(val key: String, val icon: String, val color: Int, val title: Int, val how: Int, val page: View)
+    private val groups = mutableListOf<Group>()
+
     private fun openSub(page: View, animate: Boolean = true) {
         if (current != TAB_SETTINGS || sub != null) show(TAB_SETTINGS, animate = false)
         hideKeyboard()
@@ -190,6 +194,13 @@ class MainActivity : Activity() {
         chat = ChatTab(this, ui) { show(TAB_CMDS) }
         personal = youPage()
         voice = voicePage()
+        groups += Group("personal", "person", Hud.YELLOW, R.string.settings_personal, R.string.settings_personal_how, personal)
+        groups += Group("voice", "mic", Hud.MANE, R.string.settings_voice_screen, R.string.settings_voice_screen_how, voice)
+        groups += Group("perms", "shield", Hud.GREEN, R.string.g_perms, R.string.g_perms_how, permsPage())
+        groups += Group("ai", "globe", Hud.CYAN, R.string.g_ai, R.string.g_ai_how, aiLangPage())
+        groups += Group("modes", "eye", Hud.GREEN, R.string.g_modes, R.string.g_modes_how, modesPage())
+        groups += Group("phone", "phone", Hud.YELLOW, R.string.g_phone, R.string.g_phone_how, phonePage())
+        groups += Group("report", "warn", Hud.RED, R.string.g_report, R.string.g_report_how, reportPage())
         val pages = listOf(chat.build(), newsPage(), communityPage(), gamesPage(), stylePage(), cmdsPage(), settingsPage())
         val bar = ui.row().apply {
             background = Ui.Pill(Hud.INK, Hud.MANE, ui.dp(1.5f))
@@ -215,7 +226,7 @@ class MainActivity : Activity() {
             content.addView(pages[i], FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
             tabs.add(Tab(icon, text, btn, pages[i]))
         }
-        for (sub in listOf(personal, voice)) content.addView(sub.apply { visibility = View.GONE }, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
+        for (sub in groups.map { it.page }) content.addView(sub.apply { visibility = View.GONE }, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
         val barParams = FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL).apply {
             bottomMargin = ui.dpi(16)
         }
@@ -235,8 +246,8 @@ class MainActivity : Activity() {
         setContentView(root)
         show(savedInstanceState?.getInt("tab") ?: tabAsked(intent) ?: if (wantsUpdate) TAB_NEWS else TAB_CHAT, animate = false)
         if (savedInstanceState == null && tabAsked(intent) == null) root.postDelayed({ if (!isFinishing && !offerVoiceOnce()) inviteOnce() }, 1500)
-        // a screen of Ajustes to open on ("sub": personal | voice): the emulator's screenshots ask for one
-        when (intent?.getStringExtra(EXTRA_SUB)) { "personal" -> openSub(personal, animate = false); "voice" -> openSub(voice, animate = false) }
+        // a screen of Ajustes to open on ("sub": a Group key): the emulator's screenshots ask for one
+        intent?.getStringExtra(EXTRA_SUB)?.let { k -> groups.firstOrNull { it.key == k }?.let { openSub(it.page, animate = false) } }
     }
 
     // a tab to open on ("tab", 0..4): the emulator's screenshots ask for one
@@ -318,7 +329,7 @@ class MainActivity : Activity() {
             wantsUpdate = true
             if (::ui.isInitialized) show(TAB_NEWS)
         } else tabAsked(intent)?.let { if (::ui.isInitialized) show(it) }
-        if (::ui.isInitialized) when (intent.getStringExtra(EXTRA_SUB)) { "personal" -> openSub(personal); "voice" -> openSub(voice) }
+        if (::ui.isInitialized) intent.getStringExtra(EXTRA_SUB)?.let { k -> groups.firstOrNull { it.key == k }?.let { openSub(it.page) } }
     }
 
     private fun toggleVoice() {
@@ -1362,11 +1373,16 @@ class MainActivity : Activity() {
 
     private fun settingsPage() = page {
         addView(ui.label(getString(R.string.tab_settings)))
-        // (1.11.0, Emma: "otro menú para ajustes y ahí opciones con una pantalla para los ajustes personales,
-        // otra pantalla ajustes de voz"): the two screens first, then what's general
-        addView(entry("person", Hud.YELLOW, R.string.settings_personal, R.string.settings_personal_how) { openSub(personal) }, ui.block(12))
-        addView(entry("mic", Hud.MANE, R.string.settings_voice_screen, R.string.settings_voice_screen_how) { openSub(voice) }, ui.block(10))
+        // (1.11.0, Emma: "en ajustes debe ser otro menú donde estén los ajustes agrupados en pantallas, clicables"):
+        // only the menu here; each group is its own screen, with its way back
         addView(ui.text(getString(R.string.settings_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        for ((n, g) in groups.withIndex()) addView(entry(g.icon, g.color, g.title, g.how) { openSub(g.page) }, ui.block(if (n == 0) 14 else 10))
+    }
+
+    private fun permsPage() = page {
+        addView(backRow())
+        addView(ui.label(getString(R.string.g_perms)))
+        addView(ui.text(getString(R.string.g_perms_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // what she's allowed to do on your phone (1.9.0: here, no longer a tab of its own)
         addView(ui.card(Hud.GREEN).apply {
             addView(ui.label(getString(R.string.tab_perms)))
@@ -1402,6 +1418,12 @@ class MainActivity : Activity() {
             choices.add(showPerms)
         }, ui.block(16))
 
+    }
+
+    private fun aiLangPage() = page {
+        addView(backRow())
+        addView(ui.label(getString(R.string.g_ai)))
+        addView(ui.text(getString(R.string.g_ai_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // the app's language, and hers (written in both, so it's found whatever the app is in)
         addView(ui.card(Hud.MANE).apply {
             addView(ui.label(getString(R.string.settings_lang)))
@@ -1431,6 +1453,12 @@ class MainActivity : Activity() {
             addView(ui.button(getString(R.string.settings_ai_panel) + " ›", Ui.Kind.LINE) { pickAi() }, ui.block(8))
         }, ui.block(16))
 
+    }
+
+    private fun modesPage() = page {
+        addView(backRow())
+        addView(ui.label(getString(R.string.g_modes)))
+        addView(ui.text(getString(R.string.g_modes_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // her look at your screen
         addView(ui.card(Hud.GREEN).apply {
             addView(ui.label(getString(R.string.settings_look)))
@@ -1484,6 +1512,21 @@ class MainActivity : Activity() {
             }, ui.block(6))
         }, ui.block(16))
 
+        // (1.11.0) her pill by the clock and in Samsung's Now Bar (Android 16+, LiveBar.kt)
+        if (LiveBar.available()) addView(ui.card(Hud.CYAN).apply {
+            addView(ui.label(getString(R.string.live_title), Hud.CYAN))
+            addView(ui.text(getString(R.string.live_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(choice(listOf(R.string.live_on to true, R.string.live_off to false), { LiveBar.enabled(this@MainActivity) }, { x, y -> x == y }) {
+                LiveBar.setEnabled(this@MainActivity, it)
+            }, ui.block(10))
+            addView(ui.button(getString(R.string.live_allow) + " ›", Ui.Kind.LINE) { LiveBar.settings(this@MainActivity) }, ui.block(10))
+        }, ui.block(16))
+    }
+
+    private fun phonePage() = page {
+        addView(backRow())
+        addView(ui.label(getString(R.string.g_phone)))
+        addView(ui.text(getString(R.string.g_phone_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // Rendimiento (1.9.0, Perf.kt): modo ligero for older phones, automatic by default
         addView(ui.card().apply {
             addView(ui.label(getString(R.string.settings_perf)))
@@ -1505,6 +1548,18 @@ class MainActivity : Activity() {
             addView(now, ui.block(8))
         }, ui.block(16))
 
+        // (1.11.0) on a Huawei or Honor: what those phones need for her to work well (Vendor.kt)
+        if (Vendor.huawei) addView(ui.card(Hud.RED).apply {
+            addView(ui.label(getString(R.string.huawei_title), Hud.RED))
+            addView(ui.text(getString(R.string.huawei_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.button(getString(R.string.huawei_background) + " ›", Ui.Kind.GREEN) { Vendor.keepAlive(this@MainActivity) }, ui.block(12))
+            addView(ui.text(getString(R.string.huawei_background_how), 12f, Hud.PAPER_3, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(ui.button(getString(R.string.huawei_battery) + " ›", Ui.Kind.LINE) {
+                Vendor.open(this@MainActivity, Intent(android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
+            }, ui.block(10))
+            addView(ui.button(getString(R.string.huawei_voice) + " ›", Ui.Kind.LINE) { Vendor.voices(this@MainActivity) }, ui.block(10))
+            addView(ui.text(getString(R.string.huawei_voice_how), 12f, Hud.PAPER_3, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+        }, ui.block(16))
         // anonymous statistics (1.9.0, Stats.kt): how many use her, nothing about you
         addView(ui.card().apply {
             addView(ui.label(getString(R.string.settings_stats)))
@@ -1527,30 +1582,15 @@ class MainActivity : Activity() {
                 .show()
         }, ui.block(16))
 
-        // (1.11.0) her pill by the clock and in Samsung's Now Bar (Android 16+, LiveBar.kt)
-        if (LiveBar.available()) addView(ui.card(Hud.CYAN).apply {
-            addView(ui.label(getString(R.string.live_title), Hud.CYAN))
-            addView(ui.text(getString(R.string.live_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-            addView(choice(listOf(R.string.live_on to true, R.string.live_off to false), { LiveBar.enabled(this@MainActivity) }, { x, y -> x == y }) {
-                LiveBar.setEnabled(this@MainActivity, it)
-            }, ui.block(10))
-            addView(ui.button(getString(R.string.live_allow) + " ›", Ui.Kind.LINE) { LiveBar.settings(this@MainActivity) }, ui.block(10))
-        }, ui.block(16))
-        // (1.11.0) on a Huawei or Honor: what those phones need for her to work well (Vendor.kt)
-        if (Vendor.huawei) addView(ui.card(Hud.RED).apply {
-            addView(ui.label(getString(R.string.huawei_title), Hud.RED))
-            addView(ui.text(getString(R.string.huawei_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-            addView(ui.button(getString(R.string.huawei_background) + " ›", Ui.Kind.GREEN) { Vendor.keepAlive(this@MainActivity) }, ui.block(12))
-            addView(ui.text(getString(R.string.huawei_background_how), 12f, Hud.PAPER_3, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-            addView(ui.button(getString(R.string.huawei_battery) + " ›", Ui.Kind.LINE) {
-                Vendor.open(this@MainActivity, Intent(android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
-            }, ui.block(10))
-            addView(ui.button(getString(R.string.huawei_voice) + " ›", Ui.Kind.LINE) { Vendor.voices(this@MainActivity) }, ui.block(10))
-            addView(ui.text(getString(R.string.huawei_voice_how), 12f, Hud.PAPER_3, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-        }, ui.block(16))
-        // report a bug (1.9.0, Report.kt): to Emma's Discord, with her internal log (never shown here)
+    }
+
+    private fun reportPage() = page {
+        addView(backRow())
+        addView(ui.label(getString(R.string.g_report)))
+        addView(ui.text(getString(R.string.g_report_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         addView(reportCard(), ui.block(16))
     }
+
 
     private fun reportCard() = ui.card(Hud.RED).apply {
         addView(ui.label(getString(R.string.settings_report), Hud.RED))

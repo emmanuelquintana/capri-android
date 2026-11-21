@@ -36,9 +36,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   sur ces téléphones, et les liens de boutique vont vers AppGallery s’il n’y a pas de Play Store.
 - **Nouveau lien Discord.**
 - **Nouveaux menus :** le menu en pilule a maintenant Chat, Nouveautés, Communauté, Jeux, Personnaliser, Commandes et
-  Réglages. Les commandes vocales ont leur propre page (aussi derrière le « ? » du chat), et les Réglages se divisent
-  en Réglages personnels (ce qu’elle sait de toi, mode sommeil, neurodanses) et Réglages de la voix (sa voix, ses
-  moteurs et comment elle t’écoute).
+  Réglages. Les commandes vocales ont leur propre page (aussi derrière le « ? » du chat). Les Réglages sont un menu
+  d’écrans : Réglages personnels, Réglages de la voix, Autorisations, Langue et son IA, Écran et modes, Performances
+  et téléphone, et Signaler un bug.
 - **Capri Voice (sa voix) :** Capri parle maintenant avec sa propre voix, en espagnol latino et en anglais. Ses
   phrases enregistrées (quand tu la caresses, la lances, reviens, lui dis au revoir ou bonne nuit) se jouent hors
   ligne sans charger de modèle, avec le texte exact de ce qu’elle dit.

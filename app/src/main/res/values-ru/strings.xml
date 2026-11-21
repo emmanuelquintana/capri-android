@@ -619,4 +619,14 @@
     <string name="offer_how">Скачать голос Капри? 8 МБ: её записанные фразы и голосовой профиль. Потом в Настройки › Настройки голоса можно добавить её голос и для новых ответов (от 0,9 ГБ, точнее или легче).</string>
     <string name="offer_get">Да, скачать</string>
     <string name="offer_more">Посмотреть варианты</string>
+    <string name="g_perms">Разрешения</string>
+    <string name="g_perms_how">Что ей можно делать на твоём телефоне и что делать, если банковское приложение жалуется.</string>
+    <string name="g_ai">Язык и её ИИ</string>
+    <string name="g_ai_how">Язык приложения и её язык, и какой ИИ тебе отвечает.</string>
+    <string name="g_modes">Экран и режимы</string>
+    <string name="g_modes_how">Что она видит на экране, режимы геймера и стрима, и её таблетка у часов.</string>
+    <string name="g_phone">Производительность и телефон</string>
+    <string name="g_phone_how">Лёгкий режим для старых телефонов, что нужно твоему телефону, статистика и приветствие.</string>
+    <string name="g_report">Сообщить об ошибке</string>
+    <string name="g_report_how">Расскажи Эмме, что случилось, — прямо в Discord.</string>
 </resources>

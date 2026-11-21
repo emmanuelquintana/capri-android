@@ -33,8 +33,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   loja vão para a AppGallery quando não há Play Store.
 - **Novo link do Discord.**
 - **Menus novos:** o menu em pílula agora tem Chat, Novidades, Comunidade, Jogos, Personalizar, Comandos e Ajustes. Os
-  comandos de voz têm sua própria página (também no «?» do chat), e Ajustes se divide em Ajustes pessoais (o que ela
-  sabe de você, modo sono, neurodanças) e Ajustes de voz (a voz dela, os motores e como ela te escuta).
+  comandos de voz têm sua própria página (também no «?» do chat). Ajustes é um menu de telas: Ajustes pessoais,
+  Ajustes de voz, Permissões, Idioma e a IA dela, Tela e modos, Desempenho e celular, e Relatar um erro.
 - **Capri Voice (a voz dela):** a Capri já fala com a própria voz, em espanhol latino e inglês. As frases gravadas
   (quando você faz carinho, joga, volta, se despede ou dá boa noite) tocam sem internet e sem carregar nenhum modelo,
   com o texto exato do que ela diz.

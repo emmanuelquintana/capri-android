@@ -34,8 +34,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   los enlaces a la tienda van a AppGallery si no hay Play Store.
 - **Nuevo enlace del Discord.**
 - **Menús nuevos:** el menú de píldora ahora tiene Chat, Novedades, Comunidad, Juegos, Personalizar, Comandos y
-  Ajustes. Los comandos de voz tienen su propia página (también en el «?» del chat), y Ajustes se divide en Ajustes
-  personales (lo que sabe de ti, modo sueño, neurodanzas) y Ajustes de voz (su voz, sus motores y cómo te escucha).
+  Ajustes. Los comandos de voz tienen su propia página (también en el «?» del chat). Ajustes es un menú con sus
+  pantallas: Ajustes personales, Ajustes de voz, Permisos, Idioma y su IA, Pantalla y modos, Rendimiento y teléfono, y
+  Reportar un fallo.
 - **Capri Voice (su voz):** Capri ya habla con su propia voz, en español latino e inglés. Sus frases grabadas (al
   acariciarla, lanzarla, volver, despedirse y darte las buenas noches) suenan sin internet y sin cargar ningún modelo,
   con el texto exacto de lo que dice.

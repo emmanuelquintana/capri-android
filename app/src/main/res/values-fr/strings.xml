@@ -612,4 +612,14 @@
     <string name="offer_how">Veux-tu télécharger la voix de Capri ? 8 Mo : ses phrases enregistrées et son profil de voix. Ensuite, dans Réglages › Réglages de la voix, tu peux aussi ajouter sa voix pour les nouvelles réponses (dès 0,9 Go, plus ou moins fidèle).</string>
     <string name="offer_get">Oui, la télécharger</string>
     <string name="offer_more">Voir les options</string>
+    <string name="g_perms">Autorisations</string>
+    <string name="g_perms_how">Ce qu’elle peut faire sur ton téléphone, et quoi faire si une appli bancaire se plaint.</string>
+    <string name="g_ai">Langue et son IA</string>
+    <string name="g_ai_how">La langue de l’appli et la sienne, et quelle IA te répond.</string>
+    <string name="g_modes">Écran et modes</string>
+    <string name="g_modes_how">Ce qu’elle voit sur ton écran, les modes gamer et streaming, et sa pilule près de l’heure.</string>
+    <string name="g_phone">Performances et téléphone</string>
+    <string name="g_phone_how">Mode léger pour les vieux téléphones, ce dont ton téléphone a besoin, statistiques et accueil.</string>
+    <string name="g_report">Signaler un bug</string>
+    <string name="g_report_how">Raconte à Emma ce qui s’est passé, directement sur Discord.</string>
 </resources>

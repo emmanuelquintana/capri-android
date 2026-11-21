@@ -319,6 +319,41 @@ class Ui(private val a: Activity) {
                     path.lineTo(cx + s * 0.44f, cy + s * 0.2f); path.lineTo(cx - s * 0.44f, cy + s * 0.2f); path.close()
                     c.drawPath(path, p)
                 }
+                "globe" -> { // (1.11.0) language and her AI: a globe
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = s * 0.08f
+                    val r = s * 0.42f
+                    c.drawCircle(cx, cy, r, p)
+                    c.drawOval(cx - r * 0.45f, cy - r, cx + r * 0.45f, cy + r, p)
+                    c.drawLine(cx - r, cy, cx + r, cy, p)
+                }
+                "eye" -> { // (1.11.0) what she sees and her modes: an eye
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = s * 0.08f
+                    p.strokeJoin = Paint.Join.MITER
+                    val w = s * 0.46f
+                    path.moveTo(cx - w, cy); path.quadTo(cx, cy - s * 0.52f, cx + w, cy); path.quadTo(cx, cy + s * 0.52f, cx - w, cy); path.close()
+                    c.drawPath(path, p)
+                    p.style = Paint.Style.FILL
+                    c.drawCircle(cx, cy, s * 0.12f, p)
+                }
+                "phone" -> { // (1.11.0) performance and your phone: a phone
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = s * 0.08f
+                    c.drawRoundRect(cx - s * 0.24f, cy - s * 0.44f, cx + s * 0.24f, cy + s * 0.44f, s * 0.08f, s * 0.08f, p)
+                    p.style = Paint.Style.FILL
+                    c.drawCircle(cx, cy + s * 0.3f, s * 0.05f, p)
+                }
+                "warn" -> { // (1.11.0) report a problem: a warning triangle
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = s * 0.08f
+                    p.strokeJoin = Paint.Join.MITER
+                    path.moveTo(cx, cy - s * 0.42f); path.lineTo(cx + s * 0.46f, cy + s * 0.38f); path.lineTo(cx - s * 0.46f, cy + s * 0.38f); path.close()
+                    c.drawPath(path, p)
+                    c.drawLine(cx, cy - s * 0.12f, cx, cy + s * 0.12f, p)
+                    p.style = Paint.Style.FILL
+                    c.drawCircle(cx, cy + s * 0.25f, s * 0.05f, p)
+                }
                 else -> { // sliders
                     p.style = Paint.Style.FILL
                     val h = s * 0.08f

@@ -612,4 +612,14 @@
     <string name="offer_how">¿Quieres bajar la voz de Capri? 8 MB: sus frases grabadas y su perfil de voz. Después, en Ajustes › Ajustes de voz, también puedes añadir su voz para respuestas nuevas (desde 0.9 GB, más o menos fiel).</string>
     <string name="offer_get">Sí, bajarla</string>
     <string name="offer_more">Ver opciones</string>
+    <string name="g_perms">Permisos</string>
+    <string name="g_perms_how">Lo que puede hacer en tu teléfono, y qué hacer si una app de banco se queja.</string>
+    <string name="g_ai">Idioma y su IA</string>
+    <string name="g_ai_how">El idioma de la app y el suyo, y qué IA te contesta.</string>
+    <string name="g_modes">Pantalla y modos</string>
+    <string name="g_modes_how">Lo que ve en tu pantalla, los modos gamer y streaming, y su píldora junto a la hora.</string>
+    <string name="g_phone">Rendimiento y teléfono</string>
+    <string name="g_phone_how">Modo ligero para teléfonos viejos, lo que tu teléfono necesita, estadísticas y la bienvenida.</string>
+    <string name="g_report">Reportar un fallo</string>
+    <string name="g_report_how">Cuéntale a Emma qué pasó, directo a Discord.</string>
 </resources>
