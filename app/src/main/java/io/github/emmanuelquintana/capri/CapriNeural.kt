@@ -569,6 +569,17 @@ object CapriNeural {
             }.toByteArray()
             atomic(icl(app, "es-MX"), iclFromNpz(npz, "Porque esta es solo una prueba técnica, hecha para revisar la integración continua."))
             log("load_ms=$load pss_before=$pss0 pss_loaded=${Debug.getPss() * 1024L} threads=${engine?.getCpuThreads()} backend=${engine?.getActiveBackendName()}")
+            // (1.11.3) a short probe first, its progress to the log as it goes: on CI's slow emulator a whole
+            // sentence can outlast the job, and this shows whether it advances (and how fast) or is stuck
+            run {
+                val e0 = engine!!
+                val t0 = SystemClock.elapsedRealtime()
+                e0.resetCancel()
+                e0.setProgressCallback { c, m -> if (c == 1 || c % 4 == 0) log("probe token=$c/$m ms=${SystemClock.elapsedRealtime() - t0}") }
+                val r = e0.synthesizeWithIclPrompt("Hi, choom.", icl(app, "en-US").absolutePath, QwenEngine.NativeParams(languageId = 2050, maxAudioTokens = 24))
+                e0.setProgressCallback(null)
+                log("probe success=${r.success} error=${r.errorMsg} samples=${r.audio?.size ?: 0} audio_s=${"%.2f".format((r.audio?.size ?: 0) / 24_000.0)} ms=${SystemClock.elapsedRealtime() - t0}")
+            }
             for ((lang, text) in listOf(
                 "es-MX" to "¡Hey, choom! Encontré tres maneras de resolver ese problema.",
                 "en-US" to "Hi, choom. All good.")) { // inglés corto: el emulador x86_64 de CI es muy lento
