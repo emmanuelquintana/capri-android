@@ -14,9 +14,13 @@ fi
 adb push fixture.wav $EXT/ >/dev/null
 adb logcat -c
 adb shell am start-foreground-service -n $PKG/.CapriService -a capri.NEURALTEST
+seen=0
 for i in $(seq 1 1200); do # hasta 100 min: en el emulador x86_64 de CI (sin aceleración) una frase tarda ~10 min
   sleep 5
-  if adb logcat -d -s CapriNeuralTest:I | grep -qE "DONE|FAIL"; then break; fi
+  # lo que va saliendo, al momento (si el trabajo se corta por tiempo, queda en el registro hasta dónde llegó)
+  adb logcat -d -s CapriNeuralTest:I | grep CapriNeuralTest > now.log
+  n=$(wc -l < now.log); if [ "$n" -gt "$seen" ]; then tail -n $((n - seen)) now.log; seen=$n; fi
+  if grep -qE "DONE|FAIL" now.log; then break; fi
 done
 adb logcat -d -s CapriNeuralTest:I | grep CapriNeuralTest | tee neural.log
 adb logcat -d | grep -iE "FATAL|AndroidRuntime: |libc  |CapriNeural|qwen" | tail -30
