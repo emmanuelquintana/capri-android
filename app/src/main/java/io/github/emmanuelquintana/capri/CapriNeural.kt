@@ -142,7 +142,11 @@ object CapriNeural {
 
     /** Why this phone can't run it (null: it can). */
     fun unsupported(): String? = when {
-        Build.VERSION.SDK_INT < 31 -> "api"
+        // (1.11.5, Emma: "añade compatibilidad hasta Android 10") the engine's libraries only need what Android 10
+        // (API 29) has: their libc/libm/libdl/liblog symbols are all older, and their thread-local storage (ELF
+        // TLS) is what sets the floor at 29. They were marked 31 only because that's what they were built
+        // against. Android 12+ goes exactly as before.
+        Build.VERSION.SDK_INT < 29 -> "api"
         Build.SUPPORTED_ABIS.none { it == "arm64-v8a" || it == "x86_64" } -> "abi"
         !native -> "native"
         else -> null
@@ -150,7 +154,7 @@ object CapriNeural {
 
     // its native libraries load (the same choice QwenEngine makes: the fast ARM build when the CPU has it)
     private val native: Boolean by lazy {
-        Build.VERSION.SDK_INT >= 31 && runCatching { CpuFeatures.optimized }.isSuccess
+        Build.VERSION.SDK_INT >= 29 && runCatching { CpuFeatures.optimized }.isSuccess
     }
 
     fun installed(context: Context, v: Variant) = v.files.all { File(models(context, v), it.local).length() == it.bytes } &&
@@ -578,7 +582,13 @@ object CapriNeural {
                 e0.setProgressCallback { c, m -> if (c == 1 || c % 4 == 0) log("probe token=$c/$m ms=${SystemClock.elapsedRealtime() - t0}") }
                 val r = e0.synthesizeWithIclPrompt("Hi, choom.", icl(app, "en-US").absolutePath, QwenEngine.NativeParams(languageId = 2050, maxAudioTokens = 24))
                 e0.setProgressCallback(null)
+                check(r.success && (r.audio?.size ?: 0) > 0) { "probe ${r.errorMsg}" }
                 log("probe success=${r.success} error=${r.errorMsg} samples=${r.audio?.size ?: 0} audio_s=${"%.2f".format((r.audio?.size ?: 0) / 24_000.0)} ms=${SystemClock.elapsedRealtime() - t0}")
+            }
+            // CI's emulator: the probe is the proof (a whole sentence there takes longer than the job may run)
+            if (File(ext, "quick").isFile) {
+                dispose("selftest")
+                return@execute log("DONE ok (quick)")
             }
             for ((lang, text) in listOf(
                 "es-MX" to "¡Hey, choom! Encontré tres maneras de resolver ese problema.",

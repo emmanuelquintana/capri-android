@@ -2,6 +2,12 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.11.5
+
+- **Sa voix pour les réponses, maintenant dès Android 10 :** son moteur de voix (expérimental) marche désormais sur
+  Android 10 et 11, pas seulement dès Android 12. Le reste de sa voix (ses phrases, la télécharger, l’écouter)
+  marchait déjà dès Android 8. Rien ne change sur Android 12 ou plus récent.
+
 ## 1.11.4
 
 - **Le menu pilule ne cache plus là où tu lui écris :** dans le chat, la ligne pour écrire restait sous le menu sur

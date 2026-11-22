@@ -12,6 +12,8 @@ if [ "${NEURAL_MODELS:-}" != "" ]; then
   for f in qwen-talker-0.6b-base-Q4_K_M.gguf qwen-tokenizer-12hz-Q4_K_M.gguf; do adb push "$NEURAL_MODELS/$f" $EXT/ >/dev/null && echo "pushed $f"; done
 fi
 adb push fixture.wav $EXT/ >/dev/null
+# quick: model load, her ICL prompt and a short phrase with its progress (CI's emulator is far too slow for more)
+adb shell touch $EXT/quick
 adb logcat -c
 adb shell am start-foreground-service -n $PKG/.CapriService -a capri.NEURALTEST
 seen=0

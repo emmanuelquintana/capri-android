@@ -2,6 +2,12 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.11.5
+
+- **A voz dela para respostas, agora a partir do Android 10:** o motor de voz dela (experimental) já funciona no
+  Android 10 e 11, não só a partir do Android 12. O resto da voz dela (as frases, baixar, testar) já funcionava a
+  partir do Android 8. No Android 12 ou mais novo nada muda.
+
 ## 1.11.4
 
 - **O menu de pílula não cobre mais onde você escreve para ela:** no chat, a linha para escrever ficava embaixo do

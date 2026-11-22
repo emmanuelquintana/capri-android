@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api: [33, 26]
+        api: [33, 29, 26]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -33,13 +33,13 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew --no-daemon assembleDebug
       - name: Modelo (caché por revisión)
-        if: matrix.api == 33
+        if: matrix.api != 26
         uses: actions/cache@v4
         with:
           path: gguf
           key: qwen3-tts-gguf-b7ee2e8c7459c3bea99da23e3d178125a7d1713c
       - name: Descargar y comprobar el modelo
-        if: matrix.api == 33
+        if: matrix.api != 26
         run: |
           mkdir -p gguf
           base=https://huggingface.co/Serveurperso/Qwen3-TTS-GGUF/resolve/b7ee2e8c7459c3bea99da23e3d178125a7d1713c
@@ -73,7 +73,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
       - uses: reactivecircus/android-emulator-runner@v2
         env:
-          NEURAL_MODELS: ${{ matrix.api == 33 && 'gguf' || '' }}
+          NEURAL_MODELS: ${{ matrix.api != 26 && 'gguf' || '' }}
         with:
           api-level: ${{ matrix.api }}
           target: google_apis
@@ -85,5 +85,5 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: bash tools/ci/neural-test.sh
       - name: Audio generado (base64, voz técnica)
-        if: always() && matrix.api == 33
+        if: always() && matrix.api != 26
         run: for f in neural-*.wav; do [ -f "$f" ] && { echo "===WAV $f==="; base64 -w0 "$f"; echo; echo "===END==="; }; done; true

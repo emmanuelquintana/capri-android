@@ -2,6 +2,12 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.11.5
+
+- **Her voice for answers, now from Android 10:** her voice engine (experimental) now works on Android 10 and 11, not
+  only from Android 12. The rest of her voice (her phrases, downloading it, testing it) already worked from Android 8.
+  Nothing changes on Android 12 or newer.
+
 ## 1.11.4
 
 - **The pill menu no longer covers where you write to her:** in the chat, the line to write in sat under the menu on

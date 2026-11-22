@@ -573,7 +573,7 @@
     <string name="cv_last_fallback">Last answer couldn\'t use it: %s</string>
     <string name="cv_neural_cant">Not available yet: %s</string>
     <string name="cv_neural_experimental">Her voice on the phone: not checked by ear yet on a real phone.</string>
-    <string name="cv_n_api">not compatible (needs Android 12 or newer)</string>
+    <string name="cv_n_api">not compatible (needs Android 10 or newer)</string>
     <string name="cv_n_abi">not compatible (needs a 64-bit processor)</string>
     <string name="cv_n_native">error loading its engine</string>
     <string name="cv_n_nomodel">compatible · no engine installed (from %s)</string>
@@ -587,7 +587,7 @@
     <string name="settings_voice_screen_how">Her voice: download it, her engines for new answers (each one added or removed, more or less faithful), her phrases, her ears and the phone\'s voice.</string>
     <string name="cmds_voice_how">Her ears (\"Capri, …\"), her voice and how she answers out loud.</string>
     <string name="cv_engines">Her voice for new answers</string>
-    <string name="cv_engines_how">So she says everything in her voice, also her AI\'s answers, offline. The same voice profile as on PC (Qwen 0.6B, ICL); only the precision changes. Downloaded from Hugging Face, checked by SHA-256. Needs Android 12+ and a 64-bit phone.</string>
+    <string name="cv_engines_how">So she says everything in her voice, also her AI\'s answers, offline. The same voice profile as on PC (Qwen 0.6B, ICL); only the precision changes. Downloaded from Hugging Face, checked by SHA-256. Needs Android 10+ and a 64-bit phone.</string>
     <string name="cv_var_q4">Light (Q4)</string>
     <string name="cv_var_q8">High (Q8)</string>
     <string name="cv_var_bf16">Maximum (BF16, like PC)</string>

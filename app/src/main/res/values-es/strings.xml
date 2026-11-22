@@ -572,7 +572,7 @@
     <string name="cv_last_fallback">La última respuesta no pudo usarla: %s</string>
     <string name="cv_neural_cant">Aún no disponible: %s</string>
     <string name="cv_neural_experimental">Su voz en el teléfono: aún no se ha escuchado en un teléfono real.</string>
-    <string name="cv_n_api">no compatible (necesita Android 12 o más nuevo)</string>
+    <string name="cv_n_api">no compatible (necesita Android 10 o más nuevo)</string>
     <string name="cv_n_abi">no compatible (necesita procesador de 64 bits)</string>
     <string name="cv_n_native">error al cargar su motor</string>
     <string name="cv_n_nomodel">compatible · sin motor instalado (desde %s)</string>
@@ -586,7 +586,7 @@
     <string name="settings_voice_screen_how">Su voz: bajarla, sus motores para respuestas nuevas (cada uno se añade o se quita, más o menos fiel), sus frases, sus oídos y la voz del teléfono.</string>
     <string name="cmds_voice_how">Sus oídos («Capri, …»), su voz y cómo te responde en voz alta.</string>
     <string name="cv_engines">Su voz para respuestas nuevas</string>
-    <string name="cv_engines_how">Para que diga todo con su voz, también las respuestas de su IA, sin internet. El mismo perfil de voz que en PC (Qwen 0.6B, ICL); solo cambia la precisión. Se baja de Hugging Face y se comprueba por SHA-256. Necesita Android 12+ y un teléfono de 64 bits.</string>
+    <string name="cv_engines_how">Para que diga todo con su voz, también las respuestas de su IA, sin internet. El mismo perfil de voz que en PC (Qwen 0.6B, ICL); solo cambia la precisión. Se baja de Hugging Face y se comprueba por SHA-256. Necesita Android 10+ y un teléfono de 64 bits.</string>
     <string name="cv_var_q4">Ligera (Q4)</string>
     <string name="cv_var_q8">Alta (Q8)</string>
     <string name="cv_var_bf16">Máxima (BF16, como en PC)</string>

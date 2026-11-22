@@ -579,7 +579,7 @@
     <string name="cv_last_fallback">Последний ответ не смог его использовать: %s</string>
     <string name="cv_neural_cant">Пока недоступно: %s</string>
     <string name="cv_neural_experimental">Её голос на телефоне: ещё не прослушан на реальном телефоне.</string>
-    <string name="cv_n_api">несовместимо (нужен Android 12+)</string>
+    <string name="cv_n_api">несовместимо (нужен Android 10+)</string>
     <string name="cv_n_abi">несовместимо (нужен 64-битный процессор)</string>
     <string name="cv_n_native">ошибка загрузки движка</string>
     <string name="cv_n_nomodel">совместимо · движок не установлен (от %s)</string>
@@ -593,7 +593,7 @@
     <string name="settings_voice_screen_how">Её голос: скачать, движки для новых ответов (каждый добавляется или удаляется, точнее или легче), её фразы, её слух и голос телефона.</string>
     <string name="cmds_voice_how">Её слух («Капри, …»), её голос и как она отвечает вслух.</string>
     <string name="cv_engines">Её голос для новых ответов</string>
-    <string name="cv_engines_how">Чтобы она всё говорила своим голосом, и ответы её ИИ тоже, без интернета. Тот же голосовой профиль, что на ПК (Qwen 0.6B, ICL); меняется только точность. Скачивается с Hugging Face, проверяется по SHA-256. Нужны Android 12+ и 64-битный телефон.</string>
+    <string name="cv_engines_how">Чтобы она всё говорила своим голосом, и ответы её ИИ тоже, без интернета. Тот же голосовой профиль, что на ПК (Qwen 0.6B, ICL); меняется только точность. Скачивается с Hugging Face, проверяется по SHA-256. Нужны Android 10+ и 64-битный телефон.</string>
     <string name="cv_var_q4">Лёгкая (Q4)</string>
     <string name="cv_var_q8">Высокая (Q8)</string>
     <string name="cv_var_bf16">Максимальная (BF16, как на ПК)</string>

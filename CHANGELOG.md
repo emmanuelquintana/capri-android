@@ -3,6 +3,12 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.11.5
+
+- **Su voz para respuestas, ahora desde Android 10:** su motor de voz (experimental) ya funciona en Android 10 y 11,
+  no solo desde Android 12. Lo demás de su voz (sus frases, bajarla, probarla) ya funcionaba desde Android 8. En
+  Android 12 o más nuevo nada cambia.
+
 ## 1.11.4
 
 - **El menú de píldora ya no tapa donde le escribes:** en el chat, la línea para escribirle quedaba debajo del menú en
