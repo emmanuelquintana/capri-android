@@ -267,7 +267,7 @@ object CapriNeural {
                     for ((n, sentence) in sentences.withIndex()) {
                         if (ticket != generation.get()) break
                         val s0 = SystemClock.elapsedRealtime()
-                        val pcm = synth(app, sentence, lang)
+                        val pcm = synth(app, sentence, lang) { emit("VOICE_PROGRESS", JSONObject().put("generating", true)) }
                         genMs += SystemClock.elapsedRealtime() - s0
                         peak = maxOf(peak, Debug.getPss() * 1024L)
                         if (ticket != generation.get()) break
@@ -473,16 +473,26 @@ object CapriNeural {
         require(values.all { it.isFinite() }) { "embedding" }
     }
 
-    private fun synth(app: Context, text: String, lang: String): FloatArray {
+    /**
+     * How many audio tokens (12 a second) a sentence may take: about its length when read, with plenty of room.
+     * (1.11.7) It was 320 (~26 s) for every sentence, and a sentence that ran to it was thrown away ("limit"):
+     * her answer, already generated, was never heard, after the longest wait there is. Now the room follows the
+     * sentence, and what was made is kept and played.
+     */
+    internal fun maxTokens(text: String) = (text.length * 2 + 36).coerceIn(48, 320)
+
+    /** [tick]: while it generates, now and then (her answer isn't stuck, only being made). */
+    private fun synth(app: Context, text: String, lang: String, tick: (() -> Unit)? = null): FloatArray {
         val e = engine ?: error("unloaded")
         e.resetCancel()
+        val max = maxTokens(text)
         var limit = false
-        e.setProgressCallback { count, max -> if (count >= max) { limit = true; e.cancel() } }
+        e.setProgressCallback { count, m -> if (count >= m) limit = true; if (count % 2 == 0) tick?.invoke() }
         try {
             val r = e.synthesizeWithIclPrompt(text, icl(app, lang).absolutePath,
-                QwenEngine.NativeParams(languageId = if (lang == "es-MX") 2054 else 2050, maxAudioTokens = 320))
-            check(!limit) { "limit" }
-            check(r.success) { r.errorMsg ?: "synthesis" }
+                QwenEngine.NativeParams(languageId = if (lang == "es-MX") 2054 else 2050, maxAudioTokens = max))
+            if (limit) Diag.add("W", "voice $ID: ${text.length} chars ran to $max tokens")
+            check(r.success || (limit && (r.audio?.size ?: 0) > 0)) { r.errorMsg ?: "synthesis" }
             val raw = r.audio ?: error("noaudio")
             require(r.sampleRate == 24_000 && raw.isNotEmpty() && raw.all { it.isFinite() }) { "pcm" }
             return FloatArray(raw.size) { raw[it].coerceIn(-1f, 1f) }

@@ -52,6 +52,10 @@ jobs:
           SUMS
       - name: Sonido técnico (no es la voz de Capri)
         run: |
+          # (1.11.7) a robot voice (espeak-ng) reading the very words the test gives as its transcript: like a
+          # real reference, so the engine knows where a sentence ends. Never Capri's voice. Without espeak, the tone.
+          if sudo apt-get install -y -qq espeak-ng >/dev/null 2>&1 && espeak-ng -v en-us -s 150 -w robot.wav "This is only a technical test tone, made for the continuous integration check." \
+             && ffmpeg -loglevel error -y -i robot.wav -ar 24000 -ac 1 -c:a pcm_s16le fixture.wav; then echo "fixture: espeak-ng"; ls -la fixture.wav; exit 0; fi
           python3 - <<'PY'
           import math, struct
           rate, secs = 24000, 6

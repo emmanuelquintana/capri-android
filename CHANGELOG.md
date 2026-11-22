@@ -5,6 +5,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 1.11.7
 
+- **Su motor de voz ya no tira la respuesta:** cuando una frase llegaba al límite de lo que el motor puede generar,
+  la respuesta, ya hecha, se tiraba y no se oía nada después de la espera más larga. Ahora el límite va según lo
+  larga que es la frase, y lo que hizo se oye. Mientras la genera, ya no se cancela por tardar.
 - **Ahora sí habla:** lo que te responde en su chat (su burbuja y la pestaña Chat) también lo dice en voz alta,
   no solo cuando le hablas con «Capri, …». Antes esas respuestas solo se escribían, y es ahí donde casi todos le
   hablan. Se puede apagar en Ajustes de voz (*Leer en voz alta lo que responde en el chat*). Si la respuesta es

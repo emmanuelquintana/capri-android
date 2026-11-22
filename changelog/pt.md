@@ -4,6 +4,9 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 
 ## 1.11.7
 
+- **O motor de voz não joga mais a resposta fora:** quando uma frase chegava ao máximo que o motor gera, a
+  resposta, já pronta, era descartada e nada se ouvia depois da espera mais longa. Agora o limite segue o tamanho
+  da frase, e o que ele fez toca. Enquanto gera, não é mais cancelado por demorar.
 - **Agora ela fala de verdade:** o que ela te responde no chat (a bolha e a aba Chat) também é dito em voz alta,
   não só quando você fala com ela com “Capri, …”. Antes essas respostas eram só escritas, e é ali que quase todo
   mundo fala com ela. Dá para desligar em Ajustes de voz (*Ler em voz alta as respostas do chat*). Respostas longas:

@@ -40,5 +40,6 @@ if grep -q "DONE ok" neural.log; then
     if grep -qE "VOICE_FINISHED|VOICE_ERROR|VOICE_UNAVAILABLE|VOICE_CANCELLED" ev.log; then break; fi
   done
   cat ev.log
+  adb logcat -d -s capri:W | grep -E "ran to|voice qwen" | tail -5
   grep -q VOICE_FINISHED ev.log && grep -q qwen-mobile ev.log && echo "ok neural answer" || { echo "FAIL neural answer"; exit 1; }
 fi

@@ -4,6 +4,9 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.11.7
 
+- **Her voice engine no longer throws the answer away:** when a sentence reached the most the engine can generate,
+  the answer, already made, was thrown away and nothing was heard after the longest wait. Now the limit follows how
+  long the sentence is, and what it made is played. While it's generating, it's no longer cancelled for taking long.
 - **Now she really talks:** what she answers in her chat (her bubble and the Chat tab) is also said out loud, not
   only when you talk to her with “Capri, …”. Before, those answers were only written, and that's where almost
   everyone talks to her. You can turn it off in Voice settings (*Read her chat answers out loud*). Long answers: she

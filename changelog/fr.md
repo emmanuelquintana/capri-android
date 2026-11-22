@@ -4,6 +4,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 
 ## 1.11.7
 
+- **Son moteur de voix ne jette plus la réponse :** quand une phrase atteignait le maximum que le moteur peut
+  générer, la réponse, déjà faite, était jetée et on n’entendait rien après l’attente la plus longue. Maintenant la
+  limite suit la longueur de la phrase, et ce qu’il a fait s’entend. Pendant qu’il génère, il n’est plus annulé.
 - **Maintenant elle parle vraiment :** ce qu’elle te répond dans son chat (sa bulle et l’onglet Chat) est aussi dit
   à voix haute, pas seulement quand tu lui parles avec « Capri, … ». Avant, ces réponses étaient seulement écrites,
   et c’est là que presque tout le monde lui parle. Ça se coupe dans Réglages de la voix (*Lire à voix haute ses
