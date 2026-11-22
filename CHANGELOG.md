@@ -5,6 +5,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 1.11.5
 
+- **Elige su icono:** en la pestaña Personalizar puedes elegir el icono de Capri entre varias caritas suyas y qué tan
+  redondeado lo quieres (como tu teléfono, círculo, redondeado o casi cuadrado). Algunos lanzadores tardan un momento
+  en mostrar el nuevo, y unos lo quitan de la pantalla de inicio (sigue en la lista de apps).
 - **Su voz para respuestas, ahora desde Android 10:** su motor de voz (experimental) ya funciona en Android 10 y 11,
   no solo desde Android 12. Lo demás de su voz (sus frases, bajarla, probarla) ya funcionaba desde Android 8. En
   Android 12 o más nuevo nada cambia.
