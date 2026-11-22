@@ -2,6 +2,12 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.11.6
+
+- **“Couldn't: busy” when downloading the most faithful voice:** it showed up if you tapped download while another of
+  her voice downloads was still going, and it also hid the bar of the one still downloading, so it looked failed. Now
+  it tells you to wait until it finishes (with how far it is), and the other keeps its bar and notification.
+
 ## 1.11.5
 
 - **Her voice for answers, now from Android 10:** her voice engine (experimental) now works on Android 10 and 11, not

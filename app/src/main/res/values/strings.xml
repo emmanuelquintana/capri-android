@@ -531,6 +531,8 @@
     <string name="cv_err">Couldn\'t: %s</string>
     <string name="cv_err_notv8">That file isn\'t a verified Capri Voice V8 pack.</string>
     <string name="cv_err_needfile">The original pack is missing: install it again from its file.</string>
+    <string name="cv_wait">Another download is still going. Wait for it to finish, then tap again.</string>
+    <string name="cv_wait_pct">Another download is still going (%1$d%%). Wait for it to finish, then tap again.</string>
     <string name="cv_busy">Working…</string>
     <string name="cv_no_phrase">No phrase of hers in this language yet: install its pack.</string>
     <string name="cv_mode_auto">Automatic</string>

@@ -1272,6 +1272,14 @@ class MainActivity : Activity() {
     }
 
     private fun voiceJob(title: String? = null, work: ((String?) -> Unit) -> Unit) {
+        // (1.11.6, Emma: "al bajar la más fiel dice No se pudo: busy") one download at a time: tapping another while
+        // one is still going said «No se pudo: busy», and worse, it took down the bar and notification of the one
+        // still downloading, so it looked failed. Now it just says to wait, and the running one keeps its bar.
+        if (CapriNeural.busy.isNotEmpty() || CapriVoice.busy.isNotEmpty()) {
+            val pct = (if (CapriNeural.busy.isNotEmpty()) CapriNeural.progress else CapriVoice.progress).takeIf { it >= 0f }
+            Toast.makeText(this, if (pct != null) getString(R.string.cv_wait_pct, (pct * 100).toInt().coerceIn(0, 100)) else getString(R.string.cv_wait), Toast.LENGTH_LONG).show()
+            return
+        }
         Toast.makeText(this, title ?: getString(R.string.cv_busy), Toast.LENGTH_SHORT).show()
         choices.forEach { it() }
         if (title != null) { dlTitle = title; shell.removeCallbacks(dlTick); dlTick.run() }
@@ -1283,6 +1291,7 @@ class MainActivity : Activity() {
             }
             val msg = when (err) {
                 null -> getString(R.string.cv_ok)
+                "busy" -> getString(R.string.cv_wait)
                 "notV8" -> getString(R.string.cv_err_notv8)
                 "needFile" -> getString(R.string.cv_err_needfile)
                 "nochannel" -> getString(R.string.cv_nochannel)

@@ -530,6 +530,8 @@
     <string name="cv_err">No se pudo: %s</string>
     <string name="cv_err_notv8">Ese archivo no es un paquete verificado de Capri Voice V8.</string>
     <string name="cv_err_needfile">Falta el paquete original: instálalo otra vez desde su archivo.</string>
+    <string name="cv_wait">Todavía se está bajando otra cosa. Espera a que termine y vuelve a tocar.</string>
+    <string name="cv_wait_pct">Todavía se está bajando otra cosa (%1$d%%). Espera a que termine y vuelve a tocar.</string>
     <string name="cv_busy">Trabajando…</string>
     <string name="cv_no_phrase">Aún no hay frases suyas en este idioma: instala su paquete.</string>
     <string name="cv_mode_auto">Automático</string>

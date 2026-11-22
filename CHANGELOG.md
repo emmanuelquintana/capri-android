@@ -3,6 +3,12 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.11.6
+
+- **«No se pudo: busy» al bajar la voz más fiel:** salía si tocabas bajar mientras otra descarga de su voz seguía
+  en curso, y además escondía la barra de la que sí se estaba bajando, así que parecía que había fallado. Ahora te dice
+  que esperes a que termine (con cuánto lleva) y la otra sigue con su barra y su notificación.
+
 ## 1.11.5
 
 - **Su voz para respuestas, ahora desde Android 10:** su motor de voz (experimental) ya funciona en Android 10 y 11,

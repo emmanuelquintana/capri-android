@@ -2,6 +2,12 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.11.6
+
+- **“Não deu: busy” ao baixar a voz mais fiel:** aparecia se você tocava em baixar enquanto outro download da voz
+  dela ainda estava em andamento, e ainda escondia a barra do que estava baixando, então parecia que tinha falhado.
+  Agora pede para esperar terminar (mostrando quanto falta) e o outro continua com a barra e a notificação.
+
 ## 1.11.5
 
 - **A voz dela para respostas, agora a partir do Android 10:** o motor de voz dela (experimental) já funciona no

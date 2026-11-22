@@ -530,6 +530,8 @@
     <string name="cv_err">Impossible : %s</string>
     <string name="cv_err_notv8">Ce fichier n’est pas un paquet Capri Voice V8 vérifié.</string>
     <string name="cv_err_needfile">Le paquet d’origine manque : réinstalle-le depuis son fichier.</string>
+    <string name="cv_wait">Un autre téléchargement est en cours. Attends qu’il se termine, puis touche à nouveau.</string>
+    <string name="cv_wait_pct">Un autre téléchargement est en cours (%1$d%%). Attends qu’il se termine, puis touche à nouveau.</string>
     <string name="cv_busy">En cours…</string>
     <string name="cv_no_phrase">Pas encore de phrase dans cette langue : installe son paquet.</string>
     <string name="cv_mode_auto">Automatique</string>

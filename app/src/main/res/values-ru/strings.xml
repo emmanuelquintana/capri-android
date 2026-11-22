@@ -537,6 +537,8 @@
     <string name="cv_err">Не получилось: %s</string>
     <string name="cv_err_notv8">Этот файл не проверенный пакет Capri Voice V8.</string>
     <string name="cv_err_needfile">Нет исходного пакета: установи его снова из файла.</string>
+    <string name="cv_wait">Ещё идёт другая загрузка. Дождись конца и нажми ещё раз.</string>
+    <string name="cv_wait_pct">Ещё идёт другая загрузка (%1$d%%). Дождись конца и нажми ещё раз.</string>
     <string name="cv_busy">Работаю…</string>
     <string name="cv_no_phrase">Пока нет её фраз на этом языке: установи пакет.</string>
     <string name="cv_mode_auto">Авто</string>

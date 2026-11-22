@@ -2,6 +2,12 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.11.6
+
+- **« Impossible : busy » en téléchargeant la voix la plus fidèle :** ça arrivait si tu touchais télécharger pendant
+  qu’un autre téléchargement de sa voix était en cours, et ça cachait aussi la barre de celui en cours, comme s’il avait
+  échoué. Maintenant on te dit d’attendre qu’il finisse (avec où il en est), et l’autre garde sa barre et sa notification.
+
 ## 1.11.5
 
 - **Sa voix pour les réponses, maintenant dès Android 10 :** son moteur de voix (expérimental) marche désormais sur
