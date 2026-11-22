@@ -27,7 +27,7 @@ done
 # (1.11.5) her icon: switch to one of hers, open the app through it, back to the original, open it again
 icon() { adb logcat -c; adb shell am start-foreground-service -n $PKG/.CapriService -a capri.ICONTEST "$@" >/dev/null; sleep 4
   adb logcat -d -s CapriIconTest:I | grep -o "launcher=.*"; }
-opens() { adb shell am start -W -n $PKG/$1 | grep -q "Status: ok" && sleep 2 && adb shell dumpsys activity activities | grep -E "topResumedActivity|mResumedActivity" | grep -qE "\$PKG/\.(Home|OnboardingActivity)" \
+opens() { adb shell am start -W -n $PKG/$1 | grep -q "Status: ok" && sleep 2 && adb shell dumpsys activity activities | grep -E "topResumedActivity|mResumedActivity" | grep -qE "$PKG/\.(Home|OnboardingActivity)" \
   && echo "ok opens $1" || { echo "FAIL opens $1"; exit 1; }; adb shell input keyevent HOME; }
 l=$(icon --es face capri --es shape round); echo "$l"; [ "$l" = "launcher=Icon_capri_round" ] || { echo "FAIL icon switch"; exit 1; }
 opens .Icon_capri_round
