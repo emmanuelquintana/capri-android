@@ -29,7 +29,7 @@ import android.widget.Toast
  * Start, updates and what each version brought), Permissions (what each is for) and Settings
  * (what she calls you, her AI, the log). The first time, her welcome comes first.
  */
-class MainActivity : Activity() {
+open class MainActivity : Activity() {
     override fun attachBaseContext(newBase: android.content.Context) = super.attachBaseContext(Lang.wrap(newBase))
 
     private lateinit var ui: Ui
@@ -851,6 +851,8 @@ class MainActivity : Activity() {
         addView(ui.text(getString(R.string.style_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // new in 1.8: her wardrobe, shown off first
         addView(wardrobeCard(), ui.block(16))
+        // (1.11.5) her icon on your phone: which picture, and how round
+        addView(iconCard(), ui.block(16))
         // her on your screen: size, how lively, ghost mode
         addView(ui.card(Hud.YELLOW).apply {
             addView(ui.label(getString(R.string.settings_her)))
@@ -2014,6 +2016,52 @@ class MainActivity : Activity() {
                 runOnUiThread { updateBtn.isEnabled = true }
             }
         }.start()
+    }
+
+    /** (1.11.5, Emma: "que puedan elegir el icono y qué tan redondeado") AppIcon.kt: her pictures and 4 shapes. */
+    private fun iconCard() = ui.card(Hud.MANE).apply {
+        addView(ui.label(getString(R.string.icon_title)))
+        addView(ui.text(getString(R.string.icon_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        var face = AppIcon.face(this@MainActivity)
+        var shape = AppIcon.shape(this@MainActivity)
+        val cells = mutableListOf<Pair<String?, android.widget.ImageView>>()
+        val paint = {
+            for ((f, v) in cells) {
+                v.setImageResource(AppIcon.preview(this@MainActivity, f, if (f == null) "sys" else shape))
+                v.background = if (f == face) Hud.Plate(Hud.INK_2, Hud.YELLOW, cut = ui.dp(6f), stroke = ui.dp(2f), offset = 0f) else null
+            }
+        }
+        val pick = { f: String? ->
+            face = f
+            AppIcon.apply(this@MainActivity, f, shape)
+            Toast.makeText(this@MainActivity, R.string.icon_done, Toast.LENGTH_LONG).show()
+            paint()
+        }
+        val all = listOf<String?>(null) + AppIcon.faces(this@MainActivity)
+        for (row in all.chunked(4)) {
+            val r = ui.row()
+            for (f in row) {
+                val v = android.widget.ImageView(this@MainActivity).apply {
+                    scaleType = android.widget.ImageView.ScaleType.FIT_CENTER
+                    setPadding(ui.dpi(6), ui.dpi(6), ui.dpi(6), ui.dpi(6))
+                    contentDescription = getString(R.string.icon_title)
+                    isClickable = true
+                    setOnClickListener { pick(f) }
+                }
+                cells += f to v
+                r.addView(v, LinearLayout.LayoutParams(0, ui.dpi(76), 1f))
+            }
+            repeat(4 - row.size) { r.addView(View(this@MainActivity), LinearLayout.LayoutParams(0, ui.dpi(76), 1f)) }
+            addView(r, ui.block(6))
+        }
+        addView(ui.text(getString(R.string.icon_shape), 14f, Hud.PAPER, ui.head), ui.block(14))
+        addView(choice(listOf(R.string.icon_sys to "sys", R.string.icon_round to "round", R.string.icon_rounded to "rounded", R.string.icon_soft to "soft"),
+            { shape }, { a, b -> a == b }) {
+            shape = it
+            if (face != null) pick(face) else paint()
+        }, ui.block(6))
+        addView(ui.text(getString(R.string.icon_note), 12f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
+        paint()
     }
 
     // 1.8: her wardrobe, shown off. Her looks one after another on a little stage (assets/android/showcase,

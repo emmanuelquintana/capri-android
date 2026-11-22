@@ -58,7 +58,7 @@ object LiveBar {
 
     /** "Chat" on her pill: the app, on her chat. */
     fun chat(context: Context): PendingIntent = PendingIntent.getActivity(
-        context, 21, Intent(context, MainActivity::class.java).putExtra(MainActivity.EXTRA_TAB, MainActivity.TAB_CHAT)
+        context, 21, Intent(context, Home::class.java).putExtra(MainActivity.EXTRA_TAB, MainActivity.TAB_CHAT)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP),
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
     )

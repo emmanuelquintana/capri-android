@@ -60,15 +60,77 @@
         android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Home"
             android:exported="true"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- the launcher entry, by its old name (home screen icons stay put): her classic icon. Switched off when
+             you pick another one in Personalizar › Su icono (AppIcon.kt), and one of the aliases below goes on -->
+        <activity-alias
+            android:name=".MainActivity"
+            android:exported="true"
+            android:targetActivity=".Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+
+        <!-- ICONS:BEGIN (tools/make-icons.py: her icons, one per picture and shape) -->
+        <activity-alias
+            android:name=".Icon_capri_sys"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_f_capri_sys"
+            android:roundIcon="@mipmap/ic_f_capri_sys"
+            android:label="@string/app_name"
+            android:targetActivity=".Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Icon_capri_round"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_f_capri_round"
+            android:roundIcon="@mipmap/ic_f_capri_round"
+            android:label="@string/app_name"
+            android:targetActivity=".Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Icon_capri_rounded"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_f_capri_rounded"
+            android:roundIcon="@mipmap/ic_f_capri_rounded"
+            android:label="@string/app_name"
+            android:targetActivity=".Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Icon_capri_soft"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_f_capri_soft"
+            android:roundIcon="@mipmap/ic_f_capri_soft"
+            android:label="@string/app_name"
+            android:targetActivity=".Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <!-- ICONS:END -->
 
         <activity
             android:name=".LookActivity"
