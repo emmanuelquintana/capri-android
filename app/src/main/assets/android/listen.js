@@ -387,7 +387,8 @@ async function handle(text, { toggleVisible, visible }) {
   if (!res?.ok) return answer(t.failed, 'wide');
   const said = clean(res.text) || '…';
   chat.history.push({ role: 'user', content: text });
-  chat.remember({ role: 'assistant', content: said });
+  window.dev.chatVoiceSkip = true; // (said by answer(), not again by chatvoice.js)
+  try { chat.remember({ role: 'assistant', content: said }); } finally { window.dev.chatVoiceSkip = false; }
   answer(said, mood(said));
 }
 

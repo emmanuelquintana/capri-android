@@ -2,6 +2,16 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.11.7
+
+- **Agora ela fala de verdade:** o que ela te responde no chat (a bolha e a aba Chat) também é dito em voz alta,
+  não só quando você fala com ela com “Capri, …”. Antes essas respostas eram só escritas, e é ali que quase todo
+  mundo fala com ela. Dá para desligar em Ajustes de voz (*Ler em voz alta as respostas do chat*). Respostas longas:
+  as primeiras frases.
+- **As frases dela também no vibrar:** com o celular no vibrar (como quase todo mundo usa), as frases dela (quando
+  você faz carinho, joga, ela te cumprimenta) não tocavam. Agora tocam; só ficam quietas no modo silencioso ou com o
+  volume de mídia em 0.
+
 ## 1.11.6
 
 - **“Não deu: busy” ao baixar a voz mais fiel:** aparecia se você tocava em baixar enquanto outro download da voz

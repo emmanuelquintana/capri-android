@@ -105,6 +105,15 @@ export function voiceLines({ cfg, lang }) {
     return shown;
   };
 
+  // (1.11.7) CI only (a debug build's service sends it, CapriService FLOWTEST): one of her lines from that pool
+  // of lines.js, said the way she says it (panel.say, so as a moment of hers), to check her phrase plays
+  on('debug:moment', ({ pool = '' } = {}) => {
+    const list = pool.split('.').reduce((o, k) => o?.[k], dev.brain?.t);
+    const line = Array.isArray(list) ? list[0] : null;
+    console.log(`[capri] debug moment ${pool} line=${line ? 'yes' : 'no'} catalog=${Object.keys(catalog).join(',')} allowed=${allowed()}`);
+    if (line) panel.say({ kind: 'info', face: 'angry', line });
+  });
+
   // her phrase's own gesture as it starts (the catalog's animationHint): her cut-ins, her wave
   const CUTS = { angry: 'angry', cry: 'cry', love: 'love', sleepy: 'sleepy' };
   on('voice:event', (e = {}) => {

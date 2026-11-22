@@ -13,6 +13,7 @@ on:
       - 'app/src/main/java/io/github/emmanuelquintana/capri/VoiceSelfTest.kt'
       - 'app/src/main/java/io/github/emmanuelquintana/voice/**'
       - 'tools/ci/voice-test.sh'
+      - 'tools/ci/voice-flows.sh'
       - '.github/workflows/voice-test.yml'
 
 jobs:
@@ -45,4 +46,4 @@ jobs:
           ram-size: 3072M
           disk-size: 4000M
           emulator-options: -no-window -gpu swiftshader_indirect -no-boot-anim -camera-back none
-          script: bash tools/ci/voice-test.sh
+          script: adb shell cmd package list packages | grep -iE 'tts|pico' ; bash tools/ci/voice-test.sh && bash tools/ci/voice-flows.sh

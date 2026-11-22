@@ -14,7 +14,11 @@ export function appChat({ lang }) {
     const dev = window.dev;
     const chat = dev?.chat;
     text = String(text).trim().slice(0, 2000);
-    const reply = (line, face = 'smug', ok = true) => send('appchat:reply', { id, text: String(line || '…'), face, ok });
+    // (1.11.7) her answer out loud too (chatvoice.js), not only written in the Chat tab
+    const reply = (line, face = 'smug', ok = true) => {
+      send('appchat:reply', { id, text: String(line || '…'), face, ok });
+      if (ok && line) dev?.chatVoice?.say(line);
+    };
     if (!chat || !text) return reply('…', 'aside', false);
     if (busy && Date.now() - busy < 120000) return reply(WAIT[lang()] || WAIT.en, 'aside', false);
     busy = Date.now();
@@ -29,7 +33,7 @@ export function appChat({ lang }) {
         const done = await chat.doNow(asked).catch(() => null);
         if (done?.line) {
           chat.history.push({ role: 'user', content: text });
-          chat.remember({ role: 'assistant', content: done.line });
+          dev.chatVoiceSkip = true; chat.remember({ role: 'assistant', content: done.line }); dev.chatVoiceSkip = false;
           return reply(done.line, done.face || 'smug');
         }
       }
@@ -44,7 +48,7 @@ export function appChat({ lang }) {
       if (!res?.ok) return reply(res?.code === 'busy' ? chat.t?.swamped : chat.t?.failed || '…', 'wide', false);
       const said = clean(res.text) || '…';
       chat.history.push({ role: 'user', content: text });
-      chat.remember({ role: 'assistant', content: said }); // (into your history too: chatlog.js)
+      dev.chatVoiceSkip = true; chat.remember({ role: 'assistant', content: said }); dev.chatVoiceSkip = false; // (into your history too: chatlog.js; said by reply())
       reply(said, mood(said));
     } catch (err) {
       console.error('[capri] app chat', err);

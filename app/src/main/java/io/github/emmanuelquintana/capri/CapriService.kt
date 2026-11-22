@@ -185,6 +185,20 @@ class CapriService : Service() {
             ACTION_AGENDA -> if (BuildConfig.DEBUG) Agenda.demo(this)
             ACTION_NEURALTEST -> if (BuildConfig.DEBUG) CapriNeural.selfTest(this)
             ACTION_VOICETEST -> if (BuildConfig.DEBUG) VoiceSelfTest.run(this)
+            // (1.11.7, debug only) her voice in the real moments, for tools/ci/voice-flows.sh: the phone on vibrate,
+            // one of her lines as a moment of hers (voicelines.js), a message in the app's Chat tab (appchat.js)
+            ACTION_FLOWTEST -> if (BuildConfig.DEBUG) when (intent.getStringExtra("do")) {
+                "ringer" -> runCatching {
+                    val audio = getSystemService(android.media.AudioManager::class.java)
+                    audio.ringerMode = if (intent.getStringExtra("mode") == "vibrate") android.media.AudioManager.RINGER_MODE_VIBRATE else android.media.AudioManager.RINGER_MODE_NORMAL
+                    android.util.Log.i("CapriVoiceTest", "ringer=${audio.ringerMode}")
+                }.onFailure { android.util.Log.i("CapriVoiceTest", "ringer failed ${it.message}") }
+                "moment" -> overlay?.emit("debug:moment", JSONObject().put("pool", intent.getStringExtra("pool") ?: "").toString())
+                "chat" -> AppChat.ask(this, intent.getStringExtra("text") ?: "")
+                // her answer as listen.js/chatvoice.js send it (kind answer): the engine you picked says it
+                "say" -> ears?.say(intent.getStringExtra("text") ?: "", intent.getStringExtra("lang") ?: "en-US",
+                    JSONObject().put("id", intent.getStringExtra("id") ?: "flow-say").put("kind", "answer"))
+            }
             ACTION_SENSE -> if (BuildConfig.DEBUG) overlay?.emit("phone:activity", JSONObject().put("sound", intent.getBooleanExtra("sound", false)).put("kind", intent.getStringExtra("kind") ?: "").toString())
         }
         return START_STICKY
@@ -408,6 +422,7 @@ class CapriService : Service() {
         const val ACTION_CHAT = "capri.CHAT"
         const val ACTION_LOOK = "capri.LOOK" // her widget: look at my screen
         const val ACTION_HEAR = "capri.HEAR"
+        const val ACTION_FLOWTEST = "capri.FLOWTEST" // (1.11.7, debug only) her voice in the real moments
         const val ACTION_VOICETEST = "capri.VOICETEST" // (1.11.3, debug only) VoiceSelfTest: «Bajar su voz» + a phrase out loud
         const val ACTION_NEURALTEST = "capri.NEURALTEST" // (V8.5, debug only) CapriNeural.selfTest
         const val ACTION_SENSE = "capri.SENSE"

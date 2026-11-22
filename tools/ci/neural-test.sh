@@ -27,4 +27,18 @@ done
 adb logcat -d -s CapriNeuralTest:I | grep CapriNeuralTest | tee neural.log
 adb logcat -d | grep -iE "FATAL|AndroidRuntime: |libc  |CapriNeural|qwen" | tail -30
 for l in es-MX en-US; do adb pull $EXT/neural-$l.wav . 2>/dev/null && ls -la neural-$l.wav; done
-grep -q "DONE" neural.log
+grep -q "DONE" neural.log || exit 1
+# (1.11.7) her neural voice the way her answers reach it: Ears.say (kind answer) → the engine her voice mode
+# picks (automatic: the neural one, now installed by the test above) → out loud, start to end
+if grep -q "DONE ok" neural.log; then
+  adb shell cmd media_session volume --stream 3 --set 10 >/dev/null 2>&1 || true
+  adb logcat -c
+  adb shell am start-foreground-service -n $PKG/.CapriService -a capri.FLOWTEST --es do say --es id neural-answer --es lang en-US --es text "'Hi, choom.'"
+  for i in $(seq 1 240); do # hasta 20 min
+    sleep 5
+    adb logcat -d -s CapriVoiceEvent:I | grep '"neural-answer"' > ev.log
+    if grep -qE "VOICE_FINISHED|VOICE_ERROR|VOICE_UNAVAILABLE|VOICE_CANCELLED" ev.log; then break; fi
+  done
+  cat ev.log
+  grep -q VOICE_FINISHED ev.log && grep -q qwen-mobile ev.log && echo "ok neural answer" || { echo "FAIL neural answer"; exit 1; }
+fi

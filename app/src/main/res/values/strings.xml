@@ -396,6 +396,8 @@
     <string name="autodress_day">1 day</string>
     <string name="voice_speak">Her voice</string>
     <string name="voice_speak_how">Off: she still listens and answers, but only in writing.</string>
+    <string name="voice_speak_chat">Read her chat answers out loud</string>
+    <string name="voice_speak_chat_how">What she answers you in her chat (her bubble and the Chat tab) is also said out loud, not only when you talk to her. Long answers: their first sentences.</string>
     <string name="settings_musicapp">Songs you ask for</string>
     <string name="settings_musicapp_how">When you ask her for a song, it plays here (Spotify only if it’s installed; if not, it opens on the web).</string>
     <string name="control_title">She uses your phone for you</string>

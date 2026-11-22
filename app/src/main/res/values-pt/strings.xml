@@ -395,6 +395,8 @@
     <string name="autodress_day">1 dia</string>
     <string name="voice_speak">A voz dela</string>
     <string name="voice_speak_how">Desligada: ela continua te ouvindo e respondendo, mas só por escrito.</string>
+    <string name="voice_speak_chat">Ler em voz alta as respostas do chat</string>
+    <string name="voice_speak_chat_how">O que ela te responde no chat (a bolha e a aba Chat) também é dito em voz alta, não só quando você fala com ela. Respostas longas: as primeiras frases.</string>
     <string name="settings_musicapp">As músicas que você pedir</string>
     <string name="settings_musicapp_how">Quando você pede uma música, ela toca aqui (Spotify só se estiver instalado; se não, abre na web).</string>
     <string name="control_title">Ela usa seu celular por você</string>

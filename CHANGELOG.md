@@ -3,6 +3,16 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.11.7
+
+- **Ahora sí habla:** lo que te responde en su chat (su burbuja y la pestaña Chat) también lo dice en voz alta,
+  no solo cuando le hablas con «Capri, …». Antes esas respuestas solo se escribían, y es ahí donde casi todos le
+  hablan. Se puede apagar en Ajustes de voz (*Leer en voz alta lo que responde en el chat*). Si la respuesta es
+  larga, dice sus primeras frases.
+- **Sus frases también en vibración:** con el teléfono en vibrar (como lo tiene casi todo el mundo) sus frases (al
+  acariciarla, lanzarla, saludarte) no sonaban. Ahora sí suenan; solo se callan en modo silencio o con el volumen
+  multimedia en 0.
+
 ## 1.11.6
 
 - **«No se pudo: busy» al bajar la voz más fiel:** salía si tocabas bajar mientras otra descarga de su voz seguía

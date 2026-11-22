@@ -2,6 +2,16 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.11.7
+
+- **Maintenant elle parle vraiment :** ce qu’elle te répond dans son chat (sa bulle et l’onglet Chat) est aussi dit
+  à voix haute, pas seulement quand tu lui parles avec « Capri, … ». Avant, ces réponses étaient seulement écrites,
+  et c’est là que presque tout le monde lui parle. Ça se coupe dans Réglages de la voix (*Lire à voix haute ses
+  réponses du chat*). Réponses longues : leurs premières phrases.
+- **Ses phrases aussi en vibreur :** téléphone en vibreur (comme presque tout le monde), ses phrases (quand tu la
+  caresses, la lances, qu’elle te salue) ne sonnaient pas. Maintenant si ; elles se taisent seulement en mode
+  silencieux ou avec le volume multimédia à 0.
+
 ## 1.11.6
 
 - **« Impossible : busy » en téléchargeant la voix la plus fidèle :** ça arrivait si tu touchais télécharger pendant

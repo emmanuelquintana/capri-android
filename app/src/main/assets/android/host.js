@@ -45,6 +45,7 @@ import { streaming } from './stream.js';
 import { birthday } from './birthday.js';
 import { keepAsking } from './away.js';
 import { chatLog } from './chatlog.js';
+import { chatVoice } from './chatvoice.js'; // (1.11.7) her chat answers out loud
 import { chatAsks } from './asks.js';
 import { laser } from './laser.js';
 import { saver } from './saver.js';
@@ -1577,6 +1578,7 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
   if ('speak' in p) updateConfig({ speak: Boolean(p.speak) }); // (1.10.0) her voice on or off (Ears.kt reads it)
+  if ('speakChat' in p) updateConfig({ speakChat: Boolean(p.speakChat) }); // (1.11.7) her chat answers out loud (chatvoice.js)
   // (1.11.0) Capri Voice V8 (CapriVoice.kt, voicelines.js): her recorded phrases, what says her new answers,
   // and her phrases' volume and pace
   if ('voiceClips' in p) {
@@ -1665,6 +1667,7 @@ ready.then(() => {
     // 1.10.0
     keepAsking({ lang: () => resolveLang(cfg.lang) }); // her chat closed while she thinks: she answers anyway
     chatLog(); // your chat history, kept on the phone (the app shows it)
+    window.dev.chatVoice = chatVoice({ cfg: () => cfg, lang: () => resolveLang(cfg.lang) }); // (1.11.7) her chat answers out loud
     chatAsks({ lang: () => resolveLang(cfg.lang) }); // games, history, a message by WhatsApp: done, not asked to her AI
     laser({ lang: () => resolveLang(cfg.lang), cfg: () => cfg }); // an app uninstalled: her beam
     window.dev.autoDress = autoDress({ cfg: () => cfg, setConfig: updateConfig, lang: () => resolveLang(cfg.lang) }); // she dresses herself

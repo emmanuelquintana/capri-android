@@ -2,6 +2,15 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.11.7
+
+- **Now she really talks:** what she answers in her chat (her bubble and the Chat tab) is also said out loud, not
+  only when you talk to her with “Capri, …”. Before, those answers were only written, and that's where almost
+  everyone talks to her. You can turn it off in Voice settings (*Read her chat answers out loud*). Long answers: she
+  says their first sentences.
+- **Her phrases on vibrate too:** with the phone on vibrate (as almost everyone has it), her phrases (when you pet
+  her, throw her, she greets you) didn't play. Now they do; they're only quiet on silent or with media volume at 0.
+
 ## 1.11.6
 
 - **“Couldn't: busy” when downloading the most faithful voice:** it showed up if you tapped download while another of

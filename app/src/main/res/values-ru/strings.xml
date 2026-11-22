@@ -396,6 +396,8 @@
     <string name="autodress_day">1 день</string>
     <string name="voice_speak">Её голос</string>
     <string name="voice_speak_how">Выключен: она всё так же слушает и отвечает, но только текстом.</string>
+    <string name="voice_speak_chat">Озвучивать её ответы в чате</string>
+    <string name="voice_speak_chat_how">То, что она отвечает в чате (в пузыре и во вкладке «Чат»), тоже звучит вслух, а не только когда ты говоришь с ней. Длинные ответы — первые фразы.</string>
     <string name="settings_musicapp">Песни, которые ты просишь</string>
     <string name="settings_musicapp_how">Когда ты просишь у неё песню, она играет здесь (Spotify, только если он установлен; иначе откроется в браузере).</string>
     <string name="control_title">Она управляет телефоном за тебя</string>

@@ -602,8 +602,10 @@ class Ears(private val service: CapriService) {
             audio.getStreamVolume(AudioManager.STREAM_MUSIC) == 0 -> "muted"
             // (1.10.0) her voice switched off (Personalizar › Su voz): she answers in writing only
             !Store(service).configFlag("speak", true) -> "off"
-            // a phrase of her own (a pat, a hello) on silent or vibrate: shown, not heard
-            kind == "event" && audio.ringerMode != AudioManager.RINGER_MODE_NORMAL -> "silent"
+            // a phrase of her own (a pat, a hello) on silent: shown, not heard. (1.11.7) On vibrate she does say it:
+            // most phones live on vibrate, and that left her phrases mute for nearly everyone (Emma: "No habla").
+            // The media volume is what you turn down for her, as for a video.
+            kind == "event" && audio.ringerMode == AudioManager.RINGER_MODE_SILENT -> "silent"
             else -> null
         }
         if (why != null) return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why) }

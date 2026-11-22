@@ -970,6 +970,11 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.voice_speak_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(choice(listOf(R.string.off to false, R.string.on to true),
                 { store.configFlag("speak", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "speak", it) }, ui.block(6))
+            // (1.11.7) her chat answers out loud too (chatvoice.js), not only when you talk to her
+            addView(ui.text(getString(R.string.voice_speak_chat), 14f, Hud.PAPER, ui.head), ui.block(10))
+            addView(ui.text(getString(R.string.voice_speak_chat_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { store.configFlag("speakChat", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "speakChat", it) }, ui.block(6))
             addView(ui.text(getString(R.string.voice_pitch), 14f, Hud.PAPER, ui.head), ui.block(10))
             addView(choice(listOf(R.string.voice_low to 0.8, R.string.voice_pace_normal to 1.0, R.string.voice_high to 1.3),
                 { store.configNumber("voicePitch", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voicePitch", it) }, ui.block(6))
