@@ -185,12 +185,6 @@ class CapriService : Service() {
             ACTION_AGENDA -> if (BuildConfig.DEBUG) Agenda.demo(this)
             ACTION_NEURALTEST -> if (BuildConfig.DEBUG) CapriNeural.selfTest(this)
             ACTION_VOICETEST -> if (BuildConfig.DEBUG) VoiceSelfTest.run(this)
-            // (1.11.5) her icon: the one asked for (no face: the original), then what the launcher sees now
-            ACTION_ICONTEST -> if (BuildConfig.DEBUG) {
-                AppIcon.apply(this, intent.getStringExtra("face"), intent.getStringExtra("shape") ?: "sys")
-                val found = packageManager.queryIntentActivities(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER).setPackage(packageName), 0)
-                android.util.Log.i("CapriIconTest", "launcher=" + found.joinToString(",") { it.activityInfo.name.substringAfterLast('.') })
-            }
             ACTION_SENSE -> if (BuildConfig.DEBUG) overlay?.emit("phone:activity", JSONObject().put("sound", intent.getBooleanExtra("sound", false)).put("kind", intent.getStringExtra("kind") ?: "").toString())
         }
         return START_STICKY
@@ -414,7 +408,6 @@ class CapriService : Service() {
         const val ACTION_CHAT = "capri.CHAT"
         const val ACTION_LOOK = "capri.LOOK" // her widget: look at my screen
         const val ACTION_HEAR = "capri.HEAR"
-        const val ACTION_ICONTEST = "capri.ICONTEST" // (1.11.5, debug only) AppIcon.apply + what the launcher lists
         const val ACTION_VOICETEST = "capri.VOICETEST" // (1.11.3, debug only) VoiceSelfTest: «Bajar su voz» + a phrase out loud
         const val ACTION_NEURALTEST = "capri.NEURALTEST" // (V8.5, debug only) CapriNeural.selfTest
         const val ACTION_SENSE = "capri.SENSE"

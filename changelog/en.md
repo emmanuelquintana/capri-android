@@ -4,9 +4,6 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.11.5
 
-- **Pick her icon:** in the Customize tab you can choose Capri's icon from several of her little faces, and how rounded
-  you want it (like your phone, circle, rounded or almost square). Some launchers take a moment to show the new one,
-  and some remove it from the home screen (it stays in the app list).
 - **Her voice for answers, now from Android 10:** her voice engine (experimental) now works on Android 10 and 11, not
   only from Android 12. The rest of her voice (her phrases, downloading it, testing it) already worked from Android 8.
   Nothing changes on Android 12 or newer.

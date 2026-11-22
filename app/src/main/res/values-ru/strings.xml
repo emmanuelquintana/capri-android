@@ -650,13 +650,4 @@
     <string name="cv_test_speakoff">Её голос выключен (Её голос › Вкл.).</string>
     <string name="cv_test_muted">Громкость мультимедиа на нуле: прибавь и попробуй ещё раз.</string>
     <string name="vt_open">Как дать ей её голос?</string>
-    <string name="icon_title">Её значок</string>
-    <string name="icon_how">Её лицо на главном экране: выбери одну из её картинок и насколько скруглённой она будет.</string>
-    <string name="icon_shape">Форма</string>
-    <string name="icon_sys">Как у телефона</string>
-    <string name="icon_round">Круглая</string>
-    <string name="icon_rounded">Скруглённая</string>
-    <string name="icon_soft">Почти квадрат</string>
-    <string name="icon_done">Её значок сменится через несколько секунд.</string>
-    <string name="icon_note">Первый — исходный. Некоторые телефоны показывают новый значок не сразу, а некоторые убирают его с главного экрана: он остаётся в списке приложений.</string>
 </resources>

@@ -643,13 +643,4 @@
     <string name="cv_test_speakoff">Sa voix est coupée (Sa voix › Activé).</string>
     <string name="cv_test_muted">Ton volume multimédia est à 0 : monte-le et réessaie.</string>
     <string name="vt_open">Comment lui donner sa voix ?</string>
-    <string name="icon_title">Son icône</string>
-    <string name="icon_how">Son visage sur ton écran d’accueil : choisis une de ses images et à quel point tu la veux arrondie.</string>
-    <string name="icon_shape">Forme</string>
-    <string name="icon_sys">Celle du téléphone</string>
-    <string name="icon_round">Ronde</string>
-    <string name="icon_rounded">Arrondie</string>
-    <string name="icon_soft">Presque carrée</string>
-    <string name="icon_done">Son icône change dans quelques secondes.</string>
-    <string name="icon_note">La première est l’originale. Certains téléphones mettent un moment à montrer la nouvelle icône, d’autres la retirent de l’écran d’accueil : elle reste dans ta liste d’apps.</string>
 </resources>

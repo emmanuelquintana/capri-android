@@ -644,13 +644,4 @@
     <string name="cv_test_speakoff">Her voice is off (Her voice › On).</string>
     <string name="cv_test_muted">Your media volume is at 0: turn it up and try again.</string>
     <string name="vt_open">How do I give her her voice?</string>
-    <string name="icon_title">Her icon</string>
-    <string name="icon_how">Her face on your home screen: pick one of her pictures and how round you want it.</string>
-    <string name="icon_shape">Shape</string>
-    <string name="icon_sys">Phone\'s</string>
-    <string name="icon_round">Round</string>
-    <string name="icon_rounded">Rounded</string>
-    <string name="icon_soft">Almost square</string>
-    <string name="icon_done">Her icon changes in a few seconds.</string>
-    <string name="icon_note">The first one is the original. Some phones take a moment to show the new icon, and some move it off the home screen: it\'s still in your app list.</string>
 </resources>

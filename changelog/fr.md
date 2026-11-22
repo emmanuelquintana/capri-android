@@ -4,9 +4,6 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 
 ## 1.11.5
 
-- **Choisis son icône :** dans l’onglet Personnaliser, tu peux choisir l’icône de Capri parmi plusieurs de ses petites
-  bouilles, et à quel point tu la veux arrondie (comme ton téléphone, cercle, arrondie ou presque carrée). Certains
-  lanceurs mettent un moment à l’afficher, et d’autres la retirent de l’écran d’accueil (elle reste dans la liste des apps).
 - **Sa voix pour les réponses, maintenant dès Android 10 :** son moteur de voix (expérimental) marche désormais sur
   Android 10 et 11, pas seulement dès Android 12. Le reste de sa voix (ses phrases, la télécharger, l’écouter)
   marchait déjà dès Android 8. Rien ne change sur Android 12 ou plus récent.

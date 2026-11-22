@@ -27,7 +27,7 @@ object DownloadNote {
         .setColor(Hud.YELLOW)
         .setContentTitle(title)
         .setOnlyAlertOnce(true)
-        .setContentIntent(PendingIntent.getActivity(c, 11, Intent(c, Home::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+        .setContentIntent(PendingIntent.getActivity(c, 11, Intent(c, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
 
     /** [progress] 0..1, or below 0 while it doesn't know yet (a bar that moves on its own). */

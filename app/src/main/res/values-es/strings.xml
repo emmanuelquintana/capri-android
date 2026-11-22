@@ -643,13 +643,4 @@
     <string name="cv_test_speakoff">Su voz está apagada (Su voz › Activado).</string>
     <string name="cv_test_muted">Tu volumen multimedia está en 0: súbelo y prueba otra vez.</string>
     <string name="vt_open">¿Cómo le pongo su voz?</string>
-    <string name="icon_title">Su icono</string>
-    <string name="icon_how">Su cara en tu pantalla de inicio: elige una de sus imágenes y qué tan redondeada la quieres.</string>
-    <string name="icon_shape">Forma</string>
-    <string name="icon_sys">La del teléfono</string>
-    <string name="icon_round">Redondo</string>
-    <string name="icon_rounded">Redondeado</string>
-    <string name="icon_soft">Casi cuadrado</string>
-    <string name="icon_done">Su icono cambia en unos segundos.</string>
-    <string name="icon_note">El primero es el original. Algunos teléfonos tardan un momento en mostrar el icono nuevo y otros lo quitan de la pantalla de inicio: sigue en tu lista de apps.</string>
 </resources>

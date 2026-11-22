@@ -394,7 +394,7 @@ class OnboardingActivity : Activity() {
     private fun finishAndStart() {
         done(this)
         if (Settings.canDrawOverlays(this) && !CapriService.running) CapriService.start(this)
-        startActivity(Intent(this, Home::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 

@@ -48,7 +48,7 @@ class CapriWidget : AppWidgetProvider() {
         private const val EXTRA_DO = "do"
 
         private fun openApp(context: Context) {
-            context.startActivity(Intent(context, Home::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+            context.startActivity(Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
 
         private fun tap(context: Context, what: String, code: Int) = PendingIntent.getBroadcast(

@@ -643,13 +643,4 @@
     <string name="cv_test_speakoff">A voz dela está desligada (Voz dela › Ativado).</string>
     <string name="cv_test_muted">Seu volume de mídia está em 0: aumente e tente de novo.</string>
     <string name="vt_open">Como coloco a voz dela?</string>
-    <string name="icon_title">O ícone dela</string>
-    <string name="icon_how">O rosto dela na sua tela inicial: escolha uma das imagens dela e o quanto arredondada você quer.</string>
-    <string name="icon_shape">Forma</string>
-    <string name="icon_sys">A do celular</string>
-    <string name="icon_round">Redondo</string>
-    <string name="icon_rounded">Arredondado</string>
-    <string name="icon_soft">Quase quadrado</string>
-    <string name="icon_done">O ícone dela muda em alguns segundos.</string>
-    <string name="icon_note">O primeiro é o original. Alguns celulares demoram um pouco para mostrar o ícone novo e outros o tiram da tela inicial: ele continua na sua lista de apps.</string>
 </resources>

@@ -4,9 +4,6 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 
 ## 1.11.5
 
-- **Escolha o ícone dela:** na aba Personalizar você pode escolher o ícone da Capri entre várias carinhas dela e o
-  quanto quer arredondado (como o seu celular, círculo, arredondado ou quase quadrado). Alguns launchers demoram um
-  pouco para mostrar o novo, e alguns o tiram da tela inicial (continua na lista de apps).
 - **A voz dela para respostas, agora a partir do Android 10:** o motor de voz dela (experimental) já funciona no
   Android 10 e 11, não só a partir do Android 12. O resto da voz dela (as frases, baixar, testar) já funcionava a
   partir do Android 8. No Android 12 ou mais novo nada muda.

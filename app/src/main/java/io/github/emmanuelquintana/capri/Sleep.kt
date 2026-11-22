@@ -123,7 +123,7 @@ object Sleep {
         val am = c.getSystemService(AlarmManager::class.java) ?: return
         runCatching {
             if (exact(c)) {
-                val show = PendingIntent.getActivity(c, 71, Intent(c, Home::class.java), PendingIntent.FLAG_IMMUTABLE)
+                val show = PendingIntent.getActivity(c, 71, Intent(c, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
                 am.setAlarmClock(AlarmManager.AlarmClockInfo(at, show), ring(c))
             } else am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, ring(c)) // (a few minutes late, at worst)
         }.onFailure { Diag.add("W", "sleep: alarm: ${it.message}") }

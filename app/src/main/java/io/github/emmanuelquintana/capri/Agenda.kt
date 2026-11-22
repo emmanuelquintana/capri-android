@@ -210,7 +210,7 @@ object Agenda {
             description = c.getString(R.string.agenda_channel_how)
         })
         val open = if (d.event > 0) Intent(Intent.ACTION_VIEW, ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, d.event))
-        else Intent(c, Home::class.java)
+        else Intent(c, MainActivity::class.java)
         open.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         val tap = PendingIntent.getActivity(c, d.key.hashCode(), open, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         val face = face(c)

@@ -24,12 +24,3 @@ grep -q "DONE ok" now.log || exit 1
 for id in st-id-es-MX st-words-es-MX st-id-en-US st-words-en-US; do
   grep "\"$id\"" events.log | grep -q VOICE_FINISHED && echo "ok $id" || { echo "FAIL $id"; exit 1; }
 done
-# (1.11.5) her icon: switch to one of hers, open the app through it, back to the original, open it again
-icon() { adb logcat -c; adb shell am start-foreground-service -n $PKG/.CapriService -a capri.ICONTEST "$@" >/dev/null; sleep 4
-  adb logcat -d -s CapriIconTest:I | grep -o "launcher=.*"; }
-opens() { adb shell am start -W -n $PKG/$1 | grep -q "Status: ok" && sleep 2 && adb shell dumpsys activity activities | grep -E "topResumedActivity|mResumedActivity" | grep -qE "$PKG/\.(Home|OnboardingActivity)" \
-  && echo "ok opens $1" || { echo "FAIL opens $1"; exit 1; }; adb shell input keyevent HOME; }
-l=$(icon --es face capri --es shape round); echo "$l"; [ "$l" = "launcher=Icon_capri_round" ] || { echo "FAIL icon switch"; exit 1; }
-opens .Icon_capri_round
-l=$(icon); echo "$l"; [ "$l" = "launcher=MainActivity" ] || { echo "FAIL icon back"; exit 1; }
-opens .MainActivity

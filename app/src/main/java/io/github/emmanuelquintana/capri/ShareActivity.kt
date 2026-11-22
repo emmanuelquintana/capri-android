@@ -30,7 +30,7 @@ class ShareActivity : Activity() {
         super.onCreate(savedInstanceState)
         if (!Settings.canDrawOverlays(this)) {
             Toast.makeText(this, R.string.ob_need_overlay, Toast.LENGTH_LONG).show()
-            startActivity(Intent(this, Home::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
             return
         }
