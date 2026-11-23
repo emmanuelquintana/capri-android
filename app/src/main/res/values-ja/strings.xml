@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_name">画面の上のカプリ</string>
+    <string name="channel_desc">カプリを動かし続け、メニューを置いておきます。</string>
+    <string name="notify_title">カプリはオンライン</string>
+    <string name="notify_text">画面の上にいるよ。ここをタップでメニュー。</string>
+    <string name="notify_text_hidden">バイオチップにしまってあるよ</string>
+    <string name="action_menu">メニュー</string>
+    <string name="action_hide">しまう</string>
+    <string name="action_show">呼び戻す</string>
+    <string name="action_quit">終了</string>
+    <string name="main_intro">カプリはアプリの上に住んで、Claude Code、Codex、Antigravityが何をしているか教えてくれます（このスマホのTermux、またはWi-Fi経由でPC）。</string>
+    <string name="main_start">カプリを起動</string>
+    <string name="main_stop">カプリを停止</string>
+    <string name="main_ok">完了</string>
+    <string name="main_license_link">ライセンス</string>
+    <string name="hooks_copied">コマンドをコピーしました。Termuxに貼り付けてEnterを押してください。</string>
+    <string name="main_overlay">他のアプリの上に表示</string>
+    <string name="main_notify">通知を表示</string>
+    <string name="main_running">画面の上にいます。長押しでメニュー。</string>
+    <string name="main_status_on">オンライン</string>
+    <string name="main_status_off">オフライン</string>
+    <string name="main_idle">2つの権限を許可してから起動してね。</string>
+    <string name="main_granted">許可済み</string>
+    <string name="main_grant">許可する</string>
+    <string name="main_log">ログ</string>
+    <string name="main_log_empty">まだ何もありません。表示されないときは、原因がここに出ます。</string>
+    <string name="main_copy">コピー</string>
+    <string name="main_copied">ログをコピーしました</string>
+    <string name="main_ai">彼女のAI</string>
+    <string name="main_ai_pick">AIを選ぶ</string>
+    <string name="main_ai_free">無料・オンライン・アカウント不要</string>
+    <string name="main_ai_pc">PCのOllama</string>
+    <string name="main_ai_custom">自分のサーバー</string>
+    <string name="main_ai_how">画面の上に彼女のパネルを開きます：アカウント不要の無料AI、キー（Groq、Gemini、NVIDIAは無料）、またはWi-Fi経由でPCのOllama。ターミナルは不要です。</string>
+    <string name="main_notes">通知と音楽を見る（任意）：その上に飛び乗ります</string>
+    <string name="update_head">アップデート</string>
+    <string name="update_checking">新しいバージョンを探しています…</string>
+    <string name="update_latest">最新です · v%1$s</string>
+    <string name="update_offline">確認できませんでした（オフライン？）· v%1$s</string>
+    <string name="update_new">新着：v%1$s（今はv%2$s）</string>
+    <string name="update_go">アップデート</string>
+    <string name="update_downloading">ダウンロード中… %1$d %%</string>
+    <string name="update_installing">Androidが表示する画面で確認してください</string>
+    <string name="update_allow">カプリにアプリのインストールを許可して、戻ってからアップデートをタップしてください。</string>
+    <string name="update_failed">ここからはアップデートできませんでした。ダウンロードできるページを開きます。</string>
+    <string name="update_conflict">このバージョンは別の署名です：一度カプリをアンインストールしてから入れ直してください。その後は上書きでアップデートできます。</string>
+    <string name="update_channel">アップデート</string>
+    <string name="update_title">カプリ %1$s が出ました</string>
+    <string name="update_text">タップでアップデート、アンインストール不要。</string>
+    <string name="ob_linking">バイオチップに接続中…</string>
+    <string name="ob_hello">やっほー、チューム。わたしはカプリ。アプリの上に住んで、おしゃべりして、あなたのAIが何をしてるか教えるね。まずは4つだけ。</string>
+    <string name="ob_start">はじめる</string>
+    <string name="ob_name_line">何て呼べばいい？</string>
+    <string name="ob_name_how">名前かニックネーム。ときどき呼ぶね。あとで設定から変えられるよ。</string>
+    <string name="ob_name_hint">名前かニックネーム</string>
+    <string name="ob_next">次へ</string>
+    <string name="ob_skip">今はしない</string>
+    <string name="ob_back">戻る</string>
+    <string name="ob_ai_line">あなたと話すにはAIが必要なの、%1$s。</string>
+    <string name="ob_ai_how">ひとつ選んで。設定でいつでも変えられるよ。</string>
+    <string name="ai_free_title">無料・アカウント不要</string>
+    <string name="ai_free_how">ワンタップで完了。インターネット経由（Pollinations）。</string>
+    <string name="ai_key_title">キーを使う</string>
+    <string name="ai_key_how">Groq、Gemini、NVIDIAは無料：ページを開いてキーを作り、コピーしてここに貼り付けて。</string>
+    <string name="ai_pc_title">PCのOllama</string>
+    <string name="ai_pc_how">Wi-Fi経由でPCが彼女の頭脳に。Ollamaで「Expose Ollama to the network」をオンにして、PCのIPをここに入力。</string>
+    <string name="ai_key_hint">キーを貼り付け</string>
+    <string name="ai_paste">キーを貼り付け</string>
+    <string name="ai_paste_none">何もコピーされていません。</string>
+    <string name="ai_get_key">キーを取得</string>
+    <string name="ai_ip_hint">PCのIP、例：192.168.1.20</string>
+    <string name="ai_use">これを使う</string>
+    <string name="ai_checking">確認中…</string>
+    <string name="ai_ok">完了：これからは%1$sが答えます。</string>
+    <string name="ai_bad_key">そのキーは使えません。全部コピーできているか確認して。</string>
+    <string name="ai_fail">応答なし（%1$s）。アドレスか接続を確認して。</string>
+    <string name="ob_perm_line">次は権限。それぞれ何のためか説明するね。</string>
+    <string name="ob_perm_how">必要なものが先。任意のものは「権限」タブからいつでも許可できるよ。</string>
+    <string name="perm_overlay_title">他のアプリの上に表示</string>
+    <string name="perm_overlay_why">これがわたしがスマホに存在する方法：これがないと何の上にも出られないの。タップはちゃんとアプリに届くよ。触れるのはわたしとパネルだけ。</string>
+    <string name="perm_notify_title">通知</string>
+    <string name="perm_notify_why">Androidがわたしを閉じないように固定の通知が必要なの。それにわたしのパネルでもある：メニュー、しまう、終了、それにウインク。</string>
+    <string name="perm_notes_title">通知を見る</string>
+    <string name="perm_notes_why">音楽の上にコントロール付きで座ったり、通知に飛び乗ったりできるように。見るのはアプリ名とタイトルだけで、メッセージ本文は絶対に見ないし、何もスマホの外に出ないよ。注意：これをオンにすると一部の銀行アプリがブロックすることがあるから、使ってるならオフのほうがいいよ。</string>
+    <string name="perm_install_title">アップデートをインストール</string>
+    <string name="perm_install_why">アンインストールせずにGitHubから自分をアップデートできるように。毎回Androidが確認してくれるよ。</string>
+    <string name="perm_required">必須</string>
+    <string name="perm_optional">任意</string>
+    <string name="ob_done_line">準備完了、%1$s。アプリの上で会おうね。</string>
+    <string name="ob_done_how">長押しでメニュー、ドラッグで投げる、2本指でなでてね。</string>
+    <string name="ob_need_overlay">まず他のアプリの上に表示できるようにして。</string>
+    <string name="tab_news">新着</string>
+    <string name="tab_perms">権限</string>
+    <string name="tab_community">コミュニティ</string>
+    <string name="tab_settings">設定</string>
+    <string name="news_head">新着</string>
+    <string name="perms_intro">カプリがスマホでできること、そしてなぜ必要か。</string>
+    <string name="settings_name">あなたの呼び名</string>
+    <string name="settings_name_saved">これからは%1$sって呼ぶね。</string>
+    <string name="settings_save">保存</string>
+    <string name="settings_ai">彼女のAI</string>
+    <string name="settings_ai_now">現在：%1$s</string>
+    <string name="settings_ai_panel">パネルで選ぶ</string>
+    <string name="settings_intro_again">ウェルカムをもう一度</string>
+    <string name="choom">チューム</string>
+    <string name="update_browser">ブラウザでダウンロードされます。終わったら開いてアップデートをタップ：上書きでインストールされ、何も失われません。</string>
+    <string name="perms_bank_head">銀行アプリ</string>
+    <string name="perms_bank">一部の銀行アプリは、他のアプリが上に表示されたり通知を見られたりすると、何も読んでいなくてもブロックします。わたしは銀行の情報を読んだりデータを送ったりは絶対にしません。銀行アプリが文句を言うときは「通知を見る」をオフにして、開く前にわたしをしまって（通知の「しまう」）。</string>
+    <string name="dev_on">開発者モード：設定にログが表示されます。</string>
+    <string name="dev_off">開発者モードをオフにしました。</string>
+    <string name="perm_mic_title">「カプリ」と呼ぶ声を聞く</string>
+    <string name="perm_mic_why">設定で「彼女と話す」をオンにしたときだけ、画面がついているときだけ。言ったことはスマホ自身の音声認識が文字にします。わたしが残すのは名前のあとの言葉だけで、音声は録音しません。聞いている間はAndroidがマイクのマークを表示します。注意：一部の銀行アプリやウイルス対策アプリはマイクを使うアプリを警戒します。文句を言われたらオフにしてね。</string>
+    <string name="settings_voice">彼女と話す</string>
+    <string name="settings_voice_how">「カプリ」と言ってから用件を：「カプリ、今何時？」「カプリ、Spotifyを開いて」「カプリ、次の曲」「カプリ、ライトをつけて」「カプリ、10分のタイマー」「カプリ、隠れて」。それ以外はAIに届いて、声で答えます。画面がついているときだけ。</string>
+    <string name="settings_voice_on">オン：名前を待っています。</string>
+    <string name="settings_voice_off">オフ。</string>
+    <string name="settings_voice_turn_on">オンにする</string>
+    <string name="settings_voice_turn_off">オフにする</string>
+    <string name="settings_voice_nomic">マイクがないと声が聞こえません。</string>
+    <string name="settings_voice_none">このスマホには音声認識がありません（Googleアプリをインストールまたは更新してください）。</string>
+    <string name="voice_listening">● 聞いています。「カプリ…」と言って</string>
+    <string name="voice_heard">✓ 名前が聞こえた：「%1$s」</string>
+    <string name="voice_other">「%1$s」と聞こえたけど、「カプリ」じゃなかった。</string>
+    <string name="voice_busy">マイクが使用中です（通話か他のアプリ）。</string>
+    <string name="voice_media">動画や音楽の再生中は一時停止：聞くと再生が止まってしまうから。終わったら自動で戻ります。</string>
+    <string name="voice_nomic">マイクの権限がありません：「権限」で許可してください。</string>
+    <string name="voice_recmic">わたしにはマイクがあるけど、スマホの音声アプリにはないみたい。マイクの権限をあげて：設定 › アプリ › Google（またはHuaweiの音声サービス）。</string>
+    <string name="voice_screenoff">休憩中：画面がオフです。</string>
+    <string name="voice_norecognizer">このスマホには音声認識がありません（Googleアプリをインストールまたは更新してください）。</string>
+    <string name="voice_error">音声認識でエラー（エラー %1$s）。もう一度試しています…</string>
+    <string name="voice_starting">起動中…（カプリはオン？）</string>
+    <string name="tab_cmds">コマンド</string>
+    <string name="cmds_intro">声で、またはチャットに書いて頼めること。</string>
+    <string-array name="cmds">
+        <item>#彼女と話す</item>
+        <item>設定 → 彼女と話す でオンに。「カプリ」と言ってから用件を。「カプリ」だけなら数秒間聞いてくれます。全部チャットに書いても使えます。</item>
+        <item>#時間と日付</item>
+        <item>「カプリ、今何時？」</item>
+        <item>「カプリ、今日何日？」</item>
+        <item>#音楽</item>
+        <item>「カプリ、SpotifyでBad Bunnyをかけて」</item>
+        <item>「カプリ、YouTubeでNever Fade Awayをかけて」</item>
+        <item>「カプリ、一時停止」·「次」·「前」</item>
+        <item>再生中は聞いていません（止めてしまうから）：音楽バーを使うか、チャットに書いてね。</item>
+        <item>「カプリ、音量上げて」·「音量下げて」</item>
+        <item>「カプリ、音量30」·「ミュート」</item>
+        <item>#アプリ</item>
+        <item>「カプリ、WhatsAppを開いて」</item>
+        <item>「カプリ、youtube.comを開いて」</item>
+        <item>#スマホ</item>
+        <item>「カプリ、ライトをつけて」·「ライトを消して」</item>
+        <item>「カプリ、バッテリーどれくらい？」</item>
+        <item>「カプリ、空き容量はどれくらい？」</item>
+        <item>「カプリ、Wi-Fiの設定を開いて」（Bluetooth、サウンド、画面なども）</item>
+        <item>#時間</item>
+        <item>「カプリ、10分のタイマーをセットして」</item>
+        <item>「カプリ、1時間後にお母さんに電話するってリマインドして」</item>
+        <item>「カプリ、明日9時にゴミ出しをリマインドして」</item>
+        <item>#彼女</item>
+        <item>「カプリ、隠れて」·「カプリ、戻ってきて」</item>
+        <item>「カプリ、ゲーマーモード」（オフは設定かメニューから）</item>
+        <item>「カプリ、配信モード」/「カプリ、配信モードオフ」</item>
+        <item>「カプリ、これを英語に翻訳して」（画面の内容）</item>
+        <item>「カプリ、ヒントちょうだい」（画面のゲームの）</item>
+        <item>「カプリ、アイコンモード」/「カプリ、アイコンモードオフ」</item>
+        <item>「カプリ、チャットを開いて」</item>
+        <item>「カプリ、エマって呼んで」</item>
+        <item>「カプリ、わたしがコーヒー好きなこと覚えて」</item>
+        <item>「カプリ、聞くのをやめて」</item>
+        <item>#画面</item>
+        <item>「カプリ、画面を見て」（先にAndroidが確認します。Geminiのような画像が見えるAIが必要）</item>
+        <item>ライブ：設定 → 画面を見せる → ライブで見る</item>
+        <item>#スマホ</item>
+        <item>「カプリ、戻って」「ホームへ」「下にスクロール」</item>
+        <item>「カプリ、設定をタップ」「ここにこんにちはって入力」</item>
+        <item>先にオンに：カスタマイズ → 彼女がスマホを操作</item>
+        <item>「カプリ、分身して」（または2本指で広げる）·「元に戻って」</item>
+        <item>#その他</item>
+        <item>それ以外はAIに届いて、声で答えます：「カプリ、ジョーク言って」「カプリ、猫ってスペイン語で何？」</item>
+    </string-array>
+    <plurals name="news_changes">
+        <item quantity="other">%d件の変更 · タップで表示</item>
+    </plurals>
+    <string name="settings_her">画面の上のカプリ</string>
+    <string name="settings_size">サイズ</string>
+    <string name="size_xs">ミニ</string>
+    <string name="size_s">小</string>
+    <string name="size_m">普通</string>
+    <string name="size_l">大</string>
+    <string name="size_xl">特大</string>
+    <string name="community_title">コミュニティに参加</string>
+    <string name="community_how">カプリのニュースを誰より早く、アイデア、バグ報告、そして同じくスマホにカプリがいる仲間。Discordに来て、TikTokもフォローしてね。</string>
+    <string name="community_discord">Discordに参加</string>
+    <string name="community_tiktok">TikTokでフォロー</string>
+    <string name="community_later">今はしない</string>
+    <string name="settings_lang">Idioma · Language · 言語</string>
+    <string name="lang_auto">自動</string>
+    <string name="settings_float">無重力</string>
+    <string name="settings_float_how">置いた場所にぴったりとどまります。空中でも：離せばそこで浮かびます。勝手に歩き回ったり通知に飛び乗ったりせず、はじいても飛ばないから怒りません。隅やチャットの横に置けばそこにいます。</string>
+    <string name="settings_icon">アイコンモード</string>
+    <string name="settings_icon_how">緑のマスクだけが目を開けたまま画面に残り、そこからコメントを続けます（画面、ゲーム、チャット）。邪魔にならない場所に指でドラッグして、タップでメニュー。大きい彼女が好きな人に便利：出ているときは大きく、アイコンならほとんど場所をとりません。</string>
+    <string name="settings_gamer">ゲーマーモード</string>
+    <string name="settings_gamer_how">プレイ中用：小さく半透明になって隅でプレイを見守ります（透明度：ワードローブ › エフェクト）。タッチに反応するのは顔だけ、カードは出さず、聞くのもやめて、ときどき応援します。メニューや「カプリ、ゲーマーモード」でも。もう一度タップするか再起動でオフ。</string>
+    <string name="settings_gamer_auto">ゲームを開いたら自動で</string>
+    <string name="settings_gamer_auto_how">ゲームを開くとオンに、閉じるとオフになります。Androidの設定で「使用状況へのアクセス」が必要です（見えるのはどのアプリが開いているかだけで、中身は見ません）。注意：一部の銀行アプリやウイルス対策アプリはこの権限を警戒します。文句を言われたらオフのままに。</string>
+    <string name="settings_gamer_auto_grant">リストからカプリを探して「使用状況へのアクセスを許可」をオンにしてください。</string>
+    <string name="voice_gamer">一時停止：ゲーマーモード。</string>
+    <string name="settings_music">音楽バー</string>
+    <string name="music_always">常に</string>
+    <string name="music_while">しばらく</string>
+    <string name="music_off">表示しない</string>
+    <string name="settings_lively">動き</string>
+    <string name="lively_calm">おだやか</string>
+    <string name="lively_normal">普通</string>
+    <string name="lively_restless">そわそわ</string>
+    <string name="settings_ghost">ゴーストモード</string>
+    <string name="settings_ghost_how">画面には残りますが、タッチは彼女をすり抜けてアプリに届きます。顔だけはタッチに反応：顔をドラッグするか、長押しでメニュー。</string>
+    <string name="on">オン</string>
+    <string name="off">オフ</string>
+    <string name="settings_look">画面を見せる</string>
+    <string name="settings_look_how">「カプリ、画面を見て」（またはボタン）で一度だけ見てコメントします。ライブでは、オフにするまでときどき、そしてアプリを切り替えたときに見ます。開始のたびにAndroidが確認し、見ている間は録画の通知が出ます。画像はチャットのAIにだけ送られ、銀行アプリは黒く映ります。Geminiのような画像が見えるAIが必要です（キーは無料）。カプリの無料AIは見えません。</string>
+    <string name="settings_look_now">今すぐ画面を見て</string>
+    <string name="settings_look_live_on">ライブで見る</string>
+    <string name="settings_look_live_off">ライブをやめる</string>
+    <string name="settings_need_on">先にカプリを起動してください（新着から）。</string>
+    <string name="settings_memory">あなたについて覚えていること</string>
+    <string name="settings_memory_how">チャットのあと、カプリは大事なこと（好きなもの、話に出てくる人、あなたの近況）をメモして次回に覚えています。このスマホにだけ保存され、メモするためにチャットごとに一度AIに尋ねます。</string>
+    <string name="settings_memory_none">まだ何も覚えていません。しばらくおしゃべりしてみて。</string>
+    <string name="settings_memory_forget">全部忘れる</string>
+    <string name="settings_memory_forget_one">これを忘れる</string>
+    <string name="settings_memory_forgot">忘れました。</string>
+    <string name="ai_key_saved_hint">空のままにすると保存済みのキーを使います</string>
+    <string name="settings_intro_again_how">ウェルカムをもう一度見るだけです。AI、キー、設定はそのまま。AIのステップでは「次へ」をタップしてください。</string>
+    <string name="settings_intro_again_go">もう一度</string>
+    <string name="settings_care">あなたを気づかう</string>
+    <string name="settings_battery">バッテリー通知</string>
+    <string name="settings_battery_how">選んだ％まで充電されたときと、残り少なくなったときに教えてくれます。バッテリーはAndroidが教えてくれるので権限は不要です。</string>
+    <string name="settings_battery_full">ここまで充電されたら教えて</string>
+    <string name="settings_battery_low">ここまで下がったら教えて</string>
+    <string name="settings_breaks">休憩</string>
+    <string name="settings_breaks_how">スマホを置かずにこの時間がたつと、目を休めるように言ってくれます。画面を5分オフにすると休憩としてカウントされます。</string>
+    <string name="ai_sees">👁 = 画面を見られる。見られる：Gemini、OpenAI、Groq、OpenRouter、Mistral、NVIDIA（画像が見えるモデルを選びます）。見られない：DeepSeekと無料AI。Ollamaではビジョンモデルのみ（llava、gemma3、qwen-vl）。</string>
+    <string name="voice_filter">ノイズフィルター</string>
+    <string name="voice_filter_how">人やテレビがそばにあると、名前が聞こえたと勘違いすることがあります。厳しめ：「カプリ」が最初に、はっきり言われたときだけ答えます。厳しめでは、スマホが手の中で動いている間に聞こえた声も無視します。</string>
+    <string name="voice_filter_normal">普通</string>
+    <string name="voice_filter_strict">厳しめ</string>
+    <string name="voice_filter_strictest">とても厳しい</string>
+    <string name="voice_pace">あなたの話し方</string>
+    <string name="voice_pace_fast">速い</string>
+    <string name="voice_pace_normal">普通</string>
+    <string name="voice_pace_slow">ゆっくり</string>
+    <string name="voice_pitch">彼女の声</string>
+    <string name="voice_low">低く</string>
+    <string name="voice_high">高く</string>
+    <string name="voice_rate">話す速さ</string>
+    <string name="voice_slower">ゆっくり</string>
+    <string name="voice_faster">速く</string>
+    <string name="closet_tag">ワードローブ</string>
+    <string name="closet_new">1.8の新機能</string>
+    <string name="closet_title">好きなように着せ替え</string>
+    <string name="closet_outfits">衣装</string>
+    <string name="closet_things">アクセサリー</string>
+    <string name="closet_anims">アニメーション</string>
+    <string name="closet_how">普段着と『サイバーパンク エッジランナーズ』の衣装（デイビッド、ルーシー、レベッカ、キーウィ、タリア…）、アクセサリー、オーラ、サンデヴィスタン、そして透明度。着せ替え中はパネルの上に乗るので、変化がすべて見えます。</string>
+    <string name="closet_alive">そして今はアニメみたいにコマ送りで動きます：踊って、丸まって寝て、プレイを見守って、一緒に音楽を聴いて、投げられると目を回して…</string>
+    <string name="closet_where">いつでも開けます：長押しして「着せ替え」をタップ、または「カプリ、着替えて」と言って。</string>
+    <string name="closet_open">ワードローブを開く</string>
+    <string name="closet_on_screen">画面の上で着せ替え</string>
+    <string name="share_target">カプリに見せる</string>
+    <string name="share_sending">カプリに送っています…</string>
+    <string name="share_failed">カプリはそれを開けませんでした</string>
+    <string name="voice_accent">アクセント</string>
+    <string name="voice_accent_how">この言語での話し方を、地域ごとの話し方に合わせます（聞き取りにも役立ちます）。スマホにその声がない場合は、その言語の通常の声を使います。Googleの音声エンジンにはほとんどあります。</string>
+    <string name="accent_mx">メキシコ</string>
+    <string name="accent_es">スペイン</string>
+    <string name="accent_ar">アルゼンチン</string>
+    <string name="accent_co">コロンビア</string>
+    <string name="accent_us_latino">米国ラテン系</string>
+    <string name="accent_us">アメリカ</string>
+    <string name="accent_gb">イギリス</string>
+    <string name="accent_au">オーストラリア</string>
+    <string name="accent_in">インド</string>
+    <string name="accent_br">ブラジル</string>
+    <string name="accent_pt">ポルトガル</string>
+    <string name="accent_fr">フランス</string>
+    <string name="accent_ca">ケベック</string>
+    <string name="settings_game_tips">プレイ中のヒント</string>
+    <string name="settings_game_tips_how">ゲーマーモードでライブ視聴がオンのとき（画面を見ているとき）、数分ごとにプレイ中のゲームのヒントをくれます。いつでも頼めます：「カプリ、ヒントちょうだい」「ここどうすればいい？」。AIが画像を見られる必要があります。</string>
+    <string name="settings_streaming">配信モード</string>
+    <string name="settings_streaming_how">ライブ配信中用（TikTok、Twitch、YouTube、Kick…）：画面から視聴者のコメントを読んで、共同ホストとして声で答えます。ログインもアプリとの連携も不要：見るのは画面だけ（Androidが共有の確認をします）。AIが画像を見られる必要があります。「カプリ、配信モード」でも。もう一度タップするか再起動でオフ。</string>
+    <string name="settings_streaming_start">先にカプリを起動してください。</string>
+    <string name="voice_moved">スマホが動いている間に「%1$s」と聞こえた：無視しました（こすれた音で、あなたじゃない）。</string>
+    <string name="settings_perf">パフォーマンス</string>
+    <string name="settings_perf_how">ライトモードは少ないピクセルで描画し、メニュー背後のぼかしを省きます：古いスマホでもなめらかに動き、電池も長持ち。自動では、メモリが少ないスマホや古いAndroidでオンになります。</string>
+    <string name="settings_perf_now">このスマホ：%1$s</string>
+    <string name="perf_auto">自動</string>
+    <string name="perf_lite">ライト</string>
+    <string name="perf_full">フル</string>
+    <string name="perf_is_lite">ライトモード</string>
+    <string name="perf_is_full">フルモード</string>
+    <string name="webview_old_title">「Android System WebView」を更新</string>
+    <string name="webview_old_how">カプリはAndroid System WebViewで描画されていて、このスマホのもの（バージョン%1$d）は古すぎます：表示されなかったり固まったりするかもしれません。Playストアから更新して（無料で安全、Androidの一部です）、もう一度起動してください。</string>
+    <string name="webview_update">WebViewを更新</string>
+    <string name="voice_far">遠くの音（テレビや他の人）が聞こえた：無視しました。</string>
+    <string name="tab_you">あなた</string>
+    <string name="tab_style">カスタマイズ</string>
+    <string name="you_intro">カプリがあなたについて知っていること：呼び名、誕生日、覚えていること、気づかい方。</string>
+    <string name="style_intro">あなたのカプリの見た目、ふるまい、声。</string>
+    <string name="settings_intro">全般：権限、言語、AI、耳、モード、アプリの動作。</string>
+    <string name="settings_modes">モード</string>
+    <string name="settings_her_voice">彼女の声</string>
+    <string name="you_birthday">あなたの誕生日</string>
+    <string name="you_birthday_how">その日はお祝い：紙吹雪、声でお誕生日おめでとう、そしてパーティー。チャットで聞いてくることもあります。</string>
+    <string name="you_birthday_none">未設定</string>
+    <string name="you_birthday_pick">日付を選ぶ</string>
+    <string name="you_birthday_clear">削除</string>
+    <string name="settings_stats">匿名の統計</string>
+    <string name="settings_stats_how">1日1回、初回に作られたランダムな番号（スマホやアカウントのものではない）、アプリのバージョン、言語、Androidのバージョンを送り、何人がカプリを使っているかエマにわかるようにします。それだけ：名前もチャットもスマホの中身も送りません。</string>
+    <string name="settings_ghost_cards">カードも</string>
+    <string name="settings_ghost_cards_how">ゴーストモード中、タッチが通知や音楽のカードもすり抜けます。オフ：すり抜けるのは彼女だけで、カードは触れます。</string>
+    <string name="peek_title">通知をのぞき込む</string>
+    <string name="peek_how">通知パネルやクイック設定を下ろすと、カプリが横からのぞいて手を振ります。Androidがそのパネルの上にアプリを出せるのはユーザー補助経由だけなので、そこでオンにします：ユーザー補助 › Capri。何も読まず、何も触りません。パネルが開いたことを知らされるだけです。一部の銀行アプリは、ユーザー補助がオンのアプリがあると開きません。制限付き設定と表示されたら：アプリ情報 › ⋮ › 制限付き設定を許可。</string>
+    <string name="peek_on">● オン</string>
+    <string name="peek_off">オフ</string>
+    <string name="peek_turn_on">ユーザー補助でオン</string>
+    <string name="peek_turn_off">ユーザー補助でオフ</string>
+    <string name="peek_service_label">通知の中のカプリ</string>
+    <string name="peek_service_desc">通知パネルやクイック設定を下ろすと、カプリがのぞき込みます。Androidのパネルが開いたことをアプリに伝えるだけで、画面の内容を読んだり、何かに触れたり、他のアプリを見たりはしません。</string>
+    <string name="peek_service_summary">通知パネルを下ろすとカプリがのぞき込みます</string>
+    <string name="perms_summary">%2$d件中%1$d件を許可</string>
+    <string name="perms_show">権限を見る</string>
+    <string name="perms_hide">権限を隠す</string>
+    <string name="widget_label">Capri</string>
+    <string name="widget_desc">カプリのクイック操作：起動、話す、画面を見る、着せ替え</string>
+    <string name="widget_off">○ オフ</string>
+    <string name="widget_on">● オンライン</string>
+    <string name="widget_hidden">● しまい中</string>
+    <string name="widget_start">起動</string>
+    <string name="widget_talk">話す</string>
+    <string name="widget_look">見る</string>
+    <string name="widget_dress">着せる</string>
+    <string name="widget_hide">隠す</string>
+    <string name="widget_show">出す</string>
+    <string name="widget_app">アプリ</string>
+    <string name="you_classes">あなたの授業</string>
+    <string name="you_classes_how">授業がある曜日と時間を教えて：1時間前に特別な通知を送るね。全部スマホの中だけ。</string>
+    <string name="you_classes_none">まだ授業が登録されていません。</string>
+    <string name="you_class_add">授業を追加</string>
+    <string name="you_class_name">科目（任意）</string>
+    <string name="you_class_days">何曜日？</string>
+    <string name="you_class_time">何時に始まる？</string>
+    <string name="you_calendar">あなたのカレンダー</string>
+    <string name="you_calendar_how">よければカレンダーを読んで、予定を前日の夜と1時間前に知らせるよ。読むだけで何も変えないし、何もスマホの外に出ません。</string>
+    <string name="you_calendar_denied">カレンダーの権限がないと見られません。Androidの設定で許可できます。</string>
+    <string name="agenda_channel">授業と予定</string>
+    <string name="agenda_channel_how">カプリが授業とカレンダーの予定を知らせます。</string>
+    <string name="agenda_class_default">授業</string>
+    <string name="agenda_event_default">（タイトルなし）</string>
+    <string name="agenda_class_title">📚 授業の日だよ、%1$s！</string>
+    <string name="agenda_class_text">%2$sに%1$s。準備して、何か食べて、遅れないでね。席とっておくから。</string>
+    <string name="agenda_tomorrow_title">📅 明日：%1$s</string>
+    <string name="agenda_tomorrow_text">%1$sから。わたしも覚えておくけど、あなたもね？</string>
+    <string name="agenda_tomorrow_allday">一日中だよ。今日から準備して。</string>
+    <string name="agenda_today_title">📅 今日：%1$s</string>
+    <string name="agenda_today_text">今日がその日だよ、チューム。思いきりね。</string>
+    <string name="agenda_soon_title">⏰ %1$s：%2$s</string>
+    <string name="agenda_soon_text">もうすぐだよ、チューム。走らなくていいように早めに教えるね。</string>
+    <string name="settings_report">バグを報告</string>
+    <string name="settings_report_how">何があったか教えてくれれば、Discordでエマに届きます。一緒に送られるのはアプリのバージョン、Androidとスマホの機種、カプリの内部エラーログで、名前、メッセージ、キーは含みません。</string>
+    <string name="settings_report_hint">何があった？何をしてた？</string>
+    <string name="settings_report_send">送信</string>
+    <string name="report_empty">何があったか、もう少し詳しく教えて。</string>
+    <string name="report_sending">送信中…</string>
+    <string name="report_ok">送信しました。ありがとう、チューム：エマが確認します。</string>
+    <string name="report_rate">もういくつか送ってくれたね。1時間後にもう一度試して。</string>
+    <string name="report_off">今は報告を受け付けていません。あとでもう一度。</string>
+    <string name="report_net">接続がありません。インターネットを確認してもう一度。</string>
+    <string name="report_bad">送信できませんでした。あとでもう一度。</string>
+    <string name="you_games_title">彼女と遊ぶ</string>
+    <string name="you_games_open">遊ぶ</string>
+    <string name="you_chatlog_title">チャット履歴</string>
+    <string name="you_chatlog_how">チャットで話したことと彼女の返事を、日ごとに検索付きで。このスマホにだけ保存されます。</string>
+    <string name="you_chatlog_open">履歴を見る</string>
+    <string name="settings_saver">バッテリーセーバー</string>
+    <string name="settings_saver_how">バッテリーがこのレベルまで下がると（充電中でなければ）、電池を一番使うものを充電まで休ませます：耳、画面のライブ視聴、アニメーションとリアクション、描画回数も減らします。</string>
+    <string name="settings_autodress">自分で着替える</string>
+    <string name="settings_autodress_how">ときどき別の衣装を選んで見せびらかします。それぞれけっこう長く着ていて、数分ごとに変えたりはしません。彼女の色は絶対に変わりません。</string>
+    <string name="autodress_day">1日</string>
+    <string name="voice_speak">彼女の声</string>
+    <string name="voice_speak_how">オフ：聞いて答えるけど、文字だけ。</string>
+    <string name="voice_speak_chat">チャットの返事を声で読む</string>
+    <string name="voice_speak_chat_how">チャット（吹き出しとチャットタブ）での返事も声で話します。話しかけたときだけではありません。長い返事は最初の数文。</string>
+    <string name="settings_musicapp">リクエストした曲</string>
+    <string name="settings_musicapp_how">曲を頼んだら、ここで再生されます（Spotifyはインストールされている場合のみ。なければWebで開きます）。</string>
+    <string name="control_title">スマホを代わりに操作</string>
+    <string name="control_how">「カプリ、戻って」「ホームへ」「通知を開いて」「下にスクロール」「設定をタップ」「ここにこんにちはって入力」と、声かチャットで頼んで。Androidではユーザー補助経由でしかできないので、そこでオンにします：ユーザー補助 › Capriがスマホを操作。頼まれたときだけ動き、そのときだけ画面を読んで名前の付いたものを探し、何も保存しません。銀行や支払いアプリの中では絶対に操作せず、パスワード欄には入力せず、ロック画面では何もしません。おまけ：これをオンにすると、Androidのユーザー補助ボタン（またはフローティングボタン）で、動画やゲームを含むどのアプリの上にもパッと現れ、また隠れます。</string>
+    <string name="control_bank">注意：一部の銀行アプリ（Nuなど）は、ユーザー補助がオンのアプリがあると開きません。文句を言われたら、開く前にこれをオフにして。</string>
+    <string name="control_service_label">Capriがスマホを操作</string>
+    <string name="control_service_desc">頼んだときだけ、カプリが頼んだことをします：戻る、ホーム、通知や最近のアプリを開く、スクロール、名前でボタンをタップ、今いる入力欄に入力。そのときだけ前面のアプリを読んで名前の付いたものを探し、何も保存しません。銀行や支払いアプリでは操作せず、パスワードは入力せず、ロック画面では何もしません。</string>
+    <string name="control_service_summary">頼まれたらカプリが戻る・スクロール・タップ・入力をします</string>
+    <string name="support_title">カプリを応援する？</string>
+    <string name="support_text">カプリは無料で、広告もアカウントもなく、わたしひとりで作っています。気に入ってくれて余裕があれば、PayPalでの寄付が改善を続ける助けになります。なくても大丈夫：カプリはまったく同じままです。</string>
+    <string name="support_paypal">PayPalで応援</string>
+    <string name="support_never">今後表示しない</string>
+    <string name="tab_chat">チャット</string>
+    <string name="tab_games">ゲーム</string>
+    <string name="chat_hint">メッセージを書く…</string>
+    <string name="chat_send">送信</string>
+    <string name="chat_help">何を聞ける？</string>
+    <string name="chat_hello">やっほー、%1$s。ここがわたしたちのチャットだよ：何でも書いてね。</string>
+    <string name="chat_you">チューム</string>
+    <string name="chat_typing">入力中…</string>
+    <string name="chat_online">オンライン</string>
+    <string name="chat_asleep">おやすみ中 · メッセージで起こして</string>
+    <string name="chat_waking">（起きてるところ…数秒ちょうだい）</string>
+    <string name="chat_noreply">接続が切れちゃった。もう一度試してくれる？</string>
+    <string name="chat_voice_prep">🔊 声を準備中…</string>
+    <string name="chat_voice_gen">🔊 声を生成中 %1$d%%</string>
+    <string name="chat_voice_talk">🔊 話し中</string>
+    <string name="chat_voice_talk_pct">🔊 話し中 · %1$d%%</string>
+    <string name="main_donate">寄付</string>
+    <string name="games_open">ゲームセンターを開く</string>
+    <string name="games_new">NEW</string>
+    <string name="games_hide_title">プレイ中の浮遊カプリ</string>
+    <string name="games_hide_how">ここで遊んでいる間、画面の上に浮かんでいるカプリはゲームを隠さないように脇によけます。ゲームの隅からちゃんと見ています。</string>
+    <string name="games_hide_on">隠す</string>
+    <string name="games_hide_off">そのまま</string>
+    <string name="you_games_how">チェス、マインスイーパー、21、三目並べ、ピンポン、じゃんけん、コネクトフォー、神経衰弱、ニューラルシーケンスを、ネットなしでスマホで。彼女が対戦して感想を言います。「カプリ、遊ぼう」でもOK。</string>
+    <string-array name="game_names">
+        <item>チェス</item>
+        <item>マインスイーパー</item>
+        <item>21</item>
+        <item>三目並べ</item>
+        <item>ピンポン</item>
+        <item>じゃんけん</item>
+        <item>コネクトフォー</item>
+        <item>神経衰弱</item>
+        <item>ニューラルシーケンス</item>
+    </string-array>
+    <string name="huawei_title">あなたのHuawei / Honor</string>
+    <string name="huawei_how">これらのスマホはバックグラウンドのアプリを閉じ、Googleのサービスがない機種もあります。カプリを完全に動かす3ステップ：</string>
+    <string name="huawei_background">バックグラウンドで動かす</string>
+    <string name="huawei_background_how">「アプリ起動」でカプリを探し、「自動管理」をオフにして3つのオプション（自動起動、関連起動、バックグラウンドで実行）をオンに。</string>
+    <string name="huawei_battery">カプリのバッテリー制限をなしに</string>
+    <string name="huawei_voice">声：音声をインストール</string>
+    <string name="huawei_voice_how">声で話さないときは、そこであなたの言語の音声合成エンジンを選ぶかインストールして。あなたの声を聞くには音声認識（GoogleアプリかHuaweiのもの）が必要です。なければチャットで話しかけてね。</string>
+    <string name="settings_voice_none_huawei">このHuaweiにはアプリ用の音声認識がありません。チャットで話しかけるか、インストールしてください（設定 › あなたのHuaweiに説明があります）。</string>
+    <string name="live_chat">チャット</string>
+    <string name="live_title">ステータスバーのピル</string>
+    <string name="live_how">Android 16以上では、カプリが時計の横のピル（気分付き）に、Samsungならロック画面のNow Barにも住めます。チャット、メニュー、隠すボタン付き。機種によります：表示されないときは、カプリの「ライブアップデート」を許可してください。</string>
+    <string name="live_on">オン</string>
+    <string name="live_off">オフ</string>
+    <string name="live_allow">Androidで許可</string>
+    <string name="sleep_channel">カプリのアラーム</string>
+    <string name="sleep_ring_title">カプリ：起きる時間だよ！</string>
+    <string name="sleep_ring_text">起きて、チューム！アラームを止めて。</string>
+    <string name="sleep_ring_text_name">起きて、%1$s！アラームを止めて。</string>
+    <string name="sleep_off">止める</string>
+    <string name="sleep_snooze">あと5分</string>
+    <string name="sleep_summary">%1$d時間%2$d分寝ました。</string>
+    <string name="sleep_summary_none">一晩中画面をつけなかったね。えらい。</string>
+    <string name="sleep_title">スリープモード</string>
+    <string name="sleep_how">カプリが一緒に寝ます：画面の上で丸くなって、夜中に画面をつけた回数を数え、希望ならアラームで起こします（止めるまで鳴りやみません）。夜の記録はこのスマホにだけ残ります。</string>
+    <string name="sleep_alarm_none">アラームなし</string>
+    <string name="sleep_alarm_at">アラーム：%1$s</string>
+    <string name="sleep_go">カプリと寝る</string>
+    <string name="sleep_woke">起きた</string>
+    <string name="sleep_now">%1$sから就寝中 · 画面をつけた回数 %2$d</string>
+    <string name="sleep_last">昨夜：</string>
+    <string name="sleep_exact_btn">時間ぴったりに鳴らす</string>
+    <plurals name="sleep_summary_times">
+        <item quantity="other">画面を%1$d回つけました（起きていた時間 %2$d分）。</item>
+    </plurals>
+    <string name="neuro_title">ニューロダンス</string>
+    <string name="neuro_how">ブレインダンス：あなたのために記録された彼女の記憶。たくさん愛情をあげると（なでる、話す）、ときどきひとつ記録してくれます。見たあとは感想も教えてくれます。「カプリ、ブレインダンスちょうだい」と頼むこともできます。</string>
+    <string name="neuro_open">ブレインダンスを見る</string>
+    <string name="neuro_none">まだありません。愛情をあげてね。</string>
+    <string name="neuro_channel">カプリのブレインダンス</string>
+    <string name="neuro_notify_title">カプリがブレインダンスを記録したよ</string>
+    <string name="neuro_notify_text">「%1$s」。タップして見てね。</string>
+    <plurals name="neuro_new">
+        <item quantity="other">未視聴の新しいブレインダンス %d件</item>
+    </plurals>
+    <plurals name="neuro_count">
+        <item quantity="other">保存中のブレインダンス %d件</item>
+    </plurals>
+    <string name="cv_title">Capri Voice（録音された声）</string>
+    <string name="cv_how">彼女自身の声で、フレーズごとに、オフラインで、モデルを読み込まずに：あいさつ、さよなら、なでたとき、おやすみ。言語ごとの任意パック。</string>
+    <string name="cv_clips">彼女の声のフレーズ</string>
+    <string name="cv_answers">新しい返事</string>
+    <string name="cv_answers_how">AI（Gemini、Grok…）の返事は書かれたとおりに話します：彼女のエンジンが入っていれば彼女の声（自動）、またはスマホの声、または文字だけ。</string>
+    <string name="cv_engine_system">スマホの声</string>
+    <string name="cv_engine_text">文字だけ</string>
+    <string name="cv_mode">パフォーマンス</string>
+    <string name="cv_mode_how">自動：フレーズは彼女の声、新しい返事もエンジンがあれば彼女の声（なければスマホの声）。ライト：モデルを読み込まない。最大の忠実度：彼女の声だけ、なければ文字。</string>
+    <string name="cv_mode_fidelity">最大の忠実度</string>
+    <string name="cv_mode_balanced">バランス</string>
+    <string name="cv_mode_custom">カスタム</string>
+    <string name="cv_volume">フレーズの音量</string>
+    <string name="cv_speed">フレーズの速さ</string>
+    <string name="cv_vol_low">小</string>
+    <string name="cv_vol_mid">中</string>
+    <string name="cv_vol_high">大</string>
+    <string name="cv_signature">SIGNATURE V7.2仕上げ：スペイン語のフレーズにすでに入っています（二重にはかけません）。英語は承認どおりなし。</string>
+    <string name="cv_engine_state">エンジン：フレーズ（モデルなし）· 新しい返事の彼女の声（彼女のエンジン）· スマホの声 · 文字だけ</string>
+    <string name="cv_test">彼女の声を聞く</string>
+    <string name="cv_lang_es">スペイン語（ラテンアメリカ）</string>
+    <string name="cv_lang_en">英語</string>
+    <string name="cv_installed">%1$s · v%2$s · %3$dフレーズ</string>
+    <string name="cv_missing">%1$s · 未インストール</string>
+    <string name="cv_install">ファイルからインストール</string>
+    <string name="cv_download">ダウンロード</string>
+    <string name="cv_repair">修復</string>
+    <string name="cv_remove">削除</string>
+    <string name="cv_verify">確認</string>
+    <string name="cv_storage">スマホで%sを使用</string>
+    <string name="cv_private">パックはGitHubのカプリの公開チャンネルから届き、展開前に1バイトずつ確認されます。ファイルからインストールすることもできます。</string>
+    <string name="cv_nochannel">カプリの音声チャンネルに接続できませんでした。</string>
+    <string name="cv_ok">完了。</string>
+    <string name="cv_err">できませんでした：%s</string>
+    <string name="cv_err_notv8">そのファイルは確認済みのCapri Voice V8パックではありません。</string>
+    <string name="cv_err_needfile">元のパックがありません：ファイルからもう一度インストールしてください。</string>
+    <string name="cv_wait">別のダウンロードが進行中です。終わってからもう一度タップしてください。</string>
+    <string name="cv_wait_pct">別のダウンロードが進行中です（%1$d%%）。終わってからもう一度タップしてください。</string>
+    <string name="cv_busy">処理中…</string>
+    <string name="cv_no_phrase">この言語の彼女のフレーズはまだありません：パックをインストールしてください。</string>
+    <string name="cv_mode_auto">自動</string>
+    <string name="cv_mode_light">ライト</string>
+    <string name="cv_why_auto">自動/バランス：彼女の瞬間には彼女のフレーズ。新しい返事は、エンジンが入っていてメモリが足りれば彼女の声、なければスマホの声。</string>
+    <string name="cv_why_light">ライト：モデルは読み込みません。彼女のフレーズ（モデルなし）とスマホの声。</string>
+    <string name="cv_why_fidelity">最大の忠実度：彼女の声だけ。新しい返事は彼女のエンジンで、なければ文字で。</string>
+    <string name="cv_why_custom">カスタム：下でエンジンを選んでください。</string>
+    <string name="cv_why_custom_neural">カスタム：選んだエンジンで、新しい返事も彼女の声。</string>
+    <string name="cv_neural_now">ここのニューラル音声：%s</string>
+    <string name="cv_engine_neural">彼女の声</string>
+    <string name="cv_ab">声を比べる（A/B）</string>
+    <string name="cv_ab_how">同じ新しい文を2つのエンジンで順番に。比較のためのダウンロードはありません。録音フレーズは新しい文を言えないので、A/Bでは代わりにあいさつを流します。</string>
+    <string name="cv_src_clip">フレーズV8</string>
+    <string name="cv_ab_play">%sを聞く</string>
+    <string name="cv_ab_stop">停止</string>
+    <string name="cv_ab_pick">%sにする</string>
+    <string name="cv_ab_sentence">ねえ、チューム！その問題を解決する方法を3つ見つけたよ。</string>
+    <string name="cv_ab_clip_note">録音フレーズ：%s</string>
+    <string name="cv_ab_clip_kept">彼女の瞬間にはフレーズがそのまま使われます。</string>
+    <string name="cv_ab_r_clip">フレーズV8 · %1$s · 承認済みの声 · モデルなし · %2$s</string>
+    <string name="cv_ab_r_system">スマホの声 · %s · システムの声、カプリの声ではありません</string>
+    <string name="cv_ab_r_neural">彼女の声（Qwen 0.6B、ICL）· %1$s · %2$s</string>
+    <string name="cv_advanced">詳細：彼女のエンジン</string>
+    <string name="cv_neural_title">スマホでQwen3-TTS 0.6B</string>
+    <string name="cv_neural_how">承認済みの声プロフィールをICLモードで、PCと同じ。最初の返事で読み込まれ、使わないときやメモリ不足のときに解放されます。モデルファイルやプロフィールはファイルからもインストールできます。</string>
+    <string name="cv_neural_download">モデルをダウンロード</string>
+    <string name="cv_neural_import">ファイルからモデル</string>
+    <string name="cv_neural_profile">プロフィールをインストール</string>
+    <string name="cv_neural_cancel">キャンセル</string>
+    <string name="cv_neural_rm_model">モデルを削除</string>
+    <string name="cv_neural_rm_profile">プロフィールを削除</string>
+    <string name="cv_dsp">スペイン語の新しい返事にSIGNATURE（1回）</string>
+    <string name="cv_threads">プロセッサのスレッド</string>
+    <string name="cv_auto">自動</string>
+    <string name="cv_unload">メモリを解放するまで</string>
+    <string name="cv_fallback">今話せないとき</string>
+    <string name="cv_hw">スマホ：Android API %1$d · %2$s · %3$dコア · 空き%4$s / %5$s · ストレージ空き%6$s</string>
+    <string name="cv_metrics">前回（%1$s）：読み込み %2$d ms · 最初の音 %3$d ms · RTF %4$.2f · ピーク %5$s</string>
+    <string name="cv_last_fallback">前回の返事では使えませんでした：%s</string>
+    <string name="cv_neural_cant">まだ使えません：%s</string>
+    <string name="cv_neural_experimental">スマホでの彼女の声：実機ではまだ耳で確認していません。</string>
+    <string name="cv_n_api">非対応（Android 10以上が必要）</string>
+    <string name="cv_n_abi">非対応（64ビットのプロセッサが必要）</string>
+    <string name="cv_n_native">エンジンの読み込みエラー</string>
+    <string name="cv_n_nomodel">対応 · エンジン未インストール（%sから）</string>
+    <string name="cv_n_noprofile">対応 · モデルあり · プロフィールなし</string>
+    <string name="cv_n_loaded">準備完了 · 読み込み済み</string>
+    <string name="cv_n_ready">準備完了</string>
+    <string name="cv_need_capri">先にカプリを起動してください。</string>
+    <string name="settings_personal">個人設定</string>
+    <string name="settings_personal_how">あなたの名前、チャット履歴、ニューロダンス、スリープモード、誕生日、授業、覚えていること、気づかい方。</string>
+    <string name="settings_voice_screen">音声設定</string>
+    <string name="settings_voice_screen_how">彼女の声：ダウンロード、新しい返事のエンジン（ひとつずつ追加・削除、忠実度の高低）、フレーズ、耳、スマホの声。</string>
+    <string name="cmds_voice_how">彼女の耳（\"カプリ、…\"）、声、声での答え方。</string>
+    <string name="cv_engines">新しい返事の彼女の声</string>
+    <string name="cv_engines_how">AIの返事も含めて全部を彼女の声で、オフラインで。PCと同じ声プロフィール（Qwen 0.6B、ICL）で、変わるのは精度だけ。Hugging Faceからダウンロードし、SHA-256で確認。Android 10以上と64ビットのスマホが必要です。</string>
+    <string name="cv_var_q4">ライト（Q4）</string>
+    <string name="cv_var_q8">高（Q8）</string>
+    <string name="cv_var_bf16">最大（BF16、PCと同じ）</string>
+    <string name="cv_var_line">%1$s · %2$s</string>
+    <string name="cv_fid_light">いちばん速く、少しだけ忠実度が低い（RAM 3 GB以上）</string>
+    <string name="cv_fid_high">より忠実、少し遅い（RAM 4 GB以上）</string>
+    <string name="cv_fid_max">PCと同じ精度、いちばん忠実だけどいちばん遅い：スマホではライトの約2〜3倍の時間がかかります（RAM 6 GB以上）</string>
+    <string name="cv_var_add">追加</string>
+    <string name="cv_var_use">使う</string>
+    <string name="cv_var_inuse">使用中</string>
+    <string name="cv_var_installed">インストール済み</string>
+    <string name="cv_var_missing">未インストール</string>
+    <string name="cv_var_nofit">このスマホには不向き（メモリかプロセッサ）</string>
+    <string name="cv_var_nofit_ram">RAM %1$d GB以上のスマホが必要</string>
+    <string name="cv_neural_download_profile">プロフィールをダウンロード</string>
+    <string name="cv_get_title">彼女の声</string>
+    <string name="cv_get">彼女の声をダウンロード（8 MB）</string>
+    <string name="cv_get_how">録音された202のフレーズ（スペイン語と英語）と声のプロフィールを、GitHubのカプリのチャンネルから、1バイトずつ確認して。任意：なくてもスマホの声で話します。新しい返事も彼女の声にするには、下でエンジンを追加してください。</string>
+    <string name="cv_get_state">フレーズ：%2$d言語中%1$d · プロフィール：%3$s · 新しい返事のエンジン：%4$s</string>
+    <string name="cv_get_yes">あり</string>
+    <string name="cv_get_no">なし</string>
+    <string name="cv_get_noengine">なし（スマホの声）</string>
+    <string name="offer_title">彼女の声が届いたよ</string>
+    <string name="offer_how">カプリの声をダウンロードする？8 MB：録音フレーズと声のプロフィール。あとで設定 › 音声設定から、新しい返事用の彼女の声も追加できます（0.9 GBから、忠実度の高低あり）。</string>
+    <string name="offer_get">はい、ダウンロード</string>
+    <string name="offer_more">オプションを見る</string>
+    <string name="g_perms">権限</string>
+    <string name="g_perms_how">スマホで彼女に許可していること、銀行アプリが文句を言うときの対処。</string>
+    <string name="g_ai">言語と彼女のAI</string>
+    <string name="g_ai_how">アプリと彼女の言語、どのAIが答えるか。</string>
+    <string name="g_modes">画面とモード</string>
+    <string name="g_modes_how">画面で見ているもの、ゲーマーモードと配信モード、時計の横のピル。</string>
+    <string name="g_phone">パフォーマンスとスマホ</string>
+    <string name="g_phone_how">古いスマホ向けのライトモード、スマホに必要なもの、統計、ウェルカムツアー。</string>
+    <string name="g_report">バグを報告</string>
+    <string name="g_report_how">何があったかエマに直接Discordで伝えます。</string>
+    <string name="tour_ask_title">新着情報</string>
+    <string name="tour_ask_how">カプリがアップデートされたよ。新しいところをざっと見る？1分で終わるよ。</string>
+    <string name="tour_yes">見せて</string>
+    <string name="tour_step">新着 · %2$d中%1$d</string>
+    <string name="tour_skip">スキップ</string>
+    <string name="tour_next">次へ</string>
+    <string name="tour_done">完了</string>
+    <string name="tour_again">新着を見る（ガイドツアー）</string>
+    <string name="dl_channel">ダウンロード</string>
+    <string name="dl_starting">開始中…</string>
+    <string name="dl_progress">%1$d %%</string>
+    <string name="dl_done">完了。</string>
+    <string name="dl_voice">彼女の声をダウンロード中</string>
+    <string name="dl_engine">エンジンをダウンロード中：%1$s</string>
+    <string name="dl_update">カプリ %1$s をダウンロード中</string>
+    <string name="cv_test_noclips">まだフレーズがありません：先に「彼女の声をダウンロード」をタップしてください。</string>
+    <string name="cv_test_clipsoff">「彼女の声のフレーズ」がオフです：オンにすると聞こえます。</string>
+    <string name="cv_test_speakoff">彼女の声がオフです（彼女の声 › オン）。</string>
+    <string name="cv_test_muted">メディアの音量が0です：上げてからもう一度。</string>
+    <string name="vt_open">どうやって声をあげるの？</string>
+</resources>
