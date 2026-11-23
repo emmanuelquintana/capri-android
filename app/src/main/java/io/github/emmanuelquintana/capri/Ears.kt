@@ -259,7 +259,7 @@ class Ears(private val service: CapriService) {
         // "Capri" (1.9.0: "muevo el celular sin decir nada y se activa")
         if (Build.VERSION.SDK_INT >= 33 && langStep < 1 && (Store(service).configString("voiceFilter") ?: "normal") == "normal") {
             intent.putExtra(RecognizerIntent.EXTRA_ENABLE_BIASING_DEVICE_CONTEXT, true)
-                .putStringArrayListExtra(RecognizerIntent.EXTRA_BIASING_STRINGS, arrayListOf("Capri", "Kapri", "Капри"))
+                .putStringArrayListExtra(RecognizerIntent.EXTRA_BIASING_STRINGS, arrayListOf("Capri", "Kapri", "Капри", "カプリ"))
         }
         // one long session (Android 13+) when this phone's recognizer keeps it open
         longNow = Build.VERSION.SDK_INT >= 33 && segmented != false
@@ -488,7 +488,7 @@ class Ears(private val service: CapriService) {
         heardLast = options.firstOrNull() ?: ""
         // (1.9.0) noise heard as words: her name alone, unsure, or one or two letters after it. With her
         // filter on, her name alone must be clear (it opens 10 s where anything you say is for her)
-        val restOf = { s: String -> s.substring(NAME.find(s)!!.range.last + 1).trim(' ', ',', '.', '!', '?') }
+        val restOf = { s: String -> s.substring(NAME.find(s)!!.range.last + 1).trim(' ', ',', '.', '!', '?', '、', '。', '！', '？') }
         val alone = named0 != null && restOf(named0).isEmpty()
         val sure = { i: Int -> scores == null || i >= scores.size || scores[i] < 0f || scores.all { it == 0f } || scores[i] >= minScore + 0.2f }
         // the phone moved while that was heard, with her filter on: its rustle, not you, unless it's very clear
@@ -523,7 +523,7 @@ class Ears(private val service: CapriService) {
             }
         }
         status = "heard"
-        val rest = if (named != null) named.substring(NAME.find(named)!!.range.last + 1).trim(' ', ',', '.', '!', '?') else text
+        val rest = if (named != null) named.substring(NAME.find(named)!!.range.last + 1).trim(' ', ',', '.', '!', '?', '、', '。', '！', '？') else text
         // just her name: what you say in the next few seconds is for her too
         awakeUntil = if (rest.isEmpty() && named != null) now + 10_000 else 0L
         service.overlay?.emit("capri:heard", JSONObject().put("text", text).toString())
@@ -884,8 +884,9 @@ class Ears(private val service: CapriService) {
     companion object {
         /** (1.11.8) Every voice event, on the main thread (the app's Chat tab follows its answers' voice with it). */
         @Volatile var voiceListener: ((JSONObject) -> Unit)? = null
-        // her name as recognizers write it: Capri, Kapri, Capry, Cabri, Caprí, Capris… (Капри in Russian)
-        private val NAME = Regex("(?<![a-zа-я])(?:[ck]a[pb]r[iy]s?|ка[пб]р[иы])(?![a-zа-я])")
+        // her name as recognizers write it: Capri, Kapri, Capry, Cabri, Caprí, Capris… (Капри in Russian,
+        // カプリ in Japanese, "ca pri" as Vietnamese can split it)
+        private val NAME = Regex("(?<![a-zа-я])(?:[ck]a ?[pb]r[iy]s?|ка[пб]р[иы]|カプリ|かぷり)(?![a-zа-я])")
         private const val GOOGLE = "com.google.android.googlequicksearchbox"
         private const val MOVED = 2.2 // m/s² off gravity: the phone moved in your hand, not just held
         private const val SHAKEN_MS = 4000L

@@ -49,6 +49,26 @@ const T = {
     off: 'Для этого нужно разрешение: включи Спецвозможности › Капри управляет телефоном. Открываю.',
     miss: { bank: 'Только не там: это банк или платёжное приложение. Это делай сам(а).', password: 'Пароли — нет. Его введи сам(а).', locked: 'Сначала разблокируй телефон.', notFound: 'Не вижу «{x}» на экране.', noField: 'Не нахожу, куда писать. Сначала нажми на поле.', nothing: 'Не вижу, что там нажать.', failed: 'Не получилось. Android не дал.', old: 'Твой Android не даёт мне это сделать.', unknown: 'Я пока так не умею.' },
   },
+  vi: {
+    ok: { back: 'Quay lại.', home: 'Màn hình chính.', recents: 'Ứng dụng gần đây.', notifications: 'Thông báo của bạn.', quick: 'Cài đặt nhanh.', screenshot: 'Xong, đã chụp màn hình.', down: 'Cuộn xuống.', up: 'Cuộn lên.', tap: 'Chạm “{x}”.', type: 'Đã gõ.' },
+    off: 'Mình cần quyền để làm việc đó: bật Trợ năng › Capri dùng điện thoại của bạn. Mình mở cho bạn nhé.',
+    miss: { bank: 'Không được: đó là ứng dụng ngân hàng hoặc thanh toán. Bạn tự làm nhé.', password: 'Không đụng tới mật khẩu. Bạn tự gõ nhé.', locked: 'Mở khóa điện thoại trước đã.', notFound: 'Mình không thấy “{x}” trên màn hình.', noField: 'Mình không tìm thấy chỗ để gõ. Chạm vào ô trước đã.', nothing: 'Mình không thấy gì để chạm ở đó.', failed: 'Mình không làm được. Android không cho phép.', old: 'Android của bạn không cho mình làm vậy.', unknown: 'Mình chưa biết làm việc đó.' },
+  },
+  ja: {
+    ok: { back: '戻る。', home: 'ホーム。', recents: '最近のアプリ。', notifications: '通知だよ。', quick: 'クイック設定。', screenshot: 'スクショ撮ったよ。', down: '下にスクロール。', up: '上にスクロール。', tap: '「{x}」をタップ。', type: '入力したよ。' },
+    off: 'それには許可が必要なの：ユーザー補助 › Capriがスマホを操作 をオンにして。開いてあげるね。',
+    miss: { bank: 'そこはダメ：銀行や支払いのアプリだから。それは自分でやってね。', password: 'パスワードは触らないよ。自分で入力してね。', locked: '先にスマホのロックを解除して。', notFound: '画面に「{x}」が見当たらないよ。', noField: '入力する場所が見つからない。先に入力欄をタップして。', nothing: 'そこにはタップできるものがないよ。', failed: 'できなかった。Androidが許してくれなかったの。', old: 'あなたのAndroidではそれができないの。', unknown: 'それはまだやり方がわからないな。' },
+  },
+  de: {
+    ok: { back: 'Zurück.', home: 'Startbildschirm.', recents: 'Deine letzten Apps.', notifications: 'Deine Benachrichtigungen.', quick: 'Schnelleinstellungen.', screenshot: 'Fertig, Screenshot.', down: 'Scrolle runter.', up: 'Scrolle hoch.', tap: 'Tippe auf „{x}“.', type: 'Getippt.' },
+    off: 'Dafür brauche ich eine Berechtigung: Schalte Bedienungshilfen › Capri bedient dein Handy ein. Ich öffne es dir.',
+    miss: { bank: 'Nicht dort: Das ist eine Bank- oder Bezahl-App. Das machst du selbst.', password: 'Keine Passwörter. Das tippst du selbst.', locked: 'Entsperr zuerst dein Handy.', notFound: 'Ich sehe „{x}“ nicht auf deinem Bildschirm.', noField: 'Ich finde nicht, wo ich tippen soll. Tipp zuerst auf das Feld.', nothing: 'Da sehe ich nichts zum Antippen.', failed: 'Ich konnte nicht. Android hat’s nicht erlaubt.', old: 'Dein Android lässt mich das nicht machen.', unknown: 'Das kann ich noch nicht.' },
+  },
+  it: {
+    ok: { back: 'Indietro.', home: 'Home.', recents: 'Le tue app recenti.', notifications: 'Le tue notifiche.', quick: 'Impostazioni rapide.', screenshot: 'Fatto, screenshot.', down: 'Scorro giù.', up: 'Scorro su.', tap: 'Tocco “{x}”.', type: 'Scritto.' },
+    off: 'Per questo mi serve un permesso: attiva Accessibilità › Capri usa il tuo telefono. Te lo apro io.',
+    miss: { bank: 'Lì no: è un’app di banca o di pagamenti. Quella la fai tu.', password: 'Niente password. Quella scrivila tu.', locked: 'Prima sblocca il telefono.', notFound: 'Non vedo “{x}” sullo schermo.', noField: 'Non trovo dove scrivere. Tocca prima il campo.', nothing: 'Non vedo niente da toccare lì.', failed: 'Non ci sono riuscita. Android non me l’ha permesso.', old: 'Il tuo Android non me lo permette.', unknown: 'Non so ancora farlo.' },
+  },
 };
 
 let isOn = false;

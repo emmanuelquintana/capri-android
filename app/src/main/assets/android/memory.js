@@ -14,7 +14,7 @@ const FACT_CHARS = 160;
 const IDLE_MS = 3 * 60 * 1000;      // quiet this long after her last answer: she notes it down
 const AFTER_CLOSE_MS = 20 * 1000;   // or this long after you close her chat
 const AFTER_CLOSE_FREE_MS = 60 * 1000; // (the free AI: past its 45 s)
-const LANGUAGE = { es: 'Spanish', en: 'English', fr: 'French', pt: 'Portuguese', ru: 'Russian' };
+const LANGUAGE = { es: 'Spanish', en: 'English', fr: 'French', pt: 'Portuguese', ru: 'Russian', vi: 'Vietnamese', ja: 'Japanese', de: 'German', it: 'Italian' };
 
 const key = (m) => String(m?.content || '').slice(0, 200);
 

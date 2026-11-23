@@ -81,6 +81,66 @@ const T = {
     stop: 'Всё, ты проснулся(ась). Доброе утро.',
     notOn: 'Мы не были в режиме сна… но доброе утро.',
   },
+  vi: {
+    night: ['Chúc ngủ ngon, {name}. Mình sẽ ở ngay đây, trông chừng bạn.', 'Giờ đi ngủ. Mình canh màn hình… và cả bạn.', 'Tắt đèn. Nếu bạn cầm điện thoại lên, mình sẽ biết.'],
+    alarmSet: 'Mình sẽ gọi bạn dậy lúc {time}. Ngủ đi.',
+    peek: ['Bạn dậy làm gì? Đã {time} rồi. Ngủ lại đi.', 'Lại bật màn hình, lần thứ {n}… đặt điện thoại xuống, {name}.', 'Suỵt. Đêm rồi. Đóng lại và ngủ đi.'],
+    ring: ['Dậy đi, {name}! Đến giờ rồi!', 'Thức dậy! Tắt báo thức đi, mình không im đâu.', 'Chào buổi sáng! Báo thức không tự tắt đâu, choom.', 'Nhanh lên, nhanh lên, ra khỏi giường!'],
+    snooze: ['Năm phút. Không hơn.', 'Được rồi… năm phút. Mình đếm đấy.'],
+    report: 'Chào buổi sáng. {summary}',
+    good: ['Bạn ngủ ngon. Mình thích vậy.', 'Ngủ vậy mới đúng. Preem.'],
+    bad: ['Bạn gần như không ngủ… hôm nay nhẹ nhàng thôi nhé.', 'Bạn cần ngủ nhiều hơn, {name}. Mình nói thật đấy.'],
+    noScreen: 'Cả đêm bạn không bật màn hình.',
+    screen: 'Bạn đã bật màn hình {n} lần.',
+    slept: 'Bạn đã ngủ {h} giờ {m} phút.',
+    stop: 'Xong, bạn dậy rồi. Chào buổi sáng.',
+    notOn: 'Chúng ta đâu có ở chế độ ngủ… nhưng chào buổi sáng.',
+  },
+  ja: {
+    night: ['おやすみ、{name}。ここでずっと見守ってるね。', '寝る時間。画面を守るね…あなたも。', '消灯。スマホを触ったらわかるからね。'],
+    alarmSet: '{time}に起こすね。もう寝て。',
+    peek: ['起きて何してるの？もう{time}だよ。寝て。', 'また画面つけた、{n}回目…スマホを置いて、{name}。', 'しっ。夜だよ。閉じて寝よう。'],
+    ring: ['起きて、{name}！時間だよ！', '起きて！アラーム止めて、黙らないからね。', 'おはよう！アラームは勝手に止まらないよ、チューム。', 'ほらほら、ベッドから出て！'],
+    snooze: ['5分。それ以上はダメ。', 'わかった…5分ね。数えてるから。'],
+    report: 'おはよう。{summary}',
+    good: ['よく眠れたね。うれしい。', 'それでこそ睡眠。プリーム。'],
+    bad: ['ほとんど寝てないね…今日は無理しないで。', 'もっと寝なきゃダメだよ、{name}。本気で。'],
+    noScreen: '一晩中画面をつけなかったね。',
+    screen: '画面を{n}回つけたよ。',
+    slept: '{h}時間{m}分寝たよ。',
+    stop: 'よし、起きたね。おはよう。',
+    notOn: 'スリープモードじゃなかったけど…おはよう。',
+  },
+  de: {
+    night: ['Gute Nacht, {name}. Ich bleib genau hier und pass auf dich auf.', 'Schlafenszeit. Ich bewache den Bildschirm… und dich.', 'Licht aus. Wenn du das Handy nimmst, merk ich das.'],
+    alarmSet: 'Ich weck dich um {time}. Jetzt schlaf.',
+    peek: ['Was machst du wach? Es ist {time}. Zurück ins Bett.', 'Schon wieder Bildschirm an, Nummer {n}… leg das Handy weg, {name}.', 'Pst. Es ist Nacht. Mach zu und schlaf.'],
+    ring: ['Aufstehen, {name}! Es ist Zeit!', 'Wach auf! Mach den Wecker aus, ich hör nicht auf.', 'Guten Morgen! Der Wecker schaltet sich nicht von allein aus, Choom.', 'Los, los, raus aus dem Bett!'],
+    snooze: ['Fünf Minuten. Keine mehr.', 'Okay… fünf. Ich zähle.'],
+    report: 'Guten Morgen. {summary}',
+    good: ['Du hast gut geschlafen. Das mag ich.', 'So schläft man. Preem.'],
+    bad: ['Du hast kaum geschlafen… mach heute langsam.', 'Du brauchst mehr Schlaf, {name}. Ich mein’s ernst.'],
+    noScreen: 'Du hast die ganze Nacht den Bildschirm nicht angemacht.',
+    screen: 'Du hast den Bildschirm {n}-mal angemacht.',
+    slept: 'Du hast {h} h {m} min geschlafen.',
+    stop: 'Fertig, du bist wach. Guten Morgen.',
+    notOn: 'Wir waren nicht im Schlafmodus… aber guten Morgen.',
+  },
+  it: {
+    night: ['Buonanotte, {name}. Resto proprio qui a vegliare su di te.', 'Ora di dormire. Faccio la guardia allo schermo… e a te.', 'Luci spente. Se prendi il telefono, lo saprò.'],
+    alarmSet: 'Ti sveglio alle {time}. Ora dormi.',
+    peek: ['Che ci fai sveglio? Sono le {time}. Torna a dormire.', 'Di nuovo lo schermo acceso, numero {n}… posa il telefono, {name}.', 'Shh. È notte. Chiudi e dormi.'],
+    ring: ['Su, {name}! È ora!', 'Svegliati! Spegni la sveglia, non sto zitta.', 'Buongiorno! La sveglia non si spegne da sola, choom.', 'Dai, dai, fuori dal letto!'],
+    snooze: ['Cinque minuti. Non uno di più.', 'Ok… cinque. Sto contando.'],
+    report: 'Buongiorno. {summary}',
+    good: ['Hai dormito bene. Mi piace.', 'Così si dorme. Preem.'],
+    bad: ['Hai dormito pochissimo… vacci piano oggi.', 'Hai bisogno di dormire di più, {name}. Dico sul serio.'],
+    noScreen: 'Non hai acceso lo schermo per tutta la notte.',
+    screen: 'Hai acceso lo schermo {n} volte.',
+    slept: 'Hai dormito {h} h {m} min.',
+    stop: 'Fatto, sei sveglio. Buongiorno.',
+    notOn: 'Non eravamo in modalità sonno… ma buongiorno.',
+  },
 };
 export const SLEEP_ASK = /modo (?:sue[ñn]o|siesta|dormir)|vamos a dormir|me voy a dormir|duerme conmigo|a dormir(?: juntas| conmigo)?\b|desp[ié]rtame|sleep mode|nap mode|sleep with me|wake me (?:up )?at|going to sleep|mode sommeil|dors avec moi|r[ée]veille-moi|modo sono|dorme comigo|me acorda|режим сна|спи со мной|разбуди меня/iu;
 export const WOKE_ASK = /ya despert[eé]|ya me levant[eé]|estoy despiert|i'?m (?:up|awake)|je suis r[ée]veill|j'?suis debout|j[aá] acordei|я проснул|я встал/iu;
@@ -114,7 +174,7 @@ export function sleepMode({ cfg, lang }) {
   const clock = (ms = Date.now()) => new Intl.DateTimeFormat(lang(), { hour: 'numeric', minute: '2-digit' }).format(new Date(ms));
   const say = (line, face = 'calm', hold = 6000, aloud = false) => {
     panel.say({ kind: 'info', face, line, hold });
-    if (aloud) send('voice:say', { text: line, lang: { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU' }[lang()] || 'es-MX' });
+    if (aloud) send('voice:say', { text: line, lang: { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU', vi: 'vi-VN', ja: 'ja-JP', de: 'de-DE', it: 'it-IT' }[lang()] || 'es-MX' });
   };
   let ringing = 0;
   const stopRing = () => { clearInterval(ringing); ringing = 0; };

@@ -24,6 +24,10 @@ const METER = {
   fr: { prep: 'Préparation de sa voix…', gen: 'Génération de la voix', talk: 'Elle parle' },
   pt: { prep: 'Preparando a voz dela…', gen: 'Gerando a voz', talk: 'Falando' },
   ru: { prep: 'Готовлю её голос…', gen: 'Создаю голос', talk: 'Говорит' },
+  vi: { prep: 'Đang chuẩn bị giọng cô ấy…', gen: 'Đang tạo giọng', talk: 'Đang nói' },
+  ja: { prep: '声を準備中…', gen: '声を生成中', talk: '話し中' },
+  de: { prep: 'Ihre Stimme wird vorbereitet…', gen: 'Ihre Stimme entsteht', talk: 'Spricht' },
+  it: { prep: 'Preparo la sua voce…', gen: 'Creo la sua voce', talk: 'Sta parlando' },
 };
 
 // what her voice reads: no tags, no markdown, no emoji, no links

@@ -65,12 +65,16 @@
       fr: { title: 'Historique du chat', count: '{n} messages', none: 'Vous n’avez pas encore parlé. Ce que tu lui dis dans son chat et ce qu’elle répond apparaîtra ici.', search: 'Chercher dans l’historique…', down: 'Le plus récent', clear: 'Tout effacer', sure: 'Effacer tout l’historique ? C’est définitif.', today: 'Aujourd’hui', yesterday: 'Hier', you: 'Toi', nothing: 'Rien avec « {q} ».' },
       pt: { title: 'Histórico do chat', count: '{n} mensagens', none: 'Vocês ainda não conversaram. O que você disser no chat dela e o que ela responder vai aparecer aqui.', search: 'Buscar no histórico…', down: 'Mais recente', clear: 'Apagar tudo', sure: 'Apagar todo o histórico? Não dá para desfazer.', today: 'Hoje', yesterday: 'Ontem', you: 'Você', nothing: 'Nada com “{q}”.' },
       ru: { title: 'История чата', count: 'Сообщений: {n}', none: 'Вы ещё не разговаривали. Здесь появится то, что ты пишешь ей в чате, и её ответы.', search: 'Поиск по истории…', down: 'Последние', clear: 'Удалить всё', sure: 'Удалить всю историю? Это нельзя отменить.', today: 'Сегодня', yesterday: 'Вчера', you: 'Ты', nothing: 'Ничего по «{q}».' },
+      vi: { title: 'Lịch sử chat', count: '{n} tin nhắn', none: 'Hai bạn chưa nói chuyện. Những gì bạn viết cho cô ấy và cô ấy trả lời sẽ hiện ở đây.', search: 'Tìm trong lịch sử…', down: 'Mới nhất', clear: 'Xóa tất cả', sure: 'Xóa toàn bộ lịch sử? Không thể hoàn tác.', today: 'Hôm nay', yesterday: 'Hôm qua', you: 'Bạn', nothing: 'Không có gì với “{q}”.' },
+      ja: { title: 'チャット履歴', count: '{n}件のメッセージ', none: 'まだ話していないよ。チャットで彼女に話したことと彼女の返事がここに表示されるよ。', search: '履歴を検索…', down: '最新', clear: 'すべて削除', sure: '履歴をすべて削除しますか？元に戻せません。', today: '今日', yesterday: '昨日', you: 'あなた', nothing: '「{q}」は見つかりません。' },
+      de: { title: 'Chatverlauf', count: '{n} Nachrichten', none: 'Ihr habt noch nicht geredet. Was du ihr im Chat schreibst und was sie antwortet, erscheint hier.', search: 'Verlauf durchsuchen…', down: 'Neueste', clear: 'Alles löschen', sure: 'Den ganzen Verlauf löschen? Das kann nicht rückgängig gemacht werden.', today: 'Heute', yesterday: 'Gestern', you: 'Du', nothing: 'Nichts mit „{q}“.' },
+      it: { title: 'Cronologia chat', count: '{n} messaggi', none: 'Non avete ancora parlato. Quello che le scrivi in chat e quello che risponde apparirà qui.', search: 'Cerca nella cronologia…', down: 'Più recenti', clear: 'Elimina tutto', sure: 'Eliminare tutta la cronologia? Non si può annullare.', today: 'Oggi', yesterday: 'Ieri', you: 'Tu', nothing: 'Niente con “{q}”.' },
     };
     const bridge = window.CapriPage;
     const info = JSON.parse(bridge?.info?.() || '{}');
     const lang = T[info.lang] ? info.lang : 'es';
     const t = T[lang];
-    const locale = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU' }[lang];
+    const locale = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU', vi: 'vi-VN', ja: 'ja-JP', de: 'de-DE', it: 'it-IT' }[lang];
     document.documentElement.lang = lang;
     let all = [];
     try { all = JSON.parse(bridge?.chatlog?.() || '[]'); } catch {}

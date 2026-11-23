@@ -18,6 +18,10 @@ const T = {
   fr: { on: 'Mode réaction ! Lance ta vidéo, je la regarde avec toi et je te dis ce que j’en pense.', off: 'D’accord, je ne commente plus tes vidéos. C’était drôle.', blind: 'Pour regarder tes vidéos avec toi, j’ai besoin de voir ton écran : laisse-moi le partager.' },
   pt: { on: 'Modo reação! Coloca seu vídeo, eu assisto com você e digo o que acho.', off: 'Pronto, não comento mais seus vídeos. Foi divertido.', blind: 'Pra ver seus vídeos com você eu preciso ver sua tela: deixa eu compartilhar.' },
   ru: { on: 'Режим реакции! Включай видео, я посмотрю с тобой и скажу, что думаю.', off: 'Ладно, больше не комментирую твои видео. Было весело.', blind: 'Чтобы смотреть видео с тобой, мне нужно видеть экран: разреши показ.' },
+  vi: { on: 'Chế độ phản ứng! Mở video đi, mình sẽ xem cùng bạn và nói mình nghĩ gì.', off: 'Được rồi, không bình luận video nữa. Vui ghê.', blind: 'Để xem video cùng bạn mình cần thấy màn hình: hãy cho mình chia sẻ nó.' },
+  ja: { on: 'リアクションモード！動画を流して、一緒に見て感想を言うね。', off: 'オッケー、もう動画にコメントしないよ。楽しかった。', blind: '一緒に動画を見るには画面が見えないと。画面共有を許可してね。' },
+  de: { on: 'Reaktionsmodus! Mach dein Video an, ich schau mit und sag dir, was ich denke.', off: 'Okay, keine Kommentare mehr zu deinen Videos. Das hat Spaß gemacht.', blind: 'Um deine Videos mit dir zu schauen, muss ich deinen Bildschirm sehen: Lass mich ihn teilen.' },
+  it: { on: 'Modalità reazione! Metti il tuo video, lo guardo con te e ti dico cosa ne penso.', off: 'Ok, niente più commenti ai tuoi video. È stato divertente.', blind: 'Per guardare i tuoi video con te devo vedere lo schermo: fammelo condividere.' },
 };
 const rand = (a, b) => a + Math.random() * (b - a);
 

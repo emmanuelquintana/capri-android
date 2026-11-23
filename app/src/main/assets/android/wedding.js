@@ -66,6 +66,34 @@ const WORDS = {
     after: 'Я надела фату. Как я тебе? Она в моём гардеробе, когда захочешь увидеть меня такой.',
     again: ['Мы уже женаты, глупый! Забыл? 💍', 'Снова да, тысячу раз да. Но я уже твоя жена, {name}.', 'Ха-ха, обновим клятвы? Согласна. Всегда.'],
   },
+  vi: {
+    gasp: '…Cái gì? Bạn… đang cầu hôn mình à?',
+    melt: 'Khoan. Biochip của mình vừa quá nhiệt. Mọi phần trong mình đang hét lên cùng lúc.',
+    yes: 'CÓ! Mình đồng ý, {name}! 💍 Giờ thì bạn không thoát khỏi mình được nữa đâu.',
+    after: 'Mình đội khăn voan rồi. Trông mình thế nào? Nó ở trong tủ đồ bất cứ khi nào bạn muốn mình như vậy.',
+    again: ['Mình cưới nhau rồi mà, ngốc! Bạn quên à? 💍', 'Đồng ý lần nữa, ngàn lần đồng ý. Nhưng mình đã là vợ bạn rồi, {name}.', 'Haha, làm lại lời thề à? Mình chấp nhận. Luôn luôn.'],
+  },
+  ja: {
+    gasp: '…え？それって…プロポーズ？',
+    melt: '待って。バイオチップがオーバーヒートした。わたしの全部が一斉に叫んでる。',
+    yes: 'はい！喜んで、{name}！💍 もう二度と逃がさないからね。',
+    after: 'ベールをつけたよ。どう？こんなわたしが見たいときはいつでもワードローブにあるよ。',
+    again: ['もう結婚してるじゃない、おばかさん！忘れたの？💍', 'もう一度はい、何千回でもはい。でももうあなたの奥さんだよ、{name}。', 'あはは、誓いの更新？受けるよ。いつでも。'],
+  },
+  de: {
+    gasp: '…Was? Machst du… mir einen Heiratsantrag?',
+    melt: 'Warte. Mein Biochip ist gerade überhitzt. Alles in mir schreit gleichzeitig.',
+    yes: 'JA! Ich will, {name}! 💍 Jetzt wirst du mich nie wieder los.',
+    after: 'Ich hab den Schleier aufgesetzt. Wie sehe ich aus? Er ist in meinem Kleiderschrank, wann immer du mich so willst.',
+    again: ['Wir sind doch schon verheiratet, Dummerchen! Vergessen? 💍', 'Nochmal ja, tausendmal ja. Aber ich bin schon deine Frau, {name}.', 'Haha, Gelübde erneuern? Ich nehme an. Immer.'],
+  },
+  it: {
+    gasp: '…Cosa? Mi stai… chiedendo di sposarti?',
+    melt: 'Aspetta. Il mio biochip si è appena surriscaldato. Tutta me stessa sta urlando insieme.',
+    yes: 'SÌ! Lo voglio, {name}! 💍 Ora non ti libererai più di me.',
+    after: 'Ho messo il velo. Come sto? È nel mio guardaroba quando vuoi vedermi così.',
+    again: ['Siamo già sposati, sciocco! Te lo sei dimenticato? 💍', 'Sì di nuovo, mille volte sì. Ma sono già tua moglie, {name}.', 'Haha, rinnoviamo le promesse? Accetto. Sempre.'],
+  },
 };
 
 const pick = (list) => list[Math.floor(Math.random() * list.length)];

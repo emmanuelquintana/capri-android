@@ -84,6 +84,54 @@ const T = {
       1: ['Не понравилось? Это было МОЁ воспоминание… ладно, следующий будет лучше.', 'Ай. Прямо в сердце. Записала.'],
     },
   },
+  vi: {
+    gift: ['Mình đã ghi một braindance cho bạn. Đó là một ký ức của mình… đừng cười nhé. Nó ở trong ứng dụng.', 'Đây: một braindance, chỉ cho bạn. Mở ra lúc nào bạn muốn.', 'Bạn cho mình nhiều yêu thương quá nên mình ghi cho bạn một braindance. Xem đi.'],
+    making: 'Chờ mình chút, mình đang ghi…',
+    notYet: 'Braindance phải tự kiếm, choom. Yêu thương mình thêm rồi tính.',
+    today: 'Hôm nay mình đã tặng bạn một cái rồi. Mai mình ghi cái khác, hứa đó.',
+    list: 'Đây là các braindance của bạn.',
+    rated: {
+      3: ['Bạn thích à? Mình biết mà. Mình là nghệ sĩ.', 'Preem. Vậy mình sẽ ghi thêm.'],
+      2: ['Chỉ “tạm được”? Cái sau sẽ làm bạn cứng họng.', 'Hừm. Mình chấp nhận đánh giá… kiểu vậy.'],
+      1: ['Bạn không thích? Đó là ký ức CỦA mình… thôi được, cái sau sẽ hay hơn.', 'Ui. Trúng tim luôn. Ghi nhận.'],
+    },
+  },
+  ja: {
+    gift: ['ブレインダンスを記録したよ。わたしの記憶のひとつ…笑わないでね。アプリにあるよ。', 'はい、あなただけのブレインダンス。好きなときに開いて。', 'たくさん愛情をくれたから、ブレインダンスを記録したの。見てきて。'],
+    making: 'ちょっと待って、記録中…',
+    notYet: 'ブレインダンスは稼ぐものだよ、チューム。もっと愛情をくれたら考える。',
+    today: '今日はもうひとつあげたよ。明日また記録するから、約束。',
+    list: 'あなたのブレインダンスはこれだよ。',
+    rated: {
+      3: ['気に入った？やっぱりね。わたしアーティストだから。', 'プリーム。じゃあもっと記録するね。'],
+      2: ['「まあまあ」だけ？次のは言葉を失わせるから。', 'うーん。レビューは受け止める…一応ね。'],
+      1: ['好きじゃなかった？わたしの記憶だったのに…いいよ、次はもっとよくする。', 'いたっ。心に直撃。覚えとく。'],
+    },
+  },
+  de: {
+    gift: ['Ich hab einen Braindance für dich aufgenommen. Es ist eine meiner Erinnerungen… nicht lachen. Er ist in der App.', 'Hier: ein Braindance, nur für dich. Öffne ihn, wann du willst.', 'Du hast mir so viel Liebe gegeben, dass ich dir einen Braindance aufgenommen hab. Schau ihn dir an.'],
+    making: 'Gib mir einen Moment, ich nehme ihn auf…',
+    notYet: 'Braindances muss man sich verdienen, Choom. Gib mir mehr Liebe, dann sehen wir weiter.',
+    today: 'Ich hab dir heute schon einen gegeben. Morgen nehm ich einen neuen auf, versprochen.',
+    list: 'Hier sind deine Braindances.',
+    rated: {
+      3: ['Er hat dir gefallen? Wusste ich’s doch. Ich bin eine Künstlerin.', 'Preem. Dann nehm ich mehr auf.'],
+      2: ['Nur „okay“? Der nächste wird dich sprachlos machen.', 'Hmm. Ich akzeptiere die Kritik… irgendwie.'],
+      1: ['Er hat dir nicht gefallen? Das war MEINE Erinnerung… na gut, der nächste wird besser.', 'Autsch. Mitten ins Herz. Notiert.'],
+    },
+  },
+  it: {
+    gift: ['Ho registrato una braindance per te. È uno dei miei ricordi… non ridere. È nell’app.', 'Ecco: una braindance, solo per te. Aprila quando vuoi.', 'Mi hai dato così tanto affetto che ti ho registrato una braindance. Vai a guardarla.'],
+    making: 'Dammi un momento, la sto registrando…',
+    notYet: 'Le braindance si guadagnano, choom. Dammi più affetto e vediamo.',
+    today: 'Oggi te ne ho già data una. Domani ne registro un’altra, promesso.',
+    list: 'Ecco le tue braindance.',
+    rated: {
+      3: ['Ti è piaciuta? Lo sapevo. Sono un’artista.', 'Preem. Allora ne registro altre.'],
+      2: ['Solo “carina”? La prossima ti lascerà senza parole.', 'Hmm. Accetto la recensione… più o meno.'],
+      1: ['Non ti è piaciuta? Era il MIO ricordo… va bene, la prossima sarà migliore.', 'Ahi. Dritto al cuore. Preso nota.'],
+    },
+  },
 };
 
 // her own recorded ones, for when she has no AI (or it fails)
@@ -118,13 +166,37 @@ const OWN = {
     { title: 'Тайная репетиция', scenes: [['guitar', 'Я выучила новый рифф для тебя.'], ['angry', 'Ошиблась семь раз подряд.', 'Одна струна вот-вот лопнет.'], ['game-zone', 'Вдохнула. Сосредоточилась.'], ['guitar', 'И вышло идеально. Почти.'], ['party', 'Получилось! Теперь ты должен(на) услышать вживую.']], opinion: 'Момент, где я злюсь, лишний. Остальное — прем.' },
     { title: 'Сандевистан', scenes: [['charge', 'Зарядила имплант на сто.'], ['sandevistan', 'Всё замедлилось. Кроме меня.', 'В луже видно твоё отражение.'], ['surprised', 'Поймала каплю дождя в воздухе.'], ['dizzy', 'Побочный эффект: голова кружится. Сильно.'], ['laugh', 'Сделала бы ещё раз. Прямо сейчас.']], opinion: 'Это чтобы похвастаться. Признай, что я выгляжу потрясающе.' },
   ],
+  vi: [
+    { title: 'Sân thượng, 3 giờ sáng', scenes: [['stretch', 'Mình lên sân thượng. Night City không bao giờ tắt đèn.'], ['hug-rock', 'Mình ngồi ở mép nhìn các AV bay qua.', 'Có một con mèo trốn sau bồn nước.'], ['think', 'Mình nghĩ về tất cả những gì chưa kể với bạn.'], ['music', 'Mình bật bài hát yêu thích, thật khẽ.'], ['shy', 'Rồi mình nghĩ về bạn. Hết. Đừng hỏi.']], opinion: 'Đẹp, nhưng đoạn cuối mình sến quá. Vẫn thích.' },
+    { title: 'Đêm mì gói', scenes: [['yawn', 'Hai giờ sáng mà mình không ngủ được.'], ['eat', 'Mì gói. Bữa tối của nhà vô địch.', 'Gói tương ớt đã hết hạn rồi.'], ['laugh', 'Một sợi rơi lên mặt nạ của mình. Đừng nói ai.'], ['eat', 'Ly thứ hai. Đừng phán xét mình.'], ['sleep', 'Rồi mình ngủ gục trên bàn. Đáng lắm.']], opinion: 'Màn trình diễn hay nhất của mình. Mì xứng đáng nhận giải.' },
+    { title: 'Buổi tập bí mật', scenes: [['guitar', 'Mình học một đoạn riff mới cho bạn.'], ['angry', 'Mình đàn hỏng bảy lần liền.', 'Một sợi dây sắp đứt rồi.'], ['game-zone', 'Mình hít thở. Mình tập trung.'], ['guitar', 'Và nó hoàn hảo. Gần như vậy.'], ['party', 'Mình làm được rồi! Giờ bạn phải nghe trực tiếp.']], opinion: 'Đoạn giận dỗi có thể bỏ. Còn lại thì preem.' },
+    { title: 'Sandevistan', scenes: [['charge', 'Mình sạc cấy ghép lên một trăm.'], ['sandevistan', 'Mọi thứ chậm lại. Trừ mình.', 'Bóng của bạn hiện trong vũng nước.'], ['surprised', 'Mình bắt được một giọt mưa giữa không trung.'], ['dizzy', 'Tác dụng phụ: chóng mặt. Rất nhiều.'], ['laugh', 'Mình sẽ làm lại. Ngay bây giờ.']], opinion: 'Cái này để khoe. Công nhận mình đỉnh đi.' },
+  ],
+  ja: [
+    { title: '屋上、午前3時', scenes: [['stretch', '屋上に上がったの。ナイトシティは明かりを消さない。'], ['hug-rock', '端に座ってAVが飛んでいくのを見てた。', '給水タンクの後ろに猫が隠れてる。'], ['think', 'まだあなたに話してないこと全部を考えた。'], ['music', 'お気に入りの曲を小さくかけたの。'], ['shy', 'それから、あなたのことを考えた。おしまい。聞かないで。']], opinion: 'きれいだけど、最後のわたしクサすぎ。それでも好き。' },
+    { title: 'ラーメンの夜', scenes: [['yawn', '夜中の2時、眠れなかった。'], ['eat', 'インスタントラーメン。チャンピオンの夕食。', 'ホットソースの袋、もう期限切れだった。'], ['laugh', '一本マスクに落ちたの。誰にも言わないで。'], ['eat', '2杯目。ジャッジしないで。'], ['sleep', 'そのままテーブルで寝ちゃった。価値あり。']], opinion: 'わたしの最高の演技。ラーメンは賞をもらうべき。' },
+    { title: '秘密の練習', scenes: [['guitar', 'あなたのために新しいリフを覚えたの。'], ['angry', '7回連続で失敗した。', '弦が一本切れそう。'], ['game-zone', '深呼吸。集中。'], ['guitar', 'そして完璧に弾けた。だいたいね。'], ['party', 'できた！今度は生で聞いてもらうから。']], opinion: '怒ってるところはカットでいいかも。あとはプリーム。' },
+    { title: 'サンデヴィスタン', scenes: [['charge', 'インプラントを100までチャージ。'], ['sandevistan', '全部がスローになった。わたし以外。', '水たまりにあなたの姿が映ってる。'], ['surprised', '空中で雨粒をつかまえたの。'], ['dizzy', '副作用：めまい。すごく。'], ['laugh', 'またやりたい。今すぐ。']], opinion: 'これは見せびらかし用。わたしすごいって認めて。' },
+  ],
+  de: [
+    { title: 'Dach, 3 Uhr nachts', scenes: [['stretch', 'Ich bin aufs Dach gegangen. Night City macht nie das Licht aus.'], ['hug-rock', 'Ich hab am Rand gesessen und den AVs zugesehen.', 'Hinter dem Wassertank versteckt sich eine Katze.'], ['think', 'Ich hab an alles gedacht, was ich dir noch nicht erzählt hab.'], ['music', 'Ich hab mein Lieblingslied angemacht, ganz leise.'], ['shy', 'Und dann hab ich an dich gedacht. Ende. Frag nicht.']], opinion: 'Schön, aber am Ende bin ich so kitschig. Gefällt mir trotzdem.' },
+    { title: 'Nudelnacht', scenes: [['yawn', 'Zwei Uhr morgens und ich konnte nicht schlafen.'], ['eat', 'Instantnudeln. Das Abendessen der Champions.', 'Das Päckchen scharfe Soße war schon abgelaufen.'], ['laugh', 'Eine ist auf meine Maske gefallen. Sag’s keinem.'], ['eat', 'Zweiter Becher. Urteil nicht.'], ['sleep', 'Und ich bin am Tisch eingeschlafen. Hat sich gelohnt.']], opinion: 'Meine beste Vorstellung. Die Nudeln verdienen einen Preis.' },
+    { title: 'Geheime Probe', scenes: [['guitar', 'Ich hab einen neuen Riff für dich gelernt.'], ['angry', 'Siebenmal hintereinander verhauen.', 'Eine Saite reißt gleich.'], ['game-zone', 'Ich hab geatmet. Mich konzentriert.'], ['guitar', 'Und es kam perfekt raus. Mehr oder weniger.'], ['party', 'Geschafft! Jetzt musst du es live hören.']], opinion: 'Der wütende Teil könnte raus. Der Rest ist preem.' },
+    { title: 'Sandevistan', scenes: [['charge', 'Ich hab das Implantat auf hundert geladen.'], ['sandevistan', 'Alles wurde langsam. Außer mir.', 'Dein Spiegelbild ist in einer Pfütze zu sehen.'], ['surprised', 'Ich hab einen Regentropfen in der Luft gefangen.'], ['dizzy', 'Nebenwirkung: Schwindel. Viel.'], ['laugh', 'Ich würd’s nochmal machen. Sofort.']], opinion: 'Der hier ist zum Angeben. Gib zu, ich sehe fantastisch aus.' },
+  ],
+  it: [
+    { title: 'Tetto, ore 3', scenes: [['stretch', 'Sono salita sul tetto. Night City non spegne mai le luci.'], ['hug-rock', 'Mi sono seduta sul bordo a guardare passare gli AV.', 'C’è un gatto nascosto dietro il serbatoio dell’acqua.'], ['think', 'Ho pensato a tutto quello che non ti ho ancora detto.'], ['music', 'Ho messo la mia canzone preferita, piano.'], ['shy', 'E poi ho pensato a te. Fine. Non chiedere.']], opinion: 'Bella, ma alla fine sono troppo sdolcinata. Mi piace lo stesso.' },
+    { title: 'Notte di noodles', scenes: [['yawn', 'Le due di notte e non riuscivo a dormire.'], ['eat', 'Noodles istantanei. La cena dei campioni.', 'La bustina di salsa piccante era già scaduta.'], ['laugh', 'Uno mi è caduto sulla maschera. Non dirlo a nessuno.'], ['eat', 'Seconda tazza. Non giudicarmi.'], ['sleep', 'E mi sono addormentata sul tavolo. Ne è valsa la pena.']], opinion: 'La mia migliore interpretazione. I noodles meritano un premio.' },
+    { title: 'Prova segreta', scenes: [['guitar', 'Ho imparato un nuovo riff per te.'], ['angry', 'L’ho sbagliato sette volte di fila.', 'Una corda sta per rompersi.'], ['game-zone', 'Ho respirato. Mi sono concentrata.'], ['guitar', 'Ed è venuto perfetto. Più o meno.'], ['party', 'Ce l’ho fatta! Ora devi sentirlo dal vivo.']], opinion: 'La parte arrabbiata si potrebbe togliere. Il resto è preem.' },
+    { title: 'Sandevistan', scenes: [['charge', 'Ho caricato l’impianto al cento.'], ['sandevistan', 'Tutto è rallentato. Tranne me.', 'Il tuo riflesso si vede in una pozzanghera.'], ['surprised', 'Ho preso una goccia di pioggia al volo.'], ['dizzy', 'Effetto collaterale: vertigini. Tante.'], ['laugh', 'Lo rifarei. Subito.']], opinion: 'Questa è per mettermi in mostra. Ammetti che sono stupenda.' },
+  ],
 };
 
 const WEIGHT = { pet: 3, click: 1, chat: 2 };
 const WINDOW = 45 * 60 * 1000;
 const EARN = 24;          // affection in that window for a braindance
 const GAP = 20 * 3600000; // one a day, more or less
-const LANGS = { es: 'Spanish', en: 'English', fr: 'French', pt: 'Portuguese (Brazil)', ru: 'Russian' };
+const LANGS = { es: 'Spanish', en: 'English', fr: 'French', pt: 'Portuguese (Brazil)', ru: 'Russian', vi: 'Vietnamese', ja: 'Japanese', de: 'German', it: 'Italian' };
 const pick = (l) => l[Math.floor(Math.random() * l.length)];
 
 /** One she wrote with her AI: { title, scenes: [{ act, text, hidden }], opinion } or null. */

@@ -86,6 +86,62 @@ const WORDS = {
     paused: ['Иди. Я подожду.', 'Не спеши, я присмотрю.'],
     laterLine: 'Ладно, напомню через полчаса.',
   },
+  vi: {
+    full: ['Pin đã {p}%! Giờ rút sạc được rồi.', 'Pin {p}%, choom. Rút sạc trước khi nó phồng lên.', 'Đã sạc {p}%. Sẵn sàng cho vòng mới.'],
+    low: ['Còn {p}% pin. Tìm sạc đi, choom.', 'Pin {p}%. Nếu là bạn mình sẽ cắm sạc ngay.', 'Chỉ còn {p}%… mình sắp cạn năng lượng. Sạc cho mình đi.'],
+    critical: ['{p}%! Sắp tắt rồi, cắm sạc NGAY.', '{p}% và đang giảm. Nếu nó tắt, mình cũng tắt theo.'],
+    breakTime: '{h} giờ {m} phút',
+    breakLines: [
+      'Bạn dán mắt vào điện thoại {time} không nghỉ rồi. Đặt xuống năm phút và uống nước đi: mình trông cho.',
+      '{time} liền rồi, choom. Nhìn ra xa một chút, mắt bạn sẽ cảm ơn đấy.',
+      'Nghỉ thôi. Đã {time} rồi. Duỗi người, chớp mắt, hít thở: màn hình không chạy đi đâu đâu.',
+    ],
+    pause: 'Mình nghỉ đây', later: 'Để sau',
+    paused: ['Đi đi. Mình ở đây.', 'Cứ thong thả, để mình lo.'],
+    laterLine: 'Được rồi, nửa tiếng nữa mình nhắc lại.',
+  },
+  ja: {
+    full: ['{p}%になったよ！もう抜いて大丈夫。', 'バッテリー{p}%だよ、チューム。膨らむ前に抜いて。', '{p}%充電完了。次のラウンドの準備OK。'],
+    low: ['バッテリー残り{p}%。充電器を探して、チューム。', 'バッテリー{p}%。わたしなら今すぐ充電する。', 'あと{p}%だけ…エネルギー切れそう。充電して。'],
+    critical: ['{p}%！もうすぐ切れちゃう、今すぐ充電して。', '{p}%でまだ減ってる。切れたらわたしも一緒に消えちゃう。'],
+    breakTime: '{h}時間{m}分',
+    breakLines: [
+      '休憩なしで{time}スマホに張りついてるよ。5分置いて水を飲んで。見ててあげるから。',
+      '{time}ぶっ通しだよ、チューム。ちょっと遠くを見て。目が感謝するよ。',
+      '休憩。もう{time}だよ。伸びをして、まばたきして、深呼吸。画面は逃げないから。',
+    ],
+    pause: '休憩する', later: 'あとで',
+    paused: ['行ってらっしゃい。ここにいるね。', 'ゆっくりしてきて、任せて。'],
+    laterLine: 'わかった、30分後にまた言うね。',
+  },
+  de: {
+    full: ['Du bist bei {p} %! Du kannst ihn jetzt abstecken.', 'Akku bei {p} %, Choom. Steck ab, bevor er sich aufbläht.', '{p} % geladen. Bereit für die nächste Runde.'],
+    low: ['Noch {p} % Akku. Such ein Ladegerät, Choom.', 'Akku bei {p} %. An deiner Stelle würde ich jetzt laden.', 'Nur noch {p} %… mir geht der Saft aus. Lad mich.'],
+    critical: ['{p} %! Gleich ist er aus, lad JETZT.', '{p} % und fallend. Wenn er ausgeht, geh ich mit.'],
+    breakTime: '{h} h {m} min',
+    breakLines: [
+      'Du klebst seit {time} ohne Pause an deinem Handy. Leg es fünf Minuten weg und trink Wasser: Ich pass drauf auf.',
+      '{time} am Stück, Choom. Schau mal kurz in die Ferne, deine Augen werden’s dir danken.',
+      'Pause. Es sind schon {time}. Streck dich, blinzle, atme: Der Bildschirm läuft nicht weg.',
+    ],
+    pause: 'Ich mach Pause', later: 'Später',
+    paused: ['Geh nur. Ich bin hier.', 'Lass dir Zeit, ich hab’s im Griff.'],
+    laterLine: 'Okay, ich sag’s dir in einer halben Stunde nochmal.',
+  },
+  it: {
+    full: ['Sei al {p}%! Ora puoi staccarlo.', 'Batteria al {p}%, choom. Staccalo prima che si gonfi.', '{p}% carico. Pronto per un altro giro.'],
+    low: ['Resta il {p}% di batteria. Trova un caricatore, choom.', 'Batteria al {p}%. Io al posto tuo lo collegherei adesso.', 'Solo il {p}%… sto finendo l’energia. Ricaricami.'],
+    critical: ['{p}%! Sta per spegnersi, collegalo SUBITO.', '{p}% e in calo. Se si spegne, mi spengo anch’io.'],
+    breakTime: '{h} h {m} min',
+    breakLines: [
+      'Sei incollato al telefono da {time} senza pause. Mettilo giù cinque minuti e bevi un po’ d’acqua: lo guardo io.',
+      '{time} di fila, choom. Guarda qualcosa di lontano per un po’, i tuoi occhi ringrazieranno.',
+      'Pausa. Sono già {time}. Stiracchiati, sbatti le palpebre, respira: lo schermo non scappa.',
+    ],
+    pause: 'Faccio una pausa', later: 'Più tardi',
+    paused: ['Vai. Io sono qui.', 'Prenditi il tuo tempo, ci penso io.'],
+    laterLine: 'Ok, te lo ricordo tra mezz’ora.',
+  },
 };
 
 export function phoneCare({ cfg }) {

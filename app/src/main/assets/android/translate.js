@@ -21,7 +21,7 @@ const LANGS = [
   ['German', /alem[aá]n|german|allemand|alem[ãa]o|немецк/iu],
   ['Arabic', /[aá]rabe|arabic|арабск/iu],
 ];
-const MINE = { es: 'Spanish', en: 'English', fr: 'French', pt: 'Portuguese', ru: 'Russian' };
+const MINE = { es: 'Spanish', en: 'English', fr: 'French', pt: 'Portuguese', ru: 'Russian', vi: 'Vietnamese', ja: 'Japanese', de: 'German', it: 'Italian' };
 const words = (s) => s.trim().split(/\s+/).filter(Boolean).length;
 
 export function translating() {

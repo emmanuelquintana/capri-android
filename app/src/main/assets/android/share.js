@@ -13,6 +13,10 @@ const SAID = {
   fr: { image: '📷 Je t’ai envoyé une image', video: '🎬 Je t’ai envoyé une vidéo' },
   pt: { image: '📷 Te mandei uma imagem', video: '🎬 Te mandei um vídeo' },
   ru: { image: '📷 Картинка для тебя', video: '🎬 Видео для тебя' },
+  vi: { image: '📷 Gửi bạn một bức ảnh', video: '🎬 Gửi bạn một video' },
+  ja: { image: '📷 画像を送ったよ', video: '🎬 動画を送ったよ' },
+  de: { image: '📷 Hab dir ein Bild geschickt', video: '🎬 Hab dir ein Video geschickt' },
+  it: { image: '📷 Ti ho mandato una foto', video: '🎬 Ti ho mandato un video' },
 };
 const fmt = (line, vars) => String(line || '').replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
 

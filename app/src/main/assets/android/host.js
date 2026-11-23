@@ -654,9 +654,65 @@ const FRIENDLY = {
     [/abort|signal|cancel/i, 'соединение оборвалось, попробуй ещё раз'],
     [/network|fetch|resolve|offline|connect|socket|host/i, 'нет интернета, или сервис не отвечает'],
   ],
+  vi: [
+    [/afford|credits|insufficient.*(credit|balance|funds)|payment required/i, 'tài khoản của bạn với AI đó không đủ tín dụng; chọn mô hình miễn phí (những cái ghi “free”) hoặc nạp thêm'],
+    [/must be a string|image_url|vision|multimodal|modalit/i, 'AI đó không nhìn được ảnh'],
+    [/^not allowed/i, 'bạn chưa cho mình xem màn hình'],
+    [/screen off/i, 'màn hình đang tắt'],
+    [/no picture|picture is gone/i, 'ảnh không đến được chỗ mình, thử lại nhé'],
+    [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'khóa AI không hoạt động; kiểm tra trong Cài đặt'],
+    [/quota|per ?day|exhausted/i, 'AI đã hết giới hạn miễn phí; thử lại sau hoặc chọn mô hình khác trong Cài đặt'],
+    [/402|429|rate|limit|quota|too many/i, 'AI đang bận, chờ chút nhé'],
+    [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'dịch vụ AI đang gặp sự cố, thử lại sau'],
+    [/timeout|timed out/i, 'AI trả lời lâu quá'],
+    [/abort|signal|cancel/i, 'kết nối bị ngắt, thử lại nhé'],
+    [/network|fetch|resolve|offline|connect|socket|host/i, 'không có internet, hoặc dịch vụ không phản hồi'],
+  ],
+  ja: [
+    [/afford|credits|insufficient.*(credit|balance|funds)|payment required/i, 'そのAIのアカウントのクレジットが足りないみたい。無料モデル（“free”と書いてあるもの）を選ぶかチャージしてね'],
+    [/must be a string|image_url|vision|multimodal|modalit/i, 'そのAIは画像を見られないの'],
+    [/^not allowed/i, '画面を見る許可をもらってないよ'],
+    [/screen off/i, '画面がオフだよ'],
+    [/no picture|picture is gone/i, '画像が届かなかった、もう一度試して'],
+    [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'AIのキーが使えないよ。設定で確認して'],
+    [/quota|per ?day|exhausted/i, 'AIの無料枠を使い切ったみたい。後で試すか、設定で別のモデルを選んで'],
+    [/402|429|rate|limit|quota|too many/i, 'AIが混んでるの、ちょっと待って'],
+    [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'AIサービスが落ちてるみたい、後でもう一度'],
+    [/timeout|timed out/i, 'AIの返事に時間がかかりすぎた'],
+    [/abort|signal|cancel/i, '接続が切れちゃった、もう一度試して'],
+    [/network|fetch|resolve|offline|connect|socket|host/i, 'インターネットがないか、サービスが応答してないよ'],
+  ],
+  de: [
+    [/afford|credits|insufficient.*(credit|balance|funds)|payment required/i, 'dein Konto bei dieser KI hat nicht genug Guthaben; wähl ein kostenloses Modell (die mit „free“) oder lade auf'],
+    [/must be a string|image_url|vision|multimodal|modalit/i, 'diese KI kann keine Bilder sehen'],
+    [/^not allowed/i, 'du hast mich deinen Bildschirm nicht sehen lassen'],
+    [/screen off/i, 'der Bildschirm ist aus'],
+    [/no picture|picture is gone/i, 'das Bild ist nicht angekommen, versuch’s nochmal'],
+    [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'der KI-Schlüssel funktioniert nicht; prüf ihn in den Einstellungen'],
+    [/quota|per ?day|exhausted/i, 'die KI hat ihr Gratis-Limit erreicht; versuch es später oder wähl ein anderes Modell in den Einstellungen'],
+    [/402|429|rate|limit|quota|too many/i, 'die KI ist beschäftigt, gib ihr einen Moment'],
+    [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'der KI-Dienst ist ausgefallen, versuch es später'],
+    [/timeout|timed out/i, 'die KI hat zu lange gebraucht'],
+    [/abort|signal|cancel/i, 'die Verbindung ist abgebrochen, versuch’s nochmal'],
+    [/network|fetch|resolve|offline|connect|socket|host/i, 'kein Internet, oder der Dienst antwortet nicht'],
+  ],
+  it: [
+    [/afford|credits|insufficient.*(credit|balance|funds)|payment required/i, 'il tuo account con quell’IA non ha abbastanza credito; scegli un modello gratuito (quelli con “free”) o ricaricalo'],
+    [/must be a string|image_url|vision|multimodal|modalit/i, 'quell’IA non vede le immagini'],
+    [/^not allowed/i, 'non mi hai fatto vedere lo schermo'],
+    [/screen off/i, 'lo schermo è spento'],
+    [/no picture|picture is gone/i, 'l’immagine non mi è arrivata, riprova'],
+    [/40[13]|invalid.*key|api key|unauthori[sz]ed|incorrect/i, 'la chiave dell’IA non funziona; controllala nelle Impostazioni'],
+    [/quota|per ?day|exhausted/i, 'l’IA ha raggiunto il limite gratuito; riprova più tardi o scegli un altro modello nelle Impostazioni'],
+    [/402|429|rate|limit|quota|too many/i, 'l’IA è occupata, dalle un momento'],
+    [/50\d|unavailable|overloaded|high demand|bad gateway/i, 'il servizio IA non funziona, riprova più tardi'],
+    [/timeout|timed out/i, 'l’IA ci ha messo troppo a rispondere'],
+    [/abort|signal|cancel/i, 'la connessione è caduta, riprova'],
+    [/network|fetch|resolve|offline|connect|socket|host/i, 'niente internet, o il servizio non risponde'],
+  ],
 };
-const SOMETHING = { es: 'algo falló, intenta otra vez', en: 'something went wrong, try again', fr: 'quelque chose a raté, réessaie', pt: 'algo deu errado, tenta de novo', ru: 'что-то пошло не так, попробуй ещё раз' };
-const FREE_AI = { es: 'La IA gratis', en: 'The free AI', fr: 'L’IA gratuite', pt: 'A IA grátis', ru: 'Бесплатный ИИ' };
+const SOMETHING = { es: 'algo falló, intenta otra vez', en: 'something went wrong, try again', fr: 'quelque chose a raté, réessaie', pt: 'algo deu errado, tenta de novo', ru: 'что-то пошло не так, попробуй ещё раз', vi: 'có gì đó bị lỗi, thử lại nhé', ja: '何かがうまくいかなかった、もう一度試して', de: 'etwas ist schiefgelaufen, versuch’s nochmal', it: 'qualcosa è andato storto, riprova' };
+const FREE_AI = { es: 'La IA gratis', en: 'The free AI', fr: 'L’IA gratuite', pt: 'A IA grátis', ru: 'Бесплатный ИИ', vi: 'AI miễn phí', ja: '無料AI', de: 'Die kostenlose KI', it: 'L’IA gratuita' };
 function friendly(message) {
   const raw = String(message || '');
   send('log', { level: 'W', text: `AI: ${raw.slice(0, 300)}` });
@@ -955,6 +1011,10 @@ const SUMMON_LINES = {
   fr: ['Tu m’as appelée ?', 'Me voilà.', 'Sortie du réseau rien que pour toi.', 'On fait quoi ?'],
   pt: ['Me chamou?', 'Tô aqui.', 'Saí da rede só por você.', 'O que a gente faz?'],
   ru: ['Звал(а)?', 'Я здесь.', 'Вышла из сети только ради тебя.', 'Что делаем?'],
+  vi: ['Bạn gọi mình hả?', 'Mình đây.', 'Mình rời mạng chỉ vì bạn đó.', 'Mình làm gì đây?'],
+  ja: ['呼んだ？', 'ここにいるよ。', 'あなたのためにネットから抜けてきたの。', '何する？'],
+  de: ['Hast du gerufen?', 'Hier bin ich.', 'Nur für dich aus dem Netz ausgestöpselt.', 'Was machen wir?'],
+  it: ['Mi hai chiamata?', 'Eccomi.', 'Mi sono scollegata dalla rete solo per te.', 'Che facciamo?'],
 };
 function summon() {
   const capri = window.dev?.capri;
@@ -1029,6 +1089,50 @@ const PHONE_LABELS = {
     provOllama: 'Ollama на твоём ПК', provFree: 'Бесплатно, без аккаунта (Pollinations)', provCustom: 'Свой сервер (адрес)',
     secHer: 'Она', secAi: 'Её ИИ', secPhone: 'Твой телефон', secMore: 'Ещё', service: 'Сервис', model: 'Модель', noModels: 'Пока нет моделей',
     lookNow: 'Посмотри на мой экран', lookAuto: 'Смотреть мой экран вживую', ghost: 'Режим призрака (трогается только лицо)',
+  },
+  vi: {
+    wardrobe: 'Tủ đồ (mặc đồ cho cô ấy)',
+    seesKey: '👁 = có thể nhìn màn hình của bạn',
+    battery: 'Cảnh báo pin', batteryOn: 'Báo cho mình', batteryFull: 'Khi sạc đến', batteryLow: 'Khi giảm xuống', breaks: 'Nhắc mình nghỉ giải lao', breakEvery: 'Sau', hours: '{n} giờ',
+    possess: 'Nhập vào thẻ của cô ấy', gamer: 'Chế độ game', icon: 'Chế độ biểu tượng (chỉ mặt nạ)', float: 'Không trọng lực (ở yên chỗ bạn đặt)', community: 'Tham gia cộng đồng', startup: 'Khởi động cùng điện thoại', pcReact: 'Phản ứng với điện thoại của mình',
+    motionAuto: 'Giống điện thoại', restTaskbar: 'Ngồi ở cạnh dưới', theme: 'Kiểu bảng của cô ấy',
+    soundsDir: 'Nơi để âm thanh riêng của mình',
+    provOllama: 'Ollama trên PC của bạn', provFree: 'Miễn phí, không cần tài khoản (Pollinations)', provCustom: 'Máy chủ của bạn (địa chỉ)',
+    secHer: 'Cô ấy', secAi: 'AI của cô ấy', secPhone: 'Điện thoại của bạn', secMore: 'Thêm', service: 'Dịch vụ', model: 'Mô hình', noModels: 'Chưa có mô hình',
+    lookNow: 'Nhìn màn hình của mình', lookAuto: 'Xem màn hình trực tiếp', ghost: 'Chế độ bóng ma (chỉ mặt cô ấy nhận chạm)',
+  },
+  ja: {
+    wardrobe: 'ワードローブ（着せ替え）',
+    seesKey: '👁 = 画面を見られる',
+    battery: 'バッテリー通知', batteryOn: '教えて', batteryFull: '充電がここまで来たら', batteryLow: 'ここまで下がったら', breaks: '休憩をリマインド', breakEvery: '間隔', hours: '{n}時間',
+    possess: '彼女のカードに憑依', gamer: 'ゲーマーモード', icon: 'アイコンモード（マスクだけ）', float: '無重力（置いた場所にとどまる）', community: 'コミュニティに参加', startup: 'スマホと一緒に起動', pcReact: 'スマホに反応する',
+    motionAuto: 'スマホと同じ', restTaskbar: '下の端に座る', theme: 'パネルのスタイル',
+    soundsDir: '自分のサウンドを置く場所',
+    provOllama: 'PCのOllama', provFree: '無料・アカウント不要（Pollinations）', provCustom: '自分のサーバー（アドレス）',
+    secHer: '彼女', secAi: '彼女のAI', secPhone: 'あなたのスマホ', secMore: 'その他', service: 'サービス', model: 'モデル', noModels: 'モデルがまだありません',
+    lookNow: '画面を見て', lookAuto: '画面をライブで見る', ghost: 'ゴーストモード（顔だけタッチに反応）',
+  },
+  de: {
+    wardrobe: 'Kleiderschrank (zieh sie an)',
+    seesKey: '👁 = kann deinen Bildschirm sehen',
+    battery: 'Akku-Hinweise', batteryOn: 'Sag’s mir', batteryFull: 'Wenn er lädt bis', batteryLow: 'Wenn er fällt auf', breaks: 'Erinnere mich an Pausen', breakEvery: 'Nach', hours: '{n} h',
+    possess: 'Ihre Karten besetzen', gamer: 'Gamer-Modus', icon: 'Icon-Modus (nur ihre Maske)', float: 'Schwerelos (bleibt, wo du sie hinsetzt)', community: 'Der Community beitreten', startup: 'Mit dem Handy starten', pcReact: 'Auf mein Handy reagieren',
+    motionAuto: 'Wie das Handy', restTaskbar: 'Sitzt am unteren Rand', theme: 'Stil ihrer Fenster',
+    soundsDir: 'Wohin meine eigenen Sounds kommen',
+    provOllama: 'Ollama auf deinem PC', provFree: 'Kostenlos, ohne Konto (Pollinations)', provCustom: 'Dein eigener Server (Adresse)',
+    secHer: 'Sie', secAi: 'Ihre KI', secPhone: 'Dein Handy', secMore: 'Mehr', service: 'Dienst', model: 'Modell', noModels: 'Noch keine Modelle',
+    lookNow: 'Schau auf meinen Bildschirm', lookAuto: 'Meinen Bildschirm live ansehen', ghost: 'Geistermodus (nur ihr Gesicht reagiert auf Berührung)',
+  },
+  it: {
+    wardrobe: 'Guardaroba (vestila)',
+    seesKey: '👁 = può guardare il tuo schermo',
+    battery: 'Avvisi batteria', batteryOn: 'Avvisami', batteryFull: 'Quando si carica fino a', batteryLow: 'Quando scende a', breaks: 'Ricordami le pause', breakEvery: 'Dopo', hours: '{n} h',
+    possess: 'Possiedi le sue schede', gamer: 'Modalità gamer', icon: 'Modalità icona (solo la maschera)', float: 'Senza gravità (resta dove la metti)', community: 'Unisciti alla community', startup: 'Avvia con il telefono', pcReact: 'Reagisci al mio telefono',
+    motionAuto: 'Come il telefono', restTaskbar: 'Seduta sul bordo in basso', theme: 'Stile dei suoi pannelli',
+    soundsDir: 'Dove mettere i miei suoni',
+    provOllama: 'Ollama sul tuo PC', provFree: 'Gratis, senza account (Pollinations)', provCustom: 'Il tuo server (indirizzo)',
+    secHer: 'Lei', secAi: 'La sua IA', secPhone: 'Il tuo telefono', secMore: 'Altro', service: 'Servizio', model: 'Modello', noModels: 'Ancora nessun modello',
+    lookNow: 'Guarda il mio schermo', lookAuto: 'Guarda il mio schermo dal vivo', ghost: 'Modalità fantasma (solo il viso risponde al tocco)',
   },
 };
 
@@ -1516,6 +1620,10 @@ const GAMER_LINES = {
   fr: { on: ['Mode gamer. Je me fais toute petite ici, vas-y.', 'Mode gamer activé. Je ne te gêne pas, choom.'], off: ['Alors, cette partie ?', 'Fin du mode gamer. T’as gagné ?'] },
   pt: { on: ['Modo gamer. Fico pequenininha aqui, manda ver.', 'Modo gamer ligado. Não vou te atrapalhar, choom.'], off: ['Como foi a partida?', 'Acabou o modo gamer. Ganhou?'] },
   ru: { on: ['Игровой режим. Я тут маленькая посижу, давай.', 'Игровой режим включён. Не мешаю, чум.'], off: ['Как игра?', 'Игровой режим выключен. Победил?'] },
+  vi: { on: ['Chế độ game. Mình sẽ ngồi nhỏ xíu ở đây, chiến đi.', 'Đã bật chế độ game. Mình không làm phiền đâu, choom.'], off: ['Trận đấu thế nào?', 'Đã tắt chế độ game. Bạn thắng không?'] },
+  ja: { on: ['ゲーマーモード。ここで小さくなってるから、行ってきて。', 'ゲーマーモードON。邪魔しないよ、チューム。'], off: ['ゲームどうだった？', 'ゲーマーモードOFF。勝った？'] },
+  de: { on: ['Gamer-Modus. Ich bleib hier klein, mach sie fertig.', 'Gamer-Modus an. Ich stör dich nicht, Choom.'], off: ['Wie war das Spiel?', 'Gamer-Modus aus. Hast du gewonnen?'] },
+  it: { on: ['Modalità gamer. Resto piccola qui, vai a vincere.', 'Modalità gamer attiva. Non ti disturbo, choom.'], off: ['Com’è andata la partita?', 'Modalità gamer disattivata. Hai vinto?'] },
 };
 function gamerMode(on) {
   const dev = window.dev;
@@ -1623,6 +1731,10 @@ const UPDATE_LINES = {
   pt: 'Saiu minha versão {v}! Toque na minha notificação ou abra o app pra me atualizar.',
   fr: 'Ma version {v} est sortie ! Touche ma notification ou ouvre l’appli pour me mettre à jour.',
   ru: 'Вышла моя версия {v}! Нажми на моё уведомление или открой приложение, чтобы обновить меня.',
+  vi: 'Phiên bản {v} của mình đã ra! Chạm vào thông báo hoặc mở ứng dụng để cập nhật mình.',
+  ja: 'わたしのバージョン{v}が出たよ！通知をタップするかアプリを開いてアップデートしてね。',
+  de: 'Meine Version {v} ist da! Tipp auf meine Benachrichtigung oder öffne die App, um mich zu aktualisieren.',
+  it: 'È uscita la mia versione {v}! Tocca la mia notifica o apri l’app per aggiornarmi.',
 };
 on('capri:update', ({ version, notes: news } = {}) => {
   const line = (UPDATE_LINES[resolveLang(cfg.lang)] || UPDATE_LINES.en).replace('{v}', version || '');

@@ -53,6 +53,38 @@ const LINES = {
     already: 'Нас и так двое. Трое? Даже не мечтай.',
     alone: 'Я и так одна.',
   },
+  vi: {
+    split: ['Hai đứa mình! Rắc rối gấp đôi.', 'Ta-da. Một đứa nói chuyện với bạn, đứa kia đi chơi.', 'Mỗi người một nửa, choom.'],
+    tap: ['Gì? Mình là đứa ngoan mà.', 'Cô ấy nói, mình nhảy.', 'Đừng nói với cô ấy là mình dễ thương hơn.', 'Mình đang canh gác.', 'Nhớ mình hả? Mình ngay đây.'],
+    music: ['Mình biết bài này!', 'Để cô ấy nói, mình nhảy.'],
+    merge: ['Lại thành một rồi. Kỳ ghê.', 'Về nhà rồi.', 'Đó, lại bên nhau.'],
+    already: 'Đã có hai đứa rồi. Ba á? Mơ đi.',
+    alone: 'Mình chỉ có một rồi.',
+  },
+  ja: {
+    split: ['ふたりになった！トラブルも2倍。', 'ジャーン。ひとりはあなたと話して、もうひとりは遊ぶの。', '半分こだよ、チューム。'],
+    tap: ['なに？わたしはいい子のほうだよ。', 'あっちが話して、わたしは踊る。', 'わたしのほうがかわいいって、あっちには内緒ね。', '見張り中。', '寂しかった？ここにいるよ。'],
+    music: ['これ知ってる！', 'あっちに話させて、わたしは踊る。'],
+    merge: ['またひとりに。変な感じ。', 'ただいま。', 'はい、また一緒。'],
+    already: 'もうふたりいるよ。3人？夢見すぎ。',
+    alone: 'もうひとりだけだよ。',
+  },
+  de: {
+    split: ['Zwei von uns! Doppelter Ärger.', 'Ta-da. Eine redet mit dir, die andere hat Spaß.', 'Halbe-halbe, Choom.'],
+    tap: ['Was? Ich bin die Nette.', 'Sie redet, ich tanze.', 'Sag ihr nicht, dass ich süßer bin.', 'Ich halte Wache.', 'Vermisst? Ich bin hier.'],
+    music: ['Das kenn ich!', 'Lass sie reden, ich tanze.'],
+    merge: ['Wieder eine. Das war komisch.', 'Wieder zu Hause.', 'So, wieder zusammen.'],
+    already: 'Wir sind schon zu zweit. Drei? Träum weiter.',
+    alone: 'Ich bin schon nur eine.',
+  },
+  it: {
+    split: ['Siamo in due! Doppi guai.', 'Ta-da. Una parla con te, l’altra si diverte.', 'Metà e metà, choom.'],
+    tap: ['Cosa? Io sono quella gentile.', 'Lei parla, io ballo.', 'Non dirle che sono più carina.', 'Sono di guardia.', 'Ti sono mancata? Sono qui.'],
+    music: ['Questa la conosco!', 'Lasciala parlare, io ballo.'],
+    merge: ['Di nuovo una. Che strano.', 'Di nuovo a casa.', 'Ecco, di nuovo insieme.'],
+    already: 'Siamo già in due. Tre? Sogna pure.',
+    alone: 'Sono già una sola.',
+  },
 };
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 

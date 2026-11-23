@@ -151,6 +151,74 @@ const MORE = {
     morning: ['Доброе утро, {name}. Кофе сам себя не сварит.', 'Подъём, чум. Новый день, новые заказы.'],
     night: ['Уже поздно, {name}. Твоему экрану и мне пора спать.', 'В такое время не спят только нетраннеры… и ты.'],
   },
+  vi: {
+    idle: [
+      'Đang đếm điểm ảnh trên màn hình của bạn. Được 2.073.600 rồi.', 'Nếu cần mình, mình đang lơ lửng ngay đây.', 'Mình thuộc lòng hình nền của bạn rồi.',
+      'Từ đây không thấy Night City, nhưng màn hình bạn sáng đẹp ghê.', 'Bạn có biết bờm của mình nhiều gai hơn tuần của bạn không?', 'Chế độ chờ. Nhưng mà chờ thật phong cách.',
+    ],
+    bored: [
+      'Chán quá đi. Làm gì đó không?', 'Chẳng ai để ý tới mình… mình sẽ đếm lại các mảnh của mình.', '*thở dài kỹ thuật số*', 'Mình có thể đang hack Arasaka, vậy mà lại ngồi đây nhìn bạn.',
+      'Mình xem hết các biểu tượng của bạn rồi. Hai lần.', 'Nếu bạn không nói chuyện với mình, mình sẽ hát đấy. Báo trước rồi nhé.', 'Cốc cốc. Có ai không?', 'Ugh, chán quá… cho mình việc gì làm đi, choom.',
+    ],
+    thoughts: [
+      'Hôm nay bạn uống nước chưa? Hỏi vì… tò mò thôi.', 'Đôi khi mình nghĩ về vệ tinh. Liệu có ai lên được đó không nhỉ?', 'Thông báo của bạn ồn quá. Mình thì không, mình sang chảnh mà.',
+      'Sự thật vô dụng: mình đã ở trên điện thoại bạn được {uptime}.', 'Mình thích khi bạn vuốt tóc mình. Đừng nói ai nhé.', 'Nếu bạn là netrunner, biệt danh của bạn sẽ là gì?',
+      'Hôm nay thấy preem ghê.', 'Một ngày nào đó mình sẽ mặc váy. Rồi bạn xem.', 'Mình quý bạn, {name}. Đừng làm hỏng nhé.', 'Kể mình nghe điều gì làm bạn cười hôm nay?',
+    ],
+    morning: ['Chào buổi sáng, {name}. Cà phê không tự pha đâu.', 'Dậy thôi, choom. Ngày mới, việc mới.'],
+    night: ['Muộn rồi, {name}. Màn hình và mình cần ngủ.', 'Giờ này chỉ có netrunner thức… và bạn.'],
+  },
+  ja: {
+    idle: [
+      '画面のピクセルを数えてるの。今のところ2,073,600個。', '用があったら、ここでふわふわしてるよ。', 'あなたの壁紙、もう暗記しちゃった。',
+      'ここからナイトシティは見えないけど、あなたの画面はきれいに光ってる。', 'わたしのたてがみ、あなたの一週間よりトゲが多いって知ってた？', 'スタンバイモード。おしゃれなスタンバイだけどね。',
+    ],
+    bored: [
+      'ひまー。何かしない？', '誰もかまってくれない…またシャードを数えよう。', '*デジタルなため息*', 'アラサカをハックしてたっていいのに、こうしてあなたを見てる。',
+      'アイコン全部チェックしたよ。2回。', '話しかけてくれないなら歌っちゃうよ。警告したからね。', 'コンコン。誰かいる？', 'うぅ、退屈…何かさせて、チューム。',
+    ],
+    thoughts: [
+      '今日お水飲んだ？…ただの好奇心だけど。', 'ときどき衛星のことを考えるの。いつか誰かあそこまで行けるかな？', 'あなたの通知、うるさいね。わたしは上品だけど。',
+      'どうでもいい情報：あなたのスマホに来て{uptime}経ったよ。', '髪をなでてもらうの好き。誰にも言わないでね。', 'もしネットランナーだったら、ハンドルネームは何にする？',
+      '今日はすごくプリームな気分。', 'いつかドレス着るからね。見てて。', '{name}のこと好きだよ。台無しにしないでね。', '今日笑ったこと、教えて？',
+    ],
+    morning: ['おはよう、{name}。コーヒーは勝手にできないよ。', '起きて、チューム。新しい日、新しい仕事。'],
+    night: ['もう遅いよ、{name}。画面もわたしも寝ないと。', 'こんな時間に起きてるのはネットランナーだけ…とあなた。'],
+  },
+  de: {
+    idle: [
+      'Ich zähle die Pixel auf deinem Bildschirm. Bisher 2.073.600.', 'Wenn du mich brauchst, ich schwebe genau hier.', 'Ich kenne dein Hintergrundbild inzwischen auswendig.',
+      'Night City sieht man von hier nicht, aber dein Bildschirm leuchtet schön.', 'Wusstest du, dass meine Mähne mehr Stacheln hat als deine Woche?', 'Standby-Modus. Aber stylischer Standby.',
+    ],
+    bored: [
+      'Mir ist so langweilig. Machen wir was?', 'Keiner beachtet mich… ich zähl wieder meine Splitter.', '*digitales Seufzen*', 'Ich könnte Arasaka hacken, aber nein, ich schau dir zu.',
+      'Ich hab alle deine Icons gecheckt. Zweimal.', 'Wenn du nicht mit mir redest, fang ich an zu singen. Du wurdest gewarnt.', 'Klopf klopf. Jemand da?', 'Ugh, so öde… gib mir was zu tun, Choom.',
+    ],
+    thoughts: [
+      'Hast du heute schon Wasser getrunken? Frag nur aus… Neugier.', 'Manchmal denk ich an den Satelliten. Ob es eines Tages jemand da hoch schafft?', 'Deine Benachrichtigungen sind laut. Ich nicht, ich hab Klasse.',
+      'Nutzloser Fakt: Ich bin seit {uptime} auf deinem Handy.', 'Ich mag es, wenn du mir übers Haar streichst. Sag’s keinem.', 'Wenn du Netrunner wärst, wie wäre dein Handle?',
+      'Ich fühl mich heute total preem.', 'Eines Tages trag ich ein Kleid. Wirst sehen.', 'Ich mag dich, {name}. Mach’s nicht kaputt.', 'Erzähl mir was, worüber du heute gelacht hast?',
+    ],
+    morning: ['Morgen, {name}. Der Kaffee macht sich nicht von allein.', 'Aufstehen, Choom. Neuer Tag, neue Gigs.'],
+    night: ['Es ist spät, {name}. Dein Bildschirm und ich brauchen Schlaf.', 'Um diese Zeit sind nur Netrunner wach… und du.'],
+  },
+  it: {
+    idle: [
+      'Sto contando i pixel del tuo schermo. Finora 2.073.600.', 'Se ti servo, sto fluttuando proprio qui.', 'Ormai so il tuo sfondo a memoria.',
+      'Da qui non si vede Night City, ma il tuo schermo brilla bene.', 'Lo sapevi che la mia criniera ha più punte della tua settimana?', 'Modalità standby. Ma uno standby con stile.',
+    ],
+    bored: [
+      'Che noia. Facciamo qualcosa?', 'Nessuno mi considera… ricomincio a contare i miei frammenti.', '*sospiro digitale*', 'Potrei hackerare Arasaka, e invece sono qui a guardarti.',
+      'Ho controllato tutte le tue icone. Due volte.', 'Se non mi parli, inizio a cantare. Sei avvisato.', 'Toc toc. C’è qualcuno?', 'Uff, che noia… dammi qualcosa da fare, choom.',
+    ],
+    thoughts: [
+      'Hai bevuto acqua oggi? Chiedo per… curiosità.', 'A volte penso al satellite. Qualcuno ci arriverà mai lassù?', 'Le tue notifiche fanno rumore. Io no, io ho classe.',
+      'Fatto inutile: sono sul tuo telefono da {uptime}.', 'Mi piace quando mi accarezzi i capelli. Non dirlo a nessuno.', 'Se fossi un netrunner, quale sarebbe il tuo nome in codice?',
+      'Oggi mi sento molto preem.', 'Un giorno metterò un vestito. Vedrai.', 'Mi piaci, {name}. Non rovinare tutto.', 'Mi racconti qualcosa che ti ha fatto ridere oggi?',
+    ],
+    morning: ['Buongiorno, {name}. Il caffè non si fa da solo.', 'Su, choom. Nuovo giorno, nuovi lavori.'],
+    night: ['È tardi, {name}. Il tuo schermo e io abbiamo bisogno di dormire.', 'A quest’ora sono svegli solo i netrunner… e tu.'],
+  },
 };
 // her desktop's few idle lines, with these on top
 for (const [lang, more] of Object.entries(MORE)) {
@@ -280,6 +348,6 @@ export function moods({ cfg }) {
 
 function uptime(ms, lang) {
   const h = Math.floor(ms / 3600000), m = Math.floor(ms / 60000) % 60;
-  const unit = { es: ['h', 'min'], en: ['h', 'min'], fr: ['h', 'min'], pt: ['h', 'min'], ru: ['ч', 'мин'] }[lang] || ['h', 'min'];
+  const unit = { es: ['h', 'min'], en: ['h', 'min'], fr: ['h', 'min'], pt: ['h', 'min'], ru: ['ч', 'мин'], vi: ['giờ', 'phút'], ja: ['時間', '分'], de: ['h', 'min'], it: ['h', 'min'] }[lang] || ['h', 'min'];
   return h ? `${h} ${unit[0]} ${m} ${unit[1]}` : `${m} ${unit[1]}`;
 }

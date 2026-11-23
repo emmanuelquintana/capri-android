@@ -8,6 +8,10 @@ const LINES = {
   pt: ['Ei! Avisa antes de girar.', 'Tudo girando… pronto, passou.', 'Outra vista. Gostei.'],
   fr: ['Hé ! Préviens avant de tourner.', 'Tout tourne… bon, ça va.', 'Nouvelle vue. J’aime bien.'],
   ru: ['Эй! Предупреждай, когда крутишь.', 'Всё кружится… ладно, всё.', 'Новый вид. Мне нравится.'],
+  vi: ['Này! Báo mình trước khi xoay chứ.', 'Mọi thứ quay vòng… được rồi, xong.', 'Góc nhìn mới. Mình thích.'],
+  ja: ['ちょっと！回す前に言ってよ。', '全部ぐるぐる…はい、終わり。', '新しい眺め。気に入った。'],
+  de: ['Hey! Sag Bescheid, bevor du drehst.', 'Alles dreht sich… okay, fertig.', 'Neue Aussicht. Gefällt mir.'],
+  it: ['Ehi! Avvisami prima di girare.', 'Gira tutto… ok, finito.', 'Nuova vista. Mi piace.'],
 };
 const SAY_EVERY = 2 * 60 * 1000;
 

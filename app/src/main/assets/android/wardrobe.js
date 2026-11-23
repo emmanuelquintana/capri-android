@@ -155,8 +155,25 @@ const WORDS = {
   fr: { title: 'Garde-robe', outfits: 'Tenues', things: 'Accessoires', colors: 'Couleurs', effects: 'Effets', soon: 'bientôt', secret: 'secret', mane: 'Crinière', mask: 'Masque', aura: 'Aura', alpha: 'Transparence', gamerAlpha: 'En mode gamer', done: 'OK', reset: 'Tout enlever', none: 'Rien', psycho: 'Cyberpsychose', tap: 'Touche pour le lui mettre ; encore pour l’enlever.' },
   pt: { title: 'Guarda-roupa', outfits: 'Roupas', things: 'Acessórios', colors: 'Cores', effects: 'Efeitos', soon: 'em breve', secret: 'segredo', mane: 'Juba', mask: 'Máscara', aura: 'Aura', alpha: 'Transparência', gamerAlpha: 'No modo gamer', done: 'Pronto', reset: 'Tirar tudo', none: 'Nada', psycho: 'Ciberpsicose', tap: 'Toque para colocar nela; de novo para tirar.' },
   ru: { title: 'Гардероб', outfits: 'Наряды', things: 'Аксессуары', colors: 'Цвета', effects: 'Эффекты', soon: 'скоро', secret: 'секрет', mane: 'Грива', mask: 'Маска', aura: 'Аура', alpha: 'Прозрачность', gamerAlpha: 'В игровом режиме', done: 'Готово', reset: 'Снять всё', none: 'Нет', psycho: 'Киберпсихоз', tap: 'Нажми, чтобы надеть; ещё раз — снять.' },
+  vi: { title: 'Tủ đồ', outfits: 'Trang phục', things: 'Phụ kiện', colors: 'Màu sắc', effects: 'Hiệu ứng', soon: 'sắp có', secret: 'bí mật', mane: 'Bờm', mask: 'Mặt nạ', aura: 'Hào quang', alpha: 'Trong suốt', gamerAlpha: 'Ở chế độ game', done: 'Xong', reset: 'Cởi hết', none: 'Không', psycho: 'Cyberpsychosis', tap: 'Chạm để mặc cho cô ấy; chạm lần nữa để cởi.' },
+  ja: { title: 'ワードローブ', outfits: '衣装', things: 'アクセサリー', colors: 'カラー', effects: 'エフェクト', soon: '近日', secret: 'シークレット', mane: 'たてがみ', mask: 'マスク', aura: 'オーラ', alpha: '透明度', gamerAlpha: 'ゲーマーモード時', done: '完了', reset: '全部外す', none: 'なし', psycho: 'サイバーサイコシス', tap: 'タップで着せて、もう一度で外すよ。' },
+  de: { title: 'Kleiderschrank', outfits: 'Outfits', things: 'Accessoires', colors: 'Farben', effects: 'Effekte', soon: 'bald', secret: 'geheim', mane: 'Mähne', mask: 'Maske', aura: 'Aura', alpha: 'Durchsichtig', gamerAlpha: 'Im Gamer-Modus', done: 'Fertig', reset: 'Alles ausziehen', none: 'Keins', psycho: 'Cyberpsychose', tap: 'Tippen zum Anziehen, nochmal zum Ausziehen.' },
+  it: { title: 'Guardaroba', outfits: 'Outfit', things: 'Accessori', colors: 'Colori', effects: 'Effetti', soon: 'presto', secret: 'segreto', mane: 'Criniera', mask: 'Maschera', aura: 'Aura', alpha: 'Trasparenza', gamerAlpha: 'In modalità gamer', done: 'Fatto', reset: 'Togli tutto', none: 'Nessuno', psycho: 'Cyberpsicosi', tap: 'Tocca per metterglielo; di nuovo per toglierlo.' },
 };
 const LANG_INDEX = { es: 1, en: 2, fr: 3, pt: 4, ru: 5 };
+// (1.11.8) the languages added after the table: their names here, the rest (proper names) in English
+const MORE_NAMES = {
+  vi: { default: 'Bộ đồ của cô ấy', jinete: 'Nài ngựa miền Tây', escolar: 'Đồng phục học sinh', piloto: 'Phi công mecha', cazadora: 'Thợ săn quỷ', gotica: 'Gothic', pijama: 'Đồ ngủ', bruja: 'Phù thủy', santa: 'Giáng sinh', chaqueta: 'Áo khoác vàng (David)', david: 'Áo khoác của David', davidfinal: 'David, crôm quân sự', academia: 'Học viện tập đoàn (David)', gloria: 'Gloria (nhân viên y tế)', sirvienta: 'Hầu gái', maidneon: 'Hầu gái neon', astronauta: 'Phi hành gia (vệ tinh của cô ấy)', sudadera: 'Áo hoodie game thủ', rockera: 'Rocker punk', invierno: 'Mùa đông', novia: 'Váy cưới',
+    crown: 'Vương miện', catears: 'Tai mèo', horns: 'Sừng', halo: 'Vầng hào quang', bow: 'Nơ', flower: 'Hoa', santahat: 'Mũ Giáng sinh', witchhat: 'Mũ phù thủy', cowboyhat: 'Mũ cao bồi', headphones: 'Tai nghe', glasses: 'Kính râm', visor: 'Kính visor', scarf: 'Khăn quàng', choker: 'Vòng cổ choker', netcable: 'Cáp netrunner', controller: 'Tay cầm chơi game', balloon: 'Bóng bay trái tim', moon: 'Mặt Trăng (Lucy)', filmcam: 'Máy quay phim (Roman)', crosschain: 'Thánh giá vàng (David)', jawmask: 'Mặt nạ hàm (Kiwi)', monowire: 'Monowire (Lucy)', backpack: 'Ba lô vàng (Roman)', shotgun: 'Súng shotgun (Rebecca)', veil: 'Khăn voan cô dâu', bouquet: 'Bó hoa' },
+  ja: { default: 'いつものスーツ', jinete: '西部のジョッキー', escolar: '制服', piloto: 'メカパイロット', cazadora: 'デーモンハンター', ninja: '忍者', gotica: 'ゴシック', kimono: '浴衣', pijama: 'パジャマ', bruja: '魔女', santa: 'クリスマス', chaqueta: '黄色いジャケット（デイビッド）', david: 'デイビッドのジャケット', davidfinal: 'デイビッド、軍用クローム', academia: 'アラサカアカデミー（デイビッド）', gloria: 'グロリア（救命士）', sirvienta: 'メイド', maidneon: 'ネオンメイド', astronauta: '宇宙飛行士（彼女の衛星）', idol: 'アイドル', sudadera: 'ゲーマーパーカー', rockera: 'パンクロッカー', charra: 'チャラ', invierno: '冬', novia: 'ウェディングドレス',
+    crown: '王冠', catears: '猫耳', horns: 'ツノ', halo: '天使の輪', bow: 'リボン', flower: '花', santahat: 'サンタ帽', witchhat: '魔女の帽子', cowboyhat: 'カウボーイハット', headphones: 'ヘッドホン', glasses: 'サングラス', visor: 'バイザー', scarf: 'マフラー', choker: 'チョーカー', netcable: 'ネットランナーケーブル', controller: 'ゲームコントローラー', balloon: 'ハートの風船', moon: '月（ルーシー）', filmcam: 'フィルムカメラ（ローマン）', crosschain: '金の十字架（デイビッド）', jawmask: 'ジョーマスク（キーウィ）', monowire: 'モノワイヤー（ルーシー）', backpack: '黄色いリュック（ローマン）', sword: '刀', shotgun: 'ショットガン（レベッカ）', veil: 'ウェディングベール', bouquet: 'ブーケ' },
+  de: { default: 'Ihr Anzug', jinete: 'Western-Jockey', escolar: 'Schuluniform', piloto: 'Mecha-Pilotin', cazadora: 'Dämonenjägerin', gotica: 'Gothic', pijama: 'Schlafanzug', bruja: 'Hexe', santa: 'Weihnachten', chaqueta: 'Gelbe Jacke (David)', david: 'Davids Jacke', davidfinal: 'David, Militär-Chrom', academia: 'Konzern-Akademie (David)', gloria: 'Gloria (Sanitäterin)', sirvienta: 'Dienstmädchen', maidneon: 'Neon-Dienstmädchen', astronauta: 'Astronautin (ihr Satellit)', sudadera: 'Gamer-Hoodie', rockera: 'Punkrockerin', invierno: 'Winter', novia: 'Brautkleid',
+    crown: 'Krone', catears: 'Katzenohren', horns: 'Hörner', halo: 'Heiligenschein', bow: 'Schleife', flower: 'Blume', santahat: 'Weihnachtsmütze', witchhat: 'Hexenhut', cowboyhat: 'Cowboyhut', headphones: 'Kopfhörer', glasses: 'Sonnenbrille', visor: 'Visier', scarf: 'Schal', choker: 'Choker', netcable: 'Netrunner-Kabel', controller: 'Gamecontroller', balloon: 'Herzballon', moon: 'Der Mond (Lucy)', filmcam: 'Filmkamera (Roman)', crosschain: 'Goldkreuz (David)', jawmask: 'Kiefermaske (Kiwi)', monowire: 'Monodraht (Lucy)', backpack: 'Gelber Rucksack (Roman)', shotgun: 'Schrotflinte (Rebecca)', veil: 'Brautschleier', bouquet: 'Brautstrauß' },
+  it: { default: 'La sua tuta', jinete: 'Fantina del West', escolar: 'Divisa scolastica', piloto: 'Pilota di mecha', cazadora: 'Cacciatrice di demoni', gotica: 'Gotica', pijama: 'Pigiama', bruja: 'Strega', santa: 'Natale', chaqueta: 'Giacca gialla (David)', david: 'La giacca di David', davidfinal: 'David, cromo militare', academia: 'Accademia corporativa (David)', gloria: 'Gloria (paramedica)', sirvienta: 'Cameriera', maidneon: 'Cameriera neon', astronauta: 'Astronauta (il suo satellite)', sudadera: 'Felpa gamer', rockera: 'Rocker punk', invierno: 'Inverno', novia: 'Abito da sposa',
+    crown: 'Corona', catears: 'Orecchie da gatto', horns: 'Corna', halo: 'Aureola', bow: 'Fiocco', flower: 'Fiore', santahat: 'Cappello di Babbo Natale', witchhat: 'Cappello da strega', cowboyhat: 'Cappello da cowboy', headphones: 'Cuffie', glasses: 'Occhiali da sole', visor: 'Visore', scarf: 'Sciarpa', choker: 'Girocollo', netcable: 'Cavo da netrunner', controller: 'Controller', balloon: 'Palloncino a cuore', moon: 'La Luna (Lucy)', filmcam: 'Cinepresa (Roman)', crosschain: 'Croce d’oro (David)', jawmask: 'Maschera mandibola (Kiwi)', monowire: 'Monofilo (Lucy)', backpack: 'Zaino giallo (Roman)', shotgun: 'Fucile a pompa (Rebecca)', veil: 'Velo da sposa', bouquet: 'Bouquet' },
+};
+// a row's name in her language: outfits have it from column 1, accessories from column 2
+const nameIn = (row, first, lang) => MORE_NAMES[lang]?.[row[0]] || row[(LANG_INDEX[lang] || 2) + first - 1];
 
 // ---------- drawing what goes on top (until its own drawing is in) ----------
 
@@ -554,7 +571,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
         if (secret && !open.has(id)) continue;
         const ready = id === 'default' || listed.has(`outfit-${id}`);
         g.append(tile({
-          label: row[LANG_INDEX[lang()]],
+          label: nameIn(row, 1, lang()),
           on: l.outfit === id,
           locked: ready ? null : w.soon,
           paint: thumb(ready ? (have[`outfit-${id}`] || original) : null),
@@ -572,7 +589,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
         if (row[7] === 'secret' && !open.has(id)) continue;
         const ready = listed.has(`acc-${id}`) || DRAW[id];
         g.append(tile({
-          label: row[LANG_INDEX[lang()] + 1],
+          label: nameIn(row, 2, lang()),
           on: l.things.includes(id),
           locked: ready ? null : w.soon,
           paint: ready ? thingThumb(id) : null,
@@ -668,7 +685,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     available: () => OUTFITS.filter(([id, , , , , , secret]) => (id === 'default' || listed.has(`outfit-${id}`)) && (secret !== 'secret' || unlocked().has(id))).map(([id]) => id),
     outfitName: (id) => {
       const row = OUTFITS.find(([o]) => o === id);
-      return row ? row[1 + Math.max(0, ['es', 'en', 'fr', 'pt', 'ru'].indexOf(lang()))] : id;
+      return row ? nameIn(row, 1, lang()) : id;
     },
     has: (id) => listed.has(id),
     // a drawing of her (poses.js) as she is: her colors are her own

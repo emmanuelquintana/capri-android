@@ -19,6 +19,10 @@ const WORDS = {
   fr: { screen: 'L’habiller sur ton écran', done: 'OK' },
   pt: { screen: 'Vestir na sua tela', done: 'Pronto' },
   ru: { screen: 'Одеть на экране', done: 'Готово' },
+  vi: { screen: 'Mặc đồ cho cô ấy trên màn hình', done: 'Xong' },
+  ja: { screen: '画面の上で着せ替え', done: '完了' },
+  de: { screen: 'Zieh sie auf deinem Bildschirm an', done: 'Fertig' },
+  it: { screen: 'Vestila sullo schermo', done: 'Fatto' },
 };
 
 let cfg = {};

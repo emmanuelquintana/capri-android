@@ -11,6 +11,10 @@ const LINES = {
   fr: ['Regarde mon nouveau style ! Aujourd’hui : {o}.', 'Comment je suis ? J’ai mis {o}.', 'Je me suis changée : {o}. Ça te plaît ?', 'Nouveau look : {o}. Admire-moi.'],
   pt: ['Olha meu novo estilo! Hoje: {o}.', 'Como eu tô? Coloquei {o}.', 'Me troquei: {o}. Gostou?', 'Visual novo: {o}. Me admira.'],
   ru: ['Смотри, мой новый стиль! Сегодня: {o}.', 'Как я выгляжу? Я надела: {o}.', 'Я переоделась: {o}. Нравится?', 'Новый образ: {o}. Любуйся.'],
+  vi: ['Xem phong cách mới của mình nè! Hôm nay: {o}.', 'Mình trông thế nào? Mình mặc {o}.', 'Mình thay đồ rồi: {o}. Thích không?', 'Diện mạo mới: {o}. Ngắm mình đi.'],
+  ja: ['新しいスタイル見て！今日は{o}。', 'どう？{o}を着てみたの。', '着替えたよ：{o}。気に入った？', 'ニュールック：{o}。見とれていいよ。'],
+  de: ['Schau dir meinen neuen Style an! Heute: {o}.', 'Wie sehe ich aus? Ich trage {o}.', 'Ich habe mich umgezogen: {o}. Gefällt’s dir?', 'Neuer Look: {o}. Bewundere mich.'],
+  it: ['Guarda il mio nuovo stile! Oggi: {o}.', 'Come sto? Ho messo {o}.', 'Mi sono cambiata: {o}. Ti piace?', 'Nuovo look: {o}. Ammirami.'],
 };
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 const HOUR = 3600 * 1000;

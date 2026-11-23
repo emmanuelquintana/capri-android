@@ -11,6 +11,10 @@ const LINES = {
   fr: ['Adieu, {app}. 💥', '{app}… désintégrée.', 'Une appli de moins. De rien.', 'Rayée de la carte : {app}.'],
   pt: ['Tchau, {app}. 💥', '{app}… desintegrado.', 'Um app a menos. De nada.', 'Apagado do mapa: {app}.'],
   ru: ['Прощай, {app}. 💥', '{app}… распылено.', 'Одним приложением меньше. Не за что.', 'Стёрто с карты: {app}.'],
+  vi: ['Tạm biệt, {app}. 💥', '{app}… tan biến.', 'Bớt một ứng dụng. Không có gì.', 'Xóa khỏi bản đồ: {app}.'],
+  ja: ['バイバイ、{app}。💥', '{app}…消滅。', 'アプリが一つ減ったね。どういたしまして。', '地図から消去：{app}。'],
+  de: ['Tschüss, {app}. 💥', '{app}… desintegriert.', 'Eine App weniger. Gern geschehen.', 'Von der Karte gelöscht: {app}.'],
+  it: ['Ciao, {app}. 💥', '{app}… disintegrata.', 'Un’app in meno. Prego.', 'Cancellata dalla mappa: {app}.'],
 };
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 

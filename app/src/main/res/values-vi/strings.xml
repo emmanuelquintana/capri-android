@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_name">Capri trên màn hình của bạn</string>
+    <string name="channel_desc">Giữ Capri hoạt động và chứa menu của cô ấy.</string>
+    <string name="notify_title">Capri đang trực tuyến</string>
+    <string name="notify_text">Trên màn hình của bạn. Chạm vào đây để mở menu của mình.</string>
+    <string name="notify_text_hidden">Đã cất vào biochip của cô ấy</string>
+    <string name="action_menu">Menu</string>
+    <string name="action_hide">Cất đi</string>
+    <string name="action_show">Gọi lại</string>
+    <string name="action_quit">Thoát</string>
+    <string name="main_intro">Capri sống trên các ứng dụng của bạn và cho bạn biết Claude Code, Codex hay Antigravity đang làm gì (trong Termux trên điện thoại này, hoặc trên PC qua Wi-Fi).</string>
+    <string name="main_start">Bật Capri</string>
+    <string name="main_stop">Tắt Capri</string>
+    <string name="main_ok">Xong</string>
+    <string name="main_license_link">Giấy phép</string>
+    <string name="hooks_copied">Đã sao chép lệnh. Dán vào Termux rồi nhấn Enter.</string>
+    <string name="main_overlay">Hiển thị trên các ứng dụng khác</string>
+    <string name="main_notify">Hiện thông báo của cô ấy</string>
+    <string name="main_running">Cô ấy đang ở trên màn hình. Nhấn giữ cô ấy để mở menu.</string>
+    <string name="main_status_on">TRỰC TUYẾN</string>
+    <string name="main_status_off">NGOẠI TUYẾN</string>
+    <string name="main_idle">Cấp hai quyền, rồi bật cô ấy.</string>
+    <string name="main_granted">ĐÃ CẤP</string>
+    <string name="main_grant">CẤP QUYỀN</string>
+    <string name="main_log">Nhật ký</string>
+    <string name="main_log_empty">Chưa có gì. Nếu cô ấy không xuất hiện, lỗi sẽ hiện ở đây.</string>
+    <string name="main_copy">Sao chép</string>
+    <string name="main_copied">Đã sao chép nhật ký</string>
+    <string name="main_ai">AI của cô ấy</string>
+    <string name="main_ai_pick">Chọn AI cho cô ấy</string>
+    <string name="main_ai_free">Miễn phí trực tuyến, không cần tài khoản</string>
+    <string name="main_ai_pc">Ollama trên PC của bạn</string>
+    <string name="main_ai_custom">Máy chủ riêng của bạn</string>
+    <string name="main_ai_how">Mở bảng của cô ấy trên màn hình: miễn phí không cần tài khoản, một khóa (Groq, Gemini và NVIDIA miễn phí), hoặc Ollama trên PC qua Wi-Fi. Không cần terminal.</string>
+    <string name="main_notes">Xem thông báo và nhạc của bạn (tùy chọn): cô ấy nhảy lên chúng</string>
+    <string name="update_head">Cập nhật</string>
+    <string name="update_checking">Đang tìm phiên bản mới…</string>
+    <string name="update_latest">Đã mới nhất · v%1$s</string>
+    <string name="update_offline">Không kiểm tra được (mất mạng?) · v%1$s</string>
+    <string name="update_new">Mới: v%1$s (bạn đang có v%2$s)</string>
+    <string name="update_go">Cập nhật</string>
+    <string name="update_downloading">Đang tải… %1$d %%</string>
+    <string name="update_installing">Xác nhận trên màn hình Android hiện ra</string>
+    <string name="update_allow">Cho phép Capri cài đặt ứng dụng, rồi quay lại và chạm Cập nhật.</string>
+    <string name="update_failed">Không cập nhật được từ đây: trang của bản cập nhật sẽ mở để bạn tải về.</string>
+    <string name="update_conflict">Phiên bản này được ký khác: gỡ Capri một lần rồi cài lại. Sau đó các bản cập nhật sẽ cài đè lên.</string>
+    <string name="update_channel">Cập nhật</string>
+    <string name="update_title">Capri %1$s đã ra mắt</string>
+    <string name="update_text">Chạm để cập nhật, không cần gỡ cài đặt.</string>
+    <string name="ob_linking">Đang kết nối với biochip của cô ấy…</string>
+    <string name="ob_hello">Chào choom. Mình là Capri. Mình sẽ sống trên các ứng dụng của bạn, trò chuyện với bạn và cho bạn biết AI của bạn đang làm gì. Trước tiên, bốn điều nhanh thôi.</string>
+    <string name="ob_start">Bắt đầu</string>
+    <string name="ob_name_line">Mình nên gọi bạn là gì?</string>
+    <string name="ob_name_how">Tên hoặc biệt danh của bạn. Thỉnh thoảng mình sẽ dùng nó. Bạn có thể đổi sau trong Cài đặt.</string>
+    <string name="ob_name_hint">Tên hoặc biệt danh của bạn</string>
+    <string name="ob_next">Tiếp</string>
+    <string name="ob_skip">Để sau</string>
+    <string name="ob_back">Quay lại</string>
+    <string name="ob_ai_line">Để nói chuyện với bạn, mình cần một AI, %1$s.</string>
+    <string name="ob_ai_how">Chọn một cái. Bạn có thể đổi bất cứ lúc nào trong Cài đặt.</string>
+    <string name="ai_free_title">Miễn phí, không cần tài khoản</string>
+    <string name="ai_free_how">Một chạm là xong. Đi qua internet (Pollinations).</string>
+    <string name="ai_key_title">Dùng khóa</string>
+    <string name="ai_key_how">Groq, Gemini và NVIDIA miễn phí: mở trang của họ, tạo khóa, sao chép và dán vào đây.</string>
+    <string name="ai_pc_title">Ollama trên PC của bạn</string>
+    <string name="ai_pc_how">PC của bạn là bộ não của cô ấy qua Wi-Fi. Trong Ollama bật “Expose Ollama to the network” và nhập IP của PC vào đây.</string>
+    <string name="ai_key_hint">Dán khóa của bạn</string>
+    <string name="ai_paste">Dán khóa</string>
+    <string name="ai_paste_none">Chưa sao chép gì.</string>
+    <string name="ai_get_key">Lấy khóa</string>
+    <string name="ai_ip_hint">IP của PC, ví dụ 192.168.1.20</string>
+    <string name="ai_use">Dùng cái này</string>
+    <string name="ai_checking">Đang kiểm tra…</string>
+    <string name="ai_ok">Xong: giờ %1$s trả lời cho cô ấy.</string>
+    <string name="ai_bad_key">Khóa đó không dùng được. Kiểm tra xem bạn đã sao chép hết chưa.</string>
+    <string name="ai_fail">Không có phản hồi (%1$s). Kiểm tra địa chỉ hoặc kết nối của bạn.</string>
+    <string name="ob_perm_line">Giờ đến các quyền. Mình sẽ nói mỗi quyền dùng để làm gì.</string>
+    <string name="ob_perm_how">Các quyền cần thiết ở trước. Bạn có thể cấp các quyền tùy chọn bất cứ lúc nào ở tab Quyền.</string>
+    <string name="perm_overlay_title">Hiển thị trên các ứng dụng khác</string>
+    <string name="perm_overlay_why">Đó là cách mình tồn tại trên điện thoại của bạn: không có nó mình không thể xuất hiện trên gì cả. Các lần chạm của bạn vẫn đến ứng dụng; chỉ mình và các bảng của mình là chạm được.</string>
+    <string name="perm_notify_title">Thông báo của cô ấy</string>
+    <string name="perm_notify_why">Android cần một thông báo ghim để không đóng mình. Nó cũng là bảng điều khiển của mình: Menu, Cất đi và Thoát, và những cái nháy mắt của mình.</string>
+    <string name="perm_notes_title">Xem thông báo của bạn</string>
+    <string name="perm_notes_why">Để mình ngồi trên nhạc của bạn với các nút điều khiển và nhảy lên các thông báo. Mình chỉ thấy ứng dụng và tiêu đề, không bao giờ thấy nội dung, và không có gì rời khỏi điện thoại. Lưu ý: khi bật quyền này, một số ứng dụng ngân hàng sẽ chặn bạn; nếu bạn dùng, tốt hơn nên tắt.</string>
+    <string name="perm_install_title">Cài đặt bản cập nhật của cô ấy</string>
+    <string name="perm_install_why">Để mình tự cập nhật từ GitHub mà không cần gỡ cài đặt. Android vẫn hỏi bạn xác nhận mỗi lần.</string>
+    <string name="perm_required">CẦN THIẾT</string>
+    <string name="perm_optional">TÙY CHỌN</string>
+    <string name="ob_done_line">Xong hết rồi, %1$s. Hẹn gặp trên các ứng dụng của bạn.</string>
+    <string name="ob_done_how">Nhấn giữ mình để mở menu, kéo mình để ném mình, và vuốt ve mình bằng hai ngón tay.</string>
+    <string name="ob_need_overlay">Trước tiên hãy cho cô ấy hiển thị trên các ứng dụng khác.</string>
+    <string name="tab_news">Có gì mới</string>
+    <string name="tab_perms">Quyền</string>
+    <string name="tab_community">Cộng đồng</string>
+    <string name="tab_settings">Cài đặt</string>
+    <string name="news_head">Mới</string>
+    <string name="perms_intro">Capri có thể làm gì trên điện thoại của bạn, và vì sao cô ấy cần.</string>
+    <string name="settings_name">Cô ấy gọi bạn là gì</string>
+    <string name="settings_name_saved">Từ giờ mình sẽ gọi bạn là %1$s.</string>
+    <string name="settings_save">Lưu</string>
+    <string name="settings_ai">AI của cô ấy</string>
+    <string name="settings_ai_now">Hiện tại: %1$s</string>
+    <string name="settings_ai_panel">Chọn trong bảng của cô ấy</string>
+    <string name="settings_intro_again">Xem lại phần chào mừng</string>
+    <string name="choom">choom</string>
+    <string name="update_browser">Nó sẽ tải trong trình duyệt của bạn. Khi xong, mở nó và chạm Cập nhật: nó cài đè lên bản này, không mất gì.</string>
+    <string name="perms_bank_head">Ứng dụng ngân hàng</string>
+    <string name="perms_bank">Một số ứng dụng ngân hàng chặn bạn nếu có ứng dụng khác hiện lên trên hoặc có thể xem thông báo, dù nó không đọc gì từ đó. Mình không bao giờ đọc gì từ ngân hàng của bạn hay gửi dữ liệu của bạn đi đâu. Nếu ngân hàng phàn nàn: tắt “Xem thông báo của bạn” và cất mình đi (“Cất đi”, trong thông báo của mình) trước khi mở nó.</string>
+    <string name="dev_on">Chế độ nhà phát triển: nhật ký hiện trong Cài đặt.</string>
+    <string name="dev_off">Đã tắt chế độ nhà phát triển.</string>
+    <string name="perm_mic_title">Nghe bạn nói “Capri”</string>
+    <string name="perm_mic_why">Chỉ khi bạn bật “Nói chuyện với cô ấy” trong Cài đặt, và chỉ khi màn hình bật. Bộ nhận dạng giọng nói của điện thoại biến lời bạn nói thành chữ; mình chỉ giữ phần sau tên mình, và không bao giờ ghi âm. Android hiện chấm micro khi mình đang nghe. Lưu ý: một số ứng dụng ngân hàng và phần mềm diệt virus dè chừng các ứng dụng dùng micro; nếu của bạn phàn nàn, hãy tắt nó.</string>
+    <string name="settings_voice">Nói chuyện với cô ấy</string>
+    <string name="settings_voice_how">Nói “Capri” rồi điều bạn muốn: “Capri, mấy giờ rồi?”, “Capri, mở Spotify”, “Capri, bài tiếp theo”, “Capri, bật đèn pin”, “Capri, hẹn giờ 10 phút”, “Capri, trốn đi”. Mọi thứ khác sẽ đến AI của cô ấy, và cô ấy trả lời thành tiếng. Chỉ khi màn hình bật.</string>
+    <string name="settings_voice_on">Bật: cô ấy đang nghe tên mình.</string>
+    <string name="settings_voice_off">Tắt.</string>
+    <string name="settings_voice_turn_on">Bật</string>
+    <string name="settings_voice_turn_off">Tắt</string>
+    <string name="settings_voice_nomic">Không có micro thì cô ấy không nghe được bạn.</string>
+    <string name="settings_voice_none">Điện thoại này không có bộ nhận dạng giọng nói (cài hoặc cập nhật ứng dụng Google).</string>
+    <string name="voice_listening">● Đang nghe. Hãy nói “Capri…”</string>
+    <string name="voice_heard">✓ Đã nghe tên cô ấy: “%1$s”</string>
+    <string name="voice_other">Đã nghe “%1$s”, nhưng không phải “Capri”.</string>
+    <string name="voice_busy">Micro đang bận (cuộc gọi hoặc ứng dụng khác).</string>
+    <string name="voice_media">Tạm dừng khi đang phát video hoặc nhạc: nghe sẽ làm nó dừng. Tự bật lại khi phát xong.</string>
+    <string name="voice_nomic">Không có quyền micro: cấp trong mục Quyền.</string>
+    <string name="voice_recmic">Mình có micro, nhưng ứng dụng giọng nói của điện thoại thì không. Cấp quyền micro cho nó: Cài đặt › Ứng dụng › Google (hoặc dịch vụ giọng nói của Huawei).</string>
+    <string name="voice_screenoff">Đang nghỉ: màn hình đã tắt.</string>
+    <string name="voice_norecognizer">Điện thoại này không có bộ nhận dạng giọng nói (cài hoặc cập nhật ứng dụng Google).</string>
+    <string name="voice_error">Bộ nhận dạng giọng nói bị lỗi (lỗi %1$s). Đang thử lại…</string>
+    <string name="voice_starting">Đang khởi động… (Capri đã bật chưa?)</string>
+    <string name="tab_cmds">Lệnh</string>
+    <string name="cmds_intro">Những gì bạn có thể nhờ cô ấy, nói thành tiếng hoặc gõ trong chat.</string>
+    <string-array name="cmds">
+        <item>#Nói chuyện với cô ấy</item>
+        <item>Bật trong Cài đặt → Nói chuyện với cô ấy. Nói “Capri” và điều bạn muốn; nếu chỉ nói “Capri”, cô ấy sẽ nghe trong vài giây. Tất cả những điều này cũng dùng được khi gõ trong chat.</item>
+        <item>#Giờ và ngày</item>
+        <item>“Capri, mấy giờ rồi?”</item>
+        <item>“Capri, hôm nay là ngày mấy?”</item>
+        <item>#Nhạc</item>
+        <item>“Capri, phát Sơn Tùng trên Spotify”</item>
+        <item>“Capri, phát Never Fade Away trên YouTube”</item>
+        <item>“Capri, tạm dừng” · “bài tiếp” · “bài trước”</item>
+        <item>Khi đang phát nhạc cô ấy không nghe (sẽ làm nhạc dừng): dùng thanh nhạc của cô ấy hoặc gõ trong chat.</item>
+        <item>“Capri, to lên” · “nhỏ xuống”</item>
+        <item>“Capri, âm lượng 30” · “tắt tiếng”</item>
+        <item>#Ứng dụng</item>
+        <item>“Capri, mở Zalo”</item>
+        <item>“Capri, mở youtube.com”</item>
+        <item>#Điện thoại của bạn</item>
+        <item>“Capri, bật đèn pin” · “tắt đèn pin”</item>
+        <item>“Capri, mình còn bao nhiêu pin?”</item>
+        <item>“Capri, còn bao nhiêu dung lượng trống?”</item>
+        <item>“Capri, mở cài đặt wifi” (hoặc bluetooth, âm thanh, màn hình…)</item>
+        <item>#Thời gian</item>
+        <item>“Capri, hẹn giờ 10 phút”</item>
+        <item>“Capri, nhắc mình gọi cho mẹ sau 1 tiếng”</item>
+        <item>“Capri, nhắc mình mai lúc 9 giờ đổ rác”</item>
+        <item>#Cô ấy</item>
+        <item>“Capri, trốn đi” · “Capri, quay lại”</item>
+        <item>“Capri, chế độ chơi game” (tắt trong Cài đặt hoặc menu của cô ấy)</item>
+        <item>“Capri, chế độ phát trực tiếp” / “Capri, tắt chế độ phát trực tiếp”</item>
+        <item>“Capri, dịch cái này sang tiếng Anh” (những gì trên màn hình)</item>
+        <item>“Capri, cho mình một mẹo” (cho trò chơi trên màn hình)</item>
+        <item>“Capri, chế độ biểu tượng” / “Capri, tắt chế độ biểu tượng”</item>
+        <item>“Capri, mở chat”</item>
+        <item>“Capri, gọi mình là Emma”</item>
+        <item>“Capri, nhớ là mình thích cà phê”</item>
+        <item>“Capri, đừng nghe nữa”</item>
+        <item>#Màn hình của bạn</item>
+        <item>“Capri, nhìn màn hình của mình” (Android sẽ hỏi bạn trước; cần một AI nhìn được hình, như Gemini)</item>
+        <item>Trực tiếp: Cài đặt → Cho cô ấy xem màn hình → Xem trực tiếp</item>
+        <item>#Điện thoại của bạn</item>
+        <item>“Capri, quay lại”, “về màn hình chính”, “cuộn xuống”</item>
+        <item>“Capri, chạm vào Cài đặt”, “gõ vào đây xin chào”</item>
+        <item>Bật trước: Tùy chỉnh → Cô ấy dùng điện thoại giúp bạn</item>
+        <item>“Capri, tách ra” (hoặc dang hai ngón tay trên cô ấy) · “nhập lại”</item>
+        <item>#Mọi thứ khác</item>
+        <item>Mọi thứ khác đến AI của cô ấy và cô ấy trả lời thành tiếng: “Capri, kể chuyện cười đi”, “Capri, con mèo tiếng Nhật nói thế nào?”</item>
+    </string-array>
+    <plurals name="news_changes">
+        <item quantity="other">%d thay đổi · chạm để xem</item>
+    </plurals>
+    <string name="settings_her">Capri trên màn hình của bạn</string>
+    <string name="settings_size">Kích thước</string>
+    <string name="size_xs">Mini</string>
+    <string name="size_s">Nhỏ</string>
+    <string name="size_m">Bình thường</string>
+    <string name="size_l">Lớn</string>
+    <string name="size_xl">Rất lớn</string>
+    <string name="community_title">Tham gia cộng đồng</string>
+    <string name="community_how">Tin tức về Capri trước mọi người, ý tưởng, lỗi, và những người cũng có cô ấy trên điện thoại. Vào Discord và theo dõi mình trên TikTok.</string>
+    <string name="community_discord">Vào Discord</string>
+    <string name="community_tiktok">Theo dõi trên TikTok</string>
+    <string name="community_later">Để sau</string>
+    <string name="settings_lang">Ngôn ngữ · Language</string>
+    <string name="lang_auto">Tự động</string>
+    <string name="settings_float">Không trọng lực</string>
+    <string name="settings_float_how">Cô ấy ở đúng chỗ bạn đặt, kể cả giữa không trung: thả ra là cô ấy lơ lửng ở đó. Cô ấy không đi lang thang hay nhảy lên thông báo, và ném cô ấy cũng không làm cô ấy văng đi, nên cô ấy không bao giờ giận. Đặt cô ấy vào góc hoặc cạnh các đoạn chat và cô ấy sẽ ở yên.</string>
+    <string name="settings_icon">Chế độ biểu tượng</string>
+    <string name="settings_icon_how">Chỉ còn mặt nạ xanh của cô ấy trên màn hình, mắt mở, và cô ấy vẫn bình luận từ đó (màn hình, trò chơi, chat của bạn). Kéo nó bằng ngón tay đến chỗ ít vướng nhất; chạm vào để mở menu. Tiện nếu bạn thích cô ấy to: khi ra ngoài cô ấy to, khi là biểu tượng thì gần như không chiếm chỗ.</string>
+    <string name="settings_gamer">Chế độ chơi game</string>
+    <string name="settings_gamer_how">Cho lúc bạn chơi: cô ấy ngồi nhỏ và hơi trong suốt ở một góc để xem bạn chơi (độ trong suốt: Tủ đồ › Hiệu ứng), chỉ mặt cô ấy nhận chạm, các thẻ của cô ấy tránh xa, cô ấy ngừng nghe, và thỉnh thoảng cổ vũ bạn. Cũng có trong menu hoặc nói “Capri, chế độ chơi game”. Tắt khi bạn chạm lại hoặc khởi động lại cô ấy.</string>
+    <string name="settings_gamer_auto">Tự bật khi mở game</string>
+    <string name="settings_gamer_auto_how">Nó bật khi bạn mở một trò chơi và tắt khi bạn thoát. Cần quyền “Truy cập dữ liệu sử dụng” trong cài đặt Android (cô ấy chỉ thấy ứng dụng nào đang mở, không thấy gì bên trong). Lưu ý: một số ứng dụng ngân hàng và diệt virus không tin quyền này; nếu của bạn phàn nàn, hãy để tắt.</string>
+    <string name="settings_gamer_auto_grant">Tìm Capri trong danh sách và bật “Cho phép truy cập dữ liệu sử dụng”.</string>
+    <string name="voice_gamer">Tạm dừng: chế độ chơi game.</string>
+    <string name="settings_music">Thanh nhạc</string>
+    <string name="music_always">Luôn luôn</string>
+    <string name="music_while">Một lúc</string>
+    <string name="music_off">Không bao giờ</string>
+    <string name="settings_lively">Chuyển động</string>
+    <string name="lively_calm">Bình tĩnh</string>
+    <string name="lively_normal">Bình thường</string>
+    <string name="lively_restless">Hiếu động</string>
+    <string name="settings_ghost">Chế độ bóng ma</string>
+    <string name="settings_ghost_how">Cô ấy vẫn ở trên màn hình nhưng các lần chạm đi xuyên qua cô ấy đến ứng dụng. Mặt cô ấy vẫn nhận chạm: kéo cô ấy bằng mặt, hoặc giữ để mở menu.</string>
+    <string name="on">Bật</string>
+    <string name="off">Tắt</string>
+    <string name="settings_look">Cho cô ấy xem màn hình</string>
+    <string name="settings_look_how">“Capri, nhìn màn hình của mình” (hoặc nút này) cho cô ấy nhìn một lần và bình luận. Trực tiếp: cô ấy thỉnh thoảng nhìn và khi bạn đổi ứng dụng, cho đến khi bạn tắt. Android hỏi bạn mỗi lần bắt đầu và hiện thông báo ghi màn hình khi cô ấy đang xem. Hình ảnh chỉ đến AI chat của cô ấy; ứng dụng ngân hàng hiện màu đen. Cần một AI nhìn được hình, như Gemini (khóa miễn phí): AI miễn phí của Capri không nhìn được.</string>
+    <string name="settings_look_now">Nhìn màn hình của mình ngay</string>
+    <string name="settings_look_live_on">Xem trực tiếp</string>
+    <string name="settings_look_live_off">Dừng xem trực tiếp</string>
+    <string name="settings_need_on">Bật Capri trước (trong Có gì mới).</string>
+    <string name="settings_memory">Những gì cô ấy nhớ về bạn</string>
+    <string name="settings_memory_how">Sau mỗi lần chat, Capri ghi lại điều quan trọng (bạn thích gì, những người bạn nhắc đến, chuyện của bạn) để lần sau còn nhớ. Mọi thứ chỉ ở trên điện thoại này; để ghi lại, cô ấy hỏi AI của mình một lần mỗi cuộc chat.</string>
+    <string name="settings_memory_none">Cô ấy chưa nhớ gì cả. Trò chuyện với cô ấy một lúc nhé.</string>
+    <string name="settings_memory_forget">Quên hết</string>
+    <string name="settings_memory_forget_one">Quên điều này</string>
+    <string name="settings_memory_forgot">Đã quên.</string>
+    <string name="ai_key_saved_hint">Để trống để giữ khóa bạn đã lưu</string>
+    <string name="settings_intro_again_how">Việc này chỉ phát lại phần chào mừng. AI, khóa và cài đặt của cô ấy giữ nguyên; ở bước AI, chỉ cần chạm Tiếp.</string>
+    <string name="settings_intro_again_go">Phát lại</string>
+    <string name="settings_care">Cô ấy chăm sóc bạn</string>
+    <string name="settings_battery">Cảnh báo pin</string>
+    <string name="settings_battery_how">Cô ấy báo khi điện thoại sạc đến mức phần trăm bạn chọn, và khi pin sắp hết. Android cho cô ấy biết mức pin; không cần quyền nào.</string>
+    <string name="settings_battery_full">Báo mình khi sạc đến</string>
+    <string name="settings_battery_low">Báo mình khi pin xuống</string>
+    <string name="settings_breaks">Nghỉ giải lao</string>
+    <string name="settings_breaks_how">Sau ngần ấy thời gian dùng điện thoại liên tục, cô ấy nhắc bạn cho mắt nghỉ. Tắt màn hình năm phút được tính là nghỉ.</string>
+    <string name="ai_sees">👁 = có thể nhìn màn hình của bạn. Nhìn được: Gemini, OpenAI, Groq, OpenRouter, Mistral và NVIDIA (cô ấy chọn một mô hình nhìn được của họ). Không nhìn được: DeepSeek và AI miễn phí. Với Ollama, chỉ các mô hình thị giác (llava, gemma3, qwen-vl).</string>
+    <string name="voice_filter">Bộ lọc tiếng ồn</string>
+    <string name="voice_filter_how">Khi có người hoặc TV xung quanh, cô ấy có thể tưởng đã nghe tên mình. Nghiêm hơn: cô ấy chỉ trả lời khi “Capri” là điều đầu tiên bạn nói, và nói rõ ràng. Nghiêm hơn cũng bỏ qua những gì cô ấy nghe khi điện thoại đang chuyển động trong tay bạn.</string>
+    <string name="voice_filter_normal">Bình thường</string>
+    <string name="voice_filter_strict">Nghiêm</string>
+    <string name="voice_filter_strictest">Rất nghiêm</string>
+    <string name="voice_pace">Cách bạn nói</string>
+    <string name="voice_pace_fast">Nhanh</string>
+    <string name="voice_pace_normal">Bình thường</string>
+    <string name="voice_pace_slow">Chậm</string>
+    <string name="voice_pitch">Giọng của cô ấy</string>
+    <string name="voice_low">Trầm hơn</string>
+    <string name="voice_high">Cao hơn</string>
+    <string name="voice_rate">Cô ấy nói nhanh thế nào</string>
+    <string name="voice_slower">Chậm hơn</string>
+    <string name="voice_faster">Nhanh hơn</string>
+    <string name="closet_tag">Tủ đồ</string>
+    <string name="closet_new">MỚI TRONG 1.8</string>
+    <string name="closet_title">Mặc đồ cho cô ấy theo cách của bạn</string>
+    <string name="closet_outfits">bộ đồ</string>
+    <string name="closet_things">phụ kiện</string>
+    <string name="closet_anims">hoạt ảnh</string>
+    <string name="closet_how">Đồ hằng ngày và đồ Cyberpunk: Edgerunners (David, Lucy, Rebecca, Kiwi, Talia…), phụ kiện, hào quang và Sandevistan, và độ trong suốt của cô ấy. Khi bạn mặc đồ cho cô ấy, cô ấy trèo lên trên bảng để bạn thấy mọi thay đổi.</string>
+    <string name="closet_alive">Và giờ cô ấy chuyển động từng khung hình, như trong anime: cô ấy nhảy, ngủ cuộn tròn, xem bạn chơi, nghe nhạc cùng bạn, chóng mặt nếu bạn ném cô ấy…</string>
+    <string name="closet_where">Mở bất cứ lúc nào: giữ cô ấy và chạm “Mặc đồ”, hoặc nói “Capri, thay đồ đi”.</string>
+    <string name="closet_open">Mở tủ đồ của cô ấy</string>
+    <string name="closet_on_screen">Mặc đồ cho cô ấy trên màn hình</string>
+    <string name="share_target">Cho Capri xem</string>
+    <string name="share_sending">Đang gửi cho Capri…</string>
+    <string name="share_failed">Capri không mở được cái đó</string>
+    <string name="voice_accent">Giọng địa phương của cô ấy</string>
+    <string name="voice_accent_how">Cô ấy nói ngôn ngữ này nghe như thế nào, theo cách người ở mỗi nơi nói (cũng giúp cô ấy hiểu bạn). Nếu điện thoại không có giọng đó, cô ấy dùng giọng thường của ngôn ngữ; công cụ giọng nói của Google có hầu hết.</string>
+    <string name="accent_mx">Mexico</string>
+    <string name="accent_es">Tây Ban Nha</string>
+    <string name="accent_ar">Argentina</string>
+    <string name="accent_co">Colombia</string>
+    <string name="accent_us_latino">Người Latinh ở Mỹ</string>
+    <string name="accent_us">Mỹ</string>
+    <string name="accent_gb">Anh</string>
+    <string name="accent_au">Úc</string>
+    <string name="accent_in">Ấn Độ</string>
+    <string name="accent_br">Brazil</string>
+    <string name="accent_pt">Bồ Đào Nha</string>
+    <string name="accent_fr">Pháp</string>
+    <string name="accent_ca">Québec</string>
+    <string name="settings_game_tips">Mẹo khi chơi</string>
+    <string name="settings_game_tips_how">Ở chế độ chơi game, khi cô ấy đang xem trực tiếp màn hình, cứ vài phút cô ấy cho bạn một mẹo cho trò bạn đang chơi. Bạn cũng có thể hỏi bất cứ lúc nào: “Capri, cho mình một mẹo”, “ở đây làm gì?”. AI của cô ấy phải nhìn được hình.</string>
+    <string name="settings_streaming">Chế độ phát trực tiếp</string>
+    <string name="settings_streaming_how">Cho lúc bạn đang live (TikTok, Twitch, YouTube, Kick…): cô ấy đọc bình luận của người xem trên màn hình và trả lời thành tiếng, như người dẫn cùng bạn. Không cần đăng nhập hay kết nối với các ứng dụng đó: cô ấy chỉ nhìn màn hình (Android hỏi bạn chia sẻ). AI của cô ấy phải nhìn được hình. Cũng có thể nói “Capri, chế độ phát trực tiếp”. Tắt khi bạn chạm lại hoặc khởi động lại cô ấy.</string>
+    <string name="settings_streaming_start">Bật Capri trước.</string>
+    <string name="voice_moved">Đã nghe “%1$s” khi điện thoại đang chuyển động: bỏ qua (tiếng sột soạt, không phải bạn).</string>
+    <string name="settings_perf">Hiệu năng</string>
+    <string name="settings_perf_how">Chế độ nhẹ vẽ cô ấy với ít điểm ảnh hơn và bỏ hiệu ứng mờ sau menu: cô ấy chạy mượt hơn trên điện thoại cũ và tốn ít pin hơn. Tự động sẽ bật nó cho điện thoại ít bộ nhớ hoặc Android cũ.</string>
+    <string name="settings_perf_now">Điện thoại này: %1$s</string>
+    <string name="perf_auto">Tự động</string>
+    <string name="perf_lite">Nhẹ</string>
+    <string name="perf_full">Đầy đủ</string>
+    <string name="perf_is_lite">chế độ nhẹ</string>
+    <string name="perf_is_full">chế độ đầy đủ</string>
+    <string name="webview_old_title">Cập nhật “Android System WebView”</string>
+    <string name="webview_old_how">Capri được vẽ bằng Android System WebView, và bản trên điện thoại này (phiên bản %1$d) quá cũ: cô ấy có thể không hiện hoặc bị đứng. Cập nhật nó từ Play Store (miễn phí và an toàn, là một phần của Android) rồi bật lại cô ấy.</string>
+    <string name="webview_update">Cập nhật WebView</string>
+    <string name="voice_far">Nghe thấy gì đó ở xa (TV, người khác): đã bỏ qua.</string>
+    <string name="tab_you">Bạn</string>
+    <string name="tab_style">Tùy chỉnh</string>
+    <string name="you_intro">Những gì Capri biết về bạn: cô ấy gọi bạn là gì, sinh nhật của bạn, những gì cô ấy nhớ và cách cô ấy chăm sóc bạn.</string>
+    <string name="style_intro">Capri của bạn trông, cư xử và nghe như thế nào.</string>
+    <string name="settings_intro">Những thứ chung: quyền của cô ấy, ngôn ngữ, AI, đôi tai, các chế độ và cách ứng dụng chạy.</string>
+    <string name="settings_modes">Các chế độ của cô ấy</string>
+    <string name="settings_her_voice">Giọng của cô ấy</string>
+    <string name="you_birthday">Sinh nhật của bạn</string>
+    <string name="you_birthday_how">Vào ngày đó cô ấy chúc mừng bạn: pháo giấy, chúc sinh nhật thành tiếng và tổ chức tiệc. Cô ấy cũng có thể hỏi bạn trong chat.</string>
+    <string name="you_birthday_none">Chưa đặt</string>
+    <string name="you_birthday_pick">Chọn ngày</string>
+    <string name="you_birthday_clear">Xóa</string>
+    <string name="settings_stats">Thống kê ẩn danh</string>
+    <string name="settings_stats_how">Mỗi ngày một lần ứng dụng gửi một số ngẫu nhiên được tạo lần đầu (không phải của điện thoại hay tài khoản), phiên bản ứng dụng, ngôn ngữ và phiên bản Android, để Emma biết có bao nhiêu người dùng Capri. Không gì khác: không tên, không chat, không gì từ điện thoại của bạn.</string>
+    <string name="settings_ghost_cards">Cả các thẻ của cô ấy</string>
+    <string name="settings_ghost_cards_how">Khi bật chế độ bóng ma, các lần chạm cũng đi xuyên qua thẻ thông báo và thẻ nhạc của cô ấy. Tắt: chỉ cô ấy cho chạm đi qua, còn các thẻ vẫn chạm được.</string>
+    <string name="peek_title">Cô ấy ngó vào thông báo của bạn</string>
+    <string name="peek_how">Khi bạn kéo bảng thông báo hoặc cài đặt nhanh xuống, Capri ngó vào từ bên cạnh và vẫy tay. Android chỉ cho một ứng dụng hiện trên bảng đó qua Trợ năng, nên bật ở đó: Trợ năng › Capri. Cô ấy không đọc gì và không chạm gì ở đó: chỉ được báo là bảng đã mở. Một số ứng dụng ngân hàng từ chối mở khi có ứng dụng bật Trợ năng. Nếu Android nói đây là cài đặt bị hạn chế: Thông tin ứng dụng › ⋮ › Cho phép cài đặt bị hạn chế.</string>
+    <string name="peek_on">● Bật</string>
+    <string name="peek_off">Tắt</string>
+    <string name="peek_turn_on">Bật trong Trợ năng</string>
+    <string name="peek_turn_off">Tắt trong Trợ năng</string>
+    <string name="peek_service_label">Capri trong thông báo của bạn</string>
+    <string name="peek_service_desc">Capri ngó vào bảng thông báo và cài đặt nhanh khi bạn kéo xuống. Điều này chỉ báo cho ứng dụng biết bảng của Android đã mở: không đọc màn hình, không chạm gì và không theo dõi ứng dụng khác.</string>
+    <string name="peek_service_summary">Capri ngó vào khi bạn kéo bảng thông báo xuống</string>
+    <string name="perms_summary">Đã cho phép %1$d trên %2$d</string>
+    <string name="perms_show">Xem quyền</string>
+    <string name="perms_hide">Ẩn quyền</string>
+    <string name="widget_label">Capri</string>
+    <string name="widget_desc">Phím tắt của Capri: bật cô ấy, nói chuyện, nhìn màn hình, mặc đồ</string>
+    <string name="widget_off">○ TẮT</string>
+    <string name="widget_on">● TRỰC TUYẾN</string>
+    <string name="widget_hidden">● ĐÃ CẤT</string>
+    <string name="widget_start">BẬT</string>
+    <string name="widget_talk">NÓI</string>
+    <string name="widget_look">NHÌN</string>
+    <string name="widget_dress">MẶC ĐỒ</string>
+    <string name="widget_hide">ẨN</string>
+    <string name="widget_show">HIỆN</string>
+    <string name="widget_app">ỨNG DỤNG</string>
+    <string name="you_classes">Lớp học của bạn</string>
+    <string name="you_classes_how">Cho mình biết bạn học vào những ngày nào và mấy giờ: một tiếng trước, thông báo đặc biệt của mình sẽ đến. Mọi thứ ở trên điện thoại của bạn.</string>
+    <string name="you_classes_none">Chưa ghi lớp nào.</string>
+    <string name="you_class_add">Thêm lớp</string>
+    <string name="you_class_name">Môn học (tùy chọn)</string>
+    <string name="you_class_days">Những ngày nào?</string>
+    <string name="you_class_time">Mấy giờ bắt đầu?</string>
+    <string name="you_calendar">Lịch của bạn</string>
+    <string name="you_calendar_how">Nếu bạn muốn, mình đọc lịch để nhắc bạn những gì sắp tới: tối hôm trước và một tiếng trước. Mình chỉ đọc, không bao giờ thay đổi gì, và không có gì rời khỏi điện thoại.</string>
+    <string name="you_calendar_denied">Không có quyền lịch thì mình không xem được. Bạn có thể cấp trong cài đặt Android.</string>
+    <string name="agenda_channel">Lớp học và ngày hẹn</string>
+    <string name="agenda_channel_how">Capri nhắc bạn các lớp học và những gì sắp tới trong lịch.</string>
+    <string name="agenda_class_default">Lớp của bạn</string>
+    <string name="agenda_event_default">(không tiêu đề)</string>
+    <string name="agenda_class_title">📚 Hôm nay có lớp, %1$s!</string>
+    <string name="agenda_class_text">%1$s lúc %2$s. Chuẩn bị đồ, ăn gì đó và đừng đến muộn. Mình giữ chỗ cho bạn.</string>
+    <string name="agenda_tomorrow_title">📅 Ngày mai: %1$s</string>
+    <string name="agenda_tomorrow_text">Lúc %1$s. Mình sẽ nhớ giúp bạn, nhưng bạn cũng nhớ nhé?</string>
+    <string name="agenda_tomorrow_allday">Cả ngày. Chuẩn bị từ hôm nay đi.</string>
+    <string name="agenda_today_title">📅 Hôm nay: %1$s</string>
+    <string name="agenda_today_text">Là hôm nay đó choom. Làm cho đáng nhé.</string>
+    <string name="agenda_soon_title">⏰ Lúc %1$s: %2$s</string>
+    <string name="agenda_soon_text">Sắp đến giờ rồi choom. Mình báo sớm để bạn khỏi phải chạy.</string>
+    <string name="settings_report">Báo lỗi</string>
+    <string name="settings_report_how">Kể cho chúng mình chuyện gì đã xảy ra và nó sẽ đến Emma trên Discord. Kèm theo là phiên bản ứng dụng, Android và mẫu điện thoại, và nhật ký lỗi nội bộ của Capri, không có tên, tin nhắn hay khóa của bạn.</string>
+    <string name="settings_report_hint">Chuyện gì đã xảy ra? Lúc đó bạn đang làm gì?</string>
+    <string name="settings_report_send">Gửi</string>
+    <string name="report_empty">Kể thêm một chút về chuyện đã xảy ra nhé.</string>
+    <string name="report_sending">Đang gửi…</string>
+    <string name="report_ok">Đã gửi. Cảm ơn choom: Emma sẽ xem.</string>
+    <string name="report_rate">Bạn đã gửi nhiều rồi. Thử lại sau một tiếng.</string>
+    <string name="report_off">Hiện không nhận báo cáo. Thử lại sau.</string>
+    <string name="report_net">Không có kết nối. Kiểm tra internet rồi thử lại.</string>
+    <string name="report_bad">Không gửi được. Thử lại sau.</string>
+    <string name="you_games_title">Chơi với cô ấy</string>
+    <string name="you_games_open">Chơi</string>
+    <string name="you_chatlog_title">Lịch sử chat</string>
+    <string name="you_chatlog_how">Mọi điều bạn nói với cô ấy trong chat và những gì cô ấy trả lời, theo ngày, có tìm kiếm. Chỉ ở trên điện thoại này.</string>
+    <string name="you_chatlog_open">Xem lịch sử</string>
+    <string name="settings_saver">Tiết kiệm pin</string>
+    <string name="settings_saver_how">Khi pin xuống mức này (và không sạc), những thứ tốn pin nhất sẽ nghỉ đến khi bạn sạc: đôi tai, việc xem màn hình trực tiếp, hoạt ảnh và phản ứng của cô ấy, và cô ấy được vẽ thưa hơn.</string>
+    <string name="settings_autodress">Cô ấy tự mặc đồ</string>
+    <string name="settings_autodress_how">Thỉnh thoảng cô ấy chọn một bộ đồ khác và khoe nó. Mỗi bộ mặc khá lâu, không bao giờ vài phút một lần. Màu sắc của cô ấy không bao giờ đổi.</string>
+    <string name="autodress_day">1 ngày</string>
+    <string name="voice_speak">Giọng của cô ấy</string>
+    <string name="voice_speak_how">Tắt: cô ấy vẫn nghe và trả lời, nhưng chỉ bằng chữ.</string>
+    <string name="voice_speak_chat">Đọc to câu trả lời trong chat</string>
+    <string name="voice_speak_chat_how">Những gì cô ấy trả lời trong chat (bong bóng và tab Chat) cũng được nói thành tiếng, không chỉ khi bạn nói chuyện với cô ấy. Câu trả lời dài: những câu đầu.</string>
+    <string name="settings_musicapp">Bài hát bạn yêu cầu</string>
+    <string name="settings_musicapp_how">Khi bạn nhờ cô ấy phát một bài, nó phát ở đây (Spotify chỉ khi đã cài; nếu không, nó mở trên web).</string>
+    <string name="control_title">Cô ấy dùng điện thoại giúp bạn</string>
+    <string name="control_how">Nhờ cô ấy “Capri, quay lại”, “về màn hình chính”, “mở thông báo”, “cuộn xuống”, “chạm vào Cài đặt” hoặc “gõ vào đây xin chào”, nói thành tiếng hoặc trong chat. Android chỉ cho phép điều này qua Trợ năng, nên bạn bật ở đó: Trợ năng › Capri dùng điện thoại của bạn. Cô ấy chỉ làm khi bạn nhờ, chỉ đọc màn hình lúc đó để tìm thứ bạn nói, và không giữ lại gì. Cô ấy không bao giờ thao tác trong ứng dụng ngân hàng hay thanh toán, không bao giờ gõ vào ô mật khẩu và không làm gì trên màn hình khóa. Thêm nữa: khi bật, nút trợ năng của Android (hoặc nút nổi) làm cô ấy xuất hiện từ hư không trên bất kỳ ứng dụng nào, kể cả video hay game, và ẩn cô ấy lại.</string>
+    <string name="control_bank">Lưu ý: một số ứng dụng ngân hàng từ chối mở khi có ứng dụng bật Trợ năng. Nếu của bạn phàn nàn, tắt cái này trước khi mở.</string>
+    <string name="control_service_label">Capri dùng điện thoại của bạn</string>
+    <string name="control_service_desc">Cho Capri làm điều bạn nhờ, chỉ khi bạn nhờ: quay lại, về màn hình chính, mở thông báo hoặc ứng dụng gần đây, cuộn, chạm một nút theo tên hoặc gõ vào ô bạn đang ở. Cô ấy chỉ đọc ứng dụng phía trước lúc đó để tìm thứ bạn nói, và không giữ lại gì. Cô ấy không bao giờ thao tác trong ứng dụng ngân hàng hay thanh toán, không bao giờ gõ vào mật khẩu và không làm gì trên màn hình khóa.</string>
+    <string name="control_service_summary">Capri quay lại, cuộn, chạm và gõ khi bạn nhờ</string>
+    <string name="support_title">Muốn ủng hộ Capri?</string>
+    <string name="support_text">Capri miễn phí, không quảng cáo và không cần tài khoản, và mình làm cô ấy một mình. Nếu bạn thích và có thể, một khoản ủng hộ qua PayPal giúp mình tiếp tục cải thiện cô ấy. Nếu không, không sao cả: cô ấy vẫn y như vậy.</string>
+    <string name="support_paypal">Ủng hộ qua PayPal</string>
+    <string name="support_never">Không hiện lại</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_games">Trò chơi</string>
+    <string name="chat_hint">Viết cho cô ấy…</string>
+    <string name="chat_send">Gửi</string>
+    <string name="chat_help">Mình có thể hỏi cô ấy gì?</string>
+    <string name="chat_hello">Chào %1$s. Giờ đây là chat của chúng ta: cứ viết cho mình điều bạn muốn.</string>
+    <string name="chat_you">choom</string>
+    <string name="chat_typing">Đang viết…</string>
+    <string name="chat_online">Trực tuyến</string>
+    <string name="chat_asleep">Đang ngủ · viết để đánh thức cô ấy</string>
+    <string name="chat_waking">(đang thức dậy… cho mình vài giây)</string>
+    <string name="chat_noreply">Mạng của mình bị rớt. Thử lại sau chút nhé?</string>
+    <string name="chat_voice_prep">🔊 Đang chuẩn bị giọng của cô ấy…</string>
+    <string name="chat_voice_gen">🔊 Đang tạo giọng %1$d%%</string>
+    <string name="chat_voice_talk">🔊 Đang nói</string>
+    <string name="chat_voice_talk_pct">🔊 Đang nói · %1$d%%</string>
+    <string name="main_donate">Ủng hộ</string>
+    <string name="games_open">Mở khu trò chơi</string>
+    <string name="games_new">MỚI</string>
+    <string name="games_hide_title">Capri nổi khi bạn chơi</string>
+    <string name="games_hide_how">Khi bạn chơi ở đây, Capri nổi trên màn hình có thể tránh sang một bên để không che trò chơi. Cô ấy vẫn xem từ góc của trò chơi.</string>
+    <string name="games_hide_on">Ẩn cô ấy</string>
+    <string name="games_hide_off">Để cô ấy lại</string>
+    <string name="you_games_how">Cờ vua, dò mìn, 21, cờ ca-rô, bóng bàn, oẳn tù tì, Connect 4, trí nhớ và chuỗi thần kinh, ngay trên điện thoại, không cần mạng. Cô ấy chơi với bạn và nói suy nghĩ của mình. Bạn cũng có thể nói “Capri, chơi đi”.</string>
+    <string-array name="game_names">
+        <item>Cờ vua</item>
+        <item>Dò mìn</item>
+        <item>21</item>
+        <item>Cờ ca-rô</item>
+        <item>Bóng bàn</item>
+        <item>Oẳn tù tì</item>
+        <item>Connect 4</item>
+        <item>Trí nhớ</item>
+        <item>Chuỗi thần kinh</item>
+    </string-array>
+    <string name="huawei_title">Huawei / Honor của bạn</string>
+    <string name="huawei_how">Những điện thoại này đóng ứng dụng chạy nền và một số không có dịch vụ của Google. Ba bước để Capri hoạt động đầy đủ:</string>
+    <string name="huawei_background">Cho cô ấy chạy nền</string>
+    <string name="huawei_background_how">Trong “Khởi chạy ứng dụng”, tìm Capri, tắt “Quản lý tự động” và bật ba tùy chọn (tự khởi chạy, khởi chạy phụ, chạy nền).</string>
+    <string name="huawei_battery">Không giới hạn pin cho Capri</string>
+    <string name="huawei_voice">Giọng của cô ấy: cài một giọng nói</string>
+    <string name="huawei_voice_how">Nếu cô ấy không nói thành tiếng, hãy chọn hoặc cài một công cụ chuyển văn bản thành giọng nói có ngôn ngữ của bạn ở đó. Để nghe bạn, điện thoại cần một trình nhận dạng giọng nói (ứng dụng của Google hoặc của Huawei); nếu không có, hãy viết cho cô ấy trong chat.</string>
+    <string name="settings_voice_none_huawei">Chiếc Huawei này không có trình nhận dạng giọng nói cho ứng dụng. Hãy viết cho cô ấy trong chat, hoặc cài một cái (Cài đặt › Huawei của bạn có hướng dẫn).</string>
+    <string name="live_chat">Chat</string>
+    <string name="live_title">Viên thuốc của cô ấy trên thanh trạng thái</string>
+    <string name="live_how">Từ Android 16 trở lên, Capri có thể ở trong một viên thuốc cạnh đồng hồ (kèm tâm trạng) và, trên Samsung, trong Now Bar của màn hình khóa, với các nút để chat, mở menu hoặc ẩn cô ấy. Tùy điện thoại: nếu không hiện, hãy cho phép “cập nhật trực tiếp” cho Capri.</string>
+    <string name="live_on">Bật</string>
+    <string name="live_off">Tắt</string>
+    <string name="live_allow">Cho phép trong Android</string>
+    <string name="sleep_channel">Báo thức của Capri</string>
+    <string name="sleep_ring_title">Capri: đến giờ dậy rồi!</string>
+    <string name="sleep_ring_text">Dậy đi, choom! Tắt báo thức nào.</string>
+    <string name="sleep_ring_text_name">Dậy đi, %1$s! Tắt báo thức nào.</string>
+    <string name="sleep_off">Tắt</string>
+    <string name="sleep_snooze">Thêm 5 phút</string>
+    <string name="sleep_summary">Bạn đã ngủ %1$d giờ %2$d phút.</string>
+    <string name="sleep_summary_none">Cả đêm bạn không bật màn hình. Mình tự hào về bạn.</string>
+    <string name="sleep_title">Chế độ ngủ</string>
+    <string name="sleep_how">Capri ngủ cùng bạn: cô ấy cuộn tròn trên màn hình, đếm số lần bạn bật màn hình trong đêm và, nếu bạn muốn, đánh thức bạn bằng báo thức của cô ấy (và không dừng cho đến khi bạn tắt). Các đêm của bạn chỉ lưu trên điện thoại này.</string>
+    <string name="sleep_alarm_none">Không báo thức</string>
+    <string name="sleep_alarm_at">Báo thức: %1$s</string>
+    <string name="sleep_go">Ngủ cùng Capri</string>
+    <string name="sleep_woke">Mình dậy rồi</string>
+    <string name="sleep_now">Ngủ từ %1$s · đã bật màn hình %2$d lần</string>
+    <string name="sleep_last">Đêm qua:</string>
+    <string name="sleep_exact_btn">Để cô ấy reo đúng giờ</string>
+    <plurals name="sleep_summary_times">
+        <item quantity="other">Bạn đã bật màn hình %1$d lần (%2$d phút thức).</item>
+    </plurals>
+    <string name="neuro_title">Neurodance</string>
+    <string name="neuro_how">Braindance: ký ức của cô ấy, được ghi lại cho bạn. Hãy yêu thương cô ấy thật nhiều (vuốt ve, trò chuyện) và thỉnh thoảng cô ấy sẽ ghi một cái cho bạn xem. Sau đó cô ấy kể bạn nghe cô ấy nghĩ gì. Bạn cũng có thể hỏi: “Capri, cho mình một braindance”.</string>
+    <string name="neuro_open">Xem braindance của cô ấy</string>
+    <string name="neuro_none">Chưa có. Hãy yêu thương cô ấy nhé.</string>
+    <string name="neuro_channel">Braindance của Capri</string>
+    <string name="neuro_notify_title">Capri đã ghi một braindance cho bạn</string>
+    <string name="neuro_notify_text">“%1$s”. Chạm để xem.</string>
+    <plurals name="neuro_new">
+        <item quantity="other">%d braindance mới, chưa xem</item>
+    </plurals>
+    <plurals name="neuro_count">
+        <item quantity="other">Đã lưu %d braindance</item>
+    </plurals>
+    <string name="cv_title">Capri Voice (giọng thu âm của cô ấy)</string>
+    <string name="cv_how">Giọng thật của cô ấy, từng câu một, không cần mạng và không tải mô hình nào: chào, tạm biệt, vuốt ve, chúc ngủ ngon. Gói tùy chọn, mỗi ngôn ngữ một gói.</string>
+    <string name="cv_clips">Câu nói bằng giọng cô ấy</string>
+    <string name="cv_answers">Câu trả lời mới của cô ấy</string>
+    <string name="cv_answers_how">Câu trả lời từ AI của cô ấy (Gemini, Grok…) luôn được nói đúng như đã viết: bằng giọng cô ấy khi đã cài một công cụ của cô ấy (Tự động), bằng giọng của điện thoại, hoặc chỉ bằng chữ.</string>
+    <string name="cv_engine_system">Giọng của điện thoại</string>
+    <string name="cv_engine_text">Chỉ chữ</string>
+    <string name="cv_mode">Hiệu năng</string>
+    <string name="cv_mode_how">Tự động: câu nói của cô ấy, và giọng cô ấy cho câu trả lời mới khi đã cài công cụ (nếu không thì giọng điện thoại). Nhẹ: không bao giờ tải mô hình. Trung thực tối đa: chỉ giọng cô ấy, nếu không thì bằng chữ.</string>
+    <string name="cv_mode_fidelity">Trung thực tối đa</string>
+    <string name="cv_mode_balanced">Cân bằng</string>
+    <string name="cv_mode_custom">Tùy chỉnh</string>
+    <string name="cv_volume">Âm lượng câu nói</string>
+    <string name="cv_speed">Nhịp độ câu nói</string>
+    <string name="cv_vol_low">Thấp</string>
+    <string name="cv_vol_mid">Vừa</string>
+    <string name="cv_vol_high">Cao</string>
+    <string name="cv_signature">Hoàn thiện SIGNATURE V7.2: đã có sẵn trong các câu tiếng Tây Ban Nha (không bao giờ áp dụng hai lần). Tiếng Anh không có, như đã duyệt.</string>
+    <string name="cv_engine_state">Công cụ: câu nói của cô ấy (không mô hình) · giọng cô ấy cho câu trả lời mới · giọng điện thoại · chỉ chữ</string>
+    <string name="cv_test">Nghe giọng cô ấy</string>
+    <string name="cv_lang_es">Tiếng Tây Ban Nha (Mỹ Latinh)</string>
+    <string name="cv_lang_en">Tiếng Anh</string>
+    <string name="cv_installed">%1$s · v%2$s · %3$d câu</string>
+    <string name="cv_missing">%1$s · chưa cài</string>
+    <string name="cv_install">Cài từ tệp</string>
+    <string name="cv_download">Tải xuống</string>
+    <string name="cv_repair">Sửa</string>
+    <string name="cv_remove">Gỡ</string>
+    <string name="cv_verify">Kiểm tra</string>
+    <string name="cv_storage">Chiếm %s trên điện thoại</string>
+    <string name="cv_private">Các gói của cô ấy đến từ kênh công khai của Capri trên GitHub, được kiểm tra từng byte trước khi giải nén. Bạn cũng có thể cài từ tệp.</string>
+    <string name="cv_nochannel">Không kết nối được kênh giọng nói của Capri.</string>
+    <string name="cv_ok">Xong.</string>
+    <string name="cv_err">Không được: %s</string>
+    <string name="cv_err_notv8">Tệp này không phải gói Capri Voice V8 đã xác minh.</string>
+    <string name="cv_err_needfile">Thiếu gói gốc: hãy cài lại từ tệp của nó.</string>
+    <string name="cv_wait">Một lượt tải khác vẫn đang chạy. Chờ nó xong rồi chạm lại.</string>
+    <string name="cv_wait_pct">Một lượt tải khác vẫn đang chạy (%1$d%%). Chờ nó xong rồi chạm lại.</string>
+    <string name="cv_busy">Đang xử lý…</string>
+    <string name="cv_no_phrase">Chưa có câu nào của cô ấy bằng ngôn ngữ này: hãy cài gói của nó.</string>
+    <string name="cv_mode_auto">Tự động</string>
+    <string name="cv_mode_light">Nhẹ</string>
+    <string name="cv_why_auto">Tự động/Cân bằng: câu nói của cô ấy cho các khoảnh khắc; câu trả lời mới bằng giọng cô ấy khi đã cài công cụ và đủ bộ nhớ, nếu không thì bằng giọng điện thoại.</string>
+    <string name="cv_why_light">Nhẹ: không bao giờ tải mô hình. Câu nói của cô ấy (không mô hình) và giọng điện thoại.</string>
+    <string name="cv_why_fidelity">Trung thực tối đa: chỉ giọng cô ấy. Câu trả lời mới bằng giọng cô ấy với công cụ của cô ấy, nếu không thì bằng chữ.</string>
+    <string name="cv_why_custom">Tùy chỉnh: bạn chọn công cụ bên dưới.</string>
+    <string name="cv_why_custom_neural">Tùy chỉnh: giọng cô ấy cho câu trả lời mới, với công cụ bạn chọn.</string>
+    <string name="cv_neural_now">Giọng thần kinh ở đây: %s</string>
+    <string name="cv_engine_neural">Giọng của cô ấy</string>
+    <string name="cv_ab">So sánh giọng (A/B)</string>
+    <string name="cv_ab_how">Cùng một câu mới qua hai công cụ, lần lượt. Không tải gì để so sánh. Câu thu âm của cô ấy không nói được câu mới: A/B sẽ phát một lời chào thay thế.</string>
+    <string name="cv_src_clip">Câu V8</string>
+    <string name="cv_ab_play">Nghe %s</string>
+    <string name="cv_ab_stop">Dừng</string>
+    <string name="cv_ab_pick">Giữ %s</string>
+    <string name="cv_ab_sentence">Này, choom! Mình tìm ra ba cách để giải quyết vấn đề đó.</string>
+    <string name="cv_ab_clip_note">Câu thu âm: %s</string>
+    <string name="cv_ab_clip_kept">Câu nói của cô ấy vẫn bật cho các khoảnh khắc.</string>
+    <string name="cv_ab_r_clip">Câu V8 · %1$s · giọng đã duyệt · không mô hình · %2$s</string>
+    <string name="cv_ab_r_system">Giọng điện thoại · %s · giọng hệ thống, không phải của Capri</string>
+    <string name="cv_ab_r_neural">Giọng cô ấy (Qwen 0.6B, ICL) · %1$s · %2$s</string>
+    <string name="cv_advanced">Nâng cao: công cụ của cô ấy</string>
+    <string name="cv_neural_title">Qwen3-TTS 0.6B trên điện thoại</string>
+    <string name="cv_neural_how">Hồ sơ giọng đã duyệt ở chế độ ICL, giống như trên PC. Nó tải ở câu trả lời đầu tiên và giải phóng khi rảnh hoặc thiếu bộ nhớ. Cũng có thể cài tệp mô hình hoặc hồ sơ từ tệp của bạn.</string>
+    <string name="cv_neural_download">Tải mô hình</string>
+    <string name="cv_neural_import">Mô hình từ tệp</string>
+    <string name="cv_neural_profile">Cài hồ sơ</string>
+    <string name="cv_neural_cancel">Hủy</string>
+    <string name="cv_neural_rm_model">Gỡ mô hình</string>
+    <string name="cv_neural_rm_profile">Gỡ hồ sơ</string>
+    <string name="cv_dsp">SIGNATURE cho câu trả lời mới tiếng Tây Ban Nha (một lần)</string>
+    <string name="cv_threads">Luồng xử lý</string>
+    <string name="cv_auto">Tự động</string>
+    <string name="cv_unload">Giải phóng bộ nhớ sau</string>
+    <string name="cv_fallback">Nếu giờ không nói được</string>
+    <string name="cv_hw">Điện thoại: Android API %1$d · %2$s · %3$d nhân · trống %4$s / %5$s · bộ nhớ trống %6$s</string>
+    <string name="cv_metrics">Lần cuối (%1$s): tải %2$d ms · âm thanh đầu %3$d ms · RTF %4$.2f · đỉnh %5$s</string>
+    <string name="cv_last_fallback">Câu trả lời cuối không dùng được: %s</string>
+    <string name="cv_neural_cant">Chưa khả dụng: %s</string>
+    <string name="cv_neural_experimental">Giọng cô ấy trên điện thoại: chưa được kiểm tra bằng tai trên điện thoại thật.</string>
+    <string name="cv_n_api">không tương thích (cần Android 10 trở lên)</string>
+    <string name="cv_n_abi">không tương thích (cần bộ xử lý 64-bit)</string>
+    <string name="cv_n_native">lỗi khi tải công cụ</string>
+    <string name="cv_n_nomodel">tương thích · chưa cài công cụ (từ %s)</string>
+    <string name="cv_n_noprofile">tương thích · đã cài mô hình · thiếu hồ sơ</string>
+    <string name="cv_n_loaded">sẵn sàng · đã tải</string>
+    <string name="cv_n_ready">sẵn sàng</string>
+    <string name="cv_need_capri">Hãy khởi động Capri trước.</string>
+    <string name="settings_personal">Cài đặt cá nhân</string>
+    <string name="settings_personal_how">Tên bạn, lịch sử chat, neurodance của cô ấy, chế độ ngủ, sinh nhật, lịch học, những gì cô ấy nhớ và cách cô ấy chăm sóc bạn.</string>
+    <string name="settings_voice_screen">Cài đặt giọng nói</string>
+    <string name="settings_voice_screen_how">Giọng của cô ấy: tải về, công cụ cho câu trả lời mới (thêm hoặc gỡ từng cái, trung thực nhiều hay ít), câu nói của cô ấy, đôi tai và giọng của điện thoại.</string>
+    <string name="cmds_voice_how">Đôi tai của cô ấy (\"Capri, …\"), giọng nói và cách cô ấy trả lời thành tiếng.</string>
+    <string name="cv_engines">Giọng cô ấy cho câu trả lời mới</string>
+    <string name="cv_engines_how">Để cô ấy nói mọi thứ bằng giọng mình, cả câu trả lời của AI, không cần mạng. Cùng hồ sơ giọng như trên PC (Qwen 0.6B, ICL); chỉ độ chính xác thay đổi. Tải từ Hugging Face, kiểm tra bằng SHA-256. Cần Android 10+ và điện thoại 64-bit.</string>
+    <string name="cv_var_q4">Nhẹ (Q4)</string>
+    <string name="cv_var_q8">Cao (Q8)</string>
+    <string name="cv_var_bf16">Tối đa (BF16, như PC)</string>
+    <string name="cv_var_line">%1$s · %2$s</string>
+    <string name="cv_fid_light">nhanh nhất, kém trung thực hơn một chút (RAM 3 GB trở lên)</string>
+    <string name="cv_fid_high">trung thực hơn, chậm hơn một chút (RAM 4 GB trở lên)</string>
+    <string name="cv_fid_max">độ chính xác như PC, trung thực nhất nhưng chậm nhất: trên điện thoại mất khoảng gấp 2–3 lần so với Nhẹ (RAM 6 GB trở lên)</string>
+    <string name="cv_var_add">Thêm</string>
+    <string name="cv_var_use">Dùng</string>
+    <string name="cv_var_inuse">đang dùng</string>
+    <string name="cv_var_installed">đã cài</string>
+    <string name="cv_var_missing">chưa cài</string>
+    <string name="cv_var_nofit">không phù hợp với điện thoại này (bộ nhớ hoặc bộ xử lý)</string>
+    <string name="cv_var_nofit_ram">cần điện thoại có RAM %1$d GB trở lên</string>
+    <string name="cv_neural_download_profile">Tải hồ sơ</string>
+    <string name="cv_get_title">Giọng của cô ấy</string>
+    <string name="cv_get">Tải giọng cô ấy (8 MB)</string>
+    <string name="cv_get_how">202 câu thu âm của cô ấy (tiếng Tây Ban Nha và tiếng Anh) và hồ sơ giọng, từ kênh của Capri trên GitHub, kiểm tra từng byte. Tùy chọn: không có chúng cô ấy nói bằng giọng điện thoại. Để câu trả lời mới bằng giọng cô ấy, hãy thêm một công cụ bên dưới.</string>
+    <string name="cv_get_state">Câu nói: %1$d / %2$d ngôn ngữ · hồ sơ: %3$s · công cụ cho câu trả lời mới: %4$s</string>
+    <string name="cv_get_yes">có</string>
+    <string name="cv_get_no">không</string>
+    <string name="cv_get_noengine">không có (giọng điện thoại)</string>
+    <string name="offer_title">Giọng của cô ấy đã đến</string>
+    <string name="offer_how">Bạn có muốn tải giọng của Capri không? 8 MB: câu thu âm và hồ sơ giọng. Sau đó, trong Cài đặt › Cài đặt giọng nói, bạn cũng có thể thêm giọng cô ấy cho câu trả lời mới (từ 0,9 GB, trung thực nhiều hay ít).</string>
+    <string name="offer_get">Có, tải về</string>
+    <string name="offer_more">Xem tùy chọn</string>
+    <string name="g_perms">Quyền</string>
+    <string name="g_perms_how">Những gì cô ấy được phép làm trên điện thoại, và làm gì nếu ứng dụng ngân hàng phàn nàn.</string>
+    <string name="g_ai">Ngôn ngữ và AI của cô ấy</string>
+    <string name="g_ai_how">Ngôn ngữ của ứng dụng và của cô ấy, và AI nào trả lời bạn.</string>
+    <string name="g_modes">Màn hình và chế độ</string>
+    <string name="g_modes_how">Những gì cô ấy thấy trên màn hình, chế độ game và livestream, và viên thuốc cạnh đồng hồ.</string>
+    <string name="g_phone">Hiệu năng và điện thoại</string>
+    <string name="g_phone_how">Chế độ nhẹ cho điện thoại cũ, điện thoại cần gì, thống kê và chuyến tham quan chào mừng.</string>
+    <string name="g_report">Báo lỗi</string>
+    <string name="g_report_how">Kể cho Emma chuyện gì đã xảy ra, gửi thẳng đến Discord.</string>
+    <string name="tour_ask_title">Có gì mới</string>
+    <string name="tour_ask_how">Capri vừa được cập nhật. Muốn xem nhanh có gì mới không? Chỉ mất một phút.</string>
+    <string name="tour_yes">Có, cho mình xem</string>
+    <string name="tour_step">Mới · %1$d / %2$d</string>
+    <string name="tour_skip">Bỏ qua</string>
+    <string name="tour_next">Tiếp</string>
+    <string name="tour_done">Xong</string>
+    <string name="tour_again">Xem có gì mới (tham quan có hướng dẫn)</string>
+    <string name="dl_channel">Tải xuống</string>
+    <string name="dl_starting">đang bắt đầu…</string>
+    <string name="dl_progress">%1$d %%</string>
+    <string name="dl_done">Xong.</string>
+    <string name="dl_voice">Đang tải giọng cô ấy</string>
+    <string name="dl_engine">Đang tải công cụ: %1$s</string>
+    <string name="dl_update">Đang tải Capri %1$s</string>
+    <string name="cv_test_noclips">Câu nói của cô ấy chưa có: hãy chạm «Tải giọng cô ấy» trước.</string>
+    <string name="cv_test_clipsoff">«Câu nói bằng giọng cô ấy» đang tắt: bật lên để nghe cô ấy.</string>
+    <string name="cv_test_speakoff">Giọng cô ấy đang tắt (Giọng cô ấy › Bật).</string>
+    <string name="cv_test_muted">Âm lượng phương tiện đang ở 0: tăng lên rồi thử lại.</string>
+    <string name="vt_open">Làm sao để cho cô ấy giọng nói?</string>
+</resources>

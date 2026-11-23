@@ -47,6 +47,30 @@ const LINES = {
     music: ['Что слушаешь? Сделай громче.', 'Хороший трек. Посижу тут.', '♪ {title}… я её знаю.'],
     note: ['{app} зовёт тебя.', '{app}: что-то новое.', 'Смотри, {app}.'],
   },
+  vi: {
+    playing: 'ĐANG PHÁT', paused: 'TẠM DỪNG', notes: 'Thông báo', hop: 'Nhảy lên thông báo', player: 'Trình phát nhạc',
+    grant: 'Cho cô ấy quyền truy cập thông báo…',
+    music: ['Bài gì đây? Mở to lên.', 'Bài hay đấy. Mình ở trên này luôn.', '♪ {title}… mình biết bài này.'],
+    note: ['{app} gọi bạn kìa.', '{app}: có gì mới.', 'Nhìn kìa, {app}.'],
+  },
+  ja: {
+    playing: '再生中', paused: '一時停止', notes: '通知', hop: '通知に飛び乗る', player: '音楽プレーヤー',
+    grant: '通知へのアクセスを許可…',
+    music: ['これ何？音量上げて。', 'いい曲。ここにいるね。', '♪ {title}…これ知ってる。'],
+    note: ['{app}が呼んでるよ。', '{app}：新着あり。', '見て、{app}。'],
+  },
+  de: {
+    playing: 'LÄUFT GERADE', paused: 'PAUSIERT', notes: 'Benachrichtigungen', hop: 'Auf Meldungen springen', player: 'Musikplayer',
+    grant: 'Gib ihr Zugriff auf Benachrichtigungen…',
+    music: ['Was ist das? Mach lauter.', 'Gutes Lied. Ich bleib hier oben.', '♪ {title}… das kenn ich.'],
+    note: ['{app} will was von dir.', '{app}: was Neues.', 'Schau, {app}.'],
+  },
+  it: {
+    playing: 'IN RIPRODUZIONE', paused: 'IN PAUSA', notes: 'Notifiche', hop: 'Salta sulle notifiche', player: 'Lettore musicale',
+    grant: 'Dalle l’accesso alle notifiche…',
+    music: ['Cos’è questa? Alza il volume.', 'Bella. Resto quassù.', '♪ {title}… questa la conosco.'],
+    note: ['{app} ti cerca.', '{app}: qualcosa di nuovo.', 'Guarda, {app}.'],
+  },
 };
 
 const pick = (list) => list[Math.floor(Math.random() * list.length)];

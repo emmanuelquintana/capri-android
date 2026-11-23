@@ -13,13 +13,17 @@ import { OFF_ASK } from './listen.js';
 
 export const STREAM_ASK = /modo (?:streaming|stream|directo|en vivo|live)|streaming mode|stream mode|live mode|mode (?:stream|live|direct)|modo (?:transmiss[ãa]o|ao vivo)|режим (?:стрима|трансляции|эфира)/iu;
 const EVERY = 20000;
-const LOCALES = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU' };
+const LOCALES = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU', vi: 'vi-VN', ja: 'ja-JP', de: 'de-DE', it: 'it-IT' };
 const LINES = {
   es: { on: '¡Modo streaming! Leo los comentarios de tu live y les contesto. Saluden, chooms 👋', off: 'Se acabó el stream. ¡Buen live!', blind: 'Para leer tu chat necesito ver tu pantalla: acepta compartirla.' },
   en: { on: 'Streaming mode! I’ll read your live’s comments and answer them. Say hi, chooms 👋', off: 'Stream’s over. Great live!', blind: 'To read your chat I need to see your screen: allow sharing it.' },
   fr: { on: 'Mode streaming ! Je lis les commentaires de ton live et je leur réponds. Coucou les chooms 👋', off: 'Fin du stream. Super live !', blind: 'Pour lire ton chat, je dois voir ton écran : accepte de le partager.' },
   pt: { on: 'Modo streaming! Vou ler os comentários da sua live e responder. Oi, chooms 👋', off: 'Acabou a live. Mandou bem!', blind: 'Pra ler seu chat eu preciso ver sua tela: aceite compartilhar.' },
   ru: { on: 'Режим стрима! Читаю комментарии в твоём эфире и отвечаю. Привет, чумы 👋', off: 'Стрим окончен. Отличный эфир!', blind: 'Чтобы читать чат, мне нужно видеть твой экран: разреши показ экрана.' },
+  vi: { on: 'Chế độ livestream! Mình sẽ đọc bình luận trong buổi live và trả lời. Chào các choom 👋', off: 'Hết stream rồi. Buổi live tuyệt lắm!', blind: 'Để đọc chat của bạn mình cần thấy màn hình: hãy cho phép chia sẻ nó.' },
+  ja: { on: '配信モード！ライブのコメントを読んで返事するね。チュームたち、やっほー👋', off: '配信おわり。最高のライブだったね！', blind: 'チャットを読むには画面が見えないと。画面共有を許可してね。' },
+  de: { on: 'Streaming-Modus! Ich lese die Kommentare deines Lives und antworte. Sagt hallo, Chooms 👋', off: 'Stream ist vorbei. Tolles Live!', blind: 'Um deinen Chat zu lesen, muss ich deinen Bildschirm sehen: Erlaube das Teilen.' },
+  it: { on: 'Modalità streaming! Leggo i commenti della tua live e rispondo. Ciao, choom 👋', off: 'Stream finito. Live fantastica!', blind: 'Per leggere la tua chat devo vedere lo schermo: consenti la condivisione.' },
 };
 
 export function streaming({ cfg, setConfig }) {

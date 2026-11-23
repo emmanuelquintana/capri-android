@@ -15,6 +15,10 @@ const T = {
   fr: { reply: 'Répondre', back: 'Voilà ma réponse :' },
   pt: { reply: 'Responder', back: 'Te respondo:' },
   ru: { reply: 'Ответить', back: 'Вот мой ответ:' },
+  vi: { reply: 'Trả lời', back: 'Đây là câu trả lời của mình:' },
+  ja: { reply: '返信', back: 'わたしの答えはこれ：' },
+  de: { reply: 'Antworten', back: 'Hier ist meine Antwort:' },
+  it: { reply: 'Rispondi', back: 'Ecco la mia risposta:' },
 };
 
 export function keepAsking({ lang }) {

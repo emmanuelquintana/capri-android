@@ -47,6 +47,34 @@ const TEXT = {
     push: 'Запушить в main',
     reply: 'Готово: **GET /gigs** с пагинацией по курсору, 6 тестов проходят. Пуш сделан.',
   },
+  vi: {
+    prompt: 'Thêm endpoint /gigs có phân trang và kiểm thử',
+    explore: 'Xem các route khác',
+    test: 'Chạy kiểm thử gigs',
+    push: 'Push lên main',
+    reply: 'Mình đã thêm **GET /gigs** với phân trang theo con trỏ, và 6 bài kiểm thử đều qua. Đã push xong.',
+  },
+  ja: {
+    prompt: 'ページネーションとテスト付きの /gigs エンドポイントを追加して',
+    explore: '他のルートを確認',
+    test: 'gigsのテストを実行',
+    push: 'mainにプッシュ',
+    reply: '**GET /gigs** をカーソルページネーション付きで追加して、テスト6件が通ったよ。プッシュも完了。',
+  },
+  de: {
+    prompt: 'Füge einen /gigs-Endpunkt mit Paginierung und Tests hinzu',
+    explore: 'Die anderen Routen prüfen',
+    test: 'Die Gigs-Tests ausführen',
+    push: 'Auf main pushen',
+    reply: 'Ich habe **GET /gigs** mit Cursor-Paginierung hinzugefügt, und 6 Tests laufen durch. Der Push ist erledigt.',
+  },
+  it: {
+    prompt: 'Aggiungi un endpoint /gigs con paginazione e test',
+    explore: 'Controlla le altre route',
+    test: 'Esegui i test dei gigs',
+    push: 'Push su main',
+    reply: 'Ho aggiunto **GET /gigs** con paginazione a cursore, e 6 test passano. Il push è fatto.',
+  },
 };
 
 // demo: not a real Claude Code event (she doesn't count it as her first contact)

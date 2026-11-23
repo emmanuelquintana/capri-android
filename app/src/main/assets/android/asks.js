@@ -33,6 +33,10 @@ const T = {
   fr: { games: 'D’accord ! Choisis un jeu.', history: 'Voilà tout ce qu’on s’est dit.', msg: 'C’est prêt : j’ai ouvert {app} avec le message. Choisis {to}et touche envoyer.', msgNoText: 'J’ai ouvert {app}. Écris ce que tu veux dire : je n’envoie jamais rien sans toi.', anyone: '' },
   pt: { games: 'Bora! Escolhe o jogo.', history: 'Aqui está tudo o que a gente conversou.', msg: 'Pronto: abri o {app} com a mensagem. Escolhe {to}e toca em enviar.', msgNoText: 'Abri o {app}. Escreve o que quer dizer: eu nunca envio nada sem você.', anyone: '' },
   ru: { games: 'Давай! Выбирай игру.', history: 'Вот всё, о чём мы говорили.', msg: 'Готово: я открыла {app} с сообщением. Выбери {to}и нажми «отправить».', msgNoText: 'Я открыла {app}. Напиши, что хочешь сказать: я ничего не отправляю без тебя.', anyone: '' },
+  vi: { games: 'Được thôi! Chọn một trò đi.', history: 'Đây là mọi thứ chúng ta đã nói.', msg: 'Xong: mình đã mở {app} với tin nhắn. Chọn {to}rồi chạm gửi.', msgNoText: 'Mình đã mở {app}. Viết điều bạn muốn nói: mình không bao giờ gửi gì mà không có bạn.', anyone: '' },
+  ja: { games: 'いいよ！ゲームを選んで。', history: 'これが今まで話したこと全部だよ。', msg: '{app}をメッセージ付きで開いたよ。{to}を選んで送信をタップして。', msgNoText: '{app}を開いたよ。言いたいことを書いて。あなたなしで何かを送ることは絶対にないから。', anyone: '' },
+  de: { games: 'Okay! Such dir ein Spiel aus.', history: 'Hier ist alles, worüber wir geredet haben.', msg: 'Erledigt: Ich habe {app} mit der Nachricht geöffnet. Wähl {to}und tipp auf Senden.', msgNoText: 'Ich habe {app} geöffnet. Schreib, was du sagen willst: Ich schicke nie etwas ohne dich.', anyone: '' },
+  it: { games: 'Va bene! Scegli un gioco.', history: 'Ecco tutto quello che ci siamo detti.', msg: 'Fatto: ho aperto {app} con il messaggio. Scegli {to}e tocca invia.', msgNoText: 'Ho aperto {app}. Scrivi quello che vuoi dire: non invio mai niente senza di te.', anyone: '' },
 };
 const NAMES = { whatsapp: 'WhatsApp', telegram: 'Telegram', messenger: 'Messenger', instagram: 'Instagram', signal: 'Signal', sms: 'SMS' };
 

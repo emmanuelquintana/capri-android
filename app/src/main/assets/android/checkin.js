@@ -49,6 +49,42 @@ const T = {
     talk: 'Поговорим',
     said: { good: 'хорошо', meh: 'так себе', bad: 'плохо' },
   },
+  vi: {
+    ask: ['Bạn khỏe không, {name}?', 'Này, {name}… hôm nay của bạn thế nào?', 'Mọi chuyện ổn chứ, {name}?', 'Hỏi nhanh: hôm nay bạn thấy sao?'],
+    good: 'Tốt', meh: 'Bình thường', bad: 'Tệ',
+    goodLine: ['Vui quá! Cứ thế nhé.', 'Đó là điều mình muốn nghe.', 'Tốt. Giờ mình cũng vậy.'],
+    mehLine: ['Có những ngày như thế. Mình ở đây nếu bạn muốn nói chuyện.', 'Được rồi… nếu có gì làm bạn bận lòng, kể mình nghe.'],
+    badLine: ['Mình tiếc quá, {name}. Muốn kể mình nghe không? Mình mở chat nhé.', 'Này… mình ở đây. Muốn nói chuyện không?'],
+    talk: 'Nói chuyện nào',
+    said: { good: 'tốt', meh: 'bình thường', bad: 'tệ' },
+  },
+  ja: {
+    ask: ['元気、{name}？', 'ねえ、{name}…今日はどう？', 'そっちは大丈夫、{name}？', 'ちょっと質問：今日の気分はどう？'],
+    good: 'いい感じ', meh: 'まあまあ', bad: 'よくない',
+    goodLine: ['よかった！その調子。', 'それが聞きたかったの。', 'よし。これでわたしも元気。'],
+    mehLine: ['そういう日もあるよね。話したくなったらここにいるよ。', 'そっか…何か気になることがあったら教えて。'],
+    badLine: ['それはつらいね、{name}。話してくれる？チャットを開くね。', 'ねえ…わたしがいるよ。話そうか？'],
+    talk: '話そう',
+    said: { good: 'いい感じ', meh: 'まあまあ', bad: 'よくない' },
+  },
+  de: {
+    ask: ['Wie geht’s dir, {name}?', 'Hey, {name}… wie läuft dein Tag?', 'Alles gut bei dir, {name}?', 'Kurze Frage: Wie fühlst du dich heute?'],
+    good: 'Gut', meh: 'Geht so', bad: 'Schlecht',
+    goodLine: ['Schön zu hören! Weiter so.', 'Genau das wollte ich hören.', 'Gut. Mir jetzt auch.'],
+    mehLine: ['Manche Tage sind so. Ich bin da, wenn du reden willst.', 'Okay… wenn dich was beschäftigt, sag’s mir.'],
+    badLine: ['Das tut mir leid, {name}. Willst du’s mir erzählen? Ich öffne den Chat.', 'Hey… ich bin da. Willst du reden?'],
+    talk: 'Lass uns reden',
+    said: { good: 'gut', meh: 'geht so', bad: 'schlecht' },
+  },
+  it: {
+    ask: ['Come stai, {name}?', 'Ehi, {name}… come va la giornata?', 'Tutto bene lì, {name}?', 'Domanda veloce: come ti senti oggi?'],
+    good: 'Bene', meh: 'Così così', bad: 'Male',
+    goodLine: ['Che bello! Continua così.', 'Era quello che volevo sentire.', 'Bene. Ora anche io.'],
+    mehLine: ['Ci sono giorni così. Sono qui se vuoi parlare.', 'Ok… se qualcosa ti preoccupa, dimmelo.'],
+    badLine: ['Mi dispiace, {name}. Vuoi raccontarmelo? Apro la chat.', 'Ehi… sono qui. Vuoi parlare?'],
+    talk: 'Parliamo',
+    said: { good: 'bene', meh: 'così così', bad: 'male' },
+  },
 };
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 const HOUR = 3600 * 1000;

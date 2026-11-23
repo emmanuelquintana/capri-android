@@ -159,30 +159,150 @@ const WORDS = {
     cant: "Не получилось сделать это на телефоне.",
     help: "Могу сказать время, включить музыку, открыть приложения, поставить таймер и напоминание, посмотреть на экран, потанцевать… Полный список в приложении, вкладка «Команды».",
   },
+  vi: {
+    yes: ['Gì vậy?', 'Nói đi.', 'Mình đây.', 'Bạn cần gì, choom?'],
+    time: ['Bây giờ là {time}.', 'Bây giờ là {time}, choom.', 'Đồng hồ của mình chỉ {time}.'],
+    date: 'Hôm nay là {date}.',
+    torchOn: 'Đã bật đèn pin.',
+    torchOff: 'Đã tắt đèn pin.',
+    noTorch: 'Điện thoại này không cho mình dùng đèn pin.',
+    back: 'Mình đây.',
+    iconOn: 'Mình sẽ thành biểu tượng. Mình vẫn nói từ đây.',
+    iconOff: 'Mình ra rồi!',
+    bye: 'Mình trốn đây. Nói “Capri, quay lại” là mình xuất hiện.',
+    deaf: 'Mình ngừng nghe. Bật lại trong Cài đặt nhé.',
+    thinking: '…',
+    wait: ['Để mình nghĩ…', 'Sắp xong rồi, AI đang chậm một chút.'],
+    failed: 'Giờ mình không trả lời bạn được.',
+    late: 'Muộn rồi, bạn không ngủ à?',
+    moves: ['Xem nè!', 'Bắt đầu nhé!', 'Bạn muốn xem biểu diễn mà.'],
+    dance: 'Nhảy thôi!',
+    sleepy: 'Mình chợp mắt chút. Chạm để đánh thức mình.',
+    awake: 'Mình dậy rồi!',
+    play: 'Phát nhạc nhé.',
+    weather: 'Mở thời tiết hôm nay.',
+    shot: 'Để chụp màn hình: bấm nút nguồn + giảm âm lượng cùng lúc. Mình tránh sang bên.',
+    radio: 'Android không cho ứng dụng tự bật cái đó: đây là bảng điều khiển, một chạm thôi.',
+    settings: 'Mở cài đặt.',
+    closet: 'Đây là tủ đồ của mình. Mình nên mặc gì?',
+    call: 'Mở ứng dụng điện thoại{who}.',
+    cant: 'Mình không làm được việc đó trên điện thoại của bạn.',
+    help: 'Mình có thể nói giờ, phát nhạc, mở ứng dụng, đặt hẹn giờ và nhắc nhở, nhìn màn hình, nhảy… Danh sách đầy đủ ở trong ứng dụng, tab Lệnh.',
+  },
+  ja: {
+    yes: ['なに？', 'どうぞ。', 'ここだよ。', '何が必要、チューム？'],
+    time: ['今は{time}だよ。', '{time}だよ、チューム。', 'わたしの時計では{time}。'],
+    date: '今日は{date}だよ。',
+    torchOn: 'ライトをつけたよ。',
+    torchOff: 'ライトを消したよ。',
+    noTorch: 'このスマホはライトを使わせてくれないの。',
+    back: 'ここだよ。',
+    iconOn: 'アイコンになるね。ここから話し続けるよ。',
+    iconOff: '出てきたよ！',
+    bye: '隠れるね。「カプリ、戻ってきて」って言えば出てくるよ。',
+    deaf: '聞くのをやめるね。設定でまたオンにしてね。',
+    thinking: '…',
+    wait: ['考えさせて…', 'もうすぐだよ、今AIが遅いの。'],
+    failed: '今は答えられなかった。',
+    late: 'もう遅いよ、寝なくていいの？',
+    moves: ['見てて！', 'いくよ！', 'ショーをご所望ね。'],
+    dance: '踊ろう！',
+    sleepy: 'ちょっとお昼寝。タップで起こしてね。',
+    awake: '起きたよ！',
+    play: '再生するね。',
+    weather: '今日の天気を開くね。',
+    shot: 'スクショは電源＋音量下を同時押し。わたしはどいておくね。',
+    radio: 'Androidはアプリが勝手にそれをオンにできないの。パネルを出すから、ワンタップでどうぞ。',
+    settings: '設定を開くね。',
+    closet: 'わたしのワードローブだよ。何を着ようか？',
+    call: '電話アプリを開くね{who}。',
+    cant: 'あなたのスマホではそれができなかった。',
+    help: '時間を教えたり、音楽をかけたり、アプリを開いたり、タイマーやリマインダーをセットしたり、画面を見たり、踊ったりできるよ…全部のリストはアプリの「コマンド」タブにあるよ。',
+  },
+  de: {
+    yes: ['Ja?', 'Sag schon.', 'Bin hier.', 'Was brauchst du, Choom?'],
+    time: ['Es ist {time}.', 'Es ist {time}, Choom.', 'Meine Uhr sagt {time}.'],
+    date: 'Heute ist {date}.',
+    torchOn: 'Taschenlampe an.',
+    torchOff: 'Taschenlampe aus.',
+    noTorch: 'Dieses Handy lässt mich die Taschenlampe nicht benutzen.',
+    back: 'Bin hier.',
+    iconOn: 'Ich werde ein Icon. Ich rede von hier aus weiter.',
+    iconOff: 'Ich bin raus!',
+    bye: 'Ich versteck mich. Sag „Capri, komm zurück“ und ich bin da.',
+    deaf: 'Ich hör nicht mehr zu. Schalt es in den Einstellungen wieder ein.',
+    thinking: '…',
+    wait: ['Lass mich nachdenken…', 'Gleich, die KI ist gerade langsam.'],
+    failed: 'Ich konnte dir gerade nicht antworten.',
+    late: 'Es ist spät, solltest du nicht schlafen?',
+    moves: ['Schau her!', 'Los geht’s!', 'Du wolltest eine Show.'],
+    dance: 'Lass uns tanzen!',
+    sleepy: 'Ich mach ein Nickerchen. Tipp mich an, um mich zu wecken.',
+    awake: 'Ich bin wach!',
+    play: 'Ich drück auf Play.',
+    weather: 'Ich öffne das Wetter für heute.',
+    shot: 'Für einen Screenshot: Ein/Aus + Leiser gleichzeitig. Ich geh aus dem Weg.',
+    radio: 'Android lässt Apps das nicht selbst einschalten: Hier ist das Panel, ein Tipp.',
+    settings: 'Ich öffne die Einstellungen.',
+    closet: 'Hier ist mein Kleiderschrank. Was soll ich anziehen?',
+    call: 'Ich öffne deine Telefon-App{who}.',
+    cant: 'Das konnte ich auf deinem Handy nicht machen.',
+    help: 'Ich kann dir die Uhrzeit sagen, Musik spielen, Apps öffnen, Timer und Erinnerungen stellen, auf deinen Bildschirm schauen, tanzen… Die ganze Liste ist in der App, Tab Befehle.',
+  },
+  it: {
+    yes: ['Sì?', 'Dimmi.', 'Sono qui.', 'Di cosa hai bisogno, choom?'],
+    time: ['Sono le {time}.', 'Sono le {time}, choom.', 'Il mio orologio dice {time}.'],
+    date: 'Oggi è {date}.',
+    torchOn: 'Torcia accesa.',
+    torchOff: 'Torcia spenta.',
+    noTorch: 'Questo telefono non mi fa usare la torcia.',
+    back: 'Sono qui.',
+    iconOn: 'Divento un’icona. Continuo a parlare da qui.',
+    iconOff: 'Eccomi fuori!',
+    bye: 'Mi nascondo. Di’ “Capri, torna” e arrivo.',
+    deaf: 'Smetto di ascoltare. Riattivalo nelle Impostazioni.',
+    thinking: '…',
+    wait: ['Fammi pensare…', 'Quasi, l’IA è lenta in questo momento.'],
+    failed: 'Non sono riuscita a risponderti adesso.',
+    late: 'È tardi, non dovresti dormire?',
+    moves: ['Guarda qua!', 'Si parte!', 'Volevi uno spettacolo.'],
+    dance: 'Balliamo!',
+    sleepy: 'Faccio un pisolino. Toccami per svegliarmi.',
+    awake: 'Sono sveglia!',
+    play: 'Premo play.',
+    weather: 'Apro il meteo di oggi.',
+    shot: 'Per uno screenshot: accensione + volume giù insieme. Mi tolgo di mezzo.',
+    radio: 'Android non lascia che le app lo attivino da sole: ecco il pannello, un tocco.',
+    settings: 'Apro le impostazioni.',
+    closet: 'Ecco il mio guardaroba. Cosa metto?',
+    call: 'Apro l’app Telefono{who}.',
+    cant: 'Non sono riuscita a farlo sul tuo telefono.',
+    help: 'Posso dirti l’ora, mettere musica, aprire app, impostare timer e promemoria, guardare il tuo schermo, ballare… La lista completa è nell’app, scheda Comandi.',
+  },
 };
-const LOCALES = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU' };
+const LOCALES = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU', vi: 'vi-VN', ja: 'ja-JP', de: 'de-DE', it: 'it-IT' };
 
 // the phone's own quick things, in each of her languages (Spanish, English, French, Portuguese,
 // Russian). \b doesn't see Cyrillic or accents: (?![\p{L}]) does
-const TIME_ASK = /qu[eé] hora|la hora|what time|the time|quelle heure|que horas|котор(?:ый|ого) час|сколько времени/iu;
-const DATE_ASK = /qu[eé] d[ií]a|qu[eé] fecha|la fecha|what day|the date|what's the date|quel jour|quelle date|que dia|qual (?:é )?a data|какое (?:сегодня )?число|какой (?:сегодня )?день/iu;
-const TORCH = /linterna|l[aá]mpara|flash|torch|flashlight|lampe|torche|lanterna|фонар/iu;
-const OFF = /apaga|desactiva|quita|turn off|switch off|\boff\b|[ée]teins|d[ée]sactive|desliga|выключи|погаси/iu;
-const ON = /enciende|prende|activa|pon|turn on|switch on|\bon\b|allume|active|liga|acende|включи/iu;
-const HIDE_ASK = /^(?:esc[oó]ndete|vete|desaparece|ocúltate|ocultate|hide|go away|get lost|cache-toi|va-t[’']en|dispara[iî]s|(?:se )?esconde|some daqui|спрячься|уйди|исчезни)(?![\p{L}])/iu;
-const SHOW_ASK = /^(?:ven|aparece|regresa|vuelve|mu[eé]strate|sal|come back|come here|show up|appear|reviens|viens|appara[iî]s|volta|vem|вернись|появись|иди сюда)(?![\p{L}])/iu;
-const DEAF_ASK = /deja de escuchar|no me escuches|stop listening|arr[êe]te d[’']?[ée]couter|para de (?:escutar|ouvir)|не слушай|перестань слушать/iu;
-export const GAMER_ASK = /modo gamer|modo juego|voy a jugar|gamer mode|gaming mode|mode gamer|mode jeu|vou jogar|игровой режим|режим игры/iu;
+const TIME_ASK = /qu[eé] hora|la hora|what time|the time|quelle heure|que horas|котор(?:ый|ого) час|сколько времени|mấy giờ|giờ là|何時|wie spät|wie viel uhr|che ore|che ora/iu;
+const DATE_ASK = /qu[eé] d[ií]a|qu[eé] fecha|la fecha|what day|the date|what's the date|quel jour|quelle date|que dia|qual (?:é )?a data|какое (?:сегодня )?число|какой (?:сегодня )?день|ngày mấy|hôm nay là ngày|何日|何曜日|welcher tag|welches datum|der wievielte|che giorno|che data/iu;
+const TORCH = /linterna|l[aá]mpara|flash|torch|flashlight|lampe|torche|lanterna|фонар|đèn pin|ライト|懐中電灯|taschenlampe|torcia/iu;
+const OFF = /apaga|desactiva|quita|turn off|switch off|\boff\b|[ée]teins|d[ée]sactive|desliga|выключи|погаси|tắt|消して|オフ|(?<![\p{L}])aus(?:schalten|machen)?(?![\p{L}])|spegni/iu;
+const ON = /enciende|prende|activa|pon|turn on|switch on|\bon\b|allume|active|liga|acende|включи|bật|つけて|オン|(?<![\p{L}])an(?:schalten|machen)?(?![\p{L}])|(?<![\p{L}])ein(?:schalten)?(?![\p{L}])|accendi/iu;
+const HIDE_ASK = /^(?:esc[oó]ndete|vete|desaparece|ocúltate|ocultate|hide|go away|get lost|cache-toi|va-t[’']en|dispara[iî]s|(?:se )?esconde|some daqui|спрячься|уйди|исчезни|trốn đi|biến đi|隠れて|消えて|versteck dich|geh weg|verschwinde|nasconditi|vattene|sparisci)(?![\p{L}])/iu;
+const SHOW_ASK = /^(?:ven|aparece|regresa|vuelve|mu[eé]strate|sal|come back|come here|show up|appear|reviens|viens|appara[iî]s|volta|vem|вернись|появись|иди сюда|quay lại|ra đây|lại đây|戻って|出てきて|おいで|komm zurück|komm her|zeig dich|torna|vieni|appari)(?![\p{L}])/iu;
+const DEAF_ASK = /deja de escuchar|no me escuches|stop listening|arr[êe]te d[’']?[ée]couter|para de (?:escutar|ouvir)|не слушай|перестань слушать|đừng nghe|ngừng nghe|聞かないで|聞くのをやめて|hör auf zuzuhören|hör nicht zu|smetti di ascoltare|non ascoltare/iu;
+export const GAMER_ASK = /modo gamer|modo juego|voy a jugar|gamer mode|gaming mode|mode gamer|mode jeu|vou jogar|игровой режим|режим игры|chế độ game|chơi game|ゲーマーモード|ゲームモード|gamer-modus|spielmodus|ich spiele jetzt|modalità gamer|modalità gioco|vado a giocare/iu;
 // her icon mode (icon.js): on, or off ("sal del ícono", "quita el modo ícono")
-export const ICON_ASK = /modo [ií]cono|hazte (?:un )?[ií]cono|en (?:tu )?[ií]cono|del [ií]cono|icon mode|as an icon|mode ic[ôo]ne|du mode ic[ôo]ne|modo [ií]cone|do [ií]cone|режим[а-я]* (?:иконки|значка)|из иконки|иконкой/iu;
+export const ICON_ASK = /modo [ií]cono|hazte (?:un )?[ií]cono|en (?:tu )?[ií]cono|del [ií]cono|icon mode|as an icon|mode ic[ôo]ne|du mode ic[ôo]ne|modo [ií]cone|do [ií]cone|режим[а-я]* (?:иконки|значка)|из иконки|иконкой|chế độ biểu tượng|アイコンモード|アイコンになって|icon-modus|als icon|modalità icona|diventa un’icona/iu;
 // "off" for gamer and icon mode, in her languages
-export const OFF_ASK = /quita|apaga|sin |desactiva|salir|sal |sal$|sal del|off|stop|leave|exit|d[ée]sactive|quitte|sors|desativa|desliga|sai |sai$|sai do|выключи|выйди|убери/iu;
+export const OFF_ASK = /quita|apaga|sin |desactiva|salir|sal |sal$|sal del|off|stop|leave|exit|d[ée]sactive|quitte|sors|desativa|desliga|sai |sai$|sai do|выключи|выйди|убери|tắt|thoát|bỏ|やめて|オフ|解除|(?<![\p{L}])aus(?![\p{L}])|beende|verlass|spegni|esci|togli/iu;
 export const iconOff = (text) => OFF_ASK.test(text);
-const CHAT_ASK = /^(?:abre (?:el |tu )?chat|hablemos|quiero hablar|platiquemos|open (?:the |your )?chat|let'?s talk|ouvre (?:le |ton )?chat|parlons|abre o chat|vamos conversar|открой чат|давай поговорим)(?![\p{L}])/iu;
-const LOOK_ASK = /mira (?:mi|la) pantalla|qu[ée] (?:ves|hay en mi pantalla)|look at my screen|what do you see|regarde (?:mon|l[’']) ?[ée]cran|olha (?:minha|a) tela|посмотри на (?:мой )?экран/iu;
+const CHAT_ASK = /^(?:abre (?:el |tu )?chat|hablemos|quiero hablar|platiquemos|open (?:the |your )?chat|let'?s talk|ouvre (?:le |ton )?chat|parlons|abre o chat|vamos conversar|открой чат|давай поговорим|mở chat|nói chuyện nào|nói chuyện đi|チャットを開いて|話そう|öffne (?:den |deinen )?chat|lass uns reden|apri (?:la |la tua )?chat|parliamo)(?![\p{L}])/iu;
+const LOOK_ASK = /mira (?:mi|la) pantalla|qu[ée] (?:ves|hay en mi pantalla)|look at my screen|what do you see|regarde (?:mon|l[’']) ?[ée]cran|olha (?:minha|a) tela|посмотри на (?:мой )?экран|nhìn màn hình|xem màn hình|画面を見て|何が見える|schau auf meinen bildschirm|was siehst du|guarda (?:il mio |lo )?schermo|cosa vedi/iu;
 // her own moves, asked plainly ("Capri, baila"): only when that's about all you said
 const MOVES = [
-  ['dance', /^(?:baila|bailemos|ponte a bailar|dance|let'?s dance|danse|dan[çc]a|танцуй|потанцуй)(?![\p{L}])/iu],
+  ['dance', /^(?:baila|bailemos|ponte a bailar|dance|let'?s dance|danse|dan[çc]a|танцуй|потанцуй|nhảy đi|nhảy nào|踊って|踊ろう|tanz|tanzen|lass uns tanzen|balla|balliamo)(?![\p{L}])/iu],
   ['hop', /^(?:salta|brinca|da un brinco|jump|hop|saute|pula|прыгни|подпрыгни)(?![\p{L}])/iu],
   ['spin', /^(?:gira|da (?:una )?vuelta|date (?:una )?vuelta|spin|turn around|tourne|fais un tour|gire|d[aá] uma volta|покружись|крутись)(?![\p{L}])/iu],
   ['stretch', /^(?:est[ií]rate|stretch|[ée]tire-toi|alongue-se|espregui[çc]a|потянись)(?![\p{L}])/iu],
@@ -192,22 +312,22 @@ const MOVES = [
   ['plop', /^(?:si[ée]ntate|sit(?: down)?|assieds-toi|senta|sente-se|сядь|присядь)(?![\p{L}])/iu],
   ['teleport', /^(?:teletransp[oó]rtate|teleport(?:ate)?|t[ée]l[ée]porte-toi|teletransporta-te|se teletransporta|телепортируйся)(?![\p{L}])/iu],
   ['satellite', /^(?:(?:mira|busca) el sat[ée]lite|sat[ée]lite|satellite|look at the satellite|regarde le satellite|olha o sat[ée]lite|спутник)(?![\p{L}])/iu],
-  ['sleep', /^(?:du[ée]rmete|a dormir|ve a dormir|go to sleep|sleep|dors|va dormir|dorme|vai dormir|спи|засыпай|иди спать)(?![\p{L}])/iu],
-  ['wake', /^(?:despierta|desp[ií]ertate|wake up|r[ée]veille-toi|acorda|просыпайся|проснись)(?![\p{L}])/iu],
+  ['sleep', /^(?:du[ée]rmete|a dormir|ve a dormir|go to sleep|sleep|dors|va dormir|dorme|vai dormir|спи|засыпай|иди спать|đi ngủ|ngủ đi|寝て|おやすみ|schlaf|geh schlafen|dormi|vai a dormire)(?![\p{L}])/iu],
+  ['wake', /^(?:despierta|desp[ií]ertate|wake up|r[ée]veille-toi|acorda|просыпайся|проснись|dậy đi|thức dậy|起きて|wach auf|aufwachen|svegliati)(?![\p{L}])/iu],
 ];
 const PLAY_SOMETHING = /^(?:pon|ponme|reproduce|play|put on|mets|joue|coloca|toca|bota|включи|поставь)\s+(?:(?:algo de|some|de la|un peu de|uma|um pouco de|alguma)\s+)?(?:m[uú]sica|music|musique|музыку|una canci[oó]n|a song|une chanson|uma m[uú]sica)(?:\s+(?:por favor|please|s'il te pla[iî]t|пожалуйста))?[.!]?$/iu;
-const WEATHER_ASK = /qu[ée] tiempo hace|el clima|va a llover|how'?s the weather|what'?s the weather|weather|will it rain|quel temps|la m[ée]t[ée]o|va-t-il pleuvoir|como est[aá] o tempo|previs[ãa]o do tempo|vai chover|какая погода|погод[аы]|будет дождь/iu;
-const SHOT_VOICE = /captura(?: de pantalla)?|pantallazo|screenshot|capture d['’]?[ée]cran|print(?: da tela)?|скриншот|снимок экрана/iu;
+const WEATHER_ASK = /qu[ée] tiempo hace|el clima|va a llover|how'?s the weather|what'?s the weather|weather|will it rain|quel temps|la m[ée]t[ée]o|va-t-il pleuvoir|como est[aá] o tempo|previs[ãa]o do tempo|vai chover|какая погода|погод[аы]|будет дождь|thời tiết|trời có mưa|天気|wie ist das wetter|wetter|regnet es|che tempo fa|meteo|pioverà/iu;
+const SHOT_VOICE = /captura(?: de pantalla)?|pantallazo|screenshot|capture d['’]?[ée]cran|print(?: da tela)?|скриншот|снимок экрана|chụp màn hình|スクショ|スクリーンショット|bildschirmfoto|screenshot|cattura (?:lo )?schermo/iu;
 const RADIO_ASK = /(?:wi-?fi|wifi|bluetooth|datos(?: m[oó]viles)?|mobile data|donn[ée]es mobiles|dados m[oó]veis|modo avi[oó]n|airplane mode|mode avion|modo avi[aã]o|ubicaci[oó]n|location|localisation|localiza[çc][ãa]o|gps|nfc|вай-?фай|блютуз|мобильн\p{L}* данн\p{L}*|режим полёта|геолокаци\p{L}*)/iu;
 const RADIO_PAGE = [['bluetooth', /bluetooth|блютуз/i], ['data', /datos|data|donn[ée]es|dados|данн/i], ['airplane', /avi[oó]n|airplane|avion|avi[aã]o|полёт/i], ['location', /ubicaci|location|localis|localiza|gps|геолок/i], ['nfc', /nfc/i], ['wifi', /./]];
 const RADIO_VERB = /prende|enciende|activa|apaga|desactiva|quita|pon|turn|switch|enable|disable|allume|[ée]teins|active|d[ée]sactive|liga|desliga|ativa|desativa|включи|выключи|ajustes|settings|r[ée]glages|configura|настройк/iu;
 const CALL_ASK = /^(?:llama(?:le)? a|marca(?:le)? a|call|phone|appelle|liga(?: para| pra)?|позвони)\s*(.*)$/iu;
 const WARDROBE_ASK = /(?:vest[ií]te|v[ií]stete|c[aá]mbiate de ropa|(?:abre|muestra|ens[eé][ñn]a(?:me)?) (?:tu|el) (?:vestuario|ropa|armario|closet)|tu vestuario|change (?:your )?clothes|get dressed|(?:open|show)(?: me)? your (?:wardrobe|closet|clothes)|your wardrobe|habille[- ]toi|change de v[eê]tements|(?:ouvre|montre)(?:[- ]moi)? ta garde[- ]robe|ta garde[- ]robe|troca de roupa|se veste|(?:abre|mostra)(?: o)? (?:teu|seu) guarda[- ]roupa|guarda[- ]roupa|переоденься|оденься|(?:открой|покажи) (?:свой )?гардероб|гардероб)/iu;
-const HELP_ASK = /^(?:qu[ée] (?:puedes|sabes) hacer|ayuda|comandos|what can you do|help|commands|qu['’]est-ce que tu sais faire|aide|commandes|o que voc[êe] (?:pode|sabe) fazer|ajuda|comandos|что ты умеешь|помощь|команды)(?![\p{L}])/iu;
+const HELP_ASK = /^(?:qu[ée] (?:puedes|sabes) hacer|ayuda|comandos|what can you do|help|commands|qu['’]est-ce que tu sais faire|aide|commandes|o que voc[êe] (?:pode|sabe) fazer|ajuda|comandos|что ты умеешь|помощь|команды|bạn làm được gì|trợ giúp|lệnh|何ができる|ヘルプ|コマンド|was kannst du|hilfe|befehle|cosa sai fare|aiuto|comandi)(?![\p{L}])/iu;
 
 // what's left of her name at the start, as the recognizer may write it (Капри in Russian)
 // (and whatever came before it: "oye Capri", "ok Kapri")
-const NAME = /^.*?(?<![\p{L}])(?:[ck]a[pb]r[iíy]s?|ка[пб]р[иы])(?![\p{L}])[\s,.!?:]*/iu;
+const NAME = /^.*?(?<![\p{L}])(?:[ck]a ?[pb]r[iíy]s?|ка[пб]р[иы]|カプリ|かぷり)(?![\p{L}])[\s,.!?:、。！？]*/iu;
 
 let busy = 0;
 let turns = 0; // (1.11.0) each request of yours: an answer to an older one stays silent
@@ -393,7 +513,7 @@ async function handle(text, { toggleVisible, visible }) {
   answer(said, mood(said));
 }
 
-const WEATHER_SEARCH = { es: 'clima hoy', en: 'weather today', fr: 'météo aujourd’hui', pt: 'previsão do tempo hoje', ru: 'погода сегодня' };
+const WEATHER_SEARCH = { es: 'clima hoy', en: 'weather today', fr: 'météo aujourd’hui', pt: 'previsão do tempo hoje', ru: 'погода сегодня', vi: 'thời tiết hôm nay', ja: '今日の天気', de: 'Wetter heute', it: 'meteo oggi' };
 
 // one of her moves, by name, with a word about it
 async function moveFor(move, { capri, answer, t }) {

@@ -80,6 +80,10 @@ const WAIT = {
   fr: 'Une seconde, je réfléchis encore au message d’avant.',
   pt: 'Me dá um segundo, ainda tô pensando na anterior.',
   ru: 'Секунду, я ещё думаю над прошлым.',
+  vi: 'Chờ mình một giây, mình vẫn đang nghĩ về câu trước.',
+  ja: 'ちょっと待って、さっきのことをまだ考えてるの。',
+  de: 'Gib mir eine Sekunde, ich denke noch über das Letzte nach.',
+  it: 'Dammi un secondo, sto ancora pensando all’ultimo.',
 };
 const NO_AI = {
   es: 'Todavía no tengo una IA para hablar. Elige una en Ajustes › Su IA y vuelve.',
@@ -87,4 +91,8 @@ const NO_AI = {
   fr: 'Je n’ai pas encore d’IA pour parler. Choisis-en une dans Réglages › Son IA.',
   pt: 'Ainda não tenho uma IA pra conversar. Escolha uma em Ajustes › A IA dela.',
   ru: 'У меня пока нет ИИ для разговора. Выбери его в Настройках › Её ИИ.',
+  vi: 'Mình chưa có AI để trò chuyện. Hãy chọn một cái trong Cài đặt › AI của cô ấy rồi quay lại nhé.',
+  ja: 'まだ話すためのAIがないの。設定 › 彼女のAI で選んでから戻ってきて。',
+  de: 'Ich habe noch keine KI zum Reden. Wähl eine in Einstellungen › Ihre KI und komm zurück.',
+  it: 'Non ho ancora un’IA per parlare. Scegline una in Impostazioni › La sua IA e torna qui.',
 };

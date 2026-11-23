@@ -42,6 +42,10 @@ export function tweak({ cfg, onConfig }) {
       fr: ['Coller', 'Je ne vois rien de copié. Copie la clé et touche encore « Coller ».'],
       pt: ['Colar', 'Não vejo nada copiado. Copie a chave e toque em “Colar” de novo.'],
       ru: ['Вставить', 'Ничего не скопировано. Скопируй ключ и снова нажми «Вставить».'],
+      vi: ['Dán', 'Mình không thấy gì được sao chép. Sao chép khóa rồi chạm “Dán” lần nữa.'],
+      ja: ['貼り付け', 'コピーされたものが見つからないよ。キーをコピーしてもう一度「貼り付け」をタップして。'],
+      de: ['Einfügen', 'Ich sehe nichts Kopiertes. Kopier den Schlüssel und tipp nochmal auf „Einfügen“.'],
+      it: ['Incolla', 'Non vedo niente di copiato. Copia la chiave e tocca di nuovo “Incolla”.'],
     };
     const askText = guide.askText.bind(guide);
     guide.askText = (o = {}) => {
@@ -131,6 +135,10 @@ export function tweak({ cfg, onConfig }) {
       fr: ['Laisse-moi réfléchir…', 'Je réfléchis encore… presque.'],
       pt: ['Deixa eu pensar…', 'Ainda pensando… quase lá.'],
       ru: ['Дай подумать…', 'Ещё думаю… почти всё.'],
+      vi: ['Để mình nghĩ…', 'Vẫn đang nghĩ… sắp xong rồi.'],
+      ja: ['ちょっと考えさせて…', 'まだ考え中…もうすぐだよ。'],
+      de: ['Lass mich nachdenken…', 'Denke noch… gleich geschafft.'],
+      it: ['Fammi pensare…', 'Sto ancora pensando… quasi fatto.'],
     };
     // the free AI lets each phone have one answer every 45 seconds: said plainly
     const FREE = {
@@ -139,6 +147,10 @@ export function tweak({ cfg, onConfig }) {
       fr: ['Laisse-moi réfléchir…', 'L’IA gratuite ne me laisse répondre qu’une fois toutes les 45 secondes… presque. Avec une clé Gemini gratuite, je réponds tout de suite.'],
       pt: ['Deixa eu pensar…', 'A IA grátis só me deixa responder uma vez a cada 45 segundos… quase lá. Com uma chave grátis do Gemini eu respondo na hora.'],
       ru: ['Дай подумать…', 'Бесплатный ИИ даёт мне отвечать раз в 45 секунд… почти всё. С бесплатным ключом Gemini я отвечаю сразу.'],
+      vi: ['Để mình nghĩ…', 'AI miễn phí chỉ cho mình trả lời mỗi 45 giây… sắp xong rồi. Với khóa Gemini miễn phí mình trả lời ngay.'],
+      ja: ['ちょっと考えさせて…', '無料AIは45秒に1回しか答えさせてくれないの…もうすぐだよ。無料のGeminiキーがあればすぐ答えられるよ。'],
+      de: ['Lass mich nachdenken…', 'Die kostenlose KI lässt mich nur alle 45 Sekunden antworten… gleich geschafft. Mit einem kostenlosen Gemini-Schlüssel antworte ich sofort.'],
+      it: ['Fammi pensare…', 'L’IA gratuita mi fa rispondere solo una volta ogni 45 secondi… quasi fatto. Con una chiave Gemini gratuita rispondo subito.'],
     };
     const send = chat.send.bind(chat);
     chat.send = (text) => {
@@ -202,6 +214,10 @@ export function tweak({ cfg, onConfig }) {
     fr: ['Tu peux le faire !', 'Ouh, c’était moins une.', 'Tu gères, choom.', 'Je ne te déconcentre pas… bon, juste un peu.', 'GG en approche.', 'Respire. Allez, vas-y.'],
     pt: ['Você consegue!', 'Uff, essa foi por pouco.', 'Mandando bem, choom.', 'Não vou te distrair… bom, só um pouquinho.', 'GG chegando.', 'Respira. Agora vai.'],
     ru: ['Ты справишься!', 'Ух, чуть не попал.', 'Хорошо идёшь, чум.', 'Не отвлекаю… ну, совсем чуть-чуть.', 'GG на подходе.', 'Выдохни. А теперь вперёд.'],
+    vi: ['Bạn làm được mà!', 'Ồ, suýt nữa.', 'Đang ổn lắm, choom.', 'Không làm phiền bạn đâu… chỉ một chút thôi.', 'GG sắp tới rồi.', 'Hít thở. Giờ thì lên.'],
+    ja: ['いけるよ！', 'うわ、危なかった。', 'いい感じだよ、チューム。', '邪魔してないよ…ちょっとだけ。', 'GGはもうすぐ。', '深呼吸。さあ行こう。'],
+    de: ['Du schaffst das!', 'Uff, das war knapp.', 'Sieht gut aus, Choom.', 'Ich lenk dich nicht ab… na ja, nur ein bisschen.', 'GG kommt gleich.', 'Atme. Und jetzt los.'],
+    it: ['Ce la fai!', 'Uh, c’è mancato poco.', 'Vai alla grande, choom.', 'Non ti distraggo… beh, solo un pochino.', 'GG in arrivo.', 'Respira. Ora vai.'],
   };
   let nextCheer = 0;
   setInterval(() => {

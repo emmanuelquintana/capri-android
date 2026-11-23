@@ -13,6 +13,10 @@ const LINES = {
   fr: { on: 'Batterie à {p} % : mode économie. J’arrête d’écouter et je bouge moins jusqu’à ce que tu me charges.', off: 'La batterie est revenue. Je quitte le mode économie.' },
   pt: { on: 'Bateria em {p}%: modo economia. Paro de escutar e me mexo menos até você me carregar.', off: 'A bateria voltou. Saindo do modo economia.' },
   ru: { on: 'Заряд {p}%: режим экономии. Я перестаю слушать и меньше двигаюсь, пока ты меня не зарядишь.', off: 'Заряд есть. Выхожу из режима экономии.' },
+  vi: { on: 'Pin còn {p}%: chế độ tiết kiệm. Mình ngừng nghe và ít cử động cho đến khi bạn sạc cho mình.', off: 'Pin đã có lại. Thoát chế độ tiết kiệm.' },
+  ja: { on: 'バッテリー{p}%：節約モード。充電してくれるまで、聞くのをやめて動きも減らすね。', off: 'バッテリー回復。節約モード終了。' },
+  de: { on: 'Akku bei {p} %: Sparmodus. Ich höre nicht mehr zu und bewege mich weniger, bis du mich lädst.', off: 'Akku ist wieder da. Sparmodus beendet.' },
+  it: { on: 'Batteria al {p}%: modalità risparmio. Smetto di ascoltare e mi muovo meno finché non mi ricarichi.', off: 'La batteria è tornata. Esco dalla modalità risparmio.' },
 };
 
 export function saver({ cfg, lang, setConfig }) {

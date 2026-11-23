@@ -130,7 +130,7 @@ class Tour(
         fun load(a: android.content.Context, file: String = "android/tour.json"): Pair<String, List<Step>>? = runCatching {
             val json = JSONObject(a.assets.open(file).bufferedReader().use { it.readText() })
             val lang = Lang.current(a).take(2)
-            fun word(o: JSONObject) = o.optString(lang).ifEmpty { o.optString("es") }
+            fun word(o: JSONObject) = o.optString(lang).ifEmpty { o.optString("en") }.ifEmpty { o.optString("es") }
             val list = json.getJSONArray("steps")
             json.getString("id") to (0 until list.length()).map { i ->
                 val s = list.getJSONObject(i)

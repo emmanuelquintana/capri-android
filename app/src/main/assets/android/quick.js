@@ -40,6 +40,34 @@ const LABELS = {
     ghost: 'Призрак', icon: 'Иконка', float: 'Без гравитации', gamer: 'Игровой',
     ghostHow: 'касания проходят сквозь неё (кроме лица)', iconHow: 'только маска', floatHow: 'остаётся, где поставишь', gamerHow: 'крошечная, для игр', liveHow: 'комментирует, что видишь',
   },
+  vi: {
+    title: 'Capri', moves: 'Động tác', modes: 'Chế độ', all: 'Tất cả cài đặt', app: 'Mở ứng dụng',
+    wardrobe: 'Mặc đồ cho cô ấy', chat: 'Nói chuyện', look: 'Nhìn màn hình', live: 'Xem trực tiếp', teleport: 'Dịch chuyển', satellite: 'Vệ tinh', hide: 'Cất cô ấy đi', show: 'Gọi cô ấy ra',
+    hop: 'Nhảy', spin: 'Xoay', stretch: 'Vươn vai', victory: 'Chiến thắng', zap: 'Chích điện', split: 'Phân thân',
+    ghost: 'Bóng ma', icon: 'Biểu tượng', float: 'Không trọng lực', gamer: 'Game',
+    ghostHow: 'chạm xuyên qua cô ấy (trừ mặt)', iconHow: 'chỉ mặt nạ', floatHow: 'ở yên chỗ bạn đặt', gamerHow: 'nhỏ xíu, để chơi game', liveHow: 'bình luận những gì bạn xem',
+  },
+  ja: {
+    title: 'Capri', moves: 'モーション', modes: 'モード', all: 'すべての設定', app: 'アプリを開く',
+    wardrobe: '着せ替え', chat: '話す', look: '画面を見て', live: 'ライブで見る', teleport: 'テレポート', satellite: '衛星', hide: 'しまう', show: '出てきて',
+    hop: 'ジャンプ', spin: 'スピン', stretch: 'ストレッチ', victory: 'ビクトリー', zap: 'ザップ', split: '分身',
+    ghost: 'ゴースト', icon: 'アイコン', float: '無重力', gamer: 'ゲーマー',
+    ghostHow: 'タッチがすり抜ける（顔以外）', iconHow: 'マスクだけ', floatHow: '置いた場所にとどまる', gamerHow: 'ゲーム用に小さく', liveHow: '見ているものにコメント',
+  },
+  de: {
+    title: 'Capri', moves: 'Moves', modes: 'Modi', all: 'Alle Einstellungen', app: 'App öffnen',
+    wardrobe: 'Zieh sie an', chat: 'Reden', look: 'Schau auf meinen Bildschirm', live: 'Live zuschauen', teleport: 'Teleportieren', satellite: 'Satellit', hide: 'Wegpacken', show: 'Rausholen',
+    hop: 'Hüpfen', spin: 'Drehen', stretch: 'Strecken', victory: 'Sieg', zap: 'Zap', split: 'Teilen',
+    ghost: 'Geist', icon: 'Icon', float: 'Schwerelos', gamer: 'Gamer',
+    ghostHow: 'Berührungen gehen durch sie (nicht ihr Gesicht)', iconHow: 'nur ihre Maske', floatHow: 'bleibt, wo du sie hinsetzt', gamerHow: 'winzig, zum Spielen', liveHow: 'kommentiert, was du siehst',
+  },
+  it: {
+    title: 'Capri', moves: 'Mosse', modes: 'Modalità', all: 'Tutte le impostazioni', app: 'Apri l’app',
+    wardrobe: 'Vestila', chat: 'Parla', look: 'Guarda lo schermo', live: 'Guarda dal vivo', teleport: 'Teletrasporto', satellite: 'Satellite', hide: 'Mettila via', show: 'Falla uscire',
+    hop: 'Salto', spin: 'Giro', stretch: 'Stiracchiata', victory: 'Vittoria', zap: 'Scossa', split: 'Sdoppiati',
+    ghost: 'Fantasma', icon: 'Icona', float: 'Senza gravità', gamer: 'Gamer',
+    ghostHow: 'i tocchi la attraversano (non il viso)', iconHow: 'solo la maschera', floatHow: 'resta dove la metti', gamerHow: 'piccolissima, per giocare', liveHow: 'commenta quello che vedi',
+  },
 };
 
 // little line drawings for the big buttons, in her HUD's stroke
