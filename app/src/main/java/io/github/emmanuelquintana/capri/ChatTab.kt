@@ -112,6 +112,7 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
     fun onShow() {
         if (waiting == null) load()
         AppChat.listener = { answered(it) }
+        AppChat.partialListener = { id, text -> partial(id, text) }
         Ears.voiceListener = { onVoice(it) }
         status()
     }
@@ -236,6 +237,15 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
         scroll.post { scroll.fullScroll(View.FOCUS_DOWN) }
         list.removeCallbacks(giveUp)
         list.postDelayed(giveUp, 150_000)
+    }
+
+    /** (1.11.8) Her answer as it's written, in the bubble that was dots: you read it before her voice says it. */
+    private fun partial(id: String, text: String) {
+        if (id != waiting || text.isBlank()) return
+        val tb = typingBubble ?: return
+        tb.removeCallbacks(dots)
+        tb.text = text
+        scroll.post { scroll.fullScroll(View.FOCUS_DOWN) }
     }
 
     private fun answered(r: AppChat.Reply) {

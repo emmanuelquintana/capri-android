@@ -594,6 +594,44 @@ class Ears(private val service: CapriService) {
      *  [opts]: id (to follow or cancel it), kind ("answer": her words as written; "event": one of her
      *  phrases, shown only if it can't play), clip (that phrase's id). */
     fun say(text: String, lang: String, opts: JSONObject = JSONObject()) = main.post {
+        val part = opts.optString("part")
+        if (part.isNotEmpty()) sayPart(text, lang, opts, part == "last") else sayNow(text, lang, opts)
+    }
+
+    // ---- (1.11.8) her answer said while her AI is still writing it (chatvoice.js sends it sentence by sentence:
+    // part "more", then "last"). Her neural voice starts on the first sentence; any other voice waits for the
+    // whole answer, as before.
+    private var streamId = ""
+    private var streamNeural = false
+    private val streamText = StringBuilder()
+
+    private fun sayPart(text: String, lang: String, opts: JSONObject, last: Boolean) {
+        val id = opts.optString("id")
+        val whole = JSONObject(opts.toString()).apply { remove("part") }
+        if (id.isNotEmpty() && id == streamId) {
+            streamText.append(' ').append(text)
+            if (streamNeural) {
+                // (stopped meanwhile, by you or a newer answer: the rest isn't said either)
+                if (neuralId == id) CapriNeural.feed(text, last)
+                if (last) streamId = ""
+                return
+            }
+            if (last) {
+                // not her neural voice (or it couldn't): the whole answer now, in the voice that says it
+                streamId = ""
+                sayNow(streamText.toString().trim(), lang, whole)
+            }
+            return
+        }
+        streamId = id
+        streamText.setLength(0)
+        streamText.append(text)
+        streamNeural = CapriVoice.answerEngine(service, lang) == CapriNeural.ID
+        if (last) streamId = ""
+        if (streamNeural || last) sayNow(text, lang, whole, streaming = streamNeural && !last)
+    }
+
+    private fun sayNow(text: String, lang: String, opts: JSONObject, streaming: Boolean = false) = run sayNow@{
         val id = opts.optString("id").ifEmpty { "say-${++said}" }
         val kind = opts.optString("kind", "answer")
         val audio = service.getSystemService(AudioManager::class.java)!!
@@ -613,24 +651,25 @@ class Ears(private val service: CapriService) {
             kind == "event" && audio.ringerMode == AudioManager.RINGER_MODE_SILENT -> "silent"
             else -> null
         }
-        if (why != null) return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why) }
+        if (why != null) return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why) }
         // (1.11.8, "hay gente que dice que no le responde") one of her little phrases (a pat, a throw) never cuts
         // her answer: before, touching her while her voice was being made threw the whole answer away
         if (kind == "event" && sayKind != "event" && (neuralId.isNotEmpty() || speaking))
-            return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "busy") }
+            return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "busy") }
         // one voice at a time: the newer one cancels the one before
         stopVoice()
         sayId = id
         sayKind = kind
-        val found = runCatching { CapriVoice.clipFor(service, lang, opts.optString("clip"), text) }.getOrNull()
-        if (found != null) return@post playClip(id, found.first, found.second)
+        val found = if (streaming) null else runCatching { CapriVoice.clipFor(service, lang, opts.optString("clip"), text) }.getOrNull()
+        if (found != null) return@sayNow playClip(id, found.first, found.second)
         // one of her phrases without its recording: she doesn't read it out in another voice
-        if (kind == "event") return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "noclip") }
+        if (kind == "event") return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "noclip") }
         // her new answers: in the voice you picked (the phone's, as before), or in writing only
         // (V8.5) the A/B comparison asks for one engine by name (only for tests, never for her answers)
         val engine = opts.optString("engine").takeIf { kind == "test" && it in CapriVoice.ENGINES } ?: CapriVoice.answerEngine(service, lang)
-        if (engine == "text") return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "text") }
-        if (engine == CapriNeural.ID) return@post neuralVoice(id, text, lang)
+        if (engine == "text") return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "text") }
+        if (engine == CapriNeural.ID) return@sayNow neuralVoice(id, text, lang, streaming)
+        if (streaming) streamNeural = false
         systemVoice(id, text, lang)
     }
 
@@ -640,7 +679,7 @@ class Ears(private val service: CapriService) {
     // event says so (fallback: system).
     private var neuralId = ""
 
-    private fun neuralVoice(id: String, text: String, lang: String) {
+    private fun neuralVoice(id: String, text: String, lang: String, streaming: Boolean = false) {
         val tag = CapriVoice.voiceLang(lang)
         if (tag == null) return neuralFailed(id, text, lang, "lang")
         neuralId = id
@@ -648,7 +687,7 @@ class Ears(private val service: CapriService) {
         // the sound is ready to play, not before. Before, she couldn't hear you for the whole generation.
         main.removeCallbacks(unstuck)
         main.postDelayed(unstuck, 180_000)
-        CapriNeural.speak(service, id, text, tag) { state, extra ->
+        CapriNeural.speak(service, id, text, tag, { state, extra ->
             if (neuralId != id) return@speak
             if (state == "VOICE_UNAVAILABLE") {
                 neuralId = ""
@@ -670,10 +709,17 @@ class Ears(private val service: CapriService) {
                 dropFocus()
                 spoke()
             }
-        }
+        }, streaming)
     }
 
     private fun neuralFailed(id: String, text: String, lang: String, why: String) {
+        // (1.11.8) an answer still being written: the voice that says it instead waits for all of it (sayPart)
+        if (id == streamId) {
+            streamNeural = false
+            voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", CapriNeural.ID) }
+            CapriNeural.lastFallback = why
+            return
+        }
         voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", CapriNeural.ID) }
         CapriNeural.lastFallback = why
         val store = Store(service)
@@ -808,6 +854,10 @@ class Ears(private val service: CapriService) {
             "fr" -> accent("fr-FR")
             "pt" -> accent("pt-BR")
             "ru" -> "ru-RU"
+            "vi" -> "vi-VN"
+            "ja" -> "ja-JP"
+            "de" -> "de-DE"
+            "it" -> "it-IT"
             else -> Locale.getDefault().toLanguageTag()
         }
     }

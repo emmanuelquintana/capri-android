@@ -92,6 +92,7 @@ class HostBridge(private val service: CapriService) {
         "sleep:state" -> JSONObject().put("on", Sleep.on(service)).put("start", Sleep.startedAt(service)).put("alarm", Sleep.alarmAt(service)).put("times", Sleep.wakes(service).length())
         "neuro:add" -> Neuro.add(service, obj(args)) // (1.11.0) a braindance she recorded for you (neuro.js)
         "appchat:reply" -> AppChat.deliver(obj(args)) // (1.11.0) her answer for the app's Chat tab
+        "appchat:partial" -> AppChat.partial(obj(args)) // (1.11.8) her answer as her AI writes it
         "chatlog:add" -> obj(args).let { ChatLog.add(service, it.optString("q"), it.optString("a"), it.optLong("at", System.currentTimeMillis())) }
         "keys:seal" -> store.seal(obj(args).optString("value"))
         "keys:open" -> store.open(obj(args).optString("value"))

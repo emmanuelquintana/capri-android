@@ -228,9 +228,13 @@ object CapriNeural {
      * - VOICE_PROGRESS carries `pct`, how much of the whole answer's voice is made (her chat shows it);
      * - sentences she already said are kept (a small cache), so her usual lines come out at once.
      */
-    fun speak(context: Context, id: String, text: String, lang: String, events: Events) {
+    fun speak(context: Context, id: String, text: String, lang: String, events: Events, streaming: Boolean = false) {
         val app = context.applicationContext
         val ticket = generation.incrementAndGet()
+        // (1.11.8) her answer while her AI is still writing it: [feed] adds its next sentences, the last one ends it
+        val incoming = java.util.concurrent.LinkedBlockingQueue<String>()
+        feedTicket = ticket
+        feedQueue = if (streaming) incoming else null
         runCatching { engine?.cancel() }
         stopTrack()
         main.removeCallbacks(unload)
@@ -253,7 +257,8 @@ object CapriNeural {
                 emit("VOICE_PREPARING", JSONObject().put("pct", 0))
                 val loadMs = ensure(app, lang, store)
                 val dsp = PROFILES.first { it.lang == lang }.dsp.takeIf { store.configFlag("voiceDsp", true) } ?: "OFF"
-                val sentences = split(text)
+                val sentences = split(text).toMutableList()
+                var ended = !streaming
                 val rate = 24_000
                 val minBuffer = AudioTrack.getMinBufferSize(rate, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_FLOAT)
                 val bufferBytes = maxOf(minBuffer, rate * 4)
@@ -269,13 +274,36 @@ object CapriNeural {
                 if (ticket != generation.get()) { t.release(); return@execute }
                 track = t
                 // how much voice each sentence should take (12 audio tokens a second), for her percentage
-                val expected = sentences.map { expectTokens(it) }
-                val total = expected.sum().coerceAtLeast(1)
+                val expected = sentences.map { expectTokens(it) }.toMutableList()
+                var total = expected.sum().coerceAtLeast(1)
                 var made = 0
                 var lastPct = -1
+                // (while more of her answer may still come, the percentage never says she's done)
+                val pctOf = { done: Int -> (done * 100 / total).coerceIn(0, if (ended) 99 else 90) }
                 val pct = { current: Int, n: Int ->
-                    val p = ((made + minOf(current, expected[n])) * 100 / total).coerceIn(0, 99)
-                    if (p != lastPct) { lastPct = p; emit("VOICE_PROGRESS", JSONObject().put("generating", true).put("pct", p)) }
+                    val p = pctOf(made + minOf(current, expected[n]))
+                    if (p > lastPct) { lastPct = p; emit("VOICE_PROGRESS", JSONObject().put("generating", true).put("pct", p)) }
+                }
+                // more of her answer, as her AI writes it (only while streaming): waits for it, up to a minute
+                val more: () -> Boolean = more@{
+                    var waited = 0
+                    while (!ended && ticket == generation.get()) {
+                        val piece = incoming.poll(250, java.util.concurrent.TimeUnit.MILLISECONDS)
+                        if (piece == null) {
+                            // her AI stopped writing without saying it ended (an error): what came is all there is
+                            if (++waited > 240) ended = true
+                            continue
+                        }
+                        waited = 0
+                        if (piece == END_OF_ANSWER) { ended = true; break }
+                        val added = split(piece, shortFirst = false).filter { it.isNotBlank() }
+                        if (added.isEmpty()) continue
+                        sentences += added
+                        expected += added.map { expectTokens(it) }
+                        total = expected.sum().coerceAtLeast(1)
+                        return@more true
+                    }
+                    false
                 }
                 var genMs = 0L
                 var firstAudio = -1L
@@ -313,8 +341,12 @@ object CapriNeural {
                 }.apply { name = "capri-voice-out" }
                 val fx = if (dsp == "SIGNATURE") CapriCyberVoiceFX(rate, 1, CapriCyberVoiceFX.Mode.RING, .26f, 76f) else null
                 try {
-                    for ((n, sentence) in sentences.withIndex()) {
+                    var n = -1
+                    while (true) {
+                        n++
+                        if (n > sentences.lastIndex && !more()) break
                         if (ticket != generation.get()) break
+                        val sentence = sentences[n]
                         val s0 = SystemClock.elapsedRealtime()
                         val hit = cacheGet(app, lang, sentence)
                         val pcm = hit ?: synth(app, sentence, lang) { count -> pct(count, n) }
@@ -326,12 +358,14 @@ object CapriNeural {
                         val out = if (fx != null) dspOnce(fx, pcm) else pcm
                         if (n == 0) {
                             firstAudio = SystemClock.elapsedRealtime() - started
-                            emit("VOICE_READY", JSONObject().put("ms", firstAudio).put("pct", (made * 100 / total).coerceIn(0, 99)))
+                            lastPct = maxOf(lastPct, pctOf(made))
+                            emit("VOICE_READY", JSONObject().put("ms", firstAudio).put("pct", lastPct))
                             t.play()
                             watch(t, ticket, emit)
                             writer.start()
-                        } else if (n < sentences.lastIndex) {
-                            emit("VOICE_PROGRESS", JSONObject().put("generating", true).put("pct", (made * 100 / total).coerceIn(0, 99)))
+                        } else if (n < sentences.lastIndex || !ended) {
+                            val p = pctOf(made)
+                            if (p > lastPct) { lastPct = p; emit("VOICE_PROGRESS", JSONObject().put("generating", true).put("pct", p)) }
                         }
                         audioFrames += out.size
                         queue.put(out)
@@ -344,7 +378,7 @@ object CapriNeural {
                 val seconds = audioFrames / rate.toDouble()
                 metrics = JSONObject().put("engine", ID).put("lang", lang).put("loadMs", loadMs).put("firstAudioMs", firstAudio)
                     .put("generationMs", genMs).put("audioS", seconds).put("rtf", if (seconds > 0) genMs / 1000.0 / seconds else JSONObject.NULL)
-                    .put("pssPeakBytes", peak).put("sentences", sentences.size).put("cached", cached).put("dsp", dsp)
+                    .put("pssPeakBytes", peak).put("sentences", sentences.size).put("cached", cached).put("dsp", dsp).put("streamed", streaming)
                     .put("threads", runCatching { engine?.getCpuThreads() }.getOrNull() ?: JSONObject.NULL)
                     .put("variant", loadedVariant).put("at", System.currentTimeMillis())
                 if (firstAudio >= 0) lastFallback = ""
@@ -388,7 +422,19 @@ object CapriNeural {
                 if (state != "ready" && state != "loaded") return@execute
                 if (engine == null && roomFor(app) != null) return@execute
                 val ms = ensure(app, tag, store)
-                if (ms > 0) Diag.add("I", "voice $ID warmed up in $ms ms")
+                if (ms > 0) {
+                    // (1.11.8) one tiny sentence right after loading: the engine's first generation sets up its
+                    // buffers and is the slowest one, so it happens now, while her AI writes, not in her answer.
+                    // A real answer cancels it at once (speak cancels the engine).
+                    val w0 = SystemClock.elapsedRealtime()
+                    runCatching {
+                        val e = engine ?: return@runCatching
+                        e.resetCancel()
+                        e.synthesizeWithIclPrompt(if (tag == "es-MX") "Mm, sí." else "Mm, yes.", icl(app, tag).absolutePath,
+                            QwenEngine.NativeParams(languageId = if (tag == "es-MX") 2054 else 2050, maxAudioTokens = 12))
+                    }
+                    Diag.add("I", "voice $ID warmed up in $ms ms (+${SystemClock.elapsedRealtime() - w0} ms first run)")
+                }
             } catch (e: Throwable) {
                 Diag.add("W", "voice $ID warm: ${e.message ?: e.javaClass.simpleName}")
                 if (e is OutOfMemoryError) dispose("oom")
@@ -461,6 +507,23 @@ object CapriNeural {
             }
         }
         main.post(tick)
+    }
+
+    private const val END_OF_ANSWER = "\u0000end"
+    @Volatile private var feedQueue: java.util.concurrent.LinkedBlockingQueue<String>? = null
+    @Volatile private var feedTicket = 0L
+
+    /**
+     * (1.11.8) More of the answer being said ([speak] with streaming): her next sentences as her AI writes them,
+     * so her voice starts on the first sentence instead of waiting for the whole answer. [last]: that was all.
+     * False if that answer isn't being said any more (a newer one, or cancelled).
+     */
+    fun feed(text: String, last: Boolean): Boolean {
+        val q = feedQueue ?: return false
+        if (feedTicket != generation.get()) return false
+        if (text.isNotBlank()) q.put(text)
+        if (last) q.put(END_OF_ANSWER)
+        return true
     }
 
     fun cancel() {
@@ -681,7 +744,7 @@ object CapriNeural {
     private const val FIRST_MAX = 70
 
     /** Sentences of at most ~220 characters (a sentence is ~25 s of audio at most for the engine's limit). */
-    fun split(text: String): List<String> {
+    fun split(text: String, shortFirst: Boolean = true): List<String> {
         val clean = text.replace(Regex("[*_`#>]+"), " ").replace(Regex("\\s+"), " ").trim().take(1200)
         val parts = Regex("[^.!?¡¿…\\n]*[.!?…]+|[^.!?…]+$").findAll(clean).map { it.value.trim() }.filter { it.isNotEmpty() }.toMutableList()
         val out = mutableListOf<String>()
@@ -701,7 +764,7 @@ object CapriNeural {
         // (1.11.8) the first piece short: her voice starts as soon as its first clause is made, the rest is made
         // while she says it. A long first sentence is cut at a comma (or a space) near its start.
         val first = merged.firstOrNull()
-        if (first != null && first.length > FIRST_MAX) {
+        if (shortFirst && first != null && first.length > FIRST_MAX) {
             val cut = first.lastIndexOf(',', FIRST_MAX).takeIf { it >= 18 }
                 ?: first.lastIndexOf(' ', FIRST_MAX).takeIf { it >= 18 }
             if (cut != null && first.length - cut > 12) {

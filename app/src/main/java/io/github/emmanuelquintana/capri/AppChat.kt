@@ -36,6 +36,14 @@ object AppChat {
         list.forEachIndexed { i, json -> main.postDelayed({ service.overlay?.emit("app:chat", json) }, 2500L + i * 400) }
     }
 
+    /** (1.11.8) Her answer so far, while her AI writes it: the Chat tab shows it as it comes. */
+    @Volatile var partialListener: ((String, String) -> Unit)? = null
+
+    fun partial(json: JSONObject) {
+        val id = json.optString("id"); val text = json.optString("text")
+        main.post { partialListener?.invoke(id, text) }
+    }
+
     fun deliver(json: JSONObject) {
         val r = Reply(json.optString("id"), json.optString("text"), json.optString("face", "smug"), json.optBoolean("ok", true))
         main.post { listener?.invoke(r) }

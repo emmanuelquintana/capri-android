@@ -11,9 +11,10 @@
 // how much of its voice is made (her neural voice sends `pct`), then that she's speaking. And her voice starts
 // loading the moment you send her something (voice:warm), not once her AI has answered.
 
-import { send, on } from './native.js';
+import { send, on as listen } from './native.js';
+import { clean } from '../capri/src/renderer/js/chat.js';
 
-const LOCALES = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU' };
+const LOCALES = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU', vi: 'vi-VN', ja: 'ja-JP', de: 'de-DE', it: 'it-IT' };
 const MAX = 320;
 
 // the meter's words
@@ -26,14 +27,16 @@ const METER = {
 };
 
 // what her voice reads: no tags, no markdown, no emoji, no links
+const speakable = (line) => String(line || '')
+  .replace(/\[\[[^\]]*(\]\]|$)/g, '')
+  .replace(/https?:\/\/\S+/g, '')
+  .replace(/[*_`#>~|]/g, '')
+  .replace(/[\p{Extended_Pictographic}\u{FE0F}\u{200D}]/gu, '')
+  .replace(/\s+/g, ' ')
+  .trim();
+
 export function spokenText(line) {
-  let s = String(line || '')
-    .replace(/\[\[[^\]]*\]\]/g, '')
-    .replace(/https?:\/\/\S+/g, '')
-    .replace(/[*_`#>~|]/g, '')
-    .replace(/[\p{Extended_Pictographic}\u{FE0F}\u{200D}]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  let s = speakable(line);
   if (s.length > MAX) {
     const cut = s.slice(0, MAX);
     const end = Math.max(...['. ', '! ', '? ', '… '].map((m) => cut.lastIndexOf(m)));
@@ -50,15 +53,53 @@ export function chatVoice({ cfg, lang }) {
     const c = cfg();
     return c.speak !== false && c.speakChat !== false;
   };
+  const locale = () => LOCALES[lang()] || 'es-MX';
   const say = (line, id = `chat-${++seq}`) => {
     if (!on()) return false;
     const text = spokenText(line);
+    // (1.11.8) already being said as her AI wrote it: only what's left, and it's the end
+    const s = [...streams.values()].find((x) => x.voiceId === id && x.sent);
+    if (s) {
+      for (const [k, v] of streams) if (v === s) streams.delete(k);
+      if (text.startsWith(s.sent) || s.sent.startsWith(text)) {
+        send('voice:say', { id, kind: 'answer', text: text.slice(s.sent.length).trim(), lang: locale(), part: 'last' });
+        return true;
+      }
+      // (her final answer isn't what was said so far: it's said again, whole)
+    }
     if (!text) return false;
     dev.voicelines?.stop?.();
     current = id;
-    send('voice:say', { id, kind: 'answer', text, lang: LOCALES[lang()] || 'es-MX' });
+    send('voice:say', { id, kind: 'answer', text, lang: locale() });
     return true;
   };
+
+  // ---- (1.11.8) her answer said while her AI writes it: each finished sentence goes to her voice right away,
+  // so her neural voice starts on the first one instead of waiting for the whole answer (Ears.kt sayPart).
+  const streams = new Map(); // her AI's request id → { voiceId, raw, sent }
+  const follow = (chatId, voiceId) => {
+    if (!on() || !chatId) return;
+    streams.set(chatId, { voiceId, raw: '', sent: '' });
+    if (streams.size > 4) streams.delete(streams.keys().next().value);
+  };
+  listen('chat:delta', ({ id, text } = {}) => {
+    const s = streams.get(id);
+    if (!s || !on()) return;
+    s.raw += String(text || '');
+    const said = speakable(clean(s.raw));
+    // up to the last finished sentence (the rest is still being written)
+    let end = -1;
+    for (const m of said.matchAll(/[.!?…]+(?=\s)/g)) end = m.index + m[0].length;
+    if (end <= s.sent.length || end > MAX) return;
+    const piece = said.slice(s.sent.length, end).trim();
+    if (!piece || (!s.sent && piece.length < 12)) return;
+    if (!s.sent) {
+      dev.voicelines?.stop?.();
+      current = s.voiceId;
+    }
+    s.sent = said.slice(0, end);
+    send('voice:say', { id: s.voiceId, kind: 'answer', text: piece, lang: locale(), part: 'more' });
+  });
   // (1.11.8) her voice's model starts loading now, while her AI is still writing
   const warm = () => {
     if (on()) send('voice:warm', { lang: LOCALES[lang()] || 'es-MX' });
@@ -66,6 +107,7 @@ export function chatVoice({ cfg, lang }) {
 
   // ---- the meter under her answer in her bubble chat ----
   let current = '';
+  let bubbleVoice = '';
   let meter = null;
   const panel = dev?.panel;
   const meterEl = () => {
@@ -97,7 +139,7 @@ export function chatVoice({ cfg, lang }) {
       return panelSay(msg);
     };
   }
-  on('voice:event', (e = {}) => {
+  listen('voice:event', (e = {}) => {
     if (!e.id || e.id !== current || !panel?.current?.chat) return;
     const w = METER[lang()] || METER.en;
     const s = e.state;
@@ -113,7 +155,9 @@ export function chatVoice({ cfg, lang }) {
     const sendIt = chat.send.bind(chat);
     chat.send = function (...args) {
       try { show(null); current = ''; warm(); } catch {}
-      return sendIt(...args);
+      const out = sendIt(...args);
+      try { if (chat.turn) { bubbleVoice = `chat-${++seq}`; follow(chat.turn, bubbleVoice); } } catch {}
+      return out;
     };
   }
   if (chat?.close) {
@@ -128,10 +172,13 @@ export function chatVoice({ cfg, lang }) {
     chat.remember = function (message, ...rest) {
       const out = remember(message, ...rest);
       try {
-        if (message?.role === 'assistant' && typeof message.content === 'string' && !dev.chatVoiceSkip) say(message.content);
+        if (message?.role === 'assistant' && typeof message.content === 'string' && !dev.chatVoiceSkip) {
+          say(message.content, bubbleVoice || undefined);
+          bubbleVoice = '';
+        }
       } catch {}
       return out;
     };
   }
-  return { say, warm };
+  return { say, warm, follow };
 }

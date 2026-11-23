@@ -46,7 +46,20 @@ export function appChat({ lang }) {
         ...chat.history.slice(-30),
         { role: 'user', content: `${text}\n\n(Note for you, never repeat it: ${chat.languageNote()})` },
       ];
-      const res = await window.host.chatSend({ id: Date.now(), messages }).catch((err) => ({ ok: false, error: err.message }));
+      // (1.11.8) her voice starts on her answer's first sentence, while her AI is still writing the rest
+      const sendId = Date.now();
+      dev.chatVoice?.follow?.(sendId, `app-${id}`);
+      // and the Chat tab shows it as it's written
+      const off = on('chat:delta', ({ id: sid, text: piece } = {}) => {
+        if (sid !== sendId) return;
+        written += String(piece || '');
+        const now = clean(written);
+        if (now && Date.now() - shownAt > 120) { shownAt = Date.now(); send('appchat:partial', { id, text: now }); }
+      });
+      let written = '';
+      let shownAt = 0;
+      const res = await window.host.chatSend({ id: sendId, messages }).catch((err) => ({ ok: false, error: err.message }));
+      if (typeof off === 'function') off();
       if (!res?.ok) return reply(res?.code === 'busy' ? chat.t?.swamped : chat.t?.failed || '…', 'wide', false);
       const said = clean(res.text) || '…';
       chat.history.push({ role: 'user', content: text });
