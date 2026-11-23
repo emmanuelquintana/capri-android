@@ -96,10 +96,10 @@ object Beta {
     private fun manifest(code: String): JSONObject {
         val conn = get(BASE + MANIFEST)
         val sealed = conn.inputStream.use { it.readBytes() }
-        val tmp = File.createTempFile("m", ".bin")
+        val tmp = File.createTempFile("capri-beta", ".bin")
         try {
             tmp.writeBytes(sealed)
-            val out = File.createTempFile("m", ".json")
+            val out = File.createTempFile("capri-beta", ".json")
             try {
                 open(code, tmp, out)
                 return JSONObject(out.readText())
