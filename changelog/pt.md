@@ -27,6 +27,15 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   quando você joga e nos seus lembretes.
 - **Ajustes de voz:** cada precisão agora diz qual é a mais rápida. *Máxima* (BF16) é a mais fiel, mas no celular
   leva umas 2–3 vezes mais que a *Leve*: se a velocidade importa, use *Leve* ou *Alta*.
+- **Ela fala enquanto a IA ainda escreve:** assim que a IA termina a primeira frase, a voz dela começa a falar
+  enquanto o resto é escrito; ela não espera mais a resposta inteira. Na aba Chat você vê a resposta sendo escrita
+  ao vivo.
+- **O motor chega pronto:** ao carregar, ele faz um pequeno aquecimento em silêncio, para a primeira resposta não
+  demorar a mais.
+- **Quatro idiomas novos: vietnamita, japonês, alemão e italiano.** O app inteiro, as falas dela, jogos, modo sono,
+  guarda-roupa, comandos de voz ("Capri, …", em japonês também "カプリ") e as respostas da IA. Escolha em Ajustes ›
+  Idioma. A voz própria dela para respostas fala espanhol e inglês por enquanto; nesses idiomas ela usa a voz do
+  celular.
 
 ## 1.11.7
 

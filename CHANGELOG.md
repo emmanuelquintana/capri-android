@@ -28,6 +28,14 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   saludarte, cuando se aburre, al abrir y cerrar su chat, si se va el internet, cuando juegas y en tus recordatorios.
 - **Ajustes de voz:** cada precisión dice ahora cuál es la más rápida. *Máxima* (BF16) es la más fiel pero en el
   teléfono tarda unas 2–3 veces más que *Ligera*: si te importa la velocidad, usa *Ligera* o *Alta*.
+- **Habla mientras su IA todavía escribe:** en cuanto su IA termina la primera frase, su voz empieza a decirla
+  mientras escribe el resto; ya no espera la respuesta completa. En la pestaña Chat ves la respuesta escribirse en
+  tiempo real.
+- **Su motor llega listo:** al cargarse hace una pequeña práctica en silencio, así su primera respuesta no tarda de más.
+- **Cuatro idiomas nuevos: vietnamita, japonés, alemán e italiano.** La app completa, sus frases, juegos, modo
+  sueño, vestuario, comandos de voz («Capri, …», en japonés también «カプリ») y las respuestas de su IA. Elígelo en
+  Ajustes › Idioma. Su propia voz para respuestas por ahora habla español e inglés; en estos idiomas usa la voz del
+  teléfono.
 
 ## 1.11.7
 

@@ -28,6 +28,14 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   reminders.
 - **Voice settings:** each precision now says which one is fastest. *Maximum* (BF16) is the most faithful but on a
   phone it takes about 2–3 times as long as *Light*: if speed matters to you, use *Light* or *High*.
+- **She talks while her AI is still writing:** as soon as her AI finishes the first sentence, her voice starts saying
+  it while the rest is written; she no longer waits for the whole answer. In the Chat tab you see the answer being
+  written live.
+- **Her engine arrives ready:** when it loads it does a tiny silent warm-up, so her first answer doesn't take longer.
+- **Four new languages: Vietnamese, Japanese, German and Italian.** The whole app, her lines, games, sleep mode,
+  wardrobe, voice commands ("Capri, …", in Japanese also "カプリ") and her AI's answers. Pick it in Settings ›
+  Language. Her own voice for answers speaks Spanish and English for now; in these languages she uses the phone's
+  voice.
 
 ## 1.11.7
 

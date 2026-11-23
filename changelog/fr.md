@@ -29,6 +29,15 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Réglages de la voix :** chaque précision indique maintenant laquelle est la plus rapide. *Maximale* (BF16) est la
   plus fidèle mais sur un téléphone elle prend 2 à 3 fois plus de temps que *Légère* : si la vitesse compte, prends
   *Légère* ou *Haute*.
+- **Elle parle pendant que son IA écrit encore :** dès que son IA termine la première phrase, sa voix commence à la
+  dire pendant que le reste s’écrit ; elle n’attend plus la réponse entière. Dans l’onglet Chat, tu vois la réponse
+  s’écrire en direct.
+- **Son moteur arrive prêt :** en se chargeant, il fait un petit échauffement silencieux, pour que sa première réponse
+  ne traîne pas.
+- **Quatre nouvelles langues : vietnamien, japonais, allemand et italien.** Toute l’appli, ses répliques, les jeux,
+  le mode sommeil, la garde-robe, les commandes vocales (« Capri, … », en japonais aussi « カプリ ») et les réponses
+  de son IA. Choisis-la dans Réglages › Langue. Sa propre voix pour les réponses parle espagnol et anglais pour
+  l’instant ; dans ces langues, elle utilise la voix du téléphone.
 
 ## 1.11.7
 

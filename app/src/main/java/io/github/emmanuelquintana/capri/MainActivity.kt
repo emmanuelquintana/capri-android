@@ -552,7 +552,9 @@ class MainActivity : Activity() {
         val lang = Lang.current(this)
         if (lang == "es") return spanish
         val mine = changelog("changelog/$lang.md").toMap()
-        return spanish.map { (v, items) -> v to (mine[v]?.takeIf { it.isNotEmpty() } ?: items) }
+        // (1.11.8) a language added later has only its newest notes: the older ones in English, not Spanish
+        val english = if (lang == "en") emptyMap() else changelog("changelog/en.md").toMap()
+        return spanish.map { (v, items) -> v to (mine[v]?.takeIf { it.isNotEmpty() } ?: english[v]?.takeIf { it.isNotEmpty() } ?: items) }
     }
 
     private fun changelog(file: String): List<Pair<String, List<String>>> = runCatching {
