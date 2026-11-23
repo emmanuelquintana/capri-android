@@ -120,6 +120,8 @@ class HostBridge(private val service: CapriService) {
         "voice:say" -> service.ears?.say(obj(args).optString("text"), obj(args).optString("lang", "es-MX"), obj(args))
         // (1.11.0) Capri Voice V8: stop what she says, and her recorded phrases (CapriVoice.kt, voicelines.js)
         "voice:stop" -> service.ears?.hushVoice(obj(args).optString("id"))
+        // (1.11.8) her neural voice loaded ahead, while her AI writes the answer
+        "voice:warm" -> CapriNeural.warm(service, obj(args).optString("lang", "es-MX"))
         "voice:packs" -> CapriVoice.catalog(service)
         "voice:torch" -> service.ears?.torch(if (obj(args).isNull("on")) null else obj(args).optBoolean("on")) ?: JSONObject.NULL
         "voice:off" -> Ears.setEnabled(service, false)

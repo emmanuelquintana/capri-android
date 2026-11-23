@@ -114,8 +114,10 @@ class CapriService : Service() {
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
         if (level >= TRIM_MEMORY_RUNNING_LOW) overlay?.trim()
-        // (1.11.0, V8.5) her neural voice's model (~1 GB) goes first; it loads again on her next answer
-        if (level >= TRIM_MEMORY_RUNNING_LOW) CapriNeural.release("memory")
+        // (1.11.0, V8.5) her neural voice's model (~1 GB) goes first; it loads again on her next answer.
+        // (1.11.8) Not on TRIM_MEMORY_UI_HIDDEN (20): that only means the app's screens went to the background,
+        // which happened every time you left the app, and her next answer had to load the model all over again.
+        if (level >= TRIM_MEMORY_RUNNING_LOW && level != TRIM_MEMORY_UI_HIDDEN) CapriNeural.release("memory")
     }
 
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {

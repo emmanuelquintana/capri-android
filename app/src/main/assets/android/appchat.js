@@ -17,11 +17,13 @@ export function appChat({ lang }) {
     // (1.11.7) her answer out loud too (chatvoice.js), not only written in the Chat tab
     const reply = (line, face = 'smug', ok = true) => {
       send('appchat:reply', { id, text: String(line || '…'), face, ok });
-      if (ok && line) dev?.chatVoice?.say(line);
+      // (1.11.8) with the id of your message: the Chat tab shows its voice's percentage under her answer
+      if (ok && line) dev?.chatVoice?.say(line, `app-${id}`);
     };
     if (!chat || !text) return reply('…', 'aside', false);
     if (busy && Date.now() - busy < 120000) return reply(WAIT[lang()] || WAIT.en, 'aside', false);
     busy = Date.now();
+    dev?.chatVoice?.warm?.(); // (1.11.8) her voice starts loading while her AI writes
     try {
       dev.capri?.pulse?.(); // (over your screen too: she heard you)
       // what she does right away (games, history, a WhatsApp message, music, an app…), not asked to her AI

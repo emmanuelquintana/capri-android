@@ -422,6 +422,10 @@
     <string name="chat_asleep">Dormindo · escreva pra acordá-la</string>
     <string name="chat_waking">(acordando… me dá uns segundos)</string>
     <string name="chat_noreply">Minha conexão caiu. Tenta de novo daqui a pouco?</string>
+    <string name="chat_voice_prep">🔊 Preparando a voz dela…</string>
+    <string name="chat_voice_gen">🔊 Gerando a voz %1$d%%</string>
+    <string name="chat_voice_talk">🔊 Falando</string>
+    <string name="chat_voice_talk_pct">🔊 Falando · %1$d%%</string>
     <string name="main_donate">Doar</string>
     <string name="games_open">Abrir a sala de jogos</string>
     <string name="games_new">NOVO</string>
@@ -595,9 +599,9 @@
     <string name="cv_var_q8">Alta (Q8)</string>
     <string name="cv_var_bf16">Máxima (BF16, como no PC)</string>
     <string name="cv_var_line">%1$s · %2$s</string>
-    <string name="cv_fid_light">menos fiel, mais leve (4 GB de RAM ou mais)</string>
-    <string name="cv_fid_high">mais fiel (6 GB de RAM ou mais)</string>
-    <string name="cv_fid_max">a mesma precisão do PC, a mais fiel (8 GB de RAM ou mais)</string>
+    <string name="cv_fid_light">a mais rápida, um pouco menos fiel (3 GB de RAM ou mais)</string>
+    <string name="cv_fid_high">mais fiel, um pouco mais lenta (4 GB de RAM ou mais)</string>
+    <string name="cv_fid_max">a mesma precisão do PC, a mais fiel mas a mais lenta: no celular leva umas 2–3 vezes mais que a Leve (6 GB de RAM ou mais)</string>
     <string name="cv_var_add">Adicionar</string>
     <string name="cv_var_use">Usar</string>
     <string name="cv_var_inuse">em uso</string>

@@ -2,6 +2,34 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.11.8
+
+- **De nouveau sur les téléphones 32 bits :** depuis la 1.11.0, l’app ne s’installait pas sur les téléphones 32 bits
+  (armeabi-v7a, comme le TECNO Spark Go 1S et beaucoup d’Android Go) : l’installateur disait que le processeur
+  n’était pas compatible. Maintenant le même APK s’installe partout. Sur ces téléphones sa voix pour les réponses
+  (le moteur) n’est pas disponible, mais ses phrases enregistrées et la voix du téléphone, si.
+- **Sa voix répond beaucoup plus vite :**
+  - Pendant qu’elle dit une phrase, elle prépare déjà la suivante. Avant, elle attendait d’avoir fini de parler pour
+    commencer la suivante, donc les longues réponses prenaient deux fois plus de temps.
+  - Elle commence à parler dès que la première partie de la phrase est prête, sans attendre la phrase entière.
+  - Son moteur commence à se charger dès que tu lui écris ou lui parles, pendant que son IA réfléchit, et pas à la fin.
+  - Il n’est plus déchargé chaque fois que tu quittes l’app, et il reste chargé plus longtemps sur les téléphones
+    avec beaucoup de RAM (jusqu’à 15 minutes) : plus besoin de le recharger à chaque réponse.
+  - Il utilise les cœurs rapides du processeur (jusqu’à 6) sur les téléphones qui en ont.
+  - Elle se souvient des phrases déjà dites : celles qu’elle répète sortent tout de suite.
+  - Quand une phrase ne se terminait pas, le moteur générait longtemps avant d’abandonner ; maintenant il s’arrête plus tôt.
+- **Le pourcentage de sa voix dans le chat :** sa réponse s’affiche écrite tout de suite et en dessous tu vois où en
+  est sa voix (*Génération de la voix 42 %*), puis *Elle parle*. Dans l’onglet Chat et dans sa bulle.
+- **Elle ne reste plus muette :** si tu la touchais ou la déplaçais pendant qu’elle préparait la voix de sa réponse,
+  sa phrase de caresse annulait toute la réponse. Maintenant sa réponse passe d’abord. Et pendant qu’elle prépare sa
+  voix, elle continue de t’écouter.
+- **Ses phrases enregistrées, plus souvent :** elles sonnent plus souvent quand tu la caresses, la déplaces ou la
+  lances, et maintenant aussi quand elle te salue, quand elle s’ennuie, à l’ouverture et à la fermeture de son chat,
+  quand internet coupe, quand tu joues et pour tes rappels.
+- **Réglages de la voix :** chaque précision indique maintenant laquelle est la plus rapide. *Maximale* (BF16) est la
+  plus fidèle mais sur un téléphone elle prend 2 à 3 fois plus de temps que *Légère* : si la vitesse compte, prends
+  *Légère* ou *Haute*.
+
 ## 1.11.7
 
 - **Son moteur de voix ne jette plus la réponse :** quand une phrase atteignait le maximum que le moteur peut

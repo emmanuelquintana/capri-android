@@ -1111,10 +1111,10 @@ class MainActivity : Activity() {
                 addView(choice(listOf(R.string.off to false, R.string.on to true), { store.configFlag("voiceDsp", true) }, { a, b -> a == b }) {
                     CapriSettings.set(this@MainActivity, "voiceDsp", it) }, ui.block(4))
                 addView(ui.text(getString(R.string.cv_threads), 13f, Hud.PAPER, ui.head), ui.block(12))
-                addView(choiceText(listOf(getString(R.string.cv_auto) to 0.0, "2" to 2.0, "4" to 4.0), { store.configNumber("voiceThreads", 0.0) }, { a, b -> a == b }) {
+                addView(choiceText(listOf(getString(R.string.cv_auto) to 0.0, "2" to 2.0, "4" to 4.0, "6" to 6.0), { store.configNumber("voiceThreads", 0.0) }, { a, b -> a == b }) {
                     CapriSettings.set(this@MainActivity, "voiceThreads", it); CapriNeural.release("threads") }, ui.block(4))
                 addView(ui.text(getString(R.string.cv_unload), 13f, Hud.PAPER, ui.head), ui.block(12))
-                addView(choiceText(listOf("1 min" to 1.0, "2 min" to 2.0, "5 min" to 5.0, "10 min" to 10.0), { store.configNumber("voiceUnloadMin", 2.0) }, { a, b -> a == b }) {
+                addView(choiceText(listOf("2 min" to 2.0, "5 min" to 5.0, "10 min" to 10.0, "15 min" to 15.0), { store.configNumber("voiceUnloadMin", CapriNeural.unloadDefault(this@MainActivity)) }, { a, b -> a == b }) {
                     CapriSettings.set(this@MainActivity, "voiceUnloadMin", it) }, ui.block(4))
                 addView(ui.text(getString(R.string.cv_fallback), 13f, Hud.PAPER, ui.head), ui.block(12))
                 addView(choice(listOf(R.string.cv_engine_text to "text", R.string.cv_engine_system to "system"), { store.configString("voiceFallback") ?: "text" }, { a, b -> a == b }) {

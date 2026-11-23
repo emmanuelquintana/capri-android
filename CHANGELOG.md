@@ -3,6 +3,32 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.11.8
+
+- **Otra vez para teléfonos de 32 bits:** desde la 1.11.0 la app no se instalaba en teléfonos de 32 bits
+  (armeabi-v7a, como el TECNO Spark Go 1S y muchos Android Go): el instalador decía que el procesador no era
+  compatible. Ahora el mismo APK se instala en todos. En esos teléfonos su voz para respuestas (el motor) no está
+  disponible, pero sus frases grabadas y la voz del teléfono sí.
+- **Su voz responde mucho más rápido:**
+  - Mientras dice una frase, ya está generando la siguiente. Antes esperaba a terminar de hablar para empezar la
+    siguiente, así que las respuestas largas tardaban el doble.
+  - Empieza a hablar en cuanto tiene la primera parte de la frase, sin esperar a la frase entera.
+  - Su motor empieza a cargarse en cuanto le escribes o le hablas, mientras su IA piensa la respuesta, y no al final.
+  - Ya no se descarga de la memoria cada vez que sales de la app, y se queda cargada más tiempo en teléfonos con
+    mucha RAM (hasta 15 minutos), así que no tiene que cargarse otra vez en cada respuesta.
+  - Usa los núcleos rápidos del procesador (hasta 6) en los teléfonos que los tienen.
+  - Recuerda las frases que ya dijo, así que las que repite salen al instante.
+  - Si una frase no terminaba, el motor seguía generando mucho rato antes de rendirse; ahora se detiene antes.
+- **El porcentaje de su voz en el chat:** su respuesta aparece escrita al momento y debajo ves cuánto lleva
+  generada su voz (*Generando voz 42 %*), y luego *Hablando*. En la pestaña Chat y en su burbuja.
+- **Ya no se queda callada:** si la tocabas o la movías mientras preparaba la voz de su respuesta, su frase de
+  caricia cancelaba la respuesta entera. Ahora su respuesta va primero. Y mientras prepara la voz, te sigue
+  escuchando.
+- **Sus frases grabadas, más seguido:** suenan más a menudo al acariciarla, moverla y lanzarla, y ahora también al
+  saludarte, cuando se aburre, al abrir y cerrar su chat, si se va el internet, cuando juegas y en tus recordatorios.
+- **Ajustes de voz:** cada precisión dice ahora cuál es la más rápida. *Máxima* (BF16) es la más fiel pero en el
+  teléfono tarda unas 2–3 veces más que *Ligera*: si te importa la velocidad, usa *Ligera* o *Alta*.
+
 ## 1.11.7
 
 - **Su motor de voz ya no tira la respuesta:** cuando una frase llegaba al límite de lo que el motor puede generar,

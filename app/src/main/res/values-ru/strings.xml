@@ -423,6 +423,10 @@
     <string name="chat_asleep">Спит · напиши, чтобы разбудить</string>
     <string name="chat_waking">(просыпаюсь… дай пару секунд)</string>
     <string name="chat_noreply">Связь пропала. Попробуешь ещё раз чуть позже?</string>
+    <string name="chat_voice_prep">🔊 Готовлю её голос…</string>
+    <string name="chat_voice_gen">🔊 Создаю голос %1$d%%</string>
+    <string name="chat_voice_talk">🔊 Говорит</string>
+    <string name="chat_voice_talk_pct">🔊 Говорит · %1$d%%</string>
     <string name="main_donate">Поддержать</string>
     <string name="games_open">Открыть игровой зал</string>
     <string name="games_new">НОВОЕ</string>
@@ -602,9 +606,9 @@
     <string name="cv_var_q8">Высокая (Q8)</string>
     <string name="cv_var_bf16">Максимальная (BF16, как на ПК)</string>
     <string name="cv_var_line">%1$s · %2$s</string>
-    <string name="cv_fid_light">менее точная, легче (от 4 ГБ ОЗУ)</string>
-    <string name="cv_fid_high">точнее (от 6 ГБ ОЗУ)</string>
-    <string name="cv_fid_max">та же точность, что на ПК, самая точная (от 8 ГБ ОЗУ)</string>
+    <string name="cv_fid_light">самая быстрая, чуть менее точная (от 3 ГБ ОЗУ)</string>
+    <string name="cv_fid_high">точнее, немного медленнее (от 4 ГБ ОЗУ)</string>
+    <string name="cv_fid_max">та же точность, что на ПК, самая точная, но самая медленная: на телефоне в 2–3 раза дольше, чем Лёгкая (от 6 ГБ ОЗУ)</string>
     <string name="cv_var_add">Добавить</string>
     <string name="cv_var_use">Выбрать</string>
     <string name="cv_var_inuse">используется</string>

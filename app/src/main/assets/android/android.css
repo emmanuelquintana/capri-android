@@ -871,3 +871,32 @@ body.is-dressing .fx { z-index: 41; }
 @media (prefers-reduced-motion: reduce) {
   .capri-twin.is-in, .capri-twin.is-out { animation: none; }
 }
+
+/* (1.11.8) under her chat answer: how much of its voice is made, then that she's speaking (chatvoice.js) */
+.capri-voice-meter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font: 600 11px/1.2 var(--mono, monospace);
+  letter-spacing: 0.06em;
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+.capri-voice-meter[hidden] { display: none; }
+.capri-voice-meter .cvm-icon { font-size: 12px; }
+.capri-voice-meter .cvm-bar {
+  flex: 1;
+  max-width: 90px;
+  height: 4px;
+  background: rgba(0, 240, 255, 0.18);
+  overflow: hidden;
+}
+.capri-voice-meter .cvm-bar[hidden] { display: none; }
+.capri-voice-meter .cvm-bar i {
+  display: block;
+  height: 100%;
+  width: 3%;
+  background: var(--cyan);
+  transition: width 0.3s ease-out;
+}

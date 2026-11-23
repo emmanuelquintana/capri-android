@@ -219,6 +219,7 @@ export function listen({ toggleVisible, visible }) {
     busy = Date.now();
     if (String(heard?.text || '').replace(NAME, '').trim()) window.dev.hearing?.off(); // (heard you: she answers now)
     window.dev.voicelines?.stop(); // (1.11.0) whatever she was still saying: you're talking now
+    window.dev.chatVoice?.warm?.(); // (1.11.8) her voice starts loading while she works out her answer
     handle(String(heard?.text || '').replace(NAME, '').trim(), { toggleVisible, visible })
       .catch((err) => console.error('[capri] voice', err))
       .finally(() => { busy = 0; });

@@ -112,7 +112,49 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
     fun onShow() {
         if (waiting == null) load()
         AppChat.listener = { answered(it) }
+        Ears.voiceListener = { onVoice(it) }
         status()
+    }
+
+    // ---- (1.11.8) her voice for each answer: a small line under it with how much is made, then "speaking" ----
+    // Emma: "que aparezca el mensaje de respuesta pero que haya un indicador que diga el porcentaje de generación
+    // de voz de ese mensaje para que no se sienta la conversación muy lenta". The answer shows at once; its voice
+    // (appchat.js says it with the id "app-<your message's id>") reports here through Ears.voiceListener.
+    private val voiceLines = HashMap<String, TextView>()
+    private val voiceLast = HashMap<String, org.json.JSONObject>()
+
+    private fun onVoice(ev: org.json.JSONObject) {
+        val id = ev.optString("id")
+        if (!id.startsWith("app-")) return
+        voiceLast[id] = ev
+        voiceLines[id]?.let { showVoice(it, ev) }
+    }
+
+    private fun showVoice(line: TextView, ev: org.json.JSONObject) {
+        val pct = if (ev.has("pct")) ev.optInt("pct") else -1
+        val text = when (ev.optString("state")) {
+            "VOICE_REQUESTED" -> if (line.text.isNullOrEmpty()) a.getString(R.string.chat_voice_prep) else null
+            "VOICE_PREPARING" -> a.getString(R.string.chat_voice_prep)
+            "VOICE_PROGRESS" -> when {
+                pct < 0 -> null
+                ev.optBoolean("generating", true) && line.tag == "talking" -> a.getString(R.string.chat_voice_talk_pct, pct)
+                ev.optBoolean("generating", true) -> a.getString(R.string.chat_voice_gen, pct)
+                line.tag == "talking" -> a.getString(R.string.chat_voice_talk)
+                else -> null
+            }
+            "VOICE_READY", "VOICE_STARTED" -> {
+                line.tag = "talking"
+                if (ev.optString("source") == CapriNeural.ID && pct in 0..99) a.getString(R.string.chat_voice_talk_pct, pct)
+                else a.getString(R.string.chat_voice_talk)
+            }
+            "VOICE_FINISHED", "VOICE_CANCELLED", "VOICE_ERROR", "VOICE_UNAVAILABLE" -> {
+                line.visibility = View.GONE
+                return
+            }
+            else -> null
+        } ?: return
+        line.text = text
+        line.visibility = View.VISIBLE
     }
 
     fun status() {
@@ -193,6 +235,20 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
             tb.text = r.text
             ((tb.parent as? LinearLayout)?.getChildAt(0) as? ImageView)?.let { img -> ui.face(r.face)?.let { img.setImageBitmap(it) } }
             ui.glitchIn(tb)
+            // (1.11.8) her voice's line under it (hidden until her voice says how it goes)
+            val row = tb.parent as? View
+            if (r.ok && row != null) {
+                val id = "app-${r.id}"
+                val line = ui.text("", 11f, Hud.GREEN, ui.mono).apply {
+                    letterSpacing = 0.06f
+                    visibility = View.GONE
+                    setPadding(ui.dpi(36), 0, 0, 0)
+                }
+                list.addView(line, list.indexOfChild(row) + 1, ui.block(2))
+                voiceLines.keys.retainAll { it == id || voiceLines[it]?.visibility == View.VISIBLE }
+                voiceLines[id] = line
+                voiceLast[id]?.let { showVoice(line, it) }
+            }
         }
         typingBubble = null
         ui.face(r.face)?.let { headFace.setImageBitmap(it) }

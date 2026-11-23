@@ -2,6 +2,33 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.11.8
+
+- **32-bit phones again:** since 1.11.0 the app didn't install on 32-bit phones (armeabi-v7a, like the TECNO Spark
+  Go 1S and many Android Go phones): the installer said the processor wasn't compatible. Now the same APK installs
+  on all of them. On those phones her voice for answers (the engine) isn't available, but her recorded phrases and
+  the phone's voice are.
+- **Her voice answers much faster:**
+  - While she says one sentence, she's already making the next. Before, she waited until she finished talking to
+    start the next one, so long answers took twice as long.
+  - She starts talking as soon as the first part of the sentence is ready, without waiting for the whole sentence.
+  - Her engine starts loading as soon as you write or talk to her, while her AI thinks of the answer, not at the end.
+  - It's no longer unloaded every time you leave the app, and it stays loaded longer on phones with plenty of RAM
+    (up to 15 minutes), so it doesn't have to load again for every answer.
+  - It uses the processor's fast cores (up to 6) on phones that have them.
+  - She remembers sentences she already said, so the ones she repeats come out at once.
+  - When a sentence didn't end, the engine kept generating for a long time before giving up; now it stops sooner.
+- **Her voice's percentage in the chat:** her answer shows up written right away and under it you see how much of
+  her voice is made (*Making her voice 42%*), then *Speaking*. In the Chat tab and in her bubble.
+- **She no longer goes silent:** if you touched or moved her while she was getting her answer's voice ready, her pat
+  phrase cancelled the whole answer. Now her answer goes first. And while she gets her voice ready, she keeps
+  listening to you.
+- **Her recorded phrases, more often:** they play more often when you pet, move or throw her, and now also when she
+  greets you, when she's bored, when her chat opens and closes, when the internet drops, when you play and on your
+  reminders.
+- **Voice settings:** each precision now says which one is fastest. *Maximum* (BF16) is the most faithful but on a
+  phone it takes about 2–3 times as long as *Light*: if speed matters to you, use *Light* or *High*.
+
 ## 1.11.7
 
 - **Her voice engine no longer throws the answer away:** when a sentence reached the most the engine can generate,

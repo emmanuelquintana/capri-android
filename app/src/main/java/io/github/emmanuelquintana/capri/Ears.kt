@@ -538,10 +538,14 @@ class Ears(private val service: CapriService) {
     private var clipPlayer: CapriVoiceClipPlayer? = null
     private var focus: AudioFocusRequest? = null
 
+    private var sayKind = ""
+
     private fun voiceEvent(id: String, state: String, extra: JSONObject.() -> Unit = {}) {
         val ev = JSONObject().put("id", id).put("state", state).apply(extra)
         if (BuildConfig.DEBUG && state != "VOICE_PROGRESS") android.util.Log.i("CapriVoiceEvent", ev.toString()) // (VoiceSelfTest reads these)
         service.overlay?.emit("voice:event", ev.toString())
+        // (1.11.8) the app's Chat tab shows how her voice for each answer goes (its percentage)
+        runCatching { voiceListener?.invoke(ev) }
     }
 
     /** Sound for her voice: others lower theirs a moment (a call or another app taking it stops her). */
@@ -568,6 +572,7 @@ class Ears(private val service: CapriService) {
     fun hushVoice(id: String = "") = main.post {
         if (id.isNotEmpty() && id != sayId) return@post
         stopVoice()
+        sayKind = ""
         if (speaking) spoke()
     }
 
@@ -609,9 +614,14 @@ class Ears(private val service: CapriService) {
             else -> null
         }
         if (why != null) return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why) }
+        // (1.11.8, "hay gente que dice que no le responde") one of her little phrases (a pat, a throw) never cuts
+        // her answer: before, touching her while her voice was being made threw the whole answer away
+        if (kind == "event" && sayKind != "event" && (neuralId.isNotEmpty() || speaking))
+            return@post voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "busy") }
         // one voice at a time: the newer one cancels the one before
         stopVoice()
         sayId = id
+        sayKind = kind
         val found = runCatching { CapriVoice.clipFor(service, lang, opts.optString("clip"), text) }.getOrNull()
         if (found != null) return@post playClip(id, found.first, found.second)
         // one of her phrases without its recording: she doesn't read it out in another voice
@@ -634,10 +644,8 @@ class Ears(private val service: CapriService) {
         val tag = CapriVoice.voiceLang(lang)
         if (tag == null) return neuralFailed(id, text, lang, "lang")
         neuralId = id
-        speaking = true
-        recognizer?.let { runCatching { it.cancel() } }
-        listening = false
-        takeFocus()
+        // (1.11.8) her ears stay open while her voice is being made (it can take a while): they close when
+        // the sound is ready to play, not before. Before, she couldn't hear you for the whole generation.
         main.removeCallbacks(unstuck)
         main.postDelayed(unstuck, 180_000)
         CapriNeural.speak(service, id, text, tag) { state, extra ->
@@ -645,6 +653,12 @@ class Ears(private val service: CapriService) {
             if (state == "VOICE_UNAVAILABLE") {
                 neuralId = ""
                 return@speak neuralFailed(id, text, lang, extra.optString("why"))
+            }
+            if (state == "VOICE_READY" && !speaking) {
+                speaking = true
+                recognizer?.let { runCatching { it.cancel() } }
+                listening = false
+                takeFocus()
             }
             voiceEvent(id, state) {
                 val keys = extra.keys()
@@ -761,7 +775,7 @@ class Ears(private val service: CapriService) {
         spoke()
     }
 
-    private val unstuck = Runnable { if (speaking) { stopVoice(); spoke() } }
+    private val unstuck = Runnable { if (speaking || neuralId.isNotEmpty()) { stopVoice(); spoke() } }
 
     private fun spoke() {
         main.removeCallbacks(unstuck)
@@ -818,6 +832,8 @@ class Ears(private val service: CapriService) {
     }
 
     companion object {
+        /** (1.11.8) Every voice event, on the main thread (the app's Chat tab follows its answers' voice with it). */
+        @Volatile var voiceListener: ((JSONObject) -> Unit)? = null
         // her name as recognizers write it: Capri, Kapri, Capry, Cabri, Caprí, Capris… (Капри in Russian)
         private val NAME = Regex("(?<![a-zа-я])(?:[ck]a[pb]r[iy]s?|ка[пб]р[иы])(?![a-zа-я])")
         private const val GOOGLE = "com.google.android.googlequicksearchbox"

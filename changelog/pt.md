@@ -2,6 +2,32 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.11.8
+
+- **De volta aos celulares de 32 bits:** desde a 1.11.0 o app não instalava em celulares de 32 bits (armeabi-v7a,
+  como o TECNO Spark Go 1S e muitos Android Go): o instalador dizia que o processador não era compatível. Agora o
+  mesmo APK instala em todos. Nesses celulares a voz dela para respostas (o motor) não está disponível, mas as frases
+  gravadas e a voz do celular sim.
+- **A voz dela responde muito mais rápido:**
+  - Enquanto fala uma frase, já está gerando a próxima. Antes esperava terminar de falar para começar a próxima,
+    então respostas longas demoravam o dobro.
+  - Começa a falar assim que tem a primeira parte da frase, sem esperar a frase inteira.
+  - O motor dela começa a carregar assim que você escreve ou fala com ela, enquanto a IA pensa na resposta, e não no fim.
+  - Não é mais descarregado toda vez que você sai do app, e fica carregado mais tempo em celulares com bastante RAM
+    (até 15 minutos), então não precisa carregar de novo a cada resposta.
+  - Usa os núcleos rápidos do processador (até 6) nos celulares que têm.
+  - Lembra das frases que já falou, então as que repete saem na hora.
+  - Quando uma frase não terminava, o motor ficava gerando muito tempo antes de desistir; agora para antes.
+- **A porcentagem da voz dela no chat:** a resposta aparece escrita na hora e embaixo você vê quanto da voz já foi
+  gerado (*Gerando a voz 42%*), e depois *Falando*. Na aba Chat e na bolha dela.
+- **Ela não fica mais calada:** se você tocava ou movia ela enquanto preparava a voz da resposta, a frase de carinho
+  cancelava a resposta inteira. Agora a resposta vem primeiro. E enquanto prepara a voz, ela continua te ouvindo.
+- **As frases gravadas dela, com mais frequência:** tocam mais vezes quando você faz carinho, move ou joga ela, e
+  agora também quando ela te cumprimenta, quando fica entediada, ao abrir e fechar o chat, quando cai a internet,
+  quando você joga e nos seus lembretes.
+- **Ajustes de voz:** cada precisão agora diz qual é a mais rápida. *Máxima* (BF16) é a mais fiel, mas no celular
+  leva umas 2–3 vezes mais que a *Leve*: se a velocidade importa, use *Leve* ou *Alta*.
+
 ## 1.11.7
 
 - **O motor de voz não joga mais a resposta fora:** quando uma frase chegava ao máximo que o motor gera, a

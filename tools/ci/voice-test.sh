@@ -3,7 +3,11 @@
 # service action, read back from logcat (CapriVoiceTest).
 set -u
 PKG=io.github.emmanuelquintana.capri
-adb install -r -g app/build/outputs/apk/debug/app-debug.apk
+adb shell getprop ro.product.cpu.abilist
+# (1.11.8) it must install on every processor (32-bit ones too: before, «INSTALL_FAILED_NO_MATCHING_ABIS»)
+out=$(adb install -r -g app/build/outputs/apk/debug/app-debug.apk 2>&1); echo "$out"
+echo "$out" | grep -q "Success" || { echo "FAIL install"; exit 1; }
+adb shell dumpsys package $PKG | grep -iE "primaryCpuAbi|secondaryCpuAbi"
 adb shell appops set $PKG SYSTEM_ALERT_WINDOW allow
 # media volume up (a phone on 0 says nothing: the app tells you so, but here we want to hear her)
 adb shell cmd media_session volume --stream 3 --set 10 >/dev/null 2>&1 || adb shell media volume --stream 3 --set 10 >/dev/null 2>&1

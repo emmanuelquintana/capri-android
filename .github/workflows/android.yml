@@ -95,6 +95,14 @@ jobs:
           echo "version=$v" >> "$GITHUB_OUTPUT"
           cp app/build/outputs/apk/release/app-release.apk "Capri-Android-$v.apk"
 
+      # (1.11.8) one APK for every phone: 64-bit (her neural voice) and 32-bit (armeabi-v7a, x86: her phrases
+      # and the phone's voice). 1.11.0–1.11.7 only had 64-bit libraries and didn't install on 32-bit phones.
+      - name: Check it installs on 32-bit phones too
+        run: |
+          for abi in arm64-v8a armeabi-v7a x86_64 x86; do
+            unzip -l Capri-Android-*.apk | grep -q " lib/$abi/" || { echo "::error::falta lib/$abi en el APK"; exit 1; }
+          done
+
       - uses: actions/upload-artifact@v4
         with:
           name: Capri-Android
