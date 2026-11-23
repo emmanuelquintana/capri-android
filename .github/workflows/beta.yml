@@ -1,0 +1,128 @@
+name: Beta (solo Emma)
+
+# Every push to `next`: a build signed with the release key, sealed with Emma's code (secret
+# CAPRI_BETA_CODE, tools/beta/seal.py) and left on the `beta` pre-release. Only her phones, once they
+# have the code (Beta.kt), see it; the public updater (releases/latest) and the website skip pre-releases.
+# Never a public release: that's still android.yml on main, when Emma says.
+
+on:
+  push:
+    branches: [next]
+  workflow_dispatch:
+
+concurrency:
+  group: beta
+  cancel-in-progress: true
+
+permissions:
+  contents: write # the `beta` pre-release's two sealed files
+
+jobs:
+  beta:
+    runs-on: ubuntu-latest
+    env:
+      CAPRI_BETA_CODE: ${{ secrets.CAPRI_BETA_CODE }}
+    steps:
+      - name: ¿Hay código de beta?
+        id: code
+        run: |
+          if [ -z "$CAPRI_BETA_CODE" ]; then
+            echo "::warning::Falta el secreto CAPRI_BETA_CODE: no hay beta."
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.code.outputs.ok == 'true'
+        with:
+          fetch-depth: 20
+
+      - uses: actions/setup-java@v4
+        if: steps.code.outputs.ok == 'true'
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        if: steps.code.outputs.ok == 'true'
+
+      - uses: actions/setup-python@v5
+        if: steps.code.outputs.ok == 'true'
+        with:
+          python-version: '3.12'
+
+      # the same key as every release (android.yml), so a beta and the releases install over each other
+      - name: Llave de firma
+        if: steps.code.outputs.ok == 'true'
+        env:
+          PASSPHRASE: ${{ secrets.CAPRI_SIGNING_PASSPHRASE }}
+        run: |
+          ENC=app/signing/capri.p12.enc
+          if [ -z "$PASSPHRASE" ] || [ ! -f "$ENC" ]; then echo "::error::sin la llave de las versiones no hay beta"; exit 1; fi
+          KS="$RUNNER_TEMP/capri.p12"
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 600000 -in "$ENC" -out "$KS" -pass env:PASSPHRASE
+          {
+            echo "CAPRI_KEYSTORE=$KS"
+            echo "CAPRI_KEYSTORE_PASSWORD=$PASSPHRASE"
+            echo "CAPRI_KEY_PASSWORD=$PASSPHRASE"
+            echo "CAPRI_KEY_ALIAS=capri"
+          } >> "$GITHUB_ENV"
+
+      - name: Compilar
+        if: steps.code.outputs.ok == 'true'
+        run: ./gradlew --no-daemon assembleRelease -PcapriBeta=${{ github.run_number }}
+
+      # signed with the release key, or it would never install over her Capri
+      - name: Comprobar la firma
+        if: steps.code.outputs.ok == 'true'
+        run: |
+          APK=app/build/outputs/apk/release/app-release.apk
+          SIGNER=$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)apksigner
+          "$SIGNER" verify --print-certs "$APK" | tee "$RUNNER_TEMP/certs.txt"
+          grep -qi "SHA-256 digest: c37cc7ba099d709d278f644631bf001ca0b9c45d0f76dc8d9dfff134d17c7a51" "$RUNNER_TEMP/certs.txt" \
+            || { echo "::error::el APK no está firmado con la llave de las versiones"; exit 1; }
+
+      - name: Sellar y subir
+        if: steps.code.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN: ${{ github.run_number }}
+        run: |
+          pip install --quiet cryptography
+          base=$(grep -o 'versionName = "[^"]*"' app/build.gradle.kts | cut -d'"' -f2)
+          code=$(grep -o 'versionCode = [0-9]*' app/build.gradle.kts | grep -o '[0-9]*')
+          OUT="$RUNNER_TEMP/beta"
+          mkdir -p "$OUT"
+          python3 tools/beta/seal.py app/build/outputs/apk/release/app-release.apk "$OUT/a.bin"
+          python3 - "$base" "$code" "$RUN" "$OUT" <<'PY'
+          import json, os, re, subprocess, sys
+          base, code, run, out = sys.argv[1:]
+          sha = os.environ["GITHUB_SHA"]
+          log = subprocess.run(["git", "log", "-5", "--format=%s"], capture_output=True, text=True).stdout.splitlines()
+          md = open("CHANGELOG.md", encoding="utf-8").read().splitlines()
+          sec, on = [], False
+          for line in md:
+              if line.strip() == f"## {base}": on = True; continue
+              if on and line.startswith("## "): break
+              if on: sec.append(line)
+          clean = lambda s: re.sub(r"\*\*|`|\*", "", s).strip()
+          notes = [f"Beta {run} · {sha[:7]}"] + ["• " + clean(l) for l in log[:5]]
+          if any(l.strip() for l in sec):
+              notes += ["", f"Lo de la {base}:"] + [re.sub(r"^- ", "• ", clean(l)) for l in sec if l.strip()]
+          m = {"version": f"{base}-beta.{run}", "code": int(code), "apk": "a.bin",
+               "size": os.path.getsize(f"{out}/a.bin"), "commit": sha, "notes": "\n".join(notes)[:4000]}
+          json.dump(m, open(f"{out}/m.json", "w"), ensure_ascii=False)
+          print(m["version"], m["size"])
+          PY
+          python3 tools/beta/seal.py "$OUT/m.json" "$OUT/m.bin"
+          # check both open again with the same code before they go up
+          python3 tools/beta/seal.py --open "$OUT/a.bin" "$OUT/check.apk" && cmp "$OUT/check.apk" app/build/outputs/apk/release/app-release.apk
+          rm -f "$OUT/m.json" "$OUT/check.apk"
+          if ! gh release view beta >/dev/null 2>&1; then
+            gh release create beta --prerelease --latest=false --title "beta" --target "$GITHUB_SHA" \
+              --notes "Compilación interna de pruebas. No es una versión: las versiones de Capri están más abajo."
+          fi
+          # the APK first, then the manifest that points at it
+          gh release upload beta "$OUT/a.bin" --clobber
+          gh release upload beta "$OUT/m.bin" --clobber
+          echo "### Beta $base-beta.$RUN subida" >> "$GITHUB_STEP_SUMMARY"

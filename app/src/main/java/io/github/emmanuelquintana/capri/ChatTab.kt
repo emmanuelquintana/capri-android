@@ -210,6 +210,15 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
     private fun send() {
         val text = field.text.toString().trim()
         if (text.isEmpty() || waiting != null) return
+        // Emma's beta code (Beta.kt): checked quietly, never shown, never sent to the AI
+        if (Beta.looksLikeCode(text)) {
+            field.setText("")
+            Threads.make {
+                val ok = Beta.unlock(a, text)
+                a.runOnUiThread { if (ok) { Toast.makeText(a, "Canal beta activado. Míralo en Actualizaciones.", Toast.LENGTH_LONG).show(); (a as? MainActivity)?.betaChanged() } }
+            }.start()
+            return
+        }
         if (!Settings.canDrawOverlays(a)) {
             Toast.makeText(a, R.string.ob_need_overlay, Toast.LENGTH_LONG).show()
             return

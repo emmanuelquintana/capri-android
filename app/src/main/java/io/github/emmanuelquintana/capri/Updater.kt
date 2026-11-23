@@ -27,7 +27,8 @@ object Updater {
     private const val PREFS = "updater"
     const val CHECK_EVERY = 3 * 3600 * 1000L
 
-    data class Release(val tag: String, val apk: String, val size: Long, val page: String, val notes: String) {
+    /** [beta]: one of Emma's early builds (Beta.kt), sealed: download() opens it before installing. */
+    data class Release(val tag: String, val apk: String, val size: Long, val page: String, val notes: String, val beta: Boolean = false) {
         val version get() = tag.removePrefix("v")
     }
 
@@ -41,7 +42,12 @@ object Updater {
      * language the app speaks (changelog/<lang>.md at that release; Spanish when it has none).
      * Network: not on the main thread.
      */
-    fun latest(context: Context): Release? = latestSpanish()?.let { r -> localNotes(context, r)?.let { r.copy(notes = it) } ?: r }
+    fun latest(context: Context): Release? {
+        val public = latestSpanish()?.let { r -> localNotes(context, r)?.let { r.copy(notes = it) } ?: r }
+        // (Emma's phones only, once unlocked) her beta channel: its build when it's the newest of the two
+        val beta = Beta.latest(context) ?: return public
+        return if (public == null || isNewer(beta.tag, public.version)) beta else public
+    }
 
     private fun localNotes(context: Context, release: Release): String? = try {
         val lang = Lang.current(context)
@@ -87,16 +93,25 @@ object Updater {
         null
     }
 
-    /** Is that tag newer than this build? "v0.5.1-android.4" against "0.5.1-android.3": number by number. */
+    /**
+     * Is that tag newer than this build? "v0.5.1-android.4" against "0.5.1-android.3": number by number.
+     * A beta ("1.11.8-beta.3", Beta.kt) comes before its own release: 1.11.8-beta.2 < 1.11.8-beta.3 < 1.11.8.
+     */
     fun isNewer(tag: String, current: String = BuildConfig.VERSION_NAME): Boolean {
-        val a = Regex("\\d+").findAll(tag).map { it.value.toLong() }.toList()
-        val b = Regex("\\d+").findAll(current).map { it.value.toLong() }.toList()
+        val (a, betaA) = versionKey(tag)
+        val (b, betaB) = versionKey(current)
         for (i in 0 until maxOf(a.size, b.size)) {
             val x = a.getOrElse(i) { 0 }
             val y = b.getOrElse(i) { 0 }
             if (x != y) return x > y
         }
-        return false
+        return betaA > betaB
+    }
+
+    private fun versionKey(v: String): Pair<List<Long>, Long> {
+        val m = Regex("^(.*)-beta\\.(\\d+)$").find(v.trim())
+        val base = m?.groupValues?.get(1) ?: v
+        return Regex("\\d+").findAll(base).map { it.value.toLong() }.toList() to (m?.groupValues?.get(2)?.toLongOrNull() ?: Long.MAX_VALUE)
     }
 
     /** The APK into the app's cache, with how far along it is (0..1). */
@@ -104,6 +119,8 @@ object Updater {
         val dir = File(context.cacheDir, "updates").apply { mkdirs() }
         dir.listFiles()?.forEach { it.delete() }
         val file = File(dir, "capri.apk")
+        // a beta arrives sealed: into its own file first, opened (and checked) into capri.apk at the end
+        val target = if (release.beta) File(dir, "sealed.bin") else file
         var conn = URL(release.apk).openConnection() as HttpURLConnection
         conn.setRequestProperty("User-Agent", "Capri-Android")
         conn.instanceFollowRedirects = true
@@ -120,7 +137,7 @@ object Updater {
         if (conn.responseCode != 200) throw IllegalStateException("HTTP ${conn.responseCode}")
         val total = conn.contentLengthLong.takeIf { it > 0 } ?: release.size
         conn.inputStream.use { input ->
-            file.outputStream().use { out ->
+            target.outputStream().use { out ->
                 val buf = ByteArray(64 * 1024)
                 var done = 0L
                 while (true) {
@@ -131,6 +148,10 @@ object Updater {
                     if (total > 0) progress(done.toFloat() / total)
                 }
             }
+        }
+        if (release.beta) {
+            Beta.unseal(context, target, file)
+            target.delete()
         }
         return file
     }

@@ -44,6 +44,10 @@ class MainActivity : Activity() {
     private lateinit var startBtn: TextView
     private lateinit var updateText: TextView
     private lateinit var updateBtn: TextView
+    // Emma's beta channel (Beta.kt): only on a phone where her code was sent in the chat, hidden everywhere else
+    private lateinit var betaBox: LinearLayout
+    private lateinit var betaText: TextView
+    private lateinit var betaBtn: TextView
     private var release: Updater.Release? = null
     private var downloading = false
 
@@ -450,6 +454,24 @@ class MainActivity : Activity() {
             addView(ui.label(getString(R.string.update_head)))
             addView(updateText, ui.block(6))
             addView(updateBtn, ui.block(10))
+            betaText = ui.text("", 12f, Hud.MANE, ui.mono).apply { letterSpacing = 0.04f; setLineSpacing(0f, 1.15f) }
+            betaBtn = ui.button("", Ui.Kind.LINE) {
+                Beta.setOn(this@MainActivity, !Beta.on(this@MainActivity))
+                release = null
+                checkUpdate()
+            }
+            betaBox = LinearLayout(this@MainActivity).apply {
+                orientation = LinearLayout.VERTICAL
+                visibility = View.GONE
+                addView(betaText)
+                addView(betaBtn, ui.block(8))
+                addView(ui.button("Olvidar código en este teléfono", Ui.Kind.LINE) {
+                    Beta.forget(this@MainActivity)
+                    release = null
+                    checkUpdate()
+                }, ui.block(6))
+            }
+            addView(betaBox, ui.block(14))
         }, ui.block(22))
 
         // what each version brought (CHANGELOG.md)
@@ -1942,7 +1964,25 @@ class MainActivity : Activity() {
         dialog.show()
     }
 
+    /** Her beta code was just accepted in the chat (ChatTab): the switch shows up and the channel is checked. */
+    fun betaChanged() {
+        release = null
+        checkUpdate()
+    }
+
+    private fun showBeta() {
+        if (!::betaBox.isInitialized) return
+        val unlocked = Beta.unlocked(this)
+        betaBox.visibility = if (unlocked) View.VISIBLE else View.GONE
+        if (!unlocked) return
+        val on = Beta.on(this)
+        betaText.text = if (on) "Canal beta: ACTIVO. Te llegan las compilaciones de next antes de publicarlas (y la versión de todos en cuanto salga)."
+            else "Canal beta: apagado. Solo la versión de todos."
+        betaBtn.text = (if (on) "Volver a la versión de todos" else "Recibir betas").uppercase()
+    }
+
     private fun checkUpdate() {
+        showBeta()
         if (downloading) return
         if (release == null) updateText.text = getString(R.string.update_checking)
         Threads.make {
@@ -1958,6 +1998,9 @@ class MainActivity : Activity() {
         updateText.text = when {
             r == null -> getString(R.string.update_offline, mine)
             release != null -> getString(R.string.update_new, r.version, mine) + if (r.notes.isNotBlank()) "\n\n" + r.notes else ""
+            // a beta stays until the release of its version (or a newer one) is out: Android never goes back a version
+            Beta.running && !Beta.on(this) -> getString(R.string.update_latest, mine) +
+                "\n\nTienes una beta. Volverás a la versión de todos en cuanto salga la $mine o una más nueva (Android no deja bajar de versión sin desinstalar)."
             else -> getString(R.string.update_latest, mine)
         }
         updateText.setTextColor(if (release != null) Hud.YELLOW else Hud.PAPER_2)
