@@ -50,17 +50,23 @@ object Beta {
     /** This build is a beta (CI's -PcapriBeta=N: "1.11.8-beta.N"). */
     val running get() = BuildConfig.VERSION_NAME.contains("-beta.")
 
-    /** The code checked against the real beta channel: true (and kept) only when it opens it. Network. */
-    fun unlock(c: Context, text: String): Boolean {
+    /**
+     * The code checked against the real beta channel, kept only when it opens it. Network.
+     * null = unlocked; otherwise what went wrong, to show her (a wrong code says only that).
+     */
+    fun unlock(c: Context, text: String): String? {
         val code = norm(text)
-        if (!SHAPE.matches(code)) return false
+        if (!SHAPE.matches(code)) return "Código no válido"
         return try {
             manifest(code)
             prefs(c).edit().putString("code", code).putBoolean("on", true).apply()
             Diag.add("I", "beta unlocked")
-            true
-        } catch (e: Exception) {
-            false
+            null
+        } catch (e: SecurityException) {
+            "Código no válido"
+        } catch (e: Throwable) {
+            Diag.add("W", "beta unlock: $e")
+            "No se pudo comprobar: ${e.javaClass.simpleName} ${e.message ?: ""}".trim()
         }
     }
 

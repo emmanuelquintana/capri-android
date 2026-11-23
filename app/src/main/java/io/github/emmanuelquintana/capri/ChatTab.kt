@@ -214,8 +214,11 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
         if (Beta.looksLikeCode(text)) {
             field.setText("")
             Threads.make {
-                val ok = Beta.unlock(a, text)
-                a.runOnUiThread { if (ok) { Toast.makeText(a, "Canal beta activado. Míralo en Actualizaciones.", Toast.LENGTH_LONG).show(); (a as? MainActivity)?.betaChanged() } }
+                val why = Beta.unlock(a, text)
+                a.runOnUiThread {
+                    if (why == null) { Toast.makeText(a, "Canal beta activado. Míralo en Actualizaciones.", Toast.LENGTH_LONG).show(); (a as? MainActivity)?.betaChanged() }
+                    else Toast.makeText(a, why, Toast.LENGTH_LONG).show()
+                }
             }.start()
             return
         }

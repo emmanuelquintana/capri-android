@@ -2000,7 +2000,7 @@ class MainActivity : Activity() {
             release != null -> getString(R.string.update_new, r.version, mine) + if (r.notes.isNotBlank()) "\n\n" + r.notes else ""
             // a beta stays until the release of its version (or a newer one) is out: Android never goes back a version
             Beta.running && !Beta.on(this) -> getString(R.string.update_latest, mine) +
-                "\n\nTienes una beta. Volverás a la versión de todos en cuanto salga la $mine o una más nueva (Android no deja bajar de versión sin desinstalar)."
+                "\n\nTienes una beta. Volverás a la versión de todos en cuanto salga la ${mine.substringBefore("-beta.")} o una más nueva (Android no deja bajar de versión sin desinstalar)."
             else -> getString(R.string.update_latest, mine)
         }
         updateText.setTextColor(if (release != null) Hud.YELLOW else Hud.PAPER_2)
