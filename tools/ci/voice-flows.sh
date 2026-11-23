@@ -36,7 +36,7 @@ grep VOICE_FINISHED ev.log | grep -q '"source":"clip"' && echo "ok moment" || { 
 echo "== 2. the app's Chat tab"
 adb logcat -c
 flow --es do chat --es text "Capri, join back together"
-wait_ev chat- 90
+wait_ev "app-" 90  # (1.11.8: the Chat tab's voice is "app-<id of your message>", for its percentage)
 grep -q VOICE_REQUESTED ev.log && grep -qE "VOICE_STARTED|VOICE_FINISHED" ev.log && echo "ok app chat" || { echo "FAIL app chat"; fail=1; }
 
 echo "== 3. \"Capri, …\" heard"
