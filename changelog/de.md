@@ -32,3 +32,14 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
   Schlafmodus, Kleiderschrank, Sprachbefehle („Capri, …“) und die Antworten ihrer KI. Wähle sie unter Einstellungen ›
   Sprache. Ihre eigene Stimme für Antworten spricht vorerst Spanisch und Englisch; auf Deutsch nutzt sie die Stimme
   des Handys.
+- **Sie bleibt im Chat nicht mehr beim Nachdenken hängen:** Wenn du schriebst, während sie noch antwortete, sagte
+  sie „Gib mir eine Sekunde“ und dann nichts. Jetzt wartet jede Nachricht, bis sie dran ist, und bekommt ihre
+  Antwort. Bricht ihre KI mitten in der Antwort ab, behält sie, was schon geschrieben war.
+- **Die kostenlose KI blockiert sich nicht mehr selbst:** Sie nimmt pro Handy nur eine Anfrage gleichzeitig an. Ihre
+  Notizen über dich und ihre Braindances warten jetzt, bis deine Nachricht fertig ist (und weichen, wenn du schreibst).
+- **Mehrere API-Schlüssel:** Auf dem Bildschirm ihrer KI kannst du mehrere Schlüssel desselben Dienstes einfügen,
+  durch Kommas getrennt, oder später einen hinzufügen. Ist bei einem das Kontingent aufgebraucht (wie beim
+  kostenlosen Gemini), nimmt sie sofort den nächsten.
+- **Sie sagt dir Bescheid:** Ab und zu, wenn eine Benachrichtigung kommt, sagt sie es dir mit ihrer aufgenommenen
+  Stimme.
+- **Ihre Stimme setzt noch früher ein:** Ist der erste Satz lang, beginnt sie mit seinem ersten Teil (bis zum Komma).

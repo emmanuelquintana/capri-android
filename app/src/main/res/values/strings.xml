@@ -67,7 +67,7 @@
     <string name="ai_key_how">Groq, Gemini and NVIDIA are free: open their page, make a key, copy it and paste it here.</string>
     <string name="ai_pc_title">Your PC’s Ollama</string>
     <string name="ai_pc_how">Your PC is her brain over Wi-Fi. In Ollama turn on “Expose Ollama to the network” and type the PC’s IP here.</string>
-    <string name="ai_key_hint">Paste your key</string>
+    <string name="ai_key_hint">Paste your key (or several, separated by commas)</string>
     <string name="ai_paste">Paste key</string>
     <string name="ai_paste_none">Nothing copied.</string>
     <string name="ai_get_key">Get a key</string>
@@ -233,7 +233,7 @@
     <string name="settings_memory_forget">Forget everything</string>
     <string name="settings_memory_forget_one">Forget this</string>
     <string name="settings_memory_forgot">Forgotten.</string>
-    <string name="ai_key_saved_hint">Leave it empty to keep the key you already saved</string>
+    <string name="ai_key_saved_hint">Leave it empty to keep your keys, or paste another to add it</string>
     <string name="settings_intro_again_how">This only replays her welcome. Your AI, your key and her settings stay as they are; on the AI step, just tap Next.</string>
     <string name="settings_intro_again_go">Replay</string>
     <string name="settings_care">She looks after you</string>

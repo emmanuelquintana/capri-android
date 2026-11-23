@@ -349,7 +349,48 @@ function warmLink(provider = cfg.provider) {
     });
   }).then((r) => r.text()).catch(noop);
 }
-const llmConfig = async (c = cfg) => ({ ...c, apiKeys: await openKeys(c.apiKeys) });
+// (1.11.8, Emma: "si tienen más de una clave API, cambia a la que sigue") several keys for one service
+// (pasted together, separated by commas, spaces or lines): one that ran out of quota, or that the service
+// turned down, rests, and the next one answers instead.
+const keysOf = (plain) => String(plain || '').split(/[\s,;]+/).filter(Boolean);
+const keyTired = new Map(); // key -> until (ms)
+const keyFree = (k) => (keyTired.get(k) || 0) <= Date.now();
+const pickKey = (plain) => {
+  const list = keysOf(plain);
+  return list.find(keyFree) || list[0] || '';
+};
+const llmConfig = async (c = cfg) => {
+  const keys = await openKeys(c.apiKeys);
+  for (const id of Object.keys(keys)) keys[id] = pickKey(keys[id]);
+  return { ...c, apiKeys: keys };
+};
+// true when another key of that service can answer now (the one used rests)
+async function swapKey(c, used, err) {
+  if (!used || !c.apiKeys?.[c.provider]) return false;
+  const list = keysOf((await openKeys({ k: c.apiKeys[c.provider] })).k);
+  if (list.length < 2) return false;
+  const msg = String(err?.message || '');
+  const refused = err?.status === 401 || err?.status === 403 || /api key not valid|invalid api key|unauthori|permission denied/i.test(msg);
+  const spent = err?.status === 429 || /quota|exhausted|billing|rate.?limit|too many requests/i.test(msg);
+  if (!refused && !spent) return false;
+  const retry = Number(/retry(?:[ _-]?delay|[ _-]?after| in)["'\s:]*([\d.]+)\s*s/i.exec(msg)?.[1]);
+  const ms = refused ? 24 * 3600e3 : retry > 0 ? retry * 1000 + 2000 : /per ?day|daily|PerDay|quota|exhausted|billing/i.test(msg) ? 3 * 3600e3 : 90e3;
+  keyTired.set(used, Date.now() + ms);
+  const next = list.find(keyFree);
+  if (!next) return false;
+  send('log', { level: 'W', text: `${c.provider}: key ${list.indexOf(used) + 1} ${refused ? 'refused' : 'out of quota'}, key ${list.indexOf(next) + 1} answers` });
+  return true;
+}
+
+// (1.11.8) the free online AI takes one request at a time per phone ("Your previous request is still
+// running"): hers go one after the other, never two at once (the second was turned down, and her chat stuck)
+let freeLane = Promise.resolve();
+function inLane(provider, run) {
+  if (provider !== 'pollinations') return run();
+  const go = freeLane.then(run, run);
+  freeLane = go.catch(noop);
+  return go;
+}
 
 // The provider's models, kept a while: asked of the server every time her chat opened, a slow
 // network made her wait for it (or say she had no AI when it timed out once).
@@ -424,6 +465,11 @@ function aiResting(models) {
 // model of her AI is busy, the other AIs you gave her a key for answer instead (and the free one,
 // last), so she still answers; your AI stays hers, and is back next message.
 const BACKUP_FIRST_WORD_MS = 25000;
+// (1.11.8) no new word for this long once her answer started: it stopped coming (chatSend); and no answer
+// at all, whatever the tries, after this long
+const STALL_MS = 20000;
+const LONGEST_MS = 150000;
+const quiet = new Set(); // her own background asks (notes, braindances), not a message of yours
 const backupModels = new Map(); // provider -> { at, list }
 async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
   try {
@@ -449,7 +495,7 @@ async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
       signal.addEventListener('abort', stop, { once: true });
       const timer = setTimeout(() => { if (!streamed()) inner.abort(); }, BACKUP_FIRST_WORD_MS);
       try {
-        const text = await llm.chat(id, conf, { model, messages }, sendDelta, inner.signal);
+        const text = await inLane(id, () => llm.chat(id, conf, { model, messages }, sendDelta, inner.signal));
         send('log', { level: 'W', text: `${c.provider} busy: ${id} (${model}) answered instead` });
         return text;
       } catch (e) {
@@ -486,8 +532,11 @@ async function chatOnce(c, messages, sendDelta, signal, streamed) {
       stuck = true;
       inner.abort();
     }, c.provider === 'pollinations' ? FIRST_WORD_FREE_MS : FIRST_WORD_MS);
+    let used = '';
     try {
-      const text = await llm.chat(c.provider, await llmConfig(c), { model, messages }, sendDelta, inner.signal);
+      const conf = await llmConfig(c);
+      used = conf.apiKeys?.[c.provider] || '';
+      const text = await inLane(c.provider, () => llm.chat(c.provider, conf, { model, messages }, sendDelta, inner.signal));
       // (1.10.0) "se queda en blanco, sin dar ninguna respuesta": some models answer nothing at all (all
       // of it spent thinking, or cut off): asked again, then another model, as if it were busy
       if (!String(text ?? '').trim() && !streamed()) throw Object.assign(new Error('empty answer'), { code: 'busy' });
@@ -496,6 +545,8 @@ async function chatOnce(c, messages, sendDelta, signal, streamed) {
       return text;
     } catch (err) {
       // a model the service retired, still on its list (NVIDIA says 410 Gone): the next one
+      // (1.11.8) your next key of this service, when this one ran out (or was turned down): same model, at once
+      if (!stuck && !signal.aborted && !streamed() && await swapKey(c, used, err)) continue;
       if (err.status === 410 || /end of life|no longer available|terms acceptance|accept the terms|not have access to model|model_terms_required/i.test(err.message || '')) err.code = 'gone';
       // the free AI answers one message every 45 s per phone (and sometimes it's full): it says how
       // long to wait, so she waits and asks again instead of giving up
@@ -514,7 +565,8 @@ async function chatOnce(c, messages, sendDelta, signal, streamed) {
       if (stuck && !signal.aborted) err = Object.assign(new Error('timeout'), { code: 'busy' });
       if (stuck && !signal.aborted) busy = 1; // straight to another model
       if (signal.aborted || streamed() || !['busy', 'gone', 'signin'].includes(err.code)) throw err;
-      if (err.code === 'busy' && busy++ === 0) {
+      // (a spent quota isn't back in 1.5 s: the next model at once)
+      if (err.code === 'busy' && !/quota|exhausted|billing/i.test(err.message || '') && busy++ === 0) {
         await new Promise((r) => setTimeout(r, 1500));
         continue;
       }
@@ -1448,21 +1500,46 @@ window.host = {
     const local = llm.isLocal(provider, cfg, model);
     return { ok: true, provider, model, agent: provider === 'claude', local, warmup: provider === 'ollama' && local };
   }),
-  chatSend: after(async ({ id, messages }) => {
+  chatSend: after(async ({ id, messages, background = false }) => {
+    // (1.11.8) her notes about you and her braindances (memory.js, neuro.js) never get in the way of a
+    // message of yours: they wait for it, and one already running gives way to it
+    if (background && [...chats.keys()].some((k) => !quiet.has(k))) return { ok: false, error: 'busy', code: 'busy' };
+    if (!background) for (const k of quiet) chats.get(k)?.abort();
     const abort = new AbortController();
     chats.set(id, abort);
+    if (background) quiet.add(id);
+    let written = '';
+    let lastWord = Date.now();
+    let stalled = false;
+    const remote = !['ollama', 'claude'].includes(cfg.provider); // (a model on your PC may take a while to load)
+    // (1.11.8, Emma: "se quedó pensando en el chat") an answer that stops coming halfway (the connection
+    // dropped without closing) ends with what was written; and nothing runs forever
+    const watch = setInterval(() => {
+      const quietFor = Date.now() - lastWord;
+      if ((written && quietFor > STALL_MS) || (remote && quietFor > LONGEST_MS)) { stalled = true; abort.abort(); }
+    }, 2000);
     try {
       let streamed = false;
       const sendDelta = (text) => {
         streamed = true;
+        written += String(text || '');
+        lastWord = Date.now();
         emit('chat:delta', { id, text });
       };
-      const text = await chatWithFallback(cfg, messages, sendDelta, abort.signal, () => streamed);
+      const run = background ? chatOnce : chatWithFallback;
+      const text = await run(cfg, messages, sendDelta, abort.signal, () => streamed);
       return { ok: true, text };
     } catch (err) {
+      if (stalled && written.trim()) {
+        send('log', { level: 'W', text: 'AI: her answer stopped coming halfway; kept what was written' });
+        return { ok: true, text: written, cut: true };
+      }
+      if (stalled) return { ok: false, error: friendly('timeout'), code: 'busy' };
       return { ok: false, error: abort.signal.aborted ? 'stopped' : friendly(err.message), code: err.code || null };
     } finally {
+      clearInterval(watch);
       chats.delete(id);
+      quiet.delete(id);
       linkUsed.set(cfg.provider, Date.now());
     }
   }),

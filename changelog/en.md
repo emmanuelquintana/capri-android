@@ -36,6 +36,19 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   wardrobe, voice commands ("Capri, …", in Japanese also "カプリ") and her AI's answers. Pick it in Settings ›
   Language. Her own voice for answers speaks Spanish and English for now; in these languages she uses the phone's
   voice.
+- **No more getting stuck thinking in the chat:** if you wrote while she was still answering, she said "Give me a
+  second, still thinking about the last one" and then nothing. Now each message waits its turn and gets its answer.
+  If her AI stops sending an answer halfway, she keeps what she already wrote instead of thinking forever.
+- **The free AI no longer trips over itself:** it takes one request at a time per phone. Her notes about you and
+  her braindances now wait until your message is done (and step aside if you write), so your message never gets
+  "your previous request is still running".
+- **Several API keys:** on her AI screen you can paste several keys for the same service, separated by commas, or
+  add another one later. When one runs out of quota (as free Gemini does), she goes on with the next right away.
+  And when a model runs out of quota, she moves to the next one without waiting.
+- **She tells you about your messages:** now and then, when a notification comes in, she says it in her recorded
+  voice: "A message just came in" or "You've got a new notification".
+- **Her voice starts even sooner:** if the first sentence of her answer is long, she starts saying its first part
+  (up to the comma) without waiting for the rest.
 
 ## 1.11.7
 

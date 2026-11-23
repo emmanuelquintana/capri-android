@@ -62,13 +62,29 @@ object CapriSettings {
             }
             else -> {
                 val p = KEYED.firstOrNull { it.id == provider } ?: return "?"
-                val k = key.trim()
-                if (k.isEmpty()) return "?"
-                val ok = runCatching { get("${p.url}/models", k) }.getOrElse { return it.message ?: "offline" }
-                if (ok == 401 || ok == 403) return "badkey"
-                if (ok !in 200..299) return "HTTP $ok"
-                if (provider == "nvidia" && nvidiaKeyBad(p.url, k)) return "badkey"
-                val sealed = Store(context).seal(k)
+                // (1.11.8, Emma) several keys pasted together (commas, spaces or lines): each checked, the good
+                // ones kept in that order, and when one runs out of quota her page goes on with the next
+                val all = key.split(Regex("[\\s,;]+")).map { it.trim() }.filter { it.isNotEmpty() }.distinct().take(8)
+                if (all.isEmpty()) return "?"
+                var why: String? = null
+                val good = all.filter { one ->
+                    val ok = runCatching { get("${p.url}/models", one) }.getOrElse { why = why ?: (it.message ?: "offline"); return@filter false }
+                    when {
+                        ok == 401 || ok == 403 -> { why = why ?: "badkey"; false }
+                        ok !in 200..299 -> { why = why ?: "HTTP $ok"; false }
+                        provider == "nvidia" && nvidiaKeyBad(p.url, one) -> { why = why ?: "badkey"; false }
+                        else -> true
+                    }
+                }
+                if (good.isEmpty()) return why ?: "badkey"
+                // (the keys you saved before for it stay, after the new ones: one more key is one more to go on with)
+                val store = Store(context)
+                val before = runCatching {
+                    val saved = JSONObject(store.read(Store.CONFIG) ?: "{}").optJSONObject("apiKeys")?.optString(provider).orEmpty()
+                    if (saved.isEmpty()) emptyList() else store.open(saved).split(Regex("[\\s,;]+")).filter { it.isNotBlank() }
+                }.getOrDefault(emptyList())
+                val k = (good + before).distinct().take(8).joinToString(",")
+                val sealed = store.seal(k)
                 apply(context, JSONObject().put("provider", provider).put("key", k)) { cfg ->
                     val keys = cfg.optJSONObject("apiKeys") ?: JSONObject()
                     cfg.put("provider", provider).put("apiKeys", keys.put(provider, sealed))

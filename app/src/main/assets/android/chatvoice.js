@@ -94,6 +94,11 @@ export function chatVoice({ cfg, lang }) {
     // up to the last finished sentence (the rest is still being written)
     let end = -1;
     for (const m of said.matchAll(/[.!?…]+(?=\s)/g)) end = m.index + m[0].length;
+    // (1.11.8, Emma: "en el S25 Ultra todavía tarda en hablar") a long first sentence: her voice starts on its
+    // first part (up to a comma), so the first sound comes sooner
+    if (!s.sent && end < 0 && said.length >= 60) {
+      for (const m of said.slice(0, 80).matchAll(/[,;:](?=\s)/g)) if (m.index >= 18) end = m.index + 1;
+    }
     if (end <= s.sent.length || end > MAX) return;
     const piece = said.slice(s.sent.length, end).trim();
     if (!piece || (!s.sent && piece.length < 12)) return;

@@ -65,7 +65,7 @@
     <string name="ai_key_how">Groq, Gemini và NVIDIA miễn phí: mở trang của họ, tạo khóa, sao chép và dán vào đây.</string>
     <string name="ai_pc_title">Ollama trên PC của bạn</string>
     <string name="ai_pc_how">PC của bạn là bộ não của cô ấy qua Wi-Fi. Trong Ollama bật “Expose Ollama to the network” và nhập IP của PC vào đây.</string>
-    <string name="ai_key_hint">Dán khóa của bạn</string>
+    <string name="ai_key_hint">Dán khóa của bạn (hoặc nhiều khóa, cách nhau bằng dấu phẩy)</string>
     <string name="ai_paste">Dán khóa</string>
     <string name="ai_paste_none">Chưa sao chép gì.</string>
     <string name="ai_get_key">Lấy khóa</string>
@@ -230,7 +230,7 @@
     <string name="settings_memory_forget">Quên hết</string>
     <string name="settings_memory_forget_one">Quên điều này</string>
     <string name="settings_memory_forgot">Đã quên.</string>
-    <string name="ai_key_saved_hint">Để trống để giữ khóa bạn đã lưu</string>
+    <string name="ai_key_saved_hint">Để trống để giữ các khóa đã lưu, hoặc dán thêm một khóa khác</string>
     <string name="settings_intro_again_how">Việc này chỉ phát lại phần chào mừng. AI, khóa và cài đặt của cô ấy giữ nguyên; ở bước AI, chỉ cần chạm Tiếp.</string>
     <string name="settings_intro_again_go">Phát lại</string>
     <string name="settings_care">Cô ấy chăm sóc bạn</string>

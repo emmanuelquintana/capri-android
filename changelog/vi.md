@@ -28,3 +28,13 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Bốn ngôn ngữ mới: tiếng Việt, tiếng Nhật, tiếng Đức và tiếng Ý.** Toàn bộ ứng dụng, câu nói của cô ấy, trò chơi,
   chế độ ngủ, tủ đồ, lệnh giọng nói («Capri, …») và câu trả lời của AI. Chọn trong Cài đặt › Ngôn ngữ. Giọng riêng
   của cô ấy cho câu trả lời hiện chỉ có tiếng Tây Ban Nha và tiếng Anh; bằng tiếng Việt cô ấy dùng giọng điện thoại.
+- **Không còn bị kẹt khi đang nghĩ trong chat:** nếu bạn nhắn khi cô ấy vẫn đang trả lời, cô ấy nói «Chờ mình một
+  giây» rồi im luôn. Giờ mỗi tin nhắn chờ đến lượt và nhận câu trả lời riêng. Nếu AI dừng giữa chừng, cô ấy giữ
+  phần đã viết.
+- **AI miễn phí không còn tự vướng:** nó chỉ nhận một yêu cầu mỗi lần trên mỗi điện thoại. Ghi chú về bạn và
+  neurodance giờ chờ tin nhắn của bạn xong (và nhường nếu bạn nhắn).
+- **Nhiều khóa API:** trong màn hình AI của cô ấy, bạn có thể dán nhiều khóa của cùng một dịch vụ, cách nhau bằng
+  dấu phẩy, hoặc thêm khóa khác sau. Khi một khóa hết hạn mức (như Gemini miễn phí), cô ấy chuyển ngay sang khóa
+  tiếp theo.
+- **Cô ấy báo tin nhắn cho bạn:** thỉnh thoảng, khi có thông báo, cô ấy nói bằng giọng đã thu âm.
+- **Giọng cô ấy bắt đầu sớm hơn nữa:** nếu câu đầu dài, cô ấy nói phần đầu (đến dấu phẩy) trước.

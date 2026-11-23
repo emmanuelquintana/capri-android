@@ -38,6 +38,18 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   le mode sommeil, la garde-robe, les commandes vocales (« Capri, … », en japonais aussi « カプリ ») et les réponses
   de son IA. Choisis-la dans Réglages › Langue. Sa propre voix pour les réponses parle espagnol et anglais pour
   l’instant ; dans ces langues, elle utilise la voix du téléphone.
+- **Elle ne reste plus bloquée à réfléchir dans le chat :** si tu écrivais pendant qu’elle répondait encore, elle
+  disait « Une seconde, je réfléchis encore au message d’avant » puis plus rien. Maintenant chaque message attend son
+  tour et reçoit sa réponse. Si son IA s’arrête à mi-réponse, elle garde ce qu’elle a déjà écrit.
+- **L’IA gratuite ne se bloque plus elle-même :** elle ne traite qu’une requête à la fois par téléphone. Ses notes
+  sur toi et ses neurodanses attendent maintenant la fin de ton message (et s’effacent si tu écris).
+- **Plusieurs clés API :** sur l’écran de son IA, tu peux coller plusieurs clés du même service, séparées par des
+  virgules, ou en ajouter une plus tard. Quand l’une n’a plus de quota (comme Gemini gratuit), elle passe tout de
+  suite à la suivante. Et quand un modèle n’a plus de quota, elle passe au suivant sans attendre.
+- **Elle te prévient de tes messages :** de temps en temps, quand une notification arrive, elle te le dit avec sa
+  voix enregistrée.
+- **Sa voix démarre encore plus tôt :** si la première phrase de sa réponse est longue, elle commence par sa
+  première partie (jusqu’à la virgule).
 
 ## 1.11.7
 

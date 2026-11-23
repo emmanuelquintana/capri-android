@@ -65,7 +65,7 @@
     <string name="ai_key_how">Groq, Gemini e NVIDIA são grátis: abra a página deles, crie uma chave, copie e cole aqui.</string>
     <string name="ai_pc_title">O Ollama do seu PC</string>
     <string name="ai_pc_how">Seu PC vira o cérebro dela pelo Wi-Fi. No Ollama, ative “Expose Ollama to the network” e escreva o IP do PC aqui.</string>
-    <string name="ai_key_hint">Cole sua chave</string>
+    <string name="ai_key_hint">Cole sua chave (ou várias, separadas por vírgulas)</string>
     <string name="ai_paste">Colar chave</string>
     <string name="ai_paste_none">Nada copiado.</string>
     <string name="ai_get_key">Pegar uma chave</string>
@@ -232,7 +232,7 @@
     <string name="settings_memory_forget">Esquecer tudo</string>
     <string name="settings_memory_forget_one">Esquecer isto</string>
     <string name="settings_memory_forgot">Esquecido.</string>
-    <string name="ai_key_saved_hint">Deixe vazio para continuar com a chave que você já salvou</string>
+    <string name="ai_key_saved_hint">Deixe vazio para manter suas chaves, ou cole outra para adicioná-la</string>
     <string name="settings_intro_again_how">Só repete a apresentação dela. Sua IA, sua chave e os ajustes dela continuam iguais; no passo da IA, é só tocar em Próximo.</string>
     <string name="settings_intro_again_go">Repetir</string>
     <string name="settings_care">Ela cuida de você</string>

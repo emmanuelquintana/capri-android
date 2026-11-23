@@ -30,3 +30,13 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Quattro nuove lingue: vietnamita, giapponese, tedesco e italiano.** Tutta l’app, le sue frasi, i giochi, la
   modalità sonno, il guardaroba, i comandi vocali («Capri, …») e le risposte della sua IA. Sceglila in Impostazioni ›
   Lingua. La sua voce per le risposte per ora parla spagnolo e inglese; in italiano usa la voce del telefono.
+- **Non resta più bloccata a pensare nella chat:** se le scrivevi mentre stava ancora rispondendo, diceva «Dammi un
+  secondo» e poi niente. Ora ogni messaggio aspetta il suo turno e riceve la sua risposta. Se la sua IA si ferma a
+  metà, tiene quello che ha già scritto.
+- **L’IA gratuita non si intralcia più da sola:** accetta una richiesta alla volta per telefono. Le sue note su di te
+  e le sue braindance ora aspettano che il tuo messaggio finisca (e si fanno da parte se scrivi).
+- **Più chiavi API:** nella schermata della sua IA puoi incollare più chiavi dello stesso servizio, separate da
+  virgole, o aggiungerne un’altra dopo. Quando una finisce la quota (come Gemini gratuito), passa subito alla
+  successiva.
+- **Ti avvisa dei tuoi messaggi:** ogni tanto, quando arriva una notifica, te lo dice con la sua voce registrata.
+- **La sua voce parte ancora prima:** se la prima frase è lunga, inizia dalla sua prima parte (fino alla virgola).

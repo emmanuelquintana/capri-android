@@ -76,6 +76,9 @@ const LINES = {
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 const fmt = (s, v) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '');
 
+// chat apps: their notifications are "a message just came in"
+const MESSAGE_APPS = /whatsapp|telegram|messag|mms|sms|signal|viber|line\.android|kakao|discord|instagram|facebook\.orca|snapchat|wechat|zalo|threema|skype|teams|slack/i;
+
 export class Notes {
   constructor({ config, lang }) {
     this.config = config; // () => her settings
@@ -338,6 +341,8 @@ export class Notes {
     this.noteTimer = setTimeout(() => this.hideNote(), NOTE_FOR);
     // she just jumps on it: a line of hers would cover the very card it's about
     this.hop('note', () => window.dev?.poses?.cue('surprised', { times: 1 }));
+    // (1.11.8) and now and then she tells you, in her own recorded voice (voicelines.js)
+    window.dev?.voicelines?.notice?.(n.category === 'msg' || MESSAGE_APPS.test(n.pkg || ''));
   }
 
   hideNote() {

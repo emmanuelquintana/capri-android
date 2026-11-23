@@ -36,6 +36,20 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   sueño, vestuario, comandos de voz («Capri, …», en japonés también «カプリ») y las respuestas de su IA. Elígelo en
   Ajustes › Idioma. Su propia voz para respuestas por ahora habla español e inglés; en estos idiomas usa la voz del
   teléfono.
+- **Ya no se queda pensando en el chat:** si le escribías mientras todavía contestaba lo anterior, respondía
+  «Dame un segundo, sigo pensando lo de antes» y luego nada. Ahora cada mensaje espera su turno y recibe su
+  respuesta. Si su IA deja de mandar la respuesta a medias, se queda con lo que ya escribió en vez de quedarse
+  pensando para siempre.
+- **La IA gratis ya no choca consigo misma:** solo atiende una petición a la vez por teléfono. Sus notas sobre ti y
+  sus neurodanzas ahora esperan a que termine tu mensaje (y se apartan si le escribes), así tu mensaje nunca recibe
+  «tu petición anterior sigue en curso».
+- **Varias claves de API:** en la pantalla de su IA puedes pegar varias claves del mismo servicio, separadas por
+  comas, o añadir otra después. Cuando una se queda sin cuota (como le pasa a Gemini gratis), sigue con la
+  siguiente al instante. Y si a un modelo se le acabó la cuota, pasa al siguiente sin esperar.
+- **Te avisa de tus mensajes:** de vez en cuando, cuando te llega una notificación, te lo dice con su voz grabada:
+  «Acaba de entrar un mensaje» o «Tienes una notificación nueva».
+- **Su voz arranca aún antes:** si la primera frase de su respuesta es larga, empieza a decir la primera parte
+  (hasta la coma) sin esperar a que termine.
 
 ## 1.11.7
 

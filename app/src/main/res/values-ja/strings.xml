@@ -65,7 +65,7 @@
     <string name="ai_key_how">Groq、Gemini、NVIDIAは無料：ページを開いてキーを作り、コピーしてここに貼り付けて。</string>
     <string name="ai_pc_title">PCのOllama</string>
     <string name="ai_pc_how">Wi-Fi経由でPCが彼女の頭脳に。Ollamaで「Expose Ollama to the network」をオンにして、PCのIPをここに入力。</string>
-    <string name="ai_key_hint">キーを貼り付け</string>
+    <string name="ai_key_hint">キーを貼り付け(複数ならカンマ区切り)</string>
     <string name="ai_paste">キーを貼り付け</string>
     <string name="ai_paste_none">何もコピーされていません。</string>
     <string name="ai_get_key">キーを取得</string>
@@ -230,7 +230,7 @@
     <string name="settings_memory_forget">全部忘れる</string>
     <string name="settings_memory_forget_one">これを忘れる</string>
     <string name="settings_memory_forgot">忘れました。</string>
-    <string name="ai_key_saved_hint">空のままにすると保存済みのキーを使います</string>
+    <string name="ai_key_saved_hint">空のままなら保存済みのキーを使います。別のキーを貼ると追加されます</string>
     <string name="settings_intro_again_how">ウェルカムをもう一度見るだけです。AI、キー、設定はそのまま。AIのステップでは「次へ」をタップしてください。</string>
     <string name="settings_intro_again_go">もう一度</string>
     <string name="settings_care">あなたを気づかう</string>

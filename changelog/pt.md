@@ -36,6 +36,18 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   guarda-roupa, comandos de voz ("Capri, …", em japonês também "カプリ") e as respostas da IA. Escolha em Ajustes ›
   Idioma. A voz própria dela para respostas fala espanhol e inglês por enquanto; nesses idiomas ela usa a voz do
   celular.
+- **Ela não fica mais travada pensando no chat:** se você escrevia enquanto ela ainda respondia, ela dizia «Me dá um
+  segundo, ainda tô pensando na anterior» e depois nada. Agora cada mensagem espera a vez e recebe sua resposta. Se a
+  IA dela para a resposta no meio, ela fica com o que já escreveu.
+- **A IA grátis não trava mais consigo mesma:** ela atende um pedido por vez por celular. As anotações sobre você e
+  as neurodanças agora esperam sua mensagem terminar (e saem da frente se você escrever).
+- **Várias chaves de API:** na tela da IA dela você pode colar várias chaves do mesmo serviço, separadas por
+  vírgulas, ou adicionar outra depois. Quando uma fica sem cota (como o Gemini grátis), ela segue com a próxima na
+  hora. E quando um modelo fica sem cota, passa para o próximo sem esperar.
+- **Ela te avisa das suas mensagens:** de vez em quando, quando chega uma notificação, ela te conta com a voz
+  gravada dela.
+- **A voz dela começa ainda mais cedo:** se a primeira frase da resposta é longa, ela começa pela primeira parte
+  (até a vírgula).
 
 ## 1.11.7
 

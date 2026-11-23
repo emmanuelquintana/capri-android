@@ -246,7 +246,7 @@ export function neuroDances({ cfg, setConfig, lang }) {
         + `Answer ONLY with JSON: {"title": "2-5 words", "scenes": [{"act": "one of: ${acts}", "text": "one short line in first person, max 15 words", "hidden": "optional: a tiny detail only the thermal layer shows, or empty"}], "opinion": "what you think of your own braindance, 1-2 sentences, honest, a bit vain or shy"}. `
         + `4 to 6 scenes. Write everything in ${LANGS[l] || 'Spanish'}, speaking of yourself in the singular.`;
       const messages = [{ role: 'system', content: chat.persona() }, ...chat.history.slice(-8), { role: 'user', content: prompt }];
-      const res = await window.host.chatSend({ id: Date.now(), messages }).catch(() => null);
+      const res = await window.host.chatSend({ id: Date.now(), messages, background: true }).catch(() => null);
       const bd = res?.ok ? parseBd(res.text) : null;
       if (bd) return { ...bd, own: false };
     }

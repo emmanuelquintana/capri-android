@@ -112,7 +112,7 @@ export function longMemory({ cfg, readMemory, saveMemory }) {
     ];
     const id = Date.now() + 1;
     running = id;
-    const res = await window.host.chatSend({ id, messages }).catch(() => null);
+    const res = await window.host.chatSend({ id, messages, background: true }).catch(() => null);
     running = null;
     if (!res?.ok) {
       // the free AI was busy, or you came back: another go a while later

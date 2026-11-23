@@ -37,6 +37,9 @@ const MOMENTS = {
   gameBack: { events: ['game.return'], chance: 1, every: 10 * 60e3 },
   reminder: { events: ['reminder.original-01'], chance: 1, every: 10 * 60e3 },
   done: { events: ['task.done'], chance: 0.8, every: 5 * 60e3 },
+  // (1.11.8, Emma: "añade la frase guardada de vez en cuando de tienes un mensaje o tienes una notificación")
+  message: { events: ['notification.original-04'], chance: 0.4, every: 4 * 60e3 },
+  notice: { events: ['notification.original-01'], chance: 0.3, every: 6 * 60e3 },
 };
 // the lines of hers that are those moments (lines.js), wherever she says them from
 const POOLS = {
@@ -178,6 +181,15 @@ export function voiceLines({ cfg, lang }) {
       if (!clip) return { line, spoken: false };
       speak(clip);
       return { line: clip.text, spoken: true, ms: clip.ms };
+    },
+    /** (1.11.8) a notification just came (notes.js): now and then her phrase for it, "a message just came in"
+     *  for a chat app's, "you've got a new notification" for the rest. Said only: the card shows it already. */
+    notice(isMessage) {
+      if (dev.voiceTalking || dev.chat?.open) return false;
+      const clip = phrase(isMessage ? 'message' : 'notice');
+      if (!clip) return false;
+      speak(clip);
+      return true;
     },
     /** What she's saying stops (a newer request, she was hidden). */
     stop: () => send('voice:stop', {}),

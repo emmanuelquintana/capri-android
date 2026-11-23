@@ -9,8 +9,19 @@ import { extraAsk } from './asks.js';
 import { clean, mood } from '../capri/src/renderer/js/chat.js';
 
 export function appChat({ lang }) {
-  let busy = 0;
-  on('app:chat', async ({ id = '', text = '' } = {}) => {
+  // (1.11.8, Emma: "se quedó pensando en el chat") a message written while she still answers the one before
+  // waits its turn and gets its own answer, instead of "give me a second" and nothing
+  let line = Promise.resolve();
+  let waiting = 0;
+  on('app:chat', (msg = {}) => {
+    if (waiting >= 3) {
+      send('appchat:reply', { id: msg.id || '', text: WAIT[lang()] || WAIT.en, face: 'aside', ok: false });
+      return;
+    }
+    waiting++;
+    line = line.then(() => answer(msg)).catch(() => {}).finally(() => { waiting--; });
+  });
+  async function answer({ id = '', text = '' } = {}) {
     const dev = window.dev;
     const chat = dev?.chat;
     text = String(text).trim().slice(0, 2000);
@@ -21,8 +32,6 @@ export function appChat({ lang }) {
       if (ok && line) dev?.chatVoice?.say(line, `app-${id}`);
     };
     if (!chat || !text) return reply('…', 'aside', false);
-    if (busy && Date.now() - busy < 120000) return reply(WAIT[lang()] || WAIT.en, 'aside', false);
-    busy = Date.now();
     dev?.chatVoice?.warm?.(); // (1.11.8) her voice starts loading while her AI writes
     try {
       dev.capri?.pulse?.(); // (over your screen too: she heard you)
@@ -50,16 +59,18 @@ export function appChat({ lang }) {
       const sendId = Date.now();
       dev.chatVoice?.follow?.(sendId, `app-${id}`);
       // and the Chat tab shows it as it's written
+      let written = '';
+      let shownAt = 0;
       const off = on('chat:delta', ({ id: sid, text: piece } = {}) => {
         if (sid !== sendId) return;
         written += String(piece || '');
         const now = clean(written);
         if (now && Date.now() - shownAt > 120) { shownAt = Date.now(); send('appchat:partial', { id, text: now }); }
       });
-      let written = '';
-      let shownAt = 0;
       const res = await window.host.chatSend({ id: sendId, messages }).catch((err) => ({ ok: false, error: err.message }));
       if (typeof off === 'function') off();
+      // (what she already wrote stays her answer, even if the end of it didn't come)
+      if (!res?.ok && clean(written)) res.ok = true, res.text = written;
       if (!res?.ok) return reply(res?.code === 'busy' ? chat.t?.swamped : chat.t?.failed || '…', 'wide', false);
       const said = clean(res.text) || '…';
       chat.history.push({ role: 'user', content: text });
@@ -68,10 +79,8 @@ export function appChat({ lang }) {
     } catch (err) {
       console.error('[capri] app chat', err);
       reply('…', 'wide', false);
-    } finally {
-      busy = 0;
     }
-  });
+  }
 }
 
 const WAIT = {

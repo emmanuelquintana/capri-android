@@ -65,7 +65,7 @@
     <string name="ai_key_how">Groq, Gemini и NVIDIA бесплатны: открой их страницу, создай ключ, скопируй и вставь сюда.</string>
     <string name="ai_pc_title">Ollama твоего ПК</string>
     <string name="ai_pc_how">Твой ПК становится её мозгом по Wi-Fi. В Ollama включи «Expose Ollama to the network» и впиши сюда IP ПК.</string>
-    <string name="ai_key_hint">Вставь ключ</string>
+    <string name="ai_key_hint">Вставь ключ (или несколько, через запятую)</string>
     <string name="ai_paste">Вставить ключ</string>
     <string name="ai_paste_none">Ничего не скопировано.</string>
     <string name="ai_get_key">Получить ключ</string>
@@ -233,7 +233,7 @@
     <string name="settings_memory_forget">Забыть всё</string>
     <string name="settings_memory_forget_one">Забыть это</string>
     <string name="settings_memory_forgot">Забыто.</string>
-    <string name="ai_key_saved_hint">Оставь пустым, чтобы оставить уже сохранённый ключ</string>
+    <string name="ai_key_saved_hint">Оставь пустым, чтобы сохранить ключи, или вставь ещё один, чтобы добавить</string>
     <string name="settings_intro_again_how">Это только повторит её приветствие. Твой ИИ, ключ и её настройки останутся как есть; на шаге с ИИ просто нажми «Далее».</string>
     <string name="settings_intro_again_go">Повторить</string>
     <string name="settings_care">Она заботится о тебе</string>
