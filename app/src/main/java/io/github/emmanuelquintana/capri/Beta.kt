@@ -50,6 +50,12 @@ object Beta {
     /** This build is a beta (CI's -PcapriBeta=N: "1.11.8-beta.N"). */
     val running get() = BuildConfig.VERSION_NAME.contains("-beta.")
 
+    /** The version without "-beta.N": what everything outside this phone's unlocked beta switch sees. */
+    val base get() = BuildConfig.VERSION_NAME.substringBefore("-beta.")
+
+    /** The version shown on screen: the beta's full name only where the code was sent, else just the version. */
+    fun shown(c: Context) = if (unlocked(c)) BuildConfig.VERSION_NAME else base
+
     /**
      * The code checked against the real beta channel, kept only when it opens it. Network.
      * null = unlocked; otherwise what went wrong, to show her (a wrong code says only that).

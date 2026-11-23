@@ -212,7 +212,7 @@ class OnboardingActivity : Activity() {
         ui.type(head, "/// PROJECT CAPRICORN", 40) {
             ui.glitchIn(big)
             ui.fill(bar, 1300) {
-                link.text = "OK · v${BuildConfig.VERSION_NAME}"
+                link.text = "OK · v${Beta.base}"
                 link.setTextColor(Hud.GREEN)
                 val keep = page
                 page = hello

@@ -407,7 +407,7 @@ class MainActivity : Activity() {
             setPadding(ui.dpi(16), 0, 0, 0)
             addView(ui.text("/// PROJECT CAPRICORN", 11f, Hud.MANE, ui.mono).apply { letterSpacing = 0.12f })
             addView(ui.text("CAPRI", 44f, Hud.YELLOW, ui.head).apply { letterSpacing = 0.06f; includeFontPadding = false })
-            addView(ui.text("ANDROID // v${BuildConfig.VERSION_NAME}", 10f, Hud.PAPER_3, ui.mono).apply { letterSpacing = 0.1f })
+            addView(ui.text("ANDROID // v${Beta.shown(this@MainActivity)}", 10f, Hud.PAPER_3, ui.mono).apply { letterSpacing = 0.1f })
         }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
         addView(header)
         // a WebView too old for her page (1.9.0): she can't show up at all until it's updated
@@ -1994,12 +1994,12 @@ class MainActivity : Activity() {
     private fun showUpdate(r: Updater.Release?) {
         if (downloading) return
         release = r?.takeIf { Updater.isNewer(it.tag) }
-        val mine = BuildConfig.VERSION_NAME
+        val mine = Beta.shown(this)
         updateText.text = when {
             r == null -> getString(R.string.update_offline, mine)
             release != null -> getString(R.string.update_new, r.version, mine) + if (r.notes.isNotBlank()) "\n\n" + r.notes else ""
             // a beta stays until the release of its version (or a newer one) is out: Android never goes back a version
-            Beta.running && !Beta.on(this) -> getString(R.string.update_latest, mine) +
+            Beta.running && Beta.unlocked(this) && !Beta.on(this) -> getString(R.string.update_latest, mine) +
                 "\n\nTienes una beta. Volverás a la versión de todos en cuanto salga la ${mine.substringBefore("-beta.")} o una más nueva (Android no deja bajar de versión sin desinstalar)."
             else -> getString(R.string.update_latest, mine)
         }

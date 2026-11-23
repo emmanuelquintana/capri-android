@@ -46,7 +46,7 @@ object Report {
                 val log = clean(app, Diag.saved().joinToString("\n")).takeLast(MAX_LOG)
                 val body = JSONObject()
                     .put("app", "android")
-                    .put("v", BuildConfig.VERSION_NAME)
+                    .put("v", Beta.base)
                     .put("os", "Android ${Build.VERSION.RELEASE} (SDK ${Build.VERSION.SDK_INT}) · WebView ${Perf.webView()}")
                     .put("device", "${Build.MANUFACTURER} ${Build.MODEL}".take(80))
                     .put("lang", Lang.current(app).takeIf { it in Lang.LANGS } ?: "en")

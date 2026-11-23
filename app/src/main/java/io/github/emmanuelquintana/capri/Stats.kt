@@ -35,7 +35,7 @@ object Stats {
         val id = prefs.getString("statsId", null) ?: UUID.randomUUID().toString().also { prefs.edit().putString("statsId", it).apply() }
         val body = JSONObject()
             .put("id", id)
-            .put("v", BuildConfig.VERSION_NAME)
+            .put("v", Beta.base)
             .put("lang", Lang.current(context).takeIf { it in Lang.LANGS } ?: "en")
             .put("sdk", Build.VERSION.SDK_INT)
             .toString()
