@@ -99,3 +99,6 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Non resta più muta:** se il suo motore vocale si bloccava, restava zitta in tutte le risposte dopo; ora nel
   frattempo risponde con la voce del telefono. E se la sua IA fallisce a metà risposta, non resta più un minuto su
   «Sta parlando · 90 %».
+- **La sua voce nel cloud (Fish Audio):** in Impostazioni voce inserisci la tua chiave Fish Audio e lei parla con la sua
+  voce in tempo reale a ogni risposta, dopo mezzo secondo, mentre la sua IA scrive ancora. La chiave resta sul tuo
+  telefono. Senza internet o senza credito, torna da sola alla voce del telefono.

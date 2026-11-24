@@ -668,8 +668,8 @@ class Ears(private val service: CapriService) {
         if (neuralId.isNotEmpty()) {
             val was = neuralId
             neuralId = ""
-            CapriNeural.cancel()
-            voiceEvent(was, "VOICE_CANCELLED") { put("source", CapriNeural.ID) }
+            if (neuralFish) FishVoice.cancel() else CapriNeural.cancel()
+            voiceEvent(was, "VOICE_CANCELLED") { put("source", if (neuralFish) FishVoice.ID else CapriNeural.ID) }
         }
         val p = clipPlayer
         clipPlayer = null
@@ -691,6 +691,7 @@ class Ears(private val service: CapriService) {
     // whole answer, as before.
     private var streamId = ""
     private var streamNeural = false
+    private var streamFish = false // (1.12.0) the voice being fed is her cloud one (FishVoice)
     private val streamText = StringBuilder()
 
     private fun sayPart(text: String, lang: String, opts: JSONObject, last: Boolean) {
@@ -702,7 +703,7 @@ class Ears(private val service: CapriService) {
                 // (stopped meanwhile, by you or a newer answer: the rest isn't said either)
                 // (1.12.0) fed while that answer is still the one being made (CapriNeural checks it): not tied to
                 // neuralId, which a late "cancelled" of an older try with the same id could clear
-                CapriNeural.feed(text, last)
+                if (streamFish) FishVoice.feed(text, last) else CapriNeural.feed(text, last)
                 if (last) streamId = ""
                 return
             }
@@ -716,7 +717,9 @@ class Ears(private val service: CapriService) {
         streamId = id
         streamText.setLength(0)
         streamText.append(text)
-        streamNeural = CapriVoice.answerEngine(service, lang) == CapriNeural.ID
+        val eng = CapriVoice.answerEngine(service, lang)
+        streamNeural = eng == CapriNeural.ID || eng == FishVoice.ID
+        streamFish = eng == FishVoice.ID
         if (last) streamId = ""
         if (streamNeural || last) sayNow(text, lang, whole, streaming = streamNeural && !last)
     }
@@ -765,6 +768,7 @@ class Ears(private val service: CapriService) {
             if (!streaming) systemVoice(id, text, lang)
             return@sayNow
         }
+        if (engine == FishVoice.ID) return@sayNow neuralVoice(id, text, lang, streaming, fish = true)
         if (engine == CapriNeural.ID) return@sayNow neuralVoice(id, text, lang, streaming)
         if (streaming) streamNeural = false
         if (engine == "system") phoneVoiceWhy(lang)
@@ -795,9 +799,13 @@ class Ears(private val service: CapriService) {
     private var neuralId = ""
     private var neuralSeq = 0 // (1.12.0) which try is the current one (an older one's late events don't count)
 
-    private fun neuralVoice(id: String, text: String, lang: String, streaming: Boolean = false) {
-        val tag = CapriVoice.voiceLang(lang)
+    private var neuralFish = false // (1.12.0) the voice being made is her cloud one (FishVoice), not the phone's engine
+
+    private fun neuralVoice(id: String, text: String, lang: String, streaming: Boolean = false, fish: Boolean = false) {
+        // (her cloud voice speaks every language: the tag is only her neural engine's)
+        val tag = if (fish) lang else CapriVoice.voiceLang(lang)
         if (tag == null) return neuralFailed(id, text, lang, "lang")
+        neuralFish = fish
         neuralId = id
         val mine = ++neuralSeq
         // (1.11.8) her ears stay open while her voice is being made (it can take a while): they close when
@@ -809,17 +817,17 @@ class Ears(private val service: CapriService) {
         val notStarted = Runnable {
             if (neuralId != id || neuralSeq != mine) return@Runnable
             neuralId = ""
-            CapriNeural.cancel()
-            Diag.add("W", "voice: her voice engine didn't start in 20 s, phone's voice this time")
+            if (fish) { FishVoice.cancel(); FishVoice.rest("fish:net") } else CapriNeural.cancel()
+            Diag.add("W", "voice: her voice ${if (fish) "in the cloud" else "engine"} didn't start in 20 s, phone's voice this time")
             neuralFailed(id, text, lang, "stuck")
         }
         main.postDelayed(notStarted, 20_000)
-        CapriNeural.speak(service, id, text, tag, { state, extra ->
+        val events = CapriNeural.Events { state, extra ->
             main.removeCallbacks(notStarted)
-            if (neuralId != id || neuralSeq != mine) return@speak
+            if (neuralId != id || neuralSeq != mine) return@Events
             if (state == "VOICE_UNAVAILABLE") {
                 neuralId = ""
-                return@speak neuralFailed(id, text, lang, extra.optString("why"))
+                return@Events neuralFailed(id, text, lang, extra.optString("why"))
             }
             if (state == "VOICE_READY" && !speaking) {
                 speaking = true
@@ -838,7 +846,8 @@ class Ears(private val service: CapriService) {
                 dropFocus()
                 spoke()
             }
-        }, streaming)
+        }
+        if (fish) FishVoice.speak(service, id, text, tag, events, streaming) else CapriNeural.speak(service, id, text, tag, events, streaming)
     }
 
     private fun neuralFailed(id: String, text: String, lang: String, why: String) {
@@ -851,6 +860,13 @@ class Ears(private val service: CapriService) {
         }
         voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", CapriNeural.ID) }
         CapriNeural.lastFallback = why
+        // (1.12.0) her cloud voice couldn't (no internet, your key, its credit): her voice on the phone says it
+        if (why.startsWith("fish:")) {
+            Diag.add("I", "voice: her cloud voice couldn't ($why), her other voice this time")
+            val next = CapriVoice.answerEngine(service, lang)
+            voiceEvent(id, "VOICE_REQUESTED") { put("kind", "answer").put("fallback", next) }
+            return if (next == CapriNeural.ID) neuralVoice(id, text, lang) else systemVoice(id, text, lang)
+        }
         val store = Store(service)
         // (a stuck engine: always the phone's voice, whatever you chose; silence isn't a voice)
         if (why == "stuck" || store.configString("voiceFallback") == "system" || (store.configString("voiceMode") ?: "automatic") in setOf("automatic", "balanced")) {

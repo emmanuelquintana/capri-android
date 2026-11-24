@@ -738,4 +738,27 @@
     <string name="voice_phone_sample">やっほー、カプリだよ。私の声どう？</string>
     <string name="voice_phone_saved">OK：この声を使います。</string>
     <string name="voice_phone_none">この言語の声がスマホにありません。</string>
+    <!-- 1.12.0: Fish Audio -->
+    <string name="fish_title">クラウドの声（Fish Audio）</string>
+    <string name="fish_how">自分のFish Audioキーを使うと、毎回の返事を彼女の声でリアルタイムに話します。AIが書いている間に、0.5秒ほどで話し始めます。インターネットが必要です。つながらないときやキーの残高がないときは、スマホの声を使います。キーはこのスマホだけに暗号化して保存されます。Fish Audioの料金は100万文字で約15ドル（返事1回で1セント未満）。</string>
+    <string name="fish_state_none">キーなし：使うには自分のキーを入れてください。</string>
+    <string name="fish_state_off">オフ：スマホの声を使います。</string>
+    <string name="fish_state_novoice">Fishでの彼女の声はもうすぐ。それまでは別のFishの声のIDを入れられます。</string>
+    <string name="fish_state_on">オン：返事はクラウドの彼女の声で話します。</string>
+    <string name="fish_custom_on">別の声</string>
+    <string name="fish_other_lang">この言語では英語の声を使います</string>
+    <string name="fish_key">キーを入れる</string>
+    <string name="fish_get_key">キーを取得</string>
+    <string name="fish_test">テスト</string>
+    <string name="fish_test_off">聞くには先に起動して（Capriを起動）。</string>
+    <string name="fish_voice">別のFishの声</string>
+    <string name="fish_forget">キーを削除</string>
+    <string name="fish_key_hint">Fish AudioのAPIキー</string>
+    <string name="fish_key_ok">完了：クラウドの声がオンになりました。</string>
+    <string name="fish_key_bad">このキーは使えません。全部コピーしたか確認して。</string>
+    <string name="fish_key_credit">Fish Audioのアカウントに残高がありません。</string>
+    <string name="fish_key_err">確認できませんでした：%1$s</string>
+    <string name="fish_voice_how">fish.audioの声のIDかリンクを貼って。空なら彼女自身の声。</string>
+    <string name="fish_voice_hint">声のIDまたはリンク</string>
+    <string name="fish_voice_hers">彼女の声</string>
 </resources>

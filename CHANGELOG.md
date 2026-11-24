@@ -128,6 +128,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Ya no se queda muda:** si su motor de voz se atoraba, se quedaba callada en todas las respuestas siguientes;
   ahora contesta con la voz del teléfono mientras tanto. Y si su IA falla a media respuesta, ya no se queda en
   «Hablando · 90 %» un minuto entero.
+- **Su voz en la nube (Fish Audio):** en Ajustes de voz pones tu propia clave de Fish Audio y habla con su voz en
+  tiempo real en cada respuesta, empezando en medio segundo mientras su IA todavía escribe. Tu clave se queda solo en tu
+  teléfono. Sin internet o sin saldo, vuelve sola a su voz del teléfono.
 
 ## 1.11.7
 

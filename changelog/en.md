@@ -125,6 +125,9 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   closest to hers, for when her own voice isn't there.
 - **She no longer goes mute:** if her voice engine got stuck, she stayed silent on every answer after; now she answers
   in the phone's voice meanwhile. And if her AI fails mid-answer, she no longer sits on "Speaking · 90 %" for a minute.
+- **Her voice in the cloud (Fish Audio):** in Voice settings, add your own Fish Audio key and she speaks in her voice in
+  real time on every answer, starting in half a second while her AI is still writing. Your key stays on your phone.
+  Without internet or credit, she goes back to her phone voice on her own.
 
 ## 1.11.7
 

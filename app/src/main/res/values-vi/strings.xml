@@ -738,4 +738,27 @@
     <string name="voice_phone_sample">Chào, mình là Capri đây. Bạn thích giọng mình không?</string>
     <string name="voice_phone_saved">Xong: cô ấy sẽ dùng giọng này.</string>
     <string name="voice_phone_none">Điện thoại không có giọng cho ngôn ngữ này.</string>
+    <!-- 1.12.0: Fish Audio -->
+    <string name="fish_title">Giọng cô ấy trên đám mây (Fish Audio)</string>
+    <string name="fish_how">Với khóa Fish Audio của bạn, cô ấy nói bằng giọng của mình theo thời gian thực ở mỗi câu trả lời: âm thanh bắt đầu sau nửa giây, trong lúc AI vẫn đang viết. Cần internet; không có mạng, hoặc khóa hết tiền, cô ấy dùng giọng điện thoại. Khóa của bạn chỉ lưu trên điện thoại này, đã mã hóa. Fish Audio tính khoảng 15 đô la cho mỗi triệu chữ (một câu trả lời chưa tới một xu).</string>
+    <string name="fish_state_none">Chưa có khóa: thêm khóa của bạn để dùng.</string>
+    <string name="fish_state_off">Tắt: cô ấy dùng giọng điện thoại.</string>
+    <string name="fish_state_novoice">Giọng cô ấy trên Fish sắp có. Trong lúc chờ, bạn có thể dán ID một giọng Fish khác.</string>
+    <string name="fish_state_on">Bật: câu trả lời dùng giọng đám mây của cô ấy.</string>
+    <string name="fish_custom_on">với giọng khác</string>
+    <string name="fish_other_lang">ở ngôn ngữ này cô ấy dùng giọng tiếng Anh</string>
+    <string name="fish_key">Thêm khóa của tôi</string>
+    <string name="fish_get_key">Lấy khóa</string>
+    <string name="fish_test">Thử</string>
+    <string name="fish_test_off">Hãy bật cô ấy trước (Khởi động Capri) để nghe.</string>
+    <string name="fish_voice">Giọng Fish khác</string>
+    <string name="fish_forget">Xóa khóa của tôi</string>
+    <string name="fish_key_hint">Khóa API Fish Audio của bạn</string>
+    <string name="fish_key_ok">Xong: giọng đám mây của cô ấy đã bật.</string>
+    <string name="fish_key_bad">Khóa này không dùng được. Kiểm tra bạn đã chép đủ.</string>
+    <string name="fish_key_credit">Tài khoản Fish Audio của bạn hết tiền.</string>
+    <string name="fish_key_err">Không kiểm tra được: %1$s</string>
+    <string name="fish_voice_how">Dán ID hoặc liên kết của một giọng trên fish.audio. Để trống: giọng của cô ấy.</string>
+    <string name="fish_voice_hint">ID hoặc liên kết giọng</string>
+    <string name="fish_voice_hers">Giọng cô ấy</string>
 </resources>

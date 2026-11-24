@@ -753,4 +753,27 @@
     <string name="voice_phone_sample">Hola, soy yo, Capri. ¿Te gusta cómo sueno?</string>
     <string name="voice_phone_saved">Listo: usará esta voz.</string>
     <string name="voice_phone_none">Tu teléfono no tiene voces para este idioma.</string>
+    <!-- 1.12.0: Fish Audio -->
+    <string name="fish_title">Su voz en la nube (Fish Audio)</string>
+    <string name="fish_how">Con tu propia clave de Fish Audio, habla con su voz en tiempo real en cada respuesta: empieza a sonar en medio segundo, mientras su IA todavía escribe. Necesita internet; sin él, o si tu clave se queda sin saldo, usa su voz del teléfono. Tu clave se guarda solo en este teléfono, cifrada. Fish Audio cobra a tu cuenta unos 15 dólares por millón de letras (una respuesta cuesta menos de un centavo).</string>
+    <string name="fish_state_none">Sin clave: pon la tuya para usarla.</string>
+    <string name="fish_state_off">Apagada: usa su voz del teléfono.</string>
+    <string name="fish_state_novoice">Su voz en Fish llega pronto. Mientras, puedes poner el ID de otra voz de Fish.</string>
+    <string name="fish_state_on">Encendida: sus respuestas suenan con su voz en la nube.</string>
+    <string name="fish_custom_on">con otra voz</string>
+    <string name="fish_other_lang">en este idioma usa su voz en inglés</string>
+    <string name="fish_key">Poner mi clave</string>
+    <string name="fish_get_key">Conseguir una clave</string>
+    <string name="fish_test">Probar</string>
+    <string name="fish_test_off">Enciéndela primero (Iniciar Capri) para oírla.</string>
+    <string name="fish_voice">Otra voz de Fish</string>
+    <string name="fish_forget">Quitar mi clave</string>
+    <string name="fish_key_hint">Tu clave de API de Fish Audio</string>
+    <string name="fish_key_ok">Listo: su voz en la nube está encendida.</string>
+    <string name="fish_key_bad">Esa clave no funciona. Revisa que la copiaste completa.</string>
+    <string name="fish_key_credit">Tu cuenta de Fish Audio no tiene saldo.</string>
+    <string name="fish_key_err">No se pudo comprobar: %1$s</string>
+    <string name="fish_voice_how">Pega el ID o el enlace de una voz de fish.audio. Vacío: su propia voz.</string>
+    <string name="fish_voice_hint">ID o enlace de la voz</string>
+    <string name="fish_voice_hers">Su voz</string>
 </resources>

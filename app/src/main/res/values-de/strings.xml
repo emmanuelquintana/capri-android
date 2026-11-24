@@ -742,4 +742,27 @@
     <string name="voice_phone_sample">Hi, ich bin\'s, Capri. Gefällt dir, wie ich klinge?</string>
     <string name="voice_phone_saved">Fertig: Sie nutzt diese Stimme.</string>
     <string name="voice_phone_none">Dein Handy hat keine Stimmen für diese Sprache.</string>
+    <!-- 1.12.0: Fish Audio -->
+    <string name="fish_title">Ihre Stimme in der Cloud (Fish Audio)</string>
+    <string name="fish_how">Mit deinem eigenen Fish-Audio-Schlüssel spricht sie bei jeder Antwort in Echtzeit mit ihrer Stimme: der Ton startet nach einer halben Sekunde, während ihre KI noch schreibt. Dafür braucht es Internet; ohne, oder wenn dein Schlüssel kein Guthaben mehr hat, nimmt sie die Stimme des Handys. Dein Schlüssel bleibt verschlüsselt nur auf diesem Handy. Fish Audio berechnet etwa 15 Dollar pro Million Buchstaben (eine Antwort kostet weniger als einen Cent).</string>
+    <string name="fish_state_none">Kein Schlüssel: füg deinen hinzu.</string>
+    <string name="fish_state_off">Aus: sie nimmt die Stimme des Handys.</string>
+    <string name="fish_state_novoice">Ihre Stimme bei Fish kommt bald. Bis dahin kannst du die ID einer anderen Fish-Stimme einfügen.</string>
+    <string name="fish_state_on">An: ihre Antworten klingen mit ihrer Cloud-Stimme.</string>
+    <string name="fish_custom_on">mit einer anderen Stimme</string>
+    <string name="fish_other_lang">in dieser Sprache nimmt sie ihre englische Stimme</string>
+    <string name="fish_key">Meinen Schlüssel eingeben</string>
+    <string name="fish_get_key">Schlüssel holen</string>
+    <string name="fish_test">Testen</string>
+    <string name="fish_test_off">Starte sie zuerst (Capri starten), um sie zu hören.</string>
+    <string name="fish_voice">Andere Fish-Stimme</string>
+    <string name="fish_forget">Meinen Schlüssel entfernen</string>
+    <string name="fish_key_hint">Dein Fish-Audio-API-Schlüssel</string>
+    <string name="fish_key_ok">Fertig: ihre Cloud-Stimme ist an.</string>
+    <string name="fish_key_bad">Dieser Schlüssel funktioniert nicht. Prüf, ob du ihn ganz kopiert hast.</string>
+    <string name="fish_key_credit">Dein Fish-Audio-Konto hat kein Guthaben.</string>
+    <string name="fish_key_err">Konnte nicht geprüft werden: %1$s</string>
+    <string name="fish_voice_how">Füg die ID oder den Link einer Stimme von fish.audio ein. Leer: ihre eigene Stimme.</string>
+    <string name="fish_voice_hint">ID oder Link der Stimme</string>
+    <string name="fish_voice_hers">Ihre Stimme</string>
 </resources>

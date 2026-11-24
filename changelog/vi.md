@@ -94,3 +94,6 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
   nhất, cho lúc giọng riêng của cô ấy không có.
 - **Cô ấy không còn im lặng:** nếu bộ máy giọng bị kẹt, cô ấy im ở mọi câu sau; giờ cô ấy tạm trả lời bằng giọng điện
   thoại. Và nếu AI lỗi giữa câu trả lời, cô ấy không còn đứng ở «Đang nói · 90 %» cả phút.
+- **Giọng cô ấy trên đám mây (Fish Audio):** trong Cài đặt giọng, thêm khóa Fish Audio của bạn và cô ấy nói bằng giọng
+  của mình theo thời gian thực ở mỗi câu trả lời, bắt đầu sau nửa giây khi AI vẫn đang viết. Khóa chỉ ở trên điện thoại
+  của bạn. Không có mạng hoặc hết tiền, cô ấy tự quay về giọng điện thoại.

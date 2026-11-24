@@ -753,4 +753,27 @@
     <string name="voice_phone_sample">Salut, c\'est moi, Capri. Tu aimes ma voix ?</string>
     <string name="voice_phone_saved">C\'est fait : elle utilisera cette voix.</string>
     <string name="voice_phone_none">Ton téléphone n\'a pas de voix pour cette langue.</string>
+    <!-- 1.12.0: Fish Audio -->
+    <string name="fish_title">Sa voix dans le cloud (Fish Audio)</string>
+    <string name="fish_how">Avec ta propre clé Fish Audio, elle parle avec sa voix en temps réel à chaque réponse : le son démarre en une demi-seconde, pendant que son IA écrit encore. Il faut internet ; sans lui, ou si ta clé n\'a plus de crédit, elle utilise la voix du téléphone. Ta clé reste uniquement sur ce téléphone, chiffrée. Fish Audio facture environ 15 dollars par million de lettres (une réponse coûte moins d\'un centime).</string>
+    <string name="fish_state_none">Pas de clé : ajoute la tienne pour l\'utiliser.</string>
+    <string name="fish_state_off">Désactivée : elle utilise la voix du téléphone.</string>
+    <string name="fish_state_novoice">Sa voix sur Fish arrive bientôt. En attendant, tu peux coller l\'ID d\'une autre voix Fish.</string>
+    <string name="fish_state_on">Activée : ses réponses ont sa voix dans le cloud.</string>
+    <string name="fish_custom_on">avec une autre voix</string>
+    <string name="fish_other_lang">dans cette langue elle utilise sa voix anglaise</string>
+    <string name="fish_key">Ajouter ma clé</string>
+    <string name="fish_get_key">Obtenir une clé</string>
+    <string name="fish_test">Tester</string>
+    <string name="fish_test_off">Lance-la d\'abord (Démarrer Capri) pour l\'entendre.</string>
+    <string name="fish_voice">Une autre voix Fish</string>
+    <string name="fish_forget">Retirer ma clé</string>
+    <string name="fish_key_hint">Ta clé API Fish Audio</string>
+    <string name="fish_key_ok">C\'est fait : sa voix dans le cloud est activée.</string>
+    <string name="fish_key_bad">Cette clé ne marche pas. Vérifie que tu l\'as copiée en entier.</string>
+    <string name="fish_key_credit">Ton compte Fish Audio n\'a plus de crédit.</string>
+    <string name="fish_key_err">Impossible de vérifier : %1$s</string>
+    <string name="fish_voice_how">Colle l\'ID ou le lien d\'une voix de fish.audio. Vide : sa propre voix.</string>
+    <string name="fish_voice_hint">ID ou lien de la voix</string>
+    <string name="fish_voice_hers">Sa voix</string>
 </resources>

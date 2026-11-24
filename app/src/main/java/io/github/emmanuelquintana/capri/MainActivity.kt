@@ -1156,6 +1156,9 @@ class MainActivity : Activity() {
             addView(ui.button(getString(R.string.voice_phone_pick) + " ›", Ui.Kind.LINE) { pickPhoneVoice() }, ui.block(8))
         }, ui.block(16))
 
+        // (1.12.0, Emma) her voice in the cloud, Fish Audio, with your own key: in real time on each of her answers
+        addView(fishCard(), ui.block(16))
+
         // (1.11.0) Capri Voice V8 (CapriVoice.kt): her recorded voice, phrase by phrase, offline; optional
         // packs per language. Here with the rest of her voice, not on a screen of its own.
         addView(ui.card(Hud.MANE).apply {
@@ -1403,6 +1406,84 @@ class MainActivity : Activity() {
                 { store.configString("voicePace") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voicePace", it) }, ui.block(6))
         }, ui.block(16))
 
+    }
+
+    // (1.12.0) Fish Audio: her voice in the cloud (FishVoice.kt). Your key stays on this phone, sealed.
+    private fun fishCard(): LinearLayout = ui.card(Hud.MANE).apply {
+        addView(ui.label(getString(R.string.fish_title)))
+        addView(ui.text(getString(R.string.fish_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        val state = ui.text("", 12f, Hud.PAPER_2, ui.mono).apply { setLineSpacing(0f, 1.15f) }
+        addView(state, ui.block(8))
+        val buttons = ui.col()
+        addView(buttons, ui.block(4))
+        fun draw() {
+            val lang = Lang.current(this@MainActivity)
+            state.text = when {
+                !FishVoice.hasKey(this@MainActivity) -> getString(R.string.fish_state_none)
+                !FishVoice.on(this@MainActivity) -> getString(R.string.fish_state_off)
+                FishVoice.voiceFor(this@MainActivity, lang).isEmpty() -> getString(R.string.fish_state_novoice)
+                else -> getString(R.string.fish_state_on) + if (FishVoice.customVoice(this@MainActivity).isNotEmpty()) " · " + getString(R.string.fish_custom_on)
+                    else if (!FishVoice.hasCapri(lang)) " · " + getString(R.string.fish_other_lang) else ""
+            }
+            buttons.removeAllViews()
+            if (!FishVoice.hasKey(this@MainActivity)) {
+                buttons.addView(ui.button(getString(R.string.fish_key), Ui.Kind.GREEN) { fishKeyDialog { draw() } }, ui.block(4))
+                buttons.addView(ui.button(getString(R.string.fish_get_key) + " ↗", Ui.Kind.LINE) {
+                    runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://fish.audio/app/api-keys/"))) }
+                }, ui.block(8))
+                return
+            }
+            buttons.addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { FishVoice.on(this@MainActivity) }, { a, b -> a == b }) { FishVoice.setOn(this@MainActivity, it); draw() }, ui.block(4))
+            buttons.addView(ui.button(getString(R.string.fish_test) + " ▶", Ui.Kind.GREEN) {
+                val ears = CapriService.current?.ears ?: return@button Toast.makeText(this@MainActivity, R.string.fish_test_off, Toast.LENGTH_LONG).show()
+                ears.say(getString(R.string.voice_phone_sample), Lang.current(this@MainActivity), org.json.JSONObject().put("id", "fish-test").put("kind", "answer"))
+            }, ui.block(8))
+            buttons.addView(ui.button(getString(R.string.fish_voice) + " ›", Ui.Kind.LINE) { fishVoiceDialog { draw() } }, ui.block(8))
+            buttons.addView(ui.button(getString(R.string.fish_forget), Ui.Kind.LINE) { FishVoice.forget(this@MainActivity); draw() }, ui.block(8))
+        }
+        draw()
+    }
+
+    private fun fishKeyDialog(done: () -> Unit) {
+        val box = ui.col().apply { setPadding(ui.dpi(20), ui.dpi(8), ui.dpi(20), 0) }
+        val key = ui.field(getString(R.string.fish_key_hint), secret = true)
+        box.addView(key, ui.block(4))
+        android.app.AlertDialog.Builder(this).setTitle(R.string.fish_key).setView(box)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                Toast.makeText(this, R.string.account_working, Toast.LENGTH_SHORT).show()
+                val typed = key.text.toString()
+                Threads.make {
+                    val why = FishVoice.setKey(this, typed)
+                    runOnUiThread {
+                        if (isFinishing) return@runOnUiThread
+                        Toast.makeText(this, when (why) {
+                            null -> getString(R.string.fish_key_ok)
+                            "badkey" -> getString(R.string.fish_key_bad)
+                            "credit" -> getString(R.string.fish_key_credit)
+                            else -> getString(R.string.fish_key_err, why)
+                        }, Toast.LENGTH_LONG).show()
+                        done()
+                    }
+                }.start()
+            }
+            .setNegativeButton(android.R.string.cancel, null).show()
+    }
+
+    private fun fishVoiceDialog(done: () -> Unit) {
+        val box = ui.col().apply { setPadding(ui.dpi(20), ui.dpi(8), ui.dpi(20), 0) }
+        box.addView(ui.text(getString(R.string.fish_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        val id = ui.field(getString(R.string.fish_voice_hint)).apply { setText(FishVoice.customVoice(this@MainActivity)) }
+        box.addView(id, ui.block(8))
+        android.app.AlertDialog.Builder(this).setTitle(R.string.fish_voice).setView(box)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                // (a link to the voice works too: its id is the last part)
+                val v = id.text.toString().trim().substringAfterLast('/').substringBefore('?')
+                FishVoice.setCustomVoice(this, if (Regex("^[A-Za-z0-9_-]{6,64}$").matches(v)) v else "")
+                done()
+            }
+            .setNeutralButton(R.string.fish_voice_hers) { _, _ -> FishVoice.setCustomVoice(this, ""); done() }
+            .setNegativeButton(android.R.string.cancel, null).show()
     }
 
     // (1.12.0) the phone's voices for the app's language, to hear and pick (Ears.voice uses the one saved)

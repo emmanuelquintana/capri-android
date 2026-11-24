@@ -760,4 +760,27 @@
     <string name="voice_phone_sample">Привет, это я, Капри. Нравится, как я звучу?</string>
     <string name="voice_phone_saved">Готово: она будет говорить этим голосом.</string>
     <string name="voice_phone_none">На телефоне нет голосов для этого языка.</string>
+    <!-- 1.12.0: Fish Audio -->
+    <string name="fish_title">Её голос в облаке (Fish Audio)</string>
+    <string name="fish_how">С твоим ключом Fish Audio она говорит своим голосом в реальном времени в каждом ответе: звук начинается через полсекунды, пока её ИИ ещё пишет. Нужен интернет; без него или если на ключе закончились деньги, она говорит голосом телефона. Ключ хранится только на этом телефоне, в зашифрованном виде. Fish Audio берёт около 15 долларов за миллион букв (ответ стоит меньше цента).</string>
+    <string name="fish_state_none">Нет ключа: добавь свой.</string>
+    <string name="fish_state_off">Выключено: она говорит голосом телефона.</string>
+    <string name="fish_state_novoice">Её голос на Fish скоро появится. Пока можно вставить ID другого голоса Fish.</string>
+    <string name="fish_state_on">Включено: ответы звучат её облачным голосом.</string>
+    <string name="fish_custom_on">другим голосом</string>
+    <string name="fish_other_lang">на этом языке она говорит своим английским голосом</string>
+    <string name="fish_key">Добавить ключ</string>
+    <string name="fish_get_key">Получить ключ</string>
+    <string name="fish_test">Проверить</string>
+    <string name="fish_test_off">Сначала запусти её (Запустить Капри), чтобы услышать.</string>
+    <string name="fish_voice">Другой голос Fish</string>
+    <string name="fish_forget">Удалить ключ</string>
+    <string name="fish_key_hint">Твой API-ключ Fish Audio</string>
+    <string name="fish_key_ok">Готово: её облачный голос включён.</string>
+    <string name="fish_key_bad">Этот ключ не работает. Проверь, что скопировал его целиком.</string>
+    <string name="fish_key_credit">На аккаунте Fish Audio нет денег.</string>
+    <string name="fish_key_err">Не удалось проверить: %1$s</string>
+    <string name="fish_voice_how">Вставь ID или ссылку на голос с fish.audio. Пусто — её собственный голос.</string>
+    <string name="fish_voice_hint">ID или ссылка на голос</string>
+    <string name="fish_voice_hers">Её голос</string>
 </resources>

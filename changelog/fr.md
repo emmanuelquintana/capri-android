@@ -119,6 +119,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Elle ne reste plus muette :** si son moteur de voix se bloquait, elle se taisait à toutes les réponses suivantes ;
   maintenant elle répond avec la voix du téléphone en attendant. Et si son IA échoue en pleine réponse, elle ne reste
   plus sur « Elle parle · 90 % » pendant une minute.
+- **Sa voix dans le cloud (Fish Audio) :** dans Réglages de la voix, ajoute ta propre clé Fish Audio et elle parle avec
+  sa voix en temps réel à chaque réponse, dès une demi-seconde, pendant que son IA écrit encore. Ta clé reste sur ton
+  téléphone. Sans internet ou sans crédit, elle reprend toute seule sa voix du téléphone.
 
 ## 1.11.7
 

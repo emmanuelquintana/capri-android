@@ -114,6 +114,9 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Ela não fica mais muda:** se o motor de voz travava, ela ficava calada em todas as respostas seguintes; agora
   responde com a voz do celular enquanto isso. E se a IA falha no meio da resposta, não fica mais em «Falando · 90 %»
   por um minuto.
+- **A voz dela na nuvem (Fish Audio):** em Ajustes de voz, coloque sua própria chave da Fish Audio e ela fala com a voz
+  dela em tempo real em cada resposta, começando em meio segundo enquanto a IA ainda escreve. Sua chave fica no seu
+  celular. Sem internet ou sem saldo, ela volta sozinha para a voz do celular.
 
 ## 1.11.7
 

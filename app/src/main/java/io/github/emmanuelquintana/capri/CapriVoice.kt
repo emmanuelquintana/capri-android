@@ -87,14 +87,18 @@ object CapriVoice {
     fun answerEngine(context: Context, lang: String): String {
         val tag = voiceLang(lang)
         val neural = tag != null && CapriNeural.status(context, tag).let { it == "ready" || it == "loaded" }
-        return when (Store(context).configString("voiceMode") ?: "automatic") {
-            "custom" -> engine(context)
+        val mode = Store(context).configString("voiceMode") ?: "automatic"
+        // (1.12.0) her voice in the cloud (Fish Audio, your key): first whenever it's set up and online, except in
+        // "light" (the phone's) or a custom pick of another engine
+        if (mode != "light" && (mode != "custom" || engine(context) == FishVoice.ID) && FishVoice.usable(context, lang)) return FishVoice.ID
+        return when (mode) {
+            "custom" -> engine(context).let { if (it == FishVoice.ID) (if (neural) CapriNeural.ID else "system") else it }
             "light" -> "system"
             "fidelity" -> if (neural) CapriNeural.ID else "text"
             else -> if (neural) CapriNeural.ID else "system"
         }
     }
-    val ENGINES = setOf("system", "text", CapriNeural.ID)
+    val ENGINES = setOf("system", "text", CapriNeural.ID, FishVoice.ID)
 
     fun installed(lang: String): VoiceClipLibrary? = libs[lang]
 
