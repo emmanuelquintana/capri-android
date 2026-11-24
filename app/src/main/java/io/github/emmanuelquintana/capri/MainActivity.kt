@@ -126,11 +126,25 @@ class MainActivity : Activity() {
     private lateinit var shell: FrameLayout
     private lateinit var pill: View
 
+    // (1.12.0) a screen inside a screen of Ajustes (Ajustes de voz › Voz en la nube…): its way back is to that screen
+    private val parentOf = HashMap<View, View>()
+    private val spotPage = HashMap<String, View>() // (the voice tutorial: which screen holds each spot)
+    private fun child(page: View, parent: View) {
+        parentOf[page] = parent
+        content.addView(page.apply { visibility = View.GONE }, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
+    }
+
     private fun openSub(page: View, animate: Boolean = true) {
-        if (current != TAB_SETTINGS || sub != null) show(TAB_SETTINGS, animate = false)
+        val parent = parentOf[page]
+        if (parent != null) {
+            if (sub !== parent) openSub(parent, animate = false)
+            sub?.visibility = View.GONE
+        } else {
+            if (current != TAB_SETTINGS || sub != null) show(TAB_SETTINGS, animate = false)
+            tabs[current].page.visibility = View.GONE
+        }
         hideKeyboard()
         sub = page
-        tabs[current].page.visibility = View.GONE
         (page as? ScrollView)?.scrollTo(0, 0)
         page.visibility = View.VISIBLE
         if (animate) ui.slideIn(page)
@@ -141,6 +155,13 @@ class MainActivity : Activity() {
         val open = sub ?: return false
         hideKeyboard()
         open.visibility = View.GONE
+        parentOf[open]?.let { up ->
+            sub = up
+            up.visibility = View.VISIBLE
+            if (animate) ui.slideIn(up)
+            refresh()
+            return true
+        }
         sub = null
         tabs.getOrNull(current)?.page?.let { it.visibility = View.VISIBLE; if (animate) ui.slideIn(it) }
         return true
@@ -205,6 +226,7 @@ class MainActivity : Activity() {
         chat = ChatTab(this, ui) { showCmds() }
         personal = youPage()
         voice = voicePage()
+        for (k in voiceKids) child(k, voice)
         groups += Group("personal", "person", Hud.YELLOW, R.string.settings_personal, R.string.settings_personal_how, personal)
         groups += Group("voice", "mic", Hud.MANE, R.string.settings_voice_screen, R.string.settings_voice_screen_how, voice)
         groups += Group("perms", "shield", Hud.GREEN, R.string.g_perms, R.string.g_perms_how, permsPage())
@@ -296,7 +318,7 @@ class MainActivity : Activity() {
 
     /** One tab on: its icon and label in ink on a yellow capsule, the others quiet. */
     private fun show(i: Int, animate: Boolean = true) {
-        closeSub(animate = false)
+        while (closeSub(animate = false)) Unit
         current = i
         hideKeyboard()
         for ((j, t) in tabs.withIndex()) {
@@ -1117,26 +1139,36 @@ class MainActivity : Activity() {
 
     // ---------- Ajustes de voz (1.11.0, Emma: "otra pantalla ajustes de voz"): everything about her voice ----------
 
-    private fun voicePage() = page {
-        addView(backRow())
-        addView(ui.label(getString(R.string.settings_voice_screen)))
-        addView(ui.text(getString(R.string.settings_voice_screen_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-        addView(ui.button(getString(R.string.vt_open), Ui.Kind.LINE) { voiceTutorial() }, ui.block(12))
-        addView(voiceGetCard().also { voiceSpots["get"] = it }, ui.block(16))
-        // how she sounds: her voice's pitch and speed, her accent (Ears.kt reads these each time)
-        addView(ui.card(Hud.MANE).apply {
-            addView(ui.label(getString(R.string.settings_her_voice)))
+    // (1.12.0, Emma: "ajustemos en pantallas los ajustes… ajustes de audio, y bajar la voz como botón, luego botones
+    // para clave api y dentro pones lo de clave api, luego abajo ajustes avanzados… también un switch antes de esa
+    // pantalla que diga VOZ LOCAL O EN LA NUBE") Ajustes de voz is a short menu now: her voice on or off, then a
+    // screen for each thing (get her voice, your key, how she sounds, her ears), the cloud-or-local switch and,
+    // last, the advanced screen of her local voice.
+    private val voiceKids = ArrayList<View>()
+    private fun voicePage(): View {
+        val back = { ui.text("‹ " + getString(R.string.settings_voice_screen).uppercase(), 13f, Hud.YELLOW, ui.mono).apply {
+            letterSpacing = 0.1f
+            isClickable = true
+            setPadding(0, ui.dpi(4), ui.dpi(16), ui.dpi(14))
+            setOnClickListener { closeSub() }
+        } }
+        fun kid(title: Int, how: Int, build: LinearLayout.() -> Unit) = page {
+            addView(back())
+            addView(ui.label(getString(title)))
+            addView(ui.text(getString(how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            build()
+        }.also { voiceKids += it }
+        val getPage = kid(R.string.vs_get, R.string.vs_get_how) {
+            addView(voiceGetCard().also { voiceSpots["get"] = it }, ui.block(14))
+        }
+        val cloudPage = kid(R.string.vs_cloud, R.string.vs_cloud_how) {
+            addView(fishCard(), ui.block(14))
+        }
+        val soundPage = kid(R.string.vs_sound, R.string.vs_sound_how) {
+            val inner = this
+        inner.addView(ui.card(Hud.MANE).apply {
+            addView(ui.label(getString(R.string.vs_sound)))
             val store = Store(this@MainActivity)
-            // (1.10.0) her voice on or off: off, she answers in writing only
-            addView(ui.text(getString(R.string.voice_speak), 14f, Hud.PAPER, ui.head), ui.block(10))
-            addView(ui.text(getString(R.string.voice_speak_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(choice(listOf(R.string.off to false, R.string.on to true),
-                { store.configFlag("speak", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "speak", it) }, ui.block(6))
-            // (1.11.7) her chat answers out loud too (chatvoice.js), not only when you talk to her
-            addView(ui.text(getString(R.string.voice_speak_chat), 14f, Hud.PAPER, ui.head), ui.block(10))
-            addView(ui.text(getString(R.string.voice_speak_chat_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(choice(listOf(R.string.off to false, R.string.on to true),
-                { store.configFlag("speakChat", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "speakChat", it) }, ui.block(6))
             addView(ui.text(getString(R.string.voice_pitch), 14f, Hud.PAPER, ui.head), ui.block(10))
             addView(choice(listOf(R.string.voice_low to 0.8, R.string.voice_pace_normal to 1.0, R.string.voice_high to 1.3),
                 { store.configNumber("voicePitch", 1.0) }, { a, b -> Math.abs(a - b) < 0.05 }) { CapriSettings.set(this@MainActivity, "voicePitch", it) }, ui.block(6))
@@ -1158,11 +1190,61 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.voice_phone), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(ui.text(getString(R.string.voice_phone_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(ui.button(getString(R.string.voice_phone_pick) + " ›", Ui.Kind.LINE) { pickPhoneVoice() }, ui.block(8))
+        }, ui.block(14))
+
+        }
+        val earsPage = kid(R.string.vs_ears, R.string.vs_ears_how) {
+        addView(ui.card(Hud.MANE).apply {
+            addView(ui.label(getString(R.string.settings_voice)))
+            voiceText = ui.text("", 17f, Hud.PAPER, ui.head)
+            addView(voiceText, ui.block(6))
+            // what her ears are doing right now (listening, what they heard, why not)
+            voiceState = ui.text("", 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.15f) }
+            addView(voiceState, ui.block(6))
+            addView(ui.text(getString(R.string.settings_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            voiceBtn = ui.button("", Ui.Kind.GREEN) { toggleVoice() }
+            addView(voiceBtn, ui.block(12))
+            // (1.12.0) her passive ears ("Oye Capri"): their small model, downloaded once per language
+            addView(ui.text(getString(R.string.ears_passive), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.ears_passive_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            passiveState = ui.text("", 12f, Hud.YELLOW, ui.mono)
+            addView(passiveState, ui.block(6))
+            passiveBtn = ui.button(getString(R.string.ears_passive_get), Ui.Kind.GREEN) {
+                WakeWord.Models.fetch(this@MainActivity, Lang.current(this@MainActivity), anyNetwork = true) { CapriService.current?.ears?.update(); showVoice() }
+                showVoice()
+            }
+            addView(passiveBtn, ui.block(8))
+            // (1.12.0) only your voice: her name in someone else's voice is ignored (VoiceId.kt, with her passive ears)
+            addView(ui.text(getString(R.string.ears_onlyme), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.ears_onlyme_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            val onlyState = ui.text("", 12f, Hud.YELLOW, ui.mono)
+            val showOnly = {
+                val n = VoiceId.learned(this@MainActivity)
+                onlyState.text = if (!VoiceId.enabled(this@MainActivity)) "" else if (n >= 3) getString(R.string.ears_onlyme_ready) else getString(R.string.ears_onlyme_learning, n, 3)
+                onlyState.visibility = if (onlyState.text.isEmpty()) View.GONE else View.VISIBLE
+            }
+            addView(choiceText(listOf(getString(R.string.on) to true, getString(R.string.off) to false),
+                { VoiceId.enabled(this@MainActivity) }, { a, b -> a == b }) { VoiceId.setEnabled(this@MainActivity, it); showOnly() }, ui.block(6))
+            addView(onlyState, ui.block(6))
+            addView(ui.button(getString(R.string.ears_onlyme_forget), Ui.Kind.LINE) {
+                VoiceId.forget(this@MainActivity); showOnly()
+                Toast.makeText(this@MainActivity, R.string.ears_onlyme_forgot, Toast.LENGTH_LONG).show()
+            }, ui.block(8))
+            showOnly()
+            choices.add(showOnly)
+            // the noise around you, how you talk, how she sounds (Ears.kt reads these each time)
+            val store = Store(this@MainActivity)
+            addView(ui.text(getString(R.string.voice_filter), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.voice_filter_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.voice_filter_normal to "normal", R.string.voice_filter_strict to "strict", R.string.voice_filter_strictest to "strictest"),
+                { store.configString("voiceFilter") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceFilter", it) }, ui.block(6))
+            addView(ui.text(getString(R.string.voice_pace), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(choice(listOf(R.string.voice_pace_fast to "fast", R.string.voice_pace_normal to "normal", R.string.voice_pace_slow to "slow"),
+                { store.configString("voicePace") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voicePace", it) }, ui.block(6))
         }, ui.block(16))
 
-        // (1.12.0, Emma) her voice in the cloud, Fish Audio, with your own key: in real time on each of her answers
-        addView(fishCard(), ui.block(16))
-
+        }
+        val advPage = kid(R.string.vs_adv, R.string.vs_adv_how) {
         // (1.11.0) Capri Voice V8 (CapriVoice.kt): her recorded voice, phrase by phrase, offline; optional
         // packs per language. Here with the rest of her voice, not on a screen of its own.
         addView(ui.card(Hud.MANE).apply {
@@ -1360,56 +1442,57 @@ class MainActivity : Activity() {
             showStorage()
             choices.add(showStorage)
         }, ui.block(16))
-        // her ears: "Capri, …"
+        }
+        for (k in listOf("answers", "test", "engines")) spotPage[k] = advPage
+        spotPage["get"] = getPage
+        return page {
+            addView(backRow())
+            addView(ui.label(getString(R.string.settings_voice_screen)))
+            addView(ui.text(getString(R.string.settings_voice_screen_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(ui.button(getString(R.string.vt_open), Ui.Kind.LINE) { voiceTutorial() }, ui.block(12))
+        // how she sounds: her voice's pitch and speed, her accent (Ears.kt reads these each time)
         addView(ui.card(Hud.MANE).apply {
-            addView(ui.label(getString(R.string.settings_voice)))
-            voiceText = ui.text("", 17f, Hud.PAPER, ui.head)
-            addView(voiceText, ui.block(6))
-            // what her ears are doing right now (listening, what they heard, why not)
-            voiceState = ui.text("", 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.15f) }
-            addView(voiceState, ui.block(6))
-            addView(ui.text(getString(R.string.settings_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            voiceBtn = ui.button("", Ui.Kind.GREEN) { toggleVoice() }
-            addView(voiceBtn, ui.block(12))
-            // (1.12.0) her passive ears ("Oye Capri"): their small model, downloaded once per language
-            addView(ui.text(getString(R.string.ears_passive), 14f, Hud.PAPER, ui.head), ui.block(16))
-            addView(ui.text(getString(R.string.ears_passive_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            passiveState = ui.text("", 12f, Hud.YELLOW, ui.mono)
-            addView(passiveState, ui.block(6))
-            passiveBtn = ui.button(getString(R.string.ears_passive_get), Ui.Kind.GREEN) {
-                WakeWord.Models.fetch(this@MainActivity, Lang.current(this@MainActivity), anyNetwork = true) { CapriService.current?.ears?.update(); showVoice() }
-                showVoice()
-            }
-            addView(passiveBtn, ui.block(8))
-            // (1.12.0) only your voice: her name in someone else's voice is ignored (VoiceId.kt, with her passive ears)
-            addView(ui.text(getString(R.string.ears_onlyme), 14f, Hud.PAPER, ui.head), ui.block(16))
-            addView(ui.text(getString(R.string.ears_onlyme_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            val onlyState = ui.text("", 12f, Hud.YELLOW, ui.mono)
-            val showOnly = {
-                val n = VoiceId.learned(this@MainActivity)
-                onlyState.text = if (!VoiceId.enabled(this@MainActivity)) "" else if (n >= 3) getString(R.string.ears_onlyme_ready) else getString(R.string.ears_onlyme_learning, n, 3)
-                onlyState.visibility = if (onlyState.text.isEmpty()) View.GONE else View.VISIBLE
-            }
-            addView(choiceText(listOf(getString(R.string.on) to true, getString(R.string.off) to false),
-                { VoiceId.enabled(this@MainActivity) }, { a, b -> a == b }) { VoiceId.setEnabled(this@MainActivity, it); showOnly() }, ui.block(6))
-            addView(onlyState, ui.block(6))
-            addView(ui.button(getString(R.string.ears_onlyme_forget), Ui.Kind.LINE) {
-                VoiceId.forget(this@MainActivity); showOnly()
-                Toast.makeText(this@MainActivity, R.string.ears_onlyme_forgot, Toast.LENGTH_LONG).show()
-            }, ui.block(8))
-            showOnly()
-            choices.add(showOnly)
-            // the noise around you, how you talk, how she sounds (Ears.kt reads these each time)
+            addView(ui.label(getString(R.string.settings_her_voice)))
             val store = Store(this@MainActivity)
-            addView(ui.text(getString(R.string.voice_filter), 14f, Hud.PAPER, ui.head), ui.block(16))
-            addView(ui.text(getString(R.string.voice_filter_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(choice(listOf(R.string.voice_filter_normal to "normal", R.string.voice_filter_strict to "strict", R.string.voice_filter_strictest to "strictest"),
-                { store.configString("voiceFilter") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceFilter", it) }, ui.block(6))
-            addView(ui.text(getString(R.string.voice_pace), 14f, Hud.PAPER, ui.head), ui.block(14))
-            addView(choice(listOf(R.string.voice_pace_fast to "fast", R.string.voice_pace_normal to "normal", R.string.voice_pace_slow to "slow"),
-                { store.configString("voicePace") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voicePace", it) }, ui.block(6))
+            // (1.10.0) her voice on or off: off, she answers in writing only
+            addView(ui.text(getString(R.string.voice_speak), 14f, Hud.PAPER, ui.head), ui.block(10))
+            addView(ui.text(getString(R.string.voice_speak_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { store.configFlag("speak", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "speak", it) }, ui.block(6))
+            // (1.11.7) her chat answers out loud too (chatvoice.js), not only when you talk to her
+            addView(ui.text(getString(R.string.voice_speak_chat), 14f, Hud.PAPER, ui.head), ui.block(10))
+            addView(ui.text(getString(R.string.voice_speak_chat_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { store.configFlag("speakChat", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "speakChat", it) }, ui.block(6))
         }, ui.block(16))
-
+            addView(entry("spark", Hud.YELLOW, R.string.vs_get, R.string.vs_get_how) { openSub(getPage) }, ui.block(10))
+            addView(entry("globe", Hud.CYAN, R.string.vs_cloud, R.string.vs_cloud_how) { openSub(cloudPage) }, ui.block(10))
+            addView(entry("mic", Hud.MANE, R.string.vs_sound, R.string.vs_sound_how) { openSub(soundPage) }, ui.block(10))
+            addView(entry("person", Hud.GREEN, R.string.vs_ears, R.string.vs_ears_how) { openSub(earsPage) }, ui.block(10))
+            // the switch before the advanced screen: her answers in the cloud (Fish, your key) or here on the phone
+            addView(ui.card(Hud.YELLOW).apply {
+                addView(ui.label(getString(R.string.vs_where)))
+                addView(ui.text(getString(R.string.vs_where_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+                val state = ui.text("", 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.15f) }
+                val draw = {
+                    val cloud = Store(this@MainActivity).configFlag("voiceCloud", true)
+                    state.text = getString(when {
+                        cloud && !FishVoice.hasKey(this@MainActivity) -> R.string.vs_where_nokey
+                        cloud -> R.string.vs_where_cloud_on
+                        else -> R.string.vs_where_local_on
+                    })
+                }
+                addView(choice(listOf(R.string.vs_local to false, R.string.vs_cloud_short to true),
+                    { Store(this@MainActivity).configFlag("voiceCloud", true) }, { a, b -> a == b }) {
+                    CapriSettings.set(this@MainActivity, "voiceCloud", it); draw()
+                    if (it && !FishVoice.hasKey(this@MainActivity)) openSub(cloudPage)
+                }, ui.block(8))
+                addView(state, ui.block(6))
+                draw()
+                choices.add(draw)
+            }, ui.block(14))
+            addView(entry("eye", Hud.MANE, R.string.vs_adv, R.string.vs_adv_how) { openSub(advPage) }, ui.block(10))
+        }
     }
 
     // (1.12.0) Fish Audio: her voice in the cloud (FishVoice.kt). Your key stays on this phone, sealed.
@@ -1743,7 +1826,7 @@ class MainActivity : Activity() {
             "bar" -> pill
             "tab" -> tab.indexOf(if (name == "cmds") "community" else name).takeIf { it >= 0 }?.let { show(it, animate = false); tabs[it].button }
             "settings" -> { show(TAB_SETTINGS, animate = false); entries[name] }
-            "voice" -> { if (sub !== voice) openSub(voice, animate = false); voiceSpots[name] }
+            "voice" -> { val pg = spotPage[name] ?: voice; if (sub !== pg) openSub(pg, animate = false); voiceSpots[name] }
             else -> null
         }
     }

@@ -776,4 +776,22 @@
     <string name="fish_voice_how">Pega el ID o el enlace de una voz de fish.audio. Vacío: su propia voz.</string>
     <string name="fish_voice_hint">ID o enlace de la voz</string>
     <string name="fish_voice_hers">Su voz</string>
+    <!-- (1.12.0) Ajustes de voz in screens -->
+    <string name="vs_get">Bajar su voz</string>
+    <string name="vs_get_how">Sus frases grabadas y su voz en el teléfono, se bajan una vez.</string>
+    <string name="vs_cloud">Voz en la nube (clave API)</string>
+    <string name="vs_cloud_how">Tu clave de Fish Audio: su voz en tiempo real en cada respuesta.</string>
+    <string name="vs_sound">Cómo suena</string>
+    <string name="vs_sound_how">Tono, velocidad, acento y la voz del teléfono.</string>
+    <string name="vs_ears">Sus oídos</string>
+    <string name="vs_ears_how">«Capri, …», solo tu voz y el ruido de tu alrededor.</string>
+    <string name="vs_adv">Ajustes avanzados</string>
+    <string name="vs_adv_how">Su voz local: frases, modos, motores y paquetes.</string>
+    <string name="vs_where">Voz: en la nube o local</string>
+    <string name="vs_where_how">En la nube responde con Fish Audio (tu clave, necesita internet). Local usa su voz en este teléfono. Sin internet siempre usa la local.</string>
+    <string name="vs_where_nokey">Elegiste la nube, pero falta tu clave: ponla en «Voz en la nube».</string>
+    <string name="vs_where_cloud_on">Sus respuestas: en la nube (Fish Audio).</string>
+    <string name="vs_where_local_on">Sus respuestas: local, en este teléfono.</string>
+    <string name="vs_local">Local</string>
+    <string name="vs_cloud_short">En la nube</string>
 </resources>

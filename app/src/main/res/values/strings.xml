@@ -777,4 +777,22 @@
     <string name="fish_voice_how">Paste the ID or link of a voice from fish.audio. Empty: her own voice.</string>
     <string name="fish_voice_hint">Voice ID or link</string>
     <string name="fish_voice_hers">Her voice</string>
+    <!-- (1.12.0) Ajustes de voz in screens -->
+    <string name="vs_get">Get her voice</string>
+    <string name="vs_get_how">Her recorded phrases and her voice on the phone, downloaded once.</string>
+    <string name="vs_cloud">Voice in the cloud (API key)</string>
+    <string name="vs_cloud_how">Your Fish Audio key: her voice in real time on each answer.</string>
+    <string name="vs_sound">How she sounds</string>
+    <string name="vs_sound_how">Pitch, speed, accent and the phone\'s voice.</string>
+    <string name="vs_ears">Her ears</string>
+    <string name="vs_ears_how">«Capri, …», only your voice, the noise around you.</string>
+    <string name="vs_adv">Advanced settings</string>
+    <string name="vs_adv_how">Her local voice: phrases, modes, engines and packs.</string>
+    <string name="vs_where">Voice: cloud or local</string>
+    <string name="vs_where_how">In the cloud she answers with Fish Audio (your key, needs internet). Local uses her voice on this phone. Without internet she always goes local.</string>
+    <string name="vs_where_nokey">Cloud chosen, but your key is missing: add it in «Voice in the cloud».</string>
+    <string name="vs_where_cloud_on">Her answers: in the cloud (Fish Audio).</string>
+    <string name="vs_where_local_on">Her answers: local, on this phone.</string>
+    <string name="vs_local">Local</string>
+    <string name="vs_cloud_short">Cloud</string>
 </resources>

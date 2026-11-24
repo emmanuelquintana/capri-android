@@ -1847,6 +1847,7 @@ on('settings:apply', async (p = {}) => {
   if (['youtube', 'spotify'].includes(p.musicApp)) updateConfig({ musicApp: p.musicApp });
   if (typeof p.voiceNeuralModel === 'string' && /^[\w.-]{1,40}$/.test(p.voiceNeuralModel)) updateConfig({ voiceNeuralModel: p.voiceNeuralModel });
   if ('speak' in p) updateConfig({ speak: Boolean(p.speak) }); // (1.10.0) her voice on or off (Ears.kt reads it)
+  if ('voiceCloud' in p) updateConfig({ voiceCloud: Boolean(p.voiceCloud) }); // (1.12.0) her voice in the cloud (Fish) or local (CapriVoice.answerEngine)
   if ('speakChat' in p) updateConfig({ speakChat: Boolean(p.speakChat) }); // (1.11.7) her chat answers out loud (chatvoice.js)
   // (1.11.0) Capri Voice V8 (CapriVoice.kt, voicelines.js): her recorded phrases, what says her new answers,
   // and her phrases' volume and pace

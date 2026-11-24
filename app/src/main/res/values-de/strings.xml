@@ -765,4 +765,22 @@
     <string name="fish_voice_how">Füg die ID oder den Link einer Stimme von fish.audio ein. Leer: ihre eigene Stimme.</string>
     <string name="fish_voice_hint">ID oder Link der Stimme</string>
     <string name="fish_voice_hers">Ihre Stimme</string>
+    <!-- (1.12.0) Ajustes de voz in screens -->
+    <string name="vs_get">Ihre Stimme laden</string>
+    <string name="vs_get_how">Ihre aufgenommenen Sätze und ihre Stimme auf dem Handy, einmal geladen.</string>
+    <string name="vs_cloud">Stimme in der Cloud (API-Schlüssel)</string>
+    <string name="vs_cloud_how">Dein Fish-Audio-Schlüssel: ihre Stimme in Echtzeit bei jeder Antwort.</string>
+    <string name="vs_sound">Wie sie klingt</string>
+    <string name="vs_sound_how">Tonhöhe, Tempo, Akzent und die Stimme des Handys.</string>
+    <string name="vs_ears">Ihre Ohren</string>
+    <string name="vs_ears_how">„Capri, …“, nur deine Stimme, die Geräusche um dich.</string>
+    <string name="vs_adv">Erweiterte Einstellungen</string>
+    <string name="vs_adv_how">Ihre lokale Stimme: Sätze, Modi, Engines und Pakete.</string>
+    <string name="vs_where">Stimme: Cloud oder lokal</string>
+    <string name="vs_where_how">In der Cloud antwortet sie mit Fish Audio (dein Schlüssel, braucht Internet). Lokal nutzt ihre Stimme auf diesem Handy. Ohne Internet immer lokal.</string>
+    <string name="vs_where_nokey">Cloud gewählt, aber dein Schlüssel fehlt: füge ihn unter „Stimme in der Cloud“ hinzu.</string>
+    <string name="vs_where_cloud_on">Ihre Antworten: in der Cloud (Fish Audio).</string>
+    <string name="vs_where_local_on">Ihre Antworten: lokal, auf diesem Handy.</string>
+    <string name="vs_local">Lokal</string>
+    <string name="vs_cloud_short">Cloud</string>
 </resources>

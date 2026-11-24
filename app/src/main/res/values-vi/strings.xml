@@ -761,4 +761,22 @@
     <string name="fish_voice_how">Dán ID hoặc liên kết của một giọng trên fish.audio. Để trống: giọng của cô ấy.</string>
     <string name="fish_voice_hint">ID hoặc liên kết giọng</string>
     <string name="fish_voice_hers">Giọng cô ấy</string>
+    <!-- (1.12.0) Ajustes de voz in screens -->
+    <string name="vs_get">Tải giọng cô ấy</string>
+    <string name="vs_get_how">Các câu đã ghi âm và giọng cô ấy trên điện thoại, tải một lần.</string>
+    <string name="vs_cloud">Giọng trên đám mây (khóa API)</string>
+    <string name="vs_cloud_how">Khóa Fish Audio của bạn: giọng cô ấy theo thời gian thực mỗi câu trả lời.</string>
+    <string name="vs_sound">Giọng cô ấy nghe thế nào</string>
+    <string name="vs_sound_how">Cao độ, tốc độ, giọng vùng và giọng của điện thoại.</string>
+    <string name="vs_ears">Đôi tai của cô ấy</string>
+    <string name="vs_ears_how">«Capri, …», chỉ giọng bạn, tiếng ồn xung quanh.</string>
+    <string name="vs_adv">Cài đặt nâng cao</string>
+    <string name="vs_adv_how">Giọng cục bộ của cô ấy: câu nói, chế độ, bộ máy và gói.</string>
+    <string name="vs_where">Giọng: đám mây hay cục bộ</string>
+    <string name="vs_where_how">Trên đám mây cô ấy trả lời bằng Fish Audio (khóa của bạn, cần internet). Cục bộ dùng giọng cô ấy trên điện thoại này. Không có internet thì luôn cục bộ.</string>
+    <string name="vs_where_nokey">Đã chọn đám mây nhưng thiếu khóa: thêm vào «Giọng trên đám mây».</string>
+    <string name="vs_where_cloud_on">Câu trả lời: trên đám mây (Fish Audio).</string>
+    <string name="vs_where_local_on">Câu trả lời: cục bộ, trên điện thoại này.</string>
+    <string name="vs_local">Cục bộ</string>
+    <string name="vs_cloud_short">Đám mây</string>
 </resources>

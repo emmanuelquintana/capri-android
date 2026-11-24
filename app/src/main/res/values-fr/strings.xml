@@ -776,4 +776,22 @@
     <string name="fish_voice_how">Colle l\'ID ou le lien d\'une voix de fish.audio. Vide : sa propre voix.</string>
     <string name="fish_voice_hint">ID ou lien de la voix</string>
     <string name="fish_voice_hers">Sa voix</string>
+    <!-- (1.12.0) Ajustes de voz in screens -->
+    <string name="vs_get">Télécharger sa voix</string>
+    <string name="vs_get_how">Ses phrases enregistrées et sa voix sur le téléphone, téléchargées une fois.</string>
+    <string name="vs_cloud">Voix dans le cloud (clé API)</string>
+    <string name="vs_cloud_how">Ta clé Fish Audio : sa voix en temps réel à chaque réponse.</string>
+    <string name="vs_sound">Comment elle sonne</string>
+    <string name="vs_sound_how">Hauteur, vitesse, accent et la voix du téléphone.</string>
+    <string name="vs_ears">Ses oreilles</string>
+    <string name="vs_ears_how">« Capri, … », seulement ta voix, le bruit autour de toi.</string>
+    <string name="vs_adv">Réglages avancés</string>
+    <string name="vs_adv_how">Sa voix locale : phrases, modes, moteurs et paquets.</string>
+    <string name="vs_where">Voix : cloud ou locale</string>
+    <string name="vs_where_how">Dans le cloud elle répond avec Fish Audio (ta clé, internet requis). Locale utilise sa voix sur ce téléphone. Sans internet, toujours locale.</string>
+    <string name="vs_where_nokey">Cloud choisi, mais ta clé manque : ajoute-la dans « Voix dans le cloud ».</string>
+    <string name="vs_where_cloud_on">Ses réponses : dans le cloud (Fish Audio).</string>
+    <string name="vs_where_local_on">Ses réponses : locales, sur ce téléphone.</string>
+    <string name="vs_local">Locale</string>
+    <string name="vs_cloud_short">Cloud</string>
 </resources>

@@ -130,6 +130,12 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   Without internet or credit, she goes back to her phone voice on her own.
 - **Her phrases in her new voice:** her 202 recorded phrases (Spanish and English) now sound in her Fish Audio voice.
   They still play instantly and offline. If you already had her voice, the new ones download on their own.
+- **Tidier voice settings:** now a short menu. At the top you turn her voice on or off, and each thing has its own
+  screen: Get her voice, Voice in the cloud (your key), How she sounds and Her ears. Before Advanced settings there's a
+  new switch, **Voice: cloud or local**, to choose which voice answers you.
+- **Her chat answers sooner:** when her AI is swamped, the one that did answer goes first for a few minutes instead of
+  waiting on every busy model on each message.
+- **Her recorded phrases in the chat too:** while she thinks of your answer, now and then she says one of her phrases.
 
 ## 1.11.7
 

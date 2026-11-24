@@ -99,3 +99,8 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
   của bạn. Không có mạng hoặc hết tiền, cô ấy tự quay về giọng điện thoại.
 - **Câu nói của cô ấy bằng giọng mới:** 202 câu đã ghi âm (tiếng Tây Ban Nha và tiếng Anh) giờ dùng giọng Fish Audio
   của cô ấy. Vẫn phát ngay và không cần mạng. Nếu bạn đã có giọng cô ấy, bản mới sẽ tự tải về.
+- **Cài đặt giọng gọn hơn:** giờ là một menu ngắn. Ở trên bạn bật hoặc tắt giọng cô ấy, mỗi thứ có màn hình riêng:
+  Tải giọng cô ấy, Giọng trên đám mây (khóa của bạn), Giọng cô ấy nghe thế nào và Đôi tai của cô ấy. Trước Cài đặt nâng
+  cao có công tắc mới **Giọng: đám mây hay cục bộ**.
+- **Chat trả lời nhanh hơn:** khi AI của cô ấy quá tải, AI đã trả lời được dùng trước trong vài phút.
+- **Câu đã ghi âm cũng có trong chat:** trong lúc nghĩ câu trả lời, thỉnh thoảng cô ấy nói một câu của mình.

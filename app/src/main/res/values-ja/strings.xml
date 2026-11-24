@@ -761,4 +761,22 @@
     <string name="fish_voice_how">fish.audioの声のIDかリンクを貼って。空なら彼女自身の声。</string>
     <string name="fish_voice_hint">声のIDまたはリンク</string>
     <string name="fish_voice_hers">彼女の声</string>
+    <!-- (1.12.0) Ajustes de voz in screens -->
+    <string name="vs_get">声をダウンロード</string>
+    <string name="vs_get_how">録音フレーズと端末上の声。一度だけダウンロード。</string>
+    <string name="vs_cloud">クラウドの声（APIキー）</string>
+    <string name="vs_cloud_how">あなたのFish Audioキー：返事ごとにリアルタイムで話す声。</string>
+    <string name="vs_sound">声の感じ</string>
+    <string name="vs_sound_how">高さ、速さ、なまり、端末の声。</string>
+    <string name="vs_ears">彼女の耳</string>
+    <string name="vs_ears_how">「カプリ、…」、あなたの声だけ、周りの雑音。</string>
+    <string name="vs_adv">詳細設定</string>
+    <string name="vs_adv_how">ローカルの声：フレーズ、モード、エンジン、パック。</string>
+    <string name="vs_where">声：クラウドかローカル</string>
+    <string name="vs_where_how">クラウドではFish Audioで返事（あなたのキー、ネットが必要）。ローカルはこの端末の声。ネットがない時はいつもローカル。</string>
+    <string name="vs_where_nokey">クラウドを選びましたがキーがありません：「クラウドの声」で追加してね。</string>
+    <string name="vs_where_cloud_on">返事：クラウド（Fish Audio）。</string>
+    <string name="vs_where_local_on">返事：ローカル（この端末）。</string>
+    <string name="vs_local">ローカル</string>
+    <string name="vs_cloud_short">クラウド</string>
 </resources>

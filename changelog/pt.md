@@ -119,6 +119,11 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   celular. Sem internet ou sem saldo, ela volta sozinha para a voz do celular.
 - **As frases dela com a voz nova:** as 202 frases gravadas (espanhol e inglês) agora soam com a voz dela da Fish
   Audio. Continuam tocando na hora e sem internet. Se você já tinha a voz dela, as novas baixam sozinhas.
+- **Ajustes de voz mais organizados:** agora é um menu curto. No topo você liga ou desliga a voz dela, e cada coisa
+  tem sua tela: Baixar a voz dela, Voz na nuvem (sua chave), Como ela soa e Os ouvidos dela. Antes de Ajustes avançados
+  há um novo botão, **Voz: na nuvem ou local**, para escolher qual voz te responde.
+- **O chat dela responde antes:** quando a IA dela está saturada, a que respondeu vai primeiro por alguns minutos.
+- **As frases gravadas também no chat:** enquanto pensa na resposta, de vez em quando ela diz uma das frases dela.
 
 ## 1.11.7
 

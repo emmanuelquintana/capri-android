@@ -783,4 +783,22 @@
     <string name="fish_voice_how">Вставь ID или ссылку на голос с fish.audio. Пусто — её собственный голос.</string>
     <string name="fish_voice_hint">ID или ссылка на голос</string>
     <string name="fish_voice_hers">Её голос</string>
+    <!-- (1.12.0) Ajustes de voz in screens -->
+    <string name="vs_get">Скачать её голос</string>
+    <string name="vs_get_how">Её записанные фразы и голос на телефоне, скачиваются один раз.</string>
+    <string name="vs_cloud">Голос в облаке (ключ API)</string>
+    <string name="vs_cloud_how">Твой ключ Fish Audio: её голос в реальном времени в каждом ответе.</string>
+    <string name="vs_sound">Как она звучит</string>
+    <string name="vs_sound_how">Тон, скорость, акцент и голос телефона.</string>
+    <string name="vs_ears">Её уши</string>
+    <string name="vs_ears_how">«Капри, …», только твой голос, шум вокруг.</string>
+    <string name="vs_adv">Расширенные настройки</string>
+    <string name="vs_adv_how">Её локальный голос: фразы, режимы, движки и пакеты.</string>
+    <string name="vs_where">Голос: облако или локально</string>
+    <string name="vs_where_how">В облаке она отвечает через Fish Audio (твой ключ, нужен интернет). Локально — её голос на этом телефоне. Без интернета всегда локально.</string>
+    <string name="vs_where_nokey">Выбрано облако, но нет ключа: добавь его в «Голос в облаке».</string>
+    <string name="vs_where_cloud_on">Её ответы: в облаке (Fish Audio).</string>
+    <string name="vs_where_local_on">Её ответы: локально, на этом телефоне.</string>
+    <string name="vs_local">Локально</string>
+    <string name="vs_cloud_short">Облако</string>
 </resources>

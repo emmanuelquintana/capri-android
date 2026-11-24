@@ -111,3 +111,8 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
   Dein Schlüssel bleibt auf deinem Handy. Ohne Internet oder Guthaben nimmt sie von selbst wieder die Stimme des Handys.
 - **Ihre Sätze mit ihrer neuen Stimme:** ihre 202 aufgenommenen Sätze (Spanisch und Englisch) klingen jetzt mit ihrer
   Fish-Audio-Stimme. Sie spielen weiter sofort und ohne Internet. Hattest du ihre Stimme schon, laden die neuen von selbst.
+- **Aufgeräumte Stimmeinstellungen:** jetzt ein kurzes Menü. Oben schaltest du ihre Stimme ein oder aus, und alles hat
+  einen eigenen Bildschirm: Ihre Stimme laden, Stimme in der Cloud (dein Schlüssel), Wie sie klingt und Ihre Ohren. Vor
+  den erweiterten Einstellungen gibt es den neuen Schalter **Stimme: Cloud oder lokal**.
+- **Ihr Chat antwortet schneller:** ist ihre KI überlastet, kommt die, die geantwortet hat, ein paar Minuten zuerst dran.
+- **Ihre aufgenommenen Sätze auch im Chat:** während sie nachdenkt, sagt sie ab und zu einen ihrer Sätze.

@@ -96,7 +96,9 @@ object CapriVoice {
         // picked is still her voice: the cloud one comes first there too; only the phone's voice or writing, picked
         // on purpose, keep it out
         val picked = engine(context)
-        val fishOk = mode != "light" && !(mode == "custom" && (picked == "system" || picked == "text"))
+        // (Emma: "un switch … VOZ LOCAL O EN LA NUBE") local: never the cloud one, whatever the rest says
+        val cloud = Store(context).configFlag("voiceCloud", true)
+        val fishOk = cloud && mode != "light" && !(mode == "custom" && (picked == "system" || picked == "text"))
         if (fishOk && FishVoice.usable(context, lang)) return FishVoice.ID.also { said(it, "") }
         val eng = when (mode) {
             "custom" -> picked.let { if (it == FishVoice.ID) (if (neural) CapriNeural.ID else "system") else it }
@@ -104,7 +106,7 @@ object CapriVoice {
             "fidelity" -> if (neural) CapriNeural.ID else "text"
             else -> if (neural) CapriNeural.ID else "system"
         }
-        said(eng, if (!FishVoice.hasKey(context)) "" else if (!fishOk) "mode $mode/$picked" else FishVoice.whyNot(context, lang))
+        said(eng, if (!FishVoice.hasKey(context)) "" else if (!cloud) "local chosen" else if (!fishOk) "mode $mode/$picked" else FishVoice.whyNot(context, lang))
         return eng
     }
 
