@@ -7,6 +7,7 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **🛠️ Behobene Fehler**
 - **Sprache:** Wenn du deine KI verbindest oder die Kopie aus deinem Konto zurückholst, wechseln App und Capri nicht mehr von selbst die Sprache.
 - **Deine Einstellungen:** Eine Kopie vom PC oder einem anderen Handy ändert hier nicht mehr Größe, Stimme oder Modi, und was du speicherst, während sie startet, geht nicht mehr verloren.
+- **DeX-Modus:** Auf dem Monitor werden Capri, ihre Karten und ihr Chat jetzt in normaler Größe angezeigt (vorher riesig).
 
 ## 1.12.1
 

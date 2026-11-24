@@ -62,9 +62,13 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     private val pads = TouchPads()
     private var paused = false
 
+    /** (1.12.2, Emma: "en modo DeX está enorme") her page's scale: smaller on a DeX monitor, 1 everywhere else. */
+    private var zoom = 1.0
+
     fun show() {
         if (webView != null) return
         closed = false
+        zoom = if (dex(context)) DEX_ZOOM else 1.0
         val web = WebView(context)
         webView = web
         web.setBackgroundColor(Color.TRANSPARENT)
@@ -89,6 +93,8 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
             setSupportZoom(false)
             builtInZoomControls = false
             textZoom = 100 // her type stays her size, whatever the phone's font scale
+            // (1.12.2) on DeX her page's viewport is scaled down (serve()): only honored with this on
+            if (zoom != 1.0) useWideViewPort = true
         }
         web.addJavascriptInterface(bridge, "CapriNative")
         web.webViewClient = object : WebViewClient() {
@@ -159,6 +165,8 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     /** The screen turned: her window laid out again at the new size (it fills the screen either way). */
     fun turned() = main.post {
         val web = webView ?: return@post
+        // (1.12.2) into DeX or out of it: a fresh page at the right size
+        if ((if (dex(context)) DEX_ZOOM else 1.0) != zoom) { reload(); return@post }
         val p = params ?: return@post
         try { wm.updateViewLayout(web, p) } catch (_: Exception) {}
     }
@@ -247,7 +255,7 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
         if (now == ime) return
         ime = now
         pads.reapply()
-        val css = now / context.resources.displayMetrics.density
+        val css = now / (context.resources.displayMetrics.density * zoom)
         emit("ime:change", JSONObject().put("height", css.toDouble()).toString())
     }
 
@@ -412,7 +420,13 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
             } else {
                 val rel = path.removePrefix("/")
                 if (rel.contains("..") || !(rel.startsWith("capri/") || rel.startsWith("android/"))) throw SecurityException(rel)
-                context.assets.open(rel)
+                if (zoom != 1.0 && rel == "capri/src/renderer/index.html") {
+                    // (1.12.2) DeX: the whole page (her, her cards, her chat) drawn smaller, her positions still right
+                    val z = "%.2f".format(java.util.Locale.ROOT, zoom)
+                    context.assets.open(rel).bufferedReader().readText()
+                        .replace("initial-scale=1, minimum-scale=1, maximum-scale=1", "initial-scale=$z, minimum-scale=$z, maximum-scale=$z")
+                        .byteInputStream()
+                } else context.assets.open(rel)
             }
             WebResourceResponse(mime(path), if (mime(path).startsWith("text/") || path.endsWith(".js")) "utf-8" else null, stream).apply {
                 responseHeaders = mapOf("Cache-Control" to "no-cache")
@@ -540,6 +554,16 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     }
 
     companion object {
+        /** (1.12.2) her page's scale on a DeX monitor (her own Tamaño setting still applies on top). */
+        private const val DEX_ZOOM = 0.6
+
+        /** Samsung DeX on: its desktop on a monitor (or the phone's own screen in DeX mode). */
+        fun dex(context: Context): Boolean = runCatching {
+            val c = context.resources.configuration
+            val k = c.javaClass
+            k.getField("SEM_DESKTOP_MODE_ENABLED").getInt(k) == k.getField("semDesktopModeEnabled").getInt(c)
+        }.getOrDefault(false)
+
         // a tap away from her while she has the keyboard: her chat (or setup question) closes, and
         // if somehow none is open, the keyboard is given back anyway (never a screen you can't touch)
         private const val FROZEN_MS = 45_000L // no heartbeat from her page this long, the screen on: frozen

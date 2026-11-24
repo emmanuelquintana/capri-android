@@ -7,6 +7,7 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **🛠️ Bugs fixed**
 - **Language:** connecting your AI or bringing back your account copy no longer switches the app and Capri to another language on their own.
 - **Your settings:** a copy from your PC or another phone no longer changes this one's size, voice or modes, and what you save while she starts is no longer lost.
+- **DeX mode:** on the monitor, Capri, her cards and her chat now show at a normal size (they used to be huge).
 
 ## 1.12.1
 

@@ -68,6 +68,11 @@ android {
         abortOnError = false
     }
 
+    packaging {
+        // (1.12.2) JNA's libraries for chips no Android 8+ phone has: 400 KB less to install
+        jniLibs.excludes += listOf("lib/armeabi/**", "lib/mips/**", "lib/mips64/**")
+    }
+
     androidResources {
         // her pictures are already compressed (png, webp): stored as is, read straight from the APK
         noCompress += listOf("png", "webp", "woff2")

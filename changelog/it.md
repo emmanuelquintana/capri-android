@@ -7,6 +7,7 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **🛠️ Bug corretti**
 - **Lingua:** collegando la tua IA o recuperando la copia dal tuo account, l’app e Capri non cambiano più lingua da sole.
 - **Le tue impostazioni:** la copia dal PC o da un altro telefono non cambia più dimensione, voce o modalità di questo, e ciò che salvi mentre lei si avvia non va più perso.
+- **Modalità DeX:** sul monitor Capri, le sue schede e la sua chat ora hanno una dimensione normale (prima erano enormi).
 
 ## 1.12.1
 

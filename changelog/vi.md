@@ -7,6 +7,7 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **🛠️ Lỗi đã sửa**
 - **Ngôn ngữ:** khi kết nối AI hoặc lấy lại bản sao từ tài khoản, ứng dụng và Capri không còn tự đổi sang ngôn ngữ khác.
 - **Cài đặt của bạn:** bản sao từ PC hoặc điện thoại khác không còn đổi kích thước, giọng nói hay chế độ của máy này, và những gì bạn lưu khi cô ấy đang khởi động không còn bị mất.
+- **Chế độ DeX:** trên màn hình ngoài, Capri, các thẻ và khung chat của cô ấy giờ hiển thị kích thước bình thường (trước đây rất to).
 
 ## 1.12.1
 
