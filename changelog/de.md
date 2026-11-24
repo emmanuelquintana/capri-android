@@ -6,6 +6,7 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 
 - **Stimme aus der Cloud (Fish Audio):** Mit deinem eigenen Schlüssel spricht sie in Echtzeit mit ihrer Stimme, auf Spanisch, Englisch, Portugiesisch und Japanisch. Ohne Internet oder Guthaben wechselt sie von selbst zu ihrer lokalen Stimme. Du wählst das Modell: kostenlos oder Pro.
 - **Viel schneller:** Sie fängt an zu sprechen, während ihre KI noch schreibt, und im Chat siehst du, wie weit ihre Stimme ist (*Stimme 42 %*).
+- **Wenn ihre Cloud-Stimme ausfällt, sagt sie dir warum** (Schlüssel, Guthaben, Fish überlastet oder kein Internet), nach zwei neuen Versuchen.
 - **Leichter auf einfachen und älteren Handys:** Ihre Ohren ruhen bei Stille (etwa 80 % weniger Arbeit), sie wird auf einfachen Handys und wenn deins warm wird seltener gezeichnet, und ihre Stimme nutzt weniger Kerne. Ein neues Gesicht, wenn sie liegend aufs Handy schaut.
 - **Ihre 202 aufgenommenen Sätze mit ihrer neuen Stimme:** Sie klingen öfter (zur Begrüßung, wenn ihr langweilig ist, im Chat, bei Benachrichtigungen) und sofort, ohne Internet.
 - **Sie ist in deinen Bildschirmaufnahmen zu hören.**

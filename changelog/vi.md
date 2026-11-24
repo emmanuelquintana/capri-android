@@ -6,6 +6,7 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 
 - **Giọng trên đám mây (Fish Audio):** với khóa riêng của bạn, cô ấy nói bằng giọng của mình theo thời gian thực, bằng tiếng Tây Ban Nha, Anh, Bồ Đào Nha và Nhật. Không có mạng hoặc hết tiền, cô ấy tự quay về giọng cục bộ. Bạn chọn mô hình: miễn phí hoặc Pro.
 - **Nhanh hơn nhiều:** cô ấy bắt đầu nói khi AI vẫn đang viết, và trong chat bạn thấy giọng đã tạo được bao nhiêu (*Đang tạo giọng 42 %*).
+- **Nếu giọng trên mây lỗi, cô ấy báo lý do** (khóa, tín dụng, Fish quá tải hoặc không có mạng), sau khi thử lại hai lần.
 - **Nhẹ hơn trên điện thoại cấu hình thấp và cũ:** tai cô ấy nghỉ khi yên lặng (bớt khoảng 80 % công việc), được vẽ thưa hơn trên máy yếu và khi máy bạn nóng lên, và giọng cô ấy dùng ít nhân hơn. Gương mặt mới khi cô ấy nằm xem điện thoại.
 - **202 câu thu sẵn, bằng giọng mới:** phát thường xuyên hơn (khi chào bạn, khi chán, trong chat, khi có thông báo) và ngay lập tức, không cần mạng.
 - **Nghe được giọng cô ấy trong bản ghi màn hình.**

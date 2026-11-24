@@ -818,4 +818,11 @@
     <string name="fish_model_pro">Pro (nutzt dein Guthaben)</string>
     <string name="voice_silenced">Das Mikro kommt bei ihr stumm an: Eine andere App nutzt es, oder öffne die App einmal, damit Android sie zuhören lässt.</string>
     <string name="account_newer">Dein %1$s hat etwas Neueres in deinem Konto gespeichert (%2$s): Chats, Erinnerungen und Einstellungen. Auf dieses Handy holen? Deine Chats hier bleiben.</string>
+    <string name="fish_fallback">Ihre Cloud-Stimme (Fish) hat nicht geantwortet: %1$s. Vorerst spricht sie mit der Stimme des Handys.</string>
+    <string name="fish_why_key">dein Schlüssel ist ungültig, prüfe ihn in ihren Stimmeinstellungen</string>
+    <string name="fish_why_credit">dein Fish-Konto hat kein Guthaben (das kostenlose Modell braucht keins)</string>
+    <string name="fish_why_busy">zu viele gleichzeitige Anfragen auf deinem Fish-Konto</string>
+    <string name="fish_why_down">die Fish-Server sind überlastet, sie versucht es in einer Minute erneut</string>
+    <string name="fish_why_net">keine Internetverbindung</string>
+    <string name="fish_why_other">ein unerwarteter Fehler (steht in ihrem Protokoll)</string>
 </resources>

@@ -113,6 +113,12 @@ object FishVoice {
         }
     }
 
+    /** What Fish said with an error ({"message": …, "status": …}), short, for her log. */
+    private fun said(h: HttpURLConnection): String = runCatching {
+        val t = h.errorStream?.bufferedReader()?.use { it.readText() }.orEmpty()
+        runCatching { JSONObject(t).optString("message") }.getOrNull()?.ifEmpty { null } ?: t.take(160).ifEmpty { "no reason given" }
+    }.getOrDefault("no reason given")
+
     private fun open(key: String, body: JSONObject): HttpURLConnection {
         val h = URL(API).openConnection() as HttpURLConnection
         h.requestMethod = "POST"
@@ -210,14 +216,24 @@ object FishVoice {
                         .put("sample_rate", RATE).put("latency", "balanced").put("normalize", true)
                         .put("language", if (lang.startsWith("es")) "es-MX" else lang)
                         .put("prosody", JSONObject().put("speed", speed))
-                    val h = open(key, body)
+                    // (1.12.0, Emma: "¿por qué falló Fish?") Fish says to retry 429 (too many at once on your account)
+                    // and 5xx (its servers busy) with a growing wait: twice, 1 s then 2 s, before her other voice
+                    var h = open(key, body)
+                    var tries = 0
+                    while (live() && tries < 2 && h.responseCode.let { it == 429 || it >= 500 }) {
+                        Diag.add("W", "voice $ID: HTTP ${h.responseCode} (${said(h)}), again in ${1 shl tries} s")
+                        h.disconnect()
+                        Thread.sleep(1000L shl tries)
+                        tries++
+                        h = open(key, body)
+                    }
                     conn = h
                     try {
                         val code = h.responseCode
                         if (code != 200) {
-                            val why = when (code) { 401, 403 -> "fish:key"; 402 -> "fish:credit"; else -> "fish:HTTP $code" }
+                            val why = when (code) { 401, 403 -> "fish:key"; 402 -> "fish:credit"; 429 -> "fish:busy"; in 500..599 -> "fish:down"; else -> "fish:HTTP $code" }
                             lastError = why
-                            Diag.add("W", "voice $ID: $why")
+                            Diag.add("W", "voice $ID: $why (HTTP $code: ${said(h)})")
                             rest(why)
                             if (!started) return@execute emit("VOICE_UNAVAILABLE", JSONObject().put("why", why))
                             break
@@ -267,7 +283,7 @@ object FishVoice {
                 done(t, ticket, frames, emit)
             } catch (e: Throwable) {
                 if (!live()) return@execute
-                lastError = e.message ?: e.javaClass.simpleName
+                lastError = "fish:net (${e.message ?: e.javaClass.simpleName})"
                 Diag.add("W", "voice $ID: $lastError")
                 rest("fish:net")
                 if (!started) emit("VOICE_UNAVAILABLE", JSONObject().put("why", "fish:net"))

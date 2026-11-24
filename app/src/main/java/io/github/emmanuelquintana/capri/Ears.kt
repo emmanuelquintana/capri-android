@@ -856,7 +856,31 @@ class Ears(private val service: CapriService) {
         if (fish) FishVoice.speak(service, id, text, tag, events, streaming) else CapriNeural.speak(service, id, text, tag, events, streaming)
     }
 
+    private var cloudToldAt = 0L
+    private var cloudToldWhy = ""
+
+    // (1.12.0, Emma: "que ponga alguna alerta, no solo que falle") her cloud voice failed: a notice with why, once in a while
+    private fun reasonOf(why: String) = when (why) {
+        "fish:key" -> R.string.fish_why_key
+        "fish:credit" -> R.string.fish_why_credit
+        "fish:busy" -> R.string.fish_why_busy
+        "fish:down" -> R.string.fish_why_down
+        "fish:net" -> R.string.fish_why_net
+        else -> R.string.fish_why_other
+    }
+
+    private fun cloudNotice(why: String) {
+        val now = System.currentTimeMillis()
+        if (now - cloudToldAt > 10 * 60_000L || why != cloudToldWhy) {
+            cloudToldAt = now
+            cloudToldWhy = why
+            val reason = service.getString(reasonOf(why))
+            android.widget.Toast.makeText(service, service.getString(R.string.fish_fallback, reason), android.widget.Toast.LENGTH_LONG).show()
+        }
+    }
+
     private fun neuralFailed(id: String, text: String, lang: String, why: String) {
+        if (why.startsWith("fish:") && id != "fish-test") cloudNotice(why)
         // (1.11.8) an answer still being written: the voice that says it instead waits for all of it (sayPart)
         if (id == streamId) {
             streamNeural = false
@@ -873,7 +897,7 @@ class Ears(private val service: CapriService) {
             if (id == "fish-test") return android.widget.Toast.makeText(service, when (why) {
                 "fish:key" -> service.getString(R.string.fish_key_bad)
                 "fish:credit" -> service.getString(R.string.fish_key_credit)
-                else -> service.getString(R.string.fish_key_err, FishVoice.lastError.ifEmpty { why.removePrefix("fish:") })
+                else -> service.getString(R.string.fish_key_err, service.getString(reasonOf(why)))
             }, android.widget.Toast.LENGTH_LONG).show()
             val next = CapriVoice.answerEngine(service, lang)
             voiceEvent(id, "VOICE_REQUESTED") { put("kind", "answer").put("fallback", next) }

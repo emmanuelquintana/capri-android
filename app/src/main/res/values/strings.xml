@@ -830,4 +830,11 @@
     <string name="fish_model_pro">Pro (uses your credit)</string>
     <string name="voice_silenced">The mic reaches her silent: another app is using it, or open the app once so Android lets her listen.</string>
     <string name="account_newer">Your %1$s saved something newer to your account (%2$s): chats, memory and settings. Bring it to this phone? Your chats here are kept.</string>
+    <string name="fish_fallback">Her cloud voice (Fish) didn\'t answer: %1$s. She speaks with her phone voice for now.</string>
+    <string name="fish_why_key">your key isn\'t valid, check it in her voice settings</string>
+    <string name="fish_why_credit">your Fish account has no credit (the free model needs none)</string>
+    <string name="fish_why_busy">too many requests at once on your Fish account</string>
+    <string name="fish_why_down">Fish\'s servers are busy right now, she\'ll try again in a minute</string>
+    <string name="fish_why_net">no internet connection</string>
+    <string name="fish_why_other">an unexpected error (it\'s in her log)</string>
 </resources>

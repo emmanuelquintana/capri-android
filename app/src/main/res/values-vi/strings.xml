@@ -814,4 +814,11 @@
     <string name="fish_model_pro">Pro (dùng số dư của bạn)</string>
     <string name="voice_silenced">Micro đến với cô ấy trong im lặng: một app khác đang dùng, hoặc mở app một lần để Android cho cô ấy nghe.</string>
     <string name="account_newer">%1$s của bạn đã lưu dữ liệu mới hơn vào tài khoản (%2$s): chat, trí nhớ và cài đặt. Mang về điện thoại này nhé? Chat ở đây vẫn được giữ.</string>
+    <string name="fish_fallback">Giọng trên mây của cô ấy (Fish) không phản hồi: %1$s. Tạm thời cô ấy nói bằng giọng của điện thoại.</string>
+    <string name="fish_why_key">khóa của bạn không hợp lệ, kiểm tra trong cài đặt giọng của cô ấy</string>
+    <string name="fish_why_credit">tài khoản Fish của bạn hết tín dụng (mô hình miễn phí không cần)</string>
+    <string name="fish_why_busy">quá nhiều yêu cầu cùng lúc trên tài khoản Fish của bạn</string>
+    <string name="fish_why_down">máy chủ Fish đang quá tải, cô ấy sẽ thử lại sau một phút</string>
+    <string name="fish_why_net">không có kết nối internet</string>
+    <string name="fish_why_other">một lỗi không mong muốn (có trong nhật ký của cô ấy)</string>
 </resources>

@@ -814,4 +814,11 @@
     <string name="fish_model_pro">Pro(残高を使用)</string>
     <string name="voice_silenced">マイクの音が届いていません。ほかのアプリが使っているか、アプリを一度開くと Android が聞くのを許可します。</string>
     <string name="account_newer">%1$s がもっと新しいデータをアカウントに保存しました(%2$s):チャット、記憶、設定。この電話に持ってくる?ここのチャットは残ります。</string>
+    <string name="fish_fallback">クラウドの声（Fish）が応答しませんでした：%1$s。いまは端末の声で話します。</string>
+    <string name="fish_why_key">キーが無効です。声の設定で確認してください</string>
+    <string name="fish_why_credit">Fish アカウントの残高がありません（無料モデルは不要）</string>
+    <string name="fish_why_busy">Fish アカウントで同時リクエストが多すぎます</string>
+    <string name="fish_why_down">Fish のサーバーが混雑しています。1分後にまた試します</string>
+    <string name="fish_why_net">インターネットに接続していません</string>
+    <string name="fish_why_other">予期しないエラー（ログに記録されています）</string>
 </resources>
