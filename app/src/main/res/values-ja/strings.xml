@@ -651,4 +651,24 @@
     <string name="settings_memory_forget_sure">あなたについて覚えていることを全部消す？元に戻せません。</string>
     <string name="you_class_edit">授業を編集</string>
     <string name="you_class_edit_how">授業をタップすると編集できます。</string>
+    <string name="settings_snap_delay">撮る前の待ち時間</string>
+    <string name="settings_snap_delay_how">画面を撮る前（見る・翻訳する）に待つ時間。キーボードと吹き出しが先に消えるように。</string>
+    <string name="widget_face_label">カプリ ミニ</string>
+    <string name="widget_face_desc">彼女の顔、今の様子、ひとこと。タップで話しかけ。</string>
+    <string name="widget_day_label">カプリとあなたの一日</string>
+    <string name="widget_day_desc">次の授業、バッテリー、そして彼女。話す・見るボタン付き。</string>
+    <string name="widget_day_free">しばらく授業なし。自由な日だよ、チューム。</string>
+    <string name="widget_day_today">今日</string>
+    <string name="widget_day_tomorrow">明日</string>
+    <string name="widget_day_next">次：%1$s · %2$s</string>
+    <string-array name="widget_lines">
+        <item>まだここにいるよ、チューム。</item>
+        <item>あなたの画面はわたしの縄張り。</item>
+        <item>退屈。楽しませて。</item>
+        <item>ナイトシティは眠らない。わたしもね。</item>
+        <item>名前を呼んだらすぐ行く。</item>
+        <item>水を飲んで。命令だよ。</item>
+        <item>曲かけてくれる？</item>
+        <item>見てるよ。やさしくね。</item>
+    </string-array>
 </resources>

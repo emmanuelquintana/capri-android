@@ -673,4 +673,24 @@
     <string name="settings_memory_forget_sure">Стереть всё, что она помнит о тебе? Это нельзя отменить.</string>
     <string name="you_class_edit">Изменить занятие</string>
     <string name="you_class_edit_how">Нажми на занятие, чтобы изменить его.</string>
+    <string name="settings_snap_delay">Пауза перед снимком</string>
+    <string name="settings_snap_delay_how">Сколько она ждёт перед снимком экрана (посмотреть или перевести), чтобы клавиатура и её облачко успели убраться.</string>
+    <string name="widget_face_label">Капри мини</string>
+    <string name="widget_face_desc">Её лицо, настроение и её фраза. Нажми и поговори с ней.</string>
+    <string name="widget_day_label">Твой день с Капри</string>
+    <string name="widget_day_desc">Ближайшее занятие, батарея и она: поговорить и посмотреть.</string>
+    <string name="widget_day_free">Занятий скоро нет. Свободный день, чумба.</string>
+    <string name="widget_day_today">сегодня</string>
+    <string name="widget_day_tomorrow">завтра</string>
+    <string name="widget_day_next">Далее: %1$s · %2$s</string>
+    <string-array name="widget_lines">
+        <item>Я всё ещё здесь, чумба.</item>
+        <item>Твой экран, моя территория.</item>
+        <item>Скучно. Развлеки меня.</item>
+        <item>Найт-Сити не спит. И я тоже.</item>
+        <item>Скажи моё имя, и я тут.</item>
+        <item>Выпей воды. Это приказ.</item>
+        <item>Включишь мне песню?</item>
+        <item>Я наблюдаю. По-доброму.</item>
+    </string-array>
 </resources>

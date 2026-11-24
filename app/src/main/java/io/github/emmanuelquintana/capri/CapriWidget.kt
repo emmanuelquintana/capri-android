@@ -51,7 +51,7 @@ class CapriWidget : AppWidgetProvider() {
             context.startActivity(Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
 
-        private fun tap(context: Context, what: String, code: Int) = PendingIntent.getBroadcast(
+        internal fun tap(context: Context, what: String, code: Int) = PendingIntent.getBroadcast(
             context, 700 + code,
             Intent(context, Tap::class.java).putExtra(EXTRA_DO, what),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
@@ -62,7 +62,7 @@ class CapriWidget : AppWidgetProvider() {
             val app = context.applicationContext
             val manager = AppWidgetManager.getInstance(app) ?: return
             val ids = runCatching { manager.getAppWidgetIds(ComponentName(app, CapriWidget::class.java)) }.getOrNull() ?: return
-            if (ids.isEmpty()) return
+            if (ids.isEmpty()) { CapriFaceWidget.update(app); CapriDayWidget.update(app); return }
             val ctx = Lang.wrap(app)
             val on = CapriService.running
             val v = RemoteViews(app.packageName, R.layout.widget_capri)
@@ -98,6 +98,8 @@ class CapriWidget : AppWidgetProvider() {
             v.setOnClickPendingIntent(R.id.w_dress, tap(app, "dress", 3))
             v.setOnClickPendingIntent(R.id.w_toggle, tap(app, if (on) "toggle" else "app", 4))
             runCatching { manager.updateAppWidget(ids, v) }
+            CapriFaceWidget.update(app)
+            CapriDayWidget.update(app)
         }
     }
 }

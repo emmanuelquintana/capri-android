@@ -655,4 +655,24 @@
     <string name="settings_memory_forget_sure">Cancellare tutto ciò che ricorda di te? Non si può annullare.</string>
     <string name="you_class_edit">Modifica lezione</string>
     <string name="you_class_edit_how">Tocca una lezione per modificarla.</string>
+    <string name="settings_snap_delay">Attesa prima della cattura</string>
+    <string name="settings_snap_delay_how">Quanto aspetta prima di catturare lo schermo (per guardarlo o tradurlo), così tastiera e fumetto si tolgono prima.</string>
+    <string name="widget_face_label">Capri mini</string>
+    <string name="widget_face_desc">Il suo viso, come sta e una sua frase. Un tocco e le parli.</string>
+    <string name="widget_day_label">La tua giornata con Capri</string>
+    <string name="widget_day_desc">La prossima lezione, la batteria e lei, con parla e guarda.</string>
+    <string name="widget_day_free">Nessuna lezione a breve. Giornata libera, choom.</string>
+    <string name="widget_day_today">oggi</string>
+    <string name="widget_day_tomorrow">domani</string>
+    <string name="widget_day_next">Prossima: %1$s · %2$s</string>
+    <string-array name="widget_lines">
+        <item>Sono ancora qui, choom.</item>
+        <item>Il tuo schermo, il mio territorio.</item>
+        <item>Mi annoio. Intrattienimi.</item>
+        <item>Night City non dorme mai. Nemmeno io.</item>
+        <item>Di’ il mio nome e arrivo.</item>
+        <item>Bevi acqua. È un ordine.</item>
+        <item>Mi metti una canzone?</item>
+        <item>Ti guardo. Con affetto.</item>
+    </string-array>
 </resources>

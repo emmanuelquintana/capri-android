@@ -666,4 +666,24 @@
     <string name="settings_memory_forget_sure">Apagar tudo o que ela lembra de você? Não dá para desfazer.</string>
     <string name="you_class_edit">Editar aula</string>
     <string name="you_class_edit_how">Toque numa aula para editá-la.</string>
+    <string name="settings_snap_delay">Espera antes da captura</string>
+    <string name="settings_snap_delay_how">Quanto ela espera antes de tirar a imagem da tela (para olhar ou traduzir), para o teclado e o balão dela saírem antes.</string>
+    <string name="widget_face_label">Capri mini</string>
+    <string name="widget_face_desc">O rosto dela, como ela está e uma frase dela. Um toque e você fala com ela.</string>
+    <string name="widget_day_label">Seu dia com a Capri</string>
+    <string name="widget_day_desc">Sua próxima aula, sua bateria e ela, com falar e olhar.</string>
+    <string name="widget_day_free">Sem aulas por agora. Dia livre, choom.</string>
+    <string name="widget_day_today">hoje</string>
+    <string name="widget_day_tomorrow">amanhã</string>
+    <string name="widget_day_next">Próxima: %1$s · %2$s</string>
+    <string-array name="widget_lines">
+        <item>Ainda aqui, choom.</item>
+        <item>Sua tela, meu território.</item>
+        <item>Tô entediada. Me distrai.</item>
+        <item>Night City nunca dorme. Eu também não.</item>
+        <item>Diz meu nome e eu apareço.</item>
+        <item>Bebe água. É uma ordem.</item>
+        <item>Põe uma música pra mim?</item>
+        <item>Tô de olho. Com carinho.</item>
+    </string-array>
 </resources>

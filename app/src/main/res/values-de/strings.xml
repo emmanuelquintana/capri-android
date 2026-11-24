@@ -655,4 +655,24 @@
     <string name="settings_memory_forget_sure">Alles löschen, was sie über dich weiß? Das lässt sich nicht rückgängig machen.</string>
     <string name="you_class_edit">Kurs bearbeiten</string>
     <string name="you_class_edit_how">Tippe auf einen Kurs, um ihn zu bearbeiten.</string>
+    <string name="settings_snap_delay">Warten vor dem Bild</string>
+    <string name="settings_snap_delay_how">Wie lange sie wartet, bevor sie das Bild deines Bildschirms macht (zum Ansehen oder Übersetzen), damit Tastatur und ihre Blase verschwinden.</string>
+    <string name="widget_face_label">Capri mini</string>
+    <string name="widget_face_desc">Ihr Gesicht, wie es ihr geht und ein Satz von ihr. Antippen und reden.</string>
+    <string name="widget_day_label">Dein Tag mit Capri</string>
+    <string name="widget_day_desc">Dein nächster Kurs, dein Akku und sie, mit Reden und Ansehen.</string>
+    <string name="widget_day_free">Bald keine Kurse. Freier Tag, Choom.</string>
+    <string name="widget_day_today">heute</string>
+    <string name="widget_day_tomorrow">morgen</string>
+    <string name="widget_day_next">Als Nächstes: %1$s · %2$s</string>
+    <string-array name="widget_lines">
+        <item>Noch da, Choom.</item>
+        <item>Dein Bildschirm, mein Revier.</item>
+        <item>Langweilig. Unterhalte mich.</item>
+        <item>Night City schläft nie. Ich auch nicht.</item>
+        <item>Sag meinen Namen und ich bin da.</item>
+        <item>Trink Wasser. Das ist ein Befehl.</item>
+        <item>Spielst du mir ein Lied?</item>
+        <item>Ich schau zu. Lieb gemeint.</item>
+    </string-array>
 </resources>

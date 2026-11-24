@@ -197,6 +197,29 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/capri_widget" />
         </receiver>
+        <!-- (1.12.0, community: "gostaria que tivesse mais widgets") Capri mini and Tu día con Capri -->
+        <receiver
+            android:name=".CapriFaceWidget"
+            android:exported="true"
+            android:label="@string/widget_face_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/capri_widget_face" />
+        </receiver>
+        <receiver
+            android:name=".CapriDayWidget"
+            android:exported="true"
+            android:label="@string/widget_day_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/capri_widget_day" />
+        </receiver>
         <!-- its taps: only this app's widget reaches it -->
         <receiver
             android:name=".CapriWidget$Tap"

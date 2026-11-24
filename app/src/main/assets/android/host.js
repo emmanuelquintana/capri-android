@@ -832,7 +832,7 @@ function lookModels() {
   const model = pickModel(cfg);
   if (['ollama', 'pollinations', 'custom'].includes(cfg.provider)) return model ? [model] : [];
   if (cfg.provider === 'deepseek') return [];
-  const ok = (m) => SEES.test(m) && !BLIND.test(m) && !blindModels.has(m) && !(cfg.blindModels || []).includes(m);
+  const ok = (m) => SEES.test(m) && !BLIND.test(m) && !blindModels.has(m) && !(cfg.blindModels || []).includes(m) && !retired.has(m); // (1.12.0: nor a closed one)
   const out = [];
   if (model && ok(model)) out.push(model);
   if (cfg.provider === 'nvidia') {
@@ -996,6 +996,7 @@ async function sayAboutSnap({ id, persona, prompt, history = [] }) {
           continue;
         }
         if (err.code === 'busy') rest(model, err);
+        if (err.status === 410 || /end of life|no longer available/i.test(err.message || '')) retire(model); // (1.12.0)
         if (!['busy', 'gone'].includes(err.code)) return elsewhere(last);
         break;
       }
@@ -1586,6 +1587,9 @@ window.host = {
   lookSnap: after(async () => {
     try {
       if (await cantSee()) return { ok: true, id: 'blind' }; // she says why when she'd comment (lookSay)
+      // (1.12.0) the wait you set (the app's Settings › Modes): your keyboard and her bubble out of the way first
+      const wait = Math.min(10, Math.max(0, Number(cfg.snapDelay) || 0));
+      if (wait) { window.dev?.panel?.close?.(); await new Promise((r) => setTimeout(r, wait * 1000)); }
       const self = touch.selfRects(); // where she is right as it's taken
       const res = await call('look:snap');
       const id = crypto.randomUUID();
@@ -1791,6 +1795,7 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.voicePitch === 'number') updateConfig({ voicePitch: Math.min(2, Math.max(0.5, p.voicePitch)) });
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
+  if (typeof p.snapDelay === 'number') updateConfig({ snapDelay: Math.min(10, Math.max(0, Math.round(p.snapDelay))) });
   // (1.12.0) "no me deja cambiarlo a Spotify": with her on, these two from the app's Settings never got here (she kept
   // YouTube; and the voice's precision you picked, the one before)
   if (['youtube', 'spotify'].includes(p.musicApp)) updateConfig({ musicApp: p.musicApp });

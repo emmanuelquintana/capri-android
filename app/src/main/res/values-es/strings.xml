@@ -666,4 +666,24 @@
     <string name="settings_memory_forget_sure">¿Borrar todo lo que Capri recuerda de ti? No se puede deshacer.</string>
     <string name="you_class_edit">Editar clase</string>
     <string name="you_class_edit_how">Toca una clase para editarla.</string>
+    <string name="settings_snap_delay">Espera antes de la captura</string>
+    <string name="settings_snap_delay_how">Cuánto espera antes de tomar la imagen de tu pantalla (para verla o traducirla), así tu teclado y su globo se quitan antes.</string>
+    <string name="widget_face_label">Capri mini</string>
+    <string name="widget_face_desc">Su cara, cómo está y una frase suya. Un toque y le hablas.</string>
+    <string name="widget_day_label">Tu día con Capri</string>
+    <string name="widget_day_desc">Tu próxima clase, tu batería y ella, con hablar y mirar.</string>
+    <string name="widget_day_free">No tienes clases pronto. Día libre, choom.</string>
+    <string name="widget_day_today">hoy</string>
+    <string name="widget_day_tomorrow">mañana</string>
+    <string name="widget_day_next">Próxima: %1$s · %2$s</string>
+    <string-array name="widget_lines">
+        <item>Aquí sigo, choom.</item>
+        <item>Tu pantalla, mi territorio.</item>
+        <item>Me aburro. Entretenme.</item>
+        <item>Night City nunca duerme. Yo tampoco.</item>
+        <item>Di mi nombre y aparezco.</item>
+        <item>Toma agua. Es una orden.</item>
+        <item>¿Me pones una canción?</item>
+        <item>Te estoy mirando. Con cariño.</item>
+    </string-array>
 </resources>

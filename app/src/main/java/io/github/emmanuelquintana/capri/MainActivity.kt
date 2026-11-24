@@ -1619,6 +1619,12 @@ class MainActivity : Activity() {
                 lookBtn.postDelayed({ refresh() }, 1500)
             }
             addView(lookBtn, ui.block(8))
+            // (1.12.0, community: "una opción para aumentar el delay… el teclado y el globo de Capri se quedan en medio
+            // de la pantalla y el escaneo se toma de inmediato") a wait before she takes the picture (look, translate)
+            addView(ui.text(getString(R.string.settings_snap_delay), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(ui.text(getString(R.string.settings_snap_delay_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choiceText(listOf("0 s" to 0.0, "2 s" to 2.0, "4 s" to 4.0, "6 s" to 6.0),
+                { Store(this@MainActivity).configNumber("snapDelay", 0.0) }, { a, b -> Math.abs(a - b) < 0.5 }) { CapriSettings.set(this@MainActivity, "snapDelay", it) }, ui.block(6))
         }, ui.block(16))
 
         // her modes: gamer (by hand or on its own), her tips while you play, streaming

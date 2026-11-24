@@ -666,4 +666,24 @@
     <string name="settings_memory_forget_sure">Effacer tout ce qu’elle sait de toi ? Impossible d’annuler.</string>
     <string name="you_class_edit">Modifier le cours</string>
     <string name="you_class_edit_how">Touche un cours pour le modifier.</string>
+    <string name="settings_snap_delay">Attente avant la capture</string>
+    <string name="settings_snap_delay_how">Combien de temps elle attend avant de prendre l’image de ton écran (pour regarder ou traduire), le temps que ton clavier et sa bulle s’écartent.</string>
+    <string name="widget_face_label">Capri mini</string>
+    <string name="widget_face_desc">Son visage, son humeur et une phrase d’elle. Une touche et tu lui parles.</string>
+    <string name="widget_day_label">Ta journée avec Capri</string>
+    <string name="widget_day_desc">Ton prochain cours, ta batterie et elle, pour parler et regarder.</string>
+    <string name="widget_day_free">Pas de cours bientôt. Journée libre, choom.</string>
+    <string name="widget_day_today">aujourd’hui</string>
+    <string name="widget_day_tomorrow">demain</string>
+    <string name="widget_day_next">Prochain : %1$s · %2$s</string>
+    <string-array name="widget_lines">
+        <item>Toujours là, choom.</item>
+        <item>Ton écran, mon territoire.</item>
+        <item>Je m’ennuie. Distrais-moi.</item>
+        <item>Night City ne dort jamais. Moi non plus.</item>
+        <item>Dis mon nom et j’arrive.</item>
+        <item>Bois de l’eau. C’est un ordre.</item>
+        <item>Tu me mets une chanson ?</item>
+        <item>Je te regarde. Gentiment.</item>
+    </string-array>
 </resources>

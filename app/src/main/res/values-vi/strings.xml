@@ -651,4 +651,24 @@
     <string name="settings_memory_forget_sure">Xóa mọi thứ cô ấy nhớ về bạn? Không thể hoàn tác.</string>
     <string name="you_class_edit">Sửa lớp học</string>
     <string name="you_class_edit_how">Chạm vào một lớp để sửa.</string>
+    <string name="settings_snap_delay">Chờ trước khi chụp</string>
+    <string name="settings_snap_delay_how">Cô ấy chờ bao lâu trước khi chụp màn hình (để xem hoặc dịch), để bàn phím và bong bóng của cô ấy kịp tránh đi.</string>
+    <string name="widget_face_label">Capri mini</string>
+    <string name="widget_face_desc">Gương mặt cô ấy, tâm trạng và một câu nói. Chạm để trò chuyện.</string>
+    <string name="widget_day_label">Ngày của bạn với Capri</string>
+    <string name="widget_day_desc">Lớp tiếp theo, pin của bạn và cô ấy, để nói chuyện và nhìn màn hình.</string>
+    <string name="widget_day_free">Sắp tới không có lớp. Ngày rảnh, choom.</string>
+    <string name="widget_day_today">hôm nay</string>
+    <string name="widget_day_tomorrow">ngày mai</string>
+    <string name="widget_day_next">Tiếp theo: %1$s · %2$s</string>
+    <string-array name="widget_lines">
+        <item>Mình vẫn ở đây, choom.</item>
+        <item>Màn hình của bạn, lãnh địa của mình.</item>
+        <item>Chán quá. Giải trí cho mình đi.</item>
+        <item>Night City không bao giờ ngủ. Mình cũng vậy.</item>
+        <item>Gọi tên mình là mình tới.</item>
+        <item>Uống nước đi. Lệnh đấy.</item>
+        <item>Mở cho mình một bài nhé?</item>
+        <item>Mình đang nhìn đấy. Dịu dàng thôi.</item>
+    </string-array>
 </resources>

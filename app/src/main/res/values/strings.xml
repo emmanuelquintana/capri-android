@@ -667,4 +667,24 @@
     <string name="settings_memory_forget_sure">Forget everything she remembers about you? This can\'t be undone.</string>
     <string name="you_class_edit">Edit class</string>
     <string name="you_class_edit_how">Tap a class to edit it.</string>
+    <string name="settings_snap_delay">Wait before the picture</string>
+    <string name="settings_snap_delay_how">How long she waits before taking the picture of your screen (to look or translate), so your keyboard and her bubble get out of the way.</string>
+    <string name="widget_face_label">Capri mini</string>
+    <string name="widget_face_desc">Her face, how she is and a line of hers. A tap and you talk.</string>
+    <string name="widget_day_label">Your day with Capri</string>
+    <string name="widget_day_desc">Your next class, your battery and her, with talk and look.</string>
+    <string name="widget_day_free">No classes coming up. Free day, choom.</string>
+    <string name="widget_day_today">today</string>
+    <string name="widget_day_tomorrow">tomorrow</string>
+    <string name="widget_day_next">Next: %1$s · %2$s</string>
+    <string-array name="widget_lines">
+        <item>Still here, choom.</item>
+        <item>Your screen, my turf.</item>
+        <item>Bored. Entertain me.</item>
+        <item>Night City never sleeps. Neither do I.</item>
+        <item>Say my name and I\'m there.</item>
+        <item>Drink some water. That\'s an order.</item>
+        <item>Got a song for me?</item>
+        <item>I\'m watching. Kindly.</item>
+    </string-array>
 </resources>
