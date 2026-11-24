@@ -40,8 +40,9 @@ const MOMENTS = {
   // (1.12.0) called by her name while she dozed: she wakes up ("¿Ya es hora de levantarse?")
   wake: { events: ['wake'], chance: 1, every: 60e3 },
   // (1.11.8, Emma: "añade la frase guardada de vez en cuando de tienes un mensaje o tienes una notificación")
-  message: { events: ['notification.original-04'], chance: 0.4, every: 4 * 60e3 },
-  notice: { events: ['notification.original-01'], chance: 0.3, every: 6 * 60e3 },
+  // (1.12.0, "no he escuchado lo del mensaje"): more often, the first one always, and also with the app open
+  message: { events: ['notification.original-04'], chance: 0.6, every: 3 * 60e3, first: true, anywhere: true },
+  notice: { events: ['notification.original-01'], chance: 0.5, every: 4 * 60e3, first: true, anywhere: true },
 };
 // the lines of hers that are those moments (lines.js), wherever she says them from
 const POOLS = {
@@ -76,9 +77,9 @@ export function voiceLines({ cfg, lang }) {
   let seq = 0;
 
   const locale = () => LOCALES[lang()] || null;
-  const allowed = (inChat = false) => {
+  const allowed = (inChat = false, anywhere = false) => {
     const c = cfg();
-    return c.speak !== false && c.voiceClips !== false && !c.gamer && (inChat || !dev.chat?.open) && !dev.capri?.hidden;
+    return c.speak !== false && c.voiceClips !== false && !c.gamer && (inChat || !dev.chat?.open) && (anywhere || !dev.capri?.hidden);
   };
 
   // one phrase for that moment, if her pack for this language has one (and now is a good time)
@@ -86,9 +87,10 @@ export function voiceLines({ cfg, lang }) {
     const rule = MOMENTS[moment];
     const loc = locale();
     const list = loc && catalog[loc];
-    if (!rule || !list?.length || !allowed(rule.chat)) return null;
+    if (!rule || !list?.length || !allowed(rule.chat, rule.anywhere)) return null;
     const now = Date.now();
-    if (!force && (now - lastAny < GAP || now - (last[moment] || 0) < rule.every || Math.random() > rule.chance)) return null;
+    const firstTime = rule.first && !last[moment];
+    if (!force && !firstTime && (now - lastAny < GAP || now - (last[moment] || 0) < rule.every || Math.random() > rule.chance)) return null;
     const fits = list.filter((c) => rule.events.some((e) => c.eventId === e || c.eventId.startsWith(`${e}.`)));
     const fresh = fits.filter((c) => c.id !== lastClip[moment]);
     const pool = fresh.length ? fresh : fits;
@@ -187,7 +189,7 @@ export function voiceLines({ cfg, lang }) {
     /** (1.11.8) a notification just came (notes.js): now and then her phrase for it, "a message just came in"
      *  for a chat app's, "you've got a new notification" for the rest. Said only: the card shows it already. */
     notice(isMessage) {
-      if (dev.voiceTalking || dev.chat?.open) return false;
+      if (dev.voiceTalking) return false;
       const clip = phrase(isMessage ? 'message' : 'notice');
       if (!clip) return false;
       speak(clip);

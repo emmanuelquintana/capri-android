@@ -329,7 +329,12 @@ export class Notes {
   // ---------- notices ----------
 
   onNote(n) {
-    if (!n?.key || this.config().noteHop === false || this.config().gamer) return;
+    if (!n?.key || this.config().gamer) return;
+    // (1.12.0) her phrase for it even when she doesn't jump on the card (and with the app open)
+    if (this.config().noteHop === false) {
+      window.dev?.voicelines?.notice?.(n.category === 'msg' || MESSAGE_APPS.test(n.pkg || ''));
+      return;
+    }
     this.note = n;
     this.fill(this.notice, n.app.toUpperCase(), n.title || n.app, '');
     // a fresh one: the card replays its glitch in, and its bar runs down while it stays

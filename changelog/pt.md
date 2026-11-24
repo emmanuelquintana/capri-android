@@ -2,7 +2,7 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
-## 1.11.8
+## 1.12.0
 
 - **De volta aos celulares de 32 bits:** desde a 1.11.0 o app não instalava em celulares de 32 bits (armeabi-v7a,
   como o TECNO Spark Go 1S e muitos Android Go): o instalador dizia que o processador não era compatível. Agora o
@@ -48,6 +48,22 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   gravada dela.
 - **A voz dela começa ainda mais cedo:** se a primeira frase da resposta é longa, ela começa pela primeira parte
   (até a vírgula).
+- **Escuta passiva, como «E aí, Siri»:** o ouvido dela usava o reconhecedor de voz do celular, que em muitos
+  aparelhos só escuta alguns segundos: o microfone ligava e desligava o dia todo, com bipe. Agora um modelo de voz
+  pequeno, dentro do celular, escuta só o nome dela continuamente: sem bipes, sem o microfone piscando, nada sai do
+  celular. Baixa uma vez por idioma (uns 40 MB) no Wi-Fi, ou em **Ajustes › Ajustes de voz › Escuta passiva**.
+- **Ela acorda com a voz dela:** se estiver dormindo e você chamar, ela acorda dizendo isso com uma das frases gravadas.
+- **A voz dela, mais rápida em celulares potentes:** com 8 GB de RAM ou mais, o motor não descarrega e recarrega
+  partes do modelo depois de cada frase. Sem precisão escolhida, usa a mais rápida; se a escolhida for mais lenta do
+  que ela fala, as respostas usam outra mais rápida instalada. A primeira frase é mais curta e a voz começa a
+  carregar assim que você abre o chat.
+- **Não para mais na primeira frase:** ela segue com o resto, e se o final mudar, continua de onde estava.
+- **Qual IA responde, no chat:** no topo da aba Chat você vê qual IA responde e pode trocar com um toque (ou o
+  Ollama no seu PC).
+- **Frases de mensagem e notificação que tocam de verdade:** a primeira notificação sempre é anunciada, também com
+  o app aberto.
+- **Menu mais leve:** Comunidade e Comandos de voz agora são uma aba só.
+- **A voz dela no registro:** os relatórios dizem quanto a voz demorou para soar.
 
 ## 1.11.7
 

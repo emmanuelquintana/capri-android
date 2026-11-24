@@ -174,8 +174,28 @@ object CapriNeural {
     fun fits(context: Context, v: Variant): Boolean = ramGb(context) >= v.ramGb
     /** The precision her voice uses: the one you chose if it's installed, else the most precise installed. */
     fun variant(context: Context): Variant? {
-        val want = Store(context).configString("voiceNeuralModel")
-        return VARIANTS.firstOrNull { it.id == want && installed(context, it) } ?: VARIANTS.lastOrNull { installed(context, it) }
+        val store = Store(context)
+        val want = store.configString("voiceNeuralModel")
+        // (1.12.0, Emma: "en mi S25 Ultra tarda muchísimo") nothing picked: the fastest one installed, not the heaviest
+        val picked = VARIANTS.firstOrNull { it.id == want && installed(context, it) } ?: return VARIANTS.firstOrNull { installed(context, it) }
+        // the one you picked made her voice slower than she talks on this phone (measured on her real answers):
+        // her answers use a faster one you have installed, unless you turned that off (Ajustes de voz)
+        if (store.configFlag("voiceAutoSpeed", true) && slow(context, picked)) {
+            VARIANTS.takeWhile { it.id != picked.id }.firstOrNull { installed(context, it) && !slow(context, it) }?.let { return it }
+        }
+        return picked
+    }
+
+    // ---- (1.12.0) how fast each precision really is on this phone: seconds of work per second of voice ----
+    private fun speedPrefs(context: Context) = context.applicationContext.getSharedPreferences("voice-speed", Context.MODE_PRIVATE)
+    fun rtf(context: Context, v: Variant): Float = speedPrefs(context).getFloat(v.id, 0f)
+    private fun slow(context: Context, v: Variant) = rtf(context, v) > 1.15f
+    private fun noteSpeed(context: Context, id: String, rtf: Double) {
+        if (rtf <= 0 || rtf.isNaN()) return
+        val p = speedPrefs(context)
+        val old = p.getFloat(id, 0f)
+        // a running average (one slow answer, the phone hot or busy, doesn't decide it alone)
+        p.edit().putFloat(id, if (old <= 0f) rtf.toFloat() else (old * 0.6f + rtf.toFloat() * 0.4f)).apply()
     }
     fun profileInstalled(context: Context, lang: String) = icl(context, lang).isFile ||
         (lang == "en-US" && englishWav(context).isFile && englishText(context).isFile)
@@ -243,6 +263,7 @@ object CapriNeural {
             if (ticket != generation.get()) return@execute
             val store = Store(app)
             val queue = java.util.concurrent.LinkedBlockingQueue<FloatArray>()
+            val play = Play()
             try {
                 val state = status(app, lang)
                 if (state != "ready" && state != "loaded") {
@@ -335,8 +356,8 @@ object CapriNeural {
                         }
                     } catch (_: Throwable) {
                     } finally {
-                        totalFrames = written
-                        generating = false
+                        play.total = written
+                        play.making = false
                     }
                 }.apply { name = "capri-voice-out" }
                 val fx = if (dsp == "SIGNATURE") CapriCyberVoiceFX(rate, 1, CapriCyberVoiceFX.Mode.RING, .26f, 76f) else null
@@ -361,7 +382,7 @@ object CapriNeural {
                             lastPct = maxOf(lastPct, pctOf(made))
                             emit("VOICE_READY", JSONObject().put("ms", firstAudio).put("pct", lastPct))
                             t.play()
-                            watch(t, ticket, emit)
+                            watch(t, ticket, emit, play)
                             writer.start()
                         } else if (n < sentences.lastIndex || !ended) {
                             val p = pctOf(made)
@@ -381,10 +402,18 @@ object CapriNeural {
                     .put("pssPeakBytes", peak).put("sentences", sentences.size).put("cached", cached).put("dsp", dsp).put("streamed", streaming)
                     .put("threads", runCatching { engine?.getCpuThreads() }.getOrNull() ?: JSONObject.NULL)
                     .put("variant", loadedVariant).put("at", System.currentTimeMillis())
+                // (1.12.0) how it went, in the app's log (Emma's reports show it), and how fast this precision is here
+                if (firstAudio >= 0) {
+                    val rtf = if (seconds > 0.5) genMs / 1000.0 / seconds else 0.0
+                    Diag.add("I", "voice $ID: first sound ${firstAudio} ms (load $loadMs ms), ${"%.1f".format(seconds)} s of voice in ${genMs} ms " +
+                        "(x${"%.2f".format(rtf)}), ${sentences.size} parts, $loadedVariant, ${runCatching { engine?.getCpuThreads() }.getOrNull()} threads" +
+                        if (cached > 0) ", $cached from memory" else "")
+                    if (cached == 0 && seconds > 1.0) noteSpeed(app, loadedVariant, rtf)
+                }
                 if (firstAudio >= 0) lastFallback = ""
                 if (firstAudio < 0 && ticket == generation.get()) emit("VOICE_ERROR", JSONObject().put("error", "noaudio"))
             } catch (e: Throwable) {
-                generating = false
+                play.making = false
                 queue.offer(FloatArray(0))
                 if (ticket == generation.get()) {
                     lastError = e.message ?: e.javaClass.simpleName
@@ -483,13 +512,15 @@ object CapriNeural {
         runCatching { File(context.applicationContext.cacheDir, "capri-voice-cache").deleteRecursively() }
     }
 
-    @Volatile private var totalFrames = 0L
-    @Volatile private var generating = false
+    /** (1.12.0) One answer's sound: how much was written and whether more is coming. Its own, per answer: shared,
+     *  an older answer's speaker thread finishing late could end the new answer after its first sentence. */
+    private class Play {
+        @Volatile var total = Long.MAX_VALUE
+        @Volatile var making = true
+    }
 
     /** The speaker's real position: started, progress every half second, finished when the last frame played. */
-    private fun watch(t: AudioTrack, ticket: Long, emit: (String, JSONObject) -> Unit) {
-        generating = true
-        totalFrames = Long.MAX_VALUE
+    private fun watch(t: AudioTrack, ticket: Long, emit: (String, JSONObject) -> Unit, play: Play) {
         var started = false
         var lastProgress = 0L
         val tick = object : Runnable {
@@ -498,7 +529,7 @@ object CapriNeural {
                 val pos = runCatching { t.playbackHeadPosition.toLong() and 0xffffffffL }.getOrDefault(0L)
                 if (!started && pos > 0) { started = true; emit("VOICE_STARTED", JSONObject()) }
                 if (started && pos - lastProgress >= 12_000) { lastProgress = pos; emit("VOICE_PROGRESS", JSONObject().put("ms", pos * 1000 / 24_000)) }
-                if (!generating && pos >= totalFrames) {
+                if (!play.making && pos >= play.total) {
                     stopTrack()
                     emit("VOICE_FINISHED", JSONObject().put("ms", pos * 1000 / 24_000))
                     return
@@ -596,7 +627,11 @@ object CapriNeural {
         var e = engine
         val fresh = e == null
         if (e == null) {
-            android.system.Os.setenv("QWEN3_TTS_LOW_MEM", "1", true)
+            // (1.12.0, Emma: "tarda muchísimo en mi S25 Ultra de 12 GB") the engine's low-memory mode unloads parts of
+            // the model after every sentence and loads them again for the next: only on phones that need it
+            val ram = runCatching { ActivityManager.MemoryInfo().also { app.getSystemService(ActivityManager::class.java).getMemoryInfo(it) }.totalMem }.getOrDefault(0L)
+            QwenEngine.lowMemory = store.configFlag("voiceLowMemory", ram in 1 until 7_500_000_000L)
+            Diag.add("I", "voice $ID: low-memory mode ${if (QwenEngine.lowMemory) "on" else "off"} (${ram / 1_000_000_000} GB)")
             e = QwenEngine()
             e.setBackendPreference(QwenEngine.BACKEND_CPU)
             val threads = store.configNumber("voiceThreads", 0.0).toInt().takeIf { it in 1..8 } ?: autoThreads()
@@ -741,7 +776,7 @@ object CapriNeural {
         return out
     }
 
-    private const val FIRST_MAX = 70
+    private const val FIRST_MAX = 42
 
     /** Sentences of at most ~220 characters (a sentence is ~25 s of audio at most for the engine's limit). */
     fun split(text: String, shortFirst: Boolean = true): List<String> {
@@ -765,8 +800,8 @@ object CapriNeural {
         // while she says it. A long first sentence is cut at a comma (or a space) near its start.
         val first = merged.firstOrNull()
         if (shortFirst && first != null && first.length > FIRST_MAX) {
-            val cut = first.lastIndexOf(',', FIRST_MAX).takeIf { it >= 18 }
-                ?: first.lastIndexOf(' ', FIRST_MAX).takeIf { it >= 18 }
+            val cut = first.lastIndexOf(',', FIRST_MAX).takeIf { it >= 12 }
+                ?: first.lastIndexOf(' ', FIRST_MAX).takeIf { it >= 12 }
             if (cut != null && first.length - cut > 12) {
                 merged[0] = first.substring(0, cut + 1).trim()
                 merged.add(1, first.substring(cut + 1).trim())

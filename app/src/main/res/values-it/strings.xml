@@ -646,4 +646,10 @@
     <string name="ears_passive_get">Scarica ora (40 MB)</string>
     <string name="ears_passive_busy">Download… %1$d %%</string>
     <string name="ears_passive_failed">Impossibile scaricarlo (%1$s). Riprova.</string>
+    <string name="chat_ai">IA · %1$s</string>
+    <string name="chat_ai_pick">Quale IA le risponde?</string>
+    <string name="chat_ai_free">IA gratuita</string>
+    <string name="chat_ai_local">Locale · Ollama (%1$s)</string>
+    <string name="chat_ai_nolocal">Locale (Ollama): configurala prima</string>
+    <string name="chat_ai_nolocal_how">Locale è Ollama sul tuo PC: collegala in Impostazioni › La sua IA e poi sceglila qui.</string>
 </resources>

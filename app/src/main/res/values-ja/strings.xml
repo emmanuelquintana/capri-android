@@ -642,4 +642,10 @@
     <string name="ears_passive_get">今すぐダウンロード(40 MB)</string>
     <string name="ears_passive_busy">ダウンロード中… %1$d %%</string>
     <string name="ears_passive_failed">ダウンロードできませんでした(%1$s)。もう一度試してください。</string>
+    <string name="chat_ai">AI · %1$s</string>
+    <string name="chat_ai_pick">どのAIが返事をする?</string>
+    <string name="chat_ai_free">無料AI</string>
+    <string name="chat_ai_local">ローカル · Ollama(%1$s)</string>
+    <string name="chat_ai_nolocal">ローカル(Ollama):先に設定してください</string>
+    <string name="chat_ai_nolocal_how">ローカルはPC上のOllamaです。設定 › 彼女のAI で接続してから、ここで選んでください。</string>
 </resources>

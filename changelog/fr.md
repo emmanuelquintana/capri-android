@@ -2,7 +2,7 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
-## 1.11.8
+## 1.12.0
 
 - **De nouveau sur les téléphones 32 bits :** depuis la 1.11.0, l’app ne s’installait pas sur les téléphones 32 bits
   (armeabi-v7a, comme le TECNO Spark Go 1S et beaucoup d’Android Go) : l’installateur disait que le processeur
@@ -50,6 +50,25 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   voix enregistrée.
 - **Sa voix démarre encore plus tôt :** si la première phrase de sa réponse est longue, elle commence par sa
   première partie (jusqu’à la virgule).
+- **Écoute passive, comme « Dis Siri » :** son oreille utilisait la reconnaissance vocale du téléphone, qui sur
+  beaucoup de téléphones n’écoute que quelques secondes : le micro s’allumait et s’éteignait toute la journée, avec
+  son bip. Maintenant un petit modèle vocal, dans le téléphone, n’écoute que son prénom en continu : pas de bips,
+  pas de micro qui clignote, rien ne sort du téléphone. Il se télécharge une fois par langue (environ 40 Mo) en
+  Wi-Fi, ou depuis **Réglages › Réglages de voix › Écoute passive**.
+- **Elle se réveille avec sa voix :** si elle dort et que tu l’appelles, elle se réveille en le disant avec une de
+  ses phrases enregistrées.
+- **Sa voix, plus rapide sur les téléphones puissants :** avec 8 Go de RAM ou plus, le moteur ne décharge et ne
+  recharge plus des parties du modèle après chaque phrase. Sans précision choisie, elle prend la plus rapide ; si
+  celle que tu as choisie est plus lente qu’elle ne parle, ses réponses en utilisent une plus rapide installée. Sa
+  première phrase est plus courte et sa voix se charge dès que tu ouvres le chat.
+- **Elle ne s’arrête plus après la première phrase :** elle continue avec le reste, et si la fin change, elle
+  reprend là où elle en était.
+- **Quelle IA lui répond, dans le chat :** en haut de l’onglet Chat, tu vois quelle IA répond et tu peux en changer
+  d’un toucher (ou Ollama sur ton PC).
+- **Phrases de message et de notification qui sonnent vraiment :** la première notification est toujours annoncée,
+  même avec l’app ouverte.
+- **Menu plus léger :** Communauté et Commandes vocales sont réunies dans un seul onglet.
+- **Sa voix dans le journal :** les rapports disent combien de temps sa voix a mis à sonner.
 
 ## 1.11.7
 

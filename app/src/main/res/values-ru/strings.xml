@@ -664,4 +664,10 @@
     <string name="ears_passive_get">Скачать сейчас (40 МБ)</string>
     <string name="ears_passive_busy">Скачивание… %1$d %%</string>
     <string name="ears_passive_failed">Не удалось скачать (%1$s). Попробуй ещё раз.</string>
+    <string name="chat_ai">ИИ · %1$s</string>
+    <string name="chat_ai_pick">Какой ИИ ей отвечает?</string>
+    <string name="chat_ai_free">Бесплатный ИИ</string>
+    <string name="chat_ai_local">Локальный · Ollama (%1$s)</string>
+    <string name="chat_ai_nolocal">Локальный (Ollama): сначала настрой его</string>
+    <string name="chat_ai_nolocal_how">Локальный — это Ollama на твоём ПК: подключи его в Настройках › Её ИИ и выбери здесь.</string>
 </resources>

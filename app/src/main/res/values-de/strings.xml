@@ -646,4 +646,10 @@
     <string name="ears_passive_get">Jetzt herunterladen (40 MB)</string>
     <string name="ears_passive_busy">Wird geladen… %1$d %%</string>
     <string name="ears_passive_failed">Download fehlgeschlagen (%1$s). Versuch es noch einmal.</string>
+    <string name="chat_ai">KI · %1$s</string>
+    <string name="chat_ai_pick">Welche KI antwortet für sie?</string>
+    <string name="chat_ai_free">Kostenlose KI</string>
+    <string name="chat_ai_local">Lokal · Ollama (%1$s)</string>
+    <string name="chat_ai_nolocal">Lokal (Ollama): erst einrichten</string>
+    <string name="chat_ai_nolocal_how">Lokal ist Ollama auf deinem PC: verbinde es in Einstellungen › Ihre KI und wähle es dann hier.</string>
 </resources>

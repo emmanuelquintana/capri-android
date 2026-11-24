@@ -658,4 +658,10 @@
     <string name="ears_passive_get">Download now (40 MB)</string>
     <string name="ears_passive_busy">Downloading… %1$d %%</string>
     <string name="ears_passive_failed">Couldn\'t download it (%1$s). Try again.</string>
+    <string name="chat_ai">AI · %1$s</string>
+    <string name="chat_ai_pick">Which AI answers her?</string>
+    <string name="chat_ai_free">Free AI</string>
+    <string name="chat_ai_local">Local · Ollama (%1$s)</string>
+    <string name="chat_ai_nolocal">Local (Ollama): set it up first</string>
+    <string name="chat_ai_nolocal_how">Local means Ollama on your PC: connect it in Settings › Her AI, then pick it here.</string>
 </resources>

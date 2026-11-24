@@ -39,6 +39,20 @@ const speakable = (line) => String(line || '')
   .replace(/\s+/g, ' ')
   .trim();
 
+const letters = (x) => String(x || '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+// what's left of `text` after `said` (its letters), or '' when `text` doesn't start like that
+export function restAfter(text, said) {
+  const want = letters(said);
+  if (!want) return text.trim();
+  if (!letters(text).startsWith(want)) return '';
+  let n = 0;
+  for (let i = 0; i < text.length; i++) {
+    if (/[\p{L}\p{N}]/u.test(text[i])) n += letters(text[i]).length;
+    if (n >= want.length) return text.slice(i + 1).replace(/^[\s.,;:!?…»”"')\]]+/u, '').trim();
+  }
+  return '';
+}
+
 export function spokenText(line) {
   let s = speakable(line);
   if (s.length > MAX) {
@@ -65,11 +79,11 @@ export function chatVoice({ cfg, lang }) {
     const s = [...streams.values()].find((x) => x.voiceId === id && x.sent);
     if (s) {
       for (const [k, v] of streams) if (v === s) streams.delete(k);
-      if (text.startsWith(s.sent) || s.sent.startsWith(text)) {
-        send('voice:say', { id, kind: 'answer', text: text.slice(s.sent.length).trim(), lang: locale(), part: 'last' });
-        return true;
-      }
-      // (her final answer isn't what was said so far: it's said again, whole)
+      // (1.12.0) the rest of it, from where her voice is: compared by letters only (spaces or a quote mark
+      // written differently in the end don't make her start over). Never said again from the start: if the
+      // end is something else, she finishes what she started.
+      send('voice:say', { id, kind: 'answer', text: restAfter(text, s.sent), lang: locale(), part: 'last' });
+      return true;
     }
     if (!text) return false;
     dev.voicelines?.stop?.();
@@ -96,8 +110,8 @@ export function chatVoice({ cfg, lang }) {
     for (const m of said.matchAll(/[.!?…]+(?=\s)/g)) end = m.index + m[0].length;
     // (1.11.8, Emma: "en el S25 Ultra todavía tarda en hablar") a long first sentence: her voice starts on its
     // first part (up to a comma), so the first sound comes sooner
-    if (!s.sent && end < 0 && said.length >= 60) {
-      for (const m of said.slice(0, 80).matchAll(/[,;:](?=\s)/g)) if (m.index >= 18) end = m.index + 1;
+    if (!s.sent && end < 0 && said.length >= 40) {
+      for (const m of said.slice(0, 60).matchAll(/[,;:](?=\s)/g)) if (m.index >= 12) end = m.index + 1;
     }
     if (end <= s.sent.length || end > MAX) return;
     const piece = said.slice(s.sent.length, end).trim();

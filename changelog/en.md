@@ -2,7 +2,7 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
-## 1.11.8
+## 1.12.0
 
 - **32-bit phones again:** since 1.11.0 the app didn't install on 32-bit phones (armeabi-v7a, like the TECNO Spark
   Go 1S and many Android Go phones): the installer said the processor wasn't compatible. Now the same APK installs
@@ -49,6 +49,27 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   voice: "A message just came in" or "You've got a new notification".
 - **Her voice starts even sooner:** if the first sentence of her answer is long, she starts saying its first part
   (up to the comma) without waiting for the rest.
+- **Passive listening, like "Hey Siri":** her ears used to rely on the phone's speech recognizer, which on many
+  phones only listens a few seconds at a time: the mic switched on and off all day, beeping. Now a small speech
+  model inside the phone listens only for her name, continuously: no beeps, no blinking mic, nothing leaves the
+  phone. It downloads once per language (about 40 MB) on Wi-Fi, or from **Settings › Voice settings › Passive
+  listening**. What you ask after her name is understood as before.
+- **She wakes up with her voice:** if she's asleep and you call her name, she wakes up saying so with one of her
+  recorded phrases.
+- **Her voice, faster on powerful phones:** on phones with 8 GB of RAM or more, the engine no longer unloads and
+  reloads parts of the model after every sentence (that was the slowest part). If you don't pick a precision, she
+  uses the fastest one you have; and if the one you picked turns out slower than she talks on your phone, her
+  answers use a faster one you have installed. Her first sentence is shorter, so she starts talking sooner, and her
+  voice starts loading as soon as you open the chat.
+- **No more stopping after the first sentence:** sometimes her voice said the first sentence and went quiet. Now
+  she goes on with the rest, and if the end of the answer changes, she continues from where she was instead of
+  starting over.
+- **Which AI answers her, in the chat:** at the top of the Chat tab you see which AI answers and can switch with a
+  tap among the ones you set up (or Ollama on your PC, if connected). It's the same AI as her bubble.
+- **Message and notification phrases that really play:** she always announces the first notification with her
+  voice, also with the app open.
+- **Lighter menu:** Community and Voice commands are now one tab. The chat's "?" takes you straight to the commands.
+- **Her voice in the log:** bug reports now say how long her voice took to sound and how fast it was made.
 
 ## 1.11.7
 

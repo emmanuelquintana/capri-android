@@ -2,7 +2,7 @@
 
 Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt: ứng dụng hiển thị nó khi đang ở tiếng Việt.
 
-## 1.11.8
+## 1.12.0
 
 - **Lại chạy trên điện thoại 32-bit:** từ bản 1.11.0 ứng dụng không cài được trên điện thoại 32-bit (armeabi-v7a, như
   TECNO Spark Go 1S và nhiều máy Android Go): trình cài đặt báo bộ xử lý không tương thích. Giờ cùng một APK cài được
@@ -38,3 +38,14 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
   tiếp theo.
 - **Cô ấy báo tin nhắn cho bạn:** thỉnh thoảng, khi có thông báo, cô ấy nói bằng giọng đã thu âm.
 - **Giọng cô ấy bắt đầu sớm hơn nữa:** nếu câu đầu dài, cô ấy nói phần đầu (đến dấu phẩy) trước.
+- **Nghe thụ động, như «Hey Siri»:** trước đây cô ấy dùng trình nhận dạng giọng nói của điện thoại, vốn chỉ nghe vài
+  giây mỗi lần: micro bật tắt cả ngày kèm tiếng bíp. Giờ một mô hình nhỏ ngay trong điện thoại liên tục chỉ nghe tên
+  cô ấy: không bíp, micro không nhấp nháy, không gì rời khỏi điện thoại. Tải một lần cho mỗi ngôn ngữ (khoảng 40 MB)
+  qua Wi-Fi, hoặc trong **Cài đặt › Cài đặt giọng nói › Nghe thụ động**.
+- **Cô ấy thức dậy bằng giọng của mình:** nếu đang ngủ và bạn gọi tên, cô ấy thức dậy và nói bằng câu đã thu âm.
+- **Giọng nhanh hơn trên điện thoại mạnh:** với RAM từ 8 GB, bộ máy không còn gỡ và nạp lại các phần của mô hình sau
+  mỗi câu. Câu đầu ngắn hơn và giọng bắt đầu tải ngay khi bạn mở chat.
+- **Không còn dừng sau câu đầu:** cô ấy nói tiếp phần còn lại.
+- **AI nào trả lời, ngay trong chat:** ở đầu tab Chat bạn thấy AI nào trả lời và đổi bằng một chạm.
+- **Câu báo tin nhắn và thông báo thật sự phát ra:** thông báo đầu tiên luôn được báo, kể cả khi đang mở ứng dụng.
+- **Menu gọn hơn:** Cộng đồng và Lệnh giọng nói giờ là một tab.

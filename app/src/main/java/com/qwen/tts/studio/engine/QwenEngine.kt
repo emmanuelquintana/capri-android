@@ -4,6 +4,9 @@ class QwenEngine : AutoCloseable {
     private var nativePtr: Long = 0
 
     companion object {
+        /** (1.12.0) Set before creating one: false on phones with lots of RAM (CapriNeural decides). */
+        @Volatile var lowMemory = true
+
         const val BACKEND_AUTO: Int = 0
         const val BACKEND_CPU: Int = 1
         const val BACKEND_GPU: Int = 2
@@ -50,7 +53,9 @@ class QwenEngine : AutoCloseable {
     }
 
     init {
-        android.system.Os.setenv("QWEN3_TTS_LOW_MEM", "1", true)
+        // (1.12.0) the low-memory mode (lazy decoder, parts unloaded after each sentence) only where it's needed:
+        // on a phone with plenty of RAM it made every sentence load parts of the model again
+        if (lowMemory) android.system.Os.setenv("QWEN3_TTS_LOW_MEM", "1", true) else android.system.Os.unsetenv("QWEN3_TTS_LOW_MEM")
         CpuFeatures.optimized
         nativePtr = nativeInit()
     }

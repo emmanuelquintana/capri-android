@@ -202,7 +202,7 @@ class MainActivity : Activity() {
         // (1.11.0, Emma: "el menú de píldora está llegando a un nivel sobrecargado, debe haber novedades,
         // comunidad y personalizar Capri, y otro para comandos de voz, otro menú para ajustes"): Comunidad and
         // Comandos are tabs again; Tú became Ajustes › Ajustes personales, her voice Ajustes › Ajustes de voz.
-        chat = ChatTab(this, ui) { show(TAB_CMDS) }
+        chat = ChatTab(this, ui) { showCmds() }
         personal = youPage()
         voice = voicePage()
         groups += Group("personal", "person", Hud.YELLOW, R.string.settings_personal, R.string.settings_personal_how, personal)
@@ -212,14 +212,14 @@ class MainActivity : Activity() {
         groups += Group("modes", "eye", Hud.GREEN, R.string.g_modes, R.string.g_modes_how, modesPage())
         groups += Group("phone", "phone", Hud.YELLOW, R.string.g_phone, R.string.g_phone_how, phonePage())
         groups += Group("report", "warn", Hud.RED, R.string.g_report, R.string.g_report_how, reportPage())
-        val pages = listOf(chat.build(), newsPage(), communityPage(), gamesPage(), stylePage(), cmdsPage(), settingsPage())
+        val pages = listOf(chat.build(), newsPage(), communityPage(), gamesPage(), stylePage(), settingsPage())
         val bar = ui.row().apply {
             background = Ui.Pill(Hud.INK, Hud.MANE, ui.dp(1.5f))
             setPadding(ui.dpi(6), ui.dpi(6), ui.dpi(6), ui.dpi(6))
             elevation = ui.dp(6f)
         }
         val labels = listOf(R.string.tab_chat to "chat", R.string.tab_news to "spark", R.string.tab_community to "people", R.string.tab_games to "pad",
-            R.string.tab_style to "hanger", R.string.tab_cmds to "mic", R.string.tab_settings to "sliders")
+            R.string.tab_style to "hanger", R.string.tab_settings to "sliders")
         for ((i, pair) in labels.withIndex()) {
             val (label, kind) = pair
             val icon = Ui.Icon(kind, Hud.PAPER_2)
@@ -280,7 +280,7 @@ class MainActivity : Activity() {
             if (typing) chat.setBottom(ui.dpi(8)) else roomUnderChat()
         }
         setContentView(root)
-        show(savedInstanceState?.getInt("tab") ?: tabAsked(intent) ?: if (wantsUpdate) TAB_NEWS else TAB_CHAT, animate = false)
+        show(savedInstanceState?.getInt("tab")?.takeIf { it in 0 until TABS } ?: tabAsked(intent) ?: if (wantsUpdate) TAB_NEWS else TAB_CHAT, animate = false)
         if (savedInstanceState == null && tabAsked(intent) == null) root.postDelayed({ if (!isFinishing && !tourOnce() && !offerVoiceOnce()) inviteOnce() }, 1500)
         // a screen of Ajustes to open on ("sub": a Group key): the emulator's screenshots ask for one
         intent?.getStringExtra(EXTRA_SUB)?.let { k -> groups.firstOrNull { it.key == k }?.let { openSub(it.page, animate = false) } }
@@ -580,8 +580,11 @@ class MainActivity : Activity() {
 
     // ---------- Commands: what she can do, so you know what to ask ----------
 
-    private fun cmdsPage() = page {
-        addView(ui.label(getString(R.string.tab_cmds)))
+    // (1.12.0, Emma: "unifica el menú de comunidad y de comandos de voz, siento muy cargado el menú de píldora"):
+    // her voice commands live in the Comunidad tab now, under the community card (the «?» of her chat jumps there)
+    private var cmdsTop: View? = null
+    private fun cmdsInto(box: LinearLayout) = box.run {
+        addView(ui.label(getString(R.string.tab_cmds)).also { cmdsTop = it }, ui.block(26))
         addView(ui.text(getString(R.string.cmds_intro), 15f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.2f) }, ui.block(8))
         // (1.11.0) her ears and her voice are one tap away: Ajustes › Ajustes de voz
         addView(entry("mic", Hud.MANE, R.string.settings_voice_screen, R.string.cmds_voice_how) { openSub(voice) }, ui.block(14))
@@ -1423,10 +1426,10 @@ class MainActivity : Activity() {
     /** What a tour step lights up (its "target" in tour.json), with its tab on screen first. */
     private fun tourTarget(key: String): View? {
         val (kind, name) = key.split(":", limit = 2).let { it[0] to it.getOrElse(1) { "" } }
-        val tab = listOf("chat", "news", "community", "games", "style", "cmds", "settings")
+        val tab = listOf("chat", "news", "community", "games", "style", "settings")
         return when (kind) {
             "bar" -> pill
-            "tab" -> tab.indexOf(name).takeIf { it >= 0 }?.let { show(it, animate = false); tabs[it].button }
+            "tab" -> tab.indexOf(if (name == "cmds") "community" else name).takeIf { it >= 0 }?.let { show(it, animate = false); tabs[it].button }
             "settings" -> { show(TAB_SETTINGS, animate = false); entries[name] }
             "voice" -> { if (sub !== voice) openSub(voice, animate = false); voiceSpots[name] }
             else -> null
@@ -1925,6 +1928,14 @@ class MainActivity : Activity() {
         addView(ui.label(getString(R.string.tab_community)))
         addView(communityCard(), ui.block(8))
         addView(ui.button("♥ " + getString(R.string.main_donate), Ui.Kind.GREEN) { showSupport(asked = true) }, ui.block(16))
+        cmdsInto(this)
+    }
+
+    /** (1.12.0) The voice commands (in the Comunidad tab), scrolled to. */
+    private fun showCmds() {
+        show(TAB_CMDS)
+        val top = cmdsTop ?: return
+        (tabs[TAB_CMDS].page as? ScrollView)?.post { (tabs[TAB_CMDS].page as? ScrollView)?.smoothScrollTo(0, maxOf(0, top.top - ui.dpi(12))) }
     }
 
     // Emma's TikTok and Discord, as a card (the Comunidad tab, and the one-time invite)
@@ -2049,9 +2060,9 @@ class MainActivity : Activity() {
         const val TAB_NEWS = 1
         const val TAB_COMMUNITY = 2
         const val TAB_GAMES = 3
-        const val TAB_CMDS = 5
-        const val TAB_SETTINGS = 6
-        private const val TABS = 7
+        const val TAB_CMDS = 2 // (1.12.0: inside Comunidad)
+        const val TAB_SETTINGS = 5
+        private const val TABS = 6
         const val EXTRA_SUB = "sub"
         private const val TIKTOK = "https://www.tiktok.com/@emma180516_"
         private const val DISCORD = "https://discord.gg/hmh783tfn"

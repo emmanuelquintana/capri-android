@@ -644,7 +644,9 @@ class Ears(private val service: CapriService) {
             streamText.append(' ').append(text)
             if (streamNeural) {
                 // (stopped meanwhile, by you or a newer answer: the rest isn't said either)
-                if (neuralId == id) CapriNeural.feed(text, last)
+                // (1.12.0) fed while that answer is still the one being made (CapriNeural checks it): not tied to
+                // neuralId, which a late "cancelled" of an older try with the same id could clear
+                CapriNeural.feed(text, last)
                 if (last) streamId = ""
                 return
             }
@@ -710,17 +712,19 @@ class Ears(private val service: CapriService) {
     // answers in writing, unless you chose "if it can't, the phone's voice" (voiceFallback), and then the
     // event says so (fallback: system).
     private var neuralId = ""
+    private var neuralSeq = 0 // (1.12.0) which try is the current one (an older one's late events don't count)
 
     private fun neuralVoice(id: String, text: String, lang: String, streaming: Boolean = false) {
         val tag = CapriVoice.voiceLang(lang)
         if (tag == null) return neuralFailed(id, text, lang, "lang")
         neuralId = id
+        val mine = ++neuralSeq
         // (1.11.8) her ears stay open while her voice is being made (it can take a while): they close when
         // the sound is ready to play, not before. Before, she couldn't hear you for the whole generation.
         main.removeCallbacks(unstuck)
         main.postDelayed(unstuck, 180_000)
         CapriNeural.speak(service, id, text, tag, { state, extra ->
-            if (neuralId != id) return@speak
+            if (neuralId != id || neuralSeq != mine) return@speak
             if (state == "VOICE_UNAVAILABLE") {
                 neuralId = ""
                 return@speak neuralFailed(id, text, lang, extra.optString("why"))

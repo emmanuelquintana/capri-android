@@ -29,6 +29,7 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
     private lateinit var statusLine: TextView
     private lateinit var headFace: ImageView
     private lateinit var input: LinearLayout
+    private lateinit var aiChip: TextView
     private var waiting: String? = null // the id of the message she's answering
     private var typingBubble: TextView? = null
     private val dots = object : Runnable {
@@ -69,6 +70,18 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
             setOnClickListener { help() }
         }, LinearLayout.LayoutParams(ui.dpi(40), ui.dpi(40)))
         root.addView(head)
+        // (1.12.0, Emma: "un select para saber si quiere que hable con la IA conectada o local") which AI answers her
+        // here (the same one as her bubble chat): tap to pick another of the ones you set up
+        aiChip = ui.text("", 11f, Hud.YELLOW, ui.mono).apply {
+            letterSpacing = 0.08f
+            setPadding(ui.dpi(10), ui.dpi(6), ui.dpi(10), ui.dpi(6))
+            background = Hud.Plate(Hud.INK_2, Hud.LINE_STRONG, cut = ui.dp(6f), stroke = ui.dp(1f), offset = 0f)
+            isClickable = true
+            setOnClickListener { pickAi() }
+        }
+        root.addView(aiChip, LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+            leftMargin = ui.dpi(20); bottomMargin = ui.dpi(10)
+        })
         root.addView(View(a).apply { setBackgroundColor(Hud.LINE_STRONG) }, LinearLayout.LayoutParams(MATCH_PARENT, ui.dpi(1)))
 
         list = ui.col().apply { setPadding(ui.dpi(14), ui.dpi(12), ui.dpi(14), ui.dpi(12)) }
@@ -115,6 +128,40 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
         AppChat.partialListener = { id, text -> partial(id, text) }
         Ears.voiceListener = { onVoice(it) }
         status()
+        showAi()
+        // (1.12.0) her voice starts loading as you open her chat, not when you send (it takes a few seconds)
+        when (Lang.current(a)) { "es" -> "es-MX"; "en" -> "en-US"; else -> null }?.let { runCatching { CapriNeural.warm(a, it) } }
+    }
+
+    // ---- (1.12.0) which AI answers her ----
+    private fun aiName(id: String): String = when (id) {
+        "pollinations" -> a.getString(R.string.chat_ai_free)
+        "ollama" -> a.getString(R.string.chat_ai_local, CapriSettings.ollamaHost(a).ifEmpty { "Ollama" })
+        else -> CapriSettings.KEYED.firstOrNull { it.id == id }?.name ?: id
+    }
+
+    private fun showAi() {
+        if (!::aiChip.isInitialized) return
+        aiChip.text = a.getString(R.string.chat_ai, aiName(CapriSettings.provider(a))).uppercase() + "  ▾"
+    }
+
+    private fun pickAi() {
+        val ids = CapriSettings.KEYED.filter { CapriSettings.hasKey(a, it.id) }.map { it.id }.toMutableList()
+        ids += "pollinations"
+        val local = CapriSettings.ollamaHost(a).isNotEmpty()
+        if (local) ids += "ollama"
+        val now = CapriSettings.provider(a)
+        val labels = ids.map { (if (it == now) "● " else "○ ") + aiName(it) }.toMutableList()
+        if (!local) labels += a.getString(R.string.chat_ai_nolocal)
+        android.app.AlertDialog.Builder(a, android.R.style.Theme_DeviceDefault_Dialog_Alert)
+            .setTitle(R.string.chat_ai_pick)
+            .setItems(labels.toTypedArray()) { _, i ->
+                val id = ids.getOrNull(i) ?: return@setItems Toast.makeText(a, R.string.chat_ai_nolocal_how, Toast.LENGTH_LONG).show()
+                if (id == now) return@setItems
+                Thread { CapriSettings.useSaved(a, id); a.runOnUiThread { showAi() } }.start()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     // ---- (1.11.8) her voice for each answer: a small line under it with how much is made, then "speaking" ----

@@ -3,7 +3,7 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
-## 1.11.8
+## 1.12.0
 
 - **Otra vez para teléfonos de 32 bits:** desde la 1.11.0 la app no se instalaba en teléfonos de 32 bits
   (armeabi-v7a, como el TECNO Spark Go 1S y muchos Android Go): el instalador decía que el procesador no era
@@ -50,6 +50,28 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   «Acaba de entrar un mensaje» o «Tienes una notificación nueva».
 - **Su voz arranca aún antes:** si la primera frase de su respuesta es larga, empieza a decir la primera parte
   (hasta la coma) sin esperar a que termine.
+- **Escucha pasiva, como «Oye Siri»:** antes su oído usaba el reconocedor de voz del teléfono, que en muchos
+  teléfonos solo escucha unos segundos: el micrófono se prendía y se apagaba todo el día, con su pitido. Ahora un
+  modelo de voz pequeño, dentro del teléfono, escucha solo su nombre de forma continua: sin pitidos, sin que el
+  micrófono parpadee y sin que nada salga del teléfono. Se descarga una vez por idioma (unos 40 MB) con Wi-Fi, o
+  desde **Ajustes › Ajustes de voz › Escucha pasiva**. Lo que le pides después de su nombre se entiende igual que antes.
+- **Despierta con su voz:** si está dormida y la llamas por su nombre, se despierta diciéndolo con una de sus
+  frases grabadas.
+- **Su voz, más rápida en teléfonos potentes:** el motor ya no descarga y vuelve a cargar partes del modelo después
+  de cada frase en teléfonos con 8 GB de RAM o más (era lo que más tardaba). Si no eliges precisión, usa la más
+  rápida que tengas; y si la que elegiste resulta más lenta que su forma de hablar en tu teléfono, sus respuestas
+  usan otra más rápida que tengas instalada. Su primera frase es más corta, así empieza a hablar antes, y su voz
+  empieza a cargarse en cuanto abres el chat.
+- **Ya no se queda en la primera oración:** a veces su voz decía la primera frase y se callaba. Ahora sigue con el
+  resto de la respuesta, y si el final de la respuesta cambia, continúa desde donde iba en vez de empezar de nuevo.
+- **Qué IA le contesta, en el chat:** arriba de la pestaña Chat ves qué IA le responde y puedes cambiarla con un
+  toque, entre las que configuraste (o Ollama en tu PC, si lo conectaste). Es la misma IA de su burbuja.
+- **Frases de mensaje y notificación, que sí suenan:** la primera notificación siempre la anuncia con su voz, y
+  también con la app abierta.
+- **Menú más ligero:** Comunidad y Comandos de voz ahora están en una sola pestaña. El «?» del chat te lleva
+  directo a los comandos.
+- **Registro de su voz:** el informe de fallos ahora dice cuánto tardó su voz en sonar y a qué velocidad se generó,
+  para encontrar más rápido lo que la frena.
 
 ## 1.11.7
 

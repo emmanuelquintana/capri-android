@@ -642,4 +642,10 @@
     <string name="ears_passive_get">Tải ngay (40 MB)</string>
     <string name="ears_passive_busy">Đang tải… %1$d %%</string>
     <string name="ears_passive_failed">Không tải được (%1$s). Hãy thử lại.</string>
+    <string name="chat_ai">AI · %1$s</string>
+    <string name="chat_ai_pick">AI nào trả lời cho cô ấy?</string>
+    <string name="chat_ai_free">AI miễn phí</string>
+    <string name="chat_ai_local">Cục bộ · Ollama (%1$s)</string>
+    <string name="chat_ai_nolocal">Cục bộ (Ollama): hãy thiết lập trước</string>
+    <string name="chat_ai_nolocal_how">Cục bộ là Ollama trên PC của bạn: kết nối trong Cài đặt › AI của cô ấy rồi chọn ở đây.</string>
 </resources>

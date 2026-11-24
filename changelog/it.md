@@ -2,7 +2,7 @@
 
 Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mostra quando è in italiano.
 
-## 1.11.8
+## 1.12.0
 
 - **Di nuovo sui telefoni a 32 bit:** dalla 1.11.0 l’app non si installava sui telefoni a 32 bit (armeabi-v7a, come
   il TECNO Spark Go 1S e molti Android Go): l’installer diceva che il processore non era compatibile. Ora lo stesso
@@ -40,3 +40,15 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
   successiva.
 - **Ti avvisa dei tuoi messaggi:** ogni tanto, quando arriva una notifica, te lo dice con la sua voce registrata.
 - **La sua voce parte ancora prima:** se la prima frase è lunga, inizia dalla sua prima parte (fino alla virgola).
+- **Ascolto passivo, come «Ehi Siri»:** prima usava il riconoscimento vocale del telefono, che su molti telefoni
+  ascolta solo pochi secondi: il microfono si accendeva e spegneva tutto il giorno con un bip. Ora un piccolo
+  modello vocale dentro il telefono ascolta solo il suo nome, di continuo: niente bip, niente microfono che
+  lampeggia, niente esce dal telefono. Si scarica una volta per lingua (circa 40 MB) con il Wi-Fi, o da
+  **Impostazioni › Impostazioni voce › Ascolto passivo**.
+- **Si sveglia con la sua voce:** se dorme e la chiami, si sveglia dicendolo con una delle sue frasi registrate.
+- **La sua voce è più veloce sui telefoni potenti:** con 8 GB di RAM o più, il motore non scarica e ricarica più
+  parti del modello dopo ogni frase. La prima frase è più corta e la voce inizia a caricarsi appena apri la chat.
+- **Non si ferma più alla prima frase:** continua con il resto.
+- **Quale IA risponde, nella chat:** in alto nella scheda Chat vedi quale IA risponde e la cambi con un tocco.
+- **Le frasi di messaggio e notifica suonano davvero:** la prima notifica viene sempre annunciata, anche con l’app aperta.
+- **Menu più leggero:** Community e Comandi vocali ora sono un’unica scheda.

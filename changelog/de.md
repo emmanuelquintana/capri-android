@@ -2,7 +2,7 @@
 
 Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt es, wenn sie auf Deutsch ist.
 
-## 1.11.8
+## 1.12.0
 
 - **Wieder auf 32-Bit-Handys:** Seit 1.11.0 ließ sich die App auf 32-Bit-Handys (armeabi-v7a, wie dem TECNO Spark
   Go 1S und vielen Android-Go-Geräten) nicht installieren: Der Installer meldete einen inkompatiblen Prozessor. Jetzt
@@ -43,3 +43,16 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Sie sagt dir Bescheid:** Ab und zu, wenn eine Benachrichtigung kommt, sagt sie es dir mit ihrer aufgenommenen
   Stimme.
 - **Ihre Stimme setzt noch früher ein:** Ist der erste Satz lang, beginnt sie mit seinem ersten Teil (bis zum Komma).
+- **Passives Zuhören wie bei „Hey Siri“:** Bisher nutzte sie die Spracherkennung des Handys, die auf vielen Geräten
+  nur ein paar Sekunden zuhört: Das Mikrofon ging den ganzen Tag piepend an und aus. Jetzt hört ein kleines
+  Sprachmodell direkt im Handy ständig nur auf ihren Namen: keine Pieptöne, kein blinkendes Mikrofon, nichts
+  verlässt das Handy. Es wird einmal pro Sprache (etwa 40 MB) über WLAN geladen oder unter **Einstellungen ›
+  Stimmeinstellungen › Passives Zuhören**.
+- **Sie wacht mit ihrer Stimme auf:** Schläft sie und du rufst sie, wacht sie mit einer aufgenommenen Phrase auf.
+- **Ihre Stimme ist auf starken Handys schneller:** Ab 8 GB RAM entlädt und lädt die Engine nach jedem Satz keine
+  Modellteile mehr neu. Der erste Satz ist kürzer, und ihre Stimme lädt, sobald du den Chat öffnest.
+- **Sie hört nicht mehr nach dem ersten Satz auf:** Sie spricht den Rest weiter.
+- **Welche KI antwortet, direkt im Chat:** Oben im Chat-Tab siehst du die KI und wechselst sie mit einem Tippen.
+- **Phrasen für Nachrichten und Benachrichtigungen erklingen wirklich:** Die erste Benachrichtigung wird immer angesagt,
+  auch bei geöffneter App.
+- **Schlankeres Menü:** Community und Sprachbefehle sind jetzt ein Tab.
