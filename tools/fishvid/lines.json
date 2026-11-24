@@ -1,1 +1,272 @@
-[]
+[
+ {
+  "id": "v112-es-01-intro",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Choom, llegó la uno punto doce. Y escucha bien… porque esta sí es mi voz de verdad."
+ },
+ {
+  "id": "v112-es-02-voz",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Con tu clave de Fish Audio, y el plan gratis basta, te hablo con mi voz real en español, inglés, portugués y japonés."
+ },
+ {
+  "id": "v112-es-03-colores",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Debajo de cada respuesta, un color te dice qué voz está hablando: azul es la nube, verde es mi voz del teléfono."
+ },
+ {
+  "id": "v112-es-04-rapido",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Y ya no te hago esperar: empiezo a hablar mientras todavía escribo."
+ },
+ {
+  "id": "v112-es-05-oidos",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Di «Oye Capri» y te escucho, sin pitidos y sin mandar nada a internet. Hasta puedo aprender a hacerte caso solo a ti."
+ },
+ {
+  "id": "v112-es-06-cuenta",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Entra con Google o con tu correo, y tu chat, mis recuerdos y tus ajustes te siguen a tu otro teléfono."
+ },
+ {
+  "id": "v112-es-07-util",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Mándame un PDF, un Word o un audio, pregúntame qué canción suena, o pídeme las noticias del día."
+ },
+ {
+  "id": "v112-es-08-ia",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Tú eliges la IA y su modelo. Y si una se llena, me cambio a otra solita."
+ },
+ {
+  "id": "v112-es-09-funciones",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "En la pestaña Funciones tienes el modo sueño, tus clases y todo lo que te cuida."
+ },
+ {
+  "id": "v112-es-10-crea",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "¿Quieres vestirme tú? Baja mi diseño, dibújame un traje y mándamelo desde Personalizar."
+ },
+ {
+  "id": "v112-es-11-idiomas",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "La app ya está en nueve idiomas: llegaron el vietnamita, el japonés, el alemán y el italiano."
+ },
+ {
+  "id": "v112-es-12-arreglos",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Y arreglé cosas: ya no me callo a media respuesta, gasto menos batería y vuelvo a instalarme en teléfonos viejitos."
+ },
+ {
+  "id": "v112-es-13-pc",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "¿Y en tu compu? Llegó la uno punto tres, con todo lo mismo: mi voz, «Oye Capri», tu cuenta y el chat."
+ },
+ {
+  "id": "v112-es-14-cta",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Es gratis. Actualiza ya, o descárgame desde la web."
+ },
+ {
+  "id": "v112-es-15-follow",
+  "lang": "es",
+  "voice": "0a56e85c27c6490caf07bf61d2a229f0",
+  "text": "Y sígueme, que lo que viene está todavía mejor."
+ },
+ {
+  "id": "v112-en-01-intro",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "Choom, one point twelve is here. And listen closely… because this is my real voice."
+ },
+ {
+  "id": "v112-en-02-voz",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "With your Fish Audio key, and the free plan is enough, I talk to you in my real voice in Spanish, English, Portuguese and Japanese."
+ },
+ {
+  "id": "v112-en-03-colores",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "Under every answer, a color tells you which voice is talking: blue is the cloud, green is my voice on your phone."
+ },
+ {
+  "id": "v112-en-04-rapido",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "And no more waiting: I start talking while I’m still writing."
+ },
+ {
+  "id": "v112-en-05-oidos",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "Say “Hey Capri” and I’m listening, with no beeps, and nothing sent to the internet. I can even learn to listen only to you."
+ },
+ {
+  "id": "v112-en-06-cuenta",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "Sign in with Google or your email, and your chat, my memories and your settings follow you to your other phone."
+ },
+ {
+  "id": "v112-en-07-util",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "Send me a PDF, a Word file or a voice note, ask me what song is playing, or ask for today’s news."
+ },
+ {
+  "id": "v112-en-08-ia",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "You pick the AI and its model. And if one gets full, I switch to another on my own."
+ },
+ {
+  "id": "v112-en-09-funciones",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "In the Features tab you’ll find sleep mode, your classes, and everything that looks after you."
+ },
+ {
+  "id": "v112-en-10-crea",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "Want to dress me up yourself? Download my design, draw me an outfit, and send it from Customize."
+ },
+ {
+  "id": "v112-en-11-idiomas",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "The app now speaks nine languages: Vietnamese, Japanese, German and Italian just arrived."
+ },
+ {
+  "id": "v112-en-12-arreglos",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "And I fixed things: I don’t go quiet mid-answer anymore, I use less battery, and I install again on older phones."
+ },
+ {
+  "id": "v112-en-13-pc",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "And on your computer? One point three is here, with all the same: my voice, “Hey Capri”, your account and the chat."
+ },
+ {
+  "id": "v112-en-14-cta",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "It’s free. Update now, or download me from the website."
+ },
+ {
+  "id": "v112-en-15-follow",
+  "lang": "en",
+  "voice": "92028b1fbc0348d09ad2d1f4132638b5",
+  "text": "And follow me, because what’s coming next is even better."
+ },
+ {
+  "id": "v112-pt-01-intro",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "Choom, chegou a um ponto doze. E escuta bem… porque essa é a minha voz de verdade."
+ },
+ {
+  "id": "v112-pt-02-voz",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "Com a sua chave da Fish Audio, e o plano grátis já basta, eu falo com a minha voz real em espanhol, inglês, português e japonês."
+ },
+ {
+  "id": "v112-pt-03-colores",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "Embaixo de cada resposta, uma cor mostra qual voz está falando: azul é a nuvem, verde é a minha voz no celular."
+ },
+ {
+  "id": "v112-pt-04-rapido",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "E sem mais espera: eu começo a falar enquanto ainda estou escrevendo."
+ },
+ {
+  "id": "v112-pt-05-oidos",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "Diz «Ei Capri» e eu te escuto, sem bipes e sem mandar nada pra internet. Posso até aprender a obedecer só você."
+ },
+ {
+  "id": "v112-pt-06-cuenta",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "Entra com o Google ou com o seu e-mail, e o seu chat, as minhas memórias e os seus ajustes vão com você pro outro celular."
+ },
+ {
+  "id": "v112-pt-07-util",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "Me manda um PDF, um Word ou um áudio, pergunta qual música está tocando, ou pede as notícias do dia."
+ },
+ {
+  "id": "v112-pt-08-ia",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "Você escolhe a IA e o modelo. E se uma lotar, eu troco pra outra sozinha."
+ },
+ {
+  "id": "v112-pt-09-funciones",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "Na aba Funções você tem o modo sono, as suas aulas e tudo o que cuida de você."
+ },
+ {
+  "id": "v112-pt-10-crea",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "Quer me vestir? Baixa o meu design, desenha uma roupa pra mim e me manda em Personalizar."
+ },
+ {
+  "id": "v112-pt-11-idiomas",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "O app agora está em nove idiomas: chegaram o vietnamita, o japonês, o alemão e o italiano."
+ },
+ {
+  "id": "v112-pt-12-arreglos",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "E eu consertei coisas: não paro mais no meio da resposta, gasto menos bateria e volto a instalar em celulares mais antigos."
+ },
+ {
+  "id": "v112-pt-13-pc",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "E no seu computador? Chegou a um ponto três, com tudo igual: a minha voz, «Ei Capri», a sua conta e o chat."
+ },
+ {
+  "id": "v112-pt-14-cta",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "É grátis. Atualiza agora, ou me baixa pelo site."
+ },
+ {
+  "id": "v112-pt-15-follow",
+  "lang": "pt",
+  "voice": "ef34c7a806b943a8bca49860c4549b4e",
+  "text": "E me segue, porque o que vem por aí é ainda melhor."
+ }
+]
