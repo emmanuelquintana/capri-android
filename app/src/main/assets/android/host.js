@@ -45,6 +45,7 @@ import { streaming } from './stream.js';
 import { birthday } from './birthday.js';
 import { keepAsking } from './away.js';
 import { chatLog } from './chatlog.js';
+import { shaking } from './shake.js';
 import { chatVoice } from './chatvoice.js'; // (1.11.7) her chat answers out loud
 import { chatAsks } from './asks.js';
 import { laser } from './laser.js';
@@ -1894,6 +1895,7 @@ ready.then(() => {
     // 1.10.0
     keepAsking({ lang: () => resolveLang(cfg.lang) }); // her chat closed while she thinks: she answers anyway
     chatLog(); // your chat history, kept on the phone (the app shows it)
+    shaking({ cfg: () => cfg, lang: () => resolveLang(cfg.lang) }); // (1.12.0) you shake the phone: she reacts
     window.dev.chatVoice = chatVoice({ cfg: () => cfg, lang: () => resolveLang(cfg.lang) }); // (1.11.7) her chat answers out loud
     chatAsks({ lang: () => resolveLang(cfg.lang) }); // games, history, a message by WhatsApp: done, not asked to her AI
     laser({ lang: () => resolveLang(cfg.lang), cfg: () => cfg }); // an app uninstalled: her beam

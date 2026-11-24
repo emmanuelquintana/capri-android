@@ -35,6 +35,7 @@ class CapriService : Service() {
     private var eyesMade = false
 
     private var screenOffAt = 0L
+    private var shake: Shake? = null
     private val screen = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
@@ -42,10 +43,12 @@ class CapriService : Service() {
                     screenOffAt = System.currentTimeMillis()
                     Sleep.screenOff(context) // (1.11.0) her sleep mode counts it
                     overlay?.pause()
+                    shake?.set(false)
                 }
                 Intent.ACTION_SCREEN_ON, Intent.ACTION_USER_PRESENT -> {
                     if (intent.action == Intent.ACTION_SCREEN_ON) Sleep.screenOn(context)
                     overlay?.resume()
+                    shake?.set(true)
                     rebindNotes()
                     // how long the phone was put down (her breaks: phone-care.js)
                     if (screenOffAt > 0) {
@@ -150,6 +153,8 @@ class CapriService : Service() {
             null
         }
         ears = Ears(this).also { it.update() }
+        // (1.12.0) a shake of the phone: she reacts (shake.js)
+        shake = Shake(this) { overlay?.emit("phone:shaken", "{}") }.also { it.set(true) }
         games = GameWatch(this).also { it.start() }
         hooks = HookServer(assets) { evt -> overlay?.emit("claude:event", evt) }.also { it.start() }
         val filter = IntentFilter().apply {
@@ -280,6 +285,8 @@ class CapriService : Service() {
         hooks?.stop()
         ears?.destroy()
         ears = null
+        shake?.set(false)
+        shake = null
         games?.stop()
         games = null
         if (eyesMade) eyes.destroy()

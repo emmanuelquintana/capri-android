@@ -61,6 +61,15 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
             statusLine = ui.text("", 11f, Hud.GREEN, ui.mono).apply { letterSpacing = 0.1f }
             addView(statusLine)
         }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+        // (1.12.0, community: "que en el historial de chats pudieras buscar los mensajes, como WhatsApp") your history,
+        // with its search, one tap from her chat
+        head.addView(ui.text("⌕", 20f, Hud.YELLOW, ui.head).apply {
+            gravity = Gravity.CENTER
+            background = Hud.Plate(Hud.INK, Hud.YELLOW, cut = ui.dp(6f), stroke = ui.dp(1f), offset = 0f)
+            contentDescription = a.getString(R.string.you_chatlog_open)
+            isClickable = true
+            setOnClickListener { PageActivity.open(a, "chatlog") }
+        }, LinearLayout.LayoutParams(ui.dpi(40), ui.dpi(40)).apply { rightMargin = ui.dpi(8) })
         // what you can ask her (the old «Comandos» tab)
         head.addView(ui.text("?", 18f, Hud.YELLOW, ui.head).apply {
             gravity = Gravity.CENTER

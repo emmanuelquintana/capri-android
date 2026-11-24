@@ -5,6 +5,7 @@
 // her AI. She shows her answer in her panel and says it out loud.
 
 import { extraAsk } from './asks.js';
+import { NEWS_ASK, newsLine } from './news.js';
 import { on, send, call } from './native.js';
 import { clean, mood } from '../capri/src/renderer/js/chat.js';
 
@@ -475,6 +476,11 @@ async function handle(text, { toggleVisible, visible }) {
   if (PLAY_SOMETHING.test(text)) {
     const ok = await window.host.media('play').catch(() => false);
     return answer(ok ? t.play : t.cant, ok ? 'laugh' : 'aside');
+  }
+  // (1.12.0) the day's news, said by her (news.js)
+  if (NEWS_ASK.test(text) && words <= 10) {
+    const news = await newsLine(lang);
+    return answer(news.line.replace(/\n/g, ' '), news.ok ? 'smug' : 'aside');
   }
   if (WEATHER_ASK.test(text) && words <= 10) {
     send('open:url', { url: `https://www.google.com/search?q=${encodeURIComponent(WEATHER_SEARCH[lang])}` });

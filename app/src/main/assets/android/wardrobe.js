@@ -358,7 +358,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       await probing;
       const l = look();
       await need(worn(l));
-      const base = have[`outfit-${l.outfit}`] || original;
+      const base = have[`outfit-${l.outfit}`] ? fitted(have[`outfit-${l.outfit}`]) : original;
       const w = original.naturalWidth || original.width, h = original.naturalHeight || original.height;
       const c = document.createElement('canvas');
       c.width = w;
@@ -378,6 +378,50 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       style();
     }).catch((err) => console.warn('[capri] wardrobe', err));
     return composing;
+  }
+  // (1.12.0, community: "la ropa nueva… a Capri se le dislocan los brazos", "su brazo se separa") her picture has
+  // only her reaching arm, and her shader draws the other one as it mirrored (sprite.js). Many outfits were
+  // drawn with their own second arm (or its cuff) hanging on her right: it stood still, doubled, while her
+  // mirrored arm moved over it. On her right, beside her body, what an outfit draws where she has nothing goes
+  // (her own outline kept, a couple of pixels of margin).
+  const fittedOutfits = new WeakMap();
+  function fitted(img) {
+    const hit = fittedOutfits.get(img);
+    if (hit) return hit;
+    let out = img;
+    try {
+      const w = original.naturalWidth || original.width, h = original.naturalHeight || original.height;
+      const c = document.createElement('canvas');
+      c.width = w;
+      c.height = h;
+      const g = c.getContext('2d', { willReadFrequently: true });
+      g.drawImage(original, 0, 0, w, h);
+      const own = g.getImageData(0, 0, w, h).data;
+      g.clearRect(0, 0, w, h);
+      g.drawImage(img, 0, 0, w, h);
+      const px = g.getImageData(0, 0, w, h);
+      const d = px.data;
+      const kx = w / 240, ky = h / 420; // (her picture's own size: SPRITE)
+      const mine = (x, y) => own[(y * w + x) * 4 + 3] > 24;
+      const near = (x, y) => {
+        for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) {
+          const xx = x + dx, yy = y + dy;
+          if (xx >= 0 && yy >= 0 && xx < w && yy < h && mine(xx, yy)) return true;
+        }
+        return false;
+      };
+      for (let y = Math.round(140 * ky); y < Math.round(250 * ky); y++) {
+        for (let x = Math.round(132 * kx); x < w; x++) {
+          const i = (y * w + x) * 4;
+          if (d[i + 3] < 8 || near(x, y)) continue;
+          d[i + 3] = 0;
+        }
+      }
+      g.putImageData(px, 0, 0);
+      out = c;
+    } catch {}
+    fittedOutfits.set(img, out);
+    return out;
   }
   // a drawing of a thing (assets): fitted to where the drawn one goes
   function drawPicture(g, id, pic) {
@@ -574,7 +618,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
           label: nameIn(row, 1, lang()),
           on: l.outfit === id,
           locked: ready ? null : w.soon,
-          paint: thumb(ready ? (have[`outfit-${id}`] || original) : null),
+          paint: thumb(ready ? (have[`outfit-${id}`] ? fitted(have[`outfit-${id}`]) : original) : null),
           click: () => { set({ outfit: id }); render(); },
         }));
       }
@@ -620,7 +664,7 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
   }
   // her in what she wears now, as see-through as `a`
   function ghost(a) {
-    const c = thumb(have[`outfit-${look().outfit}`] || original);
+    const c = thumb(have[`outfit-${look().outfit}`] ? fitted(have[`outfit-${look().outfit}`]) : original);
     c.style.opacity = String(a);
     return c;
   }
