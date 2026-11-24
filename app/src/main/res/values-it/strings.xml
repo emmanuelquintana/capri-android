@@ -731,7 +731,7 @@
     <string name="ears_onlyme_forgot">Fatto: imparerà di nuovo la tua voce le prossime 3 volte.</string>
     <string name="skin_title">Crea la tua Capri</string>
     <string name="skin_how">Disegnale il tuo outfit: scarica il modello (PNG 480x840 con la sua sagoma), disegna i vestiti sopra con qualsiasi app e invialo.</string>
-    <string name="skin_rules">Regole: solo vestiti (capelli, occhi e pelle restano dei loro colori), niente nel riquadro rosso (lì va l\'altro braccio), PNG con sfondo trasparente.</string>
+    <string name="skin_rules">Regole: solo vestiti (capelli, occhi e pelle restano dei loro colori), niente nel riquadro a righe (lì va l\'altro braccio). Disegna su un nuovo livello sopra il modello e invia solo il tuo livello, in PNG con sfondo trasparente.</string>
     <string name="skin_get">Scarica il modello</string>
     <string name="skin_approval">Ogni design viene controllato: arriva in Capri solo se Emma e il server Discord lo approvano, con il tuo nome.</string>
     <string name="skin_saved">Modello salvato. Disegnaci sopra e invialo da qui.</string>
@@ -807,4 +807,9 @@
     <string name="g_screen_how">Cosa vede sul tuo schermo e la sua pillola vicino all’ora.</string>
     <string name="g_modes_only">Modalità</string>
     <string name="g_modes_only_how">Modalità gamer, i suoi consigli mentre giochi e modalità streaming.</string>
+    <string name="ai_model">Modello: %1$s</string>
+    <string name="ai_model_auto">sceglie lei</string>
+    <string name="ai_model_loading">Chiedo i modelli…</string>
+    <string name="ai_model_none">Non sono riuscita a prendere i modelli. Controlla internet e riprova.</string>
+    <string name="ai_model_title">Modelli di %1$s</string>
 </resources>

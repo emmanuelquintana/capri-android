@@ -152,6 +152,8 @@ object Account {
             all.forEach { (k, v) -> if (v is String || v is Number || v is Boolean) o.put(k, JSONArray().put(type(v)).put(v)) }
             out.put("prefs.$name", o)
         }
+        // (1.12.0, Emma) your picture or icon goes with you to another phone
+        out.put("profile", Profile.export(c))
         return out
     }
 
@@ -181,6 +183,7 @@ object Account {
             }
             e.commit()
         }
+        snap.optJSONObject("profile")?.let { Profile.import(c, it) }
         runCatching { Agenda.plan(c) }
         Diag.add("I", "account: restored from ${snap.optString("app")}")
     }

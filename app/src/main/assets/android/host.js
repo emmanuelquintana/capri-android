@@ -331,6 +331,9 @@ function rankModels(list, provider = cfg.provider) {
 
 function pickModel(c = cfg) {
   if (!chatModels?.length) return null;
+  // (1.12.0, Emma) the model you picked under that AI's key (the app's AI screen), over hers
+  const mine = c.models?.[c.provider];
+  if (mine && chatModels.includes(mine) && !retired.has(mine)) return mine;
   if (chatModels.includes(c.chatModel) && !NOT_CHAT.test(c.chatModel) && !retired.has(c.chatModel)) return c.chatModel; // (1.10.0: not a voice model picked by mistake, Groq's orpheus)
   if (c.provider === 'ollama') return chatModels.find((m) => !ollama.isCloud(m)) || chatModels[0];
   return rankModels(chatModels)[0];
@@ -1801,6 +1804,8 @@ function gamerMode(on) {
 }
 
 on('settings:apply', async (p = {}) => {
+  // (1.12.0) the model picked under each AI's key ("" = she chooses)
+  if (p.models && typeof p.models === 'object') updateConfig({ models: { ...(cfg.models || {}), ...p.models } });
   if ('userName' in p) updateConfig({ userName: String(p.userName || '').trim().slice(0, 24) });
   // her size, her ghost mode, how lively she is (the app's Settings)
   if (typeof p.scale === 'number') updateConfig({ scale: Math.min(1.1, Math.max(0.3, p.scale)) });

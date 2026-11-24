@@ -56,6 +56,37 @@ object CapriSettings {
         CapriService.current?.takeIf { it.pageReady }?.overlay?.emit("settings:apply", JSONObject().put("forgetKey", provider).toString())
     }
 
+    /** (1.12.0, Emma: "por cada API key… un selector de modelos") the model you picked for this service, "" = she chooses. */
+    fun model(context: Context, provider: String): String = runCatching {
+        JSONObject(Store(context).read(Store.CONFIG) ?: "{}").optJSONObject("models")?.optString(provider).orEmpty()
+    }.getOrDefault("")
+
+    fun setModel(context: Context, provider: String, model: String) {
+        apply(context, JSONObject().put("models", JSONObject().put(provider, model))) { cfg ->
+            cfg.put("models", (cfg.optJSONObject("models") ?: JSONObject()).put(provider, model))
+        }
+    }
+
+    private val NOT_CHAT = Regex("whisper|tts|speech|audio|transcri|guard|embed|moderation|image|imagen|dall|search|orpheus|playai|safeguard|rerank|reward|retriever|nvclip|parse|detector|calibration|riva|translate|deplot|diffusion|clip|ocr", RegexOption.IGNORE_CASE)
+
+    /** The service's models to chat with, asked with your first saved key. Null if it couldn't tell. Network. */
+    fun models(context: Context, provider: String): List<String>? = runCatching {
+        val p = KEYED.firstOrNull { it.id == provider } ?: return null
+        val store = Store(context)
+        val sealed = JSONObject(store.read(Store.CONFIG) ?: "{}").optJSONObject("apiKeys")?.optString(provider).orEmpty()
+        val key = store.open(sealed).split(Regex("[\\s,;]+")).firstOrNull { it.isNotBlank() } ?: return null
+        val c = URL("${p.url}/models").openConnection() as HttpURLConnection
+        c.connectTimeout = 8000
+        c.readTimeout = 12000
+        c.setRequestProperty("User-Agent", "Capri-Android")
+        c.setRequestProperty("Authorization", "Bearer $key")
+        val text = try { if (c.responseCode !in 200..299) return null; c.inputStream.bufferedReader().readText() } finally { c.disconnect() }
+        val o = JSONObject(text)
+        val arr = o.optJSONArray("data") ?: o.optJSONArray("models") ?: return null
+        (0 until arr.length()).mapNotNull { i -> arr.optJSONObject(i)?.let { it.optString("id").ifEmpty { it.optString("name") } }?.ifEmpty { null } }
+            .filter { !NOT_CHAT.containsMatchIn(it) }.distinct().sortedBy { it.removePrefix("models/").lowercase() }
+    }.getOrNull()
+
     /** Back to a service whose key is already saved: nothing to check again. */
     fun useSaved(context: Context, provider: String) {
         apply(context, JSONObject().put("provider", provider)) { it.put("provider", provider) }

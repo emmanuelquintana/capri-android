@@ -137,6 +137,7 @@ export function poses({ cfg, wardrobe }) {
   }
 
   // an animation: its strip, cel by cel
+  const ANY_OUTFIT = new Set(['keyboard', 'bored-tap', 'phone']);
   async function play(name, { hold = 0, times = 0, at = null, onEnd = null, lying = false, chat = false, now: right = false } = {}) {
     await ready;
     // (1.10.0) in an outfit, its own drawing of this animation when there is one (anims/<name>@<outfit>.png)
@@ -144,7 +145,9 @@ export function poses({ cfg, wardrobe }) {
     const key = outfit && outfit !== 'default' && anims[`${name}@${outfit}`] ? `${name}@${outfit}` : name;
     // (1.12.0, community: "tiene una mezcla de avatares y su brazo se separa") an animation is drawn in her own
     // clothes: in another outfit, only the ones drawn for it, or she'd change clothes mid-animation
-    if (outfit && outfit !== 'default' && key === name) return false;
+    // (Emma, 1.12.0 beta: "no veo que Capri se acueste en mi teclado de nuevo") lying on your keyboard and her phone
+    // in a game stay, in her own clothes, until they're drawn for that outfit
+    if (outfit && outfit !== 'default' && key === name && !ANY_OUTFIT.has(name)) return false;
     const a = anims[key];
     if (!a || now || animsOff() || !free({ lying, chat, now: right })) return false;
     const img = await load(`${ANIMS}${key}.png`);

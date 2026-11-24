@@ -5,146 +5,25 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 ## 1.12.0
 
-- **Otra vez para teléfonos de 32 bits:** desde la 1.11.0 la app no se instalaba en teléfonos de 32 bits
-  (armeabi-v7a, como el TECNO Spark Go 1S y muchos Android Go): el instalador decía que el procesador no era
-  compatible. Ahora el mismo APK se instala en todos. En esos teléfonos su voz para respuestas (el motor) no está
-  disponible, pero sus frases grabadas y la voz del teléfono sí.
-- **Su voz responde mucho más rápido:**
-  - Mientras dice una frase, ya está generando la siguiente. Antes esperaba a terminar de hablar para empezar la
-    siguiente, así que las respuestas largas tardaban el doble.
-  - Empieza a hablar en cuanto tiene la primera parte de la frase, sin esperar a la frase entera.
-  - Su motor empieza a cargarse en cuanto le escribes o le hablas, mientras su IA piensa la respuesta, y no al final.
-  - Ya no se descarga de la memoria cada vez que sales de la app, y se queda cargada más tiempo en teléfonos con
-    mucha RAM (hasta 15 minutos), así que no tiene que cargarse otra vez en cada respuesta.
-  - Usa los núcleos rápidos del procesador (hasta 6) en los teléfonos que los tienen.
-  - Recuerda las frases que ya dijo, así que las que repite salen al instante.
-  - Si una frase no terminaba, el motor seguía generando mucho rato antes de rendirse; ahora se detiene antes.
-- **El porcentaje de su voz en el chat:** su respuesta aparece escrita al momento y debajo ves cuánto lleva
-  generada su voz (*Generando voz 42 %*), y luego *Hablando*. En la pestaña Chat y en su burbuja.
-- **Ya no se queda callada:** si la tocabas o la movías mientras preparaba la voz de su respuesta, su frase de
-  caricia cancelaba la respuesta entera. Ahora su respuesta va primero. Y mientras prepara la voz, te sigue
-  escuchando.
-- **Sus frases grabadas, más seguido:** suenan más a menudo al acariciarla, moverla y lanzarla, y ahora también al
-  saludarte, cuando se aburre, al abrir y cerrar su chat, si se va el internet, cuando juegas y en tus recordatorios.
-- **Ajustes de voz:** cada precisión dice ahora cuál es la más rápida. *Máxima* (BF16) es la más fiel pero en el
-  teléfono tarda unas 2–3 veces más que *Ligera*: si te importa la velocidad, usa *Ligera* o *Alta*.
-- **Habla mientras su IA todavía escribe:** en cuanto su IA termina la primera frase, su voz empieza a decirla
-  mientras escribe el resto; ya no espera la respuesta completa. En la pestaña Chat ves la respuesta escribirse en
-  tiempo real.
-- **Su motor llega listo:** al cargarse hace una pequeña práctica en silencio, así su primera respuesta no tarda de más.
-- **Cuatro idiomas nuevos: vietnamita, japonés, alemán e italiano.** La app completa, sus frases, juegos, modo
-  sueño, vestuario, comandos de voz («Capri, …», en japonés también «カプリ») y las respuestas de su IA. Elígelo en
-  Ajustes › Idioma. Su propia voz para respuestas por ahora habla español e inglés; en estos idiomas usa la voz del
-  teléfono.
-- **Ya no se queda pensando en el chat:** si le escribías mientras todavía contestaba lo anterior, respondía
-  «Dame un segundo, sigo pensando lo de antes» y luego nada. Ahora cada mensaje espera su turno y recibe su
-  respuesta. Si su IA deja de mandar la respuesta a medias, se queda con lo que ya escribió en vez de quedarse
-  pensando para siempre.
-- **La IA gratis ya no choca consigo misma:** solo atiende una petición a la vez por teléfono. Sus notas sobre ti y
-  sus neurodanzas ahora esperan a que termine tu mensaje (y se apartan si le escribes), así tu mensaje nunca recibe
-  «tu petición anterior sigue en curso».
-- **Varias claves de API:** en la pantalla de su IA puedes pegar varias claves del mismo servicio, separadas por
-  comas, o añadir otra después. Cuando una se queda sin cuota (como le pasa a Gemini gratis), sigue con la
-  siguiente al instante. Y si a un modelo se le acabó la cuota, pasa al siguiente sin esperar.
-- **Te avisa de tus mensajes:** de vez en cuando, cuando te llega una notificación, te lo dice con su voz grabada:
-  «Acaba de entrar un mensaje» o «Tienes una notificación nueva».
-- **Su voz arranca aún antes:** si la primera frase de su respuesta es larga, empieza a decir la primera parte
-  (hasta la coma) sin esperar a que termine.
-- **Escucha pasiva, como «Oye Siri»:** antes su oído usaba el reconocedor de voz del teléfono, que en muchos
-  teléfonos solo escucha unos segundos: el micrófono se prendía y se apagaba todo el día, con su pitido. Ahora un
-  modelo de voz pequeño, dentro del teléfono, escucha solo su nombre de forma continua: sin pitidos, sin que el
-  micrófono parpadee y sin que nada salga del teléfono. Se descarga una vez por idioma (unos 40 MB) con Wi-Fi, o
-  desde **Ajustes › Ajustes de voz › Escucha pasiva**. Lo que le pides después de su nombre se entiende igual que antes.
-- **Despierta con su voz:** si está dormida y la llamas por su nombre, se despierta diciéndolo con una de sus
-  frases grabadas.
-- **Su voz, más rápida en teléfonos potentes:** el motor ya no descarga y vuelve a cargar partes del modelo después
-  de cada frase en teléfonos con 8 GB de RAM o más (era lo que más tardaba). Si no eliges precisión, usa la más
-  rápida que tengas; y si la que elegiste resulta más lenta que su forma de hablar en tu teléfono, sus respuestas
-  usan otra más rápida que tengas instalada. Su primera frase es más corta, así empieza a hablar antes, y su voz
-  empieza a cargarse en cuanto abres el chat.
-- **Ya no se queda en la primera oración:** a veces su voz decía la primera frase y se callaba. Ahora sigue con el
-  resto de la respuesta, y si el final de la respuesta cambia, continúa desde donde iba en vez de empezar de nuevo.
-- **Qué IA le contesta, en el chat:** arriba de la pestaña Chat ves qué IA le responde y puedes cambiarla con un
-  toque, entre las que configuraste (o Ollama en tu PC, si lo conectaste). Es la misma IA de su burbuja.
-- **Frases de mensaje y notificación, que sí suenan:** la primera notificación siempre la anuncia con su voz, y
-  también con la app abierta.
-- **Menú más ligero:** Comunidad y Comandos de voz ahora están en una sola pestaña. El «?» del chat te lleva
-  directo a los comandos.
-- **Registro de su voz:** el informe de fallos ahora dice cuánto tardó su voz en sonar y a qué velocidad se generó,
-  para encontrar más rápido lo que la frena.
-- **Gemini, rápido otra vez:** Google cerró `gemini-2.5-flash` a claves nuevas y la app lo seguía probando primero en
-  cada mensaje antes de pasar a otro (o a la IA gratis). Ahora, cuando un modelo ya no existe, no lo vuelve a usar
-  y salta directo al que Google indica.
-- **Spotify y la precisión de su voz se guardan:** con Capri encendida, elegir Spotify para tu música o una precisión
-  en Ajustes de voz no se guardaba (se quedaba en YouTube y en la precisión anterior). Arreglado.
-- **Juegos:** la dificultad ahora se cambia dentro de cada juego (botón ◆), también si entras desde la pestaña
-  Juegos. En Conecta 4 se turnan para empezar: una partida empiezas tú y la siguiente ella.
-- **Pantallas completas bien acomodadas:** en el Vestuario y en los juegos el texto ya no queda encima de la hora
-  y la batería, y su figura de la esquina ya no queda detrás de los botones de navegación.
-- **Ya no aparece encima de los juegos:** si su página se reiniciaba mientras jugabas, volvía a aparecer flotando
-  encima (a veces a medio efecto). Ahora sigue apartada.
-- **Vestuario:** se arregló un error que dejaba la lista de Accesorios sin dibujar.
-- **Confirmación al borrar sus recuerdos** y **editar tus clases** tocándolas, sin borrarlas y crearlas de nuevo.
-- **Te entiende aunque digas su nombre un poco distinto** («Capi», «Cabi»…), y si le pides algo sin decir su
-  nombre, de vez en cuando te recuerda: «Di mi nombre primero, “Capri, …”, y lo hago».
-- **Tu cuenta:** entra con Google o con tu correo (en «Tú») y su memoria de ti, tus ajustes, tus clases y tu chat
-  se guardan en la nube solos. En un teléfono nuevo o al reinstalar, entras y te sigue recordando. Tus claves de IA
-  nunca salen de tu teléfono.
-- **Modo lectura:** dile «estoy leyendo Dune» y «voy en la página 120», y pídele «resúmeme lo que llevo» o pregúntale
-  por un personaje: te contesta solo hasta tu página, sin spoilers.
-- **Archivos para ella:** compártele un PDF, un Word, un texto o un audio (o usa el 📎 del chat) y lo lee o lo escucha
-  contigo: te lo resume, te corrige o te ayuda con lo que le pidas.
-- **«Capri, ¿qué canción es esta?»:** escucha unos segundos y te dice cuál es (con una clave de Gemini).
-- **Responde tus mensajes:** «Capri, respóndele a Ana que ya voy» contesta desde la notificación de WhatsApp,
-  Telegram y otras apps de mensajes.
-- **Dos widgets nuevos:** «Capri mini», con su carita y una frase, y «Tu día con Capri», con la fecha, tu batería,
-  tu próxima clase y botones para hablarle o que vea tu pantalla.
-- **Noticias del día:** «Capri, ¿qué hay de nuevo?» y te cuenta los titulares con su voz.
-- **Agita el teléfono** y se marea (puedes apagarlo en Modos).
-- **Espera antes de ver tu pantalla:** en Modos eliges 0, 2, 4 o 6 segundos antes de que tome la captura, para que
-  te dé tiempo de abrir lo que quieres que vea o traduzca.
-- **Buscar en tu chat:** el botón ⌕ de la pestaña Chat abre tu historial con búsqueda.
-- **Ropa sin brazos dobles:** algunos atuendos le dibujaban un segundo brazo quieto o dislocado. Arreglado.
-- **Sin mezcla de ropa en sus animaciones:** con un atuendo puesto ya no se cambia a su ropa de siempre a mitad de una
-  animación (el «avatar mezclado»). Con ropa puesta solo hace las animaciones dibujadas para esa ropa.
-- **Skins de la comunidad:** dibuja ropa sobre la plantilla de Capri (en el Discord) y envíala desde Personalizar › «Crea tu propia Capri»
-  (ahí bajas su plantilla). Si Emma y el servidor de Discord la aprueban, sale en una actualización con tu nombre.
-- **Su voz de verdad:** si descargabas el motor de su voz pero no su perfil, seguía hablando con la voz del teléfono
-  («otra voz de IA»). Ahora el perfil se baja junto con el motor, y si falta, lo baja sola.
-- **Escribir en tus apps:** «Capri, escribe aquí …» con su chat abierto ya no te quita el teclado: cierra su chat,
-  escribe en el campo de tu app y te deja el teclado listo para seguir.
-- **Solo tu voz:** en Ajustes de voz, «Solo mi voz» aprende tu voz las primeras 3 veces que la llamas y después ignora
-  su nombre dicho por otras voces (la tele, la gente a tu alrededor). Todo se queda en tu teléfono.
-- **Menú «¿Qué IA le contesta?» con su estilo:** el selector de IA del chat ahora se ve como el resto de la app.
-- **Neurodanzas con sonido:** ahora tienen ambiente (zumbido, estática y fallas) y ella te las narra con su voz.
-- **Arrastrarla otra vez:** en algunos teléfonos (Xiaomi) la app creía que el teclado seguía abierto y no te dejaba
-  moverla. Arreglado.
-- **Descargar su voz sin errores:** si la conexión se corta («Software caused connection abort»), la descarga sigue
-  donde iba en vez de fallar.
-- **Su voz ya no se corta a la mitad:** las respuestas largas se dicen completas, también con la voz del teléfono.
-- **Tres minijuegos nuevos:** Reflejos, Adivina el número y Mayor o menor, en la pestaña Juegos.
-- **Elige la voz del teléfono:** en Ajustes de voz › Voz del teléfono escuchas las voces de tu teléfono y eliges la
-  que más se le parezca, para cuando su propia voz no está.
-- **Ya no se queda muda:** si su motor de voz se atoraba, se quedaba callada en todas las respuestas siguientes;
-  ahora contesta con la voz del teléfono mientras tanto. Y si su IA falla a media respuesta, ya no se queda en
-  «Hablando · 90 %» un minuto entero.
-- **Su voz en la nube (Fish Audio):** en Ajustes de voz pones tu propia clave de Fish Audio y habla con su voz en
-  tiempo real en cada respuesta, empezando en medio segundo mientras su IA todavía escribe. Tu clave se queda solo en tu
-  teléfono. Sin internet o sin saldo, vuelve sola a su voz del teléfono.
-- **Sus frases con su voz nueva:** sus 202 frases grabadas (español e inglés) ahora suenan con su voz de Fish Audio.
-  Se siguen reproduciendo al instante y sin internet. Si ya tenías su voz, las nuevas se bajan solas.
-- **Ajustes de voz más ordenados:** ahora es un menú corto. Arriba prendes o apagas su voz, y cada cosa tiene su
-  pantalla: Bajar su voz, Voz en la nube (tu clave), Cómo suena y Sus oídos. Antes de Ajustes avanzados hay un
-  interruptor nuevo, **Voz: en la nube o local**, para elegir con qué voz te responde.
-- **Ajustes personales en pantallas:** tu nombre arriba y lo demás en su propia pantalla (tu cuenta, lo que
-  recuerda, tu historial, neurodanzas, modo dormir, cumpleaños, clases y lo que te cuida).
-- **App reordenada:** la app abre en Novedades; pestaña nueva **Funciones** (modo sueño, tus clases y lo que te
-  cuida); la pestaña de Comandos es solo comandos; seguir en TikTok abajo de Donar; Pantalla y Modos son ajustes
-  separados; tu perfil con foto o ícono arriba de Ajustes; y en Su IA ves tus claves guardadas (ocultas).
-- **Su chat responde antes:** cuando su IA está saturada, la que sí contestó va primero unos minutos y ya no
-  espera a cada modelo saturado en cada mensaje.
-- **Sus frases grabadas también en el chat:** mientras piensa tu respuesta, de vez en cuando te dice una de sus
-  frases con su voz.
+- **Voz en la nube (Fish Audio):** con tu propia clave habla con su voz en tiempo real, en español, inglés, portugués y japonés. Sin internet o sin saldo vuelve sola a su voz local.
+- **Mucho más rápida:** empieza a hablar mientras su IA todavía escribe, y en el chat ves cuánto lleva su voz (*Generando voz 42 %*).
+- **Sus 202 frases grabadas, con su voz nueva:** suenan más seguido (al saludarte, al aburrirse, en el chat, en tus notificaciones) y al instante, sin internet.
+- **Se escucha en tus grabaciones de pantalla.**
+- **Ya no se calla ni se corta:** sigue después de la primera oración, termina las respuestas largas y no se queda muda si su motor se atora.
+- **«Oye Capri» pasivo:** un modelo pequeño dentro del teléfono escucha solo su nombre, sin pitidos y sin que nada salga del teléfono.
+- **Solo tu voz:** aprende tu voz y no hace caso a la tele ni a otras personas. Y te entiende aunque digas «Capi» o «Cabi».
+- **Responde antes:** si su IA está saturada, pasa a otra al instante. Gemini ya no prueba primero modelos cerrados.
+- **Varias claves y elige el modelo:** pega varias claves de un servicio (sigue con la siguiente cuando una se acaba), mira tus claves guardadas (ocultas) y elige el modelo de cada una.
+- **Tu foto en el chat** junto a tus mensajes, y arriba cambias de IA con un toque.
+- **Nuevo:** modo lectura sin spoilers, archivos para ella (PDF, Word, audio), «¿qué canción es esta?», responder tus mensajes, noticias del día y buscar en tu chat.
+- **Reordenada:** abre en Novedades; pestaña nueva **Funciones** (modo sueño, tus clases y lo que te cuida); los ajustes ahora son menús cortos con pantallas; Pantalla y Modos por separado.
+- **Tu perfil:** foto o ícono y tu nombre arriba de Ajustes, guardados en tu cuenta.
+- **Tu cuenta:** entra con Google o correo y su memoria, tus ajustes, clases y chat se guardan solos en la nube. Tus claves nunca salen del teléfono.
+- **Cuatro idiomas nuevos:** vietnamita, japonés, alemán e italiano.
+- **Crea tu propia Capri:** baja su plantilla (ahora clara y con guías), dibújale ropa y envíala desde Personalizar.
+- **Más:** dos widgets nuevos, tres minijuegos, agítala y se marea, sigue en TikTok desde Novedades.
+- **Otra vez en teléfonos de 32 bits.**
+- **Arreglos:** ropa sin brazos dobles ni mezclada, pantallas completas bien acomodadas y muchos detalles más.
 
 ## 1.11.7
 

@@ -727,7 +727,7 @@
     <string name="ears_onlyme_forgot">OK：次の3回でまた声を覚えます。</string>
     <string name="skin_title">自分だけのCapriを作ろう</string>
     <string name="skin_how">オリジナル衣装を描こう：テンプレート（シルエット入り480x840のPNG）をダウンロードして、好きなお絵描きアプリで服を描いて送ってね。</string>
-    <string name="skin_rules">ルール：服だけ（髪・目・肌の色は変えない）、赤い枠の中には描かない（もう片方の腕の場所）、背景透過のPNG。</string>
+    <string name="skin_rules">ルール: 服だけ(髪・目・肌の色はそのまま)、しま模様の枠の中には何も描かない(もう片方の腕が来る場所)。テンプレートの上に新しいレイヤーを作って描き、そのレイヤーだけを背景透過の PNG で送ってね。</string>
     <string name="skin_get">テンプレートをダウンロード</string>
     <string name="skin_approval">すべてのデザインは審査されます。EmmaとDiscordサーバーが承認したものだけが、あなたの名前と一緒にCapriに登場します。</string>
     <string name="skin_saved">テンプレートを保存しました。描いたらここから送ってね。</string>
@@ -803,4 +803,9 @@
     <string name="g_screen_how">画面で見るものと、時計の横のピル。</string>
     <string name="g_modes_only">モード</string>
     <string name="g_modes_only_how">ゲーマーモード、プレイ中のヒント、配信モード。</string>
+    <string name="ai_model">モデル: %1$s</string>
+    <string name="ai_model_auto">おまかせ</string>
+    <string name="ai_model_loading">モデルを取得中…</string>
+    <string name="ai_model_none">モデルを取得できませんでした。ネットを確認してもう一度試してね。</string>
+    <string name="ai_model_title">%1$s のモデル</string>
 </resources>

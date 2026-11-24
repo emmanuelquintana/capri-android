@@ -749,7 +749,7 @@
     <string name="ears_onlyme_forgot">Готово: она снова запомнит твой голос в следующие 3 раза.</string>
     <string name="skin_title">Создай свою Капри</string>
     <string name="skin_how">Нарисуй ей свой наряд: скачай шаблон (PNG 480x840 с её силуэтом), нарисуй одежду поверх в любом приложении и отправь.</string>
-    <string name="skin_rules">Правила: только одежда (волосы, глаза и кожа не меняют цвет), ничего в красной рамке (там её вторая рука), PNG с прозрачным фоном.</string>
+    <string name="skin_rules">Правила: только одежда (волосы, глаза и кожа не меняют цвет), ничего в полосатой рамке (там её вторая рука). Рисуй на новом слое поверх шаблона и отправь только свой слой, PNG с прозрачным фоном.</string>
     <string name="skin_get">Скачать шаблон</string>
     <string name="skin_approval">Каждый дизайн проверяется: он попадёт в Капри, только если его одобрят Эмма и сервер Discord, с твоим именем.</string>
     <string name="skin_saved">Шаблон сохранён. Рисуй поверх и отправляй отсюда.</string>
@@ -825,4 +825,9 @@
     <string name="g_screen_how">Что она видит на экране и её пилюля у часов.</string>
     <string name="g_modes_only">Режимы</string>
     <string name="g_modes_only_how">Игровой режим, её советы в игре и режим стрима.</string>
+    <string name="ai_model">Модель: %1$s</string>
+    <string name="ai_model_auto">выбирает она</string>
+    <string name="ai_model_loading">Запрашиваю модели…</string>
+    <string name="ai_model_none">Не удалось получить модели. Проверь интернет и попробуй ещё раз.</string>
+    <string name="ai_model_title">Модели %1$s</string>
 </resources>

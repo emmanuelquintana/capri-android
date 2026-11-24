@@ -742,7 +742,7 @@
     <string name="ears_onlyme_forgot">C\'est fait : elle réapprendra ta voix les 3 prochaines fois.</string>
     <string name="skin_title">Crée ta propre Capri</string>
     <string name="skin_how">Dessine-lui ta propre tenue : télécharge son modèle (PNG 480x840 avec sa silhouette), dessine les vêtements par-dessus dans n\'importe quelle app et envoie-le.</string>
-    <string name="skin_rules">Règles : seulement des vêtements (cheveux, yeux et peau gardent leurs couleurs), rien dans le cadre rouge (son autre bras), PNG à fond transparent.</string>
+    <string name="skin_rules">Règles : seulement des vêtements (ses cheveux, ses yeux et sa peau gardent leurs couleurs), rien dans le cadre rayé (son autre bras va là). Dessine sur un nouveau calque au-dessus du modèle et envoie seulement ton calque, en PNG à fond transparent.</string>
     <string name="skin_get">Télécharger son modèle</string>
     <string name="skin_approval">Chaque design est vérifié : il n\'arrive dans Capri que si Emma et le serveur Discord l\'approuvent, avec ton nom.</string>
     <string name="skin_saved">Modèle enregistré. Dessine dessus et envoie-le d\'ici.</string>
@@ -818,4 +818,9 @@
     <string name="g_screen_how">Ce qu’elle voit sur ton écran, et sa pilule près de l’heure.</string>
     <string name="g_modes_only">Modes</string>
     <string name="g_modes_only_how">Mode gamer, ses conseils quand tu joues et le mode streaming.</string>
+    <string name="ai_model">Modèle : %1$s</string>
+    <string name="ai_model_auto">elle choisit</string>
+    <string name="ai_model_loading">Je demande ses modèles…</string>
+    <string name="ai_model_none">Impossible d\'obtenir ses modèles. Vérifie ta connexion et réessaie.</string>
+    <string name="ai_model_title">Modèles de %1$s</string>
 </resources>

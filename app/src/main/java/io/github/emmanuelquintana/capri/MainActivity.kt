@@ -1673,8 +1673,12 @@ class MainActivity : Activity() {
                 Toast.makeText(this, if (ok) R.string.skin_saved else R.string.report_bad, Toast.LENGTH_LONG).show()
             }
             PICK_FOR_HER -> runCatching {
+                // (1.12.0, Emma) answered here in the Chat tab, where you sent it
+                val name = runCatching { contentResolver.query(uri, arrayOf(android.provider.OpenableColumns.DISPLAY_NAME), null, null, null)?.use { c -> if (c.moveToFirst()) c.getString(0) else null } }.getOrNull()
+                val id = chat.attached("📎 " + (name ?: getString(R.string.chat_attach)))
                 startActivity(Intent(this, ShareActivity::class.java).setAction(Intent.ACTION_SEND)
                     .setType(contentResolver.getType(uri) ?: "application/octet-stream")
+                    .putExtra(ShareActivity.EXTRA_APP_CHAT, id)
                     .putExtra(Intent.EXTRA_STREAM, uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION))
             }
         }

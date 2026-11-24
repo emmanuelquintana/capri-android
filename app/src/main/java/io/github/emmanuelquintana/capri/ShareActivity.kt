@@ -35,6 +35,7 @@ class ShareActivity : Activity() {
             return
         }
         val type = intent?.type.orEmpty()
+        val app = intent?.getStringExtra(EXTRA_APP_CHAT) // (1.12.0) from the Chat tab's 📎: answered there
         val text = listOfNotNull(intent?.getStringExtra(Intent.EXTRA_SUBJECT), intent?.getStringExtra(Intent.EXTRA_TEXT))
             .joinToString("\n").trim().take(2000)
         @Suppress("DEPRECATION")
@@ -70,6 +71,7 @@ class ShareActivity : Activity() {
             }.onFailure { Diag.add("W", "share: ${it.message}") }.getOrNull()
             if (kind == "doc" && words.isNotBlank() || kind == "audio" && audio != null) {
                 pending = JSONObject().put("kind", kind).put("text", text).put("name", name).apply {
+                    if (app != null) put("app", app)
                     if (kind == "doc") put("doc", words)
                     audio?.let { put("audio", it.first).put("format", it.second) }
                 }
@@ -88,7 +90,10 @@ class ShareActivity : Activity() {
                 }
                 return@make
             }
-            pending = JSONObject().put("kind", if (image == null) "text" else kind).put("text", text).put("name", name).apply { if (image != null) put("image", image) }
+            pending = JSONObject().put("kind", if (image == null) "text" else kind).put("text", text).put("name", name).apply {
+                if (image != null) put("image", image)
+                if (app != null) put("app", app)
+            }
             Diag.add("I", "share: a $kind${if (text.isNotEmpty()) " with text" else ""}")
             runOnUiThread {
                 if (CapriService.running) CapriService.send(this, CapriService.ACTION_SHARE)
@@ -220,6 +225,8 @@ class ShareActivity : Activity() {
         private const val PAGE = 900
         private const val DOC = 12_000
         private const val SOUND = 4_000_000
+
+        const val EXTRA_APP_CHAT = "capri.appChat"
 
         /** What was shared, until her page takes it (share:take): { kind, text, image? } */
         @Volatile var pending: JSONObject? = null

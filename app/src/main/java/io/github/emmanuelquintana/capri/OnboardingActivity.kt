@@ -314,6 +314,12 @@ class OnboardingActivity : Activity() {
                     CapriSettings.forgetKeys(this, aiKeyed.id)
                     redraw()
                 }, ui.block(6))
+                // (1.12.0, Emma) under each AI's key: which of its models she talks with
+                val picked = CapriSettings.model(this, aiKeyed.id)
+                val provider = aiKeyed
+                card.addView(ui.button(getString(R.string.ai_model, picked.removePrefix("models/").ifEmpty { getString(R.string.ai_model_auto) }), Ui.Kind.LINE) {
+                    pickModel(provider, redraw)
+                }, ui.block(6))
             }
             val f = ui.field(getString(if (saved) R.string.ai_key_saved_hint else R.string.ai_key_hint), secret = true)
             keyField?.text?.let { if (it.isNotEmpty()) f.setText(it) }
@@ -339,6 +345,33 @@ class OnboardingActivity : Activity() {
             card.addView(f, ui.block(10))
         }
         return card
+    }
+
+    /** Its models, asked of the service with your saved key, to pick one (or let her choose). */
+    private fun pickModel(p: CapriSettings.Provider, redraw: () -> Unit) {
+        android.widget.Toast.makeText(this, R.string.ai_model_loading, android.widget.Toast.LENGTH_SHORT).show()
+        Threads.make {
+            val list = CapriSettings.models(this, p.id)
+            runOnUiThread {
+                if (isFinishing) return@runOnUiThread
+                if (list.isNullOrEmpty()) {
+                    android.widget.Toast.makeText(this, R.string.ai_model_none, android.widget.Toast.LENGTH_LONG).show()
+                    return@runOnUiThread
+                }
+                val now = CapriSettings.model(this, p.id)
+                val names = listOf(getString(R.string.ai_model_auto)) + list.map { it.removePrefix("models/") }
+                val at = if (now.isEmpty()) 0 else list.indexOf(now) + 1
+                android.app.AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
+                    .setTitle(getString(R.string.ai_model_title, p.name))
+                    .setSingleChoiceItems(names.toTypedArray(), at.coerceAtLeast(0)) { d, i ->
+                        CapriSettings.setModel(this, p.id, if (i == 0) "" else list[i - 1])
+                        d.dismiss()
+                        redraw()
+                    }
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show()
+            }
+        }.start()
     }
 
     private fun useAi() {

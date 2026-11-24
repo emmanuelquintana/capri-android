@@ -640,7 +640,7 @@ class Ears(private val service: CapriService) {
     private fun takeFocus(): Boolean {
         val audio = service.getSystemService(AudioManager::class.java) ?: return true
         val req = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-            .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ASSISTANT)
+            .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)/* (1.12.0, Emma: "en las grabaciones no se escucha") the assistant usage is left out of screen recordings */
                 .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
             .setOnAudioFocusChangeListener({ change ->
                 if (change == AudioManager.AUDIOFOCUS_LOSS || change == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) hushVoice()
@@ -744,19 +744,21 @@ class Ears(private val service: CapriService) {
             kind == "event" && audio.ringerMode == AudioManager.RINGER_MODE_SILENT -> "silent"
             else -> null
         }
-        if (why != null) return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why) }
+        if (why != null) { if (kind == "event") phraseWhy(why); return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why) } }
         // (1.11.8, "hay gente que dice que no le responde") one of her little phrases (a pat, a throw) never cuts
         // her answer: before, touching her while her voice was being made threw the whole answer away
-        if (kind == "event" && sayKind != "event" && (neuralId.isNotEmpty() || speaking))
+        if (kind == "event" && sayKind != "event" && (neuralId.isNotEmpty() || speaking)) {
+            phraseWhy("busy (${if (neuralId.isNotEmpty()) "answer $neuralId" else "speaking"})")
             return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "busy") }
+        }
         // one voice at a time: the newer one cancels the one before
         stopVoice()
         sayId = id
         sayKind = kind
         val found = if (streaming) null else runCatching { CapriVoice.clipFor(service, lang, opts.optString("clip"), text) }.getOrNull()
-        if (found != null) return@sayNow playClip(id, found.first, found.second)
+        if (found != null) { if (kind == "event") phraseWhy("plays ${found.second.id}"); return@sayNow playClip(id, found.first, found.second) }
         // one of her phrases without its recording: she doesn't read it out in another voice
-        if (kind == "event") return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "noclip") }
+        if (kind == "event") { phraseWhy("noclip ${opts.optString("clip")}"); return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "noclip") } }
         // her new answers: in the voice you picked (the phone's, as before), or in writing only
         // (V8.5) the A/B comparison asks for one engine by name (only for tests, never for her answers)
         val engine = opts.optString("engine").takeIf { kind == "test" && it in CapriVoice.ENGINES } ?: CapriVoice.answerEngine(service, lang)
@@ -881,6 +883,9 @@ class Ears(private val service: CapriService) {
         }
         if (speaking) spoke()
     }
+
+    // (1.12.0, Emma: "sigo sin escuchar las frases pregrabadas") what happened to each of her phrases, in her log
+    private fun phraseWhy(what: String) = Diag.add("I", "voice: phrase $what")
 
     private fun playClip(id: String, lib: VoiceClipLibrary, clip: VoiceClip) {
         val store = Store(service)

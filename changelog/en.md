@@ -4,142 +4,25 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.12.0
 
-- **32-bit phones again:** since 1.11.0 the app didn't install on 32-bit phones (armeabi-v7a, like the TECNO Spark
-  Go 1S and many Android Go phones): the installer said the processor wasn't compatible. Now the same APK installs
-  on all of them. On those phones her voice for answers (the engine) isn't available, but her recorded phrases and
-  the phone's voice are.
-- **Her voice answers much faster:**
-  - While she says one sentence, she's already making the next. Before, she waited until she finished talking to
-    start the next one, so long answers took twice as long.
-  - She starts talking as soon as the first part of the sentence is ready, without waiting for the whole sentence.
-  - Her engine starts loading as soon as you write or talk to her, while her AI thinks of the answer, not at the end.
-  - It's no longer unloaded every time you leave the app, and it stays loaded longer on phones with plenty of RAM
-    (up to 15 minutes), so it doesn't have to load again for every answer.
-  - It uses the processor's fast cores (up to 6) on phones that have them.
-  - She remembers sentences she already said, so the ones she repeats come out at once.
-  - When a sentence didn't end, the engine kept generating for a long time before giving up; now it stops sooner.
-- **Her voice's percentage in the chat:** her answer shows up written right away and under it you see how much of
-  her voice is made (*Making her voice 42%*), then *Speaking*. In the Chat tab and in her bubble.
-- **She no longer goes silent:** if you touched or moved her while she was getting her answer's voice ready, her pat
-  phrase cancelled the whole answer. Now her answer goes first. And while she gets her voice ready, she keeps
-  listening to you.
-- **Her recorded phrases, more often:** they play more often when you pet, move or throw her, and now also when she
-  greets you, when she's bored, when her chat opens and closes, when the internet drops, when you play and on your
-  reminders.
-- **Voice settings:** each precision now says which one is fastest. *Maximum* (BF16) is the most faithful but on a
-  phone it takes about 2–3 times as long as *Light*: if speed matters to you, use *Light* or *High*.
-- **She talks while her AI is still writing:** as soon as her AI finishes the first sentence, her voice starts saying
-  it while the rest is written; she no longer waits for the whole answer. In the Chat tab you see the answer being
-  written live.
-- **Her engine arrives ready:** when it loads it does a tiny silent warm-up, so her first answer doesn't take longer.
-- **Four new languages: Vietnamese, Japanese, German and Italian.** The whole app, her lines, games, sleep mode,
-  wardrobe, voice commands ("Capri, …", in Japanese also "カプリ") and her AI's answers. Pick it in Settings ›
-  Language. Her own voice for answers speaks Spanish and English for now; in these languages she uses the phone's
-  voice.
-- **No more getting stuck thinking in the chat:** if you wrote while she was still answering, she said "Give me a
-  second, still thinking about the last one" and then nothing. Now each message waits its turn and gets its answer.
-  If her AI stops sending an answer halfway, she keeps what she already wrote instead of thinking forever.
-- **The free AI no longer trips over itself:** it takes one request at a time per phone. Her notes about you and
-  her braindances now wait until your message is done (and step aside if you write), so your message never gets
-  "your previous request is still running".
-- **Several API keys:** on her AI screen you can paste several keys for the same service, separated by commas, or
-  add another one later. When one runs out of quota (as free Gemini does), she goes on with the next right away.
-  And when a model runs out of quota, she moves to the next one without waiting.
-- **She tells you about your messages:** now and then, when a notification comes in, she says it in her recorded
-  voice: "A message just came in" or "You've got a new notification".
-- **Her voice starts even sooner:** if the first sentence of her answer is long, she starts saying its first part
-  (up to the comma) without waiting for the rest.
-- **Passive listening, like "Hey Siri":** her ears used to rely on the phone's speech recognizer, which on many
-  phones only listens a few seconds at a time: the mic switched on and off all day, beeping. Now a small speech
-  model inside the phone listens only for her name, continuously: no beeps, no blinking mic, nothing leaves the
-  phone. It downloads once per language (about 40 MB) on Wi-Fi, or from **Settings › Voice settings › Passive
-  listening**. What you ask after her name is understood as before.
-- **She wakes up with her voice:** if she's asleep and you call her name, she wakes up saying so with one of her
-  recorded phrases.
-- **Her voice, faster on powerful phones:** on phones with 8 GB of RAM or more, the engine no longer unloads and
-  reloads parts of the model after every sentence (that was the slowest part). If you don't pick a precision, she
-  uses the fastest one you have; and if the one you picked turns out slower than she talks on your phone, her
-  answers use a faster one you have installed. Her first sentence is shorter, so she starts talking sooner, and her
-  voice starts loading as soon as you open the chat.
-- **No more stopping after the first sentence:** sometimes her voice said the first sentence and went quiet. Now
-  she goes on with the rest, and if the end of the answer changes, she continues from where she was instead of
-  starting over.
-- **Which AI answers her, in the chat:** at the top of the Chat tab you see which AI answers and can switch with a
-  tap among the ones you set up (or Ollama on your PC, if connected). It's the same AI as her bubble.
-- **Message and notification phrases that really play:** she always announces the first notification with her
-  voice, also with the app open.
-- **Lighter menu:** Community and Voice commands are now one tab. The chat's "?" takes you straight to the commands.
-- **Her voice in the log:** bug reports now say how long her voice took to sound and how fast it was made.
-- **Gemini, fast again:** Google closed `gemini-2.5-flash` to new keys and the app still tried it first on every
-  message before moving on (or to the free AI). Now a model that's gone is never used again and it jumps straight
-  to the one Google names.
-- **Spotify and her voice's precision are saved:** with Capri on, picking Spotify for your music or a precision in
-  Voice settings wasn't saved. Fixed.
-- **Games:** change the difficulty inside each game (◆ button), also when you come from the Games tab. In Connect 4
-  you take turns starting: one game you go first, the next one she does.
-- **Full screens fit properly:** in the Wardrobe and the games, text no longer sits on top of the clock and battery,
-  and her corner figure is no longer behind the navigation buttons.
-- **She no longer shows up over the games:** if her page restarted while you played, she came back floating on top
-  (sometimes mid-effect). Now she stays aside.
-- **Wardrobe:** fixed an error that left the Accessories list blank.
-- **Confirmation before erasing her memories**, and **edit your classes** by tapping them.
-- **She understands her name said a bit differently** ("Capi", "Cabi"…), and if you ask for something without her
-  name, now and then she reminds you: "Say my name first, “Capri, …”, and I'll do it."
-- **Your account:** sign in with Google or your email (in "You") and her memory of you, your settings, your classes
-  and your chat are saved to the cloud on their own. On a new phone or after reinstalling, sign in and she still
-  remembers you. Your AI keys never leave your phone.
-- **Reading mode:** tell her "I'm reading Dune" and "I'm on page 120", then ask for a recap or about a character:
-  she only answers up to your page, no spoilers.
-- **Files for her:** share a PDF, a Word document, a text or an audio (or use the chat's 📎) and she reads or listens
-  with you: a summary, corrections or whatever you ask.
-- **"Capri, what song is this?":** she listens for a few seconds and tells you (with a Gemini key).
-- **She answers your messages:** "Capri, reply to Ana that I'm on my way" answers from the WhatsApp, Telegram or other
-  messaging notification.
-- **Two new widgets:** "Capri mini", her face and a line, and "Your day with Capri", with the date, your battery, your
-  next class and buttons to talk or let her see your screen.
-- **Today's news:** "Capri, what's new?" and she tells you the headlines in her voice.
-- **Shake your phone** and she gets dizzy (you can turn it off in Settings).
-- **A wait before she looks at your screen:** in Modes pick 0, 2, 4 or 6 seconds before the capture, to open what you
-  want her to see or translate.
-- **Search your chat:** the ⌕ button on the Chat tab opens your history with search.
-- **No more double arms:** some outfits drew a second, still or dislocated arm. Fixed.
-- **No more mixed clothes in her animations:** in an outfit she no longer switches to her usual clothes mid-animation.
-  In an outfit she only plays the animations drawn for it.
-- **Community skins:** draw an outfit on Capri's template (on the Discord) and send it from Customize › "Create your own Capri" (her
-  template is there). If Emma and the Discord server approve it, it comes in an update with your name.
-- **Her real voice:** if you downloaded her voice engine but not her profile, she kept using the phone's voice ("another
-  AI voice"). Now the profile comes with the engine, and if it's missing she gets it herself.
-- **Typing in your apps:** "Capri, type here …" with her chat open no longer takes your keyboard away: she closes her
-  chat, types in your app's field and leaves the keyboard up.
-- **Only your voice:** in voice settings, "Only my voice" learns your voice the first 3 times you call her, then ignores
-  her name in other voices (the TV, people around you). It all stays on your phone.
-- **"Which AI answers her?" menu in her style:** the chat's AI picker now looks like the rest of the app.
-- **Neurodances with sound:** they now have ambience (hum, static and glitches) and she narrates them in her voice.
-- **Drag her again:** on some phones (Xiaomi) the app thought the keyboard was still open and wouldn't let you move her.
-  Fixed.
-- **Downloading her voice without errors:** if the connection drops ("Software caused connection abort"), the download
-  picks up where it was instead of failing.
-- **Her voice is no longer cut in half:** long answers are said in full, with the phone's voice too.
-- **Three new minigames:** Reflexes, Guess the number and Higher or lower, in the Games tab.
-- **Pick the phone's voice:** in Voice settings › The phone's voice, listen to your phone's voices and pick the one
-  closest to hers, for when her own voice isn't there.
-- **She no longer goes mute:** if her voice engine got stuck, she stayed silent on every answer after; now she answers
-  in the phone's voice meanwhile. And if her AI fails mid-answer, she no longer sits on "Speaking · 90 %" for a minute.
-- **Her voice in the cloud (Fish Audio):** in Voice settings, add your own Fish Audio key and she speaks in her voice in
-  real time on every answer, starting in half a second while her AI is still writing. Your key stays on your phone.
-  Without internet or credit, she goes back to her phone voice on her own.
-- **Her phrases in her new voice:** her 202 recorded phrases (Spanish and English) now sound in her Fish Audio voice.
-  They still play instantly and offline. If you already had her voice, the new ones download on their own.
-- **Tidier voice settings:** now a short menu. At the top you turn her voice on or off, and each thing has its own
-  screen: Get her voice, Voice in the cloud (your key), How she sounds and Her ears. Before Advanced settings there's a
-  new switch, **Voice: cloud or local**, to choose which voice answers you.
-- **Personal settings in screens:** your name at the top and everything else on its own screen.
-- **App reorganized:** it opens on What's new; new **Functions** tab (sleep mode, your classes and her care); the
-  Commands tab is only commands; follow on TikTok under Donate; Screen and Modes are separate settings; your profile with
-  a photo or icon at the top of Settings; and Her AI shows your saved keys (hidden).
-- **Her chat answers sooner:** when her AI is swamped, the one that did answer goes first for a few minutes instead of
-  waiting on every busy model on each message.
-- **Her recorded phrases in the chat too:** while she thinks of your answer, now and then she says one of her phrases.
+- **Cloud voice (Fish Audio):** with your own key she speaks in her voice in real time, in Spanish, English, Portuguese and Japanese. With no internet or no credit she goes back to her local voice on her own.
+- **Much faster:** she starts speaking while her AI is still writing, and in the chat you see how far along her voice is (*Generating voice 42 %*).
+- **Her 202 recorded phrases, in her new voice:** they play more often (saying hi, when she's bored, in the chat, on your notifications) and instantly, with no internet.
+- **She's heard in your screen recordings.**
+- **No more going quiet or cutting off:** she goes on after the first sentence, finishes long answers and doesn't go mute if her engine gets stuck.
+- **Passive "Hey Capri":** a small model inside the phone listens only for her name, with no beeps and nothing leaving the phone.
+- **Only your voice:** she learns your voice and ignores the TV and other people. And she understands you even if you say "Capi" or "Cabi".
+- **Answers sooner:** if her AI is overloaded she moves to another one right away. Gemini no longer tries closed models first.
+- **Several keys, and pick the model:** paste several keys for a service (she goes on with the next when one runs out), see your saved keys (hidden) and pick the model for each one.
+- **Your photo in the chat** next to your messages, and at the top you switch AI with one tap.
+- **New:** spoiler-free reading mode, files for her (PDF, Word, audio), "what song is this?", replying to your messages, today's news and searching your chat.
+- **Reorganized:** opens on News; new **Features** tab (sleep mode, your classes and her care); settings are now short menus with screens; Screen and Modes are separate.
+- **Your profile:** photo or icon and your name at the top of Settings, saved to your account.
+- **Your account:** sign in with Google or email and her memory, your settings, classes and chat are saved to the cloud on their own. Your keys never leave the phone.
+- **Four new languages:** Vietnamese, Japanese, German and Italian.
+- **Create your own Capri:** download her template (now clear, with guides), draw her clothes and send them from Customize.
+- **More:** two new widgets, three minigames, shake her and she gets dizzy, follow on TikTok from News.
+- **Back on 32-bit phones.**
+- **Fixes:** outfits without double or mixed-up arms, full screens laid out properly and many more details.
 
 ## 1.11.7
 

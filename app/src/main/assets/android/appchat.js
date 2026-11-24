@@ -21,6 +21,11 @@ export function appChat({ lang }) {
     waiting++;
     line = line.then(() => answer(msg)).catch(() => {}).finally(() => { waiting--; });
   });
+  // (1.12.0) a file given from the Chat tab's 📎 (share.js): answered here, in the Chat tab
+  window.capriAppAnswer = (msg = {}) => {
+    waiting++;
+    line = line.then(() => answer(msg)).catch(() => {}).finally(() => { waiting--; });
+  };
   async function answer({ id = '', text = '' } = {}) {
     const dev = window.dev;
     const chat = dev?.chat;

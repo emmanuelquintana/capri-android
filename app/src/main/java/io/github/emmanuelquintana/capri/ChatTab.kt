@@ -268,7 +268,7 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
     }
 
     private fun bubble(text: String, mine: Boolean, face: String?): TextView {
-        val row = ui.row().apply { gravity = if (mine) Gravity.END else Gravity.START or Gravity.BOTTOM }
+        val row = ui.row().apply { gravity = (if (mine) Gravity.END else Gravity.START) or Gravity.BOTTOM }
         if (!mine) row.addView(ImageView(a).apply {
             scaleType = ImageView.ScaleType.CENTER_CROP
             (face?.let { ui.face(it) } ?: ui.face("smug"))?.let { setImageBitmap(it) }
@@ -282,6 +282,8 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
             maxWidth = (a.resources.displayMetrics.widthPixels * 0.74).toInt()
         }
         row.addView(t, LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT))
+        // (1.12.0, Emma) your picture next to yours, like hers next to hers
+        if (mine) row.addView(Profile.Avatar(a), LinearLayout.LayoutParams(ui.dpi(30), ui.dpi(30)).apply { leftMargin = ui.dpi(6) })
         list.addView(row, ui.block(8))
         return t
     }
@@ -315,6 +317,20 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
         scroll.post { scroll.fullScroll(View.FOCUS_DOWN) }
         list.removeCallbacks(giveUp)
         list.postDelayed(giveUp, 150_000)
+    }
+
+    /** (1.12.0) A file from the 📎: your bubble with its name, and her answer here when it comes (share.js). */
+    fun attached(label: String): String {
+        val id = System.currentTimeMillis().toString()
+        if (waiting != null) return id
+        bubble(label, true, null)
+        waiting = id
+        typingBubble = bubble("•", false, "thinking").also { it.post(dots) }
+        status()
+        scroll.post { scroll.fullScroll(View.FOCUS_DOWN) }
+        list.removeCallbacks(giveUp)
+        list.postDelayed(giveUp, 150_000)
+        return id
     }
 
     /** (1.11.8) Her answer as it's written, in the bubble that was dots: you read it before her voice says it. */

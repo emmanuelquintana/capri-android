@@ -229,7 +229,7 @@ class CapriVoiceClipPlayer(private val library: VoiceClipLibrary) : AutoCloseabl
         emit(VoicePlaybackState.VOICE_PREPARING)
         if (active !== player) return ClipPlaybackResult.QUEUED
         try {
-            player.setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ASSISTANT)
+            player.setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)/* (1.12.0, Emma: "en las grabaciones no se escucha") the assistant usage is left out of screen recordings */
                 .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
             FileInputStream(library.asset(clip)).use { player.setDataSource(it.fd) }
             player.setOnErrorListener { current, what, extra ->

@@ -727,7 +727,7 @@
     <string name="ears_onlyme_forgot">Xong: cô ấy sẽ học lại giọng bạn 3 lần gọi tới.</string>
     <string name="skin_title">Tạo Capri của riêng bạn</string>
     <string name="skin_how">Vẽ trang phục riêng cho cô ấy: tải mẫu (PNG 480x840 có hình dáng cô ấy), vẽ quần áo lên trên bằng bất kỳ ứng dụng nào rồi gửi.</string>
-    <string name="skin_rules">Quy tắc: chỉ quần áo (tóc, mắt, da giữ nguyên màu), không vẽ trong khung đỏ (chỗ tay còn lại), PNG nền trong suốt.</string>
+    <string name="skin_rules">Quy tắc: chỉ vẽ quần áo (tóc, mắt và da giữ nguyên màu), không vẽ gì trong khung kẻ sọc (đó là chỗ tay kia của cô ấy). Vẽ trên một lớp mới phía trên mẫu và chỉ gửi lớp của bạn, dạng PNG nền trong suốt.</string>
     <string name="skin_get">Tải mẫu</string>
     <string name="skin_approval">Mỗi thiết kế đều được duyệt: chỉ có trong Capri nếu Emma và server Discord đồng ý, kèm tên bạn.</string>
     <string name="skin_saved">Đã lưu mẫu. Vẽ lên và gửi từ đây.</string>
@@ -803,4 +803,9 @@
     <string name="g_screen_how">Những gì cô ấy thấy trên màn hình, và viên thuốc cạnh đồng hồ.</string>
     <string name="g_modes_only">Chế độ</string>
     <string name="g_modes_only_how">Chế độ game, mẹo khi bạn chơi và chế độ phát trực tiếp.</string>
+    <string name="ai_model">Mô hình: %1$s</string>
+    <string name="ai_model_auto">cô ấy tự chọn</string>
+    <string name="ai_model_loading">Đang lấy danh sách mô hình…</string>
+    <string name="ai_model_none">Không lấy được mô hình. Kiểm tra mạng rồi thử lại.</string>
+    <string name="ai_model_title">Mô hình của %1$s</string>
 </resources>

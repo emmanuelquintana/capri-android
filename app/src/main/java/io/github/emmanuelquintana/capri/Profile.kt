@@ -30,7 +30,10 @@ object Profile {
     /** "photo", or the index of her icon (0 by default). */
     fun choice(c: Context): String = prefs(c).getString("avatar", null)?.takeIf { it != "photo" || photo(c).exists() } ?: "0"
 
-    fun setIcon(c: Context, i: Int) = prefs(c).edit().putString("avatar", i.coerceIn(0, ICONS.lastIndex).toString()).apply()
+    fun setIcon(c: Context, i: Int) {
+        prefs(c).edit().putString("avatar", i.coerceIn(0, ICONS.lastIndex).toString()).apply()
+        runCatching { Account.changed(c) }
+    }
 
     /** Your picture, cut square from its middle and made small (256 px). False if it couldn't be read. */
     fun setPhoto(c: Context, uri: Uri): Boolean = runCatching {
@@ -44,11 +47,45 @@ object Profile {
         val square = Bitmap.createBitmap(full, (full.width - side) / 2, (full.height - side) / 2, side, side)
         val small = Bitmap.createScaledBitmap(square, 256, 256, true)
         photo(c).outputStream().use { small.compress(Bitmap.CompressFormat.PNG, 100, it) }
+        cached = null
         prefs(c).edit().putString("avatar", "photo").apply()
+        Account.changed(c)
         true
     }.getOrDefault(false)
 
-    fun bitmap(c: Context): Bitmap? = if (choice(c) == "photo") runCatching { BitmapFactory.decodeFile(photo(c).path) }.getOrNull() else null
+    private var cached: Pair<Long, Bitmap>? = null
+
+    /** Your photo (read once and kept while it doesn't change: every chat bubble of yours shows it). */
+    fun bitmap(c: Context): Bitmap? {
+        if (choice(c) != "photo") return null
+        val f = photo(c)
+        val at = f.lastModified()
+        cached?.let { (t, b) -> if (t == at) return b }
+        return runCatching { BitmapFactory.decodeFile(f.path) }.getOrNull()?.also { cached = at to it }
+    }
+
+    /** (1.12.0) For your account: the icon, or the photo as a small JPEG (base64). */
+    fun export(c: Context): org.json.JSONObject {
+        val o = org.json.JSONObject().put("avatar", choice(c))
+        bitmap(c)?.let { b ->
+            val out = java.io.ByteArrayOutputStream()
+            b.compress(Bitmap.CompressFormat.JPEG, 85, out)
+            o.put("photo", android.util.Base64.encodeToString(out.toByteArray(), android.util.Base64.NO_WRAP))
+        }
+        return o
+    }
+
+    /** From your account onto this phone. */
+    fun import(c: Context, o: org.json.JSONObject) {
+        val avatar = o.optString("avatar", "0")
+        if (avatar == "photo") {
+            val bytes = runCatching { android.util.Base64.decode(o.optString("photo"), android.util.Base64.DEFAULT) }.getOrNull() ?: return
+            val b = BitmapFactory.decodeByteArray(bytes, 0, bytes.size) ?: return
+            photo(c).outputStream().use { b.compress(Bitmap.CompressFormat.PNG, 100, it) }
+            cached = null
+            prefs(c).edit().putString("avatar", "photo").apply()
+        } else avatar.toIntOrNull()?.let { setIcon(c, it) }
+    }
 
     /** A round avatar: your photo, or her icon on its color. */
     class Avatar(context: Context, private var icon: Int = -1) : View(context) {

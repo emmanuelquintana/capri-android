@@ -291,7 +291,7 @@ object CapriNeural {
                 val minBuffer = AudioTrack.getMinBufferSize(rate, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_FLOAT)
                 val bufferBytes = maxOf(minBuffer, rate * 4)
                 val t = AudioTrack.Builder()
-                    .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ASSISTANT)
+                    .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)/* (1.12.0, Emma: "en las grabaciones no se escucha") the assistant usage is left out of screen recordings */
                         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
                     .setAudioFormat(AudioFormat.Builder().setEncoding(AudioFormat.ENCODING_PCM_FLOAT).setSampleRate(rate)
                         .setChannelMask(AudioFormat.CHANNEL_OUT_MONO).build())

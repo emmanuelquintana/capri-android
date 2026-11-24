@@ -4,7 +4,7 @@
 // her hands. Drawn when the animations are in (assets/capri/anims: `keyboard`, `type-phone`; until
 // then her nearest ones: lying bored, on her phone). The keyboard down: she gets up.
 
-import { on } from './native.js';
+import { on, send } from './native.js';
 
 export function typing({ cfg }) {
   const dev = window.dev;
@@ -25,11 +25,20 @@ export function typing({ cfg }) {
     }
     // (her own chat has the keyboard: she's talking with you, not lying on it)
     timer = setTimeout(() => {
-      if (dev.chat?.open || mine || poses.active || cfg().icon) return;
+      // (1.12.0, Emma: "no veo que Capri se acueste en mi teclado") why not, in her log
+      // (whatever she was doing a while, she leaves it for your keyboard: only her sleep stays)
+      if (!dev.chat?.open && !mine && poses.active && !/sleep|night|nap/.test(poses.active)) poses.end();
+      const why = dev.chat?.open ? 'her chat is open' : mine ? '' : poses.active ? `busy with ${poses.active}` : cfg().icon ? 'she is an icon' : '';
+      if (why) return void send('log', { level: 'I', text: `keyboard up (${height}): not lying, ${why}` });
+      if (mine) return;
       const gamer = Boolean(cfg().gamer);
       const name = gamer ? first('phone') : first('keyboard', 'bored-tap');
-      if (!name) return;
-      poses.play(name, { hold: 120000, lying: true, ...(gamer ? { at: 'top' } : {}) }).then((ok) => { if (ok) mine = name; });
+      if (!name) return void send('log', { level: 'I', text: 'keyboard up: no keyboard animation' });
+      poses.play(name, { hold: 120000, lying: true, ...(gamer ? { at: 'top' } : {}) }).then((ok) => {
+        if (ok) mine = name;
+        const c = capri;
+        send('log', { level: 'I', text: `keyboard up (${height}): ${name} ${ok ? 'on' : `refused (stance ${c.stance}, hidden ${!!c.hidden}, busy ${!!c.busy}, act ${!!c.act}, lounge ${!!c.lounge}, dormant ${!!c.dormant})`}` });
+      });
     }, 700);
   });
 }
