@@ -731,4 +731,11 @@
     <string name="skin_get">Tải mẫu</string>
     <string name="skin_approval">Mỗi thiết kế đều được duyệt: chỉ có trong Capri nếu Emma và server Discord đồng ý, kèm tên bạn.</string>
     <string name="skin_saved">Đã lưu mẫu. Vẽ lên và gửi từ đây.</string>
+    <string name="voice_phone">Giọng điện thoại</string>
+    <string name="voice_phone_how">Khi cô ấy nói bằng giọng điện thoại (chưa cài giọng của cô ấy, hoặc ngôn ngữ khác), hãy chọn giọng giống cô ấy nhất.</string>
+    <string name="voice_phone_pick">Nghe và chọn</string>
+    <string name="voice_phone_n">Giọng %1$d</string>
+    <string name="voice_phone_sample">Chào, mình là Capri đây. Bạn thích giọng mình không?</string>
+    <string name="voice_phone_saved">Xong: cô ấy sẽ dùng giọng này.</string>
+    <string name="voice_phone_none">Điện thoại không có giọng cho ngôn ngữ này.</string>
 </resources>

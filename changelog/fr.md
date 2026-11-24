@@ -100,13 +100,25 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Plus de bras en double :** certaines tenues dessinaient un second bras immobile. Corrigé.
 - **Plus de tenue mélangée dans ses animations :** avec une tenue, elle ne repasse plus à ses habits habituels en
   pleine animation. Elle ne joue que celles dessinées pour cette tenue.
-- **Skins de la communauté :** dessine une tenue sur le modèle de Capri (sur le Discord) et envoie-la depuis Réglages ›
-  Signaler › « Envoyer un skin ». Si Emma l'approuve, elle arrive avec ton nom.
+- **Skins de la communauté :** dans Personnaliser › « Crée ta propre Capri », télécharge son modèle, dessine une tenue et
+  envoie-la. Si Emma et le serveur Discord l'approuvent, elle arrive dans une mise à jour avec ton nom.
 - **Sa vraie voix :** avec le moteur de sa voix mais sans son profil, elle parlait avec la voix du téléphone. Le profil
   arrive maintenant avec le moteur, et s'il manque, elle le télécharge.
 - **Écrire dans tes apps :** « Capri, écris ici … » avec son chat ouvert ne ferme plus ton clavier.
 - **Seulement ta voix :** « Seulement ma voix » apprend ta voix les 3 premières fois, puis ignore son nom dit par
   d'autres voix (la télé, les gens autour). Tout reste sur ton téléphone.
+- **Menu « Quelle IA lui répond ? » à son style :** le choix de l'IA du chat ressemble maintenant au reste de l'app.
+- **Neurodanses avec du son :** ambiance (bourdonnement, parasites, glitchs) et elle les raconte de sa voix.
+- **La déplacer à nouveau :** sur certains téléphones (Xiaomi), l'app croyait le clavier encore ouvert et empêchait de la
+  bouger. Corrigé.
+- **Télécharger sa voix sans erreur :** si la connexion coupe, le téléchargement reprend où il en était.
+- **Sa voix n'est plus coupée au milieu :** les longues réponses sont dites en entier, aussi avec la voix du téléphone.
+- **Trois nouveaux mini-jeux :** Réflexes, Devine le nombre et Plus ou moins, dans l'onglet Jeux.
+- **Choisis la voix du téléphone :** dans Réglages de la voix › Voix du téléphone, écoute les voix de ton téléphone et
+  choisis la plus proche de la sienne, pour quand sa propre voix n'est pas là.
+- **Elle ne reste plus muette :** si son moteur de voix se bloquait, elle se taisait à toutes les réponses suivantes ;
+  maintenant elle répond avec la voix du téléphone en attendant. Et si son IA échoue en pleine réponse, elle ne reste
+  plus sur « Elle parle · 90 % » pendant une minute.
 
 ## 1.11.7
 

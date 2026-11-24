@@ -746,4 +746,11 @@
     <string name="skin_get">Télécharger son modèle</string>
     <string name="skin_approval">Chaque design est vérifié : il n\'arrive dans Capri que si Emma et le serveur Discord l\'approuvent, avec ton nom.</string>
     <string name="skin_saved">Modèle enregistré. Dessine dessus et envoie-le d\'ici.</string>
+    <string name="voice_phone">Voix du téléphone</string>
+    <string name="voice_phone_how">Quand elle parle avec la voix du téléphone (sa voix n\'est pas installée, ou une autre langue), choisis celle qui lui ressemble le plus.</string>
+    <string name="voice_phone_pick">Écouter et choisir</string>
+    <string name="voice_phone_n">Voix %1$d</string>
+    <string name="voice_phone_sample">Salut, c\'est moi, Capri. Tu aimes ma voix ?</string>
+    <string name="voice_phone_saved">C\'est fait : elle utilisera cette voix.</string>
+    <string name="voice_phone_none">Ton téléphone n\'a pas de voix pour cette langue.</string>
 </resources>

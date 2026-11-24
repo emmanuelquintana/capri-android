@@ -95,13 +95,25 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Sem braços duplos:** algumas roupas desenhavam um segundo braço parado. Corrigido.
 - **Sem roupa misturada nas animações:** com uma roupa, ela não troca mais para a roupa de sempre no meio da animação.
   Só faz as animações desenhadas para essa roupa.
-- **Skins da comunidade:** desenhe uma roupa no modelo da Capri (no Discord) e envie em Ajustes › Reportar › «Enviar uma
-  skin». Se a Emma aprovar, vem numa atualização com seu nome.
+- **Skins da comunidade:** em Personalizar › «Crie sua própria Capri», baixe o modelo dela, desenhe uma roupa e envie.
+  Se a Emma e o servidor do Discord aprovarem, ela vem numa atualização com seu nome.
 - **A voz dela de verdade:** com o motor da voz mas sem o perfil, ela falava com a voz do celular. Agora o perfil vem
   com o motor, e se faltar, ela baixa sozinha.
 - **Escrever nos seus apps:** «Capri, escreve aqui …» com o chat aberto não tira mais o seu teclado.
 - **Só a sua voz:** «Só minha voz» aprende sua voz nas 3 primeiras vezes e depois ignora o nome dela em outras vozes
   (a TV, gente por perto). Tudo fica no seu celular.
+- **Menu «Qual IA responde?» com o estilo dela:** o seletor de IA do chat agora combina com o resto do app.
+- **Neurodanças com som:** agora têm ambiente (zumbido, estática e falhas) e ela narra com a voz dela.
+- **Arrastar de novo:** em alguns celulares (Xiaomi) o app achava que o teclado continuava aberto e não deixava movê-la.
+  Corrigido.
+- **Baixar a voz dela sem erros:** se a conexão cai, o download continua de onde parou em vez de falhar.
+- **A voz dela não corta mais no meio:** respostas longas são ditas inteiras, também com a voz do celular.
+- **Três minijogos novos:** Reflexos, Adivinhe o número e Maior ou menor, na aba Jogos.
+- **Escolha a voz do celular:** em Ajustes de voz › Voz do celular, ouça as vozes do seu celular e escolha a mais
+  parecida com a dela, para quando a voz dela não estiver.
+- **Ela não fica mais muda:** se o motor de voz travava, ela ficava calada em todas as respostas seguintes; agora
+  responde com a voz do celular enquanto isso. E se a IA falha no meio da resposta, não fica mais em «Falando · 90 %»
+  por um minuto.
 
 ## 1.11.7
 

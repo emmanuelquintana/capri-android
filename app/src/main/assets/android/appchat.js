@@ -28,6 +28,8 @@ export function appChat({ lang }) {
     // (1.11.7) her answer out loud too (chatvoice.js), not only written in the Chat tab
     const reply = (line, face = 'smug', ok = true) => {
       send('appchat:reply', { id, text: String(line || '…'), face, ok });
+      // (1.12.0) an answer that failed after her voice began its first sentences: her voice ends there
+      if (!ok || !line) dev?.chatVoice?.end?.(`app-${id}`);
       // (1.11.8) with the id of your message: the Chat tab shows its voice's percentage under her answer
       if (ok && line) dev?.chatVoice?.say(line, `app-${id}`);
     };

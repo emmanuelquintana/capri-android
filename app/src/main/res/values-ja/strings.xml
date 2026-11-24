@@ -731,4 +731,11 @@
     <string name="skin_get">テンプレートをダウンロード</string>
     <string name="skin_approval">すべてのデザインは審査されます。EmmaとDiscordサーバーが承認したものだけが、あなたの名前と一緒にCapriに登場します。</string>
     <string name="skin_saved">テンプレートを保存しました。描いたらここから送ってね。</string>
+    <string name="voice_phone">スマホの声</string>
+    <string name="voice_phone_how">スマホの声で話すとき（彼女の声が未インストール、または他の言語）に、一番彼女に近い声を選んでね。</string>
+    <string name="voice_phone_pick">聞いて選ぶ</string>
+    <string name="voice_phone_n">声 %1$d</string>
+    <string name="voice_phone_sample">やっほー、カプリだよ。私の声どう？</string>
+    <string name="voice_phone_saved">OK：この声を使います。</string>
+    <string name="voice_phone_none">この言語の声がスマホにありません。</string>
 </resources>

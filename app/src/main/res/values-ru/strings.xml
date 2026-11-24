@@ -753,4 +753,11 @@
     <string name="skin_get">Скачать шаблон</string>
     <string name="skin_approval">Каждый дизайн проверяется: он попадёт в Капри, только если его одобрят Эмма и сервер Discord, с твоим именем.</string>
     <string name="skin_saved">Шаблон сохранён. Рисуй поверх и отправляй отсюда.</string>
+    <string name="voice_phone">Голос телефона</string>
+    <string name="voice_phone_how">Когда она говорит голосом телефона (её голос не установлен или другой язык), выбери самый похожий на неё.</string>
+    <string name="voice_phone_pick">Послушать и выбрать</string>
+    <string name="voice_phone_n">Голос %1$d</string>
+    <string name="voice_phone_sample">Привет, это я, Капри. Нравится, как я звучу?</string>
+    <string name="voice_phone_saved">Готово: она будет говорить этим голосом.</string>
+    <string name="voice_phone_none">На телефоне нет голосов для этого языка.</string>
 </resources>

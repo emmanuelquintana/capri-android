@@ -758,6 +758,13 @@ class Ears(private val service: CapriService) {
         // (V8.5) the A/B comparison asks for one engine by name (only for tests, never for her answers)
         val engine = opts.optString("engine").takeIf { kind == "test" && it in CapriVoice.ENGINES } ?: CapriVoice.answerEngine(service, lang)
         if (engine == "text") return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "text") }
+        // (1.12.0) her neural voice stuck on something it never finishes: the phone's voice now, not silence
+        if (engine == CapriNeural.ID && CapriNeural.wedged()) {
+            if (streaming) streamNeural = false
+            Diag.add("W", "voice: her voice engine is stuck, phone's voice this time")
+            if (!streaming) systemVoice(id, text, lang)
+            return@sayNow
+        }
         if (engine == CapriNeural.ID) return@sayNow neuralVoice(id, text, lang, streaming)
         if (streaming) streamNeural = false
         if (engine == "system") phoneVoiceWhy(lang)
@@ -797,7 +804,18 @@ class Ears(private val service: CapriService) {
         // the sound is ready to play, not before. Before, she couldn't hear you for the whole generation.
         main.removeCallbacks(unstuck)
         main.postDelayed(unstuck, 180_000)
+        // (1.12.0, Emma: "ahorita ya no habló") her voice engine not even starting on it (still busy with something
+        // that hung): after 20 s this answer goes in the phone's voice instead of nothing
+        val notStarted = Runnable {
+            if (neuralId != id || neuralSeq != mine) return@Runnable
+            neuralId = ""
+            CapriNeural.cancel()
+            Diag.add("W", "voice: her voice engine didn't start in 20 s, phone's voice this time")
+            neuralFailed(id, text, lang, "stuck")
+        }
+        main.postDelayed(notStarted, 20_000)
         CapriNeural.speak(service, id, text, tag, { state, extra ->
+            main.removeCallbacks(notStarted)
             if (neuralId != id || neuralSeq != mine) return@speak
             if (state == "VOICE_UNAVAILABLE") {
                 neuralId = ""
@@ -834,7 +852,8 @@ class Ears(private val service: CapriService) {
         voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", CapriNeural.ID) }
         CapriNeural.lastFallback = why
         val store = Store(service)
-        if (store.configString("voiceFallback") == "system" || (store.configString("voiceMode") ?: "automatic") in setOf("automatic", "balanced")) {
+        // (a stuck engine: always the phone's voice, whatever you chose; silence isn't a voice)
+        if (why == "stuck" || store.configString("voiceFallback") == "system" || (store.configString("voiceMode") ?: "automatic") in setOf("automatic", "balanced")) {
             voiceEvent(id, "VOICE_REQUESTED") { put("kind", "answer").put("fallback", "system") }
             return systemVoice(id, text, lang)
         }
@@ -998,6 +1017,11 @@ class Ears(private val service: CapriService) {
     private fun voice(tag: String) {
         val t = tts ?: return
         val want = Locale.forLanguageTag(tag)
+        // (1.12.0) the one you picked in Ajustes de voz, when it's still on the phone
+        Store(service).configString("phoneVoice_${want.language}")?.let { name ->
+            val mine = runCatching { t.voices?.firstOrNull { it.name == name && "notInstalled" !in it.features } }.getOrNull()
+            if (mine != null && runCatching { t.setVoice(mine) }.getOrDefault(TextToSpeech.ERROR) == TextToSpeech.SUCCESS) return
+        }
         val v = runCatching {
             t.voices?.filter { it.locale.language == want.language && it.locale.country == want.country && "notInstalled" !in it.features }
                 ?.sortedWith(compareBy({ it.isNetworkConnectionRequired }, { -it.quality }))?.firstOrNull()

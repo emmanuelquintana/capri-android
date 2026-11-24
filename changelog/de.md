@@ -87,11 +87,22 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Keine doppelten Arme mehr:** Manche Outfits zeichneten einen zweiten, starren Arm. Behoben.
 - **Keine gemischte Kleidung mehr in Animationen:** In einem Outfit wechselt sie nicht mehr mitten in der Animation
   zu ihrer üblichen Kleidung. Es laufen nur Animationen, die für dieses Outfit gezeichnet sind.
-- **Skins aus der Community:** Zeichne ein Outfit auf Capris Vorlage (im Discord) und schick es über Einstellungen ›
-  Melden › „Skin senden“. Nimmt Emma es an, kommt es mit deinem Namen.
+- **Skins aus der Community:** Unter Anpassen › „Erstelle deine eigene Capri“ lädst du ihre Vorlage herunter, zeichnest
+  ein Outfit und schickst es ab. Nehmen Emma und der Discord-Server es an, kommt es mit deinem Namen in einem Update.
 - **Ihre echte Stimme:** Mit der Stimm-Engine, aber ohne ihr Profil, sprach sie mit der Handystimme. Jetzt kommt das
   Profil mit der Engine, und fehlt es, lädt sie es selbst.
 - **Tippen in deinen Apps:** „Capri, schreib hier …“ bei offenem Chat nimmt dir die Tastatur nicht mehr weg.
 - **Nur deine Stimme:** „Nur meine Stimme“ lernt deine Stimme bei den ersten 3 Rufen und ignoriert dann ihren Namen in
   anderen Stimmen (Fernseher, Leute um dich). Alles bleibt auf deinem Handy.
-
+- **Menü „Welche KI antwortet ihr?“ in ihrem Stil:** die KI-Auswahl im Chat sieht jetzt aus wie der Rest der App.
+- **Neurotänze mit Ton:** jetzt mit Atmosphäre (Summen, Rauschen, Glitches), und sie erzählt sie mit ihrer Stimme.
+- **Wieder verschiebbar:** auf manchen Handys (Xiaomi) dachte die App, die Tastatur sei noch offen, und ließ dich sie
+  nicht bewegen. Behoben.
+- **Ihre Stimme ohne Fehler laden:** bricht die Verbindung ab, geht der Download dort weiter, wo er war.
+- **Ihre Stimme bricht nicht mehr mittendrin ab:** lange Antworten werden ganz gesprochen, auch mit der Stimme des Handys.
+- **Drei neue Minispiele:** Reflexe, Zahl raten und Höher oder tiefer, im Tab Spiele.
+- **Wähle die Stimme des Handys:** unter Stimmeinstellungen › Stimme des Handys hörst du die Stimmen deines Handys und
+  wählst die, die ihr am nächsten kommt, für wenn ihre eigene Stimme fehlt.
+- **Sie verstummt nicht mehr:** hing ihre Sprach-Engine, blieb sie bei allen weiteren Antworten still; jetzt antwortet
+  sie solange mit der Stimme des Handys. Und scheitert ihre KI mitten in der Antwort, hängt sie nicht mehr eine Minute
+  bei „Spricht · 90 %“.

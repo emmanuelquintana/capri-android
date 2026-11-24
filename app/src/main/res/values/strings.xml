@@ -747,4 +747,11 @@
     <string name="skin_get">Download her template</string>
     <string name="skin_approval">Every design is reviewed: it only comes to Capri if Emma and the Discord server approve it, with your name on it.</string>
     <string name="skin_saved">Template saved. Draw on it and send it from here.</string>
+    <string name="voice_phone">The phone\'s voice</string>
+    <string name="voice_phone_how">When she speaks with the phone\'s voice (her own isn\'t installed, or another language), pick the one that sounds most like her.</string>
+    <string name="voice_phone_pick">Hear and pick</string>
+    <string name="voice_phone_n">Voice %1$d</string>
+    <string name="voice_phone_sample">Hi, it\'s me, Capri. Do you like how I sound?</string>
+    <string name="voice_phone_saved">Saved: she\'ll use this voice.</string>
+    <string name="voice_phone_none">Your phone has no voices for this language.</string>
 </resources>

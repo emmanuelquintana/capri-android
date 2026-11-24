@@ -735,4 +735,11 @@
     <string name="skin_get">Scarica il modello</string>
     <string name="skin_approval">Ogni design viene controllato: arriva in Capri solo se Emma e il server Discord lo approvano, con il tuo nome.</string>
     <string name="skin_saved">Modello salvato. Disegnaci sopra e invialo da qui.</string>
+    <string name="voice_phone">Voce del telefono</string>
+    <string name="voice_phone_how">Quando parla con la voce del telefono (la sua non è installata, o un\'altra lingua), scegli quella più simile a lei.</string>
+    <string name="voice_phone_pick">Ascolta e scegli</string>
+    <string name="voice_phone_n">Voce %1$d</string>
+    <string name="voice_phone_sample">Ciao, sono io, Capri. Ti piace come suono?</string>
+    <string name="voice_phone_saved">Fatto: userà questa voce.</string>
+    <string name="voice_phone_none">Il tuo telefono non ha voci per questa lingua.</string>
 </resources>

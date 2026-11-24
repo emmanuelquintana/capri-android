@@ -128,6 +128,12 @@ object CapriNeural {
         private set
     /** Why the last answer couldn't use it (shown in the app's card), "" if it could. */
     @Volatile var lastFallback = ""
+
+    /** (1.12.0, Emma: "se pausó mucho tiempo… y ahorita ya no habló") when the voice's thread began what it's doing
+     *  (0: free). One that never ends (the engine hung inside) left every later answer waiting behind it, silent. */
+    @Volatile private var runningSince = 0L
+    /** Her engine busy with one thing for over a minute and a half: stuck. Her answers go in the phone's voice meanwhile. */
+    fun wedged() = runningSince > 0 && SystemClock.elapsedRealtime() - runningSince > 90_000
     private val unload = Runnable { worker.execute { dispose("idle") } }
 
     fun root(context: Context) = File(CapriVoice.root(context), "neural")
@@ -261,6 +267,7 @@ object CapriNeural {
         val emit: (String, JSONObject) -> Unit = { state, extra -> main.post { if (ticket == generation.get() || state == "VOICE_CANCELLED") events.on(state, extra.put("source", ID)) } }
         worker.execute {
             if (ticket != generation.get()) return@execute
+            runningSince = SystemClock.elapsedRealtime()
             val store = Store(app)
             val queue = java.util.concurrent.LinkedBlockingQueue<FloatArray>()
             val play = Play()
@@ -312,7 +319,8 @@ object CapriNeural {
                         val piece = incoming.poll(250, java.util.concurrent.TimeUnit.MILLISECONDS)
                         if (piece == null) {
                             // her AI stopped writing without saying it ended (an error): what came is all there is
-                            if (++waited > 240) ended = true
+                            // (1.12.0: 30 s, not a minute: she stood at «Hablando · 90 %» for a minute after her last word)
+                            if (++waited > 120) ended = true
                             continue
                         }
                         waited = 0
@@ -427,6 +435,7 @@ object CapriNeural {
                     if (e is OutOfMemoryError) dispose("oom")
                 }
             } finally {
+                runningSince = 0L
                 main.removeCallbacks(unload)
                 main.postDelayed(unload, idleMs(app, store))
             }
@@ -445,6 +454,7 @@ object CapriNeural {
         if (!store.configFlag("speak", true) || CapriVoice.answerEngine(app, lang) != ID) return
         main.removeCallbacks(unload)
         worker.execute {
+            runningSince = SystemClock.elapsedRealtime()
             try {
                 if (engine != null && loadedLang == tag) return@execute
                 val state = status(app, tag)
@@ -468,6 +478,7 @@ object CapriNeural {
                 Diag.add("W", "voice $ID warm: ${e.message ?: e.javaClass.simpleName}")
                 if (e is OutOfMemoryError) dispose("oom")
             } finally {
+                runningSince = 0L
                 main.removeCallbacks(unload)
                 main.postDelayed(unload, idleMs(app, store))
             }

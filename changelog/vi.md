@@ -77,11 +77,20 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Hết tay đôi:** vài bộ đồ vẽ thêm một cánh tay đứng yên. Đã sửa.
 - **Không còn lẫn trang phục khi hoạt ảnh:** khi mặc đồ khác, cô ấy không đổi về đồ thường giữa hoạt ảnh nữa.
   Chỉ chạy hoạt ảnh được vẽ cho bộ đồ đó.
-- **Skin cộng đồng:** vẽ trang phục trên mẫu của Capri (trên Discord) và gửi từ Cài đặt › Báo lỗi › «Gửi skin». Nếu Emma
-  duyệt, nó sẽ có trong bản cập nhật kèm tên bạn.
+- **Skin cộng đồng:** trong Tùy chỉnh › «Tạo Capri của riêng bạn», tải mẫu của cô ấy, vẽ trang phục và gửi đi. Nếu Emma
+  và server Discord duyệt, nó sẽ có trong bản cập nhật kèm tên bạn.
 - **Giọng thật của cô ấy:** có bộ máy giọng nhưng thiếu hồ sơ thì cô ấy dùng giọng điện thoại. Giờ hồ sơ tải cùng bộ
   máy, và nếu thiếu cô ấy tự tải.
 - **Gõ trong ứng dụng:** «Capri, viết ở đây …» khi đang mở chat không còn làm mất bàn phím.
 - **Chỉ giọng của bạn:** «Chỉ giọng của tôi» học giọng bạn 3 lần đầu, sau đó bỏ qua tên cô ấy nói bằng giọng khác.
   Mọi thứ ở trên điện thoại.
-
+- **Menu «AI nào trả lời cô ấy?» theo phong cách của cô ấy:** bộ chọn AI trong chat giờ giống phần còn lại của app.
+- **Neurodance có âm thanh:** giờ có không khí (tiếng ù, nhiễu, glitch) và cô ấy kể bằng giọng của mình.
+- **Kéo cô ấy lại được:** trên một số điện thoại (Xiaomi) app tưởng bàn phím vẫn mở và không cho di chuyển. Đã sửa.
+- **Tải giọng cô ấy không lỗi:** nếu mất kết nối, việc tải tiếp tục từ chỗ đang dở.
+- **Giọng cô ấy không còn bị cắt giữa chừng:** câu trả lời dài được nói hết, cả với giọng điện thoại.
+- **Ba minigame mới:** Phản xạ, Đoán số và Lớn hay nhỏ, trong tab Trò chơi.
+- **Chọn giọng điện thoại:** trong Cài đặt giọng › Giọng điện thoại, nghe các giọng của máy và chọn giọng giống cô ấy
+  nhất, cho lúc giọng riêng của cô ấy không có.
+- **Cô ấy không còn im lặng:** nếu bộ máy giọng bị kẹt, cô ấy im ở mọi câu sau; giờ cô ấy tạm trả lời bằng giọng điện
+  thoại. Và nếu AI lỗi giữa câu trả lời, cô ấy không còn đứng ở «Đang nói · 90 %» cả phút.

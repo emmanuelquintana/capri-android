@@ -113,6 +113,18 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   chat, types in your app's field and leaves the keyboard up.
 - **Only your voice:** in voice settings, "Only my voice" learns your voice the first 3 times you call her, then ignores
   her name in other voices (the TV, people around you). It all stays on your phone.
+- **"Which AI answers her?" menu in her style:** the chat's AI picker now looks like the rest of the app.
+- **Neurodances with sound:** they now have ambience (hum, static and glitches) and she narrates them in her voice.
+- **Drag her again:** on some phones (Xiaomi) the app thought the keyboard was still open and wouldn't let you move her.
+  Fixed.
+- **Downloading her voice without errors:** if the connection drops ("Software caused connection abort"), the download
+  picks up where it was instead of failing.
+- **Her voice is no longer cut in half:** long answers are said in full, with the phone's voice too.
+- **Three new minigames:** Reflexes, Guess the number and Higher or lower, in the Games tab.
+- **Pick the phone's voice:** in Voice settings › The phone's voice, listen to your phone's voices and pick the one
+  closest to hers, for when her own voice isn't there.
+- **She no longer goes mute:** if her voice engine got stuck, she stayed silent on every answer after; now she answers
+  in the phone's voice meanwhile. And if her AI fails mid-answer, she no longer sits on "Speaking · 90 %" for a minute.
 
 ## 1.11.7
 

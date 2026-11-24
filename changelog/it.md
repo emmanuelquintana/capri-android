@@ -80,11 +80,22 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Niente più braccia doppie:** alcuni outfit disegnavano un secondo braccio fermo. Risolto.
 - **Niente più vestiti mischiati nelle animazioni:** con un outfit non torna più ai vestiti di sempre a metà
   animazione. Fa solo le animazioni disegnate per quell'outfit.
-- **Skin della community:** disegna un outfit sul modello di Capri (sul Discord) e invialo da Impostazioni › Segnala ›
-  «Invia una skin». Se Emma lo approva, arriva con il tuo nome.
+- **Skin della community:** in Personalizza › «Crea la tua Capri» scarica il suo modello, disegna un outfit e invialo.
+  Se Emma e il server Discord lo approvano, arriva in un aggiornamento con il tuo nome.
 - **La sua vera voce:** con il motore della voce ma senza profilo, parlava con la voce del telefono. Ora il profilo
   arriva con il motore e, se manca, lo scarica da sola.
 - **Scrivere nelle tue app:** «Capri, scrivi qui …» con la chat aperta non ti toglie più la tastiera.
 - **Solo la tua voce:** «Solo la mia voce» impara la tua voce le prime 3 volte, poi ignora il suo nome detto da altre
   voci (la TV, le persone intorno). Tutto resta sul tuo telefono.
-
+- **Menu «Quale IA le risponde?» nel suo stile:** la scelta dell'IA nella chat ora si vede come il resto dell'app.
+- **Neurodanze con il suono:** ora hanno atmosfera (ronzio, statica e glitch) e lei le racconta con la sua voce.
+- **Di nuovo trascinabile:** su alcuni telefoni (Xiaomi) l'app credeva che la tastiera fosse ancora aperta e non ti
+  lasciava spostarla. Risolto.
+- **Scaricare la sua voce senza errori:** se la connessione cade, il download riprende da dove era.
+- **La sua voce non si taglia più a metà:** le risposte lunghe vengono dette per intero, anche con la voce del telefono.
+- **Tre nuovi minigiochi:** Riflessi, Indovina il numero e Più alto o più basso, nella scheda Giochi.
+- **Scegli la voce del telefono:** in Impostazioni voce › Voce del telefono ascolti le voci del telefono e scegli la
+  più simile alla sua, per quando la sua voce non c'è.
+- **Non resta più muta:** se il suo motore vocale si bloccava, restava zitta in tutte le risposte dopo; ora nel
+  frattempo risponde con la voce del telefono. E se la sua IA fallisce a metà risposta, non resta più un minuto su
+  «Sta parlando · 90 %».

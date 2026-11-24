@@ -1149,6 +1149,11 @@ class MainActivity : Activity() {
                         { store.configString("voiceAccent_$lang") ?: accents[0].first }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voiceAccent_$lang", it) }, ui.block(6))
                 }
             }
+            // (1.12.0, community: "aparece otra voz de IA diferente") which of the phone's voices she uses when it's the
+            // phone's voice: you hear each one and keep the one closest to her
+            addView(ui.text(getString(R.string.voice_phone), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(ui.text(getString(R.string.voice_phone_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(ui.button(getString(R.string.voice_phone_pick) + " ›", Ui.Kind.LINE) { pickPhoneVoice() }, ui.block(8))
         }, ui.block(16))
 
         // (1.11.0) Capri Voice V8 (CapriVoice.kt): her recorded voice, phrase by phrase, offline; optional
@@ -1398,6 +1403,53 @@ class MainActivity : Activity() {
                 { store.configString("voicePace") ?: "normal" }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "voicePace", it) }, ui.block(6))
         }, ui.block(16))
 
+    }
+
+    // (1.12.0) the phone's voices for the app's language, to hear and pick (Ears.voice uses the one saved)
+    private var probe: android.speech.tts.TextToSpeech? = null
+
+    private fun pickPhoneVoice() {
+        Toast.makeText(this, R.string.account_working, Toast.LENGTH_SHORT).show()
+        probe?.shutdown()
+        var t: android.speech.tts.TextToSpeech? = null
+        t = android.speech.tts.TextToSpeech(this) { status ->
+            val tts = t ?: return@TextToSpeech
+            if (status != android.speech.tts.TextToSpeech.SUCCESS) return@TextToSpeech Toast.makeText(this, R.string.voice_phone_none, Toast.LENGTH_LONG).show()
+            val lang = Lang.current(this)
+            val key = "phoneVoice_$lang"
+            val voices = runCatching { tts.voices.orEmpty().filter { it.locale.language == java.util.Locale(lang).language && "notInstalled" !in it.features } }.getOrDefault(emptyList())
+                .sortedWith(compareBy({ it.isNetworkConnectionRequired }, { -it.quality }, { it.locale.country }, { it.name }))
+            if (voices.isEmpty()) return@TextToSpeech Toast.makeText(this, R.string.voice_phone_none, Toast.LENGTH_LONG).show()
+            val saved = Store(this).configString(key)
+            val dialog = android.app.Dialog(this)
+            val list = ui.col()
+            voices.forEachIndexed { i, v ->
+                val label = "${getString(R.string.voice_phone_n, i + 1)} · ${v.locale.country}" + (if (v.isNetworkConnectionRequired) " · ☁" else "")
+                val row = ui.row()
+                row.addView(ui.button("▶ " + label, if (v.name == saved) Ui.Kind.GREEN else Ui.Kind.LINE) {
+                    tts.voice = v
+                    tts.speak(getString(R.string.voice_phone_sample), android.speech.tts.TextToSpeech.QUEUE_FLUSH, null, "probe")
+                }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+                row.addView(ui.button("✓", Ui.Kind.GREEN) {
+                    CapriSettings.set(this, key, v.name)
+                    dialog.dismiss()
+                    Toast.makeText(this, R.string.voice_phone_saved, Toast.LENGTH_SHORT).show()
+                }, LinearLayout.LayoutParams(ui.dpi(56), WRAP_CONTENT).apply { leftMargin = ui.dpi(8) })
+                list.addView(row, ui.block(8))
+            }
+            val card = ui.card(Hud.YELLOW, Hud.MANE).apply {
+                addView(ui.label(getString(R.string.voice_phone)))
+                addView(ScrollView(this@MainActivity).apply { addView(list) }, LinearLayout.LayoutParams(MATCH_PARENT, minOf(ui.dpi(56) * voices.size + ui.dpi(20), (resources.displayMetrics.heightPixels * 0.6).toInt())))
+                addView(ui.button(getString(android.R.string.cancel), Ui.Kind.LINE) { dialog.dismiss() }, ui.block(12))
+            }
+            dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+            dialog.setContentView(FrameLayout(this).apply { setPadding(ui.dpi(4), ui.dpi(4), ui.dpi(10), ui.dpi(10)); addView(card) })
+            dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+            dialog.window?.setLayout((resources.displayMetrics.widthPixels * 0.92).toInt(), WRAP_CONTENT)
+            dialog.setOnDismissListener { runCatching { tts.stop(); tts.shutdown() }; probe = null }
+            dialog.show()
+        }
+        probe = t
     }
 
     // (1.11.0) Capri Voice V8: the pack you picked in your files, its jobs, a test of her voice

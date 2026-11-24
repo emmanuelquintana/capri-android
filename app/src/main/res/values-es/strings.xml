@@ -746,4 +746,11 @@
     <string name="skin_get">Bajar su plantilla</string>
     <string name="skin_approval">Cada diseño se revisa: solo llega a Capri si lo aprueban Emma y el servidor de Discord, con tu nombre.</string>
     <string name="skin_saved">Plantilla guardada. Dibuja encima y envíala desde aquí.</string>
+    <string name="voice_phone">Voz del teléfono</string>
+    <string name="voice_phone_how">Cuando habla con la voz del teléfono (su voz no está instalada, u otro idioma), elige la que más se le parezca.</string>
+    <string name="voice_phone_pick">Escuchar y elegir</string>
+    <string name="voice_phone_n">Voz %1$d</string>
+    <string name="voice_phone_sample">Hola, soy yo, Capri. ¿Te gusta cómo sueno?</string>
+    <string name="voice_phone_saved">Listo: usará esta voz.</string>
+    <string name="voice_phone_none">Tu teléfono no tiene voces para este idioma.</string>
 </resources>

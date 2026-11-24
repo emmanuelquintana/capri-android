@@ -1822,6 +1822,7 @@ on('settings:apply', async (p = {}) => {
   // her voice and ears (the app's Settings › Talk to her; Ears.kt reads them from config.json each time)
   for (const key of ['voiceFilter', 'voicePace']) if (typeof p[key] === 'string') updateConfig({ [key]: p[key] });
   // her accent in each language (Ears.kt: the voice and the ears for it)
+  for (const [key, value] of Object.entries(p)) if (/^phoneVoice_[a-z]{2}$/.test(key) && typeof value === 'string' && value.length < 200) updateConfig({ [key]: value }); // (1.12.0)
   for (const [key, value] of Object.entries(p)) if (/^voiceAccent_(es|en|fr|pt)$/.test(key) && /^[a-z]{2}-[A-Z]{2}$/.test(String(value))) updateConfig({ [key]: value });
   if (typeof p.voicePitch === 'number') updateConfig({ voicePitch: Math.min(2, Math.max(0.5, p.voicePitch)) });
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });

@@ -123,6 +123,15 @@ export function chatVoice({ cfg, lang }) {
     s.sent = said.slice(0, end);
     send('voice:say', { id: s.voiceId, kind: 'answer', text: piece, lang: locale(), part: 'more' });
   });
+  // (1.12.0, Emma: "se quedó en Hablando · 90 %") her answer that failed or never came after its first sentences
+  // were already being said: her voice is told that was all, so it ends there instead of waiting a minute
+  const end = (voiceId) => {
+    for (const [k, v] of streams) {
+      if (v.voiceId !== voiceId) continue;
+      streams.delete(k);
+      if (v.sent) send('voice:say', { id: voiceId, kind: 'answer', text: '', lang: locale(), part: 'last' });
+    }
+  };
   // (1.11.8) her voice's model starts loading now, while her AI is still writing
   const warm = () => {
     if (on()) send('voice:warm', { lang: LOCALES[lang()] || 'es-MX' });
@@ -179,7 +188,10 @@ export function chatVoice({ cfg, lang }) {
     chat.send = function (...args) {
       try { show(null); current = ''; warm(); } catch {}
       const out = sendIt(...args);
-      try { if (chat.turn) { bubbleVoice = `chat-${++seq}`; follow(chat.turn, bubbleVoice); } } catch {}
+      let mine = '';
+      try { if (chat.turn) { mine = bubbleVoice = `chat-${++seq}`; follow(chat.turn, mine); } } catch {}
+      // (what her answer didn't close, failed or cut off, is closed when the turn ends)
+      Promise.resolve(out).finally(() => { if (mine) end(mine); }).catch(() => {});
       return out;
     };
   }
@@ -203,5 +215,5 @@ export function chatVoice({ cfg, lang }) {
       return out;
     };
   }
-  return { say, warm, follow };
+  return { say, warm, follow, end };
 }

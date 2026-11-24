@@ -115,6 +115,19 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   escribe en el campo de tu app y te deja el teclado listo para seguir.
 - **Solo tu voz:** en Ajustes de voz, «Solo mi voz» aprende tu voz las primeras 3 veces que la llamas y después ignora
   su nombre dicho por otras voces (la tele, la gente a tu alrededor). Todo se queda en tu teléfono.
+- **Menú «¿Qué IA le contesta?» con su estilo:** el selector de IA del chat ahora se ve como el resto de la app.
+- **Neurodanzas con sonido:** ahora tienen ambiente (zumbido, estática y fallas) y ella te las narra con su voz.
+- **Arrastrarla otra vez:** en algunos teléfonos (Xiaomi) la app creía que el teclado seguía abierto y no te dejaba
+  moverla. Arreglado.
+- **Descargar su voz sin errores:** si la conexión se corta («Software caused connection abort»), la descarga sigue
+  donde iba en vez de fallar.
+- **Su voz ya no se corta a la mitad:** las respuestas largas se dicen completas, también con la voz del teléfono.
+- **Tres minijuegos nuevos:** Reflejos, Adivina el número y Mayor o menor, en la pestaña Juegos.
+- **Elige la voz del teléfono:** en Ajustes de voz › Voz del teléfono escuchas las voces de tu teléfono y eliges la
+  que más se le parezca, para cuando su propia voz no está.
+- **Ya no se queda muda:** si su motor de voz se atoraba, se quedaba callada en todas las respuestas siguientes;
+  ahora contesta con la voz del teléfono mientras tanto. Y si su IA falla a media respuesta, ya no se queda en
+  «Hablando · 90 %» un minuto entero.
 
 ## 1.11.7
 
