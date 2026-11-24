@@ -209,7 +209,12 @@ object Account {
 
     /** Saves this phone's snapshot. Blocking. */
     fun upload(c: Context) {
+        // (1.12.0) the cloud copy first: chats from your other devices (the PC too) joined into this one, and what
+        // only they save kept as it is, so a save from here never wipes theirs
+        val cloud = runCatching { download(c)?.third }.getOrNull()
+        cloud?.optJSONArray("chatlog")?.let { ChatLog.merge(c, it) }
         val snap = snapshot(c)
+        cloud?.keys()?.forEach { k -> if (!snap.has(k)) snap.put(k, cloud.get(k)) }
         val gz = ByteArrayOutputStream().also { b -> GZIPOutputStream(b).use { it.write(snap.toString().toByteArray()) } }.toByteArray()
         if (gz.size > 900_000) throw Failed(R.string.account_err_big)
         val body = JSONObject().put("fields", JSONObject()

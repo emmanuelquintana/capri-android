@@ -34,15 +34,22 @@ object ChatLog {
         Account.changed(context) // (1.12.0) with an account, your chat goes to the cloud too, a little later
     }
 
-    fun clear(context: Context) = synchronized(lock) { file(context).delete(); Account.changed(context) }
+    fun clear(context: Context) = synchronized(lock) {
+        file(context).delete()
+        // (what was said before this doesn't come back from your other devices)
+        context.getSharedPreferences("app", Context.MODE_PRIVATE).edit().putLong("chatCleared", System.currentTimeMillis()).apply()
+        Account.changed(context)
+    }
 
     /** (1.12.0) Your chat from another phone joined with this one's (none lost, none twice), the last [MAX] kept. */
     fun merge(context: Context, other: JSONArray) = synchronized(lock) {
         val seen = HashSet<String>()
         val all = ArrayList<JSONObject>()
+        val cleared = context.getSharedPreferences("app", Context.MODE_PRIVATE).getLong("chatCleared", 0L)
         val mine = all(context)
         for (list in listOf(mine, other)) for (i in 0 until list.length()) {
             val o = list.optJSONObject(i) ?: continue
+            if (o.optLong("at") <= cleared) continue
             if (seen.add("${o.optLong("at")}|${o.optString("q").take(80)}")) all.add(o)
         }
         all.sortBy { it.optLong("at") }
