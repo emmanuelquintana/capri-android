@@ -56,7 +56,7 @@ object Profile {
         private val ring = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE }
         private val clip = Path()
         private var pic: Bitmap? = null
-        var selected = false
+        var picked = false
             set(v) { field = v; invalidate() }
 
         init { reload() }
@@ -90,8 +90,8 @@ object Profile {
                 d.draw(c)
                 ring.color = color
             }
-            ring.strokeWidth = s * if (selected) 0.08f else 0.04f
-            if (selected) ring.color = Hud.YELLOW
+            ring.strokeWidth = s * if (picked) 0.08f else 0.04f
+            if (picked) ring.color = Hud.YELLOW
             c.drawCircle(cx, cy, r, ring)
         }
     }

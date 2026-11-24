@@ -1979,7 +1979,7 @@ class MainActivity : Activity() {
                     isClickable = true
                     setOnClickListener {
                         Profile.setIcon(this@MainActivity, i)
-                        picks.forEachIndexed { k, v -> v.selected = k == i }
+                        picks.forEachIndexed { k, v -> v.picked = k == i }
                         avatars.forEach { it.reload() }
                     }
                 }
@@ -1988,7 +1988,7 @@ class MainActivity : Activity() {
             }
             addView(r, ui.block(8))
         }
-        val mark = { val c = Profile.choice(this@MainActivity).toIntOrNull(); picks.forEachIndexed { k, v -> v.selected = k == c } }
+        val mark = { val c = Profile.choice(this@MainActivity).toIntOrNull(); picks.forEachIndexed { k, v -> v.picked = k == c } }
         mark()
         choices.add(mark)
     }
