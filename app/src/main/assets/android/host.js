@@ -43,6 +43,7 @@ import { translating } from './translate.js';
 import { coaching } from './coach.js';
 import { streaming } from './stream.js';
 import { birthday } from './birthday.js';
+import { reading } from './reading.js';
 import { keepAsking } from './away.js';
 import { chatLog } from './chatlog.js';
 import { shaking } from './shake.js';
@@ -1926,6 +1927,7 @@ ready.then(() => {
     chatLog(); // your chat history, kept on the phone (the app shows it)
     shaking({ cfg: () => cfg, lang: () => resolveLang(cfg.lang) }); // (1.12.0) you shake the phone: she reacts
     window.dev.chatVoice = chatVoice({ cfg: () => cfg, lang: () => resolveLang(cfg.lang) }); // (1.11.7) her chat answers out loud
+    window.dev.reading = reading(window.dev); // (1.12.0) the book you're reading: recaps without spoilers
     chatAsks({ lang: () => resolveLang(cfg.lang) }); // games, history, a message by WhatsApp: done, not asked to her AI
     laser({ lang: () => resolveLang(cfg.lang), cfg: () => cfg }); // an app uninstalled: her beam
     window.dev.autoDress = autoDress({ cfg: () => cfg, setConfig: updateConfig, lang: () => resolveLang(cfg.lang) }); // she dresses herself

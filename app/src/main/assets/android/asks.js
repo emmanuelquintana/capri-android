@@ -71,6 +71,11 @@ export function extraAsk(text, lang) {
     const slept = window.dev?.sleep?.ask(said);
     if (slept) return slept;
   }
+  // (1.12.0) "estoy leyendo Dune", "voy en la página 120", "modo lectura" (reading.js)
+  if (words <= 16) {
+    const read = window.dev?.reading?.ask(said, lang);
+    if (read) return read;
+  }
   // (1.10.0) "ve atrás", "baja", "toca Ajustes", "escribe aquí hola": she uses your phone (control.js)
   const acted = controlAsk(said, lang);
   if (acted) return acted;
