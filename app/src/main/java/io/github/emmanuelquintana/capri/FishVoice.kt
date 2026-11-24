@@ -113,7 +113,7 @@ object FishVoice {
         h.readTimeout = 20_000
         h.setRequestProperty("Authorization", "Bearer $key")
         h.setRequestProperty("Content-Type", "application/json")
-        h.setRequestProperty("model", "s2.1-pro")
+        h.setRequestProperty("model", "s2.1-pro-free")
         h.setRequestProperty("User-Agent", "Capri-Android")
         h.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
         return h
