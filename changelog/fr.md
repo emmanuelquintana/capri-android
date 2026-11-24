@@ -102,6 +102,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   pleine animation. Elle ne joue que celles dessinées pour cette tenue.
 - **Skins de la communauté :** dessine une tenue sur le modèle de Capri (sur le Discord) et envoie-la depuis Réglages ›
   Signaler › « Envoyer un skin ». Si Emma l'approuve, elle arrive avec ton nom.
+- **Sa vraie voix :** avec le moteur de sa voix mais sans son profil, elle parlait avec la voix du téléphone. Le profil
+  arrive maintenant avec le moteur, et s'il manque, elle le télécharge.
+- **Écrire dans tes apps :** « Capri, écris ici … » avec son chat ouvert ne ferme plus ton clavier.
 
 ## 1.11.7
 

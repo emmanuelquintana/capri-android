@@ -97,6 +97,9 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   Só faz as animações desenhadas para essa roupa.
 - **Skins da comunidade:** desenhe uma roupa no modelo da Capri (no Discord) e envie em Ajustes › Reportar › «Enviar uma
   skin». Se a Emma aprovar, vem numa atualização com seu nome.
+- **A voz dela de verdade:** com o motor da voz mas sem o perfil, ela falava com a voz do celular. Agora o perfil vem
+  com o motor, e se faltar, ela baixa sozinha.
+- **Escrever nos seus apps:** «Capri, escreve aqui …» com o chat aberto não tira mais o seu teclado.
 
 ## 1.11.7
 

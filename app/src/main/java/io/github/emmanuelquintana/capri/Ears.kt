@@ -752,7 +752,25 @@ class Ears(private val service: CapriService) {
         if (engine == "text") return@sayNow voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", "text") }
         if (engine == CapriNeural.ID) return@sayNow neuralVoice(id, text, lang, streaming)
         if (streaming) streamNeural = false
+        if (engine == "system") phoneVoiceWhy(lang)
         systemVoice(id, text, lang)
+    }
+
+    // (1.12.0, community: "aparece otra voz de IA diferente", "su voz no se escucha") why her answer is in the phone's
+    // voice: in the report's log, and her missing profile fetched on its own (2 MB), so her own voice comes next time
+    private var phoneWhy = ""
+    private fun phoneVoiceWhy(lang: String) {
+        val mode = Store(service).configString("voiceMode") ?: "automatic"
+        val tag = CapriVoice.voiceLang(lang)
+        val why = when {
+            mode == "light" || mode == "custom" -> "mode $mode"
+            tag == null -> "her voice doesn't speak $lang yet"
+            else -> CapriNeural.status(service, tag)
+        }
+        if (why == phoneWhy) return
+        phoneWhy = why
+        Diag.add("I", "voice: phone's voice for $lang ($why)")
+        if (why == "noprofile") CapriNeural.downloadProfiles(service) { err -> Diag.add("I", "voice: her profiles ${err ?: "installed"}") }
     }
 
     // (1.11.0, V8.5) her new answer in the neural engine you picked (CapriNeural.kt). If it can't now (no model,

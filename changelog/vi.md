@@ -79,4 +79,7 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
   Chỉ chạy hoạt ảnh được vẽ cho bộ đồ đó.
 - **Skin cộng đồng:** vẽ trang phục trên mẫu của Capri (trên Discord) và gửi từ Cài đặt › Báo lỗi › «Gửi skin». Nếu Emma
   duyệt, nó sẽ có trong bản cập nhật kèm tên bạn.
+- **Giọng thật của cô ấy:** có bộ máy giọng nhưng thiếu hồ sơ thì cô ấy dùng giọng điện thoại. Giờ hồ sơ tải cùng bộ
+  máy, và nếu thiếu cô ấy tự tải.
+- **Gõ trong ứng dụng:** «Capri, viết ở đây …» khi đang mở chat không còn làm mất bàn phím.
 

@@ -89,4 +89,7 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
   zu ihrer üblichen Kleidung. Es laufen nur Animationen, die für dieses Outfit gezeichnet sind.
 - **Skins aus der Community:** Zeichne ein Outfit auf Capris Vorlage (im Discord) und schick es über Einstellungen ›
   Melden › „Skin senden“. Nimmt Emma es an, kommt es mit deinem Namen.
+- **Ihre echte Stimme:** Mit der Stimm-Engine, aber ohne ihr Profil, sprach sie mit der Handystimme. Jetzt kommt das
+  Profil mit der Engine, und fehlt es, lädt sie es selbst.
+- **Tippen in deinen Apps:** „Capri, schreib hier …“ bei offenem Chat nimmt dir die Tastatur nicht mehr weg.
 

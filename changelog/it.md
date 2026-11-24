@@ -82,4 +82,7 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
   animazione. Fa solo le animazioni disegnate per quell'outfit.
 - **Skin della community:** disegna un outfit sul modello di Capri (sul Discord) e invialo da Impostazioni › Segnala ›
   «Invia una skin». Se Emma lo approva, arriva con il tuo nome.
+- **La sua vera voce:** con il motore della voce ma senza profilo, parlava con la voce del telefono. Ora il profilo
+  arriva con il motore e, se manca, lo scarica da sola.
+- **Scrivere nelle tue app:** «Capri, scrivi qui …» con la chat aperta non ti toglie più la tastiera.
 

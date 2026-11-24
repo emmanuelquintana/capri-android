@@ -109,6 +109,10 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   animación (el «avatar mezclado»). Con ropa puesta solo hace las animaciones dibujadas para esa ropa.
 - **Skins de la comunidad:** dibuja ropa sobre la plantilla de Capri (en el Discord) y envíala desde Ajustes ›
   Reportar › «Enviar una skin». Si Emma la aprueba, sale en una actualización con tu nombre.
+- **Su voz de verdad:** si descargabas el motor de su voz pero no su perfil, seguía hablando con la voz del teléfono
+  («otra voz de IA»). Ahora el perfil se baja junto con el motor, y si falta, lo baja sola.
+- **Escribir en tus apps:** «Capri, escribe aquí …» con su chat abierto ya no te quita el teclado: cierra su chat,
+  escribe en el campo de tu app y te deja el teclado listo para seguir.
 
 ## 1.11.7
 

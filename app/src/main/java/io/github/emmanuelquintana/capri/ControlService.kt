@@ -191,7 +191,8 @@ class ControlService : AccessibilityService() {
         val now = if (before.isBlank()) text else "$before $text"
         val args = Bundle().apply { putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, now) }
         field.performAction(AccessibilityNodeInfo.ACTION_FOCUS)
-        if (!field.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, args)) miss("failed")
+        if (!field.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, args)) return miss("failed")
+        field.performAction(AccessibilityNodeInfo.ACTION_CLICK) // (1.12.0) its keyboard back up, to keep writing
     }
 
     companion object {

@@ -110,7 +110,12 @@ export function controlAsk(text, language) {
     send('control:settings');
     return { line: t.off, face: 'aside' };
   }
-  // a moment, so her chat or her answer isn't what gets the tap
-  setTimeout(() => send('control:do', { what, text: arg }), 700);
+  // a moment, so her chat or her answer isn't what gets the tap. (1.12.0, community: "sempre que digito o comando
+  // o meu teclado sai da tela") with her chat open, it has the keyboard and the screen's focus: it closes first,
+  // so your app's field is the one she types in and its keyboard comes back
+  const chat = window.dev?.chat;
+  const wasOpen = Boolean(chat?.open) && (what === 'type' || what === 'tap');
+  if (wasOpen) setTimeout(() => { try { chat.close(); } catch {} }, 900);
+  setTimeout(() => send('control:do', { what, text: arg }), wasOpen ? 1700 : 700);
   return { line: t.ok[what].replace('{x}', arg), face: 'smug' };
 }

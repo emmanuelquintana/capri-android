@@ -1201,7 +1201,14 @@ class MainActivity : Activity() {
                     when {
                         CapriNeural.unsupported() != null -> Toast.makeText(this@MainActivity, neuralStatus("es-MX"), Toast.LENGTH_LONG).show()
                         !CapriNeural.fits(this@MainActivity, v) -> Toast.makeText(this@MainActivity, getString(R.string.cv_var_nofit_ram, v.ramGb), Toast.LENGTH_LONG).show()
-                        else -> voiceJob(getString(R.string.dl_engine, getString(when (v.id) { "q4" -> R.string.cv_var_q4; "q8" -> R.string.cv_var_q8; else -> R.string.cv_var_bf16 }))) { CapriNeural.download(this@MainActivity, v, it) }
+                        else -> voiceJob(getString(R.string.dl_engine, getString(when (v.id) { "q4" -> R.string.cv_var_q4; "q8" -> R.string.cv_var_q8; else -> R.string.cv_var_bf16 }))) { d ->
+                            // (1.12.0, community: "instalo los archivos de voz pero no los reproduce") the engine alone isn't her
+                            // voice: her profiles come right after it, or she kept speaking in the phone's voice
+                            CapriNeural.download(this@MainActivity, v) { err ->
+                                if (err == null && (!CapriNeural.profileInstalled(this@MainActivity, "es-MX") || !CapriNeural.profileInstalled(this@MainActivity, "en-US")))
+                                    CapriNeural.downloadProfiles(this@MainActivity, d) else d(err)
+                            }
+                        }
                     }
                 }
                 val use = ui.button(getString(R.string.cv_var_use), Ui.Kind.LINE) {
