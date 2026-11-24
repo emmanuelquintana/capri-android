@@ -55,7 +55,7 @@ object FishVoice {
     fun customVoice(c: Context) = prefs(c).getString("voice", null).orEmpty()
     fun setCustomVoice(c: Context, id: String) = prefs(c).edit().putString("voice", id.trim()).apply()
     fun voiceFor(c: Context, lang: String): String =
-        customVoice(c).ifEmpty { CAPRI[lang.substringBefore('-')].orEmpty().ifEmpty { CAPRI["en"].orEmpty() } }
+        customVoice(c).ifEmpty { CAPRI[lang.substringBefore('-')].orEmpty().ifEmpty { CAPRI["en"].orEmpty().ifEmpty { CAPRI["es"].orEmpty() } } }
     fun hasCapri(lang: String) = CAPRI[lang.substringBefore('-')].orEmpty().isNotEmpty()
 
     /** Ready to answer in [lang] now: a key, a voice, switched on, and internet (and it didn't just fail). */

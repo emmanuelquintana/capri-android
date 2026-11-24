@@ -762,7 +762,7 @@
     <string name="fish_state_novoice">Her voice on Fish is coming soon. Meanwhile you can paste another Fish voice ID.</string>
     <string name="fish_state_on">On: her answers sound in her cloud voice.</string>
     <string name="fish_custom_on">with another voice</string>
-    <string name="fish_other_lang">in this language she uses her English voice</string>
+    <string name="fish_other_lang">in this language she uses her voice from another language</string>
     <string name="fish_key">Add my key</string>
     <string name="fish_get_key">Get a key</string>
     <string name="fish_test">Test</string>

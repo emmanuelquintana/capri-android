@@ -768,7 +768,7 @@
     <string name="fish_state_novoice">Её голос на Fish скоро появится. Пока можно вставить ID другого голоса Fish.</string>
     <string name="fish_state_on">Включено: ответы звучат её облачным голосом.</string>
     <string name="fish_custom_on">другим голосом</string>
-    <string name="fish_other_lang">на этом языке она говорит своим английским голосом</string>
+    <string name="fish_other_lang">на этом языке она говорит голосом с другого языка</string>
     <string name="fish_key">Добавить ключ</string>
     <string name="fish_get_key">Получить ключ</string>
     <string name="fish_test">Проверить</string>

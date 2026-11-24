@@ -746,7 +746,7 @@
     <string name="fish_state_novoice">Giọng cô ấy trên Fish sắp có. Trong lúc chờ, bạn có thể dán ID một giọng Fish khác.</string>
     <string name="fish_state_on">Bật: câu trả lời dùng giọng đám mây của cô ấy.</string>
     <string name="fish_custom_on">với giọng khác</string>
-    <string name="fish_other_lang">ở ngôn ngữ này cô ấy dùng giọng tiếng Anh</string>
+    <string name="fish_other_lang">ở ngôn ngữ này cô ấy dùng giọng của ngôn ngữ khác</string>
     <string name="fish_key">Thêm khóa của tôi</string>
     <string name="fish_get_key">Lấy khóa</string>
     <string name="fish_test">Thử</string>

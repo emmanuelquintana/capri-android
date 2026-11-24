@@ -746,7 +746,7 @@
     <string name="fish_state_novoice">Fishでの彼女の声はもうすぐ。それまでは別のFishの声のIDを入れられます。</string>
     <string name="fish_state_on">オン：返事はクラウドの彼女の声で話します。</string>
     <string name="fish_custom_on">別の声</string>
-    <string name="fish_other_lang">この言語では英語の声を使います</string>
+    <string name="fish_other_lang">この言語では別の言語の声を使います</string>
     <string name="fish_key">キーを入れる</string>
     <string name="fish_get_key">キーを取得</string>
     <string name="fish_test">テスト</string>

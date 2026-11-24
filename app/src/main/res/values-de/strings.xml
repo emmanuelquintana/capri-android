@@ -750,7 +750,7 @@
     <string name="fish_state_novoice">Ihre Stimme bei Fish kommt bald. Bis dahin kannst du die ID einer anderen Fish-Stimme einfügen.</string>
     <string name="fish_state_on">An: ihre Antworten klingen mit ihrer Cloud-Stimme.</string>
     <string name="fish_custom_on">mit einer anderen Stimme</string>
-    <string name="fish_other_lang">in dieser Sprache nimmt sie ihre englische Stimme</string>
+    <string name="fish_other_lang">in dieser Sprache nimmt sie ihre Stimme aus einer anderen Sprache</string>
     <string name="fish_key">Meinen Schlüssel eingeben</string>
     <string name="fish_get_key">Schlüssel holen</string>
     <string name="fish_test">Testen</string>

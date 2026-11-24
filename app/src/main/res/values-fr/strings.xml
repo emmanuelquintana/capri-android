@@ -761,7 +761,7 @@
     <string name="fish_state_novoice">Sa voix sur Fish arrive bientôt. En attendant, tu peux coller l\'ID d\'une autre voix Fish.</string>
     <string name="fish_state_on">Activée : ses réponses ont sa voix dans le cloud.</string>
     <string name="fish_custom_on">avec une autre voix</string>
-    <string name="fish_other_lang">dans cette langue elle utilise sa voix anglaise</string>
+    <string name="fish_other_lang">dans cette langue elle utilise sa voix d\'une autre langue</string>
     <string name="fish_key">Ajouter ma clé</string>
     <string name="fish_get_key">Obtenir une clé</string>
     <string name="fish_test">Tester</string>

@@ -761,7 +761,7 @@
     <string name="fish_state_novoice">Su voz en Fish llega pronto. Mientras, puedes poner el ID de otra voz de Fish.</string>
     <string name="fish_state_on">Encendida: sus respuestas suenan con su voz en la nube.</string>
     <string name="fish_custom_on">con otra voz</string>
-    <string name="fish_other_lang">en este idioma usa su voz en inglés</string>
+    <string name="fish_other_lang">en este idioma usa su voz de otro idioma</string>
     <string name="fish_key">Poner mi clave</string>
     <string name="fish_get_key">Conseguir una clave</string>
     <string name="fish_test">Probar</string>
