@@ -33,6 +33,7 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
     private var thread: Thread? = null
     @Volatile private var model: org.vosk.Model? = null
     @Volatile private var modelLang = ""
+    @Volatile private var speakers: org.vosk.SpeakerModel? = null // (1.12.0) only your voice (VoiceId.kt)
     /** It couldn't run here (its library or its model failed): her ears go the old way. */
     @Volatile var broken = false
         private set
@@ -71,6 +72,8 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
                 model = null
                 modelLang = ""
                 runCatching { m?.close() }
+                runCatching { speakers?.close() }
+                speakers = null
             }
         }.start()
     }
@@ -87,7 +90,13 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
                     model = org.vosk.Model(Models.dir(context, lang).absolutePath)
                     modelLang = lang
                 }
-                org.vosk.Recognizer(model, RATE.toFloat())
+                org.vosk.Recognizer(model, RATE.toFloat()).also { r ->
+                    // (1.12.0) only your voice: each result also brings a voiceprint of who said it
+                    if (VoiceId.enabled(context) && Models.installed(context, VoiceId.MODEL)) runCatching {
+                        if (speakers == null) speakers = org.vosk.SpeakerModel(Models.dir(context, VoiceId.MODEL).absolutePath)
+                        r.setSpeakerModel(speakers)
+                    }.onFailure { Diag.add("W", "ears: voiceprints off (${it.message ?: it.javaClass.simpleName})") }
+                }
             }
             val min = AudioRecord.getMinBufferSize(RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT)
             mic = AudioRecord(MediaRecorder.AudioSource.VOICE_RECOGNITION, RATE, AudioFormat.CHANNEL_IN_MONO,
@@ -101,17 +110,19 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
                 if (n < 0) error("mic $n")
                 if (n == 0) continue
                 if (rec.acceptWaveForm(buf, n)) {
-                    val text = JSONObject(rec.result).optString("text").trim()
+                    val said = JSONObject(rec.result)
+                    val text = said.optString("text").trim()
                     named = 0L
-                    if (text.isNotEmpty() && running) main.post { onHeard(text) }
+                    if (text.isNotEmpty() && running && mine(text, said)) main.post { onHeard(text) }
                 } else {
                     val partial = JSONObject(rec.partialResult).optString("partial")
                     // her name, and then silence for a moment: that's it (no need to wait for the model's own end)
                     if (named == 0L && Ears.namedIn(partial)) named = System.currentTimeMillis()
                     if (named > 0L && System.currentTimeMillis() - named > 1800 && partial.isNotBlank()) {
-                        val text = JSONObject(rec.finalResult).optString("text").trim()
+                        val said = JSONObject(rec.finalResult)
+                        val text = said.optString("text").trim()
                         named = 0L
-                        if (text.isNotEmpty() && running) main.post { onHeard(text) }
+                        if (text.isNotEmpty() && running && mine(text, said)) main.post { onHeard(text) }
                     }
                 }
             }
@@ -130,6 +141,9 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
         }
     }
 
+    /** (1.12.0) Her name in your voice, when "only my voice" is on (VoiceId.kt); anything without her name goes on. */
+    private fun mine(text: String, said: JSONObject): Boolean = !Ears.namedIn(text) || VoiceId.accept(context, said.optJSONArray("spk"))
+
     /** The small speech models, one per language, from Vosk's own site (Apache 2.0). */
     object Models {
         private const val BASE = "https://alphacephei.com/vosk/models"
@@ -143,6 +157,7 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
             "it" to "vosk-model-small-it-0.22",
             "vi" to "vosk-model-small-vn-0.4",
             "ja" to "vosk-model-small-ja-0.22",
+            VoiceId.MODEL to "vosk-model-spk-0.4", // (1.12.0) voiceprints, for "only my voice"
         )
 
         fun dir(context: Context, lang: String) = File(context.filesDir, "ears/$lang")
@@ -196,7 +211,7 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
                             if (e.isDirectory) out.mkdirs() else { out.parentFile?.mkdirs(); out.outputStream().use { zip.copyTo(it) } }
                         }
                     }
-                    check(File(tmp, "am").isDirectory || File(tmp, "am/final.mdl").isFile || File(tmp, "conf").isDirectory) { "model" }
+                    check(File(tmp, "am").isDirectory || File(tmp, "am/final.mdl").isFile || File(tmp, "conf").isDirectory || File(tmp, "mfcc.conf").isFile) { "model" }
                     File(tmp, ".ok").writeText(name)
                     dir.deleteRecursively()
                     dir.parentFile?.mkdirs()

@@ -716,4 +716,10 @@
     <string name="skin_name_hint">あなたの名前と衣装の名前</string>
     <string name="skin_bad">テンプレートに合わせたPNG（240x420か480x840、1.5MB未満）にしてね。</string>
     <string name="skin_ok">送ったよ！Emmaが見てくれます。</string>
+    <string name="ears_onlyme">自分の声だけ</string>
+    <string name="ears_onlyme_how">最初の3回呼ぶとあなたの声を覚え、その後は他の声（テレビや周りの人）で呼ばれても反応しません。パッシブリスニングで動作し、13MBの小さなモデルを一度だけダウンロードします。データはスマホの中だけ。</string>
+    <string name="ears_onlyme_learning">声を覚えています：%1$d / %2$d。呼んでみて：「カプリ、こんにちは」</string>
+    <string name="ears_onlyme_ready">あなたの声を覚えました。</string>
+    <string name="ears_onlyme_forget">声を忘れる</string>
+    <string name="ears_onlyme_forgot">OK：次の3回でまた声を覚えます。</string>
 </resources>

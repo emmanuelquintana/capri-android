@@ -100,6 +100,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **A voz dela de verdade:** com o motor da voz mas sem o perfil, ela falava com a voz do celular. Agora o perfil vem
   com o motor, e se faltar, ela baixa sozinha.
 - **Escrever nos seus apps:** «Capri, escreve aqui …» com o chat aberto não tira mais o seu teclado.
+- **Só a sua voz:** «Só minha voz» aprende sua voz nas 3 primeiras vezes e depois ignora o nome dela em outras vozes
+  (a TV, gente por perto). Tudo fica no seu celular.
 
 ## 1.11.7
 

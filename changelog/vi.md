@@ -82,4 +82,6 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Giọng thật của cô ấy:** có bộ máy giọng nhưng thiếu hồ sơ thì cô ấy dùng giọng điện thoại. Giờ hồ sơ tải cùng bộ
   máy, và nếu thiếu cô ấy tự tải.
 - **Gõ trong ứng dụng:** «Capri, viết ở đây …» khi đang mở chat không còn làm mất bàn phím.
+- **Chỉ giọng của bạn:** «Chỉ giọng của tôi» học giọng bạn 3 lần đầu, sau đó bỏ qua tên cô ấy nói bằng giọng khác.
+  Mọi thứ ở trên điện thoại.
 

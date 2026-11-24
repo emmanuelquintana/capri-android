@@ -731,4 +731,10 @@
     <string name="skin_name_hint">Tu nombre y el nombre del atuendo</string>
     <string name="skin_bad">Tiene que ser un PNG sobre su plantilla: 240x420 (o 480x840), de menos de 1,5 MB.</string>
     <string name="skin_ok">¡Enviada! Emma la va a revisar.</string>
+    <string name="ears_onlyme">Solo mi voz</string>
+    <string name="ears_onlyme_how">Aprende tu voz las primeras 3 veces que la llamas y después ignora su nombre en otras voces (la tele, la gente a tu alrededor). Funciona con sus oídos pasivos; baja una vez un modelo pequeño de 13 MB. Se queda en tu teléfono.</string>
+    <string name="ears_onlyme_learning">Aprendiendo tu voz: %1$d de %2$d. Llámala: «Capri, hola».</string>
+    <string name="ears_onlyme_ready">Ya conoce tu voz.</string>
+    <string name="ears_onlyme_forget">Olvidar mi voz</string>
+    <string name="ears_onlyme_forgot">Listo: volverá a aprender tu voz las próximas 3 veces que la llames.</string>
 </resources>

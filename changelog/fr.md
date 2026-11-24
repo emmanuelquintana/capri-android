@@ -105,6 +105,8 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Sa vraie voix :** avec le moteur de sa voix mais sans son profil, elle parlait avec la voix du téléphone. Le profil
   arrive maintenant avec le moteur, et s'il manque, elle le télécharge.
 - **Écrire dans tes apps :** « Capri, écris ici … » avec son chat ouvert ne ferme plus ton clavier.
+- **Seulement ta voix :** « Seulement ma voix » apprend ta voix les 3 premières fois, puis ignore son nom dit par
+  d'autres voix (la télé, les gens autour). Tout reste sur ton téléphone.
 
 ## 1.11.7
 

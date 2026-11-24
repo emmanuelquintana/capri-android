@@ -731,4 +731,10 @@
     <string name="skin_name_hint">Ton nom et le nom de la tenue</string>
     <string name="skin_bad">Ce doit être un PNG sur son modèle : 240x420 (ou 480x840), moins de 1,5 Mo.</string>
     <string name="skin_ok">Envoyé ! Emma va le regarder.</string>
+    <string name="ears_onlyme">Seulement ma voix</string>
+    <string name="ears_onlyme_how">Elle apprend ta voix les 3 premières fois que tu l\'appelles, puis ignore son nom dit par d\'autres voix (la télé, les gens autour). Marche avec ses oreilles passives ; télécharge une fois un petit modèle de 13 Mo. Reste sur ton téléphone.</string>
+    <string name="ears_onlyme_learning">J\'apprends ta voix : %1$d sur %2$d. Appelle-la : « Capri, salut ».</string>
+    <string name="ears_onlyme_ready">Elle connaît ta voix.</string>
+    <string name="ears_onlyme_forget">Oublier ma voix</string>
+    <string name="ears_onlyme_forgot">C\'est fait : elle réapprendra ta voix les 3 prochaines fois.</string>
 </resources>

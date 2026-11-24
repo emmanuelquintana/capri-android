@@ -111,6 +111,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   AI voice"). Now the profile comes with the engine, and if it's missing she gets it herself.
 - **Typing in your apps:** "Capri, type here …" with her chat open no longer takes your keyboard away: she closes her
   chat, types in your app's field and leaves the keyboard up.
+- **Only your voice:** in voice settings, "Only my voice" learns your voice the first 3 times you call her, then ignores
+  her name in other voices (the TV, people around you). It all stays on your phone.
 
 ## 1.11.7
 

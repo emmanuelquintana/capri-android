@@ -738,4 +738,10 @@
     <string name="skin_name_hint">Твоё имя и название наряда</string>
     <string name="skin_bad">Нужен PNG на её шаблоне: 240x420 (или 480x840), меньше 1,5 МБ.</string>
     <string name="skin_ok">Отправлено! Эмма посмотрит.</string>
+    <string name="ears_onlyme">Только мой голос</string>
+    <string name="ears_onlyme_how">Она запоминает твой голос первые 3 раза, когда ты её зовёшь, а потом не реагирует на своё имя чужими голосами (телевизор, люди рядом). Работает с пассивным слухом; один раз скачивает модель на 13 МБ. Всё остаётся на телефоне.</string>
+    <string name="ears_onlyme_learning">Запоминаю твой голос: %1$d из %2$d. Позови: «Капри, привет».</string>
+    <string name="ears_onlyme_ready">Она знает твой голос.</string>
+    <string name="ears_onlyme_forget">Забыть мой голос</string>
+    <string name="ears_onlyme_forgot">Готово: она снова запомнит твой голос в следующие 3 раза.</string>
 </resources>

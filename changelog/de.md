@@ -92,4 +92,6 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Ihre echte Stimme:** Mit der Stimm-Engine, aber ohne ihr Profil, sprach sie mit der Handystimme. Jetzt kommt das
   Profil mit der Engine, und fehlt es, lädt sie es selbst.
 - **Tippen in deinen Apps:** „Capri, schreib hier …“ bei offenem Chat nimmt dir die Tastatur nicht mehr weg.
+- **Nur deine Stimme:** „Nur meine Stimme“ lernt deine Stimme bei den ersten 3 Rufen und ignoriert dann ihren Namen in
+  anderen Stimmen (Fernseher, Leute um dich). Alles bleibt auf deinem Handy.
 

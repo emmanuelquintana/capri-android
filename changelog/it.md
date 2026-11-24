@@ -85,4 +85,6 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **La sua vera voce:** con il motore della voce ma senza profilo, parlava con la voce del telefono. Ora il profilo
   arriva con il motore e, se manca, lo scarica da sola.
 - **Scrivere nelle tue app:** «Capri, scrivi qui …» con la chat aperta non ti toglie più la tastiera.
+- **Solo la tua voce:** «Solo la mia voce» impara la tua voce le prime 3 volte, poi ignora il suo nome detto da altre
+  voci (la TV, le persone intorno). Tutto resta sul tuo telefono.
 

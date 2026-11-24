@@ -240,6 +240,14 @@ class Ears(private val service: CapriService) {
     }
 
     /** Switched on or off, the screen on or off, the mic allowed or not: listening or not. */
+    /** (1.12.0) Her passive ears again from scratch (only your voice was turned on or off). */
+    fun restartPassive() = main.post {
+        if (!passive.on) return@post
+        passive.release()
+        main.removeCallbacks(go)
+        main.postDelayed(go, 800)
+    }
+
     fun update() = main.post {
         val pm = service.getSystemService(PowerManager::class.java)!!
         val should = enabled(service) && allowed(service) && pm.isInteractive && SpeechRecognizer.isRecognitionAvailable(service) && !CapriService.gamer && !CapriService.saving && !held

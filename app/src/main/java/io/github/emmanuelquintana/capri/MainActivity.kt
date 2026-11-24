@@ -1359,6 +1359,24 @@ class MainActivity : Activity() {
                 showVoice()
             }
             addView(passiveBtn, ui.block(8))
+            // (1.12.0) only your voice: her name in someone else's voice is ignored (VoiceId.kt, with her passive ears)
+            addView(ui.text(getString(R.string.ears_onlyme), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.ears_onlyme_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            val onlyState = ui.text("", 12f, Hud.YELLOW, ui.mono)
+            val showOnly = {
+                val n = VoiceId.learned(this@MainActivity)
+                onlyState.text = if (!VoiceId.enabled(this@MainActivity)) "" else if (n >= 3) getString(R.string.ears_onlyme_ready) else getString(R.string.ears_onlyme_learning, n, 3)
+                onlyState.visibility = if (onlyState.text.isEmpty()) View.GONE else View.VISIBLE
+            }
+            addView(choiceText(listOf(getString(R.string.on) to true, getString(R.string.off) to false),
+                { VoiceId.enabled(this@MainActivity) }, { a, b -> a == b }) { VoiceId.setEnabled(this@MainActivity, it); showOnly() }, ui.block(6))
+            addView(onlyState, ui.block(6))
+            addView(ui.button(getString(R.string.ears_onlyme_forget), Ui.Kind.LINE) {
+                VoiceId.forget(this@MainActivity); showOnly()
+                Toast.makeText(this@MainActivity, R.string.ears_onlyme_forgot, Toast.LENGTH_LONG).show()
+            }, ui.block(8))
+            showOnly()
+            choices.add(showOnly)
             // the noise around you, how you talk, how she sounds (Ears.kt reads these each time)
             val store = Store(this@MainActivity)
             addView(ui.text(getString(R.string.voice_filter), 14f, Hud.PAPER, ui.head), ui.block(16))

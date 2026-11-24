@@ -716,4 +716,10 @@
     <string name="skin_name_hint">Tên bạn và tên trang phục</string>
     <string name="skin_bad">Phải là PNG trên mẫu của cô ấy: 240x420 (hoặc 480x840), dưới 1,5 MB.</string>
     <string name="skin_ok">Đã gửi! Emma sẽ xem.</string>
+    <string name="ears_onlyme">Chỉ giọng của tôi</string>
+    <string name="ears_onlyme_how">Cô ấy học giọng bạn 3 lần đầu bạn gọi, sau đó bỏ qua tên mình nói bằng giọng khác (TV, người xung quanh). Dùng với tai thụ động; tải một lần mô hình nhỏ 13 MB. Mọi thứ ở trên điện thoại.</string>
+    <string name="ears_onlyme_learning">Đang học giọng bạn: %1$d / %2$d. Gọi: «Capri, chào».</string>
+    <string name="ears_onlyme_ready">Cô ấy đã biết giọng bạn.</string>
+    <string name="ears_onlyme_forget">Quên giọng tôi</string>
+    <string name="ears_onlyme_forgot">Xong: cô ấy sẽ học lại giọng bạn 3 lần gọi tới.</string>
 </resources>

@@ -113,6 +113,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   («otra voz de IA»). Ahora el perfil se baja junto con el motor, y si falta, lo baja sola.
 - **Escribir en tus apps:** «Capri, escribe aquí …» con su chat abierto ya no te quita el teclado: cierra su chat,
   escribe en el campo de tu app y te deja el teclado listo para seguir.
+- **Solo tu voz:** en Ajustes de voz, «Solo mi voz» aprende tu voz las primeras 3 veces que la llamas y después ignora
+  su nombre dicho por otras voces (la tele, la gente a tu alrededor). Todo se queda en tu teléfono.
 
 ## 1.11.7
 

@@ -720,4 +720,10 @@
     <string name="skin_name_hint">Il tuo nome e il nome dell\'outfit</string>
     <string name="skin_bad">Deve essere un PNG sul suo modello: 240x420 (o 480x840), sotto 1,5 MB.</string>
     <string name="skin_ok">Inviata! Emma la guarderà.</string>
+    <string name="ears_onlyme">Solo la mia voce</string>
+    <string name="ears_onlyme_how">Impara la tua voce le prime 3 volte che la chiami, poi ignora il suo nome detto da altre voci (la TV, le persone intorno). Funziona con le orecchie passive; scarica una volta un piccolo modello da 13 MB. Resta sul tuo telefono.</string>
+    <string name="ears_onlyme_learning">Imparo la tua voce: %1$d di %2$d. Chiamala: «Capri, ciao».</string>
+    <string name="ears_onlyme_ready">Conosce la tua voce.</string>
+    <string name="ears_onlyme_forget">Dimentica la mia voce</string>
+    <string name="ears_onlyme_forgot">Fatto: imparerà di nuovo la tua voce le prossime 3 volte.</string>
 </resources>
