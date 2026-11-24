@@ -458,7 +458,7 @@ function refreshCloud(force = false) {
 // it's stuck, so the next model gets a go instead of her looking frozen.
 // (the free online one is slow on long messages: it gets longer)
 // (1.9.0: 40 → 25 s, and 80 → 60 s for the free one, which holds a message up to 45 s for its turn)
-const FIRST_WORD_MS = 25000;
+const FIRST_WORD_MS = 20000; // (1.12.0: 25 → 20 s, "tarda mucho en responder")
 const FIRST_WORD_FREE_MS = 60000;
 
 // Models that ran out for now (429: too many asks a minute, or the free quota of the day, as
@@ -491,14 +491,24 @@ const STALL_MS = 20000;
 const LONGEST_MS = 150000;
 const quiet = new Set(); // her own background asks (notes, braindances), not a message of yours
 const backupModels = new Map(); // provider -> { at, list }
+// (1.12.0, Emma: "tarda mucho en responder en el chat") her AI was swamped a moment ago (every model of it tried, a
+// backup answered): for a few minutes the AI that answered goes first, instead of waiting out her AI's models
+// again on every message; then her AI gets its turn back
+let swamped = null; // { provider, until, by }
+const SWAMPED_MS = 4 * 60 * 1000;
 async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
+  const skip = swamped && swamped.provider === c.provider && swamped.until > Date.now() ? swamped.by : null;
   try {
-    return await chatOnce(c, messages, sendDelta, signal, streamed);
+    if (skip) throw Object.assign(new Error('swamped a moment ago'), { code: 'busy', skipped: true });
+    const text = await chatOnce(c, messages, sendDelta, signal, streamed);
+    if (swamped?.provider === c.provider) swamped = null;
+    return text;
   } catch (err) {
     if (signal.aborted || streamed() || !['busy', 'gone'].includes(err.code)) throw err;
     const conf = await llmConfig(c);
     const others = Object.keys(conf.apiKeys || {}).filter((id) => conf.apiKeys[id] && id !== c.provider && llm.PROVIDERS[id]?.url);
     if (c.provider !== 'pollinations') others.push('pollinations');
+    if (skip && others.includes(skip)) others.sort((a, b) => (b === skip) - (a === skip));
     for (const id of others) {
       if (signal.aborted) break;
       let models = backupModels.get(id);
@@ -517,6 +527,7 @@ async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
       try {
         const text = await inLane(id, () => llm.chat(id, conf, { model, messages }, sendDelta, inner.signal));
         send('log', { level: 'W', text: `${c.provider} busy: ${id} (${model}) answered instead` });
+        if (!err.skipped) swamped = { provider: c.provider, until: Date.now() + SWAMPED_MS, by: id };
         return text;
       } catch (e) {
         if (signal.aborted || streamed()) throw e;
@@ -527,6 +538,8 @@ async function chatWithFallback(c, messages, sendDelta, signal, streamed) {
         signal.removeEventListener('abort', stop);
       }
     }
+    // (nothing else answered: her own AI after all)
+    if (err.skipped && !signal.aborted) { swamped = null; return chatOnce(c, messages, sendDelta, signal, streamed); }
     throw err;
   }
 }
@@ -606,7 +619,7 @@ async function chatOnce(c, messages, sendDelta, signal, streamed) {
       const ranked = c.provider === 'ollama' ? chatModels || [] : rankModels(chatModels || []);
       const fresh = (m) => !tried.has(m) && !isTired(m);
       const next = ranked.find((m) => fresh(m) && !ollama.isCloud(m)) || ranked.find(fresh);
-      if (!next || tried.size >= 3) throw err;
+      if (!next || tried.size >= 2) throw err; // (1.12.0: 3 → 2, then another AI)
       model = next;
       busy = 0;
     } finally {

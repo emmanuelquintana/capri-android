@@ -52,6 +52,7 @@ export function appChat({ lang }) {
       }
       const status = await window.host.chatStatus().catch(() => ({ ok: false }));
       if (!status.ok) return reply(NO_AI[lang()] || NO_AI.en, 'aside', false);
+      dev.voicelines?.waiting?.(); // (1.12.0) her recorded voice while her AI thinks, now and then
       const messages = [
         { role: 'system', content: chat.persona() },
         ...chat.history.slice(-30),

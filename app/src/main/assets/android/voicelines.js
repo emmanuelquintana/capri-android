@@ -32,6 +32,8 @@ const MOMENTS = {
   idle: { events: ['spontaneous', 'company', 'gesture'], chance: 0.6, every: 3 * 60e3 },
   chatStart: { events: ['chat-start'], chance: 0.8, every: 5 * 60e3, chat: true },
   chatEnd: { events: ['chat-end'], chance: 0.7, every: 5 * 60e3, chat: true },
+  // (1.12.0) the app's Chat tab: the first message after a while gets one, then now and then
+  chatWait: { events: ['chat-start.original-05', 'company.original-06'], chance: 0.5, every: 3 * 60e3, first: true, chat: true, anywhere: true },
   offline: { events: ['offline.offline', 'offline.original-01'], chance: 1, every: 10 * 60e3 },
   game: { events: ['game.focus'], chance: 1, every: 10 * 60e3 },
   gameBack: { events: ['game.return'], chance: 1, every: 10 * 60e3 },
@@ -81,6 +83,9 @@ export function voiceLines({ cfg, lang }) {
     const c = cfg();
     return c.speak !== false && c.voiceClips !== false && !c.gamer && (inChat || !dev.chat?.open) && (anywhere || !dev.capri?.hidden);
   };
+  // (1.12.0) her catalog in her log once it's here (how many phrases per language)
+  const counted = () => Object.entries(catalog).map(([k, v]) => `${k} ${v?.length || 0}`).join(', ') || 'none';
+  setTimeout(() => send('log', { level: 'I', text: `voice: her phrases ${counted()}` }), 4000);
 
   // one phrase for that moment, if her pack for this language has one (and now is a good time)
   const phrase = (moment, force = false) => {
@@ -103,6 +108,7 @@ export function voiceLines({ cfg, lang }) {
 
   const speak = (clip) => {
     const id = `clip-${++seq}`;
+    send('log', { level: 'I', text: `voice: her phrase ${clip.id}` }); // (1.12.0: in her log, to know they play)
     send('voice:say', { id, text: clip.text, lang: locale(), clip: clip.id, kind: 'event' });
     return id;
   };
@@ -191,6 +197,16 @@ export function voiceLines({ cfg, lang }) {
     notice(isMessage) {
       if (dev.voiceTalking) return false;
       const clip = phrase(isMessage ? 'message' : 'notice');
+      if (!clip) return false;
+      speak(clip);
+      return true;
+    },
+    /** (1.12.0, Emma: "no he escuchado para nada las frases pregrabadas, solo la respuesta") your message in the
+     *  app's Chat tab, while her AI thinks: now and then one of her chat phrases ("¿De qué quieres hablar?"),
+     *  said only (her answer cuts it when it starts). */
+    waiting() {
+      if (dev.voiceTalking) return false;
+      const clip = phrase('chatWait');
       if (!clip) return false;
       speak(clip);
       return true;
