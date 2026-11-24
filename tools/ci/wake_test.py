@@ -64,3 +64,41 @@ for p in phrases:
 print(f"RESULT {lang}: her name found {hits}/{named} (false {false}/{quiet}); spotter {shits}/{named} (false {sfalse}/{quiet})")
 for t in (0.6, 0.7, 0.8, 0.9, 0.95, 0.99):
     print(f"  threshold {t}: name {sum(1 for c, w in confs if w and c >= t)}/{named}, false {sum(1 for c, w in confs if not w and c >= t)}/{quiet}")
+
+# (1.12.0) WakeWord.kt's way: both listeners on the same sound, the request rebuilt with her name
+def both(path):
+    w = wave.open(path, 'rb')
+    r = KaldiRecognizer(model, 16000); r.SetWords(True)
+    sp = KaldiRecognizer(model, 16000, SPOT); sp.SetWords(True)
+    at = [None]; out = []
+    def spotted(res):
+        for x in res.get('result', []):
+            if NAME.search(plain(x.get('word', ''))) and x.get('conf', 0) >= 0.9: at[0] = (x['start'], x['end'])
+    def with_name(said):
+        text = said.get('text', '').strip()
+        if not text or NAME.search(plain(text)): return text
+        spotted(json.loads(sp.FinalResult()))
+        if not at[0]: return text
+        a, b = at[0]; at[0] = None; rest = []
+        for x in said.get('result', []):
+            mid = (x['start'] + x['end']) / 2
+            if a - 0.15 <= mid <= b + 0.15: continue
+            if x['end'] <= a + 0.15 and a - x['end'] < 0.6 and len(x['word']) <= 4: continue
+            rest.append(x['word'])
+        return 'Capri, ' + ' '.join(rest) if rest else 'Capri'
+    while True:
+        d = w.readframes(1600)
+        if not d: break
+        if sp.AcceptWaveform(d): spotted(json.loads(sp.Result()))
+        if r.AcceptWaveform(d): out.append(with_name(json.loads(r.Result())))
+    out.append(with_name(json.loads(r.FinalResult())))
+    return ' | '.join(t for t in out if t)
+ok = 0; bad = 0
+for p in phrases:
+    for speed in (130, 175):
+        subprocess.run(['espeak-ng', '-v', voice, '-s', str(speed), '-w', '/tmp/p.wav', p], check=True)
+        subprocess.run(['sox', '/tmp/p.wav', '-r', '16000', '-c', '1', '-b', '16', '/tmp/p16.wav'], check=True)
+        got = both('/tmp/p16.wav'); has = bool(NAME.search(plain(got))); want = 'capri' in p.lower()
+        ok += has and want; bad += has and not want
+        print(f"  app [{lang} {speed}] «{p}» -> «{got}»")
+print(f"RESULT app {lang}: her name {ok}/{named}, false {bad}/{quiet}")

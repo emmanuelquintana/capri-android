@@ -96,6 +96,7 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
     @SuppressLint("MissingPermission")
     private fun loop(lang: String, mine: Int) {
         var rec: org.vosk.Recognizer? = null
+        var spot: org.vosk.Recognizer? = null
         var mic: AudioRecord? = null
         try {
             rec = synchronized(this) {
@@ -105,7 +106,15 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
                     model = org.vosk.Model(Models.dir(context, lang).absolutePath)
                     modelLang = lang
                 }
+                // (1.12.0) a second listener that only knows her name: the small Spanish model often writes
+                // "Oye Capri" as "oye pri", "y" or "boyacá" (tools/ci/wake_test.py: 4 of 12), the one that only
+                // knows her name hears it 12 of 12. The request itself still comes from the first one.
+                spot = SPOT[lang]?.let { g ->
+                    runCatching { org.vosk.Recognizer(model, RATE.toFloat(), g).also { it.setWords(true) } }
+                        .onFailure { Diag.add("W", "ears: name listener off (${it.message ?: it.javaClass.simpleName})") }.getOrNull()
+                }
                 org.vosk.Recognizer(model, RATE.toFloat()).also { r ->
+                    r.setWords(true)
                     // (1.12.0) only your voice: each result also brings a voiceprint of who said it
                     if (VoiceId.enabled(context) && Models.installed(context, VoiceId.MODEL)) runCatching {
                         if (speakers == null) speakers = org.vosk.SpeakerModel(Models.dir(context, VoiceId.MODEL).absolutePath)
@@ -145,9 +154,10 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
                     Diag.add("W", "ears: the mic gives only silence (another app has it, or open the app once so Android lets her service use it)")
                     Ears.status = "silenced"
                 }
+                spot?.let { sp -> if (sp.acceptWaveForm(buf, n)) spotted(JSONObject(sp.result)) }
                 if (rec.acceptWaveForm(buf, n)) {
                     val said = JSONObject(rec.result)
-                    val text = said.optString("text").trim()
+                    val text = withName(said, spot)
                     named = 0L
                     if (text.isNotEmpty() && running && mine(text, said)) main.post { onHeard(text) }
                 } else {
@@ -160,7 +170,7 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
                     if (named == 0L && Ears.namedIn(partial)) named = now
                     if (named > 0L && partial.isNotBlank() && (now - changedAt > 1200 || now - named > 9000)) {
                         val said = JSONObject(rec.finalResult)
-                        val text = said.optString("text").trim()
+                        val text = withName(said, spot)
                         named = 0L
                         if (text.isNotEmpty() && running && mine(text, said)) main.post { onHeard(text) }
                     }
@@ -178,7 +188,46 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
             runCatching { mic?.stop() }
             runCatching { mic?.release() }
             runCatching { rec?.close() }
+            runCatching { spot?.close() }
+            nameAt = null
         }
+    }
+
+    /** When the name listener last heard her name: its start and end in the sound (s), and when. */
+    @Volatile private var nameAt: Triple<Double, Double, Long>? = null
+
+    private fun spotted(res: JSONObject) {
+        val words = res.optJSONArray("result") ?: return
+        for (i in 0 until words.length()) {
+            val w = words.optJSONObject(i) ?: continue
+            if (Ears.namedIn(w.optString("word")) && w.optDouble("conf", 0.0) >= SPOT_CONF)
+                nameAt = Triple(w.optDouble("start"), w.optDouble("end"), System.currentTimeMillis())
+        }
+    }
+
+    /**
+     * What was said, with her name in it when the name listener heard it and the first one wrote something else
+     * there ("oye pri qué hora es" → "Capri, qué hora es"): the words said over her name, and a "hey" before it, go.
+     */
+    private fun withName(said: JSONObject, spot: org.vosk.Recognizer?): String {
+        val text = said.optString("text").trim()
+        if (text.isEmpty() || spot == null || Ears.namedIn(text)) return text.also { nameAt = null }
+        runCatching { spotted(JSONObject(spot.finalResult)) } // her name at the very end of what was said
+        val at = nameAt?.takeIf { System.currentTimeMillis() - it.third < 15_000 } ?: return text
+        nameAt = null
+        val words = said.optJSONArray("result")
+        val rest = if (words == null || words.length() == 0) text else buildList {
+            for (i in 0 until words.length()) {
+                val w = words.optJSONObject(i) ?: continue
+                val mid = (w.optDouble("start") + w.optDouble("end")) / 2
+                // over her name, or a short word just before it ("oye", "hey", "y")
+                if (mid >= at.first - 0.15 && mid <= at.second + 0.15) continue
+                if (w.optDouble("end") <= at.first + 0.15 && at.first - w.optDouble("end") < 0.6 && w.optString("word").length <= 4) continue
+                add(w.optString("word"))
+            }
+        }.joinToString(" ")
+        Diag.add("I", "ears: her name heard by the name listener (\"$text\")")
+        return if (rest.isBlank()) "Capri" else "Capri, $rest"
     }
 
     /** (1.12.0) Her name in your voice, when "only my voice" is on (VoiceId.kt); anything without her name goes on. */
@@ -275,6 +324,17 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
     }
 
     companion object {
+        private const val SPOT_CONF = 0.9
+        // the name listener's words: only those its model knows (vi and ja have no "capri", they keep the first way)
+        private val SPOT = mapOf(
+            "es" to "[\"oye capri\", \"hey capri\", \"capri\", \"[unk]\"]",
+            "en" to "[\"hey capri\", \"capri\", \"[unk]\"]",
+            "fr" to "[\"capri\", \"[unk]\"]",
+            "pt" to "[\"capri\", \"[unk]\"]",
+            "de" to "[\"capri\", \"[unk]\"]",
+            "it" to "[\"capri\", \"[unk]\"]",
+            "ru" to "[\"капри\", \"[unk]\"]",
+        )
         private const val RATE = 16_000
     }
 }
