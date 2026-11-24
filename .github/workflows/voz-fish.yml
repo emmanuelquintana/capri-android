@@ -1,0 +1,51 @@
+name: Regrabar frases con Fish Audio
+
+# Las ~200 frases grabadas de Capri (español e inglés), regrabadas con su voz de Fish Audio, mismos textos e IDs.
+# La clave es el secreto FISH_API_KEY del repositorio: nunca sale en el log. Publica la pre-release capri-voz-9.0.0
+# (frases nuevas + los mismos perfiles y servicio de PC de la 8.0.0). La app solo la usa cuando una versión apunta a ella.
+
+on:
+  push:
+    branches: [voz-fish]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: voz-fish
+  cancel-in-progress: false
+
+jobs:
+  regrabar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - run: sha256sum -c SHA256SUMS
+      - run: sudo apt-get update -q && sudo apt-get install -yq ffmpeg
+      - name: Regrabar
+        env:
+          FISH_API_KEY: ${{ secrets.FISH_API_KEY }}
+        run: python3 tools/fish_clips.py
+      - name: Muestras para escuchar
+        uses: actions/upload-artifact@v4
+        with:
+          name: muestras-voz-fish
+          path: out/muestras
+      - name: Publicar capri-voz-9.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: capri-voz-9.0.0
+        run: |
+          cp capri-voice-profiles.zip capri-voice-pc-runtime.zip out/
+          cp tools/NOTAS-9.md out/NOTAS.md
+          cd out
+          sha256sum capri-clips-es-MX.zip capri-clips-en-US.zip capri-voice-profiles.zip capri-voice-pc-runtime.zip > SHA256SUMS
+          cat SHA256SUMS packs.json
+          echo '```' >> "$GITHUB_STEP_SUMMARY"; cat packs.json >> "$GITHUB_STEP_SUMMARY"; echo '```' >> "$GITHUB_STEP_SUMMARY"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" *.zip SHA256SUMS packs.json --clobber
+          else
+            gh release create "$TAG" *.zip SHA256SUMS packs.json --prerelease --target voz-fish \
+              --title "Datos de voz de Capri 9.0.0" --notes-file NOTAS.md
+          fi
