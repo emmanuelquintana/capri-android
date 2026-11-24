@@ -128,6 +128,7 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Réglages de la voix mieux rangés :** un menu court. En haut tu actives ou coupes sa voix, et chaque chose a son
   écran : Télécharger sa voix, Voix dans le cloud (ta clé), Comment elle sonne et Ses oreilles. Avant Réglages avancés,
   un nouvel interrupteur **Voix : cloud ou locale** choisit la voix qui te répond.
+- **Réglages personnels en écrans :** ton prénom en haut et le reste chacun sur son écran.
 - **Son chat répond plus vite :** quand son IA est saturée, celle qui a répondu passe en premier quelques minutes.
 - **Ses phrases enregistrées aussi dans le chat :** pendant qu'elle réfléchit, de temps en temps elle dit une de ses phrases.
 

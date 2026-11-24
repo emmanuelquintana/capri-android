@@ -122,6 +122,7 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Ajustes de voz mais organizados:** agora é um menu curto. No topo você liga ou desliga a voz dela, e cada coisa
   tem sua tela: Baixar a voz dela, Voz na nuvem (sua chave), Como ela soa e Os ouvidos dela. Antes de Ajustes avançados
   há um novo botão, **Voz: na nuvem ou local**, para escolher qual voz te responde.
+- **Ajustes pessoais em telas:** seu nome no topo e o resto cada um na sua tela.
 - **O chat dela responde antes:** quando a IA dela está saturada, a que respondeu vai primeiro por alguns minutos.
 - **As frases gravadas também no chat:** enquanto pensa na resposta, de vez em quando ela diz uma das frases dela.
 

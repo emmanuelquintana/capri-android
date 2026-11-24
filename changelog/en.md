@@ -133,6 +133,7 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Tidier voice settings:** now a short menu. At the top you turn her voice on or off, and each thing has its own
   screen: Get her voice, Voice in the cloud (your key), How she sounds and Her ears. Before Advanced settings there's a
   new switch, **Voice: cloud or local**, to choose which voice answers you.
+- **Personal settings in screens:** your name at the top and everything else on its own screen.
 - **Her chat answers sooner:** when her AI is swamped, the one that did answer goes first for a few minutes instead of
   waiting on every busy model on each message.
 - **Her recorded phrases in the chat too:** while she thinks of your answer, now and then she says one of her phrases.

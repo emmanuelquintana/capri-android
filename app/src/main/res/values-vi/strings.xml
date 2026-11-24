@@ -779,4 +779,13 @@
     <string name="vs_where_local_on">Câu trả lời: cục bộ, trên điện thoại này.</string>
     <string name="vs_local">Cục bộ</string>
     <string name="vs_cloud_short">Đám mây</string>
+    <!-- (1.12.0) Ajustes personales in screens -->
+    <string name="p_account_how">Bộ nhớ và cài đặt của bạn lưu trên đám mây.</string>
+    <string name="p_memory_how">Những gì cô ấy nhớ về bạn, và điều cần quên.</string>
+    <string name="p_chatlog_how">Tất cả cuộc trò chuyện với cô ấy.</string>
+    <string name="p_neuro_how">Những braindance cô ấy ghi cho bạn.</string>
+    <string name="p_sleep_how">Cô ấy ngủ cùng bạn và đánh thức bạn.</string>
+    <string name="p_birthday_how">Hôm đó cô ấy chúc mừng bạn.</string>
+    <string name="p_classes_how">Lớp học và lịch của bạn: cô ấy nhắc bạn.</string>
+    <string name="p_care_how">Pin, tiết kiệm pin và nghỉ ngơi.</string>
 </resources>

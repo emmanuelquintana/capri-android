@@ -794,4 +794,13 @@
     <string name="vs_where_local_on">Ses réponses : locales, sur ce téléphone.</string>
     <string name="vs_local">Locale</string>
     <string name="vs_cloud_short">Cloud</string>
+    <!-- (1.12.0) Ajustes personales in screens -->
+    <string name="p_account_how">Ta mémoire et tes réglages sauvegardés dans le cloud.</string>
+    <string name="p_memory_how">Ce qu’elle retient de toi, et quoi oublier.</string>
+    <string name="p_chatlog_how">Toutes tes discussions avec elle.</string>
+    <string name="p_neuro_how">Les braindances qu’elle enregistre pour toi.</string>
+    <string name="p_sleep_how">Elle dort avec toi et te réveille.</string>
+    <string name="p_birthday_how">Ce jour-là, elle te fête.</string>
+    <string name="p_classes_how">Tes cours et ton agenda : elle te les rappelle.</string>
+    <string name="p_care_how">Batterie, économie de batterie et pauses.</string>
 </resources>

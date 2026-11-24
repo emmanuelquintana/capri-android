@@ -107,5 +107,6 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Impostazioni voce più ordinate:** ora è un menu corto. In alto accendi o spegni la sua voce, e ogni cosa ha la sua
   schermata: Scarica la sua voce, Voce nel cloud (la tua chiave), Come suona e Le sue orecchie. Prima delle Impostazioni
   avanzate c'è un nuovo interruttore, **Voce: cloud o locale**.
+- **Impostazioni personali in schermate:** il tuo nome in alto e il resto ognuno nella sua schermata.
 - **La sua chat risponde prima:** quando la sua IA è satura, quella che ha risposto va per prima per qualche minuto.
 - **Le sue frasi registrate anche in chat:** mentre pensa alla risposta, ogni tanto dice una delle sue frasi.

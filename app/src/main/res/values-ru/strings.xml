@@ -801,4 +801,13 @@
     <string name="vs_where_local_on">Её ответы: локально, на этом телефоне.</string>
     <string name="vs_local">Локально</string>
     <string name="vs_cloud_short">Облако</string>
+    <!-- (1.12.0) Ajustes personales in screens -->
+    <string name="p_account_how">Твоя память и настройки в облаке.</string>
+    <string name="p_memory_how">Что она помнит о тебе и что забыть.</string>
+    <string name="p_chatlog_how">Все твои разговоры с ней.</string>
+    <string name="p_neuro_how">Брейнданс-записи, которые она делает для тебя.</string>
+    <string name="p_sleep_how">Она спит с тобой и будит тебя.</string>
+    <string name="p_birthday_how">В этот день она тебя поздравит.</string>
+    <string name="p_classes_how">Твои занятия и календарь: она напомнит.</string>
+    <string name="p_care_how">Батарея, экономия заряда и перерывы.</string>
 </resources>

@@ -136,6 +136,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Ajustes de voz más ordenados:** ahora es un menú corto. Arriba prendes o apagas su voz, y cada cosa tiene su
   pantalla: Bajar su voz, Voz en la nube (tu clave), Cómo suena y Sus oídos. Antes de Ajustes avanzados hay un
   interruptor nuevo, **Voz: en la nube o local**, para elegir con qué voz te responde.
+- **Ajustes personales en pantallas:** tu nombre arriba y lo demás en su propia pantalla (tu cuenta, lo que
+  recuerda, tu historial, neurodanzas, modo dormir, cumpleaños, clases y lo que te cuida).
 - **Su chat responde antes:** cuando su IA está saturada, la que sí contestó va primero unos minutos y ya no
   espera a cada modelo saturado en cada mensaje.
 - **Sus frases grabadas también en el chat:** mientras piensa tu respuesta, de vez en cuando te dice una de sus

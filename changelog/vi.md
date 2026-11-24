@@ -102,5 +102,6 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Cài đặt giọng gọn hơn:** giờ là một menu ngắn. Ở trên bạn bật hoặc tắt giọng cô ấy, mỗi thứ có màn hình riêng:
   Tải giọng cô ấy, Giọng trên đám mây (khóa của bạn), Giọng cô ấy nghe thế nào và Đôi tai của cô ấy. Trước Cài đặt nâng
   cao có công tắc mới **Giọng: đám mây hay cục bộ**.
+- **Cài đặt cá nhân theo màn hình:** tên bạn ở trên, mọi thứ khác có màn hình riêng.
 - **Chat trả lời nhanh hơn:** khi AI của cô ấy quá tải, AI đã trả lời được dùng trước trong vài phút.
 - **Câu đã ghi âm cũng có trong chat:** trong lúc nghĩ câu trả lời, thỉnh thoảng cô ấy nói một câu của mình.

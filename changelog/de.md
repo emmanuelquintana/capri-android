@@ -114,5 +114,6 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Aufgeräumte Stimmeinstellungen:** jetzt ein kurzes Menü. Oben schaltest du ihre Stimme ein oder aus, und alles hat
   einen eigenen Bildschirm: Ihre Stimme laden, Stimme in der Cloud (dein Schlüssel), Wie sie klingt und Ihre Ohren. Vor
   den erweiterten Einstellungen gibt es den neuen Schalter **Stimme: Cloud oder lokal**.
+- **Persönliche Einstellungen in Bildschirmen:** dein Name oben, alles andere auf eigenen Bildschirmen.
 - **Ihr Chat antwortet schneller:** ist ihre KI überlastet, kommt die, die geantwortet hat, ein paar Minuten zuerst dran.
 - **Ihre aufgenommenen Sätze auch im Chat:** während sie nachdenkt, sagt sie ab und zu einen ihrer Sätze.

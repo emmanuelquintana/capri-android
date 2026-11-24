@@ -779,4 +779,13 @@
     <string name="vs_where_local_on">返事：ローカル（この端末）。</string>
     <string name="vs_local">ローカル</string>
     <string name="vs_cloud_short">クラウド</string>
+    <!-- (1.12.0) Ajustes personales in screens -->
+    <string name="p_account_how">クラウドに保存したあなたの記憶と設定。</string>
+    <string name="p_memory_how">彼女が覚えていること、忘れてほしいこと。</string>
+    <string name="p_chatlog_how">彼女とのすべての会話。</string>
+    <string name="p_neuro_how">彼女があなたのために録るブレインダンス。</string>
+    <string name="p_sleep_how">一緒に眠って、起こしてくれる。</string>
+    <string name="p_birthday_how">その日にお祝いしてくれる。</string>
+    <string name="p_classes_how">授業とカレンダー：彼女が知らせてくれる。</string>
+    <string name="p_care_how">バッテリー、節電、休憩。</string>
 </resources>

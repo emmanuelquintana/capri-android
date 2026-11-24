@@ -227,6 +227,7 @@ class MainActivity : Activity() {
         personal = youPage()
         voice = voicePage()
         for (k in voiceKids) child(k, voice)
+        for (k in personalKids) child(k, personal)
         groups += Group("personal", "person", Hud.YELLOW, R.string.settings_personal, R.string.settings_personal_how, personal)
         groups += Group("voice", "mic", Hud.MANE, R.string.settings_voice_screen, R.string.settings_voice_screen_how, voice)
         groups += Group("perms", "shield", Hud.GREEN, R.string.g_perms, R.string.g_perms_how, permsPage())
@@ -633,30 +634,33 @@ class MainActivity : Activity() {
 
     // ---------- You (1.9.0): what she calls you, your birthday, what she remembers, how she looks after you ----------
 
-    private fun youPage() = page {
-        addView(backRow())
-        addView(ui.label(getString(R.string.settings_personal)))
-        addView(ui.text(getString(R.string.you_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-        // what she calls you
-        addView(ui.card(Hud.YELLOW).apply {
-            addView(ui.label(getString(R.string.settings_name)))
-            nameField = ui.field(getString(R.string.ob_name_hint)).apply {
-                setText(CapriSettings.name(this@MainActivity))
-                filters = arrayOf(android.text.InputFilter.LengthFilter(24))
-                setOnEditorActionListener { _, _, _ -> saveName(); true }
-            }
-            addView(nameField, ui.block(6))
-            addView(ui.button(getString(R.string.settings_save), Ui.Kind.GREEN) { saveName() }, ui.block(12))
+    // (1.12.0, Emma: "ajustemos en pantallas los ajustes… y así aplicar esa misma lógica para todos los ajustes")
+    // Ajustes personales: your name here, and each of the rest on its own screen
+    private val personalKids = ArrayList<View>()
+    private fun youPage(): View {
+        fun kid(build: LinearLayout.() -> Unit) = page {
+            addView(ui.text("‹ " + getString(R.string.settings_personal).uppercase(), 13f, Hud.YELLOW, ui.mono).apply {
+                letterSpacing = 0.1f
+                isClickable = true
+                setPadding(0, ui.dpi(4), ui.dpi(16), ui.dpi(14))
+                setOnClickListener { closeSub() }
+            })
+            build()
+        }.also { personalKids += it }
+        val account = kid { addView(accountCard(), ui.block(4)) }
+        val memoryPage = kid {
+        // what she remembers about you from her chats (memory.js): on or off, and each thing, to forget
+        addView(ui.card(Hud.MANE).apply {
+            addView(ui.label(getString(R.string.settings_memory)))
+            addView(ui.text(getString(R.string.settings_memory_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(choice(listOf(R.string.off to false, R.string.on to true),
+                { Store(this@MainActivity).configFlag("longMemory", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "longMemory", it) }, ui.block(8))
+            memoryBox = ui.col()
+            addView(memoryBox, ui.block(12))
         }, ui.block(16))
 
-        // (1.12.0) your account: her memory of you and your settings saved in the cloud (Account.kt)
-        addView(accountCard(), ui.block(16))
-        // (1.10.0) your chat history (PageActivity); the games have their own tab since 1.11.0
-        addView(ui.card(Hud.GREEN).apply {
-            addView(ui.label(getString(R.string.you_chatlog_title), Hud.GREEN))
-            addView(ui.text(getString(R.string.you_chatlog_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(ui.button(getString(R.string.you_chatlog_open), Ui.Kind.LINE) { PageActivity.open(this@MainActivity, "chatlog") }, ui.block(10))
-        }, ui.block(16))
+        }
+        val neuroPage = kid {
         // (1.11.0) her neurodanzas: braindances she records for you after a lot of affection (Neuro.kt)
         addView(ui.card(Hud.MANE, Hud.CYAN).apply {
             addView(ui.label(getString(R.string.neuro_title), Hud.MANE))
@@ -675,22 +679,11 @@ class MainActivity : Activity() {
             }
             neuroDraw()
         }, ui.block(16))
-        // (1.11.0) her sleep mode: she sleeps with you, counts your night, and wakes you (Sleep.kt)
-        addView(sleepCard(), ui.block(16))
-        // your birthday (1.9.0, birthday.js): she celebrates you that day
-        addView(birthdayCard(), ui.block(16))
-        // your classes and your calendar (1.9.0, Agenda.kt): she reminds you
-        addView(agendaCard(), ui.block(16))
-        // what she remembers about you from her chats (memory.js): on or off, and each thing, to forget
-        addView(ui.card(Hud.MANE).apply {
-            addView(ui.label(getString(R.string.settings_memory)))
-            addView(ui.text(getString(R.string.settings_memory_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-            addView(choice(listOf(R.string.off to false, R.string.on to true),
-                { Store(this@MainActivity).configFlag("longMemory", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "longMemory", it) }, ui.block(8))
-            memoryBox = ui.col()
-            addView(memoryBox, ui.block(12))
-        }, ui.block(16))
-
+        }
+        val sleepPage = kid { addView(sleepCard(), ui.block(4)) }
+        val birthday = kid { addView(birthdayCard(), ui.block(4)) }
+        val agenda = kid { addView(agendaCard(), ui.block(4)) }
+        val carePage = kid {
         // she looks after you: the battery (charged, low) and a break now and then (phone-care.js)
         addView(ui.card(Hud.YELLOW).apply {
             val store = Store(this@MainActivity)
@@ -721,7 +714,32 @@ class MainActivity : Activity() {
                 if (it > 0) CapriSettings.set(this@MainActivity, "breakHours", it)
             }, ui.block(6))
         }, ui.block(16))
+        }
+        return page {
+            addView(backRow())
+            addView(ui.label(getString(R.string.settings_personal)))
+            addView(ui.text(getString(R.string.you_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        // what she calls you
+        addView(ui.card(Hud.YELLOW).apply {
+            addView(ui.label(getString(R.string.settings_name)))
+            nameField = ui.field(getString(R.string.ob_name_hint)).apply {
+                setText(CapriSettings.name(this@MainActivity))
+                filters = arrayOf(android.text.InputFilter.LengthFilter(24))
+                setOnEditorActionListener { _, _, _ -> saveName(); true }
+            }
+            addView(nameField, ui.block(6))
+            addView(ui.button(getString(R.string.settings_save), Ui.Kind.GREEN) { saveName() }, ui.block(12))
+        }, ui.block(16))
 
+            addView(entry("person", Hud.CYAN, R.string.account_title, R.string.p_account_how) { openSub(account) }, ui.block(10))
+            addView(entry("eye", Hud.MANE, R.string.settings_memory, R.string.p_memory_how) { openSub(memoryPage) }, ui.block(10))
+            addView(entry("chat", Hud.GREEN, R.string.you_chatlog_title, R.string.p_chatlog_how) { PageActivity.open(this@MainActivity, "chatlog") }, ui.block(10))
+            addView(entry("spark", Hud.MANE, R.string.neuro_title, R.string.p_neuro_how) { openSub(neuroPage) }, ui.block(10))
+            addView(entry("person", Hud.CYAN, R.string.sleep_title, R.string.p_sleep_how) { openSub(sleepPage) }, ui.block(10))
+            addView(entry("spark", Hud.RED, R.string.you_birthday, R.string.p_birthday_how) { openSub(birthday) }, ui.block(10))
+            addView(entry("globe", Hud.CYAN, R.string.you_classes, R.string.p_classes_how) { openSub(agenda) }, ui.block(10))
+            addView(entry("phone", Hud.YELLOW, R.string.settings_care, R.string.p_care_how) { openSub(carePage) }, ui.block(10))
+        }
     }
 
     // your birthday: a date (no year: only the day matters to her), or none
