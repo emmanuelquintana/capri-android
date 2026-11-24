@@ -9,7 +9,7 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Her 202 recorded phrases, in her new voice:** they play more often (saying hi, when she's bored, in the chat, on your notifications) and instantly, with no internet.
 - **She's heard in your screen recordings.**
 - **No more going quiet or cutting off:** she goes on after the first sentence, finishes long answers and doesn't go mute if her engine gets stuck.
-- **Passive "Hey Capri":** a small model inside the phone listens only for her name, with no beeps and nothing leaving the phone.
+- **Passive "Hey Capri":** a small model inside the phone listens only for her name, with no beeps and nothing leaving the phone. It now hears her name whether you say it fast or slowly, and keeps listening to your question after it.
 - **Only your voice:** she learns your voice and ignores the TV and other people. And she understands you even if you say "Capi" or "Cabi".
 - **Answers sooner:** if her AI is overloaded she moves to another one right away. Gemini no longer tries closed models first.
 - **Several keys, and pick the model:** paste several keys for a service (she goes on with the next when one runs out), see your saved keys (hidden) and pick the model for each one.

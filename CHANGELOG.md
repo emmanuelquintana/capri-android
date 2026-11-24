@@ -10,7 +10,7 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Sus 202 frases grabadas, con su voz nueva:** suenan más seguido (al saludarte, al aburrirse, en el chat, en tus notificaciones) y al instante, sin internet.
 - **Se escucha en tus grabaciones de pantalla.**
 - **Ya no se calla ni se corta:** sigue después de la primera oración, termina las respuestas largas y no se queda muda si su motor se atora.
-- **«Oye Capri» pasivo:** un modelo pequeño dentro del teléfono escucha solo su nombre, sin pitidos y sin que nada salga del teléfono.
+- **«Oye Capri» pasivo:** un modelo pequeño dentro del teléfono escucha solo su nombre, sin pitidos y sin que nada salga del teléfono. Ahora la oye bien aunque se lo digas rápido o despacio, y sigue escuchando tu pregunta después de su nombre.
 - **Solo tu voz:** aprende tu voz y no hace caso a la tele ni a otras personas. Y te entiende aunque digas «Capi» o «Cabi».
 - **Responde antes:** si su IA está saturada, pasa a otra al instante. Gemini ya no prueba primero modelos cerrados.
 - **Varias claves y elige el modelo:** pega varias claves de un servicio (sigue con la siguiente cuando una se acaba), mira tus claves guardadas (ocultas) y elige el modelo de cada una.

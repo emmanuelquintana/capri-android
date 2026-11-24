@@ -9,7 +9,7 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Suas 202 frases gravadas, com a voz nova:** tocam mais vezes (ao te cumprimentar, quando fica entediada, no chat, nas suas notificações) e na hora, sem internet.
 - **A voz dela aparece nas suas gravações de tela.**
 - **Não fica mais calada nem corta:** continua depois da primeira frase, termina as respostas longas e não fica muda se o motor travar.
-- **«Ei Capri» passivo:** um modelo pequeno dentro do celular escuta só o nome dela, sem bipes e sem nada sair do celular.
+- **«Ei Capri» passivo:** um modelo pequeno dentro do celular escuta só o nome dela, sem bipes e sem nada sair do celular. Agora ouve o nome dela falado rápido ou devagar e continua escutando sua pergunta depois dele.
 - **Só a sua voz:** ela aprende a sua voz e ignora a TV e outras pessoas. E te entende mesmo se você disser «Capi» ou «Cabi».
 - **Responde antes:** se a IA estiver sobrecarregada, passa para outra na hora. O Gemini não tenta mais primeiro modelos encerrados.
 - **Várias chaves e escolha o modelo:** cole várias chaves de um serviço (ela segue com a próxima quando uma acaba), veja suas chaves salvas (ocultas) e escolha o modelo de cada uma.

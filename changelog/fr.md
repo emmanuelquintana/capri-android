@@ -9,7 +9,7 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Ses 202 phrases enregistrées, avec sa nouvelle voix :** elles sonnent plus souvent (pour te saluer, quand elle s'ennuie, dans le chat, à tes notifications) et tout de suite, sans internet.
 - **On l'entend dans tes enregistrements d'écran.**
 - **Plus de silences ni de coupures :** elle continue après la première phrase, termine les longues réponses et ne devient pas muette si son moteur se bloque.
-- **« Dis Capri » passif :** un petit modèle dans le téléphone n'écoute que son nom, sans bips et sans que rien ne sorte du téléphone.
+- **« Dis Capri » passif :** un petit modèle dans le téléphone n'écoute que son nom, sans bips et sans que rien ne sorte du téléphone. Il l'entend maintenant que tu parles vite ou lentement, et continue d'écouter ta question après son nom.
 - **Seulement ta voix :** elle apprend ta voix et ignore la télé et les autres. Et elle te comprend même si tu dis « Capi » ou « Cabi ».
 - **Elle répond plus vite :** si son IA est saturée, elle passe tout de suite à une autre. Gemini n'essaie plus d'abord des modèles fermés.
 - **Plusieurs clés, et choisis le modèle :** colle plusieurs clés d'un service (elle passe à la suivante quand une est épuisée), vois tes clés enregistrées (masquées) et choisis le modèle de chacune.

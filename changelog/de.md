@@ -9,7 +9,7 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Ihre 202 aufgenommenen Sätze mit ihrer neuen Stimme:** Sie klingen öfter (zur Begrüßung, wenn ihr langweilig ist, im Chat, bei Benachrichtigungen) und sofort, ohne Internet.
 - **Sie ist in deinen Bildschirmaufnahmen zu hören.**
 - **Kein Verstummen, kein Abbrechen mehr:** Sie redet nach dem ersten Satz weiter, beendet lange Antworten und bleibt nicht stumm, wenn ihre Engine hängt.
-- **Passives „Hey Capri“:** Ein kleines Modell im Handy hört nur auf ihren Namen, ohne Pieptöne und ohne dass etwas das Handy verlässt.
+- **Passives „Hey Capri“:** Ein kleines Modell im Handy hört nur auf ihren Namen, ohne Pieptöne und ohne dass etwas das Handy verlässt. Jetzt erkennt es ihren Namen, ob schnell oder langsam gesagt, und hört danach deine Frage weiter.
 - **Nur deine Stimme:** Sie lernt deine Stimme und ignoriert Fernseher und andere Leute. Und sie versteht dich auch bei „Capi“ oder „Cabi“.
 - **Antwortet schneller:** Ist ihre KI überlastet, wechselt sie sofort zu einer anderen. Gemini probiert keine eingestellten Modelle mehr zuerst.
 - **Mehrere Schlüssel und Modellwahl:** Füge mehrere Schlüssel eines Dienstes ein (ist einer leer, nimmt sie den nächsten), sieh deine gespeicherten Schlüssel (verdeckt) und wähle für jeden das Modell.

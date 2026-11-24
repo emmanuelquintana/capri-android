@@ -9,7 +9,7 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **202 câu thu sẵn, bằng giọng mới:** phát thường xuyên hơn (khi chào bạn, khi chán, trong chat, khi có thông báo) và ngay lập tức, không cần mạng.
 - **Nghe được giọng cô ấy trong bản ghi màn hình.**
 - **Không còn im bặt hay bị cắt:** cô ấy nói tiếp sau câu đầu, nói hết câu trả lời dài và không bị câm khi động cơ bị kẹt.
-- **«Này Capri» thụ động:** một mô hình nhỏ trong điện thoại chỉ nghe tên cô ấy, không tiếng bíp và không gì rời khỏi điện thoại.
+- **«Này Capri» thụ động:** một mô hình nhỏ trong điện thoại chỉ nghe tên cô ấy, không tiếng bíp và không gì rời khỏi điện thoại. Giờ nghe được tên cô ấy dù bạn nói nhanh hay chậm, và tiếp tục nghe câu hỏi của bạn sau đó.
 - **Chỉ giọng của bạn:** cô ấy học giọng bạn và bỏ qua TV hay người khác. Và vẫn hiểu khi bạn nói «Capi» hay «Cabi».
 - **Trả lời sớm hơn:** nếu AI bị quá tải, cô ấy chuyển ngay sang AI khác. Gemini không còn thử các mô hình đã đóng trước.
 - **Nhiều khóa và chọn mô hình:** dán nhiều khóa của một dịch vụ (hết khóa này thì dùng khóa tiếp), xem các khóa đã lưu (được ẩn) và chọn mô hình cho từng khóa.

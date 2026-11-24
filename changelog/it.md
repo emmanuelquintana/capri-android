@@ -9,7 +9,7 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Le sue 202 frasi registrate, con la voce nuova:** suonano più spesso (quando ti saluta, quando si annoia, nella chat, alle tue notifiche) e subito, senza internet.
 - **Si sente nelle tue registrazioni dello schermo.**
 - **Niente più silenzi o tagli:** continua dopo la prima frase, finisce le risposte lunghe e non resta muta se il motore si blocca.
-- **«Ehi Capri» passivo:** un piccolo modello dentro il telefono ascolta solo il suo nome, senza bip e senza che nulla esca dal telefono.
+- **«Ehi Capri» passivo:** un piccolo modello dentro il telefono ascolta solo il suo nome, senza bip e senza che nulla esca dal telefono. Ora sente il suo nome detto veloce o piano e continua ad ascoltare la tua domanda dopo.
 - **Solo la tua voce:** impara la tua voce e ignora la TV e le altre persone. E ti capisce anche se dici «Capi» o «Cabi».
 - **Risponde prima:** se la sua IA è sovraccarica passa subito a un'altra. Gemini non prova più prima i modelli chiusi.
 - **Più chiavi e scegli il modello:** incolla più chiavi di un servizio (quando una finisce passa alla successiva), vedi le chiavi salvate (nascoste) e scegli il modello per ognuna.
