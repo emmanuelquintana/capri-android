@@ -299,8 +299,26 @@ const NV_SKIP = /embed|guard|safety|reward|parse|nvclip|retriever|rerank|detecto
 const NV_QUICK = [/deepseek-v[\d.]+-flash/, /glm-[\d.]+-flash/, /gemma-4/, /kimi-k2/, /minimax-.*flash/, /nemotron-[\d.]+-lightning/, /mistral-large-4/, /nemotron-3-super/, /gemma-3-12b/, /llama-3\.1-nemotron-70b/, /mistral-nemo/, /gpt-oss/];
 const NV_SEES = [/llama-3\.2-90b-vision/, /nemotron-[\d.]+-super-vl/, /gemma-3-12b/, /phi-3-vision/, /gemma-3-4b/];
 const nvidiaModels = (list) => list.filter((m) => !NV_SKIP.test(m));
+// (1.12.0) Models the service closed ("models/gemini-2.5-flash is no longer available to new users"): left out
+// from then on, on this phone. Before, a report showed it asked first on every message, failing, before
+// the next model (or the free AI) answered: Gemini felt slow for nothing.
+const RETIRED_KEY = 'capri.ai.retired';
+const retired = (() => { try { return new Set(JSON.parse(localStorage.getItem(RETIRED_KEY) || '[]')); } catch { return new Set(); } })();
+function retire(model) {
+  if (!model || retired.has(model)) return;
+  retired.add(model);
+  try { localStorage.setItem(RETIRED_KEY, JSON.stringify([...retired].slice(-40))); } catch {}
+}
+// the one the service says to use instead ("use models/gemini-3.8-flash"), if it's on the list
+function successor(err, list) {
+  const named = /\buse (?:models\/)?([\w.-]+-[\w.-]+)/i.exec(String(err?.message || ''))?.[1];
+  if (!named || !list) return null;
+  return list.find((m) => m === named || m === `models/${named}` || m.replace(/^models\//, '') === named) || null;
+}
 function rankModels(list, provider = cfg.provider) {
   const nv = provider === 'nvidia';
+  const open = list.filter((m) => !retired.has(m));
+  if (open.length) list = open;
   const usable = list.filter((m) => !NOT_CHAT.test(m) && !(nv && /vision|[-_]vl\b|phi-3-vision/i.test(m)));
   const score = (m) => {
     const q = (nv ? NV_QUICK : QUICK).findIndex((re) => re.test(m));
@@ -311,7 +329,7 @@ function rankModels(list, provider = cfg.provider) {
 
 function pickModel(c = cfg) {
   if (!chatModels?.length) return null;
-  if (chatModels.includes(c.chatModel) && !NOT_CHAT.test(c.chatModel)) return c.chatModel; // (1.10.0: not a voice model picked by mistake, Groq's orpheus)
+  if (chatModels.includes(c.chatModel) && !NOT_CHAT.test(c.chatModel) && !retired.has(c.chatModel)) return c.chatModel; // (1.10.0: not a voice model picked by mistake, Groq's orpheus)
   if (c.provider === 'ollama') return chatModels.find((m) => !ollama.isCloud(m)) || chatModels[0];
   return rankModels(chatModels)[0];
 }
@@ -548,6 +566,17 @@ async function chatOnce(c, messages, sendDelta, signal, streamed) {
       // (1.11.8) your next key of this service, when this one ran out (or was turned down): same model, at once
       if (!stuck && !signal.aborted && !streamed() && await swapKey(c, used, err)) continue;
       if (err.status === 410 || /end of life|no longer available|terms acceptance|accept the terms|not have access to model|model_terms_required/i.test(err.message || '')) err.code = 'gone';
+      // (1.12.0) closed for good: never asked again here, and the one it names instead goes next
+      const after1 = err.code === 'gone' && (err.status === 410 || /end of life|no longer available/i.test(err.message || ''));
+      if (after1) {
+        retire(model);
+        const instead = successor(err, chatModels);
+        if (instead && !tried.has(instead) && !signal.aborted && !streamed()) {
+          tried.add(model);
+          model = instead;
+          continue;
+        }
+      }
       // the free AI answers one message every 45 s per phone (and sometimes it's full): it says how
       // long to wait, so she waits and asks again instead of giving up
       // (402 FREE_LIMIT is that too; and when it doesn't say how long, a little longer each time:
@@ -1762,6 +1791,10 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.voicePitch === 'number') updateConfig({ voicePitch: Math.min(2, Math.max(0.5, p.voicePitch)) });
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
+  // (1.12.0) "no me deja cambiarlo a Spotify": with her on, these two from the app's Settings never got here (she kept
+  // YouTube; and the voice's precision you picked, the one before)
+  if (['youtube', 'spotify'].includes(p.musicApp)) updateConfig({ musicApp: p.musicApp });
+  if (typeof p.voiceNeuralModel === 'string' && /^[\w.-]{1,40}$/.test(p.voiceNeuralModel)) updateConfig({ voiceNeuralModel: p.voiceNeuralModel });
   if ('speak' in p) updateConfig({ speak: Boolean(p.speak) }); // (1.10.0) her voice on or off (Ears.kt reads it)
   if ('speakChat' in p) updateConfig({ speakChat: Boolean(p.speakChat) }); // (1.11.7) her chat answers out loud (chatvoice.js)
   // (1.11.0) Capri Voice V8 (CapriVoice.kt, voicelines.js): her recorded phrases, what says her new answers,

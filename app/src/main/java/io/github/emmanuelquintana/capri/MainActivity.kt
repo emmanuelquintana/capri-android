@@ -827,6 +827,9 @@ class MainActivity : Activity() {
                     addView(ui.text(l.name.ifBlank { getString(R.string.agenda_class_default) }, 15f, Hud.PAPER, ui.head))
                     addView(ui.text("$days · $time", 12f, Hud.CYAN, ui.mono), ui.block(2))
                 }
+                // (1.12.0, community: "un botón para editar las clases"): a tap on it, and it's edited in place
+                what.isClickable = true
+                what.setOnClickListener { addLesson(i) { draw() } }
                 row.addView(what, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
                 row.addView(ui.button(getString(R.string.you_birthday_clear), Ui.Kind.LINE) {
                     Agenda.setLessons(this@MainActivity, Agenda.lessons(this@MainActivity).filterIndexed { j, _ -> j != i })
@@ -836,6 +839,7 @@ class MainActivity : Activity() {
             }
         }
         draw()
+        addView(ui.text(getString(R.string.you_class_edit_how), 12f, Hud.PAPER_3, ui.body), ui.block(6))
         addView(ui.button(getString(R.string.you_class_add) + " ›", Ui.Kind.GREEN) { addLesson { draw() } }, ui.block(12))
 
         // your calendar: off until you turn it on (then Android asks)
@@ -847,18 +851,22 @@ class MainActivity : Activity() {
         }, ui.block(6))
     }
 
-    /** A new class: what (optional), which days, what time. */
-    private fun addLesson(done: () -> Unit) {
+    /** A new class: what (optional), which days, what time. With [editing], that one, changed in its place. */
+    private fun addLesson(editing: Int? = null, done: () -> Unit) {
         val locale = resources.configuration.locales[0]
         val names = java.text.DateFormatSymbols(locale).weekdays
         val week = listOf(2, 3, 4, 5, 6, 7, 1)
-        val field = ui.field(getString(R.string.you_class_name)).apply { filters = arrayOf(android.text.InputFilter.LengthFilter(40)) }
+        val old = editing?.let { Agenda.lessons(this).getOrNull(it) }
+        val field = ui.field(getString(R.string.you_class_name)).apply {
+            filters = arrayOf(android.text.InputFilter.LengthFilter(40))
+            old?.let { setText(it.name) }
+        }
         val box = ui.col().apply { setPadding(ui.dpi(20), ui.dpi(8), ui.dpi(20), 0); addView(field) }
-        android.app.AlertDialog.Builder(this).setTitle(R.string.you_class_add).setView(box)
+        android.app.AlertDialog.Builder(this).setTitle(if (old != null) R.string.you_class_edit else R.string.you_class_add).setView(box)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 val name = field.text.toString().trim()
-                val picked = BooleanArray(7)
+                val picked = BooleanArray(7) { old != null && week[it] in old.days }
                 android.app.AlertDialog.Builder(this).setTitle(R.string.you_class_days)
                     .setMultiChoiceItems(week.map { names[it].replaceFirstChar { c -> c.titlecase(locale) } }.toTypedArray(), picked) { _, i, on -> picked[i] = on }
                     .setNegativeButton(android.R.string.cancel, null)
@@ -866,9 +874,11 @@ class MainActivity : Activity() {
                         val days = week.filterIndexed { i, _ -> picked[i] }.toSet()
                         if (days.isEmpty()) return@setPositiveButton
                         android.app.TimePickerDialog(this, { _, h, m ->
-                            Agenda.setLessons(this, Agenda.lessons(this) + Agenda.Lesson(days, h, m, name))
+                            val now = Agenda.lessons(this)
+                            val lesson = Agenda.Lesson(days, h, m, name)
+                            Agenda.setLessons(this, if (old != null && editing != null && editing in now.indices) now.mapIndexed { j, l -> if (j == editing) lesson else l } else now + lesson)
                             done()
-                        }, 8, 0, android.text.format.DateFormat.is24HourFormat(this)).apply { setTitle(R.string.you_class_time) }.show()
+                        }, old?.h ?: 8, old?.m ?: 0, android.text.format.DateFormat.is24HourFormat(this)).apply { setTitle(R.string.you_class_time) }.show()
                     }.show()
             }.show()
     }
@@ -1842,9 +1852,14 @@ class MainActivity : Activity() {
             memoryBox.addView(row, ui.block(6))
         }
         memoryBox.addView(ui.button(getString(R.string.settings_memory_forget), Ui.Kind.LINE) {
-            CapriSettings.forget(this, null)
-            Toast.makeText(this, R.string.settings_memory_forgot, Toast.LENGTH_SHORT).show()
-            later()
+            // (1.12.0, community: "que salga una confirmación al tocar el botón de borrar los recuerdos")
+            android.app.AlertDialog.Builder(this).setMessage(R.string.settings_memory_forget_sure)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.settings_memory_forget) { _, _ ->
+                    CapriSettings.forget(this, null)
+                    Toast.makeText(this, R.string.settings_memory_forgot, Toast.LENGTH_SHORT).show()
+                    later()
+                }.show()
         }, ui.block(12))
     }
 

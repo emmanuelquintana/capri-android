@@ -656,7 +656,10 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
       g.drawImage(pic, (60 - pic.naturalWidth * k) / 2, (60 - pic.naturalHeight * k) / 2, pic.naturalWidth * k, pic.naturalHeight * k);
       return c;
     }
-    const box = { head: [60, 0, 130, 70], face: [96, 106, 52, 44], neck: [90, 136, 60, 70], hand: [4, 190, 48, 50] }[ACCESSORIES.find(([a]) => a === id)?.[1] || 'head'];
+    // (1.12.0: "Cannot read properties of undefined (reading '2')" in a report: the things worn on her back had
+    // no frame here, and the whole Accesorios list stopped drawing)
+    const BOXES = { head: [60, 0, 130, 70], face: [96, 106, 52, 44], neck: [90, 136, 60, 70], hand: [4, 190, 48, 50], back: [0, 40, 240, 220] };
+    const box = [...(BOXES[ACCESSORIES.find(([a]) => a === id)?.[1]] || BOXES.head)];
     if (id === 'veil') box.splice(0, 4, 10, 96, 220, 172);
     const k = Math.min(60 / box[2], 60 / box[3]);
     g.translate((60 - box[2] * k) / 2, (60 - box[3] * k) / 2);

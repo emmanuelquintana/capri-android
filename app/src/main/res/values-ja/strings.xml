@@ -648,4 +648,7 @@
     <string name="chat_ai_local">ローカル · Ollama(%1$s)</string>
     <string name="chat_ai_nolocal">ローカル(Ollama):先に設定してください</string>
     <string name="chat_ai_nolocal_how">ローカルはPC上のOllamaです。設定 › 彼女のAI で接続してから、ここで選んでください。</string>
+    <string name="settings_memory_forget_sure">あなたについて覚えていることを全部消す？元に戻せません。</string>
+    <string name="you_class_edit">授業を編集</string>
+    <string name="you_class_edit_how">授業をタップすると編集できます。</string>
 </resources>

@@ -664,4 +664,7 @@
     <string name="chat_ai_local">Local · Ollama (%1$s)</string>
     <string name="chat_ai_nolocal">Local (Ollama): set it up first</string>
     <string name="chat_ai_nolocal_how">Local means Ollama on your PC: connect it in Settings › Her AI, then pick it here.</string>
+    <string name="settings_memory_forget_sure">Forget everything she remembers about you? This can\'t be undone.</string>
+    <string name="you_class_edit">Edit class</string>
+    <string name="you_class_edit_how">Tap a class to edit it.</string>
 </resources>

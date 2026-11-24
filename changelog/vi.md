@@ -49,3 +49,16 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **AI nào trả lời, ngay trong chat:** ở đầu tab Chat bạn thấy AI nào trả lời và đổi bằng một chạm.
 - **Câu báo tin nhắn và thông báo thật sự phát ra:** thông báo đầu tiên luôn được báo, kể cả khi đang mở ứng dụng.
 - **Menu gọn hơn:** Cộng đồng và Lệnh giọng nói giờ là một tab.
+- **Gemini nhanh trở lại:** Google đã đóng `gemini-2.5-flash` với khóa mới mà ứng dụng vẫn thử nó đầu tiên ở mỗi
+  tin nhắn. Giờ mô hình đã bị đóng sẽ không được dùng lại và chuyển thẳng sang mô hình Google gợi ý.
+- **Spotify và độ chính xác giọng nói được lưu:** khi Capri đang bật, chọn Spotify hoặc độ chính xác trong cài đặt
+  giọng nói không được lưu. Đã sửa.
+- **Trò chơi:** đổi độ khó ngay trong từng trò (nút ◆), kể cả khi vào từ tab Trò chơi. Ở Connect 4 hai bên lần
+  lượt đi trước.
+- **Màn hình toàn phần gọn gàng:** trong Tủ đồ và trò chơi, chữ không còn đè lên giờ và pin, hình của cô ấy ở góc
+  không còn bị nút điều hướng che.
+- **Cô ấy không còn hiện đè lên trò chơi** khi trang của cô ấy khởi động lại lúc bạn đang chơi.
+- **Tủ đồ:** sửa lỗi khiến danh sách Phụ kiện trống.
+- **Xác nhận trước khi xóa ký ức của cô ấy**, và **sửa lớp học** bằng cách chạm vào.
+- **Cô ấy hiểu tên mình dù nói hơi khác** («Capi», «Cabi»…), và nếu bạn nhờ mà không gọi tên, thỉnh thoảng cô ấy
+  nhắc: «Gọi tên mình trước».

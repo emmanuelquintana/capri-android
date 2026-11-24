@@ -663,4 +663,7 @@
     <string name="chat_ai_local">Locale · Ollama (%1$s)</string>
     <string name="chat_ai_nolocal">Locale (Ollama) : configure-la d’abord</string>
     <string name="chat_ai_nolocal_how">Locale, c’est Ollama sur ton PC : connecte-la dans Réglages › Son IA, puis choisis-la ici.</string>
+    <string name="settings_memory_forget_sure">Effacer tout ce qu’elle sait de toi ? Impossible d’annuler.</string>
+    <string name="you_class_edit">Modifier le cours</string>
+    <string name="you_class_edit_how">Touche un cours pour le modifier.</string>
 </resources>

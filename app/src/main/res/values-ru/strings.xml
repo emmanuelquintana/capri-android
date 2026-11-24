@@ -670,4 +670,7 @@
     <string name="chat_ai_local">Локальный · Ollama (%1$s)</string>
     <string name="chat_ai_nolocal">Локальный (Ollama): сначала настрой его</string>
     <string name="chat_ai_nolocal_how">Локальный — это Ollama на твоём ПК: подключи его в Настройках › Её ИИ и выбери здесь.</string>
+    <string name="settings_memory_forget_sure">Стереть всё, что она помнит о тебе? Это нельзя отменить.</string>
+    <string name="you_class_edit">Изменить занятие</string>
+    <string name="you_class_edit_how">Нажми на занятие, чтобы изменить его.</string>
 </resources>

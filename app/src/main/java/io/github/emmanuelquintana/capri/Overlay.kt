@@ -169,6 +169,10 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
         main.removeCallbacks(heartbeat)
         main.postDelayed(heartbeat, 10_000)
         bridge.log.add("I", "her page is up")
+        // (1.12.0, Emma's screenshot: her, glitching, over Conecta 4) a fresh page (hers crashed or stopped
+        // answering) came up shown, even while she was stepping aside for a game or a bank: it goes too,
+        // once it's up (a hidden page gets no frames to come up with)
+        main.post { if (shyNow) webView?.visibility = View.GONE }
     }
 
     /**

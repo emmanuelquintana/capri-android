@@ -663,4 +663,7 @@
     <string name="chat_ai_local">Local · Ollama (%1$s)</string>
     <string name="chat_ai_nolocal">Local (Ollama): configure primeiro</string>
     <string name="chat_ai_nolocal_how">Local é o Ollama no seu PC: conecte em Ajustes › A IA dela e depois escolha aqui.</string>
+    <string name="settings_memory_forget_sure">Apagar tudo o que ela lembra de você? Não dá para desfazer.</string>
+    <string name="you_class_edit">Editar aula</string>
+    <string name="you_class_edit_how">Toque numa aula para editá-la.</string>
 </resources>

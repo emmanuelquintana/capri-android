@@ -663,4 +663,7 @@
     <string name="chat_ai_local">Local · Ollama (%1$s)</string>
     <string name="chat_ai_nolocal">Local (Ollama): configúrala primero</string>
     <string name="chat_ai_nolocal_how">Local es Ollama en tu PC: conéctala en Ajustes › Su IA y luego elígela aquí.</string>
+    <string name="settings_memory_forget_sure">¿Borrar todo lo que Capri recuerda de ti? No se puede deshacer.</string>
+    <string name="you_class_edit">Editar clase</string>
+    <string name="you_class_edit_how">Toca una clase para editarla.</string>
 </resources>

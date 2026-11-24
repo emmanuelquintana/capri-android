@@ -14,6 +14,31 @@ import android.graphics.drawable.Drawable
  * knocked out of register behind them. Flat, hard-edged: no gradients, no soft shadows.
  */
 object Hud {
+    /**
+     * (1.12.0, Emma's screenshots: "// CAPRI · LIVE" over the clock in the Vestuario, Conecta 4's portrait over
+     * the status bar) A full-screen page kept clear of the status and navigation bars: Android 15 and later draw
+     * every app under them. The page sits in a frame padded by their height (and the keyboard's, when it's up).
+     */
+    fun clearOfBars(activity: android.app.Activity, page: android.view.View): android.view.View {
+        val frame = android.widget.FrameLayout(activity).apply {
+            setBackgroundColor(INK)
+            addView(page, android.widget.FrameLayout.LayoutParams(-1, -1))
+        }
+        frame.setOnApplyWindowInsetsListener { v, insets ->
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+                val bars = insets.getInsets(android.view.WindowInsets.Type.systemBars() or android.view.WindowInsets.Type.displayCutout())
+                val ime = insets.getInsets(android.view.WindowInsets.Type.ime())
+                v.setPadding(bars.left, bars.top, bars.right, maxOf(bars.bottom, ime.bottom))
+            } else {
+                @Suppress("DEPRECATION")
+                v.setPadding(0, insets.systemWindowInsetTop, 0, insets.systemWindowInsetBottom)
+            }
+            insets
+        }
+        frame.requestApplyInsets()
+        return frame
+    }
+
     // capri.css :root, oklch converted to sRGB
     val INK = Color.rgb(19, 18, 13)        // --ink
     val INK_2 = Color.rgb(31, 30, 23)      // --ink-2

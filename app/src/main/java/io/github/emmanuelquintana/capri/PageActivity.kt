@@ -68,7 +68,7 @@ class PageActivity : Activity() {
             addJavascriptInterface(Bridge(), "CapriPage")
         }
         web = view
-        setContentView(view)
+        setContentView(Hud.clearOfBars(this, view))
         view.loadUrl("https://$HOST/android/$page.html")
     }
 

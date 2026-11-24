@@ -56,3 +56,17 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Phrasen für Nachrichten und Benachrichtigungen erklingen wirklich:** Die erste Benachrichtigung wird immer angesagt,
   auch bei geöffneter App.
 - **Schlankeres Menü:** Community und Sprachbefehle sind jetzt ein Tab.
+- **Gemini wieder schnell:** Google hat `gemini-2.5-flash` für neue Schlüssel geschlossen, und die App hat es trotzdem
+  bei jeder Nachricht zuerst versucht. Jetzt wird ein geschlossenes Modell nicht mehr benutzt, und sie springt direkt
+  zu dem, das Google nennt.
+- **Spotify und die Genauigkeit ihrer Stimme werden gespeichert:** mit eingeschalteter Capri wurde die Wahl von
+  Spotify oder einer Genauigkeit in den Stimmeinstellungen nicht gespeichert. Behoben.
+- **Spiele:** die Schwierigkeit lässt sich in jedem Spiel ändern (◆-Knopf), auch vom Spiele-Tab aus. Bei Vier
+  gewinnt fangt ihr abwechselnd an.
+- **Vollbilder richtig platziert:** im Kleiderschrank und in den Spielen liegt Text nicht mehr über Uhr und Akku,
+  und ihre Figur in der Ecke nicht mehr hinter den Navigationstasten.
+- **Sie erscheint nicht mehr über den Spielen**, wenn ihre Seite während des Spiels neu startete.
+- **Kleiderschrank:** ein Fehler, der die Accessoire-Liste leer ließ, ist behoben.
+- **Bestätigung vor dem Löschen ihrer Erinnerungen**, und **Kurse bearbeiten** durch Antippen.
+- **Sie versteht ihren Namen, auch etwas anders gesagt** („Capi“, „Cabi“…), und wenn du ohne ihren Namen fragst,
+  erinnert sie dich ab und zu: „Sag zuerst meinen Namen“.

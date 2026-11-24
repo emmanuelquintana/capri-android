@@ -70,6 +70,21 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   voice, also with the app open.
 - **Lighter menu:** Community and Voice commands are now one tab. The chat's "?" takes you straight to the commands.
 - **Her voice in the log:** bug reports now say how long her voice took to sound and how fast it was made.
+- **Gemini, fast again:** Google closed `gemini-2.5-flash` to new keys and the app still tried it first on every
+  message before moving on (or to the free AI). Now a model that's gone is never used again and it jumps straight
+  to the one Google names.
+- **Spotify and her voice's precision are saved:** with Capri on, picking Spotify for your music or a precision in
+  Voice settings wasn't saved. Fixed.
+- **Games:** change the difficulty inside each game (◆ button), also when you come from the Games tab. In Connect 4
+  you take turns starting: one game you go first, the next one she does.
+- **Full screens fit properly:** in the Wardrobe and the games, text no longer sits on top of the clock and battery,
+  and her corner figure is no longer behind the navigation buttons.
+- **She no longer shows up over the games:** if her page restarted while you played, she came back floating on top
+  (sometimes mid-effect). Now she stays aside.
+- **Wardrobe:** fixed an error that left the Accessories list blank.
+- **Confirmation before erasing her memories**, and **edit your classes** by tapping them.
+- **She understands her name said a bit differently** ("Capi", "Cabi"…), and if you ask for something without her
+  name, now and then she reminds you: "Say my name first, “Capri, …”, and I'll do it."
 
 ## 1.11.7
 

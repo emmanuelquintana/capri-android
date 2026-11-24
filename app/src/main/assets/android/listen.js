@@ -37,7 +37,8 @@ const WORDS = {
     closet: "Te abro mi vestuario. ¿Qué me pongo?",
     call: "Te abro el teléfono{who}.",
     cant: "Eso no lo pude hacer en tu teléfono.",
-    help: "Puedo decirte la hora, poner música, abrir apps, poner temporizadores y recordatorios, mirar tu pantalla, bailar… La lista completa está en la app, pestaña Comandos.",
+    help: "Puedo decirte la hora, poner música, abrir apps, poner temporizadores y recordatorios, mirar tu pantalla, bailar… La lista completa está en la app, pestaña Comunidad.",
+    nameFirst: 'Di mi nombre primero, «Capri, …», y lo hago.', // (1.12.0) a request heard without her name
   },
   en: {
     yes: ['Yes?', 'Go on.', 'Right here.', 'What do you need, choom?'],
@@ -67,7 +68,8 @@ const WORDS = {
     closet: "Here's my wardrobe. What should I wear?",
     call: "Opening your phone app{who}.",
     cant: "I couldn't do that on your phone.",
-    help: "I can tell you the time, play music, open apps, set timers and reminders, look at your screen, dance… The full list is in the app, Commands tab.",
+    help: "I can tell you the time, play music, open apps, set timers and reminders, look at your screen, dance… The full list is in the app, Community tab.",
+    nameFirst: 'Say my name first, “Capri, …”, and I\'ll do it.', // (1.12.0) a request heard without her name
   },
   fr: {
     yes: ['Oui ?', 'Je t’écoute.', 'Je suis là.', 'Qu’est-ce qu’il te faut, choom ?'],
@@ -97,7 +99,8 @@ const WORDS = {
     closet: "Voilà ma garde-robe. Je mets quoi ?",
     call: "Je t’ouvre le téléphone{who}.",
     cant: "Je n’ai pas pu le faire sur ton téléphone.",
-    help: "Je peux te dire l’heure, mettre de la musique, ouvrir des applis, lancer des minuteurs et des rappels, regarder ton écran, danser… La liste complète est dans l’appli, onglet Commandes.",
+    help: "Je peux te dire l’heure, mettre de la musique, ouvrir des applis, lancer des minuteurs et des rappels, regarder ton écran, danser… La liste complète est dans l’appli, onglet Communauté.",
+    nameFirst: 'Dis mon nom d’abord, « Capri, … », et je le fais.', // (1.12.0) a request heard without her name
   },
   pt: {
     yes: ['Sim?', 'Fala.', 'Tô aqui.', 'O que você precisa, choom?'],
@@ -127,7 +130,8 @@ const WORDS = {
     closet: "Abri meu guarda-roupa. O que eu visto?",
     call: "Abrindo o telefone{who}.",
     cant: "Não consegui fazer isso no seu celular.",
-    help: "Posso dizer as horas, tocar música, abrir apps, pôr timers e lembretes, olhar sua tela, dançar… A lista completa está no app, aba Comandos.",
+    help: "Posso dizer as horas, tocar música, abrir apps, pôr timers e lembretes, olhar sua tela, dançar… A lista completa está no app, aba Comunidade.",
+    nameFirst: 'Diz meu nome primeiro, “Capri, …”, e eu faço.', // (1.12.0) a request heard without her name
   },
   ru: {
     yes: ['Да?', 'Слушаю.', 'Я здесь.', 'Что нужно, чум?'],
@@ -157,7 +161,8 @@ const WORDS = {
     closet: "Открываю гардероб. Что мне надеть?",
     call: "Открываю звонилку{who}.",
     cant: "Не получилось сделать это на телефоне.",
-    help: "Могу сказать время, включить музыку, открыть приложения, поставить таймер и напоминание, посмотреть на экран, потанцевать… Полный список в приложении, вкладка «Команды».",
+    help: "Могу сказать время, включить музыку, открыть приложения, поставить таймер и напоминание, посмотреть на экран, потанцевать… Полный список в приложении, вкладка «Сообщество».",
+    nameFirst: 'Сначала скажи моё имя: «Капри, …», и я сделаю.', // (1.12.0) a request heard without her name
   },
   vi: {
     yes: ['Gì vậy?', 'Nói đi.', 'Mình đây.', 'Bạn cần gì, choom?'],
@@ -187,7 +192,8 @@ const WORDS = {
     closet: 'Đây là tủ đồ của mình. Mình nên mặc gì?',
     call: 'Mở ứng dụng điện thoại{who}.',
     cant: 'Mình không làm được việc đó trên điện thoại của bạn.',
-    help: 'Mình có thể nói giờ, phát nhạc, mở ứng dụng, đặt hẹn giờ và nhắc nhở, nhìn màn hình, nhảy… Danh sách đầy đủ ở trong ứng dụng, tab Lệnh.',
+    help: 'Mình có thể nói giờ, phát nhạc, mở ứng dụng, đặt hẹn giờ và nhắc nhở, nhìn màn hình, nhảy… Danh sách đầy đủ ở trong ứng dụng, tab Cộng đồng.',
+    nameFirst: 'Gọi tên mình trước, “Capri, …”, rồi mình làm ngay.', // (1.12.0) a request heard without her name
   },
   ja: {
     yes: ['なに？', 'どうぞ。', 'ここだよ。', '何が必要、チューム？'],
@@ -217,7 +223,8 @@ const WORDS = {
     closet: 'わたしのワードローブだよ。何を着ようか？',
     call: '電話アプリを開くね{who}。',
     cant: 'あなたのスマホではそれができなかった。',
-    help: '時間を教えたり、音楽をかけたり、アプリを開いたり、タイマーやリマインダーをセットしたり、画面を見たり、踊ったりできるよ…全部のリストはアプリの「コマンド」タブにあるよ。',
+    help: '時間を教えたり、音楽をかけたり、アプリを開いたり、タイマーやリマインダーをセットしたり、画面を見たり、踊ったりできるよ…全部のリストはアプリの「コミュニティ」タブにあるよ。',
+    nameFirst: '先にわたしの名前を呼んで。「カプリ、…」ってね。そしたらやるよ。', // (1.12.0) a request heard without her name
   },
   de: {
     yes: ['Ja?', 'Sag schon.', 'Bin hier.', 'Was brauchst du, Choom?'],
@@ -247,7 +254,8 @@ const WORDS = {
     closet: 'Hier ist mein Kleiderschrank. Was soll ich anziehen?',
     call: 'Ich öffne deine Telefon-App{who}.',
     cant: 'Das konnte ich auf deinem Handy nicht machen.',
-    help: 'Ich kann dir die Uhrzeit sagen, Musik spielen, Apps öffnen, Timer und Erinnerungen stellen, auf deinen Bildschirm schauen, tanzen… Die ganze Liste ist in der App, Tab Befehle.',
+    help: 'Ich kann dir die Uhrzeit sagen, Musik spielen, Apps öffnen, Timer und Erinnerungen stellen, auf deinen Bildschirm schauen, tanzen… Die ganze Liste ist in der App, Tab Community.',
+    nameFirst: 'Sag zuerst meinen Namen, „Capri, …“, dann mach ich’s.', // (1.12.0) a request heard without her name
   },
   it: {
     yes: ['Sì?', 'Dimmi.', 'Sono qui.', 'Di cosa hai bisogno, choom?'],
@@ -277,7 +285,8 @@ const WORDS = {
     closet: 'Ecco il mio guardaroba. Cosa metto?',
     call: 'Apro l’app Telefono{who}.',
     cant: 'Non sono riuscita a farlo sul tuo telefono.',
-    help: 'Posso dirti l’ora, mettere musica, aprire app, impostare timer e promemoria, guardare il tuo schermo, ballare… La lista completa è nell’app, scheda Comandi.',
+    help: 'Posso dirti l’ora, mettere musica, aprire app, impostare timer e promemoria, guardare il tuo schermo, ballare… La lista completa è nell’app, scheda Community.',
+    nameFirst: 'Prima di’ il mio nome, «Capri, …», e lo faccio.', // (1.12.0) a request heard without her name
   },
 };
 const LOCALES = { es: 'es-MX', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU', vi: 'vi-VN', ja: 'ja-JP', de: 'de-DE', it: 'it-IT' };
@@ -327,12 +336,24 @@ const HELP_ASK = /^(?:qu[ée] (?:puedes|sabes) hacer|ayuda|comandos|what can you
 
 // what's left of her name at the start, as the recognizer may write it (Капри in Russian)
 // (and whatever came before it: "oye Capri", "ok Kapri")
-const NAME = /^.*?(?<![\p{L}])(?:[ck]a ?[pb]r[iíy]s?|ка[пб]р[иы]|カプリ|かぷり)(?![\p{L}])[\s,.!?:、。！？]*/iu;
+const NAME = /^.*?(?<![\p{L}])(?:[ck]a ?[pb]r[iíy]s?|[ck]a[pb][ií]|ка[пб]р[иы]|ка[пб]и|カプリ|かぷり)(?![\p{L}])[\s,.!?:、。！？]*/iu;
 
 let busy = 0;
 let turns = 0; // (1.11.0) each request of yours: an answer to an older one stays silent
 
+// (1.12.0, community: "cuando le pido a Capri que haga algo sin decir su nombre, no lo hace… podría decir «di mi
+// nombre primero»") something that sounded like a request, without her name (Ears.kt): she says how, now and then
+let hinted = 0;
 export function listen({ toggleVisible, visible }) {
+  on('capri:unnamed', () => {
+    const dev = window.dev;
+    if (!dev?.brain || Date.now() - hinted < 10 * 60 * 1000 || dev.chat?.open) return;
+    hinted = Date.now();
+    const lang = WORDS[dev.brain.lang] ? dev.brain.lang : 'en';
+    const line = WORDS[lang].nameFirst;
+    dev.panel?.say({ kind: 'info', face: 'smug', line, quote: '', hold: 6000 });
+    send('voice:say', { id: `hint-${hinted}`, kind: 'answer', text: line, lang: LOCALES[lang] });
+  });
   on('capri:heard', (heard) => {
     // one at a time, but never stuck on one that never finished
     if (!window.dev || (busy && Date.now() - busy < 20000)) return;

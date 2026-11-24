@@ -52,3 +52,16 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Quale IA risponde, nella chat:** in alto nella scheda Chat vedi quale IA risponde e la cambi con un tocco.
 - **Le frasi di messaggio e notifica suonano davvero:** la prima notifica viene sempre annunciata, anche con l’app aperta.
 - **Menu più leggero:** Community e Comandi vocali ora sono un’unica scheda.
+- **Gemini di nuovo veloce:** Google ha chiuso `gemini-2.5-flash` alle chiavi nuove e l’app lo provava ancora per
+  primo a ogni messaggio. Ora un modello chiuso non viene più usato e passa subito a quello indicato da Google.
+- **Spotify e la precisione della sua voce si salvano:** con Capri accesa, scegliere Spotify o una precisione nelle
+  impostazioni della voce non veniva salvato. Corretto.
+- **Giochi:** la difficoltà si cambia dentro ogni gioco (pulsante ◆), anche dalla scheda Giochi. A Forza 4 si
+  alterna chi comincia.
+- **Schermi interi al posto giusto:** nel Guardaroba e nei giochi il testo non finisce più sopra ora e batteria, e la
+  sua figura nell’angolo non resta dietro i tasti di navigazione.
+- **Non appare più sopra i giochi** se la sua pagina si riavviava durante la partita.
+- **Guardaroba:** corretto un errore che lasciava vuota la lista degli Accessori.
+- **Conferma prima di cancellare i suoi ricordi**, e **modifica le lezioni** toccandole.
+- **Capisce il suo nome detto un po’ diverso** («Capi», «Cabi»…), e se chiedi qualcosa senza il suo nome, ogni tanto
+  ti ricorda: «Prima di’ il mio nome».

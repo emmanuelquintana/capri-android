@@ -72,6 +72,21 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   directo a los comandos.
 - **Registro de su voz:** el informe de fallos ahora dice cuánto tardó su voz en sonar y a qué velocidad se generó,
   para encontrar más rápido lo que la frena.
+- **Gemini, rápido otra vez:** Google cerró `gemini-2.5-flash` a claves nuevas y la app lo seguía probando primero en
+  cada mensaje antes de pasar a otro (o a la IA gratis). Ahora, cuando un modelo ya no existe, no lo vuelve a usar
+  y salta directo al que Google indica.
+- **Spotify y la precisión de su voz se guardan:** con Capri encendida, elegir Spotify para tu música o una precisión
+  en Ajustes de voz no se guardaba (se quedaba en YouTube y en la precisión anterior). Arreglado.
+- **Juegos:** la dificultad ahora se cambia dentro de cada juego (botón ◆), también si entras desde la pestaña
+  Juegos. En Conecta 4 se turnan para empezar: una partida empiezas tú y la siguiente ella.
+- **Pantallas completas bien acomodadas:** en el Vestuario y en los juegos el texto ya no queda encima de la hora
+  y la batería, y su figura de la esquina ya no queda detrás de los botones de navegación.
+- **Ya no aparece encima de los juegos:** si su página se reiniciaba mientras jugabas, volvía a aparecer flotando
+  encima (a veces a medio efecto). Ahora sigue apartada.
+- **Vestuario:** se arregló un error que dejaba la lista de Accesorios sin dibujar.
+- **Confirmación al borrar sus recuerdos** y **editar tus clases** tocándolas, sin borrarlas y crearlas de nuevo.
+- **Te entiende aunque digas su nombre un poco distinto** («Capi», «Cabi»…), y si le pides algo sin decir su
+  nombre, de vez en cuando te recuerda: «Di mi nombre primero, “Capri, …”, y lo hago».
 
 ## 1.11.7
 

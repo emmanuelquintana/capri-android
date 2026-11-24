@@ -652,4 +652,7 @@
     <string name="chat_ai_local">Lokal · Ollama (%1$s)</string>
     <string name="chat_ai_nolocal">Lokal (Ollama): erst einrichten</string>
     <string name="chat_ai_nolocal_how">Lokal ist Ollama auf deinem PC: verbinde es in Einstellungen › Ihre KI und wähle es dann hier.</string>
+    <string name="settings_memory_forget_sure">Alles löschen, was sie über dich weiß? Das lässt sich nicht rückgängig machen.</string>
+    <string name="you_class_edit">Kurs bearbeiten</string>
+    <string name="you_class_edit_how">Tippe auf einen Kurs, um ihn zu bearbeiten.</string>
 </resources>

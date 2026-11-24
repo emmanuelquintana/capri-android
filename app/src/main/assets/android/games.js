@@ -317,6 +317,7 @@ const W = {
 const W_MORE = {
   es: {
     c4: 'Conecta 4', c4How: 'Cuatro en línea antes que yo. Tú amarillo.',
+    c4Her: ['Esta vez empiezo yo.', 'Mi turno primero. Mira y aprende.'], c4You: 'Empiezas tú.',
     memo: 'Memorama', memoHow: 'Parejas de mis caras. Por turnos, yo también recuerdo.',
     simon: 'Secuencia neural', simonHow: 'Repite la secuencia. Supera mi marca.',
     memoMine: ['Pareja. Mía.', 'Te dije que me acuerdo de todo.', 'Fácil.'],
@@ -330,6 +331,7 @@ const W_MORE = {
   },
   en: {
     c4: 'Connect 4', c4How: 'Four in a row before me. You’re yellow.',
+    c4Her: ['This time I go first.', 'Me first. Watch and learn.'], c4You: 'You go first.',
     memo: 'Memory', memoHow: 'Pairs of my faces. Taking turns, I remember too.',
     simon: 'Neural sequence', simonHow: 'Repeat the sequence. Beat my record.',
     memoMine: ['Pair. Mine.', 'Told you I remember everything.', 'Easy.'],
@@ -343,6 +345,7 @@ const W_MORE = {
   },
   fr: {
     c4: 'Puissance 4', c4How: 'Quatre alignés avant moi. Tu es jaune.',
+    c4Her: ['Cette fois, je commence.', 'Moi d’abord. Regarde et apprends.'], c4You: 'Tu commences.',
     memo: 'Memory', memoHow: 'Des paires de mes visages. Chacun son tour, je me souviens aussi.',
     simon: 'Séquence neurale', simonHow: 'Répète la séquence. Bats mon record.',
     memoMine: ['Paire. À moi.', 'Je t’avais dit que je me souviens de tout.', 'Facile.'],
@@ -356,6 +359,7 @@ const W_MORE = {
   },
   pt: {
     c4: 'Lig 4', c4How: 'Quatro em linha antes de mim. Você é amarelo.',
+    c4Her: ['Desta vez eu começo.', 'Eu primeiro. Olha e aprende.'], c4You: 'Você começa.',
     memo: 'Jogo da memória', memoHow: 'Pares das minhas caras. Por turnos, eu também lembro.',
     simon: 'Sequência neural', simonHow: 'Repita a sequência. Supere meu recorde.',
     memoMine: ['Par. Meu.', 'Eu disse que lembro de tudo.', 'Fácil.'],
@@ -369,6 +373,7 @@ const W_MORE = {
   },
   ru: {
     c4: 'Четыре в ряд', c4How: 'Собери четыре в ряд раньше меня. Ты жёлтые.',
+    c4Her: ['На этот раз начинаю я.', 'Я первая. Смотри и учись.'], c4You: 'Ты начинаешь.',
     memo: 'Мемори', memoHow: 'Пары моих лиц. По очереди, я тоже запоминаю.',
     simon: 'Нейропоследовательность', simonHow: 'Повтори последовательность. Побей мой рекорд.',
     memoMine: ['Пара. Моя.', 'Я же говорила, что всё помню.', 'Легко.'],
@@ -382,6 +387,7 @@ const W_MORE = {
   },
   vi: {
     c4: 'Connect 4', c4How: 'Xếp bốn quân liền trước mình. Bạn là màu vàng.',
+    c4Her: ['Lần này mình đi trước.', 'Mình trước nhé. Xem và học đi.'], c4You: 'Bạn đi trước.',
     memo: 'Trí nhớ', memoHow: 'Các cặp gương mặt của mình. Lần lượt nhau, mình cũng nhớ đấy.',
     simon: 'Chuỗi thần kinh', simonHow: 'Lặp lại chuỗi. Phá kỷ lục của mình.',
     memoMine: ['Một cặp. Của mình.', 'Đã bảo mình nhớ hết mà.', 'Dễ ợt.'],
@@ -395,6 +401,7 @@ const W_MORE = {
   },
   ja: {
     c4: 'コネクトフォー', c4How: 'わたしより先に4つ並べて。あなたは黄色。',
+    c4Her: ['今回はわたしが先。', 'わたしから。見て覚えて。'], c4You: 'あなたが先。',
     memo: '神経衰弱', memoHow: 'わたしの顔のペア。交代でね、わたしも覚えてるよ。',
     simon: 'ニューラルシーケンス', simonHow: '順番を繰り返して。わたしの記録を破って。',
     memoMine: ['ペア。わたしの。', '全部覚えてるって言ったでしょ。', '楽勝。'],
@@ -408,6 +415,7 @@ const W_MORE = {
   },
   de: {
     c4: 'Vier gewinnt', c4How: 'Vier in einer Reihe vor mir. Du bist Gelb.',
+    c4Her: ['Diesmal fange ich an.', 'Ich zuerst. Schau und lern.'], c4You: 'Du fängst an.',
     memo: 'Memory', memoHow: 'Paare meiner Gesichter. Abwechselnd, ich merk mir auch alles.',
     simon: 'Neuronale Sequenz', simonHow: 'Wiederhol die Sequenz. Schlag meinen Rekord.',
     memoMine: ['Paar. Meins.', 'Hab doch gesagt, ich merk mir alles.', 'Leicht.'],
@@ -421,6 +429,7 @@ const W_MORE = {
   },
   it: {
     c4: 'Forza 4', c4How: 'Quattro in fila prima di me. Tu sei il giallo.',
+    c4Her: ['Stavolta comincio io.', 'Prima io. Guarda e impara.'], c4You: 'Cominci tu.',
     memo: 'Memory', memoHow: 'Coppie delle mie facce. A turno, anch’io ricordo.',
     simon: 'Sequenza neurale', simonHow: 'Ripeti la sequenza. Batti il mio record.',
     memoMine: ['Coppia. Mia.', 'Te l’avevo detto che ricordo tutto.', 'Facile.'],
@@ -593,7 +602,16 @@ function open(g) {
   back.addEventListener('click', menu);
   const again = el('button', 'pill', `↻ ${W.again}`);
   again.addEventListener('click', () => open(g));
-  bar.append(back, again);
+  // (1.12.0, community: "no se puede cambiar la dificultad de los juegos": from the Juegos tab you land in
+  // the game itself, and the levels were only on the games' menu) the level here too: a tap, the next one,
+  // and the game starts again with it
+  const lvl = el('button', 'pill', `◆ ${W[level]}`);
+  lvl.addEventListener('click', () => {
+    level = { easy: 'normal', normal: 'hard', hard: 'easy' }[level] || 'normal';
+    try { localStorage.setItem('capri.games.level', level); } catch {}
+    open(g);
+  });
+  bar.append(back, lvl, again);
   const box = el('div', 'box');
   stage.append(bar, box);
   brain = rival({ game: g.id, level, lang, talk: (text, mood, key) => { say(text, mood); if (LINE_ACTS[key]) act(LINE_ACTS[key], 2600); } });
@@ -1568,12 +1586,16 @@ function connect4(box) {
     const w = drop(c, 1);
     if (w) return end(w);
     if (top !== low) brain.yourMove(sc === top ? 1 : Math.max(0, (sc - low) / (top - low)) * 0.7, { missed: sc < top });
+    hers();
+  }
+  function hers() {
     busy = true;
     const choice = brain.choose(options(2), { scale: 30 });
     face.src = `${FACES}face-thinking.png`;
     act('think', 1500);
     const wait = brain.hesitation(choice, (k) => { eye = k ?? -1; drawB(); });
     setTimeout(() => {
+      if (over) return; // (left meanwhile)
       eye = -1;
       busy = false;
       const w2 = drop(choice.move, 2);
@@ -1585,7 +1607,12 @@ function connect4(box) {
     }, wait + brain.thinkTime({ choice, many: 7 }));
   }
   drawB();
-  brain.yourTurn();
+  // (1.12.0, community: "would we be able to have capri go first in connect 4? Im down 21-0") whoever
+  // didn't start the last game starts this one: every other game she goes first
+  stopGame = () => { over = true; };
+  let herFirst = false;
+  try { herFirst = localStorage.getItem('capri.c4.first') === 'you'; localStorage.setItem('capri.c4.first', herFirst ? 'her' : 'you'); } catch {}
+  if (herFirst) { busy = true; say(W.c4Her[Math.floor(Math.random() * W.c4Her.length)], 'smug'); setTimeout(() => { if (!over) hers(); }, 900); } else { say(W.c4You, 'look'); brain.yourTurn(); }
 }
 
 // ---------- Memorama (1.11.0) ----------

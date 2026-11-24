@@ -551,6 +551,8 @@ class Ears(private val service: CapriService) {
             now < awakeUntil && options.isNotEmpty() && plain[0].replace(" ", "").length >= 3 && (filter == "normal" || clear(0)) -> options[0]
             else -> {
                 status = "other"
+                // (1.12.0) it sounded like a request, but without her name: she says how (listen.js, now and then)
+                if (options.isNotEmpty() && REQUEST.containsMatchIn(plain[0]) && (filter == "normal" || clear(0))) service.overlay?.emit("capri:unnamed", "{}")
                 return
             }
         }
@@ -925,7 +927,10 @@ class Ears(private val service: CapriService) {
         @Volatile var voiceListener: ((JSONObject) -> Unit)? = null
         // her name as recognizers write it: Capri, Kapri, Capry, Cabri, Caprí, Capris… (Капри in Russian,
         // カプリ in Japanese, "ca pri" as Vietnamese can split it)
-        private val NAME = Regex("(?<![a-zа-я])(?:[ck]a ?[pb]r[iy]s?|ка[пб]р[иы]|カプリ|かぷり)(?![a-zа-я])")
+        // (1.12.0, community: "muitas vezes ela não reconhece a palavra Capri… que responda por capi, cabri, cabi")
+        // the start of a request, in her languages (lower case, no accents)
+        private val REQUEST = Regex("^(?:abre|pon|ponme|reproduce|enciende|prende|apaga|llama|busca|baila|dime|open|play|turn|call|search|dance|tell me|ouvre|mets|joue|allume|appelle|cherche|abra|toca|liga|desliga|procura|открой|включи|выключи|позвони|найди|mo |bat |tat |goi |tim |offne|spiel|mach|ruf|such|apri|metti|accendi|spegni|chiama|cerca)(?![a-z])")
+        private val NAME = Regex("(?<![a-zа-я])(?:[ck]a ?[pb]r[iy]s?|[ck]a[pb]i|ка[пб]р[иы]|ка[пб]и|カプリ|かぷり)(?![a-zа-я])")
         private const val GOOGLE = "com.google.android.googlequicksearchbox"
         private const val MOVED = 2.2 // m/s² off gravity: the phone moved in your hand, not just held
         private const val SHAKEN_MS = 4000L

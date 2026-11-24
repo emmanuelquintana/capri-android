@@ -64,6 +64,20 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   o app aberto.
 - **Menu mais leve:** Comunidade e Comandos de voz agora são uma aba só.
 - **A voz dela no registro:** os relatórios dizem quanto a voz demorou para soar.
+- **Gemini rápido de novo:** o Google fechou o `gemini-2.5-flash` para chaves novas e o app ainda o tentava primeiro
+  em cada mensagem. Agora um modelo que deixou de existir não é usado de novo e ele pula direto para o que o
+  Google indica.
+- **Spotify e a precisão da voz ficam salvos:** com a Capri ligada, escolher o Spotify ou uma precisão nos ajustes
+  de voz não era salvo. Corrigido.
+- **Jogos:** a dificuldade agora muda dentro de cada jogo (botão ◆), também vindo da aba Jogos. No Lig 4 vocês
+  revezam quem começa.
+- **Telas cheias no lugar certo:** no Guarda-roupa e nos jogos o texto não fica mais em cima da hora e da bateria,
+  e a figura dela no canto não fica atrás dos botões de navegação.
+- **Ela não aparece mais por cima dos jogos** quando a página dela reiniciava durante a partida.
+- **Guarda-roupa:** corrigido um erro que deixava a lista de Acessórios vazia.
+- **Confirmação antes de apagar as lembranças dela**, e **edite suas aulas** tocando nelas.
+- **Ela entende o nome dito um pouco diferente** («Capi», «Cabi»…), e se você pede algo sem dizer o nome, às vezes
+  ela lembra: «Diz meu nome primeiro».
 
 ## 1.11.7
 

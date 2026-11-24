@@ -69,6 +69,20 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   même avec l’app ouverte.
 - **Menu plus léger :** Communauté et Commandes vocales sont réunies dans un seul onglet.
 - **Sa voix dans le journal :** les rapports disent combien de temps sa voix a mis à sonner.
+- **Gemini, rapide à nouveau :** Google a fermé `gemini-2.5-flash` aux nouvelles clés et l’appli l’essayait encore en
+  premier à chaque message. Désormais un modèle disparu n’est plus utilisé et elle passe directement à celui que
+  Google indique.
+- **Spotify et la précision de sa voix sont enregistrés :** avec Capri allumée, choisir Spotify ou une précision
+  dans les réglages de voix ne s’enregistrait pas. Corrigé.
+- **Jeux :** la difficulté se change dans chaque jeu (bouton ◆), aussi depuis l’onglet Jeux. Au Puissance 4, vous
+  commencez chacun votre tour.
+- **Écrans complets bien placés :** dans la Garde-robe et les jeux, le texte ne passe plus sous l’heure et la
+  batterie, et sa silhouette du coin n’est plus derrière les boutons de navigation.
+- **Elle n’apparaît plus par-dessus les jeux** quand sa page redémarrait pendant une partie.
+- **Garde-robe :** correction d’une erreur qui laissait la liste des Accessoires vide.
+- **Confirmation avant d’effacer ses souvenirs**, et **modifie tes cours** en les touchant.
+- **Elle comprend son nom dit un peu autrement** (« Capi », « Cabi »…), et si tu demandes quelque chose sans son
+  nom, elle te rappelle parfois : « Dis mon nom d’abord ».
 
 ## 1.11.7
 

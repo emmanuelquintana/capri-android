@@ -648,4 +648,7 @@
     <string name="chat_ai_local">Cục bộ · Ollama (%1$s)</string>
     <string name="chat_ai_nolocal">Cục bộ (Ollama): hãy thiết lập trước</string>
     <string name="chat_ai_nolocal_how">Cục bộ là Ollama trên PC của bạn: kết nối trong Cài đặt › AI của cô ấy rồi chọn ở đây.</string>
+    <string name="settings_memory_forget_sure">Xóa mọi thứ cô ấy nhớ về bạn? Không thể hoàn tác.</string>
+    <string name="you_class_edit">Sửa lớp học</string>
+    <string name="you_class_edit_how">Chạm vào một lớp để sửa.</string>
 </resources>
