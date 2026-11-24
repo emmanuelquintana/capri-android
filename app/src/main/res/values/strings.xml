@@ -725,4 +725,6 @@
     <string name="account_err_none">Your account has no copy yet.</string>
     <string name="account_err_big">Her memory is too big to save in the cloud.</string>
     <string name="account_err_other">Something went wrong. Try again.</string>
+    <string name="settings_shake">Shake the phone</string>
+    <string name="settings_shake_how">Shake it hard and she gets dizzy. Not while gaming or with her chat open.</string>
 </resources>

@@ -142,6 +142,9 @@ export function poses({ cfg, wardrobe }) {
     // (1.10.0) in an outfit, its own drawing of this animation when there is one (anims/<name>@<outfit>.png)
     const outfit = wardrobe?.look?.().outfit;
     const key = outfit && outfit !== 'default' && anims[`${name}@${outfit}`] ? `${name}@${outfit}` : name;
+    // (1.12.0, community: "tiene una mezcla de avatares y su brazo se separa") an animation is drawn in her own
+    // clothes: in another outfit, only the ones drawn for it, or she'd change clothes mid-animation
+    if (outfit && outfit !== 'default' && key === name) return false;
     const a = anims[key];
     if (!a || now || animsOff() || !free({ lying, chat, now: right })) return false;
     const img = await load(`${ANIMS}${key}.png`);

@@ -85,6 +85,26 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Confirmation before erasing her memories**, and **edit your classes** by tapping them.
 - **She understands her name said a bit differently** ("Capi", "Cabi"…), and if you ask for something without her
   name, now and then she reminds you: "Say my name first, “Capri, …”, and I'll do it."
+- **Your account:** sign in with Google or your email (in "You") and her memory of you, your settings, your classes
+  and your chat are saved to the cloud on their own. On a new phone or after reinstalling, sign in and she still
+  remembers you. Your AI keys never leave your phone.
+- **Reading mode:** tell her "I'm reading Dune" and "I'm on page 120", then ask for a recap or about a character:
+  she only answers up to your page, no spoilers.
+- **Files for her:** share a PDF, a Word document, a text or an audio (or use the chat's 📎) and she reads or listens
+  with you: a summary, corrections or whatever you ask.
+- **"Capri, what song is this?":** she listens for a few seconds and tells you (with a Gemini key).
+- **She answers your messages:** "Capri, reply to Ana that I'm on my way" answers from the WhatsApp, Telegram or other
+  messaging notification.
+- **Two new widgets:** "Capri mini", her face and a line, and "Your day with Capri", with the date, your battery, your
+  next class and buttons to talk or let her see your screen.
+- **Today's news:** "Capri, what's new?" and she tells you the headlines in her voice.
+- **Shake your phone** and she gets dizzy (you can turn it off in Settings).
+- **A wait before she looks at your screen:** in Modes pick 0, 2, 4 or 6 seconds before the capture, to open what you
+  want her to see or translate.
+- **Search your chat:** the ⌕ button on the Chat tab opens your history with search.
+- **No more double arms:** some outfits drew a second, still or dislocated arm. Fixed.
+- **No more mixed clothes in her animations:** in an outfit she no longer switches to her usual clothes mid-animation.
+  In an outfit she only plays the animations drawn for it.
 
 ## 1.11.7
 

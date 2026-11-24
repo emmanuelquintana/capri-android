@@ -724,4 +724,6 @@
     <string name="account_err_none">Ton compte n\'a pas encore de copie.</string>
     <string name="account_err_big">Sa mémoire est trop grande pour le cloud.</string>
     <string name="account_err_other">Un problème est survenu. Réessaie.</string>
+    <string name="settings_shake">Secouer le téléphone</string>
+    <string name="settings_shake_how">Secoue-le fort et elle a le tournis. Jamais en mode gamer ni chat ouvert.</string>
 </resources>

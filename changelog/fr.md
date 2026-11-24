@@ -83,6 +83,23 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Confirmation avant d’effacer ses souvenirs**, et **modifie tes cours** en les touchant.
 - **Elle comprend son nom dit un peu autrement** (« Capi », « Cabi »…), et si tu demandes quelque chose sans son
   nom, elle te rappelle parfois : « Dis mon nom d’abord ».
+- **Ton compte :** connecte-toi avec Google ou ton e-mail (dans « Toi ») et sa mémoire de toi, tes réglages, tes cours
+  et ton chat sont gardés dans le cloud. Sur un nouveau téléphone ou après réinstallation, elle se souvient de toi.
+  Tes clés d'IA ne quittent jamais ton téléphone.
+- **Mode lecture :** dis-lui « je lis Dune » et « je suis à la page 120 », puis demande un résumé ou un personnage :
+  elle répond seulement jusqu'à ta page, sans spoilers.
+- **Des fichiers pour elle :** partage un PDF, un Word, un texte ou un audio (ou le 📎 du chat) et elle le lit ou
+  l'écoute avec toi.
+- **« Capri, quelle est cette chanson ? » :** elle écoute quelques secondes et te dit laquelle (avec une clé Gemini).
+- **Elle répond à tes messages :** « Capri, réponds à Ana que j'arrive » répond depuis la notification.
+- **Deux nouveaux widgets :** « Capri mini » et « Ta journée avec Capri » (date, batterie, prochain cours, boutons).
+- **Les infos du jour :** « Capri, quoi de neuf ? » et elle te lit les titres.
+- **Secoue ton téléphone** et elle a le tournis (désactivable dans les Réglages).
+- **Attente avant de voir ton écran :** 0, 2, 4 ou 6 secondes, dans Modes.
+- **Chercher dans ton chat :** le bouton ⌕ de l'onglet Chat.
+- **Plus de bras en double :** certaines tenues dessinaient un second bras immobile. Corrigé.
+- **Plus de tenue mélangée dans ses animations :** avec une tenue, elle ne repasse plus à ses habits habituels en
+  pleine animation. Elle ne joue que celles dessinées pour cette tenue.
 
 ## 1.11.7
 

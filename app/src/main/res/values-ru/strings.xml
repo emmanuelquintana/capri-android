@@ -731,4 +731,6 @@
     <string name="account_err_none">В аккаунте ещё нет копии.</string>
     <string name="account_err_big">Её память слишком большая для облака.</string>
     <string name="account_err_other">Что-то пошло не так. Попробуй ещё раз.</string>
+    <string name="settings_shake">Встряхнуть телефон</string>
+    <string name="settings_shake_how">Встряхни сильно, и у неё закружится голова. Не в игровом режиме и не при открытом чате.</string>
 </resources>

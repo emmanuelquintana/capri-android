@@ -87,6 +87,26 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Confirmación al borrar sus recuerdos** y **editar tus clases** tocándolas, sin borrarlas y crearlas de nuevo.
 - **Te entiende aunque digas su nombre un poco distinto** («Capi», «Cabi»…), y si le pides algo sin decir su
   nombre, de vez en cuando te recuerda: «Di mi nombre primero, “Capri, …”, y lo hago».
+- **Tu cuenta:** entra con Google o con tu correo (en «Tú») y su memoria de ti, tus ajustes, tus clases y tu chat
+  se guardan en la nube solos. En un teléfono nuevo o al reinstalar, entras y te sigue recordando. Tus claves de IA
+  nunca salen de tu teléfono.
+- **Modo lectura:** dile «estoy leyendo Dune» y «voy en la página 120», y pídele «resúmeme lo que llevo» o pregúntale
+  por un personaje: te contesta solo hasta tu página, sin spoilers.
+- **Archivos para ella:** compártele un PDF, un Word, un texto o un audio (o usa el 📎 del chat) y lo lee o lo escucha
+  contigo: te lo resume, te corrige o te ayuda con lo que le pidas.
+- **«Capri, ¿qué canción es esta?»:** escucha unos segundos y te dice cuál es (con una clave de Gemini).
+- **Responde tus mensajes:** «Capri, respóndele a Ana que ya voy» contesta desde la notificación de WhatsApp,
+  Telegram y otras apps de mensajes.
+- **Dos widgets nuevos:** «Capri mini», con su carita y una frase, y «Tu día con Capri», con la fecha, tu batería,
+  tu próxima clase y botones para hablarle o que vea tu pantalla.
+- **Noticias del día:** «Capri, ¿qué hay de nuevo?» y te cuenta los titulares con su voz.
+- **Agita el teléfono** y se marea (puedes apagarlo en Modos).
+- **Espera antes de ver tu pantalla:** en Modos eliges 0, 2, 4 o 6 segundos antes de que tome la captura, para que
+  te dé tiempo de abrir lo que quieres que vea o traduzca.
+- **Buscar en tu chat:** el botón ⌕ de la pestaña Chat abre tu historial con búsqueda.
+- **Ropa sin brazos dobles:** algunos atuendos le dibujaban un segundo brazo quieto o dislocado. Arreglado.
+- **Sin mezcla de ropa en sus animaciones:** con un atuendo puesto ya no se cambia a su ropa de siempre a mitad de una
+  animación (el «avatar mezclado»). Con ropa puesta solo hace las animaciones dibujadas para esa ropa.
 
 ## 1.11.7
 

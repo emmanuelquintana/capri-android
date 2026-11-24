@@ -1743,6 +1743,11 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.settings_snap_delay_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(choiceText(listOf("0 s" to 0.0, "2 s" to 2.0, "4 s" to 4.0, "6 s" to 6.0),
                 { Store(this@MainActivity).configNumber("snapDelay", 0.0) }, { a, b -> Math.abs(a - b) < 0.5 }) { CapriSettings.set(this@MainActivity, "snapDelay", it) }, ui.block(6))
+            // (1.12.0) you shake the phone: she gets dizzy (shake.js)
+            addView(ui.text(getString(R.string.settings_shake), 14f, Hud.PAPER, ui.head), ui.block(14))
+            addView(ui.text(getString(R.string.settings_shake_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choiceText(listOf(getString(R.string.on) to true, getString(R.string.off) to false),
+                { Store(this@MainActivity).configFlag("shake", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "shake", it) }, ui.block(6))
         }, ui.block(16))
 
         // her modes: gamer (by hand or on its own), her tips while you play, streaming

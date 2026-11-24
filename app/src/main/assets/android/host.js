@@ -1826,6 +1826,7 @@ on('settings:apply', async (p = {}) => {
   if (typeof p.voicePitch === 'number') updateConfig({ voicePitch: Math.min(2, Math.max(0.5, p.voicePitch)) });
   if (typeof p.voiceRate === 'number') updateConfig({ voiceRate: Math.min(2, Math.max(0.5, p.voiceRate)) });
   if ('musicCard' in p) updateConfig({ musicCard: Boolean(p.musicCard) });
+  if ('shake' in p) updateConfig({ shake: Boolean(p.shake) }); // (1.12.0) shake.js
   if (typeof p.snapDelay === 'number') updateConfig({ snapDelay: Math.min(10, Math.max(0, Math.round(p.snapDelay))) });
   // (1.12.0) "no me deja cambiarlo a Spotify": with her on, these two from the app's Settings never got here (she kept
   // YouTube; and the voice's precision you picked, the one before)

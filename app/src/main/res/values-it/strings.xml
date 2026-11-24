@@ -713,4 +713,6 @@
     <string name="account_err_none">Il tuo account non ha ancora una copia.</string>
     <string name="account_err_big">La sua memoria è troppo grande per il cloud.</string>
     <string name="account_err_other">Qualcosa è andato storto. Riprova.</string>
+    <string name="settings_shake">Scuotere il telefono</string>
+    <string name="settings_shake_how">Scuotilo forte e le gira la testa. Mai in modalità gamer o con la chat aperta.</string>
 </resources>

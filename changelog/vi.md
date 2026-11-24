@@ -62,3 +62,19 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Xác nhận trước khi xóa ký ức của cô ấy**, và **sửa lớp học** bằng cách chạm vào.
 - **Cô ấy hiểu tên mình dù nói hơi khác** («Capi», «Cabi»…), và nếu bạn nhờ mà không gọi tên, thỉnh thoảng cô ấy
   nhắc: «Gọi tên mình trước».
+- **Tài khoản của bạn:** đăng nhập bằng Google hoặc email (trong «Bạn») và ký ức của cô ấy về bạn, cài đặt, lịch học và
+  cuộc trò chuyện được lưu lên đám mây. Trên điện thoại mới, cô ấy vẫn nhớ bạn. Khóa AI không bao giờ rời điện thoại.
+- **Chế độ đọc:** nói «tôi đang đọc Dune» và «tôi đang ở trang 120», rồi hỏi tóm tắt hoặc về nhân vật: cô ấy chỉ trả
+  lời đến trang của bạn, không spoil.
+- **Tệp cho cô ấy:** chia sẻ PDF, Word, văn bản hoặc âm thanh (hoặc 📎 trong chat) và cô ấy đọc hoặc nghe cùng bạn.
+- **«Capri, bài gì đây?»:** cô ấy nghe vài giây và cho bạn biết (cần khóa Gemini).
+- **Trả lời tin nhắn:** «Capri, trả lời Ana là mình tới liền» trả lời từ thông báo.
+- **Hai widget mới:** «Capri mini» và «Ngày của bạn với Capri».
+- **Tin tức hôm nay:** «Capri, có gì mới?» và cô ấy đọc các tiêu đề.
+- **Lắc điện thoại** và cô ấy chóng mặt (tắt được trong Cài đặt).
+- **Chờ trước khi chụp màn hình:** 0, 2, 4 hoặc 6 giây, trong Chế độ.
+- **Tìm trong chat:** nút ⌕ ở thẻ Chat.
+- **Hết tay đôi:** vài bộ đồ vẽ thêm một cánh tay đứng yên. Đã sửa.
+- **Không còn lẫn trang phục khi hoạt ảnh:** khi mặc đồ khác, cô ấy không đổi về đồ thường giữa hoạt ảnh nữa.
+  Chỉ chạy hoạt ảnh được vẽ cho bộ đồ đó.
+

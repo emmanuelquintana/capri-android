@@ -78,6 +78,23 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Confirmação antes de apagar as lembranças dela**, e **edite suas aulas** tocando nelas.
 - **Ela entende o nome dito um pouco diferente** («Capi», «Cabi»…), e se você pede algo sem dizer o nome, às vezes
   ela lembra: «Diz meu nome primeiro».
+- **Sua conta:** entre com Google ou seu e-mail (em «Você») e a memória dela sobre você, seus ajustes, suas aulas e
+  seu chat ficam salvos na nuvem. Num celular novo ou ao reinstalar, ela continua lembrando de você. Suas chaves de
+  IA nunca saem do seu celular.
+- **Modo leitura:** diga «estou lendo Duna» e «estou na página 120», e peça um resumo ou pergunte de um personagem:
+  ela responde só até a sua página, sem spoilers.
+- **Arquivos para ela:** compartilhe um PDF, um Word, um texto ou um áudio (ou use o 📎 do chat) e ela lê ou ouve com
+  você.
+- **«Capri, que música é essa?»:** ela escuta alguns segundos e diz qual é (com uma chave do Gemini).
+- **Ela responde suas mensagens:** «Capri, responde para a Ana que já vou» responde pela notificação.
+- **Dois widgets novos:** «Capri mini» e «Seu dia com Capri» (data, bateria, próxima aula, botões).
+- **Notícias do dia:** «Capri, quais as novidades?» e ela conta as manchetes.
+- **Sacuda o celular** e ela fica tonta (dá para desligar em Ajustes).
+- **Espera antes de ver sua tela:** 0, 2, 4 ou 6 segundos, em Modos.
+- **Buscar no seu chat:** o botão ⌕ da aba Chat.
+- **Sem braços duplos:** algumas roupas desenhavam um segundo braço parado. Corrigido.
+- **Sem roupa misturada nas animações:** com uma roupa, ela não troca mais para a roupa de sempre no meio da animação.
+  Só faz as animações desenhadas para essa roupa.
 
 ## 1.11.7
 

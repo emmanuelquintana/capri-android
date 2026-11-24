@@ -709,4 +709,6 @@
     <string name="account_err_none">まだコピーがありません。</string>
     <string name="account_err_big">記憶が大きすぎてクラウドに保存できません。</string>
     <string name="account_err_other">うまくいきませんでした。もう一度試してね。</string>
+    <string name="settings_shake">スマホを振る</string>
+    <string name="settings_shake_how">強く振ると目を回します。ゲーマーモード中やチャット中は反応しません。</string>
 </resources>

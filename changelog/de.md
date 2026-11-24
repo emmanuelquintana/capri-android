@@ -70,3 +70,21 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Bestätigung vor dem Löschen ihrer Erinnerungen**, und **Kurse bearbeiten** durch Antippen.
 - **Sie versteht ihren Namen, auch etwas anders gesagt** („Capi“, „Cabi“…), und wenn du ohne ihren Namen fragst,
   erinnert sie dich ab und zu: „Sag zuerst meinen Namen“.
+- **Dein Konto:** Melde dich mit Google oder E-Mail an (unter „Du“), und ihre Erinnerungen an dich, deine
+  Einstellungen, Kurse und dein Chat werden in der Cloud gespeichert. Auf einem neuen Handy erinnert sie sich an dich.
+  Deine KI-Schlüssel verlassen dein Handy nie.
+- **Lesemodus:** Sag „ich lese Dune“ und „ich bin auf Seite 120“, dann frag nach einer Zusammenfassung oder einer
+  Figur: Sie antwortet nur bis zu deiner Seite, ohne Spoiler.
+- **Dateien für sie:** Teile ein PDF, Word, einen Text oder eine Audiodatei (oder 📎 im Chat), und sie liest oder hört
+  mit dir.
+- **„Capri, welches Lied ist das?“:** Sie hört ein paar Sekunden zu und sagt es dir (mit einem Gemini-Schlüssel).
+- **Sie antwortet auf Nachrichten:** „Capri, antworte Ana, dass ich gleich komme“ antwortet aus der Benachrichtigung.
+- **Zwei neue Widgets:** „Capri mini“ und „Dein Tag mit Capri“.
+- **Nachrichten des Tages:** „Capri, was gibt's Neues?“, und sie liest die Schlagzeilen.
+- **Schüttle dein Handy**, und ihr wird schwindlig (in den Einstellungen abschaltbar).
+- **Wartezeit vor dem Bildschirmfoto:** 0, 2, 4 oder 6 Sekunden, unter Modi.
+- **Im Chat suchen:** die Taste ⌕ im Chat-Tab.
+- **Keine doppelten Arme mehr:** Manche Outfits zeichneten einen zweiten, starren Arm. Behoben.
+- **Keine gemischte Kleidung mehr in Animationen:** In einem Outfit wechselt sie nicht mehr mitten in der Animation
+  zu ihrer üblichen Kleidung. Es laufen nur Animationen, die für dieses Outfit gezeichnet sind.
+

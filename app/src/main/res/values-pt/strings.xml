@@ -724,4 +724,6 @@
     <string name="account_err_none">Sua conta ainda não tem cópia.</string>
     <string name="account_err_big">A memória dela é grande demais para a nuvem.</string>
     <string name="account_err_other">Algo deu errado. Tente de novo.</string>
+    <string name="settings_shake">Sacudir o celular</string>
+    <string name="settings_shake_how">Sacuda forte e ela fica tonta. Nunca no modo gamer nem com o chat aberto.</string>
 </resources>

@@ -713,4 +713,6 @@
     <string name="account_err_none">Dein Konto hat noch keine Kopie.</string>
     <string name="account_err_big">Ihre Erinnerungen sind zu groß für die Cloud.</string>
     <string name="account_err_other">Etwas ist schiefgelaufen. Versuch es nochmal.</string>
+    <string name="settings_shake">Handy schütteln</string>
+    <string name="settings_shake_how">Schüttle es kräftig und ihr wird schwindlig. Nie im Gamer-Modus oder bei offenem Chat.</string>
 </resources>

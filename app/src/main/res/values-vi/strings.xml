@@ -709,4 +709,6 @@
     <string name="account_err_none">Tài khoản chưa có bản sao.</string>
     <string name="account_err_big">Ký ức quá lớn để lưu lên đám mây.</string>
     <string name="account_err_other">Có lỗi xảy ra. Thử lại.</string>
+    <string name="settings_shake">Lắc điện thoại</string>
+    <string name="settings_shake_how">Lắc mạnh và cô ấy chóng mặt. Không khi ở chế độ game hay đang mở chat.</string>
 </resources>

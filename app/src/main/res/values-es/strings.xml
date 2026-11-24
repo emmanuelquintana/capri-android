@@ -724,4 +724,6 @@
     <string name="account_err_none">Tu cuenta aún no tiene copia.</string>
     <string name="account_err_big">Su memoria es demasiado grande para la nube.</string>
     <string name="account_err_other">Algo falló. Inténtalo de nuevo.</string>
+    <string name="settings_shake">Agitar el teléfono</string>
+    <string name="settings_shake_how">Agítalo fuerte y se marea. Nunca en modo gamer ni con su chat abierto.</string>
 </resources>

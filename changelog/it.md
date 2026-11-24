@@ -65,3 +65,19 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Conferma prima di cancellare i suoi ricordi**, e **modifica le lezioni** toccandole.
 - **Capisce il suo nome detto un po’ diverso** («Capi», «Cabi»…), e se chiedi qualcosa senza il suo nome, ogni tanto
   ti ricorda: «Prima di’ il mio nome».
+- **Il tuo account:** accedi con Google o con l'email (in «Tu») e la sua memoria di te, le impostazioni, le lezioni e la
+  chat vengono salvate nel cloud. Su un telefono nuovo si ricorda di te. Le tue chiavi IA non lasciano mai il telefono.
+- **Modalità lettura:** dille «sto leggendo Dune» e «sono a pagina 120», poi chiedi un riassunto o di un personaggio:
+  risponde solo fino alla tua pagina, senza spoiler.
+- **File per lei:** condividi un PDF, un Word, un testo o un audio (o il 📎 della chat) e lo legge o lo ascolta con te.
+- **«Capri, che canzone è?»:** ascolta qualche secondo e te lo dice (con una chiave Gemini).
+- **Risponde ai tuoi messaggi:** «Capri, rispondi ad Ana che arrivo» risponde dalla notifica.
+- **Due nuovi widget:** «Capri mini» e «La tua giornata con Capri».
+- **Notizie del giorno:** «Capri, che novità ci sono?» e ti legge i titoli.
+- **Scuoti il telefono** e le gira la testa (si può spegnere nelle Impostazioni).
+- **Attesa prima di guardare lo schermo:** 0, 2, 4 o 6 secondi, in Modalità.
+- **Cerca nella chat:** il pulsante ⌕ nella scheda Chat.
+- **Niente più braccia doppie:** alcuni outfit disegnavano un secondo braccio fermo. Risolto.
+- **Niente più vestiti mischiati nelle animazioni:** con un outfit non torna più ai vestiti di sempre a metà
+  animazione. Fa solo le animazioni disegnate per quell'outfit.
+
