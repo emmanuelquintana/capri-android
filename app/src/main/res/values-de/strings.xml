@@ -816,4 +816,5 @@
     <string name="fish_model">Stimmmodell</string>
     <string name="fish_model_free">Kostenlos</string>
     <string name="fish_model_pro">Pro (nutzt dein Guthaben)</string>
+    <string name="voice_silenced">Das Mikro kommt bei ihr stumm an: Eine andere App nutzt es, oder öffne die App einmal, damit Android sie zuhören lässt.</string>
 </resources>

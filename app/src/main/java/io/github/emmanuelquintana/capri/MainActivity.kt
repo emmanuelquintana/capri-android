@@ -2388,6 +2388,7 @@ class MainActivity : Activity() {
             s == "far" -> getString(R.string.voice_far)
             s == "busy" -> getString(R.string.voice_busy)
             s == "media" -> getString(R.string.voice_media)
+            s == "silenced" -> getString(R.string.voice_silenced)
             s == "gamer" -> getString(R.string.voice_gamer)
             s == "nomic" -> getString(R.string.voice_nomic)
             s == "recmic" -> getString(R.string.voice_recmic)

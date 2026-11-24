@@ -816,4 +816,5 @@
     <string name="fish_model">Modello di voce</string>
     <string name="fish_model_free">Gratis</string>
     <string name="fish_model_pro">Pro (usa il tuo credito)</string>
+    <string name="voice_silenced">Il microfono le arriva muto: un\'altra app lo sta usando, o apri l\'app una volta perché Android la lasci ascoltare.</string>
 </resources>

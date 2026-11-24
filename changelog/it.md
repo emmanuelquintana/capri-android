@@ -21,5 +21,6 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Quattro nuove lingue:** vietnamita, giapponese, tedesco e italiano.
 - **Crea la tua Capri:** scarica il suo design in buona qualità, disegnale un vestito e invia il PNG da Personalizza.
 - **Inoltre:** due nuovi widget, tre minigiochi, scuotila e le gira la testa, segui Emma su TikTok e X da Novità.
+- **Un microfono che non disturba:** le sue orecchie lasciano il microfono durante le chiamate e quando un'altra app registra (messaggi vocali), e tornano da sole dopo.
 - **Di nuovo sui telefoni a 32 bit.**
 - **Correzioni:** vestiti senza braccia doppie o mescolate, schermate intere ben sistemate e tanti altri dettagli.

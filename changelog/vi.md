@@ -21,5 +21,6 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Bốn ngôn ngữ mới:** tiếng Việt, Nhật, Đức và Ý.
 - **Tạo Capri của riêng bạn:** tải bản thiết kế chất lượng cao của cô ấy, vẽ trang phục và gửi PNG từ Tùy chỉnh.
 - **Thêm:** hai widget mới, ba trò chơi nhỏ, lắc điện thoại là cô ấy chóng mặt, theo dõi Emma trên TikTok và X từ Tin mới.
+- **Micro không làm phiền:** cô ấy nhả micro khi có cuộc gọi và khi app khác ghi âm (tin nhắn thoại), rồi tự nghe lại sau đó.
 - **Lại chạy được trên điện thoại 32-bit.**
 - **Sửa lỗi:** trang phục không còn tay đôi hay lẫn lộn, màn hình toàn phần bố trí đúng và nhiều chi tiết khác.

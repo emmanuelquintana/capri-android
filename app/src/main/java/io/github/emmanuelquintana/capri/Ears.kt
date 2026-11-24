@@ -301,7 +301,7 @@ class Ears(private val service: CapriService) {
         if (!wanted || speaking || listening) return
         // a call, a voice note, another app recording: the mic is theirs
         val audio = service.getSystemService(AudioManager::class.java)!!
-        if (audio.mode != AudioManager.MODE_NORMAL) {
+        if (audio.mode != AudioManager.MODE_NORMAL || (!passive.on && passive.othersNeedMic())) {
             status = "busy"
             passive.stop()
             return next(5000)
@@ -316,9 +316,10 @@ class Ears(private val service: CapriService) {
             }
             // (its model downloaded on Wi-Fi, once: until then, the old way)
             if (!passive.broken) WakeWord.Models.fetch(service, base) { if (it == null && wanted && !speaking && !listening) { passive.stop(); next(500) } }
-        } else if (passive.on) {
+        } else if (passive.on || !passive.idle()) {
+            // (1.12.0) the recognizer only once her passive ears really let go of the mic: else "error 5"
             passive.stop()
-            return next(350) // (once it let go of the mic)
+            return next(150)
         }
         // a video or music playing: the recognizer takes the sound from it each time it starts (the
         // video pauses, the song stops), so she waits for it to end

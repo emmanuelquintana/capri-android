@@ -812,4 +812,5 @@
     <string name="fish_model">Mô hình giọng</string>
     <string name="fish_model_free">Miễn phí</string>
     <string name="fish_model_pro">Pro (dùng số dư của bạn)</string>
+    <string name="voice_silenced">Micro đến với cô ấy trong im lặng: một app khác đang dùng, hoặc mở app một lần để Android cho cô ấy nghe.</string>
 </resources>

@@ -22,6 +22,7 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Cuatro idiomas nuevos:** vietnamita, japonés, alemán e italiano.
 - **Crea tu propia Capri:** baja su diseño en buena calidad, dibújale un traje y envía el PNG desde Personalizar.
 - **Más:** dos widgets nuevos, tres minijuegos, agítala y se marea, sigue a Emma en TikTok y X desde Novedades.
+- **Micrófono que no estorba:** sus oídos sueltan el micrófono durante llamadas y cuando otra app graba (notas de voz), y vuelven solos al terminar.
 - **Otra vez en teléfonos de 32 bits.**
 - **Arreglos:** ropa sin brazos dobles ni mezclada, pantallas completas bien acomodadas y muchos detalles más.
 

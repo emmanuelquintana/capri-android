@@ -21,5 +21,6 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Vier neue Sprachen:** Vietnamesisch, Japanisch, Deutsch und Italienisch.
 - **Erstelle deine eigene Capri:** Lade ihr Design in guter Qualität herunter, zeichne ihr ein Outfit und schick das PNG über Anpassen.
 - **Außerdem:** zwei neue Widgets, drei Minispiele, schüttel sie und ihr wird schwindlig, Emma auf TikTok und X folgen über Neuigkeiten.
+- **Ein Mikro, das nicht stört:** Ihre Ohren geben das Mikro bei Anrufen und wenn eine andere App aufnimmt (Sprachnachrichten) frei und kommen danach von selbst zurück.
 - **Wieder auf 32-Bit-Handys.**
 - **Fehlerbehebungen:** Outfits ohne doppelte oder vertauschte Arme, Vollbildseiten richtig angeordnet und vieles mehr.

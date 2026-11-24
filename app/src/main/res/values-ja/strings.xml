@@ -812,4 +812,5 @@
     <string name="fish_model">音声モデル</string>
     <string name="fish_model_free">無料</string>
     <string name="fish_model_pro">Pro(残高を使用)</string>
+    <string name="voice_silenced">マイクの音が届いていません。ほかのアプリが使っているか、アプリを一度開くと Android が聞くのを許可します。</string>
 </resources>

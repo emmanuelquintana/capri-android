@@ -828,4 +828,5 @@
     <string name="fish_model">Voice model</string>
     <string name="fish_model_free">Free</string>
     <string name="fish_model_pro">Pro (uses your credit)</string>
+    <string name="voice_silenced">The mic reaches her silent: another app is using it, or open the app once so Android lets her listen.</string>
 </resources>

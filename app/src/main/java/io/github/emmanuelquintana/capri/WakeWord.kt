@@ -60,6 +60,21 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
         running = false
     }
 
+    /** Its thread is gone: the mic is free for the phone's recognizer (else "error 5", the mic still held). */
+    fun idle() = thread?.isAlive != true
+
+    /** (1.12.0, Emma: "no quiero quejas de nuevo sobre el micrófono") someone else needs the mic: a call, a voice
+     *  note, another app recording. Below Android 10 two apps can't record at once (theirs would fail), so hers lets go. */
+    fun othersNeedMic(): Boolean {
+        val audio = context.getSystemService(android.media.AudioManager::class.java) ?: return false
+        if (audio.mode != android.media.AudioManager.MODE_NORMAL) return true
+        if (android.os.Build.VERSION.SDK_INT < 29) {
+            val mine = if (thread?.isAlive == true) 1 else 0
+            return runCatching { audio.activeRecordingConfigurations.size > mine }.getOrDefault(false)
+        }
+        return false
+    }
+
     /** Its model out of memory (her ears off for a while, the screen off). */
     fun release() {
         stop()
@@ -105,10 +120,29 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
             mic.startRecording()
             val buf = ShortArray(RATE / 10) // 100 ms
             var named = 0L // her name in what's being said: the end of it is waited for (what comes after it)
+            var reads = 0
+            var silent = 0
+            var silencedSaid = false
             while (running && mine == gen) {
                 val n = mic.read(buf, 0, buf.size)
                 if (n < 0) error("mic $n")
                 if (n == 0) continue
+                // every 2 s: a call or another app recording, and she lets go of the mic (back when it's free)
+                if (++reads % 20 == 0 && othersNeedMic()) {
+                    Diag.add("I", "ears: the mic is needed elsewhere (a call or another app), passive ears pause")
+                    if (mine == gen) { running = false; main.post { onHeard("") } }
+                    break
+                }
+                // (only zeros for 8 s: Android gives her silence, another app has the mic or her service may not use it now)
+                var loud = false
+                for (i in 0 until n) if (buf[i].toInt() != 0) { loud = true; break }
+                if (loud && silent >= 80 && Ears.status == "silenced") Ears.status = "listening"
+                silent = if (loud) 0 else silent + 1
+                if (silent == 80 && !silencedSaid) {
+                    silencedSaid = true
+                    Diag.add("W", "ears: the mic gives only silence (another app has it, or open the app once so Android lets her service use it)")
+                    Ears.status = "silenced"
+                }
                 if (rec.acceptWaveForm(buf, n)) {
                     val said = JSONObject(rec.result)
                     val text = said.optString("text").trim()
