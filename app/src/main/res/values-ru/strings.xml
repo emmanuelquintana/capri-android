@@ -843,4 +843,8 @@
     <string name="fish_why_down">серверы Fish перегружены, она попробует снова через минуту</string>
     <string name="fish_why_net">нет подключения к интернету</string>
     <string name="fish_why_other">неожиданная ошибка (она в её журнале)</string>
+    <string name="voice_src_fish">Fish · облако</string>
+    <string name="voice_src_local">Локальный</string>
+    <string name="voice_src_clip">Записанная фраза</string>
+    <string name="voice_src_system">Голос телефона</string>
 </resources>

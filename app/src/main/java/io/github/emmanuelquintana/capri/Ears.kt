@@ -884,11 +884,11 @@ class Ears(private val service: CapriService) {
         // (1.11.8) an answer still being written: the voice that says it instead waits for all of it (sayPart)
         if (id == streamId) {
             streamNeural = false
-            voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", CapriNeural.ID) }
+            voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", if (why.startsWith("fish:")) FishVoice.ID else CapriNeural.ID) }
             CapriNeural.lastFallback = why
             return
         }
-        voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", CapriNeural.ID) }
+        voiceEvent(id, "VOICE_UNAVAILABLE") { put("why", why).put("source", if (why.startsWith("fish:")) FishVoice.ID else CapriNeural.ID) }
         CapriNeural.lastFallback = why
         // (1.12.0) her cloud voice couldn't (no internet, your key, its credit): her voice on the phone says it
         if (why.startsWith("fish:")) {

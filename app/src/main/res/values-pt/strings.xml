@@ -836,4 +836,8 @@
     <string name="fish_why_down">os servidores da Fish estão sobrecarregados, ela tenta de novo em um minuto</string>
     <string name="fish_why_net">sem conexão com a internet</string>
     <string name="fish_why_other">um erro inesperado (fica no registro dela)</string>
+    <string name="voice_src_fish">Fish · nuvem</string>
+    <string name="voice_src_local">Local</string>
+    <string name="voice_src_clip">Frase gravada</string>
+    <string name="voice_src_system">Voz do celular</string>
 </resources>

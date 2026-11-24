@@ -821,4 +821,8 @@
     <string name="fish_why_down">máy chủ Fish đang quá tải, cô ấy sẽ thử lại sau một phút</string>
     <string name="fish_why_net">không có kết nối internet</string>
     <string name="fish_why_other">một lỗi không mong muốn (có trong nhật ký của cô ấy)</string>
+    <string name="voice_src_fish">Fish · đám mây</string>
+    <string name="voice_src_local">Cục bộ</string>
+    <string name="voice_src_clip">Câu thu sẵn</string>
+    <string name="voice_src_system">Giọng điện thoại</string>
 </resources>

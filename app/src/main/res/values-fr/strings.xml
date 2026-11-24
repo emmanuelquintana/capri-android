@@ -836,4 +836,8 @@
     <string name="fish_why_down">les serveurs de Fish sont saturés, elle réessaie dans une minute</string>
     <string name="fish_why_net">pas de connexion internet</string>
     <string name="fish_why_other">une erreur inattendue (elle est dans son journal)</string>
+    <string name="voice_src_fish">Fish · cloud</string>
+    <string name="voice_src_local">Locale</string>
+    <string name="voice_src_clip">Phrase enregistrée</string>
+    <string name="voice_src_system">Voix du téléphone</string>
 </resources>

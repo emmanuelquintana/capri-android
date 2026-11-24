@@ -837,4 +837,8 @@
     <string name="fish_why_down">Fish\'s servers are busy right now, she\'ll try again in a minute</string>
     <string name="fish_why_net">no internet connection</string>
     <string name="fish_why_other">an unexpected error (it\'s in her log)</string>
+    <string name="voice_src_fish">Fish · cloud</string>
+    <string name="voice_src_local">Local</string>
+    <string name="voice_src_clip">Recorded phrase</string>
+    <string name="voice_src_system">Phone voice</string>
 </resources>

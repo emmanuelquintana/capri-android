@@ -209,9 +209,29 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
         voiceLines[id]?.let { showVoice(it, ev) }
     }
 
+    // (1.12.0, Emma: "un color específico cuando la voz la genera Fish y cuando la genera local") which voice made it
+    private val voiceSrc = HashMap<TextView, String>()
+    private fun srcColor(src: String?) = when (src) {
+        FishVoice.ID -> Hud.CYAN
+        CapriNeural.ID -> Hud.GREEN
+        "clip" -> Hud.YELLOW
+        "system" -> Hud.PAPER_2
+        else -> Hud.PAPER_3
+    }
+    private fun srcName(src: String?) = when (src) {
+        FishVoice.ID -> a.getString(R.string.voice_src_fish)
+        CapriNeural.ID -> a.getString(R.string.voice_src_local)
+        "clip" -> a.getString(R.string.voice_src_clip)
+        "system" -> a.getString(R.string.voice_src_system)
+        else -> null
+    }
+
     private fun showVoice(line: TextView, ev: org.json.JSONObject) {
         val pct = if (ev.has("pct")) ev.optInt("pct") else -1
-        val text = when (ev.optString("state")) {
+        val state = ev.optString("state")
+        if (state == "VOICE_UNAVAILABLE" && ev.optString("source") == FishVoice.ID) { voiceSrc.remove(line); return } // (her other voice takes over)
+        ev.optString("source").takeIf { srcName(it) != null }?.let { voiceSrc[line] = it }
+        val text = when (state) {
             "VOICE_REQUESTED" -> if (line.text.isNullOrEmpty()) a.getString(R.string.chat_voice_prep) else null
             "VOICE_PREPARING" -> a.getString(R.string.chat_voice_prep)
             "VOICE_PROGRESS" -> when {
@@ -228,11 +248,14 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
             }
             "VOICE_FINISHED", "VOICE_CANCELLED", "VOICE_ERROR", "VOICE_UNAVAILABLE" -> {
                 line.visibility = View.GONE
+                voiceSrc.remove(line)
                 return
             }
             else -> null
         } ?: return
-        line.text = text
+        val src = voiceSrc[line]
+        line.setTextColor(srcColor(src))
+        line.text = srcName(src)?.let { "$text · $it" } ?: text
         line.visibility = View.VISIBLE
     }
 

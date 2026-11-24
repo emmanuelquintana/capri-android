@@ -821,4 +821,8 @@
     <string name="fish_why_down">Fish のサーバーが混雑しています。1分後にまた試します</string>
     <string name="fish_why_net">インターネットに接続していません</string>
     <string name="fish_why_other">予期しないエラー（ログに記録されています）</string>
+    <string name="voice_src_fish">Fish・クラウド</string>
+    <string name="voice_src_local">ローカル</string>
+    <string name="voice_src_clip">録音フレーズ</string>
+    <string name="voice_src_system">端末の声</string>
 </resources>

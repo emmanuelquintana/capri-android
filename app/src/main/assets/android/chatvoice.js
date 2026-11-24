@@ -19,15 +19,15 @@ const MAX = 320;
 
 // the meter's words
 const METER = {
-  es: { prep: 'Preparando su voz…', gen: 'Generando voz', talk: 'Hablando' },
-  en: { prep: 'Getting her voice ready…', gen: 'Making her voice', talk: 'Speaking' },
-  fr: { prep: 'Préparation de sa voix…', gen: 'Génération de la voix', talk: 'Elle parle' },
-  pt: { prep: 'Preparando a voz dela…', gen: 'Gerando a voz', talk: 'Falando' },
-  ru: { prep: 'Готовлю её голос…', gen: 'Создаю голос', talk: 'Говорит' },
-  vi: { prep: 'Đang chuẩn bị giọng cô ấy…', gen: 'Đang tạo giọng', talk: 'Đang nói' },
-  ja: { prep: '声を準備中…', gen: '声を生成中', talk: '話し中' },
-  de: { prep: 'Ihre Stimme wird vorbereitet…', gen: 'Ihre Stimme entsteht', talk: 'Spricht' },
-  it: { prep: 'Preparo la sua voce…', gen: 'Creo la sua voce', talk: 'Sta parlando' },
+  es: { prep: 'Preparando su voz…', gen: 'Generando voz', talk: 'Hablando', src: { fish: 'Fish · nube', 'qwen-mobile': 'Local', clip: 'Frase grabada', system: 'Voz del teléfono' } },
+  en: { prep: 'Getting her voice ready…', gen: 'Making her voice', talk: 'Speaking', src: { fish: 'Fish · cloud', 'qwen-mobile': 'Local', clip: 'Recorded phrase', system: 'Phone voice' } },
+  fr: { prep: 'Préparation de sa voix…', gen: 'Génération de la voix', talk: 'Elle parle', src: { fish: 'Fish · cloud', 'qwen-mobile': 'Locale', clip: 'Phrase enregistrée', system: 'Voix du téléphone' } },
+  pt: { prep: 'Preparando a voz dela…', gen: 'Gerando a voz', talk: 'Falando', src: { fish: 'Fish · nuvem', 'qwen-mobile': 'Local', clip: 'Frase gravada', system: 'Voz do celular' } },
+  ru: { prep: 'Готовлю её голос…', gen: 'Создаю голос', talk: 'Говорит', src: { fish: 'Fish · облако', 'qwen-mobile': 'Локальный', clip: 'Записанная фраза', system: 'Голос телефона' } },
+  vi: { prep: 'Đang chuẩn bị giọng cô ấy…', gen: 'Đang tạo giọng', talk: 'Đang nói', src: { fish: 'Fish · đám mây', 'qwen-mobile': 'Cục bộ', clip: 'Câu thu sẵn', system: 'Giọng điện thoại' } },
+  ja: { prep: '声を準備中…', gen: '声を生成中', talk: '話し中', src: { fish: 'Fish・クラウド', 'qwen-mobile': 'ローカル', clip: '録音フレーズ', system: '端末の声' } },
+  de: { prep: 'Ihre Stimme wird vorbereitet…', gen: 'Ihre Stimme entsteht', talk: 'Spricht', src: { fish: 'Fish · Cloud', 'qwen-mobile': 'Lokal', clip: 'Aufgenommener Satz', system: 'Handystimme' } },
+  it: { prep: 'Preparo la sua voce…', gen: 'Creo la sua voce', talk: 'Sta parlando', src: { fish: 'Fish · cloud', 'qwen-mobile': 'Locale', clip: 'Frase registrata', system: 'Voce del telefono' } },
 };
 
 // what her voice reads: no tags, no markdown, no emoji, no links
@@ -175,10 +175,15 @@ export function chatVoice({ cfg, lang }) {
     if (!e.id || e.id !== current || !panel?.current?.chat) return;
     const w = METER[lang()] || METER.en;
     const s = e.state;
-    if (s === 'VOICE_PREPARING') show(w.prep, 0);
-    else if (s === 'VOICE_PROGRESS' && e.generating !== false && typeof e.pct === 'number') show(`${w.gen} ${e.pct} %`, e.pct);
-    else if (s === 'VOICE_STARTED' || s === 'VOICE_READY') show(e.source === 'qwen-mobile' && typeof e.pct === 'number' && e.pct < 100 ? `${w.talk} · ${e.pct} %` : w.talk, null);
-    else if (['VOICE_FINISHED', 'VOICE_CANCELLED', 'VOICE_ERROR', 'VOICE_UNAVAILABLE'].includes(s)) { current = ''; show(null); }
+    // (1.12.0) which voice is making it: its color, and its name after the text
+    const el = meterEl();
+    if (el && e.source && w.src?.[e.source]) el.dataset.src = e.source;
+    const by = el?.dataset.src && w.src?.[el.dataset.src] ? ` · ${w.src[el.dataset.src]}` : '';
+    if (s === 'VOICE_PREPARING') show(w.prep + by, 0);
+    else if (s === 'VOICE_PROGRESS' && e.generating !== false && typeof e.pct === 'number') show(`${w.gen} ${e.pct} %${by}`, e.pct);
+    else if (s === 'VOICE_STARTED' || s === 'VOICE_READY') show((e.source === 'qwen-mobile' && typeof e.pct === 'number' && e.pct < 100 ? `${w.talk} · ${e.pct} %` : w.talk) + by, null);
+    else if (s === 'VOICE_UNAVAILABLE' && e.source === 'fish') { if (el) delete el.dataset.src; } // (her other voice takes over)
+    else if (['VOICE_FINISHED', 'VOICE_CANCELLED', 'VOICE_ERROR', 'VOICE_UNAVAILABLE'].includes(s)) { current = ''; if (el) delete el.dataset.src; show(null); }
   });
   // her bubble chat: every answer of hers passes through remember() (chat.js); listen.js and appchat.js
   // say theirs themselves, and mark it (dev.chatVoiceSkip) so it isn't said twice

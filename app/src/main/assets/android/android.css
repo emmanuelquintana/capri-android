@@ -880,16 +880,21 @@ body.is-dressing .fx { z-index: 41; }
   margin-top: 6px;
   font: 600 11px/1.2 var(--mono, monospace);
   letter-spacing: 0.06em;
-  color: var(--cyan);
+  color: var(--vc, var(--paper-3, #929188));
   text-transform: uppercase;
 }
+/* (1.12.0, Emma: "un color cuando la genera Fish y otro cuando la genera local") which voice made it */
+.capri-voice-meter[data-src="fish"] { --vc: #00dfea; }
+.capri-voice-meter[data-src="qwen-mobile"] { --vc: #36ff7a; }
+.capri-voice-meter[data-src="clip"] { --vc: #f6ec00; }
+.capri-voice-meter[data-src="system"] { --vc: #cfcec5; }
 .capri-voice-meter[hidden] { display: none; }
 .capri-voice-meter .cvm-icon { font-size: 12px; }
 .capri-voice-meter .cvm-bar {
   flex: 1;
   max-width: 90px;
   height: 4px;
-  background: rgba(0, 240, 255, 0.18);
+  background: color-mix(in srgb, var(--vc, #929188) 22%, transparent);
   overflow: hidden;
 }
 .capri-voice-meter .cvm-bar[hidden] { display: none; }
@@ -897,6 +902,6 @@ body.is-dressing .fx { z-index: 41; }
   display: block;
   height: 100%;
   width: 3%;
-  background: var(--cyan);
+  background: var(--vc, #929188);
   transition: width 0.3s ease-out;
 }

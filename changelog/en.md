@@ -6,6 +6,7 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 - **Cloud voice (Fish Audio):** with your own key she speaks in her voice in real time, in Spanish, English, Portuguese and Japanese. With no internet or no credit she goes back to her local voice on her own. You pick the model: free or Pro.
 - **Much faster:** she starts speaking while her AI is still writing, and in the chat you see how far along her voice is (*Generating voice 42 %*).
+- **See which voice is speaking:** under each answer the voice meter has a color and a name: blue for Fish (cloud), green for local, yellow for her recorded phrases and gray for the phone's voice.
 - **If her cloud voice fails, she tells you why** (key, credit, Fish busy or no internet), after trying again twice.
 - **Lighter on modest and older phones:** her ears rest when it's quiet (about 80 % less work), she's drawn less often on modest phones and when yours gets warm, and her voice uses fewer cores. A new face when she lies down looking at her phone.
 - **Her 202 recorded phrases, in her new voice:** they play more often (saying hi, when she's bored, in the chat, on your notifications) and instantly, with no internet.

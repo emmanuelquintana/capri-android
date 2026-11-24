@@ -825,4 +825,8 @@
     <string name="fish_why_down">die Fish-Server sind überlastet, sie versucht es in einer Minute erneut</string>
     <string name="fish_why_net">keine Internetverbindung</string>
     <string name="fish_why_other">ein unerwarteter Fehler (steht in ihrem Protokoll)</string>
+    <string name="voice_src_fish">Fish · Cloud</string>
+    <string name="voice_src_local">Lokal</string>
+    <string name="voice_src_clip">Aufgenommener Satz</string>
+    <string name="voice_src_system">Handystimme</string>
 </resources>
