@@ -809,4 +809,7 @@
     <string name="ai_model_none">Không lấy được mô hình. Kiểm tra mạng rồi thử lại.</string>
     <string name="ai_model_title">Mô hình của %1$s</string>
     <string name="community_x">Theo dõi trên X (Twitter)</string>
+    <string name="fish_model">Mô hình giọng</string>
+    <string name="fish_model_free">Miễn phí</string>
+    <string name="fish_model_pro">Pro (dùng số dư của bạn)</string>
 </resources>

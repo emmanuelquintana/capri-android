@@ -809,4 +809,7 @@
     <string name="ai_model_none">モデルを取得できませんでした。ネットを確認してもう一度試してね。</string>
     <string name="ai_model_title">%1$s のモデル</string>
     <string name="community_x">X(Twitter)でフォロー</string>
+    <string name="fish_model">音声モデル</string>
+    <string name="fish_model_free">無料</string>
+    <string name="fish_model_pro">Pro(残高を使用)</string>
 </resources>

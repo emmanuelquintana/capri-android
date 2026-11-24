@@ -4,7 +4,7 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 
 ## 1.12.0
 
-- **Voix dans le cloud (Fish Audio) :** avec ta propre clé, elle parle avec sa voix en temps réel, en espagnol, anglais, portugais et japonais. Sans internet ou sans crédit, elle revient seule à sa voix locale.
+- **Voix dans le cloud (Fish Audio) :** avec ta propre clé, elle parle avec sa voix en temps réel, en espagnol, anglais, portugais et japonais. Sans internet ou sans crédit, elle revient seule à sa voix locale. Tu choisis le modèle : gratuit ou Pro.
 - **Bien plus rapide :** elle commence à parler pendant que son IA écrit encore, et dans le chat tu vois où en est sa voix (*Voix en cours 42 %*).
 - **Ses 202 phrases enregistrées, avec sa nouvelle voix :** elles sonnent plus souvent (pour te saluer, quand elle s'ennuie, dans le chat, à tes notifications) et tout de suite, sans internet.
 - **On l'entend dans tes enregistrements d'écran.**

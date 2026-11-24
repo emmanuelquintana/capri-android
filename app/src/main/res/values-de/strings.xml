@@ -813,4 +813,7 @@
     <string name="ai_model_none">Die Modelle kamen nicht an. Prüf dein Internet und versuch es nochmal.</string>
     <string name="ai_model_title">Modelle von %1$s</string>
     <string name="community_x">Auf X (Twitter) folgen</string>
+    <string name="fish_model">Stimmmodell</string>
+    <string name="fish_model_free">Kostenlos</string>
+    <string name="fish_model_pro">Pro (nutzt dein Guthaben)</string>
 </resources>

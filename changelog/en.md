@@ -4,7 +4,7 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.12.0
 
-- **Cloud voice (Fish Audio):** with your own key she speaks in her voice in real time, in Spanish, English, Portuguese and Japanese. With no internet or no credit she goes back to her local voice on her own.
+- **Cloud voice (Fish Audio):** with your own key she speaks in her voice in real time, in Spanish, English, Portuguese and Japanese. With no internet or no credit she goes back to her local voice on her own. You pick the model: free or Pro.
 - **Much faster:** she starts speaking while her AI is still writing, and in the chat you see how far along her voice is (*Generating voice 42 %*).
 - **Her 202 recorded phrases, in her new voice:** they play more often (saying hi, when she's bored, in the chat, on your notifications) and instantly, with no internet.
 - **She's heard in your screen recordings.**

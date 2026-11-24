@@ -824,4 +824,7 @@
     <string name="ai_model_none">Não deu para trazer os modelos. Confira sua internet e tente de novo.</string>
     <string name="ai_model_title">Modelos de %1$s</string>
     <string name="community_x">Seguir no X (Twitter)</string>
+    <string name="fish_model">Modelo de voz</string>
+    <string name="fish_model_free">Grátis</string>
+    <string name="fish_model_pro">Pro (usa seu saldo)</string>
 </resources>

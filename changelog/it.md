@@ -4,7 +4,7 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 
 ## 1.12.0
 
-- **Voce nel cloud (Fish Audio):** con la tua chiave parla con la sua voce in tempo reale, in spagnolo, inglese, portoghese e giapponese. Senza internet o senza credito torna da sola alla sua voce locale.
+- **Voce nel cloud (Fish Audio):** con la tua chiave parla con la sua voce in tempo reale, in spagnolo, inglese, portoghese e giapponese. Senza internet o senza credito torna da sola alla sua voce locale. Scegli tu il modello: gratis o Pro.
 - **Molto più veloce:** comincia a parlare mentre la sua IA sta ancora scrivendo, e nella chat vedi a che punto è la sua voce (*Voce 42 %*).
 - **Le sue 202 frasi registrate, con la voce nuova:** suonano più spesso (quando ti saluta, quando si annoia, nella chat, alle tue notifiche) e subito, senza internet.
 - **Si sente nelle tue registrazioni dello schermo.**

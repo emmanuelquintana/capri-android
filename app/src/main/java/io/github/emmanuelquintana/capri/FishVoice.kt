@@ -53,6 +53,13 @@ object FishVoice {
     fun forget(c: Context) = prefs(c).edit().clear().apply()
 
     /** The voice you pasted (any Fish Audio voice), else hers. */
+    /** (1.12.0, Emma) which of Fish's models she speaks with: the free one unless you pick another. */
+    const val FREE = "s2.1-pro-free"
+    val MODELS = listOf(FREE, "s2.1-pro")
+    @Volatile private var modelNow = FREE
+    fun model(c: Context): String = (prefs(c).getString("model", null)?.takeIf { it in MODELS } ?: FREE).also { modelNow = it }
+    fun setModel(c: Context, m: String) { prefs(c).edit().putString("model", m).apply(); modelNow = m }
+
     fun customVoice(c: Context) = prefs(c).getString("voice", null).orEmpty()
     fun setCustomVoice(c: Context, id: String) = prefs(c).edit().putString("voice", id.trim()).apply()
     fun voiceFor(c: Context, lang: String): String =
@@ -61,7 +68,7 @@ object FishVoice {
 
     /** Ready to answer in [lang] now: a key, a voice, switched on, and internet (and it didn't just fail). */
     fun usable(c: Context, lang: String): Boolean =
-        on(c) && voiceFor(c, lang).isNotEmpty() && android.os.SystemClock.elapsedRealtime() >= restUntil && online(c)
+        model(c).isNotEmpty() && on(c) && voiceFor(c, lang).isNotEmpty() && android.os.SystemClock.elapsedRealtime() >= restUntil && online(c)
 
     /** After a failure her other voice answers a while: 10 minutes for a key or credit problem, 1 for the network. */
     @Volatile private var restUntil = 0L
@@ -91,6 +98,7 @@ object FishVoice {
      */
     fun setKey(c: Context, key: String): String? {
         val k = key.trim()
+        model(c)
         if (k.length < 16) return "badkey"
         val code = runCatching {
             val h = open(k, JSONObject().put("text", "Hola.").put("format", "pcm").put("sample_rate", RATE))
@@ -113,7 +121,7 @@ object FishVoice {
         h.readTimeout = 20_000
         h.setRequestProperty("Authorization", "Bearer $key")
         h.setRequestProperty("Content-Type", "application/json")
-        h.setRequestProperty("model", "s2.1-pro-free")
+        h.setRequestProperty("model", modelNow)
         h.setRequestProperty("User-Agent", "Capri-Android")
         h.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
         return h

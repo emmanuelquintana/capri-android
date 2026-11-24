@@ -813,4 +813,7 @@
     <string name="ai_model_none">Non sono riuscita a prendere i modelli. Controlla internet e riprova.</string>
     <string name="ai_model_title">Modelli di %1$s</string>
     <string name="community_x">Segui su X (Twitter)</string>
+    <string name="fish_model">Modello di voce</string>
+    <string name="fish_model_free">Gratis</string>
+    <string name="fish_model_pro">Pro (usa il tuo credito)</string>
 </resources>

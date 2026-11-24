@@ -824,4 +824,7 @@
     <string name="ai_model_none">Impossible d\'obtenir ses modèles. Vérifie ta connexion et réessaie.</string>
     <string name="ai_model_title">Modèles de %1$s</string>
     <string name="community_x">Suivre sur X (Twitter)</string>
+    <string name="fish_model">Modèle de voix</string>
+    <string name="fish_model_free">Gratuit</string>
+    <string name="fish_model_pro">Pro (utilise ton crédit)</string>
 </resources>

@@ -4,7 +4,7 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 
 ## 1.12.0
 
-- **Voz na nuvem (Fish Audio):** com a sua própria chave ela fala com a voz dela em tempo real, em espanhol, inglês, português e japonês. Sem internet ou sem saldo, volta sozinha para a voz local.
+- **Voz na nuvem (Fish Audio):** com a sua própria chave ela fala com a voz dela em tempo real, em espanhol, inglês, português e japonês. Sem internet ou sem saldo, volta sozinha para a voz local. Você escolhe o modelo: grátis ou Pro.
 - **Muito mais rápida:** ela começa a falar enquanto a IA ainda escreve, e no chat você vê quanto a voz já gerou (*Gerando voz 42 %*).
 - **Suas 202 frases gravadas, com a voz nova:** tocam mais vezes (ao te cumprimentar, quando fica entediada, no chat, nas suas notificações) e na hora, sem internet.
 - **A voz dela aparece nas suas gravações de tela.**

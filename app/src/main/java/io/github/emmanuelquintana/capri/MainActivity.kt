@@ -1561,6 +1561,10 @@ class MainActivity : Activity() {
             }
             buttons.addView(choice(listOf(R.string.off to false, R.string.on to true),
                 { FishVoice.on(this@MainActivity) }, { a, b -> a == b }) { FishVoice.setOn(this@MainActivity, it); draw() }, ui.block(4))
+            // (1.12.0, Emma: "que deje seleccionar con cuál modelo") the free one, or Pro with your credit
+            buttons.addView(ui.text(getString(R.string.fish_model), 14f, Hud.PAPER, ui.head), ui.block(10))
+            buttons.addView(choice(listOf(R.string.fish_model_free to FishVoice.FREE, R.string.fish_model_pro to "s2.1-pro"),
+                { FishVoice.model(this@MainActivity) }, { a, b -> a == b }) { FishVoice.setModel(this@MainActivity, it); draw() }, ui.block(4))
             buttons.addView(ui.button(getString(R.string.fish_test) + " ▶", Ui.Kind.GREEN) {
                 val ears = CapriService.current?.ears ?: return@button Toast.makeText(this@MainActivity, R.string.fish_test_off, Toast.LENGTH_LONG).show()
                 ears.say(getString(R.string.voice_phone_sample), Lang.current(this@MainActivity), org.json.JSONObject().put("id", "fish-test").put("kind", "test").put("engine", FishVoice.ID))

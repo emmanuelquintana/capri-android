@@ -831,4 +831,7 @@
     <string name="ai_model_none">Не удалось получить модели. Проверь интернет и попробуй ещё раз.</string>
     <string name="ai_model_title">Модели %1$s</string>
     <string name="community_x">Подписаться в X (Twitter)</string>
+    <string name="fish_model">Модель голоса</string>
+    <string name="fish_model_free">Бесплатная</string>
+    <string name="fish_model_pro">Pro (тратит баланс)</string>
 </resources>

@@ -825,4 +825,7 @@
     <string name="ai_model_none">Couldn\'t get its models. Check your internet and try again.</string>
     <string name="ai_model_title">%1$s models</string>
     <string name="community_x">Follow on X (Twitter)</string>
+    <string name="fish_model">Voice model</string>
+    <string name="fish_model_free">Free</string>
+    <string name="fish_model_pro">Pro (uses your credit)</string>
 </resources>
