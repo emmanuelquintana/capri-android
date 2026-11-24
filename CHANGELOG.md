@@ -7,6 +7,7 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 
 - **Voz en la nube (Fish Audio):** con tu propia clave habla con su voz en tiempo real, en español, inglés, portugués y japonés. Sin internet o sin saldo vuelve sola a su voz local. Eliges el modelo: gratis o Pro.
 - **Mucho más rápida:** empieza a hablar mientras su IA todavía escribe, y en el chat ves cuánto lleva su voz (*Generando voz 42 %*).
+- **Más ligera en teléfonos modestos y viejos:** sus oídos descansan cuando hay silencio (gastan cerca de 80 % menos), se dibuja menos seguido en teléfonos modestos y cuando el tuyo se calienta, y su voz usa menos núcleos. Su cara nueva al ver el teléfono acostada.
 - **Sus 202 frases grabadas, con su voz nueva:** suenan más seguido (al saludarte, al aburrirse, en el chat, en tus notificaciones) y al instante, sin internet.
 - **Se escucha en tus grabaciones de pantalla.**
 - **Ya no se calla ni se corta:** sigue después de la primera oración, termina las respuestas largas y no se queda muda si su motor se atora.
