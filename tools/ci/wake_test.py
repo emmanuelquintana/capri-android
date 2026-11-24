@@ -26,14 +26,19 @@ SPOT = json.dumps({'es': ['oye capri', 'capri', '[unk]'], 'en': ['hey capri', 'c
 def spot(path):
     w = wave.open(path, 'rb')
     r = KaldiRecognizer(model, 16000, SPOT)
-    seen = []
+    r.SetWords(True)
+    best = 0.0
+    def take(res):
+        nonlocal best
+        for x in res.get('result', []):
+            if x.get('word') == 'capri': best = max(best, x.get('conf', 0))
     while True:
         d = w.readframes(1600)
         if not d: break
-        if r.AcceptWaveform(d): seen.append(json.loads(r.Result()).get('text', ''))
-        else: seen.append(json.loads(r.PartialResult()).get('partial', ''))
-    seen.append(json.loads(r.FinalResult()).get('text', ''))
-    return 'capri' in ' '.join(seen)
+        if r.AcceptWaveform(d): take(json.loads(r.Result()))
+    take(json.loads(r.FinalResult()))
+    return best
+confs = []
 hits = 0; named = 0; shits = 0; false = 0; sfalse = 0; quiet = 0
 for p in phrases:
     for speed in (130, 175):
@@ -50,8 +55,12 @@ for p in phrases:
         text = ' '.join(t for t in out if t).strip()
         has = bool(NAME.search(plain(text)))
         want = 'capri' in p.lower()
-        sp = spot('/tmp/p16.wav')
+        conf = spot('/tmp/p16.wav')
+        sp = conf >= 0.9
+        confs.append((round(conf, 2), want))
         named += want; hits += (has and want); shits += (sp and want)
         quiet += (not want); false += (has and not want); sfalse += (sp and not want)
-        print(f"[{lang} {speed}] «{p}» -> «{text}» name={'yes' if has else 'NO'} spotter={'yes' if sp else 'NO'}")
+        print(f"[{lang} {speed}] «{p}» -> «{text}» name={'yes' if has else 'NO'} spotter={'yes' if sp else 'NO'} conf={conf:.2f}")
 print(f"RESULT {lang}: her name found {hits}/{named} (false {false}/{quiet}); spotter {shits}/{named} (false {sfalse}/{quiet})")
+for t in (0.6, 0.7, 0.8, 0.9, 0.95, 0.99):
+    print(f"  threshold {t}: name {sum(1 for c, w in confs if w and c >= t)}/{named}, false {sum(1 for c, w in confs if not w and c >= t)}/{quiet}")
