@@ -686,4 +686,5 @@
         <item>Tu me mets une chanson ?</item>
         <item>Je te regarde. Gentiment.</item>
     </string-array>
+    <string name="chat_attach">Lui donner un fichier (PDF, Word, image, vidéo, chanson)</string>
 </resources>

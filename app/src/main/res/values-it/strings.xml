@@ -675,4 +675,5 @@
         <item>Mi metti una canzone?</item>
         <item>Ti guardo. Con affetto.</item>
     </string-array>
+    <string name="chat_attach">Darle un file (PDF, Word, immagine, video, canzone)</string>
 </resources>

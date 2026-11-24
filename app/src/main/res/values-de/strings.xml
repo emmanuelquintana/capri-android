@@ -675,4 +675,5 @@
         <item>Spielst du mir ein Lied?</item>
         <item>Ich schau zu. Lieb gemeint.</item>
     </string-array>
+    <string name="chat_attach">Ihr eine Datei geben (PDF, Word, Bild, Video, Lied)</string>
 </resources>

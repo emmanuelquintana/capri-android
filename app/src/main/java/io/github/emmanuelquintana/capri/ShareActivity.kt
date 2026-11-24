@@ -43,18 +43,44 @@ class ShareActivity : Activity() {
         Toast.makeText(this, R.string.share_sending, Toast.LENGTH_SHORT).show()
         // read while this screen is open (the app that shared lets us read it only meanwhile)
         Threads.make {
+            val name = uri?.let { u -> runCatching { contentResolver.query(u, arrayOf(android.provider.OpenableColumns.DISPLAY_NAME), null, null, null)?.use { c -> if (c.moveToFirst()) c.getString(0) else null } }.getOrNull() }.orEmpty()
             val kind = when {
                 uri != null && type.startsWith("video/") -> "video"
                 uri != null && type.startsWith("image/") -> "image"
+                // (1.12.0, community: "subir archivos tipo PDF, Word… para que te ayude con errores, resumen") a PDF goes
+                // as its first pages, side by side (any AI that sees reads them); a Word file or a text file as its words
+                uri != null && (type == "application/pdf" || name.endsWith(".pdf", true)) -> "pdf"
+                uri != null && (type.contains("wordprocessingml") || name.endsWith(".docx", true)) -> "doc"
+                uri != null && (type.startsWith("text/") && type != "text/plain" || name.matches(Regex(".*\\.(txt|md|csv|json|srt)$", RegexOption.IGNORE_CASE))) -> "doc"
+                // (1.12.0, community: "que Capri pueda escuchar canciones y reconocer sus títulos") a song or a voice note
+                uri != null && type.startsWith("audio/") -> "audio"
                 else -> "text"
             }
+            var words = ""
+            var audio: Pair<String, String>? = null
             val image = runCatching {
                 when (kind) {
                     "video" -> frames(uri!!)
                     "image" -> picture(uri!!)
+                    "pdf" -> pages(uri!!)
+                    "doc" -> { words = if (name.endsWith(".docx", true) || type.contains("wordprocessingml")) docx(uri!!) else plain(uri!!); null }
+                    "audio" -> { audio = sound(uri!!, type, name); null }
                     else -> null
                 }
             }.onFailure { Diag.add("W", "share: ${it.message}") }.getOrNull()
+            if (kind == "doc" && words.isNotBlank() || kind == "audio" && audio != null) {
+                pending = JSONObject().put("kind", kind).put("text", text).put("name", name).apply {
+                    if (kind == "doc") put("doc", words)
+                    audio?.let { put("audio", it.first).put("format", it.second) }
+                }
+                Diag.add("I", "share: a $kind (${name.takeLast(40)})")
+                runOnUiThread {
+                    if (CapriService.running) CapriService.send(this, CapriService.ACTION_SHARE)
+                    else CapriService.start(this, CapriService.ACTION_SHARE)
+                    finish()
+                }
+                return@make
+            }
             if (image == null && text.isEmpty()) {
                 runOnUiThread {
                     Toast.makeText(this, R.string.share_failed, Toast.LENGTH_LONG).show()
@@ -62,7 +88,7 @@ class ShareActivity : Activity() {
                 }
                 return@make
             }
-            pending = JSONObject().put("kind", if (image == null) "text" else kind).put("text", text).apply { if (image != null) put("image", image) }
+            pending = JSONObject().put("kind", if (image == null) "text" else kind).put("text", text).put("name", name).apply { if (image != null) put("image", image) }
             Diag.add("I", "share: a $kind${if (text.isNotEmpty()) " with text" else ""}")
             runOnUiThread {
                 if (CapriService.running) CapriService.send(this, CapriService.ACTION_SHARE)
@@ -113,6 +139,69 @@ class ShareActivity : Activity() {
         }
     }
 
+    /** (1.12.0) A PDF's first pages (up to 4), two by two, white like paper, in one picture. */
+    private fun pages(uri: Uri): String? {
+        val fd = contentResolver.openFileDescriptor(uri, "r") ?: return null
+        fd.use {
+            val pdf = android.graphics.pdf.PdfRenderer(it)
+            pdf.use { r ->
+                val shots = (0 until minOf(4, r.pageCount)).map { i ->
+                    r.openPage(i).use { p ->
+                        val k = PAGE.toFloat() / maxOf(p.width, p.height)
+                        val bmp = Bitmap.createBitmap((p.width * k).toInt().coerceAtLeast(1), (p.height * k).toInt().coerceAtLeast(1), Bitmap.Config.ARGB_8888)
+                        bmp.eraseColor(Color.WHITE)
+                        p.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                        bmp
+                    }
+                }
+                if (shots.isEmpty()) return null
+                if (shots.size == 1) return jpeg(shots[0])
+                val cw = shots.maxOf { s -> s.width }
+                val ch = shots.maxOf { s -> s.height }
+                val sheet = Bitmap.createBitmap(cw * 2 + GAP, ch * ((shots.size + 1) / 2) + GAP * ((shots.size - 1) / 2), Bitmap.Config.RGB_565)
+                val c = Canvas(sheet)
+                c.drawColor(Color.DKGRAY)
+                shots.forEachIndexed { i, s -> c.drawBitmap(s, (i % 2) * (cw + GAP).toFloat(), (i / 2) * (ch + GAP).toFloat(), null) }
+                return jpeg(sheet)
+            }
+        }
+    }
+
+    /** (1.12.0) A Word file's words (its document.xml, paragraphs kept), at most DOC characters. */
+    private fun docx(uri: Uri): String {
+        contentResolver.openInputStream(uri)?.use { input ->
+            java.util.zip.ZipInputStream(input).use { zip ->
+                while (true) {
+                    val e = zip.nextEntry ?: break
+                    if (e.name != "word/document.xml") continue
+                    val xml = zip.readBytes().toString(Charsets.UTF_8)
+                    return xml.replace(Regex("</w:p>"), "\n").replace(Regex("<w:tab/>"), "\t").replace(Regex("<[^>]+>"), "")
+                        .replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", "\"").replace("&apos;", "'")
+                        .replace(Regex("\n{3,}"), "\n\n").trim().take(DOC)
+                }
+            }
+        }
+        return ""
+    }
+
+    private fun plain(uri: Uri): String = contentResolver.openInputStream(uri)?.use { it.readBytes().take(DOC * 3).toByteArray().toString(Charsets.UTF_8) }?.trim()?.take(DOC) ?: ""
+
+    /** (1.12.0) A sound file as it is (base64) and its format for her AI, if it isn't too big. */
+    private fun sound(uri: Uri, type: String, name: String): Pair<String, String>? {
+        val bytes = contentResolver.openInputStream(uri)?.use { it.readBytes() } ?: return null
+        if (bytes.size > SOUND) return null
+        val ext = name.substringAfterLast('.', "").lowercase()
+        val format = when {
+            type.contains("mpeg") || ext == "mp3" -> "mp3"
+            type.contains("wav") || ext == "wav" -> "wav"
+            type.contains("ogg") || type.contains("opus") || ext == "ogg" || ext == "opus" -> "ogg"
+            type.contains("flac") || ext == "flac" -> "flac"
+            type.contains("aiff") || ext == "aiff" -> "aiff"
+            else -> "aac" // (m4a, aac, 3gp voice notes)
+        }
+        return Base64.encodeToString(bytes, Base64.NO_WRAP) to format
+    }
+
     private fun fit(bmp: Bitmap, max: Int): Bitmap {
         val k = max.toFloat() / maxOf(bmp.width, bmp.height)
         return if (k >= 1f) bmp else Bitmap.createScaledBitmap(bmp, (bmp.width * k).toInt().coerceAtLeast(1), (bmp.height * k).toInt().coerceAtLeast(1), true)
@@ -128,6 +217,9 @@ class ShareActivity : Activity() {
         private const val MAX = 1280
         private const val FRAME = 640
         private const val GAP = 8
+        private const val PAGE = 900
+        private const val DOC = 12_000
+        private const val SOUND = 4_000_000
 
         /** What was shared, until her page takes it (share:take): { kind, text, image? } */
         @Volatile var pending: JSONObject? = null

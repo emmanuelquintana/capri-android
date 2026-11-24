@@ -6,6 +6,8 @@
 
 import { extraAsk } from './asks.js';
 import { NEWS_ASK, newsLine } from './news.js';
+// (1.12.0) a song playing near you
+const SONG_ASK = /qu[ée] canci[oó]n (?:es|suena)|c[oó]mo se llama (?:esta|la) canci[oó]n|what song is (?:this|that|playing)|name (?:this|that) song|quelle (?:est cette )?chanson|que m[uú]sica [ée] essa|qual [ée] essa m[uú]sica|что (?:это )?за песня|bài (?:hát )?gì đây|この曲(?:は)?何|was ist das für ein (?:lied|song)|welches lied|che canzone [èe]/iu;
 import { on, send, call } from './native.js';
 import { clean, mood } from '../capri/src/renderer/js/chat.js';
 
@@ -477,6 +479,8 @@ async function handle(text, { toggleVisible, visible }) {
     const ok = await window.host.media('play').catch(() => false);
     return answer(ok ? t.play : t.cant, ok ? 'laugh' : 'aside');
   }
+  // (1.12.0) "¿qué canción es esta?": she listens for a few seconds and tells you (share.js, with Gemini)
+  if (SONG_ASK.test(text) && words <= 10 && dev.share?.song) return dev.share.song(text);
   // (1.12.0) the day's news, said by her (news.js)
   if (NEWS_ASK.test(text) && words <= 10) {
     const news = await newsLine(lang);

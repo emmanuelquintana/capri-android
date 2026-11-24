@@ -671,4 +671,5 @@
         <item>Mở cho mình một bài nhé?</item>
         <item>Mình đang nhìn đấy. Dịu dàng thôi.</item>
     </string-array>
+    <string name="chat_attach">Gửi cô ấy một tệp (PDF, Word, ảnh, video, bài hát)</string>
 </resources>

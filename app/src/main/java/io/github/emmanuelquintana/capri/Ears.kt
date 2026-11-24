@@ -193,10 +193,56 @@ class Ears(private val service: CapriService) {
         else sm.unregisterListener(motion)
     }
 
+    /** (1.12.0) The mic lent to something else for a moment (a song she listens to): her ears step aside. */
+    @Volatile var held = false
+
+    /**
+     * (1.12.0) "¿Qué canción es esta?": [seconds] of what the mic hears, as a WAV (16 kHz mono) in base64, her ears
+     * aside meanwhile. Null without the mic. Blocking: called from her bridge's worker thread.
+     */
+    @android.annotation.SuppressLint("MissingPermission")
+    fun record(seconds: Int): String? {
+        if (!allowed(service)) return null
+        held = true
+        update()
+        try {
+            Thread.sleep(500) // (her recognizer lets go of the mic)
+            val rate = 16_000
+            val min = android.media.AudioRecord.getMinBufferSize(rate, android.media.AudioFormat.CHANNEL_IN_MONO, android.media.AudioFormat.ENCODING_PCM_16BIT)
+            val mic = android.media.AudioRecord(android.media.MediaRecorder.AudioSource.MIC, rate, android.media.AudioFormat.CHANNEL_IN_MONO,
+                android.media.AudioFormat.ENCODING_PCM_16BIT, maxOf(min, rate))
+            if (mic.state != android.media.AudioRecord.STATE_INITIALIZED) { mic.release(); return null }
+            val pcm = java.io.ByteArrayOutputStream()
+            val buf = ByteArray(rate / 5)
+            mic.startRecording()
+            val end = System.currentTimeMillis() + seconds * 1000L
+            while (System.currentTimeMillis() < end) {
+                val n = mic.read(buf, 0, buf.size)
+                if (n < 0) break
+                pcm.write(buf, 0, n)
+            }
+            runCatching { mic.stop() }
+            mic.release()
+            val data = pcm.toByteArray()
+            val head = java.nio.ByteBuffer.allocate(44).order(java.nio.ByteOrder.LITTLE_ENDIAN).apply {
+                put("RIFF".toByteArray()); putInt(36 + data.size); put("WAVE".toByteArray())
+                put("fmt ".toByteArray()); putInt(16); putShort(1); putShort(1); putInt(rate); putInt(rate * 2); putShort(2); putShort(16)
+                put("data".toByteArray()); putInt(data.size)
+            }.array()
+            return android.util.Base64.encodeToString(head + data, android.util.Base64.NO_WRAP)
+        } catch (e: Exception) {
+            Diag.add("W", "song: mic ${e.message}")
+            return null
+        } finally {
+            held = false
+            update()
+        }
+    }
+
     /** Switched on or off, the screen on or off, the mic allowed or not: listening or not. */
     fun update() = main.post {
         val pm = service.getSystemService(PowerManager::class.java)!!
-        val should = enabled(service) && allowed(service) && pm.isInteractive && SpeechRecognizer.isRecognitionAvailable(service) && !CapriService.gamer && !CapriService.saving
+        val should = enabled(service) && allowed(service) && pm.isInteractive && SpeechRecognizer.isRecognitionAvailable(service) && !CapriService.gamer && !CapriService.saving && !held
         status = when {
             !enabled(service) -> ""
             !allowed(service) -> "nomic"

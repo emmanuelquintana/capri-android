@@ -1267,8 +1267,17 @@ class MainActivity : Activity() {
             PICK_VOICE -> voiceJob { CapriVoice.installFrom(this, uri, it) }
             PICK_MODEL -> voiceJob { CapriNeural.importModel(this, uri, it) }
             PICK_PROFILE -> voiceJob { CapriNeural.importProfiles(this, uri, it) }
+            // (1.12.0) a file for her (a PDF, a Word file, a picture, a video, a song): as if shared with her
+            PICK_FOR_HER -> runCatching {
+                startActivity(Intent(this, ShareActivity::class.java).setAction(Intent.ACTION_SEND)
+                    .setType(contentResolver.getType(uri) ?: "application/octet-stream")
+                    .putExtra(Intent.EXTRA_STREAM, uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION))
+            }
         }
     }
+
+    /** (1.12.0) The Chat tab's 📎: a file to give her. */
+    fun pickForHer() = pickFile(PICK_FOR_HER)
 
     private fun pickFile(code: Int) = runCatching {
         @Suppress("DEPRECATION")
@@ -2078,6 +2087,7 @@ class MainActivity : Activity() {
         private const val PICK_VOICE = 4711 // (1.11.0) a Capri Voice pack from your files
         private const val PICK_MODEL = 4712 // (V8.5) one of the neural engine's .gguf files
         private const val PICK_PROFILE = 4713 // (V8.5) the private profiles ZIP
+        private const val PICK_FOR_HER = 4714 // (1.12.0) a file for her, from the Chat tab
         const val TAB_NEWS = 1
         const val TAB_COMMUNITY = 2
         const val TAB_GAMES = 3

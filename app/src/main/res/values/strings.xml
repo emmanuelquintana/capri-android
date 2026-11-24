@@ -687,4 +687,5 @@
         <item>Got a song for me?</item>
         <item>I\'m watching. Kindly.</item>
     </string-array>
+    <string name="chat_attach">Give her a file (PDF, Word, picture, video, song)</string>
 </resources>

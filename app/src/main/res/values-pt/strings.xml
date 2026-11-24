@@ -686,4 +686,5 @@
         <item>Põe uma música pra mim?</item>
         <item>Tô de olho. Com carinho.</item>
     </string-array>
+    <string name="chat_attach">Mandar um arquivo (PDF, Word, imagem, vídeo, música)</string>
 </resources>

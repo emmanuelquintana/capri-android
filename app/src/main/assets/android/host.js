@@ -948,6 +948,33 @@ function hack() {
   return true;
 }
 
+// (1.12.0, community: "que Capri pueda escuchar canciones… reconocer sus títulos, artistas") a sound (a song shared
+// with her, or a few seconds she heard with "Capri, ¿qué canción es esta?"): Gemini is the AI that hears, with
+// your Gemini key (hers, or a second one you gave her). Without one she says so.
+async function hearSound({ audio, format = 'wav', persona, prompt, history = [] }) {
+  const conf = await llmConfig();
+  if (!conf.apiKeys?.gemini) return { ok: false, code: 'noear' };
+  let list = cfg.provider === 'gemini' ? chatModels : null;
+  if (!list?.length) list = await llm.models('gemini', conf).catch(() => null);
+  const models = rankModels(list || [], 'gemini').filter((m) => /flash|pro/i.test(m) && !isTired(m)).slice(0, 3);
+  if (!models.length) return { ok: false, code: 'noear' };
+  const before = (Array.isArray(history) ? history : []).filter((m) => typeof m?.content === 'string' && ['user', 'assistant'].includes(m.role)).slice(-8);
+  const messages = [{ role: 'system', content: persona }, ...before,
+    { role: 'user', content: [{ type: 'text', text: prompt }, { type: 'input_audio', input_audio: { data: String(audio), format } }] }];
+  let last = null;
+  for (const model of models) {
+    try {
+      const text = await llm.chat('gemini', conf, { model, messages }, noop, AbortSignal.timeout(120000));
+      return { ok: true, text, model };
+    } catch (err) {
+      last = { ok: false, error: friendly(err.message), code: err.code || null, model };
+      if (err.code === 'busy') rest(model, err);
+      if (err.status === 410 || /no longer available/i.test(err.message || '')) retire(model);
+    }
+  }
+  return last || { ok: false, code: 'noear' };
+}
+
 async function sayAboutSnap({ id, persona, prompt, history = [] }) {
   const snap = snaps.get(id);
   snaps.delete(id);
@@ -1602,6 +1629,8 @@ window.host = {
     }
   }),
   lookSay: after((request) => sayAboutSnap(request || {})),
+  hearSay: after((request) => hearSound(request || {})), // (1.12.0) a song or a sound, to Gemini
+  hearRecord: (seconds) => call('audio:record', { seconds: Math.min(15, Math.max(3, Number(seconds) || 10)) }).catch(() => null),
   // until when every model she looks with is resting (ran out): her live looks wait till then
   lookResting: () => aiResting(lookModels()),
   lookWhere: after(() => {
@@ -1887,7 +1916,7 @@ ready.then(() => {
     reactions({ cfg: () => cfg }); // her reactions to your music, videos, games (react.js)
     window.dev.hearing = hearing(); // she's listening: her sign while you talk to her
     window.dev.agenda = agenda(); // your classes and your calendar: she says her reminder too (Agenda.kt)
-    sharing(); // pictures and videos shared with her from other apps (share.js)
+    window.dev.share = sharing(); // pictures, videos, documents and sounds shared with her from other apps (share.js)
     window.dev.translate = translating(); // "tradúceme esto": your screen, in the language you want
     window.dev.coach = coaching({ cfg: () => cfg }); // "dame un consejo": tips for your game
     window.dev.stream = streaming({ cfg: () => cfg, setConfig: updateConfig }); // streaming mode: your live's comments

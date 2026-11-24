@@ -671,4 +671,5 @@
         <item>曲かけてくれる？</item>
         <item>見てるよ。やさしくね。</item>
     </string-array>
+    <string name="chat_attach">ファイルを渡す（PDF、Word、画像、動画、曲）</string>
 </resources>

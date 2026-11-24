@@ -693,4 +693,5 @@
         <item>Включишь мне песню?</item>
         <item>Я наблюдаю. По-доброму.</item>
     </string-array>
+    <string name="chat_attach">Дать ей файл (PDF, Word, картинка, видео, песня)</string>
 </resources>

@@ -130,6 +130,7 @@ class HostBridge(private val service: CapriService) {
 
         // her look at your screen (Eyes.kt): one picture, live on or off, how much it changed
         "look:snap" -> JSONObject().put("image", service.eyes.snap())
+        "audio:record" -> service.ears?.record(obj(args).optInt("seconds", 10).coerceIn(3, 15))?.let { JSONObject().put("audio", it) } ?: JSONObject.NULL // (1.12.0) a song near you
         "look:live" -> if (obj(args).optBoolean("on")) service.eyes.startLive() else service.eyes.stopLive().let { false }
         "look:changed" -> service.eyes.changed()
 
