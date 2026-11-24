@@ -115,5 +115,8 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
   einen eigenen Bildschirm: Ihre Stimme laden, Stimme in der Cloud (dein Schlüssel), Wie sie klingt und Ihre Ohren. Vor
   den erweiterten Einstellungen gibt es den neuen Schalter **Stimme: Cloud oder lokal**.
 - **Persönliche Einstellungen in Bildschirmen:** dein Name oben, alles andere auf eigenen Bildschirmen.
+- **App neu geordnet:** sie startet bei Neuigkeiten; neuer Tab **Funktionen** (Schlafmodus, Kurse, ihre Fürsorge);
+  der Befehle-Tab hat nur Befehle; TikTok folgen unter Spenden; Bildschirm und Modi getrennt; dein Profil mit Foto oder
+  Symbol oben in den Einstellungen; gespeicherte Schlüssel sichtbar (verdeckt).
 - **Ihr Chat antwortet schneller:** ist ihre KI überlastet, kommt die, die geantwortet hat, ein paar Minuten zuerst dran.
 - **Ihre aufgenommenen Sätze auch im Chat:** während sie nachdenkt, sagt sie ab und zu einen ihrer Sätze.

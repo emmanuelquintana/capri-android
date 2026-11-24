@@ -810,4 +810,19 @@
     <string name="p_birthday_how">В этот день она тебя поздравит.</string>
     <string name="p_classes_how">Твои занятия и календарь: она напомнит.</string>
     <string name="p_care_how">Батарея, экономия заряда и перерывы.</string>
+    <!-- (1.12.0) profile, Funciones, Pantalla/Modos -->
+    <string name="profile_edit">Изменить профиль</string>
+    <string name="profile_noname">Твоё имя</string>
+    <string name="profile_title">Твой профиль</string>
+    <string name="profile_photo">Выбрать фото</string>
+    <string name="profile_icons">Или один из её значков:</string>
+    <string name="profile_photo_bad">Не удалось прочитать картинку.</string>
+    <string name="ai_keys_saved">Сохранённые ключи:\n%1$s</string>
+    <string name="ai_keys_forget">Забыть эти ключи</string>
+    <string name="tab_funcs">Функции</string>
+    <string name="funcs_intro">Что она делает для тебя каждый день: спит с тобой, напоминает о занятиях и заботится о тебе.</string>
+    <string name="g_screen">Экран</string>
+    <string name="g_screen_how">Что она видит на экране и её пилюля у часов.</string>
+    <string name="g_modes_only">Режимы</string>
+    <string name="g_modes_only_how">Игровой режим, её советы в игре и режим стрима.</string>
 </resources>

@@ -56,6 +56,24 @@ object LiveBar {
         "calm" to "🌙", "many" to "✨", "bored" to "😑", "cringe" to "😬", "focus" to "🎯",
     )
 
+    /**
+     * (1.12.0, Emma: "tampoco veo que sirva lo de la Now Bar de Samsung") why her pill shows or not, for her log:
+     * Android's own answers (allowed for this app, her notification promotable, and promoted for real).
+     */
+    fun why(context: Context): String {
+        if (!available()) return "Android ${Build.VERSION.SDK_INT} < 16"
+        if (!enabled(context)) return "off in Ajustes"
+        val nm = context.getSystemService(NotificationManager::class.java) ?: return "?"
+        val mine = runCatching { nm.activeNotifications.firstOrNull { it.isOngoing } }.getOrNull()
+            ?: return "allowed ${allowed(context)}, no ongoing notification"
+        val n = mine.notification
+        val promotable = runCatching { n.javaClass.getMethod("hasPromotableCharacteristics").invoke(n) as Boolean }.getOrNull()
+        val promoted = n.flags and 0x40000 != 0 // Notification.FLAG_PROMOTED_ONGOING
+        val ch = runCatching { nm.getNotificationChannel(n.channelId)?.importance }.getOrNull()
+        return "allowed ${allowed(context)}, promotable $promotable, promoted $promoted, channel importance $ch, " +
+            "colorized ${n.extras.getBoolean(Notification.EXTRA_COLORIZED)}, title ${!n.extras.getCharSequence(Notification.EXTRA_TITLE).isNullOrBlank()}"
+    }
+
     /** "Chat" on her pill: the app, on her chat. */
     fun chat(context: Context): PendingIntent = PendingIntent.getActivity(
         context, 21, Intent(context, MainActivity::class.java).putExtra(MainActivity.EXTRA_TAB, MainActivity.TAB_CHAT)

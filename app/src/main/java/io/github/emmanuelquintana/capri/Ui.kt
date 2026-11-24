@@ -319,6 +319,24 @@ class Ui(private val a: Activity) {
                     path.lineTo(cx + s * 0.44f, cy + s * 0.2f); path.lineTo(cx - s * 0.44f, cy + s * 0.2f); path.close()
                     c.drawPath(path, p)
                 }
+                "terminal" -> { // (1.12.0) her commands: a screen with a prompt ">_"
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = s * 0.09f
+                    p.strokeCap = Paint.Cap.SQUARE
+                    p.strokeJoin = Paint.Join.MITER
+                    c.drawRect(cx - s * 0.44f, cy - s * 0.34f, cx + s * 0.44f, cy + s * 0.34f, p)
+                    path.moveTo(cx - s * 0.26f, cy - s * 0.14f); path.lineTo(cx - s * 0.08f, cy); path.lineTo(cx - s * 0.26f, cy + s * 0.14f)
+                    c.drawPath(path, p)
+                    c.drawLine(cx + s * 0.02f, cy + s * 0.16f, cx + s * 0.26f, cy + s * 0.16f, p)
+                }
+                "moon" -> { // (1.12.0) her functions (sleep, your classes, her care): a crescent and a star
+                    p.style = Paint.Style.FILL
+                    path.addCircle(cx - s * 0.04f, cy + s * 0.02f, s * 0.38f, Path.Direction.CW)
+                    val cut = Path().apply { addCircle(cx + s * 0.14f, cy - s * 0.12f, s * 0.32f, Path.Direction.CW) }
+                    path.op(cut, Path.Op.DIFFERENCE)
+                    c.drawPath(path, p)
+                    c.drawCircle(cx + s * 0.3f, cy + s * 0.2f, s * 0.06f, p)
+                }
                 "globe" -> { // (1.11.0) language and her AI: a globe
                     p.style = Paint.Style.STROKE
                     p.strokeWidth = s * 0.08f

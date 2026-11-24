@@ -81,6 +81,7 @@ object Diag {
             appendLine("RAM ${mem.totalMem / 1_048_576} MB, free ${mem.availMem / 1_048_576} MB · lang $lang · service ${if (CapriService.running) "on" else "off"}")
             appendLine("voice: mode ${store.configString("voiceMode") ?: "automatic"}, picked ${CapriVoice.engine(app)}, answers with ${CapriVoice.answerEngine(app, lang)}")
             appendLine("cloud voice (Fish): ${FishVoice.whyNot(app, lang)}, custom voice ${FishVoice.customVoice(app).ifEmpty { "no" }}, last error ${FishVoice.lastError.ifEmpty { "none" }}")
+            appendLine("her pill (Now Bar): ${runCatching { LiveBar.why(app) }.getOrElse { it.toString() }}")
             appendLine("her neural voice: ${tag?.let { CapriNeural.status(app, it) } ?: "no $lang"} · phrases ${CapriVoice.installed(tag ?: "es-MX")?.version ?: "none"}")
         }
         val logcat = runCatching {

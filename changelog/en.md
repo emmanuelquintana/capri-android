@@ -134,6 +134,9 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
   screen: Get her voice, Voice in the cloud (your key), How she sounds and Her ears. Before Advanced settings there's a
   new switch, **Voice: cloud or local**, to choose which voice answers you.
 - **Personal settings in screens:** your name at the top and everything else on its own screen.
+- **App reorganized:** it opens on What's new; new **Functions** tab (sleep mode, your classes and her care); the
+  Commands tab is only commands; follow on TikTok under Donate; Screen and Modes are separate settings; your profile with
+  a photo or icon at the top of Settings; and Her AI shows your saved keys (hidden).
 - **Her chat answers sooner:** when her AI is swamped, the one that did answer goes first for a few minutes instead of
   waiting on every busy model on each message.
 - **Her recorded phrases in the chat too:** while she thinks of your answer, now and then she says one of her phrases.

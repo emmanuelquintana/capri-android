@@ -792,4 +792,19 @@
     <string name="p_birthday_how">Quel giorno ti festeggia.</string>
     <string name="p_classes_how">Le tue lezioni e il tuo calendario: te li ricorda.</string>
     <string name="p_care_how">Batteria, risparmio batteria e pause.</string>
+    <!-- (1.12.0) profile, Funciones, Pantalla/Modos -->
+    <string name="profile_edit">Modifica profilo</string>
+    <string name="profile_noname">Il tuo nome</string>
+    <string name="profile_title">Il tuo profilo</string>
+    <string name="profile_photo">Scegli una foto</string>
+    <string name="profile_icons">Oppure una delle sue icone:</string>
+    <string name="profile_photo_bad">Impossibile leggere l’immagine.</string>
+    <string name="ai_keys_saved">Chiavi salvate:\n%1$s</string>
+    <string name="ai_keys_forget">Dimentica queste chiavi</string>
+    <string name="tab_funcs">Funzioni</string>
+    <string name="funcs_intro">Cosa fa per te ogni giorno: dorme con te, ti ricorda le lezioni e si prende cura di te.</string>
+    <string name="g_screen">Schermo</string>
+    <string name="g_screen_how">Cosa vede sul tuo schermo e la sua pillola vicino all’ora.</string>
+    <string name="g_modes_only">Modalità</string>
+    <string name="g_modes_only_how">Modalità gamer, i suoi consigli mentre giochi e modalità streaming.</string>
 </resources>

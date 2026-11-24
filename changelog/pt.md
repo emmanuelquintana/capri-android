@@ -123,6 +123,9 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
   tem sua tela: Baixar a voz dela, Voz na nuvem (sua chave), Como ela soa e Os ouvidos dela. Antes de Ajustes avançados
   há um novo botão, **Voz: na nuvem ou local**, para escolher qual voz te responde.
 - **Ajustes pessoais em telas:** seu nome no topo e o resto cada um na sua tela.
+- **App reorganizado:** abre em Novidades; nova aba **Funções** (modo sono, suas aulas e os cuidados dela); a aba
+  Comandos é só comandos; seguir no TikTok abaixo de Doar; Tela e Modos são ajustes separados; seu perfil com foto ou
+  ícone no topo dos Ajustes; e as chaves salvas aparecem (ocultas).
 - **O chat dela responde antes:** quando a IA dela está saturada, a que respondeu vai primeiro por alguns minutos.
 - **As frases gravadas também no chat:** enquanto pensa na resposta, de vez em quando ela diz uma das frases dela.
 

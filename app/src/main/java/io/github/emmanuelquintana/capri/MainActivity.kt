@@ -232,17 +232,20 @@ class MainActivity : Activity() {
         groups += Group("voice", "mic", Hud.MANE, R.string.settings_voice_screen, R.string.settings_voice_screen_how, voice)
         groups += Group("perms", "shield", Hud.GREEN, R.string.g_perms, R.string.g_perms_how, permsPage())
         groups += Group("ai", "globe", Hud.CYAN, R.string.g_ai, R.string.g_ai_how, aiLangPage())
-        groups += Group("modes", "eye", Hud.GREEN, R.string.g_modes, R.string.g_modes_how, modesPage())
+        groups += Group("screen", "eye", Hud.GREEN, R.string.g_screen, R.string.g_screen_how, screenPage())
+        groups += Group("modes", "pad", Hud.GREEN, R.string.g_modes_only, R.string.g_modes_only_how, modesPage())
         groups += Group("phone", "phone", Hud.YELLOW, R.string.g_phone, R.string.g_phone_how, phonePage())
         groups += Group("report", "warn", Hud.RED, R.string.g_report, R.string.g_report_how, reportPage())
-        val pages = listOf(chat.build(), newsPage(), communityPage(), gamesPage(), stylePage(), settingsPage())
+        val pages = listOf(chat.build(), newsPage(), communityPage(), gamesPage(), funcsPage(), stylePage(), settingsPage())
         val bar = ui.row().apply {
             background = Ui.Pill(Hud.INK, Hud.MANE, ui.dp(1.5f))
             setPadding(ui.dpi(6), ui.dpi(6), ui.dpi(6), ui.dpi(6))
             elevation = ui.dp(6f)
         }
-        val labels = listOf(R.string.tab_chat to "chat", R.string.tab_news to "spark", R.string.tab_community to "people", R.string.tab_games to "pad",
-            R.string.tab_style to "hanger", R.string.tab_settings to "sliders")
+        // (1.12.0, Emma: "elimina lo de comunidad y deja esa pantalla solo a los comandos, cambia el icono"; "modo sueño,
+        // tus clases y te cuida deben ser funciones… pon una pantalla nueva en el menú de píldora")
+        val labels = listOf(R.string.tab_chat to "chat", R.string.tab_news to "spark", R.string.tab_cmds to "terminal", R.string.tab_games to "pad",
+            R.string.tab_funcs to "moon", R.string.tab_style to "hanger", R.string.tab_settings to "sliders")
         for ((i, pair) in labels.withIndex()) {
             val (label, kind) = pair
             val icon = Ui.Icon(kind, Hud.PAPER_2)
@@ -303,7 +306,7 @@ class MainActivity : Activity() {
             if (typing) chat.setBottom(ui.dpi(8)) else roomUnderChat()
         }
         setContentView(root)
-        show(savedInstanceState?.getInt("tab")?.takeIf { it in 0 until TABS } ?: tabAsked(intent) ?: if (wantsUpdate) TAB_NEWS else TAB_CHAT, animate = false)
+        show(savedInstanceState?.getInt("tab")?.takeIf { it in 0 until TABS } ?: tabAsked(intent) ?: TAB_NEWS, animate = false) // (1.12.0, Emma: "que esa pestaña de novedades sea la principal")
         if (savedInstanceState == null && tabAsked(intent) == null) root.postDelayed({ if (!isFinishing && !tourOnce() && !offerVoiceOnce()) inviteOnce() }, 1500)
         // a screen of Ajustes to open on ("sub": a Group key): the emulator's screenshots ask for one
         intent?.getStringExtra(EXTRA_SUB)?.let { k -> groups.firstOrNull { it.key == k }?.let { openSub(it.page, animate = false) } }
@@ -471,6 +474,8 @@ class MainActivity : Activity() {
         // diga DONAR y abra el popup con el link de donar")
         addView(ui.button(getString(R.string.community_discord) + " ↗", Ui.Kind.LINE) { openLink(DISCORD) }, ui.block(10))
         addView(ui.button("♥ " + getString(R.string.main_donate), Ui.Kind.GREEN) { showSupport(asked = true) }, ui.block(8))
+        // (1.12.0, Emma: "añade lo de seguir al tiktok al inicio abajo de donar")
+        addView(ui.button(getString(R.string.community_tiktok) + " ↗", Ui.Kind.LINE) { openLink(TIKTOK) }, ui.block(8))
 
         // updates
         updateText = ui.text("", 13f, Hud.PAPER_2, ui.mono).apply { letterSpacing = 0.02f; setLineSpacing(0f, 1.15f) }
@@ -637,6 +642,7 @@ class MainActivity : Activity() {
     // (1.12.0, Emma: "ajustemos en pantallas los ajustes… y así aplicar esa misma lógica para todos los ajustes")
     // Ajustes personales: your name here, and each of the rest on its own screen
     private val personalKids = ArrayList<View>()
+    private var funcsCare: LinearLayout.() -> Unit = {} // (built with Ajustes personales, shown in Funciones)
     private fun youPage(): View {
         fun kid(build: LinearLayout.() -> Unit) = page {
             addView(ui.text("‹ " + getString(R.string.settings_personal).uppercase(), 13f, Hud.YELLOW, ui.mono).apply {
@@ -680,10 +686,8 @@ class MainActivity : Activity() {
             neuroDraw()
         }, ui.block(16))
         }
-        val sleepPage = kid { addView(sleepCard(), ui.block(4)) }
         val birthday = kid { addView(birthdayCard(), ui.block(4)) }
-        val agenda = kid { addView(agendaCard(), ui.block(4)) }
-        val carePage = kid {
+        funcsCare = {
         // she looks after you: the battery (charged, low) and a break now and then (phone-care.js)
         addView(ui.card(Hud.YELLOW).apply {
             val store = Store(this@MainActivity)
@@ -719,6 +723,7 @@ class MainActivity : Activity() {
             addView(backRow())
             addView(ui.label(getString(R.string.settings_personal)))
             addView(ui.text(getString(R.string.you_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(avatarPicker(), ui.block(14))
         // what she calls you
         addView(ui.card(Hud.YELLOW).apply {
             addView(ui.label(getString(R.string.settings_name)))
@@ -735,10 +740,7 @@ class MainActivity : Activity() {
             addView(entry("eye", Hud.MANE, R.string.settings_memory, R.string.p_memory_how) { openSub(memoryPage) }, ui.block(10))
             addView(entry("chat", Hud.GREEN, R.string.you_chatlog_title, R.string.p_chatlog_how) { PageActivity.open(this@MainActivity, "chatlog") }, ui.block(10))
             addView(entry("spark", Hud.MANE, R.string.neuro_title, R.string.p_neuro_how) { openSub(neuroPage) }, ui.block(10))
-            addView(entry("person", Hud.CYAN, R.string.sleep_title, R.string.p_sleep_how) { openSub(sleepPage) }, ui.block(10))
             addView(entry("spark", Hud.RED, R.string.you_birthday, R.string.p_birthday_how) { openSub(birthday) }, ui.block(10))
-            addView(entry("globe", Hud.CYAN, R.string.you_classes, R.string.p_classes_how) { openSub(agenda) }, ui.block(10))
-            addView(entry("phone", Hud.YELLOW, R.string.settings_care, R.string.p_care_how) { openSub(carePage) }, ui.block(10))
         }
     }
 
@@ -1488,12 +1490,15 @@ class MainActivity : Activity() {
             addView(entry("mic", Hud.MANE, R.string.vs_sound, R.string.vs_sound_how) { openSub(soundPage) }, ui.block(10))
             addView(entry("person", Hud.GREEN, R.string.vs_ears, R.string.vs_ears_how) { openSub(earsPage) }, ui.block(10))
             // the switch before the advanced screen: her answers in the cloud (Fish, your key) or here on the phone
+            // (Emma: "el de avanzados solo debe verse al seleccionar local")
+            val adv = entry("eye", Hud.MANE, R.string.vs_adv, R.string.vs_adv_how) { openSub(advPage) }
             addView(ui.card(Hud.YELLOW).apply {
                 addView(ui.label(getString(R.string.vs_where)))
                 addView(ui.text(getString(R.string.vs_where_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
                 val state = ui.text("", 12f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.15f) }
                 val draw = {
                     val cloud = Store(this@MainActivity).configFlag("voiceCloud", true)
+                    adv.visibility = if (cloud) View.GONE else View.VISIBLE
                     state.text = getString(when {
                         cloud && !FishVoice.hasKey(this@MainActivity) -> R.string.vs_where_nokey
                         cloud -> R.string.vs_where_cloud_on
@@ -1509,7 +1514,7 @@ class MainActivity : Activity() {
                 draw()
                 choices.add(draw)
             }, ui.block(14))
-            addView(entry("eye", Hud.MANE, R.string.vs_adv, R.string.vs_adv_how) { openSub(advPage) }, ui.block(10))
+            addView(adv, ui.block(10))
         }
     }
 
@@ -1651,6 +1656,11 @@ class MainActivity : Activity() {
             PICK_PROFILE -> voiceJob { CapriNeural.importProfiles(this, uri, it) }
             // (1.12.0) a file for her (a PDF, a Word file, a picture, a video, a song): as if shared with her
             PICK_SKIN -> sendSkin(uri)
+            PICK_AVATAR -> {
+                if (!Profile.setPhoto(this, uri)) Toast.makeText(this, R.string.profile_photo_bad, Toast.LENGTH_LONG).show()
+                avatars.forEach { it.reload() }
+                refresh()
+            }
             SAVE_LOG -> {
                 val ok = runCatching { contentResolver.openOutputStream(uri)?.use { it.write(logText.toByteArray(Charsets.UTF_8)) } != null }.getOrDefault(false)
                 logText = ""
@@ -1839,7 +1849,7 @@ class MainActivity : Activity() {
     /** What a tour step lights up (its "target" in tour.json), with its tab on screen first. */
     private fun tourTarget(key: String): View? {
         val (kind, name) = key.split(":", limit = 2).let { it[0] to it.getOrElse(1) { "" } }
-        val tab = listOf("chat", "news", "community", "games", "style", "settings")
+        val tab = listOf("chat", "news", "community", "games", "funcs", "style", "settings")
         return when (kind) {
             "bar" -> pill
             "tab" -> tab.indexOf(if (name == "cmds") "community" else name).takeIf { it >= 0 }?.let { show(it, animate = false); tabs[it].button }
@@ -1924,7 +1934,63 @@ class MainActivity : Activity() {
         // (1.11.0, Emma: "en ajustes debe ser otro menú donde estén los ajustes agrupados en pantallas, clicables"):
         // only the menu here; each group is its own screen, with its way back
         addView(ui.text(getString(R.string.settings_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-        for ((n, g) in groups.withIndex()) addView(entry(g.icon, g.color, g.title, g.how) { openSub(g.page) }.also { entries[g.key] = it }, ui.block(if (n == 0) 14 else 10))
+        // (1.12.0, Emma: "íconos de perfil, fotos de perfil, nombres… ahí lo presionas en lugar de ajustes personales")
+        addView(profileCard().also { entries["personal"] = it }, ui.block(14))
+        for (g in groups) if (g.key != "personal") addView(entry(g.icon, g.color, g.title, g.how) { openSub(g.page) }.also { entries[g.key] = it }, ui.block(10))
+    }
+
+    // you: your picture (or her icon) and your name, at the top of Ajustes; a tap opens Ajustes personales
+    private val avatars = ArrayList<Profile.Avatar>()
+    private var profileName: TextView? = null
+    private fun profileCard() = ui.card(Hud.YELLOW, Hud.MANE).apply {
+        val row = ui.row().apply { gravity = Gravity.CENTER_VERTICAL }
+        val face = Profile.Avatar(this@MainActivity).also { avatars += it }
+        row.addView(face, LinearLayout.LayoutParams(ui.dpi(64), ui.dpi(64)).apply { rightMargin = ui.dpi(16) })
+        val texts = ui.col()
+        val name = ui.text("", 20f, Hud.PAPER, ui.head).also { profileName = it }
+        texts.addView(name)
+        texts.addView(ui.text(getString(R.string.profile_edit) + " ›", 12f, Hud.YELLOW, ui.mono).apply { letterSpacing = 0.08f }, ui.block(4))
+        row.addView(texts, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+        addView(row)
+        isClickable = true
+        setOnClickListener { openSub(personal) }
+        val draw = { name.text = CapriSettings.name(this@MainActivity).ifBlank { getString(R.string.profile_noname) }; avatars.forEach { it.reload() } }
+        draw()
+        choices.add(draw)
+    }
+
+    // your picture or one of her icons (Ajustes personales, at the top)
+    private fun avatarPicker() = ui.card(Hud.YELLOW).apply {
+        addView(ui.label(getString(R.string.profile_title)))
+        val big = Profile.Avatar(this@MainActivity).also { avatars += it }
+        addView(big, LinearLayout.LayoutParams(ui.dpi(96), ui.dpi(96)).apply { topMargin = ui.dpi(8); gravity = Gravity.CENTER_HORIZONTAL })
+        addView(ui.button(getString(R.string.profile_photo) + " ›", Ui.Kind.GREEN) {
+            runCatching {
+                @Suppress("DEPRECATION")
+                startActivityForResult(Intent(Intent.ACTION_GET_CONTENT).setType("image/*").addCategory(Intent.CATEGORY_OPENABLE), PICK_AVATAR)
+            }
+        }, ui.block(12))
+        addView(ui.text(getString(R.string.profile_icons), 13f, Hud.PAPER_2, ui.body), ui.block(12))
+        val picks = ArrayList<Profile.Avatar>()
+        for (line in Profile.ICONS.indices.chunked(4)) {
+            val r = ui.row()
+            for (i in line) {
+                val a = Profile.Avatar(this@MainActivity, i).apply {
+                    isClickable = true
+                    setOnClickListener {
+                        Profile.setIcon(this@MainActivity, i)
+                        picks.forEachIndexed { k, v -> v.selected = k == i }
+                        avatars.forEach { it.reload() }
+                    }
+                }
+                picks += a
+                r.addView(a, LinearLayout.LayoutParams(0, ui.dpi(56), 1f).apply { rightMargin = ui.dpi(6) })
+            }
+            addView(r, ui.block(8))
+        }
+        val mark = { val c = Profile.choice(this@MainActivity).toIntOrNull(); picks.forEachIndexed { k, v -> v.selected = k == c } }
+        mark()
+        choices.add(mark)
     }
 
     private fun permsPage() = page {
@@ -2003,10 +2069,11 @@ class MainActivity : Activity() {
 
     }
 
-    private fun modesPage() = page {
+    // (1.12.0, Emma: "los modos van en otro ajuste, que sea solo modos, y el pantalla solo pantalla")
+    private fun screenPage() = page {
         addView(backRow())
-        addView(ui.label(getString(R.string.g_modes)))
-        addView(ui.text(getString(R.string.g_modes_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        addView(ui.label(getString(R.string.g_screen)))
+        addView(ui.text(getString(R.string.g_screen_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // her look at your screen
         addView(ui.card(Hud.GREEN).apply {
             addView(ui.label(getString(R.string.settings_look)))
@@ -2035,6 +2102,21 @@ class MainActivity : Activity() {
                 { Store(this@MainActivity).configFlag("shake", true) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "shake", it) }, ui.block(6))
         }, ui.block(16))
 
+        // (1.11.0) her pill by the clock and in Samsung's Now Bar (Android 16+, LiveBar.kt)
+        if (LiveBar.available()) addView(ui.card(Hud.CYAN).apply {
+            addView(ui.label(getString(R.string.live_title), Hud.CYAN))
+            addView(ui.text(getString(R.string.live_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
+            addView(choice(listOf(R.string.live_on to true, R.string.live_off to false), { LiveBar.enabled(this@MainActivity) }, { x, y -> x == y }) {
+                LiveBar.setEnabled(this@MainActivity, it)
+            }, ui.block(10))
+            addView(ui.button(getString(R.string.live_allow) + " ›", Ui.Kind.LINE) { LiveBar.settings(this@MainActivity) }, ui.block(10))
+        }, ui.block(16))
+    }
+
+    private fun modesPage() = page {
+        addView(backRow())
+        addView(ui.label(getString(R.string.g_modes_only)))
+        addView(ui.text(getString(R.string.g_modes_only_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // her modes: gamer (by hand or on its own), her tips while you play, streaming
         addView(ui.card(Hud.GREEN).apply {
             addView(ui.label(getString(R.string.settings_modes)))
@@ -2071,15 +2153,6 @@ class MainActivity : Activity() {
             }, ui.block(6))
         }, ui.block(16))
 
-        // (1.11.0) her pill by the clock and in Samsung's Now Bar (Android 16+, LiveBar.kt)
-        if (LiveBar.available()) addView(ui.card(Hud.CYAN).apply {
-            addView(ui.label(getString(R.string.live_title), Hud.CYAN))
-            addView(ui.text(getString(R.string.live_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
-            addView(choice(listOf(R.string.live_on to true, R.string.live_off to false), { LiveBar.enabled(this@MainActivity) }, { x, y -> x == y }) {
-                LiveBar.setEnabled(this@MainActivity, it)
-            }, ui.block(10))
-            addView(ui.button(getString(R.string.live_allow) + " ›", Ui.Kind.LINE) { LiveBar.settings(this@MainActivity) }, ui.block(10))
-        }, ui.block(16))
     }
 
     private fun phonePage() = page {
@@ -2411,13 +2484,20 @@ class MainActivity : Activity() {
     // ---------- Comunidad (a tab again in 1.11.0): Discord, TikTok and supporting Capri ----------
 
     private fun communityPage() = page {
-        addView(ui.label(getString(R.string.tab_community)))
-        addView(communityCard(), ui.block(8))
-        addView(ui.button("♥ " + getString(R.string.main_donate), Ui.Kind.GREEN) { showSupport(asked = true) }, ui.block(16))
         cmdsInto(this)
     }
 
-    /** (1.12.0) The voice commands (in the Comunidad tab), scrolled to. */
+    // (1.12.0, Emma) Funciones: what she does for you every day, out of Ajustes: her sleep mode, your classes and
+    // calendar, and her care (battery, breaks)
+    private fun funcsPage() = page {
+        addView(ui.label(getString(R.string.tab_funcs)))
+        addView(ui.text(getString(R.string.funcs_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        addView(sleepCard(), ui.block(14))
+        addView(agendaCard(), ui.block(16))
+        funcsCare()
+    }
+
+    /** (1.12.0) The voice commands (their own tab), scrolled to. */
     private fun showCmds() {
         show(TAB_CMDS)
         val top = cmdsTop ?: return
@@ -2543,6 +2623,7 @@ class MainActivity : Activity() {
         private const val PICK_VOICE = 4711 // (1.11.0) a Capri Voice pack from your files
         private const val PICK_MODEL = 4712 // (V8.5) one of the neural engine's .gguf files
         private const val PICK_PROFILE = 4713 // (V8.5) the private profiles ZIP
+        private const val PICK_AVATAR = 4718 // (1.12.0) your profile picture
         private const val SAVE_LOG = 4717 // (1.12.0) her beta phones' log, saved where you choose
         private const val SAVE_TEMPLATE = 4716 // (1.12.0) her skin template, saved where you choose
         private const val PICK_SKIN = 4715 // (1.12.0) a community skin, to Emma
@@ -2550,9 +2631,10 @@ class MainActivity : Activity() {
         const val TAB_NEWS = 1
         const val TAB_COMMUNITY = 2
         const val TAB_GAMES = 3
-        const val TAB_CMDS = 2 // (1.12.0: inside Comunidad)
-        const val TAB_SETTINGS = 5
-        private const val TABS = 6
+        const val TAB_CMDS = 2 // (1.12.0: the tab is only her commands now)
+        const val TAB_FUNCS = 4 // (1.12.0) Funciones: her sleep mode, your classes, her care
+        const val TAB_SETTINGS = 6
+        private const val TABS = 7
         const val EXTRA_SUB = "sub"
         private const val TIKTOK = "https://www.tiktok.com/@emma180516_"
         private const val DISCORD = "https://discord.gg/hmh783tfn"

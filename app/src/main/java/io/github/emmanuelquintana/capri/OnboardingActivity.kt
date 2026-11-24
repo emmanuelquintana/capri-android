@@ -306,6 +306,15 @@ class OnboardingActivity : Activity() {
             card.addView(HorizontalScrollView(this).apply { isHorizontalScrollBarEnabled = false; addView(chips) }, ui.block(12))
             card.addView(ui.text(getString(R.string.ai_sees), 12f, Hud.GREEN, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
             val saved = CapriSettings.hasKey(this, aiKeyed.id)
+            // (1.12.0) the keys you already saved for it, hidden: you see they're there
+            val masked = CapriSettings.maskedKeys(this, aiKeyed.id)
+            if (masked.isNotEmpty()) {
+                card.addView(ui.text(getString(R.string.ai_keys_saved, masked.joinToString("\n")), 13f, Hud.YELLOW, ui.mono).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
+                card.addView(ui.button(getString(R.string.ai_keys_forget), Ui.Kind.LINE) {
+                    CapriSettings.forgetKeys(this, aiKeyed.id)
+                    redraw()
+                }, ui.block(6))
+            }
             val f = ui.field(getString(if (saved) R.string.ai_key_saved_hint else R.string.ai_key_hint), secret = true)
             keyField?.text?.let { if (it.isNotEmpty()) f.setText(it) }
             keyField = f

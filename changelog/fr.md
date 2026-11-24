@@ -129,6 +129,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
   écran : Télécharger sa voix, Voix dans le cloud (ta clé), Comment elle sonne et Ses oreilles. Avant Réglages avancés,
   un nouvel interrupteur **Voix : cloud ou locale** choisit la voix qui te répond.
 - **Réglages personnels en écrans :** ton prénom en haut et le reste chacun sur son écran.
+- **App réorganisée :** elle s’ouvre sur Nouveautés ; nouvel onglet **Fonctions** (mode sommeil, tes cours, ses
+  soins) ; l’onglet Commandes n’a que les commandes ; suivre sur TikTok sous Faire un don ; Écran et Modes séparés ; ton
+  profil avec photo ou icône en haut des Réglages ; et ses clés enregistrées se voient (cachées).
 - **Son chat répond plus vite :** quand son IA est saturée, celle qui a répondu passe en premier quelques minutes.
 - **Ses phrases enregistrées aussi dans le chat :** pendant qu'elle réfléchit, de temps en temps elle dit une de ses phrases.
 

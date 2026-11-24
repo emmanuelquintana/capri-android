@@ -803,4 +803,19 @@
     <string name="p_birthday_how">Ce jour-là, elle te fête.</string>
     <string name="p_classes_how">Tes cours et ton agenda : elle te les rappelle.</string>
     <string name="p_care_how">Batterie, économie de batterie et pauses.</string>
+    <!-- (1.12.0) profile, Funciones, Pantalla/Modos -->
+    <string name="profile_edit">Modifier le profil</string>
+    <string name="profile_noname">Ton prénom</string>
+    <string name="profile_title">Ton profil</string>
+    <string name="profile_photo">Choisir une photo</string>
+    <string name="profile_icons">Ou une de ses icônes :</string>
+    <string name="profile_photo_bad">Impossible de lire cette image.</string>
+    <string name="ai_keys_saved">Clés enregistrées :\n%1$s</string>
+    <string name="ai_keys_forget">Oublier ces clés</string>
+    <string name="tab_funcs">Fonctions</string>
+    <string name="funcs_intro">Ce qu’elle fait pour toi chaque jour : elle dort avec toi, te rappelle tes cours et prend soin de toi.</string>
+    <string name="g_screen">Écran</string>
+    <string name="g_screen_how">Ce qu’elle voit sur ton écran, et sa pilule près de l’heure.</string>
+    <string name="g_modes_only">Modes</string>
+    <string name="g_modes_only_how">Mode gamer, ses conseils quand tu joues et le mode streaming.</string>
 </resources>

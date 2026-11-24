@@ -788,4 +788,19 @@
     <string name="p_birthday_how">Hôm đó cô ấy chúc mừng bạn.</string>
     <string name="p_classes_how">Lớp học và lịch của bạn: cô ấy nhắc bạn.</string>
     <string name="p_care_how">Pin, tiết kiệm pin và nghỉ ngơi.</string>
+    <!-- (1.12.0) profile, Funciones, Pantalla/Modos -->
+    <string name="profile_edit">Sửa hồ sơ</string>
+    <string name="profile_noname">Tên bạn</string>
+    <string name="profile_title">Hồ sơ của bạn</string>
+    <string name="profile_photo">Chọn ảnh</string>
+    <string name="profile_icons">Hoặc một biểu tượng của cô ấy:</string>
+    <string name="profile_photo_bad">Không đọc được ảnh đó.</string>
+    <string name="ai_keys_saved">Khóa đã lưu:\n%1$s</string>
+    <string name="ai_keys_forget">Quên các khóa này</string>
+    <string name="tab_funcs">Chức năng</string>
+    <string name="funcs_intro">Những gì cô ấy làm cho bạn mỗi ngày: ngủ cùng bạn, nhắc lịch học và chăm sóc bạn.</string>
+    <string name="g_screen">Màn hình</string>
+    <string name="g_screen_how">Những gì cô ấy thấy trên màn hình, và viên thuốc cạnh đồng hồ.</string>
+    <string name="g_modes_only">Chế độ</string>
+    <string name="g_modes_only_how">Chế độ game, mẹo khi bạn chơi và chế độ phát trực tiếp.</string>
 </resources>

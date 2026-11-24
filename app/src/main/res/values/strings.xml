@@ -804,4 +804,19 @@
     <string name="p_birthday_how">She celebrates you that day.</string>
     <string name="p_classes_how">Your classes and your calendar: she reminds you.</string>
     <string name="p_care_how">Battery, battery saver and breaks.</string>
+    <!-- (1.12.0) profile, Funciones, Pantalla/Modos -->
+    <string name="profile_edit">Edit profile</string>
+    <string name="profile_noname">Your name</string>
+    <string name="profile_title">Your profile</string>
+    <string name="profile_photo">Pick a photo</string>
+    <string name="profile_icons">Or one of her icons:</string>
+    <string name="profile_photo_bad">Couldn\'t read that picture.</string>
+    <string name="ai_keys_saved">Keys saved:\n%1$s</string>
+    <string name="ai_keys_forget">Forget these keys</string>
+    <string name="tab_funcs">Functions</string>
+    <string name="funcs_intro">What she does for you every day: she sleeps with you, reminds you of your classes and looks after you.</string>
+    <string name="g_screen">Screen</string>
+    <string name="g_screen_how">What she sees on your screen, and her pill by the clock.</string>
+    <string name="g_modes_only">Modes</string>
+    <string name="g_modes_only_how">Gamer mode, her tips while you play, and streaming mode.</string>
 </resources>

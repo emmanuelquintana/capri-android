@@ -788,4 +788,19 @@
     <string name="p_birthday_how">その日にお祝いしてくれる。</string>
     <string name="p_classes_how">授業とカレンダー：彼女が知らせてくれる。</string>
     <string name="p_care_how">バッテリー、節電、休憩。</string>
+    <!-- (1.12.0) profile, Funciones, Pantalla/Modos -->
+    <string name="profile_edit">プロフィールを編集</string>
+    <string name="profile_noname">あなたの名前</string>
+    <string name="profile_title">あなたのプロフィール</string>
+    <string name="profile_photo">写真を選ぶ</string>
+    <string name="profile_icons">または彼女のアイコン：</string>
+    <string name="profile_photo_bad">その画像を読み込めませんでした。</string>
+    <string name="ai_keys_saved">保存したキー：\n%1$s</string>
+    <string name="ai_keys_forget">これらのキーを削除</string>
+    <string name="tab_funcs">機能</string>
+    <string name="funcs_intro">毎日あなたのためにすること：一緒に眠り、授業を知らせ、あなたを気づかう。</string>
+    <string name="g_screen">画面</string>
+    <string name="g_screen_how">画面で見るものと、時計の横のピル。</string>
+    <string name="g_modes_only">モード</string>
+    <string name="g_modes_only_how">ゲーマーモード、プレイ中のヒント、配信モード。</string>
 </resources>

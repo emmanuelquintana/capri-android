@@ -103,5 +103,8 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
   Tải giọng cô ấy, Giọng trên đám mây (khóa của bạn), Giọng cô ấy nghe thế nào và Đôi tai của cô ấy. Trước Cài đặt nâng
   cao có công tắc mới **Giọng: đám mây hay cục bộ**.
 - **Cài đặt cá nhân theo màn hình:** tên bạn ở trên, mọi thứ khác có màn hình riêng.
+- **Sắp xếp lại ứng dụng:** mở ở Tin mới; tab mới **Chức năng** (chế độ ngủ, lịch học, chăm sóc); tab Lệnh chỉ có
+  lệnh; theo dõi TikTok dưới Ủng hộ; Màn hình và Chế độ tách riêng; hồ sơ với ảnh hoặc biểu tượng ở đầu Cài đặt; khóa
+  đã lưu hiển thị (ẩn).
 - **Chat trả lời nhanh hơn:** khi AI của cô ấy quá tải, AI đã trả lời được dùng trước trong vài phút.
 - **Câu đã ghi âm cũng có trong chat:** trong lúc nghĩ câu trả lời, thỉnh thoảng cô ấy nói một câu của mình.

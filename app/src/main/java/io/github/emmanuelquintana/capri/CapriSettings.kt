@@ -36,6 +36,26 @@ object CapriSettings {
         JSONObject(Store(context).read(Store.CONFIG) ?: "{}").optJSONObject("apiKeys")?.optString(provider).orEmpty().isNotEmpty()
     }.getOrDefault(false)
 
+    /** (1.12.0, Emma: "no se ve mi clave ni que tengo registrada una de Gemini… debería verse como ofuscada") the keys
+     *  saved for this service, hidden but recognizable: "AIza••••••k3Qx". */
+    fun maskedKeys(context: Context, provider: String): List<String> = runCatching {
+        val store = Store(context)
+        val saved = JSONObject(store.read(Store.CONFIG) ?: "{}").optJSONObject("apiKeys")?.optString(provider).orEmpty()
+        if (saved.isEmpty()) emptyList() else store.open(saved).split(Regex("[\\s,;]+")).filter { it.isNotBlank() }.map { k ->
+            if (k.length <= 10) "••••••" else k.take(4) + "••••••" + k.takeLast(4)
+        }
+    }.getOrDefault(emptyList())
+
+    /** (1.12.0) forget the keys saved for this service. */
+    fun forgetKeys(context: Context, provider: String) {
+        val store = Store(context)
+        val cfg = runCatching { JSONObject(store.read(Store.CONFIG) ?: "{}") }.getOrElse { JSONObject() }
+        cfg.optJSONObject("apiKeys")?.remove(provider)
+        if (cfg.optString("provider") == provider) cfg.put("provider", "pollinations")
+        store.write(Store.CONFIG, cfg.toString())
+        CapriService.current?.takeIf { it.pageReady }?.overlay?.emit("settings:apply", JSONObject().put("forgetKey", provider).toString())
+    }
+
     /** Back to a service whose key is already saved: nothing to check again. */
     fun useSaved(context: Context, provider: String) {
         apply(context, JSONObject().put("provider", provider)) { it.put("provider", provider) }

@@ -138,6 +138,9 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
   interruptor nuevo, **Voz: en la nube o local**, para elegir con qué voz te responde.
 - **Ajustes personales en pantallas:** tu nombre arriba y lo demás en su propia pantalla (tu cuenta, lo que
   recuerda, tu historial, neurodanzas, modo dormir, cumpleaños, clases y lo que te cuida).
+- **App reordenada:** la app abre en Novedades; pestaña nueva **Funciones** (modo sueño, tus clases y lo que te
+  cuida); la pestaña de Comandos es solo comandos; seguir en TikTok abajo de Donar; Pantalla y Modos son ajustes
+  separados; tu perfil con foto o ícono arriba de Ajustes; y en Su IA ves tus claves guardadas (ocultas).
 - **Su chat responde antes:** cuando su IA está saturada, la que sí contestó va primero unos minutos y ya no
   espera a cada modelo saturado en cada mensaje.
 - **Sus frases grabadas también en el chat:** mientras piensa tu respuesta, de vez en cuando te dice una de sus
