@@ -2,6 +2,13 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.12.2
+
+- **🛠️ Bugs corrigés**
+- **Langue :** connecter ton IA ou récupérer la copie de ton compte ne fait plus changer de langue l’appli et Capri toutes seules.
+- **Tes réglages :** la copie de ton PC ou d’un autre téléphone ne change plus la taille, la voix ni les modes de celui-ci, et ce que tu enregistres pendant qu’elle démarre n’est plus perdu.
+- **Mode DeX :** sur l’écran, Capri, ses cartes et son chat s’affichent enfin à une taille normale (avant, ils étaient énormes).
+
 ## 1.12.1
 
 - **🛠️ Bugs corrigés**

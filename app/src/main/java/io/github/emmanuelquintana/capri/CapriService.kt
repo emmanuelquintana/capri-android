@@ -236,8 +236,19 @@ class CapriService : Service() {
         private set
     @Volatile private var queued: String? = null
 
+    /** (1.12.2) settings from the app's screens while her page was starting (or starting again): sent once it's up.
+     *  It may have read config.json before they were written there, and would save its old copy over them. */
+    private val settingsQueued = mutableListOf<String>()
+
+    fun queueSettings(json: String) = synchronized(settingsQueued) { if (settingsQueued.size < 40) settingsQueued.add(json) }
+
+    /** (1.12.2) her page was dropped (a fresh one coming): until it says it's up, nothing goes to it. */
+    fun pageGone() { pageReady = false }
+
     fun onPageReady() {
         pageReady = true
+        val held = synchronized(settingsQueued) { settingsQueued.toList().also { settingsQueued.clear() } }
+        for (json in held) overlay?.emit("settings:apply", json)
         // after her intro, so her panel doesn't land on top of her first hello
         queued?.let { queued = null; android.os.Handler(mainLooper).postDelayed({ command(it) }, 6000) }
         if (shareQueued) { shareQueued = false; android.os.Handler(mainLooper).postDelayed({ shared() }, 6000) }

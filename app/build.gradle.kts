@@ -13,8 +13,8 @@ android {
         targetSdk = 35
         // Capri Android's own numbering (MAJOR.MINOR.PATCH), not the desktop's;
         // versionCode = MAJOR*10000 + MINOR*100 + PATCH, always above the old 5xx builds
-        versionCode = 11201
-        versionName = "1.12.1"
+        versionCode = 11202
+        versionName = "1.12.2"
         // Emma's beta channel (.github/workflows/beta.yml, Beta.kt): -PcapriBeta=N makes "<version>-beta.N",
         // same versionCode, so the release of that version later installs over it
         (project.findProperty("capriBeta") as String?)?.let { versionName += "-beta.$it" }
@@ -66,6 +66,11 @@ android {
     lint {
         // the report is kept as a CI artifact; a warning doesn't stop the APK
         abortOnError = false
+    }
+
+    packaging {
+        // (1.12.2) JNA's libraries for chips no Android 8+ phone has: 400 KB less to install
+        jniLibs.excludes += listOf("lib/armeabi/**", "lib/mips/**", "lib/mips64/**")
     }
 
     androidResources {

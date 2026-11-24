@@ -32,6 +32,21 @@ object Lang {
         CapriSettings.set(context, "lang", lang) // her too
     }
 
+    /** (1.12.2) Her language, as config.json is read for her page: the app's. Someone who only ever picked it in her
+     *  own menu (never in Ajustes) keeps that one, and the app takes it too. */
+    fun forHer(context: Context, saved: String): String {
+        val prefs = runCatching { context.getSharedPreferences("app", Context.MODE_PRIVATE) }.getOrNull() ?: return saved
+        if (prefs.contains(PREF)) return get(context)
+        if (saved in LANGS) setApp(context, saved)
+        return if (saved in LANGS) saved else "auto"
+    }
+
+    /** (1.12.2) Picked in her own menu (host.js): only the app's, she already has it. Its screens follow when they come back. */
+    fun setApp(context: Context, lang: String) {
+        if (lang != "auto" && lang !in LANGS) return
+        context.getSharedPreferences("app", Context.MODE_PRIVATE).edit().putString(PREF, lang).apply()
+    }
+
     /** The language that context speaks now: "es", "en"… (the one picked, or the phone's). */
     fun current(context: Context): String = context.resources.configuration.locales[0].language
 

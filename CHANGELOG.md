@@ -3,6 +3,13 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.12.2
+
+- **🛠️ Errores corregidos**
+- **Idioma:** al conectar tu IA o traer tu copia de la cuenta, la app y Capri ya no cambian solas a otro idioma.
+- **Tus ajustes:** la copia de tu PC u otro teléfono ya no cambia el tamaño, la voz ni los modos de este, y lo que guardas mientras ella arranca ya no se pierde.
+- **Modo DeX:** en el monitor, Capri, sus tarjetas y su chat ya se ven de un tamaño normal (antes salían enormes).
+
 ## 1.12.1
 
 - **🛠️ Errores corregidos**

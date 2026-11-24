@@ -58,7 +58,8 @@ const ratio = Object.getOwnPropertyDescriptor(window, 'devicePixelRatio')
   || Object.getOwnPropertyDescriptor(Object.getPrototypeOf(window), 'devicePixelRatio');
 const real = () => (ratio?.get ? ratio.get.call(window) : ratio?.value) || 1;
 // the screen's real pixels per CSS pixel (her touch pads are placed with it)
-window.screenDpr = real;
+// (1.12.2) times the page's own scale: smaller on DeX (Overlay.kt DEX_ZOOM), 1 everywhere else
+window.screenDpr = () => real() * (window.visualViewport?.scale || 1);
 
 let lite = false;
 try {

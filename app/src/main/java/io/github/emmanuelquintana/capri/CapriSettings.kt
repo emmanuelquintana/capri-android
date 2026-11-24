@@ -53,7 +53,8 @@ object CapriSettings {
         cfg.optJSONObject("apiKeys")?.remove(provider)
         if (cfg.optString("provider") == provider) cfg.put("provider", "pollinations")
         store.write(Store.CONFIG, cfg.toString())
-        CapriService.current?.takeIf { it.pageReady }?.overlay?.emit("settings:apply", JSONObject().put("forgetKey", provider).toString())
+        val live = JSONObject().put("forgetKey", provider).toString()
+        CapriService.current?.let { if (it.pageReady) it.overlay?.emit("settings:apply", live) else it.queueSettings(live) }
     }
 
     /** (1.12.0, Emma: "por cada API key… un selector de modelos") the model you picked for this service, "" = she chooses. */
@@ -261,6 +262,10 @@ object CapriSettings {
             service.overlay?.emit("settings:apply", live.toString())
             return
         }
+        // (1.12.2, Emma: "cuando conectas la API… se empieza a desconfigurar la app") her page starting (or starting
+        // again after a hiccup) may already hold its old copy of config.json and save it over this: it gets it too
+        // once it's up
+        if (service != null) service.queueSettings(live.toString())
         val store = Store(context)
         val cfg = runCatching { JSONObject(store.read(Store.CONFIG) ?: "{}") }.getOrElse { JSONObject() }
         saved(cfg)

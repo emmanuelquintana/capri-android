@@ -197,8 +197,12 @@ class MainActivity : Activity() {
         setOnClickListener { open() }
     }
 
+    /** The language this screen was made in (Lang.get), to notice it changed. */
+    private var madeIn: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        madeIn = Lang.get(this)
         Diag.init(this)
         if (OnboardingActivity.needed(this)) {
             startActivity(Intent(this, OnboardingActivity::class.java))
@@ -350,6 +354,8 @@ class MainActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
+        // (1.12.2) the language changed while you were away (her own menu): the app in it now
+        if (madeIn != null && Lang.get(this) != madeIn) { recreate(); return }
         if (!::ui.isInitialized) return
         // back in the app: her service can take the microphone again if her ears are on (Android
         // only lets it while the app is in front)
