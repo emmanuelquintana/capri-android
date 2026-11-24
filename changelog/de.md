@@ -2,6 +2,12 @@
 
 Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt es, wenn sie auf Deutsch ist.
 
+## 1.12.2
+
+- **🛠️ Behobene Fehler**
+- **Sprache:** Wenn du deine KI verbindest oder die Kopie aus deinem Konto zurückholst, wechseln App und Capri nicht mehr von selbst die Sprache.
+- **Deine Einstellungen:** Eine Kopie vom PC oder einem anderen Handy ändert hier nicht mehr Größe, Stimme oder Modi, und was du speicherst, während sie startet, geht nicht mehr verloren.
+
 ## 1.12.1
 
 - **🛠️ Behobene Fehler**

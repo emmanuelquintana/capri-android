@@ -374,6 +374,8 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     }
 
     private fun drop() {
+        // (1.12.2) her page is gone until the new one says it's up: what the app sets meanwhile waits for it
+        (context as? CapriService)?.pageGone()
         pads.clear()
         webView?.let {
             try { wm.removeView(it) } catch (_: Exception) {}

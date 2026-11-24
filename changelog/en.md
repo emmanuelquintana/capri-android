@@ -2,6 +2,12 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.12.2
+
+- **🛠️ Bugs fixed**
+- **Language:** connecting your AI or bringing back your account copy no longer switches the app and Capri to another language on their own.
+- **Your settings:** a copy from your PC or another phone no longer changes this one's size, voice or modes, and what you save while she starts is no longer lost.
+
 ## 1.12.1
 
 - **🛠️ Bugs fixed**

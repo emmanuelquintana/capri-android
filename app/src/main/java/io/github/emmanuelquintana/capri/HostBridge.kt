@@ -69,7 +69,10 @@ class HostBridge(private val service: CapriService) {
 
     private fun handle(method: String, args: Any?): Any? = when (method) {
         // her settings and her memory (config.js, main.js)
-        "config:load" -> store.read(Store.CONFIG)?.let { JSONObject(it) }
+        // (1.12.2, Emma: "de la nada seleccionó el inglés") her language is always the app's (Ajustes › Idioma):
+        // whatever else wrote config.json (a copy from your account, from the PC; her page's own old copy) doesn't change it
+        "config:load" -> JSONObject(store.read(Store.CONFIG) ?: "{}").let { it.put("lang", Lang.forHer(service, it.optString("lang", "auto"))) }
+        "lang:app" -> Lang.setApp(service, obj(args).optString("lang")) // her own menu's Idioma: the app's too
         "config:save" -> store.write(Store.CONFIG, obj(args).toString()).let { service.onConfig(obj(args)) }
         "memory:load" -> store.memory()
         "memory:save" -> store.write(Store.MEMORY, obj(args).toString())

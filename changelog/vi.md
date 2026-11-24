@@ -2,6 +2,12 @@
 
 Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt: ứng dụng hiển thị nó khi đang ở tiếng Việt.
 
+## 1.12.2
+
+- **🛠️ Lỗi đã sửa**
+- **Ngôn ngữ:** khi kết nối AI hoặc lấy lại bản sao từ tài khoản, ứng dụng và Capri không còn tự đổi sang ngôn ngữ khác.
+- **Cài đặt của bạn:** bản sao từ PC hoặc điện thoại khác không còn đổi kích thước, giọng nói hay chế độ của máy này, và những gì bạn lưu khi cô ấy đang khởi động không còn bị mất.
+
 ## 1.12.1
 
 - **🛠️ Lỗi đã sửa**

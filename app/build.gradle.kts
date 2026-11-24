@@ -13,8 +13,8 @@ android {
         targetSdk = 35
         // Capri Android's own numbering (MAJOR.MINOR.PATCH), not the desktop's;
         // versionCode = MAJOR*10000 + MINOR*100 + PATCH, always above the old 5xx builds
-        versionCode = 11201
-        versionName = "1.12.1"
+        versionCode = 11202
+        versionName = "1.12.2"
         // Emma's beta channel (.github/workflows/beta.yml, Beta.kt): -PcapriBeta=N makes "<version>-beta.N",
         // same versionCode, so the release of that version later installs over it
         (project.findProperty("capriBeta") as String?)?.let { versionName += "-beta.$it" }

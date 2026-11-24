@@ -1386,7 +1386,7 @@ function menuTemplate() {
     {
       label: t.lang,
       submenu: [[t.auto, 'auto'], ...LANGS.map((lang) => [TRAY[lang].name, lang])].map(([label, lang]) => ({
-        label, type: 'radio', checked: cfg.lang === lang, click: () => updateConfig({ lang }),
+        label, type: 'radio', checked: cfg.lang === lang, click: () => { updateConfig({ lang }); send('lang:app', { lang }); }, // (1.12.2) the app too (Lang.kt)
       })),
     },
 

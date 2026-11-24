@@ -2,6 +2,12 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.12.2
+
+- **🛠️ Erros corrigidos**
+- **Idioma:** conectar sua IA ou trazer a cópia da sua conta não muda mais sozinho o idioma do app e da Capri.
+- **Seus ajustes:** a cópia do seu PC ou de outro celular não muda mais o tamanho, a voz nem os modos deste, e o que você salva enquanto ela inicia não se perde mais.
+
 ## 1.12.1
 
 - **🛠️ Erros corrigidos**

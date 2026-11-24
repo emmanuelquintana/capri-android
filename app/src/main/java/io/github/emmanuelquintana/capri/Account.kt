@@ -139,7 +139,7 @@ object Account {
             runCatching {
                 val cfg = JSONObject(text)
                 // your keys (and which AI they are for) stay on this phone only: sealed to its Keystore
-                cfg.keys().asSequence().toList().forEach { k -> if (k == "apiKeys" || k == "provider" || cfg.opt(k).toString().contains("enc:")) cfg.remove(k) }
+                cfg.keys().asSequence().toList().forEach { k -> if (k == "apiKeys" || k == "provider" || cfg.opt(k).toString().contains("enc:") || local(k)) cfg.remove(k) }
                 out.put("config", cfg)
             }
         }
@@ -170,6 +170,17 @@ object Account {
         return out
     }
 
+    /** (1.12.2, Emma: "se empieza a desconfigurar la app… seleccionó el inglés") what belongs to each device and never
+     *  travels with your account: its language (Ajustes › Idioma), her size and place on this screen, its voice engine,
+     *  its performance and its modes. A copy from the PC (or another phone) brought those over and changed this one. */
+    private val LOCAL = setOf(
+        "lang", "scale", "displayId", "iconAt", "floatAt", "float", "perfMode", "render", "motion", "motionAsked",
+        "ollamaHost", "customUrl", "claudeCwd", "startOnBoot", "lan", "gamer", "watchScreen", "ghost", "ghostCards", "icon",
+        "visible", "streaming", "saver", "voiceEngine", "voiceMode", "voiceNeuralModel", "voiceThreads", "voiceUnloadMin",
+        "voiceDsp", "voiceFallback", "welcomed", "hooksCopied", "models",
+    )
+    private fun local(key: String) = key in LOCAL || key.startsWith("phoneVoice_")
+
     private fun type(v: Any) = when (v) { is String -> "s"; is Int -> "i"; is Long -> "l"; is Float -> "f"; is Boolean -> "b"; else -> "s" }
 
     /** Puts a snapshot back on this phone. Her page must be closed (it keeps its own copy and saves over files). */
@@ -177,7 +188,8 @@ object Account {
         val store = Store(c)
         snap.optJSONObject("config")?.let { cloud ->
             val local = runCatching { JSONObject(store.read(Store.CONFIG) ?: "{}") }.getOrDefault(JSONObject())
-            cloud.keys().forEach { k -> local.put(k, cloud.get(k)) } // your sealed keys stay as they are here
+            // your sealed keys stay as they are here, and so does what belongs to this device only (1.12.2)
+            cloud.keys().forEach { k -> if (!local(k)) local.put(k, cloud.get(k)) }
             store.write(Store.CONFIG, local.toString())
         }
         snap.optJSONObject("memory")?.let { store.write(Store.MEMORY, it.toString()) }
