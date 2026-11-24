@@ -31,7 +31,7 @@ object FishVoice {
     private const val PREFS = "fish"
 
     /** Capri's own voice on Fish Audio (Emma's), per language; empty until it exists. */
-    private val CAPRI = mapOf("es" to "", "en" to "")
+    private val CAPRI = mapOf("es" to "0a56e85c27c6490caf07bf61d2a229f0", "en" to "")
 
     private val main = Handler(Looper.getMainLooper())
     private val worker = Executors.newSingleThreadExecutor(Threads.factory)
