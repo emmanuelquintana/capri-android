@@ -176,31 +176,42 @@ object CapriVoice {
         val pack = PACKS.first { it.lang == lang }
         val part = File(app.cacheDir, "${pack.file}.part")
         cancel.set(false)
-        var have = if (part.length() <= pack.bytes) part.length() else 0L.also { part.delete() }
-        val conn = (URL("$CHANNEL/${pack.file}").openConnection() as HttpURLConnection).apply {
-            connectTimeout = 15000
-            readTimeout = 30000
-            if (have > 0) setRequestProperty("Range", "bytes=$have-")
-        }
-        try {
-            val code = conn.responseCode
-            if (code == 200) have = 0L else require(code == 206) { "HTTP $code" }
-            conn.inputStream.use { input ->
-                java.io.FileOutputStream(part, have > 0).use { out ->
-                    val buf = ByteArray(64 * 1024)
-                    while (true) {
-                        if (cancel.get()) error("cancelled")
-                        val n = input.read(buf)
-                        if (n < 0) break
-                        have += n
-                        require(have <= pack.bytes) { "size" }
-                        out.write(buf, 0, n)
-                        progress = have.toFloat() / pack.bytes
-                    }
+        // (1.12.0) a cut connection goes on from where it was, a few times, before it gives up
+        var tries = 0
+        while (true) {
+            var have = if (part.length() <= pack.bytes) part.length() else 0L.also { part.delete() }
+            try {
+                val conn = (URL("$CHANNEL/${pack.file}").openConnection() as HttpURLConnection).apply {
+                    connectTimeout = 15000
+                    readTimeout = 30000
+                    if (have > 0) setRequestProperty("Range", "bytes=$have-")
                 }
+                try {
+                    val code = conn.responseCode
+                    if (code == 200) have = 0L else require(code == 206) { "HTTP $code" }
+                    conn.inputStream.use { input ->
+                        java.io.FileOutputStream(part, have > 0).use { out ->
+                            val buf = ByteArray(64 * 1024)
+                            while (true) {
+                                if (cancel.get()) error("cancelled")
+                                val n = input.read(buf)
+                                if (n < 0) break
+                                have += n
+                                require(have <= pack.bytes) { "size" }
+                                out.write(buf, 0, n)
+                                progress = have.toFloat() / pack.bytes
+                            }
+                        }
+                    }
+                } finally {
+                    conn.disconnect()
+                }
+                break
+            } catch (e: java.io.IOException) {
+                if (cancel.get() || ++tries > 6) throw e
+                Diag.add("I", "voice download: ${e.message ?: e.javaClass.simpleName}, again in ${tries * 4} s")
+                Thread.sleep(tries * 4000L)
             }
-        } finally {
-            conn.disconnect()
         }
         require(part.length() == pack.bytes && sha(part) == pack.sha) { part.delete(); "sha" }
         put(app, pack, part)

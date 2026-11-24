@@ -730,7 +730,9 @@ object CapriNeural {
      * her answer, already generated, was never heard, after the longest wait there is. Now the room follows the
      * sentence, and what was made is kept and played.
      */
-    internal fun maxTokens(text: String) = (text.length * 3 / 2 + 30).coerceIn(48, 320)
+    // (1.12.0, community: "el sonido se corta a la mitad") more room: numbers, names and a slow pace ran out of it and
+    // her sentence stopped short (Diag "ran to N tokens")
+    internal fun maxTokens(text: String) = (text.length * 2 + 40).coerceIn(60, 440)
 
     /**
      * (1.11.8) How many audio tokens a sentence should take, read at her pace (~14 letters a second, 12 tokens a
@@ -780,7 +782,7 @@ object CapriNeural {
 
     /** Sentences of at most ~220 characters (a sentence is ~25 s of audio at most for the engine's limit). */
     fun split(text: String, shortFirst: Boolean = true): List<String> {
-        val clean = text.replace(Regex("[*_`#>]+"), " ").replace(Regex("\\s+"), " ").trim().take(1200)
+        val clean = text.replace(Regex("[*_`#>]+"), " ").replace(Regex("\\s+"), " ").trim().take(3000) // (1.12.0: was 1200, a long answer went quiet halfway)
         val parts = Regex("[^.!?¡¿…\\n]*[.!?…]+|[^.!?…]+$").findAll(clean).map { it.value.trim() }.filter { it.isNotEmpty() }.toMutableList()
         val out = mutableListOf<String>()
         for (p in parts) {
@@ -931,29 +933,41 @@ object CapriNeural {
             val file = File(dir, m.local)
             if (file.length() == m.bytes && sha(file) == m.sha) { before += m.bytes; continue }
             val part = File(dir, "${m.name}.part")
-            var have = if (part.length() <= m.bytes) part.length() else 0L.also { part.delete() }
-            val conn = (URL("$SOURCE/${m.name}").openConnection() as HttpURLConnection).apply {
-                connectTimeout = 20_000; readTimeout = 60_000; instanceFollowRedirects = true
-                if (have > 0) setRequestProperty("Range", "bytes=$have-")
-            }
-            try {
-                val code = conn.responseCode
-                if (code == 200) have = 0L else require(code == 206) { "HTTP $code" }
-                conn.inputStream.use { input ->
-                    java.io.FileOutputStream(part, have > 0).use { out ->
-                        val buf = ByteArray(256 * 1024)
-                        while (true) {
-                            if (cancelDownload.get()) error("cancelled")
-                            val n = input.read(buf)
-                            if (n < 0) break
-                            have += n
-                            require(have <= m.bytes) { "size" }
-                            out.write(buf, 0, n)
-                            progress = (before + have).toFloat() / v.bytes
-                        }
+            // (1.12.0, community: "error al bajar su voz": "Software caused connection abort") a cut connection
+            // (the screen went off, Wi-Fi changed) goes on from where it was, a few times, before it gives up
+            var tries = 0
+            while (true) {
+                var have = if (part.length() <= m.bytes) part.length() else 0L.also { part.delete() }
+                try {
+                    val conn = (URL("$SOURCE/${m.name}").openConnection() as HttpURLConnection).apply {
+                        connectTimeout = 20_000; readTimeout = 60_000; instanceFollowRedirects = true
+                        if (have > 0) setRequestProperty("Range", "bytes=$have-")
                     }
+                    try {
+                        val code = conn.responseCode
+                        if (code == 200) have = 0L else require(code == 206) { "HTTP $code" }
+                        conn.inputStream.use { input ->
+                            java.io.FileOutputStream(part, have > 0).use { out ->
+                                val buf = ByteArray(256 * 1024)
+                                while (true) {
+                                    if (cancelDownload.get()) error("cancelled")
+                                    val n = input.read(buf)
+                                    if (n < 0) break
+                                    have += n
+                                    require(have <= m.bytes) { "size" }
+                                    out.write(buf, 0, n)
+                                    progress = (before + have).toFloat() / v.bytes
+                                }
+                            }
+                        }
+                    } finally { conn.disconnect() }
+                    break
+                } catch (e: java.io.IOException) {
+                    if (cancelDownload.get() || ++tries > 6) throw e
+                    Diag.add("I", "voice $ID download: ${e.message ?: e.javaClass.simpleName}, again in ${tries * 4} s (from ${part.length() / 1_000_000} MB)")
+                    Thread.sleep(tries * 4000L)
                 }
-            } finally { conn.disconnect() }
+            }
             require(part.length() == m.bytes && sha(part) == m.sha) { part.delete(); "sha" }
             check(part.renameTo(file)) { "rename" }
             before += m.bytes
