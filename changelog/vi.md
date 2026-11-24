@@ -4,26 +4,23 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 
 ## 1.12.0
 
-- **Giọng trên đám mây (Fish Audio):** với khóa riêng của bạn, cô ấy nói bằng giọng của mình theo thời gian thực, bằng tiếng Tây Ban Nha, Anh, Bồ Đào Nha và Nhật. Không có mạng hoặc hết tiền, cô ấy tự quay về giọng cục bộ. Bạn chọn mô hình: miễn phí hoặc Pro.
-- **Nhanh hơn nhiều:** cô ấy bắt đầu nói khi AI vẫn đang viết, và trong chat bạn thấy giọng đã tạo được bao nhiêu (*Đang tạo giọng 42 %*).
-- **Thấy giọng nào đang nói:** dưới mỗi câu trả lời, chỉ báo giọng có màu và tên: xanh dương cho Fish (đám mây), xanh lá cho giọng cục bộ, vàng cho câu thu sẵn và xám cho giọng điện thoại.
-- **Nếu giọng trên mây lỗi, cô ấy báo lý do** (khóa, tín dụng, Fish quá tải hoặc không có mạng), sau khi thử lại hai lần.
-- **Nhẹ hơn trên điện thoại cấu hình thấp và cũ:** tai cô ấy nghỉ khi yên lặng (bớt khoảng 80 % công việc), được vẽ thưa hơn trên máy yếu và khi máy bạn nóng lên, và giọng cô ấy dùng ít nhân hơn. Gương mặt mới khi cô ấy nằm xem điện thoại.
-- **202 câu thu sẵn, bằng giọng mới:** phát thường xuyên hơn (khi chào bạn, khi chán, trong chat, khi có thông báo) và ngay lập tức, không cần mạng.
-- **Nghe được giọng cô ấy trong bản ghi màn hình.**
-- **Không còn im bặt hay bị cắt:** cô ấy nói tiếp sau câu đầu, nói hết câu trả lời dài và không bị câm khi động cơ bị kẹt.
-- **«Này Capri» thụ động:** một mô hình nhỏ trong điện thoại chỉ nghe tên cô ấy, không tiếng bíp và không gì rời khỏi điện thoại. Giờ nghe được tên cô ấy dù bạn nói nhanh hay chậm, và tiếp tục nghe câu hỏi của bạn sau đó.
-- **Chỉ giọng của bạn:** cô ấy học giọng bạn và bỏ qua TV hay người khác. Và vẫn hiểu khi bạn nói «Capi» hay «Cabi».
-- **Trả lời sớm hơn:** nếu AI bị quá tải, cô ấy chuyển ngay sang AI khác. Gemini không còn thử các mô hình đã đóng trước.
-- **Nhiều khóa và chọn mô hình:** dán nhiều khóa của một dịch vụ (hết khóa này thì dùng khóa tiếp), xem các khóa đã lưu (được ẩn) và chọn mô hình cho từng khóa.
-- **Ảnh của bạn trong chat** cạnh tin nhắn của bạn, và ở trên cùng bạn đổi AI chỉ với một chạm.
-- **Mới:** chế độ đọc không spoiler, tệp cho cô ấy (PDF, Word, âm thanh), «bài này là bài gì?», trả lời tin nhắn, tin tức trong ngày và tìm trong chat.
-- **Sắp xếp lại:** mở vào Tin mới; thẻ mới **Chức năng** (chế độ ngủ, lớp học và chăm sóc bạn); cài đặt giờ là các menu ngắn có màn hình riêng; Màn hình và Chế độ tách riêng.
-- **Hồ sơ của bạn:** ảnh hoặc biểu tượng và tên bạn ở đầu Cài đặt, lưu trong tài khoản.
-- **Tài khoản của bạn:** đăng nhập bằng Google hoặc email, trí nhớ của cô ấy, cài đặt, lớp học và chat tự lưu lên đám mây. Khóa của bạn không bao giờ rời điện thoại. Nếu điện thoại khác của bạn lưu dữ liệu mới hơn, app sẽ đề nghị mang về khi mở, không mất chat ở đây.
-- **Bốn ngôn ngữ mới:** tiếng Việt, Nhật, Đức và Ý.
-- **Tạo Capri của riêng bạn:** tải bản thiết kế chất lượng cao của cô ấy, vẽ trang phục và gửi PNG từ Tùy chỉnh.
-- **Thêm:** hai widget mới, ba trò chơi nhỏ, lắc điện thoại là cô ấy chóng mặt, theo dõi Emma trên TikTok và X từ Tin mới.
-- **Micro không làm phiền:** cô ấy nhả micro khi có cuộc gọi và khi app khác ghi âm (tin nhắn thoại), rồi tự nghe lại sau đó.
-- **Lại chạy được trên điện thoại 32-bit.**
-- **Sửa lỗi:** trang phục không còn tay đôi hay lẫn lộn, màn hình toàn phần bố trí đúng và nhiều chi tiết khác.
+- **✨ Có gì mới**
+- **Giọng trên mây của cô ấy (Fish Audio):** với khóa Fish Audio của bạn (mô hình miễn phí là đủ), cô ấy nói bằng giọng thật bằng tiếng Tây Ban Nha, Anh, Bồ Đào Nha và Nhật.
+- **Biết giọng nào đang nói:** dưới mỗi câu trả lời, một màu cho bạn biết: xanh dương là đám mây, xanh lá là giọng của cô ấy trên điện thoại, vàng là câu thu sẵn và xám là giọng của điện thoại bạn.
+- **Nói sớm hơn:** cô ấy bắt đầu nói khi vẫn đang viết câu trả lời.
+- **«Này Capri» không tiếng bíp:** cô ấy nghe tên mình ngay trong điện thoại, không gửi gì lên mạng, và có thể học chỉ nghe lời bạn.
+- **Tài khoản của bạn:** đăng nhập bằng Google hoặc email, đoạn chat, trí nhớ của cô ấy và cài đặt tự lưu và chuyển sang điện thoại khác của bạn.
+- **Hồ sơ của bạn:** ảnh hoặc biểu tượng và tên của bạn, cả bên cạnh tin nhắn của bạn.
+- **Hữu ích hơn:** gửi cho cô ấy PDF, Word hoặc âm thanh, hỏi bài hát đang phát là gì, nhờ trả lời tin nhắn, tin tức trong ngày hoặc tìm trong chat.
+- **Chọn AI và mô hình:** lưu nhiều khóa và chọn mô hình cho từng khóa. Nếu một AI bị đầy, cô ấy tự chuyển sang AI khác.
+- **Tab Chức năng:** chế độ ngủ, lịch học và những gì chăm sóc bạn, ở một chỗ. Phần cài đặt gọn gàng hơn.
+- **Tạo Capri của riêng bạn:** tải thiết kế của cô ấy, vẽ trang phục và gửi từ Tùy chỉnh.
+- **4 ngôn ngữ mới:** tiếng Việt, Nhật, Đức và Ý.
+- **Và còn nữa:** hai widget, ba trò chơi nhỏ, lắc cô ấy là cô ấy chóng mặt, gương mặt mới khi xem điện thoại, và Emma trên TikTok và X.
+- **🛠️ Lỗi đã sửa**
+- **Micrô:** «Này Capri» giờ nghe được câu hỏi sau tên cô ấy, và nhường micrô khi gọi điện hoặc ghi âm tin nhắn thoại.
+- **Giọng của cô ấy:** không còn im giữa chừng, câu thu sẵn phát lại được và nghe được trong bản quay màn hình.
+- **Nếu giọng trên mây lỗi,** cô ấy báo lý do và tiếp tục bằng giọng khác.
+- **Nhẹ hơn:** ít tốn pin và ít nóng hơn trên điện thoại đơn giản hoặc cũ.
+- **Điện thoại 32-bit:** cài đặt được trở lại.
+- **Trang phục và màn hình:** không còn tay đôi hay quần áo lẫn lộn, màn hình toàn phần được căn đúng.

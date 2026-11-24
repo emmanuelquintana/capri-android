@@ -545,14 +545,19 @@ class MainActivity : Activity() {
             val card = ui.card(if (i == 0) Hud.YELLOW else Hud.LINE_STRONG, if (i == 0) Hud.MANE else 0)
             val head = ui.row().apply { gravity = Gravity.CENTER_VERTICAL }
             head.addView(ui.text("v" + v.first, 13f, if (i == 0) Hud.YELLOW else Hud.PAPER_2, ui.mono).apply { letterSpacing = 0.08f })
-            head.addView(ui.text(resources.getQuantityString(R.plurals.news_changes, v.second.size, v.second.size), 12f, Hud.PAPER_3, ui.body).apply {
+            // (1.12.0, Emma: "sepáralas por puntos, como listas de cambios y bugs") a line that's only a bold title heads a list
+            val heading = { item: String -> Regex("^\\*\\*[^*]+\\*\\*$").matches(item.trim()) }
+            val count = v.second.count { !heading(it) }
+            head.addView(ui.text(resources.getQuantityString(R.plurals.news_changes, count, count), 12f, Hud.PAPER_3, ui.body).apply {
                 setPadding(ui.dpi(10), 0, 0, 0)
             }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
             val chevron = ui.text("▾", 16f, if (i == 0) Hud.MANE else Hud.PAPER_3, ui.mono)
             head.addView(chevron)
             card.addView(head)
             val items = ui.col().apply { visibility = View.GONE }
-            for (item in v.second) items.addView(bullet(item, i == 0), ui.block(8))
+            for (item in v.second) items.addView(
+                if (heading(item)) ui.label(item.trim().removePrefix("**").removeSuffix("**")) else bullet(item, i == 0),
+                ui.block(if (heading(item)) 16 else 8))
             card.addView(items)
             card.isClickable = true
             card.setOnClickListener {

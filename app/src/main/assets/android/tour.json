@@ -1,115 +1,155 @@
 {
-  "_como": "Vista guiada de lo nuevo (Tour.kt). Para una versión nueva: cambia el id (se muestra una vez por id) y los pasos. target: bar | tab:<chat|news|community|games|style|cmds|settings> | settings:<personal|voice|perms|ai|modes|phone|report>. Textos en es/en/fr/pt/ru (si falta uno, va en español).",
-  "id": "1.11.0",
+  "_como": "Vista guiada de lo nuevo (Tour.kt). Para una versión nueva: cambia el id (se muestra una vez por id) y los pasos. target: bar | tab:<chat|news|community|games|funcs|style|cmds|settings> | settings:<personal|voice|perms|ai|modes|phone|report>. Textos en los 9 idiomas (es/en/fr/pt/ru/vi/ja/de/it) (si falta uno, va en español).",
+  "id": "1.12.0",
   "steps": [
     {
-      "target": "bar",
+      "target": "tab:chat",
       "title": {
-        "es": "Tu menú nuevo",
-        "en": "Your new menu",
-        "fr": "Ton nouveau menu",
-        "pt": "Seu menu novo",
-        "ru": "Твоё новое меню"
+        "es": "Mira qué voz habla",
+        "en": "See which voice talks",
+        "fr": "Vois quelle voix parle",
+        "pt": "Veja qual voz fala",
+        "ru": "Смотри, какой голос говорит",
+        "vi": "Xem giọng nào đang nói",
+        "ja": "どの声が話しているか",
+        "de": "Sieh, welche Stimme spricht",
+        "it": "Guarda quale voce parla"
       },
       "text": {
-        "es": "La píldora ahora tiene todo a la mano: Chat, Novedades, Comunidad, Juegos, Personalizar, Comandos y Ajustes.",
-        "en": "The pill now has everything at hand: Chat, What’s new, Community, Games, Customize, Commands and Settings.",
-        "fr": "La pilule a maintenant tout sous la main : Chat, Nouveautés, Communauté, Jeux, Personnaliser, Commandes et Réglages.",
-        "pt": "A pílula agora tem tudo à mão: Chat, Novidades, Comunidade, Jogos, Personalizar, Comandos e Ajustes.",
-        "ru": "В таблетке теперь всё под рукой: Чат, Новое, Сообщество, Игры, Облик, Команды и Настройки."
-      }
-    },
-    {
-      "target": "tab:community",
-      "title": {
-        "es": "Comunidad y comandos",
-        "en": "Community and commands",
-        "fr": "Communauté et commandes",
-        "pt": "Comunidade e comandos",
-        "ru": "Сообщество и команды",
-        "vi": "Cộng đồng và lệnh",
-        "ja": "コミュニティとコマンド",
-        "de": "Community und Befehle",
-        "it": "Community e comandi"
-      },
-      "text": {
-        "es": "El Discord, su TikTok, cómo apoyarla y, debajo, todo lo que le puedes pedir en voz alta o escrito.",
-        "en": "The Discord, her TikTok, how to support her and, below, everything you can ask her out loud or written.",
-        "fr": "Le Discord, son TikTok, comment la soutenir et, en dessous, tout ce que tu peux lui demander à voix haute ou par écrit.",
-        "pt": "O Discord, o TikTok dela, como apoiá-la e, embaixo, tudo o que você pode pedir em voz alta ou por escrito.",
-        "ru": "Discord, её TikTok, как её поддержать, а ниже — всё, что можно у неё попросить вслух или текстом.",
-        "vi": "Discord, TikTok của cô ấy, cách ủng hộ cô ấy và bên dưới là mọi điều bạn có thể nhờ cô ấy, bằng giọng nói hoặc bằng chữ.",
-        "ja": "Discord、彼女のTikTok、応援の方法、その下に声や文字で頼めることの一覧があります。",
-        "de": "Der Discord, ihr TikTok, wie du sie unterstützen kannst und darunter alles, worum du sie laut oder schriftlich bitten kannst.",
-        "it": "Il Discord, il suo TikTok, come sostenerla e, sotto, tutto quello che puoi chiederle a voce o per iscritto."
-      }
-    },
-    {
-      "target": "tab:games",
-      "title": {
-        "es": "Juegos",
-        "en": "Games",
-        "fr": "Jeux",
-        "pt": "Jogos",
-        "ru": "Игры"
-      },
-      "text": {
-        "es": "Sus juegos, a un toque: Conecta 4, Memorama y Secuencia neural son nuevos.",
-        "en": "Her games, one tap away: Connect 4, Memory and Neural sequence are new.",
-        "fr": "Ses jeux, à portée de doigt : Puissance 4, Memory et Séquence neurale sont nouveaux.",
-        "pt": "Os jogos dela, a um toque: Lig 4, Jogo da memória e Sequência neural são novos.",
-        "ru": "Её игры в одно касание: «Четыре в ряд», «Мемори» и «Нейропоследовательность» — новые."
-      }
-    },
-    {
-      "target": "settings:personal",
-      "title": {
-        "es": "Ajustes, por pantallas",
-        "en": "Settings, screen by screen",
-        "fr": "Réglages, écran par écran",
-        "pt": "Ajustes, por telas",
-        "ru": "Настройки по экранам"
-      },
-      "text": {
-        "es": "Ajustes ahora es un menú: cada grupo abre su pantalla. En Ajustes personales está lo tuyo: tu nombre, tu historial, el modo sueño y sus neurodanzas.",
-        "en": "Settings is now a menu: each group opens its own screen. Personal settings holds your things: your name, your history, sleep mode and her braindances.",
-        "fr": "Les Réglages sont maintenant un menu : chaque groupe ouvre son écran. Réglages personnels garde tes infos : ton nom, ton historique, le mode sommeil et ses neurodanses.",
-        "pt": "Ajustes agora é um menu: cada grupo abre a própria tela. Em Ajustes pessoais fica o que é seu: seu nome, seu histórico, o modo sono e as neurodanças dela.",
-        "ru": "Настройки теперь меню: каждая группа открывает свой экран. В Личных настройках — твоё: имя, история, режим сна и её нейротанцы."
+        "es": "Debajo de cada respuesta, un color te dice con qué voz habla: azul la nube (Fish), verde su voz del teléfono, amarillo sus frases grabadas y gris la voz de tu teléfono.",
+        "en": "Under each answer, a color tells you which voice she's using: blue the cloud (Fish), green her voice on the phone, yellow her recorded phrases and gray your phone's voice.",
+        "fr": "Sous chaque réponse, une couleur te dit quelle voix elle utilise : bleu le cloud (Fish), vert sa voix sur le téléphone, jaune ses phrases enregistrées et gris la voix de ton téléphone.",
+        "pt": "Embaixo de cada resposta, uma cor mostra qual voz ela usa: azul a nuvem (Fish), verde a voz dela no celular, amarelo as frases gravadas e cinza a voz do seu celular.",
+        "ru": "Под каждым ответом цвет показывает, каким голосом она говорит: синий — облако (Fish), зелёный — её голос в телефоне, жёлтый — записанные фразы, серый — голос телефона.",
+        "vi": "Dưới mỗi câu trả lời, màu sắc cho biết cô ấy dùng giọng nào: xanh dương là đám mây (Fish), xanh lá là giọng trên điện thoại, vàng là câu thu sẵn, xám là giọng điện thoại của bạn.",
+        "ja": "各返信の下の色で、どの声か分かります。青はクラウド（Fish）、緑は端末内の彼女の声、黄色は録音フレーズ、灰色はあなたの端末の声。",
+        "de": "Unter jeder Antwort zeigt eine Farbe, welche Stimme sie nutzt: Blau die Cloud (Fish), Grün ihre Stimme auf dem Handy, Gelb ihre aufgenommenen Sätze und Grau die Stimme deines Handys.",
+        "it": "Sotto ogni risposta un colore ti dice che voce usa: blu il cloud (Fish), verde la sua voce sul telefono, giallo le frasi registrate e grigio la voce del tuo telefono."
       }
     },
     {
       "target": "settings:voice",
       "title": {
-        "es": "Su voz",
-        "en": "Her voice",
-        "fr": "Sa voix",
-        "pt": "A voz dela",
-        "ru": "Её голос"
+        "es": "Su voz real y «Oye Capri»",
+        "en": "Her real voice and \"Hey Capri\"",
+        "fr": "Sa vraie voix et « Dis Capri »",
+        "pt": "A voz real dela e «Ei Capri»",
+        "ru": "Её настоящий голос и «Эй, Капри»",
+        "vi": "Giọng thật và «Này Capri»",
+        "ja": "本物の声と「ねえカプリ」",
+        "de": "Ihre echte Stimme und „Hey Capri“",
+        "it": "La sua vera voce e «Ehi Capri»"
       },
       "text": {
-        "es": "Aquí bajas su voz y eliges su motor para que todas sus respuestas suenen con su voz, más o menos fiel según tu teléfono.",
-        "en": "Download her voice here and pick her engine so all her answers sound in her voice, more or less faithful depending on your phone.",
-        "fr": "Ici, tu télécharges sa voix et choisis son moteur pour que toutes ses réponses aient sa voix, plus ou moins fidèle selon ton téléphone.",
-        "pt": "Aqui você baixa a voz dela e escolhe o motor para que todas as respostas soem com a voz dela, mais ou menos fiel conforme o celular.",
-        "ru": "Здесь можно скачать её голос и выбрать движок, чтобы все ответы звучали её голосом — точнее или проще, в зависимости от телефона."
+        "es": "Aquí pegas tu clave de Fish Audio para su voz en la nube (el modelo gratis basta) y enciendes «Oye Capri», que escucha su nombre sin pitidos y sin internet.",
+        "en": "Paste your Fish Audio key here for her cloud voice (the free model is enough) and turn on \"Hey Capri\", which listens for her name with no beeps and no internet.",
+        "fr": "Colle ici ta clé Fish Audio pour sa voix cloud (le modèle gratuit suffit) et active « Dis Capri », qui écoute son nom sans bips et sans internet.",
+        "pt": "Cole aqui sua chave da Fish Audio para a voz na nuvem (o modelo grátis basta) e ative «Ei Capri», que escuta o nome dela sem bipes e sem internet.",
+        "ru": "Вставь сюда ключ Fish Audio для облачного голоса (хватит бесплатной модели) и включи «Эй, Капри» — она слышит своё имя без писков и без интернета.",
+        "vi": "Dán khóa Fish Audio ở đây cho giọng trên mây (mô hình miễn phí là đủ) và bật «Này Capri», nghe tên cô ấy không tiếng bíp và không cần mạng.",
+        "ja": "ここに Fish Audio のキーを貼るとクラウドの声に（無料モデルで十分）。「ねえカプリ」をオンにすると、ビープ音もネットもなしで名前を聞き取ります。",
+        "de": "Füg hier deinen Fish-Audio-Schlüssel für ihre Cloud-Stimme ein (das kostenlose Modell reicht) und schalte „Hey Capri“ ein: sie hört ihren Namen ohne Pieptöne und ohne Internet.",
+        "it": "Incolla qui la tua chiave Fish Audio per la voce cloud (basta il modello gratuito) e attiva «Ehi Capri», che sente il suo nome senza bip e senza internet."
+      }
+    },
+    {
+      "target": "settings:ai",
+      "title": {
+        "es": "Tu IA y su modelo",
+        "en": "Your AI and its model",
+        "fr": "Ton IA et son modèle",
+        "pt": "Sua IA e o modelo",
+        "ru": "Твой ИИ и модель",
+        "vi": "AI và mô hình",
+        "ja": "AI とモデル",
+        "de": "Deine KI und ihr Modell",
+        "it": "La tua IA e il modello"
+      },
+      "text": {
+        "es": "Guarda varias claves y elige el modelo de cada una. Si una IA está llena, pasa sola a otra.",
+        "en": "Save several keys and pick the model for each. If one AI is full, she moves to another on her own.",
+        "fr": "Garde plusieurs clés et choisis le modèle de chacune. Si une IA est pleine, elle passe seule à une autre.",
+        "pt": "Salve várias chaves e escolha o modelo de cada uma. Se uma IA estiver cheia, ela passa para outra sozinha.",
+        "ru": "Сохрани несколько ключей и выбери модель для каждого. Если ИИ перегружен, она сама переходит на другой.",
+        "vi": "Lưu nhiều khóa và chọn mô hình cho từng khóa. Nếu một AI bị đầy, cô ấy tự chuyển sang AI khác.",
+        "ja": "キーを複数保存して、それぞれのモデルを選べます。混んでいたら自動で別の AI へ。",
+        "de": "Speichere mehrere Schlüssel und wähle für jeden das Modell. Ist eine KI voll, wechselt sie von selbst.",
+        "it": "Salva più chiavi e scegli il modello di ognuna. Se un'IA è piena, passa da sola a un'altra."
+      }
+    },
+    {
+      "target": "tab:funcs",
+      "title": {
+        "es": "Funciones",
+        "en": "Features",
+        "fr": "Fonctions",
+        "pt": "Funções",
+        "ru": "Функции",
+        "vi": "Chức năng",
+        "ja": "機能",
+        "de": "Funktionen",
+        "it": "Funzioni"
+      },
+      "text": {
+        "es": "Modo sueño, tus clases y lo que te cuida, todo en una pestaña nueva.",
+        "en": "Sleep mode, your classes and what looks after you, all in a new tab.",
+        "fr": "Mode sommeil, tes cours et ce qui prend soin de toi, dans un nouvel onglet.",
+        "pt": "Modo sono, suas aulas e o que cuida de você, tudo numa aba nova.",
+        "ru": "Режим сна, твои занятия и забота о тебе — всё в новой вкладке.",
+        "vi": "Chế độ ngủ, lịch học và những gì chăm sóc bạn, tất cả trong một tab mới.",
+        "ja": "スリープモード、授業、あなたを気づかう機能を新しいタブにまとめました。",
+        "de": "Schlafmodus, deine Kurse und was auf dich aufpasst, alles in einem neuen Tab.",
+        "it": "Modalità sonno, le tue lezioni e ciò che si prende cura di te, in una nuova scheda."
+      }
+    },
+    {
+      "target": "settings:personal",
+      "title": {
+        "es": "Tu cuenta y tu perfil",
+        "en": "Your account and profile",
+        "fr": "Ton compte et ton profil",
+        "pt": "Sua conta e seu perfil",
+        "ru": "Аккаунт и профиль",
+        "vi": "Tài khoản và hồ sơ",
+        "ja": "アカウントとプロフィール",
+        "de": "Konto und Profil",
+        "it": "Account e profilo"
+      },
+      "text": {
+        "es": "Entra con Google o tu correo: tu chat, su memoria y tus ajustes se guardan solos. Pon tu foto y tu nombre, también en el chat.",
+        "en": "Sign in with Google or your email: your chat, her memory and your settings save themselves. Add your photo and name, also in the chat.",
+        "fr": "Connecte-toi avec Google ou ton e-mail : ton chat, sa mémoire et tes réglages s'enregistrent seuls. Mets ta photo et ton nom, aussi dans le chat.",
+        "pt": "Entre com Google ou seu e-mail: seu chat, a memória dela e seus ajustes são salvos sozinhos. Coloque sua foto e seu nome, também no chat.",
+        "ru": "Войди через Google или почту: чат, её память и настройки сохраняются сами. Добавь фото и имя — они видны и в чате.",
+        "vi": "Đăng nhập bằng Google hoặc email: chat, trí nhớ của cô ấy và cài đặt tự được lưu. Thêm ảnh và tên của bạn, cả trong chat.",
+        "ja": "Google かメールでログインすると、チャット・記憶・設定が自動保存。写真と名前はチャットにも表示されます。",
+        "de": "Melde dich mit Google oder E-Mail an: Chat, ihr Gedächtnis und deine Einstellungen speichern sich selbst. Füg dein Foto und deinen Namen hinzu, auch im Chat.",
+        "it": "Entra con Google o la tua email: chat, la sua memoria e le impostazioni si salvano da sole. Metti la tua foto e il tuo nome, anche nella chat."
       }
     },
     {
       "target": "tab:style",
       "title": {
-        "es": "8 trajes nuevos",
-        "en": "8 new outfits",
-        "fr": "8 nouvelles tenues",
-        "pt": "8 roupas novas",
-        "ru": "8 новых нарядов"
+        "es": "Crea tu propia Capri",
+        "en": "Make your own Capri",
+        "fr": "Crée ta propre Capri",
+        "pt": "Crie sua própria Capri",
+        "ru": "Создай свою Капри",
+        "vi": "Tạo Capri của riêng bạn",
+        "ja": "自分だけのカプリ",
+        "de": "Erstelle deine eigene Capri",
+        "it": "Crea la tua Capri"
       },
       "text": {
-        "es": "En su Vestuario: Sirvienta, Sirvienta neón, Astronauta, Idol, Sudadera gamer, Rockera punk, Charra e Invierno.",
-        "en": "In her Wardrobe: Maid, Neon maid, Astronaut, Idol, Gamer hoodie, Punk rocker, Charra and Winter.",
-        "fr": "Dans sa Garde-robe : Soubrette, Soubrette néon, Astronaute, Idol, Sweat gamer, Rockeuse punk, Charra et Hiver.",
-        "pt": "No Guarda-roupa dela: Empregada, Empregada neon, Astronauta, Idol, Moletom gamer, Roqueira punk, Charra e Inverno.",
-        "ru": "В её Гардеробе: Горничная, Неоновая горничная, Космонавт, Айдол, Геймерское худи, Панк-рокерша, Чарра и Зима."
+        "es": "Baja su diseño, dibújale un traje y mándalo desde aquí.",
+        "en": "Download her design, draw her an outfit and send it from here.",
+        "fr": "Télécharge son design, dessine-lui une tenue et envoie-la d'ici.",
+        "pt": "Baixe o design dela, desenhe uma roupa e envie daqui.",
+        "ru": "Скачай её дизайн, нарисуй наряд и отправь отсюда.",
+        "vi": "Tải thiết kế của cô ấy, vẽ trang phục và gửi từ đây.",
+        "ja": "デザインをダウンロードして衣装を描き、ここから送れます。",
+        "de": "Lade ihr Design herunter, zeichne ihr ein Outfit und schick es von hier.",
+        "it": "Scarica il suo design, disegnale un vestito e mandalo da qui."
       }
     }
   ]

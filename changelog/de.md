@@ -4,26 +4,23 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 
 ## 1.12.0
 
-- **Stimme aus der Cloud (Fish Audio):** Mit deinem eigenen Schlüssel spricht sie in Echtzeit mit ihrer Stimme, auf Spanisch, Englisch, Portugiesisch und Japanisch. Ohne Internet oder Guthaben wechselt sie von selbst zu ihrer lokalen Stimme. Du wählst das Modell: kostenlos oder Pro.
-- **Viel schneller:** Sie fängt an zu sprechen, während ihre KI noch schreibt, und im Chat siehst du, wie weit ihre Stimme ist (*Stimme 42 %*).
-- **Du siehst, welche Stimme spricht:** Unter jeder Antwort hat die Stimmanzeige eine Farbe und einen Namen: Blau für Fish (Cloud), Grün für lokal, Gelb für ihre aufgenommenen Sätze und Grau für die Handystimme.
-- **Wenn ihre Cloud-Stimme ausfällt, sagt sie dir warum** (Schlüssel, Guthaben, Fish überlastet oder kein Internet), nach zwei neuen Versuchen.
-- **Leichter auf einfachen und älteren Handys:** Ihre Ohren ruhen bei Stille (etwa 80 % weniger Arbeit), sie wird auf einfachen Handys und wenn deins warm wird seltener gezeichnet, und ihre Stimme nutzt weniger Kerne. Ein neues Gesicht, wenn sie liegend aufs Handy schaut.
-- **Ihre 202 aufgenommenen Sätze mit ihrer neuen Stimme:** Sie klingen öfter (zur Begrüßung, wenn ihr langweilig ist, im Chat, bei Benachrichtigungen) und sofort, ohne Internet.
-- **Sie ist in deinen Bildschirmaufnahmen zu hören.**
-- **Kein Verstummen, kein Abbrechen mehr:** Sie redet nach dem ersten Satz weiter, beendet lange Antworten und bleibt nicht stumm, wenn ihre Engine hängt.
-- **Passives „Hey Capri“:** Ein kleines Modell im Handy hört nur auf ihren Namen, ohne Pieptöne und ohne dass etwas das Handy verlässt. Jetzt erkennt es ihren Namen, ob schnell oder langsam gesagt, und hört danach deine Frage weiter.
-- **Nur deine Stimme:** Sie lernt deine Stimme und ignoriert Fernseher und andere Leute. Und sie versteht dich auch bei „Capi“ oder „Cabi“.
-- **Antwortet schneller:** Ist ihre KI überlastet, wechselt sie sofort zu einer anderen. Gemini probiert keine eingestellten Modelle mehr zuerst.
-- **Mehrere Schlüssel und Modellwahl:** Füge mehrere Schlüssel eines Dienstes ein (ist einer leer, nimmt sie den nächsten), sieh deine gespeicherten Schlüssel (verdeckt) und wähle für jeden das Modell.
-- **Dein Foto im Chat** neben deinen Nachrichten, und oben wechselst du die KI mit einem Tipp.
-- **Neu:** Lesemodus ohne Spoiler, Dateien für sie (PDF, Word, Audio), „Welches Lied ist das?“, Antworten auf deine Nachrichten, Nachrichten des Tages und Suche im Chat.
-- **Neu geordnet:** Öffnet bei Neuigkeiten; neuer Tab **Funktionen** (Schlafmodus, deine Kurse und ihre Fürsorge); Einstellungen sind jetzt kurze Menüs mit eigenen Seiten; Bildschirm und Modi getrennt.
-- **Dein Profil:** Foto oder Symbol und dein Name oben in den Einstellungen, in deinem Konto gespeichert.
-- **Dein Konto:** Melde dich mit Google oder E-Mail an, dann werden ihr Gedächtnis, deine Einstellungen, Kurse und Chat von selbst in der Cloud gesichert. Deine Schlüssel verlassen nie das Handy. Hat ein anderes Handy von dir etwas Neueres gesichert, bietet die App beim Öffnen an, es zu holen, ohne die Chats hier zu verlieren.
-- **Vier neue Sprachen:** Vietnamesisch, Japanisch, Deutsch und Italienisch.
-- **Erstelle deine eigene Capri:** Lade ihr Design in guter Qualität herunter, zeichne ihr ein Outfit und schick das PNG über Anpassen.
-- **Außerdem:** zwei neue Widgets, drei Minispiele, schüttel sie und ihr wird schwindlig, Emma auf TikTok und X folgen über Neuigkeiten.
-- **Ein Mikro, das nicht stört:** Ihre Ohren geben das Mikro bei Anrufen und wenn eine andere App aufnimmt (Sprachnachrichten) frei und kommen danach von selbst zurück.
-- **Wieder auf 32-Bit-Handys.**
-- **Fehlerbehebungen:** Outfits ohne doppelte oder vertauschte Arme, Vollbildseiten richtig angeordnet und vieles mehr.
+- **✨ Neu**
+- **Ihre Cloud-Stimme (Fish Audio):** mit deinem Fish-Audio-Schlüssel (das kostenlose Modell reicht) spricht sie mit ihrer echten Stimme auf Spanisch, Englisch, Portugiesisch und Japanisch.
+- **Du siehst, welche Stimme spricht:** unter jeder Antwort zeigt eine Farbe es an: Blau ist die Cloud, Grün ihre Stimme auf dem Handy, Gelb ihre aufgenommenen Sätze und Grau die Stimme deines Handys.
+- **Sie spricht früher:** sie fängt an zu reden, während sie die Antwort noch schreibt.
+- **„Hey Capri“ ohne Pieptöne:** sie hört ihren Namen direkt im Handy, ohne etwas ins Internet zu schicken, und kann lernen, nur auf dich zu hören.
+- **Dein Konto:** melde dich mit Google oder deiner E-Mail an, und dein Chat, ihr Gedächtnis und deine Einstellungen speichern sich selbst und kommen auf dein anderes Handy mit.
+- **Dein Profil:** dein Foto oder Symbol und dein Name, auch neben deinen Nachrichten.
+- **Nützlicher:** schick ihr PDFs, Word-Dateien oder Audios, frag sie, welcher Song läuft, lass sie deine Nachrichten beantworten, die Nachrichten des Tages holen oder in deinem Chat suchen.
+- **Wähle deine KI und ihr Modell:** speichere mehrere Schlüssel und wähle für jeden das Modell. Ist eine KI voll, wechselt sie von selbst zu einer anderen.
+- **Tab Funktionen:** Schlafmodus, deine Kurse und was auf dich aufpasst, an einem Ort. Die Einstellungen sind jetzt aufgeräumter.
+- **Erstelle deine eigene Capri:** lade ihr Design herunter, zeichne ihr ein Outfit und schick es über Anpassen.
+- **4 neue Sprachen:** Vietnamesisch, Japanisch, Deutsch und Italienisch.
+- **Und mehr:** zwei Widgets, drei Minispiele, schüttel sie und ihr wird schwindelig, ein neues Gesicht, wenn sie aufs Handy schaut, und Emma auf TikTok und X.
+- **🛠️ Behobene Fehler**
+- **Mikrofon:** „Hey Capri“ hört jetzt wirklich deine Frage nach ihrem Namen und gibt das Mikrofon bei Anrufen und Sprachnachrichten frei.
+- **Ihre Stimme:** sie verstummt nicht mehr mitten in der Antwort, ihre aufgenommenen Sätze sind wieder zu hören und sie ist in deinen Bildschirmaufnahmen zu hören.
+- **Wenn ihre Cloud-Stimme ausfällt,** sagt sie dir warum und spricht mit einer anderen Stimme weiter.
+- **Leichter:** weniger Akkuverbrauch und weniger Wärme auf einfachen oder älteren Handys.
+- **32-Bit-Handys:** lässt sich wieder installieren.
+- **Outfits und Bildschirme:** keine doppelten Arme oder vermischte Kleidung mehr, und Vollbilder sitzen richtig.

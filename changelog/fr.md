@@ -4,29 +4,26 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 
 ## 1.12.0
 
-- **Voix dans le cloud (Fish Audio) :** avec ta propre clé, elle parle avec sa voix en temps réel, en espagnol, anglais, portugais et japonais. Sans internet ou sans crédit, elle revient seule à sa voix locale. Tu choisis le modèle : gratuit ou Pro.
-- **Bien plus rapide :** elle commence à parler pendant que son IA écrit encore, et dans le chat tu vois où en est sa voix (*Voix en cours 42 %*).
-- **Tu vois quelle voix parle :** sous chaque réponse, l'indicateur de voix a une couleur et un nom : bleu pour Fish (cloud), vert pour la locale, jaune pour ses phrases enregistrées et gris pour la voix du téléphone.
-- **Si sa voix cloud échoue, elle te dit pourquoi** (clé, crédit, Fish saturé ou pas d'internet), après deux nouvelles tentatives.
-- **Plus légère sur les téléphones modestes et anciens :** ses oreilles se reposent dans le silence (environ 80 % de travail en moins), elle est dessinée moins souvent sur les téléphones modestes et quand le tien chauffe, et sa voix utilise moins de cœurs. Un nouveau visage quand elle regarde son téléphone allongée.
-- **Ses 202 phrases enregistrées, avec sa nouvelle voix :** elles sonnent plus souvent (pour te saluer, quand elle s'ennuie, dans le chat, à tes notifications) et tout de suite, sans internet.
-- **On l'entend dans tes enregistrements d'écran.**
-- **Plus de silences ni de coupures :** elle continue après la première phrase, termine les longues réponses et ne devient pas muette si son moteur se bloque.
-- **« Dis Capri » passif :** un petit modèle dans le téléphone n'écoute que son nom, sans bips et sans que rien ne sorte du téléphone. Il l'entend maintenant que tu parles vite ou lentement, et continue d'écouter ta question après son nom.
-- **Seulement ta voix :** elle apprend ta voix et ignore la télé et les autres. Et elle te comprend même si tu dis « Capi » ou « Cabi ».
-- **Elle répond plus vite :** si son IA est saturée, elle passe tout de suite à une autre. Gemini n'essaie plus d'abord des modèles fermés.
-- **Plusieurs clés, et choisis le modèle :** colle plusieurs clés d'un service (elle passe à la suivante quand une est épuisée), vois tes clés enregistrées (masquées) et choisis le modèle de chacune.
-- **Ta photo dans le chat** à côté de tes messages, et en haut tu changes d'IA d'un toucher.
-- **Nouveau :** mode lecture sans spoilers, fichiers pour elle (PDF, Word, audio), « c'est quelle chanson ? », répondre à tes messages, infos du jour et recherche dans ton chat.
-- **Réorganisée :** s'ouvre sur Nouveautés ; nouvel onglet **Fonctions** (mode sommeil, tes cours et ce qui prend soin de toi) ; les réglages sont des menus courts avec des écrans ; Écran et Modes séparés.
-- **Ton profil :** photo ou icône et ton nom en haut des Réglages, enregistrés dans ton compte.
-- **Ton compte :** connecte-toi avec Google ou un e-mail et sa mémoire, tes réglages, tes cours et ton chat sont sauvegardés seuls dans le cloud. Tes clés ne quittent jamais le téléphone. Si un autre de tes téléphones a enregistré plus récent, l'app te propose de le récupérer à l'ouverture, sans perdre les chats d'ici.
-- **Quatre nouvelles langues :** vietnamien, japonais, allemand et italien.
-- **Crée ta propre Capri :** télécharge son design en bonne qualité, dessine-lui une tenue et envoie le PNG depuis Personnaliser.
-- **En plus :** deux nouveaux widgets, trois mini-jeux, secoue-la et elle a le tournis, suis Emma sur TikTok et X depuis Nouveautés.
-- **Un micro qui ne gêne pas :** ses oreilles lâchent le micro pendant les appels et quand une autre app enregistre (messages vocaux), et reviennent seules après.
-- **De retour sur les téléphones 32 bits.**
-- **Corrections :** tenues sans bras doublés ni mélangés, plein écran bien disposé et bien d'autres détails.
+- **✨ Nouveautés**
+- **Sa voix cloud (Fish Audio) :** avec ta clé Fish Audio (le modèle gratuit suffit), elle parle avec sa vraie voix en espagnol, anglais, portugais et japonais.
+- **Tu vois quelle voix parle :** sous chaque réponse, une couleur te le dit : bleu pour le cloud, vert pour sa voix sur le téléphone, jaune pour ses phrases enregistrées et gris pour la voix de ton téléphone.
+- **Elle parle plus vite :** elle commence à parler pendant qu'elle écrit encore la réponse.
+- **« Dis Capri » sans bips :** elle écoute son nom dans le téléphone, sans rien envoyer sur internet, et peut apprendre à n'écouter que toi.
+- **Ton compte :** connecte-toi avec Google ou ton e-mail, et ton chat, sa mémoire et tes réglages s'enregistrent seuls et passent sur ton autre téléphone.
+- **Ton profil :** ta photo ou ton icône et ton nom, aussi à côté de tes messages.
+- **Plus utile :** envoie-lui des PDF, des Word ou des audios, demande-lui quelle chanson passe, qu'elle réponde à tes messages, les infos du jour ou qu'elle cherche dans ton chat.
+- **Choisis ton IA et son modèle :** garde plusieurs clés et choisis le modèle de chacune. Si une IA est pleine, elle passe seule à une autre.
+- **Onglet Fonctions :** mode sommeil, tes cours et ce qui prend soin de toi, au même endroit. Les réglages sont mieux rangés.
+- **Crée ta propre Capri :** télécharge son design, dessine-lui une tenue et envoie-la depuis Personnaliser.
+- **4 nouvelles langues :** vietnamien, japonais, allemand et italien.
+- **Et plus :** deux widgets, trois mini-jeux, secoue-la et elle a le tournis, un nouveau visage quand elle regarde son téléphone, et Emma sur TikTok et X.
+- **🛠️ Bugs corrigés**
+- **Micro :** « Dis Capri » entend vraiment ta question après son nom, et libère le micro pendant les appels et les notes vocales.
+- **Sa voix :** elle ne se tait plus au milieu d'une réponse, ses phrases enregistrées sonnent de nouveau et on l'entend dans tes enregistrements d'écran.
+- **Si sa voix cloud échoue,** elle te dit pourquoi et continue avec une autre voix.
+- **Plus légère :** moins de batterie et moins de chaleur sur les téléphones simples ou anciens.
+- **Téléphones 32 bits :** elle s'installe de nouveau.
+- **Tenues et écrans :** plus de bras en double ni de vêtements mélangés, et les plein écrans sont bien placés.
 
 ## 1.11.7
 

@@ -4,26 +4,23 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 
 ## 1.12.0
 
-- **Voce nel cloud (Fish Audio):** con la tua chiave parla con la sua voce in tempo reale, in spagnolo, inglese, portoghese e giapponese. Senza internet o senza credito torna da sola alla sua voce locale. Scegli tu il modello: gratis o Pro.
-- **Molto più veloce:** comincia a parlare mentre la sua IA sta ancora scrivendo, e nella chat vedi a che punto è la sua voce (*Voce 42 %*).
-- **Vedi quale voce parla:** sotto ogni risposta l'indicatore della voce ha un colore e un nome: blu per Fish (cloud), verde per la locale, giallo per le frasi registrate e grigio per la voce del telefono.
-- **Se la sua voce cloud non va, ti dice perché** (chiave, credito, Fish sovraccarico o niente internet), dopo averci riprovato due volte.
-- **Più leggera sui telefoni modesti e vecchi:** le sue orecchie riposano nel silenzio (circa l'80 % di lavoro in meno), viene disegnata meno spesso sui telefoni modesti e quando il tuo si scalda, e la sua voce usa meno core. Un volto nuovo quando guarda il telefono sdraiata.
-- **Le sue 202 frasi registrate, con la voce nuova:** suonano più spesso (quando ti saluta, quando si annoia, nella chat, alle tue notifiche) e subito, senza internet.
-- **Si sente nelle tue registrazioni dello schermo.**
-- **Niente più silenzi o tagli:** continua dopo la prima frase, finisce le risposte lunghe e non resta muta se il motore si blocca.
-- **«Ehi Capri» passivo:** un piccolo modello dentro il telefono ascolta solo il suo nome, senza bip e senza che nulla esca dal telefono. Ora sente il suo nome detto veloce o piano e continua ad ascoltare la tua domanda dopo.
-- **Solo la tua voce:** impara la tua voce e ignora la TV e le altre persone. E ti capisce anche se dici «Capi» o «Cabi».
-- **Risponde prima:** se la sua IA è sovraccarica passa subito a un'altra. Gemini non prova più prima i modelli chiusi.
-- **Più chiavi e scegli il modello:** incolla più chiavi di un servizio (quando una finisce passa alla successiva), vedi le chiavi salvate (nascoste) e scegli il modello per ognuna.
-- **La tua foto nella chat** accanto ai tuoi messaggi, e in alto cambi IA con un tocco.
-- **Novità:** modalità lettura senza spoiler, file per lei (PDF, Word, audio), «che canzone è?», rispondere ai tuoi messaggi, notizie del giorno e ricerca nella chat.
-- **Riordinata:** si apre su Novità; nuova scheda **Funzioni** (modalità sonno, le tue lezioni e la sua cura per te); le impostazioni ora sono menu brevi con schermate; Schermo e Modalità separati.
-- **Il tuo profilo:** foto o icona e il tuo nome in cima alle Impostazioni, salvati nel tuo account.
-- **Il tuo account:** entra con Google o email e la sua memoria, le tue impostazioni, lezioni e chat si salvano da soli nel cloud. Le tue chiavi non lasciano mai il telefono. Se un altro tuo telefono ha salvato qualcosa di più recente, all'apertura l'app ti propone di portarlo qui, senza perdere le chat di qui.
-- **Quattro nuove lingue:** vietnamita, giapponese, tedesco e italiano.
-- **Crea la tua Capri:** scarica il suo design in buona qualità, disegnale un vestito e invia il PNG da Personalizza.
-- **Inoltre:** due nuovi widget, tre minigiochi, scuotila e le gira la testa, segui Emma su TikTok e X da Novità.
-- **Un microfono che non disturba:** le sue orecchie lasciano il microfono durante le chiamate e quando un'altra app registra (messaggi vocali), e tornano da sole dopo.
-- **Di nuovo sui telefoni a 32 bit.**
-- **Correzioni:** vestiti senza braccia doppie o mescolate, schermate intere ben sistemate e tanti altri dettagli.
+- **✨ Novità**
+- **La sua voce cloud (Fish Audio):** con la tua chiave Fish Audio (basta il modello gratuito) parla con la sua vera voce in spagnolo, inglese, portoghese e giapponese.
+- **Vedi quale voce parla:** sotto ogni risposta te lo dice un colore: blu è il cloud, verde la sua voce sul telefono, giallo le frasi registrate e grigio la voce del tuo telefono.
+- **Parla prima:** inizia a parlare mentre sta ancora scrivendo la risposta.
+- **«Ehi Capri» senza bip:** sente il suo nome dentro il telefono, senza mandare nulla su internet, e può imparare ad ascoltare solo te.
+- **Il tuo account:** entra con Google o con la tua email, e la chat, la sua memoria e le tue impostazioni si salvano da sole e passano all'altro telefono.
+- **Il tuo profilo:** la tua foto o icona e il tuo nome, anche accanto ai tuoi messaggi.
+- **Più utile:** mandale PDF, Word o audio, chiedile che canzone sta suonando, falle rispondere ai messaggi, le notizie del giorno o cercare nella chat.
+- **Scegli la tua IA e il modello:** salva più chiavi e scegli il modello di ognuna. Se un'IA è piena, passa da sola a un'altra.
+- **Scheda Funzioni:** modalità sonno, le tue lezioni e ciò che si prende cura di te, in un posto solo. Le impostazioni sono più ordinate.
+- **Crea la tua Capri:** scarica il suo design, disegnale un vestito e mandalo da Personalizza.
+- **4 nuove lingue:** vietnamita, giapponese, tedesco e italiano.
+- **E altro:** due widget, tre minigiochi, scuotila e le gira la testa, un volto nuovo quando guarda il telefono, ed Emma su TikTok e X.
+- **🛠️ Bug corretti**
+- **Microfono:** «Ehi Capri» ora sente davvero la tua domanda dopo il suo nome, e lascia libero il microfono durante chiamate e messaggi vocali.
+- **La sua voce:** non si zittisce più a metà risposta, le frasi registrate suonano di nuovo e si sente nelle tue registrazioni dello schermo.
+- **Se la sua voce cloud non va,** ti dice perché e continua con un'altra voce.
+- **Più leggera:** meno batteria e meno calore sui telefoni semplici o vecchi.
+- **Telefoni a 32 bit:** si installa di nuovo.
+- **Vestiti e schermi:** niente braccia doppie né vestiti mescolati, e gli schermi interi sono al loro posto.

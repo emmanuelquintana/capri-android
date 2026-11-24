@@ -4,29 +4,26 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 
 ## 1.12.0
 
-- **Cloud voice (Fish Audio):** with your own key she speaks in her voice in real time, in Spanish, English, Portuguese and Japanese. With no internet or no credit she goes back to her local voice on her own. You pick the model: free or Pro.
-- **Much faster:** she starts speaking while her AI is still writing, and in the chat you see how far along her voice is (*Generating voice 42 %*).
-- **See which voice is speaking:** under each answer the voice meter has a color and a name: blue for Fish (cloud), green for local, yellow for her recorded phrases and gray for the phone's voice.
-- **If her cloud voice fails, she tells you why** (key, credit, Fish busy or no internet), after trying again twice.
-- **Lighter on modest and older phones:** her ears rest when it's quiet (about 80 % less work), she's drawn less often on modest phones and when yours gets warm, and her voice uses fewer cores. A new face when she lies down looking at her phone.
-- **Her 202 recorded phrases, in her new voice:** they play more often (saying hi, when she's bored, in the chat, on your notifications) and instantly, with no internet.
-- **She's heard in your screen recordings.**
-- **No more going quiet or cutting off:** she goes on after the first sentence, finishes long answers and doesn't go mute if her engine gets stuck.
-- **Passive "Hey Capri":** a small model inside the phone listens only for her name, with no beeps and nothing leaving the phone. It now hears her name whether you say it fast or slowly, and keeps listening to your question after it.
-- **Only your voice:** she learns your voice and ignores the TV and other people. And she understands you even if you say "Capi" or "Cabi".
-- **Answers sooner:** if her AI is overloaded she moves to another one right away. Gemini no longer tries closed models first.
-- **Several keys, and pick the model:** paste several keys for a service (she goes on with the next when one runs out), see your saved keys (hidden) and pick the model for each one.
-- **Your photo in the chat** next to your messages, and at the top you switch AI with one tap.
-- **New:** spoiler-free reading mode, files for her (PDF, Word, audio), "what song is this?", replying to your messages, today's news and searching your chat.
-- **Reorganized:** opens on News; new **Features** tab (sleep mode, your classes and her care); settings are now short menus with screens; Screen and Modes are separate.
-- **Your profile:** photo or icon and your name at the top of Settings, saved to your account.
-- **Your account:** sign in with Google or email and her memory, your settings, classes and chat are saved to the cloud on their own. Your keys never leave the phone. If another phone of yours saved something newer, the app offers to bring it when you open it, keeping the chats here.
-- **Four new languages:** Vietnamese, Japanese, German and Italian.
-- **Create your own Capri:** download her design in good quality, draw her an outfit and send the PNG from Customize.
-- **More:** two new widgets, three minigames, shake her and she gets dizzy, follow Emma on TikTok and X from News.
-- **A mic that stays out of the way:** her ears let go of the mic during calls and when another app records (voice notes), and come back on their own afterwards.
-- **Back on 32-bit phones.**
-- **Fixes:** outfits without double or mixed-up arms, full screens laid out properly and many more details.
+- **✨ What's new**
+- **Her cloud voice (Fish Audio):** with your Fish Audio key (the free model is enough) she speaks in her real voice in Spanish, English, Portuguese and Japanese.
+- **See which voice is talking:** under each answer, a color tells you: blue is the cloud, green her voice on the phone, yellow her recorded phrases and gray your phone's voice.
+- **She talks sooner:** she starts speaking while she's still writing the answer.
+- **"Hey Capri" with no beeps:** she listens for her name inside the phone, sending nothing to the internet, and can learn to listen only to you.
+- **Your account:** sign in with Google or your email, and your chat, her memory and your settings save themselves and move to your other phone.
+- **Your profile:** your photo or icon and your name, also next to your messages.
+- **More useful:** send her PDFs, Word files or audio, ask her what song is playing, have her answer your messages, get today's news or search your chat.
+- **Pick your AI and its model:** save several keys and pick the model for each. If one AI is full, she moves to another on her own.
+- **Features tab:** sleep mode, your classes and what looks after you, in one place. Settings are tidier now.
+- **Make your own Capri:** download her design, draw her an outfit and send it from Customize.
+- **4 new languages:** Vietnamese, Japanese, German and Italian.
+- **And more:** two widgets, three mini-games, shake her and she gets dizzy, a new face when she looks at her phone, and Emma on TikTok and X.
+- **🛠️ Bugs fixed**
+- **Microphone:** "Hey Capri" now really hears your question after her name, and leaves the microphone free during calls and voice notes.
+- **Her voice:** she no longer goes quiet mid-answer, her recorded phrases play again and she's heard in your screen recordings.
+- **If her cloud voice fails,** she tells you why and carries on with another voice.
+- **Lighter:** less battery and less heat on simple or older phones.
+- **32-bit phones:** it installs again.
+- **Outfits and screens:** no double arms or mixed-up clothes, and full screens fit properly.
 
 ## 1.11.7
 
