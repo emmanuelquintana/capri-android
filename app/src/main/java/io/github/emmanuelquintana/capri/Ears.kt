@@ -80,12 +80,19 @@ class Ears(private val service: CapriService) {
         // (it stopped working: the old way from now on)
         if (text.isEmpty()) { if (wanted && !speaking) next(300); return }
         if (!wanted || speaking) return
+        val awake = System.currentTimeMillis() < awakeUntil
+        if (awake || namedIn(text)) Diag.add("I", "ears: heard «${text.take(80)}»${if (awake) " (after her name)" else ""}")
         heard(listOf(text))
-        // her name alone: what you say next goes to the phone's recognizer (better with whole sentences)
-        if (System.currentTimeMillis() < awakeUntil) {
-            passive.stop()
-            next(350) // (once it let go of the mic)
-        }
+        // (1.12.0, Emma: "le dije oye Capri y luego le pregunté qué hora es y no escuchó nada") her name alone: her
+        // passive ears go on listening for what you say next (it counts for the next 10 s). Before, the phone's
+        // recognizer took over here, and on her phone it failed ("error 5"): what you said was lost.
+    }
+
+    /** (1.12.0) For the phone log: how her ears listen right now. */
+    fun describe(): String {
+        val base = language().substringBefore('-')
+        return "passive ${if (passive.on) "on" else "off"} (model $base ${if (WakeWord.Models.installed(service, base)) "installed" else "missing"}${if (passive.broken) ", broken" else ""}), " +
+            "recognizer ${if (listening) "on" else "off"}, long session ${segmented ?: "?"}, failures $failures"
     }
 
     private fun knowSegmented(can: Boolean) {
@@ -306,21 +313,17 @@ class Ears(private val service: CapriService) {
             passive.stop()
             return next(5000)
         }
-        // (1.12.0) not right after her name: her passive ears, when their model is here (they don't take the
-        // sound from a video or a song either: they listen while it plays)
-        if (System.currentTimeMillis() >= awakeUntil) {
-            val base = language().substringBefore('-')
-            if (passive.start(base)) {
-                status = "listening"
-                return
-            }
-            // (its model downloaded on Wi-Fi, once: until then, the old way)
-            if (!passive.broken) WakeWord.Models.fetch(service, base) { if (it == null && wanted && !speaking && !listening) { passive.stop(); next(500) } }
-        } else if (passive.on || !passive.idle()) {
-            // (1.12.0) the recognizer only once her passive ears really let go of the mic: else "error 5"
-            passive.stop()
-            return next(150)
+        // (1.12.0) her passive ears, when their model is here: her name and what you say after it (they don't take
+        // the sound from a video or a song either: they listen while it plays)
+        val base = language().substringBefore('-')
+        if (passive.start(base)) {
+            status = "listening"
+            return
         }
+        // (its model downloaded on Wi-Fi, once: until then, the old way)
+        // (1.12.0) and on any network when the phone's own recognizer keeps failing here: her passive ears are the sure way
+        if (!passive.broken) WakeWord.Models.fetch(service, base, anyNetwork = failures >= 3) { if (it == null && wanted && !speaking && !listening) { passive.stop(); next(500) } }
+        if (!passive.idle()) return next(150) // (the recognizer only once her passive ears let go of the mic: else "error 5")
         // a video or music playing: the recognizer takes the sound from it each time it starts (the
         // video pauses, the song stops), so she waits for it to end
         if (audio.isMusicActive) {
@@ -501,14 +504,14 @@ class Ears(private val service: CapriService) {
             SpeechRecognizer.ERROR_CLIENT, SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> {
                 recognizer?.let { runCatching { it.cancel() }; runCatching { it.destroy() } }
                 recognizer = null
-                if (error == SpeechRecognizer.ERROR_CLIENT && longNow && segmented != true) {
+                if (error == SpeechRecognizer.ERROR_CLIENT && longNow && (segmented != true || failures >= 1)) {
                     knowSegmented(false)
                     Diag.add("I", "voice: no long session here (error 5), the short way")
                     return next(400)
                 }
                 failures++
                 if (failures >= 4) status = "error:$error"
-                if (failures == 1 || failures % 10 == 0) Diag.add("W", "voice: recognizer error $error")
+                if (failures <= 3 || failures % 10 == 0) Diag.add("W", "voice: recognizer error $error (${if (longNow) "long" else "short"} session, try $failures)")
                 next(minOf(15_000L, 600L * failures))
             }
             // (1.10.0) "Arreglen el micrófono": error 12/13, the recognizer won't take the language as asked

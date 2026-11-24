@@ -1,0 +1,21 @@
+# (1.12.0) Her passive ears' model (Vosk) on her name and requests, on every change to them
+name: Oídos pasivos (Vosk)
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore: [main]
+    paths: ['tools/ci/wake_test.py', '.github/workflows/wake-test.yml', 'app/src/main/java/io/github/emmanuelquintana/capri/WakeWord.kt']
+jobs:
+  vosk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq espeak-ng sox unzip >/dev/null
+      - run: pip install -q vosk==0.3.45
+      - run: |
+          for m in vosk-model-small-es-0.42 vosk-model-small-en-us-0.15; do
+            curl -sSL -o $m.zip https://alphacephei.com/vosk/models/$m.zip && unzip -q $m.zip
+          done
+      - run: python tools/ci/wake_test.py es vosk-model-small-es-0.42
+      - run: python tools/ci/wake_test.py en vosk-model-small-en-us-0.15

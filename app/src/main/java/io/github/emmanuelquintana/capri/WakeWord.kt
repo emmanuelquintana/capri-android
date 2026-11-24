@@ -121,6 +121,8 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
             val buf = ShortArray(RATE / 10) // 100 ms
             var named = 0L // her name in what's being said: the end of it is waited for (what comes after it)
             var reads = 0
+            var lastPartial = ""
+            var changedAt = 0L
             var silent = 0
             var silencedSaid = false
             while (running && mine == gen) {
@@ -150,9 +152,13 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
                     if (text.isNotEmpty() && running && mine(text, said)) main.post { onHeard(text) }
                 } else {
                     val partial = JSONObject(rec.partialResult).optString("partial")
-                    // her name, and then silence for a moment: that's it (no need to wait for the model's own end)
-                    if (named == 0L && Ears.namedIn(partial)) named = System.currentTimeMillis()
-                    if (named > 0L && System.currentTimeMillis() - named > 1800 && partial.isNotBlank()) {
+                    // her name, and then nothing new for a moment: that's it (no need to wait for the model's own end).
+                    // (1.12.0) counted from the last new word, not from her name: "Oye Capri, ¿qué hora es?" said
+                    // slowly was cut after "qué"
+                    val now = System.currentTimeMillis()
+                    if (partial != lastPartial) { lastPartial = partial; changedAt = now }
+                    if (named == 0L && Ears.namedIn(partial)) named = now
+                    if (named > 0L && partial.isNotBlank() && (now - changedAt > 1200 || now - named > 9000)) {
                         val said = JSONObject(rec.finalResult)
                         val text = said.optString("text").trim()
                         named = 0L

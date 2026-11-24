@@ -82,13 +82,16 @@ object Diag {
             appendLine("voice: mode ${store.configString("voiceMode") ?: "automatic"}, picked ${CapriVoice.engine(app)}, answers with ${CapriVoice.answerEngine(app, lang)}")
             appendLine("cloud voice (Fish): ${FishVoice.whyNot(app, lang)}, custom voice ${FishVoice.customVoice(app).ifEmpty { "no" }}, last error ${FishVoice.lastError.ifEmpty { "none" }}")
             appendLine("her pill (Now Bar): ${runCatching { LiveBar.why(app) }.getOrElse { it.toString() }}")
+            appendLine("her ears: ${if (Ears.enabled(app)) "on" else "off"}, mic ${if (Ears.allowed(app)) "allowed" else "not allowed"}, status ${Ears.status.ifEmpty { "-" }}, ${CapriService.current?.ears?.describe() ?: "service off"}")
             appendLine("her neural voice: ${tag?.let { CapriNeural.status(app, it) } ?: "no $lang"} · phrases ${CapriVoice.installed(tag ?: "es-MX")?.version ?: "none"}")
         }
         val logcat = runCatching {
-            val p = ProcessBuilder("logcat", "-d", "-v", "threadtime", "-t", "3000").redirectErrorStream(true).start()
+            val p = ProcessBuilder("logcat", "-d", "-v", "threadtime", "-t", "12000").redirectErrorStream(true).start()
             val out = p.inputStream.bufferedReader().use { it.readText() }
             p.waitFor()
-            out
+            // (1.12.0) without the drawing noise (thousands of lines a minute), so the minutes that matter fit
+            val noise = Regex(" (View|BLASTBufferQueue\\S*|VRI\\[[^\\]]*\\]\\S*|InsetsSourceConsumer|InsetsController|ViewRootImpl\\S*|SurfaceView|HWUI|OpenGLRenderer|Choreographer|IsochronousClockModel|AudioStreamInternal\\S*)\\s*:")
+            out.lines().filterNot { noise.containsMatchIn(it) }.takeLast(4000).joinToString("\n")
         }.getOrElse { "(logcat: $it)" }
         // compact (a report has room for 12 000 characters): her log's end, then only Android's warnings and errors
         val mine = saved().joinToString("\n").let { if (compact) it.takeLast(6_000) else it }
