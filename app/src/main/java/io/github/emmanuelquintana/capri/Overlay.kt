@@ -215,7 +215,9 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
         // the keyboard as the window's insets (Android 11+)...
         web.setOnApplyWindowInsetsListener { v, insets ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                imeInsets = insets.getInsets(android.view.WindowInsets.Type.ime()).bottom
+                // (1.12.0, a Xiaomi in Russia: "she doesn't drag") only a keyboard Android says is shown: some phones
+                // keep a height for it while it's down, and her touch pads near the bottom were dropped for good
+                imeInsets = if (insets.isVisible(android.view.WindowInsets.Type.ime())) insets.getInsets(android.view.WindowInsets.Type.ime()).bottom else 0
                 setIme(maxOf(imeInsets, imeFrame))
             }
             v.onApplyWindowInsets(insets)
@@ -227,7 +229,9 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
             web.getWindowVisibleDisplayFrame(r)
             val screen = maxOf(context.resources.displayMetrics.heightPixels, web.height)
             val gone = screen - r.bottom
-            imeFrame = if (gone > screen / 6) gone else 0
+            // (1.12.0) Android 11+ says it in the insets; the frame guess only on older phones (on MIUI the frame of
+            // a window over other apps leaves out part of the screen with no keyboard at all)
+            imeFrame = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && gone > screen / 6) gone else 0
             setIme(maxOf(imeInsets, imeFrame))
         }
     }

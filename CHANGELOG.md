@@ -107,8 +107,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Ropa sin brazos dobles:** algunos atuendos le dibujaban un segundo brazo quieto o dislocado. Arreglado.
 - **Sin mezcla de ropa en sus animaciones:** con un atuendo puesto ya no se cambia a su ropa de siempre a mitad de una
   animación (el «avatar mezclado»). Con ropa puesta solo hace las animaciones dibujadas para esa ropa.
-- **Skins de la comunidad:** dibuja ropa sobre la plantilla de Capri (en el Discord) y envíala desde Ajustes ›
-  Reportar › «Enviar una skin». Si Emma la aprueba, sale en una actualización con tu nombre.
+- **Skins de la comunidad:** dibuja ropa sobre la plantilla de Capri (en el Discord) y envíala desde Personalizar › «Crea tu propia Capri»
+  (ahí bajas su plantilla). Si Emma y el servidor de Discord la aprueban, sale en una actualización con tu nombre.
 - **Su voz de verdad:** si descargabas el motor de su voz pero no su perfil, seguía hablando con la voz del teléfono
   («otra voz de IA»). Ahora el perfil se baja junto con el motor, y si falta, lo baja sola.
 - **Escribir en tus apps:** «Capri, escribe aquí …» con su chat abierto ya no te quita el teclado: cierra su chat,

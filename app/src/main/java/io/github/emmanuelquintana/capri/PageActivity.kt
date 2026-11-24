@@ -150,6 +150,17 @@ class PageActivity : Activity() {
         @JavascriptInterface
         fun neuroSeen(id: String, rating: Int) = Neuro.seen(this@PageActivity, id, rating)
 
+        /** (1.12.0, community: "neurodanzas sin sonido") her line of the scene, in her voice (when she's on). */
+        @JavascriptInterface
+        fun say(text: String): Boolean {
+            val ears = CapriService.current?.ears ?: return false
+            ears.say(text.take(400), Lang.current(this@PageActivity), org.json.JSONObject().put("id", "bd").put("kind", "answer"))
+            return true
+        }
+
+        @JavascriptInterface
+        fun hush() { CapriService.current?.ears?.hushVoice("bd") }
+
         @JavascriptInterface
         fun haptic() = runOnUiThread { web?.performHapticFeedback(android.view.HapticFeedbackConstants.KEYBOARD_TAP) }
 

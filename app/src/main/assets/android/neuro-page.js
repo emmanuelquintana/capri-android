@@ -87,6 +87,9 @@ function show(i) {
   at = Math.max(0, Math.min(scenes.length - 1, i));
   const s = scenes[at];
   act(s.act);
+  sound.start();
+  sound.glitch();
+  if (playing && voiced && s.text) { try { voiced = bridge?.say?.(String(s.text)) !== false; } catch { voiced = false; } }
   // her line, typed out
   clearInterval(typing);
   const cap = $('caption');
@@ -106,6 +109,61 @@ function show(i) {
   clearTimeout(timer);
   if (playing) timer = setTimeout(step, SCENE_MS);
 }
+
+// (1.12.0, community: "las neurodanzas no tienen sonido") the sound of a braindance: a low hum of the recording, its
+// static, a glitch between scenes and her line in her voice. The Audio layer opens it up, the thermal one muffles it.
+// Made here with Web Audio (nothing downloaded), at a low volume.
+const sound = (() => {
+  let ctx = null, master = null, filter = null, hum = [];
+  function start() {
+    if (ctx) { if (ctx.state === 'suspended') ctx.resume().catch(() => {}); return; }
+    try {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      master = ctx.createGain(); master.gain.value = 0;
+      filter = ctx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 900;
+      filter.connect(master); master.connect(ctx.destination);
+      for (const [f, t] of [[55, 'sawtooth'], [55.6, 'sawtooth'], [110.3, 'triangle']]) {
+        const o = ctx.createOscillator(); o.type = t; o.frequency.value = f;
+        const g = ctx.createGain(); g.gain.value = t === 'triangle' ? 0.05 : 0.035;
+        o.connect(g); g.connect(filter); o.start(); hum.push(o);
+      }
+      const lfo = ctx.createOscillator(); lfo.frequency.value = 0.18;
+      const depth = ctx.createGain(); depth.gain.value = 260;
+      lfo.connect(depth); depth.connect(filter.frequency); lfo.start(); hum.push(lfo);
+      // the recording's static
+      const buf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (Math.random() < 0.002 ? 0.9 : 0.12);
+      const n = ctx.createBufferSource(); n.buffer = buf; n.loop = true;
+      const ng = ctx.createGain(); ng.gain.value = 0.05;
+      const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 2500;
+      n.connect(hp); hp.connect(ng); ng.connect(master); n.start(); hum.push(n);
+      fade(0.55, 1.2);
+    } catch { ctx = null; }
+  }
+  function fade(to, s = 0.4) {
+    if (!ctx) return;
+    master.gain.cancelScheduledValues(ctx.currentTime);
+    master.gain.setTargetAtTime(to, ctx.currentTime, s / 3);
+  }
+  function glitch() {
+    if (!ctx) return;
+    const o = ctx.createOscillator(); o.type = 'square';
+    const g = ctx.createGain(); const t = ctx.currentTime;
+    o.frequency.setValueAtTime(1400, t); o.frequency.exponentialRampToValueAtTime(180, t + 0.18);
+    g.gain.setValueAtTime(0.12, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t + 0.22);
+  }
+  function mode(name) {
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    filter.frequency.setTargetAtTime(name === 'audio' ? 2600 : name === 'thermal' ? 380 : 900, t, 0.15);
+    fade(name === 'audio' ? 0.9 : name === 'thermal' ? 0.35 : 0.55);
+  }
+  function stop() { fade(0, 0.3); }
+  return { start, glitch, mode, stop };
+})();
+let voiced = true;
 
 function step() {
   if (!cur) return;
@@ -131,6 +189,7 @@ function layer(name) {
   const sc = $('screen');
   sc.classList.toggle('is-thermal', name === 'thermal');
   sc.classList.toggle('is-audio', name === 'audio');
+  sound.mode(name);
   for (const b of $('layers').children) b.classList.toggle('is-on', b.dataset.layer === name);
   if (name === 'thermal' && cur?.scenes[at]?.hidden) { found.add(at); $('ping').classList.remove('has'); clues(); try { bridge?.haptic?.(); } catch {} }
 }
@@ -183,6 +242,8 @@ $('back').addEventListener('click', () => {
   if (document.body.classList.contains('is-playing')) {
     clearTimeout(timer); clearInterval(typing);
     cur = null; nowAct = '';
+    sound.stop();
+    try { bridge?.hush?.(); } catch {}
     document.body.classList.remove('is-playing');
     drawList();
   } else bridge?.done?.();

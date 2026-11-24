@@ -726,7 +726,7 @@
     <string name="account_err_other">Algo falló. Inténtalo de nuevo.</string>
     <string name="settings_shake">Agitar el teléfono</string>
     <string name="settings_shake_how">Agítalo fuerte y se marea. Nunca en modo gamer ni con su chat abierto.</string>
-    <string name="skin_send">Enviar una skin</string>
+    <string name="skin_send">Enviar mi diseño</string>
     <string name="skin_send_how">¿Dibujaste ropa sobre la plantilla de Capri (PNG de 240x420, del Discord)? Mándasela a Emma: si la aprueba, sale en una actualización con tu nombre.</string>
     <string name="skin_name_hint">Tu nombre y el nombre del atuendo</string>
     <string name="skin_bad">Tiene que ser un PNG sobre su plantilla: 240x420 (o 480x840), de menos de 1,5 MB.</string>
@@ -737,4 +737,10 @@
     <string name="ears_onlyme_ready">Ya conoce tu voz.</string>
     <string name="ears_onlyme_forget">Olvidar mi voz</string>
     <string name="ears_onlyme_forgot">Listo: volverá a aprender tu voz las próximas 3 veces que la llames.</string>
+    <string name="skin_title">Crea tu propia Capri</string>
+    <string name="skin_how">Dibújale tu propio atuendo: baja su plantilla (un PNG de 480x840 con su silueta), dibuja la ropa encima en cualquier app de dibujo y envíalo.</string>
+    <string name="skin_rules">Reglas: solo ropa (su pelo, ojos y piel no cambian de color), nada dentro del recuadro rojo (ahí va su otro brazo), PNG con fondo transparente.</string>
+    <string name="skin_get">Bajar su plantilla</string>
+    <string name="skin_approval">Cada diseño se revisa: solo llega a Capri si lo aprueban Emma y el servidor de Discord, con tu nombre.</string>
+    <string name="skin_saved">Plantilla guardada. Dibuja encima y envíala desde aquí.</string>
 </resources>

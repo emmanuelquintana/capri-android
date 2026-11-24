@@ -999,6 +999,16 @@ class MainActivity : Activity() {
         addView(ui.text(getString(R.string.style_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // new in 1.8: her wardrobe, shown off first
         addView(wardrobeCard(), ui.block(16))
+        // (1.12.0, community + Emma: "otra pantalla que diga crea tu propia Capri") her template to draw on, and your
+        // drawing sent to Emma's channel: it only comes to the app if Emma and the Discord server approve it
+        addView(ui.card(Hud.MANE, Hud.CYAN).apply {
+            addView(ui.label(getString(R.string.skin_title), Hud.MANE))
+            addView(ui.text(getString(R.string.skin_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(ui.text(getString(R.string.skin_rules), 12f, Hud.PAPER_3, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
+            addView(ui.button(getString(R.string.skin_get) + " ›", Ui.Kind.GREEN) { saveTemplate() }, ui.block(10))
+            addView(ui.button(getString(R.string.skin_send) + " ›", Ui.Kind.LINE) { pickSkin() }, ui.block(8))
+            addView(ui.text(getString(R.string.skin_approval), 12f, Hud.YELLOW, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
+        }, ui.block(16))
         // her on your screen: size, how lively, ghost mode
         addView(ui.card(Hud.YELLOW).apply {
             addView(ui.label(getString(R.string.settings_her)))
@@ -1403,6 +1413,12 @@ class MainActivity : Activity() {
             PICK_PROFILE -> voiceJob { CapriNeural.importProfiles(this, uri, it) }
             // (1.12.0) a file for her (a PDF, a Word file, a picture, a video, a song): as if shared with her
             PICK_SKIN -> sendSkin(uri)
+            SAVE_TEMPLATE -> {
+                val ok = runCatching {
+                    contentResolver.openOutputStream(uri)?.use { out -> assets.open("capri/assets/capri/skin/plantilla-capri.png").use { it.copyTo(out) } } != null
+                }.getOrDefault(false)
+                Toast.makeText(this, if (ok) R.string.skin_saved else R.string.report_bad, Toast.LENGTH_LONG).show()
+            }
             PICK_FOR_HER -> runCatching {
                 startActivity(Intent(this, ShareActivity::class.java).setAction(Intent.ACTION_SEND)
                     .setType(contentResolver.getType(uri) ?: "application/octet-stream")
@@ -1930,10 +1946,12 @@ class MainActivity : Activity() {
         }
         addView(send, ui.block(10))
         addView(state, ui.block(8))
-        // (1.12.0, community: "que tengan la base de Capri y puedan dibujar encima y me envíen sus diseños") a skin
-        // drawn on her template, to Emma's channel: she approves it, and it comes in an update
-        addView(ui.text(getString(R.string.skin_send_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(16))
-        addView(ui.button(getString(R.string.skin_send) + " ›", Ui.Kind.LINE) { pickSkin() }, ui.block(8))
+    }
+
+    private fun saveTemplate() = runCatching {
+        @Suppress("DEPRECATION")
+        startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/png")
+            .putExtra(Intent.EXTRA_TITLE, "plantilla-capri.png"), SAVE_TEMPLATE)
     }
 
     private fun pickSkin() = runCatching {
@@ -2255,6 +2273,7 @@ class MainActivity : Activity() {
         private const val PICK_VOICE = 4711 // (1.11.0) a Capri Voice pack from your files
         private const val PICK_MODEL = 4712 // (V8.5) one of the neural engine's .gguf files
         private const val PICK_PROFILE = 4713 // (V8.5) the private profiles ZIP
+        private const val SAVE_TEMPLATE = 4716 // (1.12.0) her skin template, saved where you choose
         private const val PICK_SKIN = 4715 // (1.12.0) a community skin, to Emma
         private const val PICK_FOR_HER = 4714 // (1.12.0) a file for her, from the Chat tab
         const val TAB_NEWS = 1

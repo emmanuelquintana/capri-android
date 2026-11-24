@@ -169,17 +169,30 @@ class ChatTab(private val a: Activity, private val ui: Ui, private val help: () 
         val local = CapriSettings.ollamaHost(a).isNotEmpty()
         if (local) ids += "ollama"
         val now = CapriSettings.provider(a)
-        val labels = ids.map { (if (it == now) "● " else "○ ") + aiName(it) }.toMutableList()
+        val labels = ids.map { (if (it == now) "● " else "") + aiName(it) }.toMutableList()
         if (!local) labels += a.getString(R.string.chat_ai_nolocal)
-        android.app.AlertDialog.Builder(a, android.R.style.Theme_DeviceDefault_Dialog_Alert)
-            .setTitle(R.string.chat_ai_pick)
-            .setItems(labels.toTypedArray()) { _, i ->
-                val id = ids.getOrNull(i) ?: return@setItems Toast.makeText(a, R.string.chat_ai_nolocal_how, Toast.LENGTH_LONG).show()
-                if (id == now) return@setItems
-                Thread { CapriSettings.useSaved(a, id); a.runOnUiThread { showAi() } }.start()
+        // (1.12.0, Emma: "este menú hazlo personalizado") in her own look, like the rest of the app, not Android's dialog
+        val dialog = android.app.Dialog(a)
+        val card = ui.card(Hud.YELLOW, Hud.MANE).apply {
+            addView(ui.label(a.getString(R.string.chat_ai_pick)))
+            labels.forEachIndexed { i, label ->
+                val id = ids.getOrNull(i)
+                val kind = if (id == now) Ui.Kind.GREEN else Ui.Kind.LINE
+                addView(ui.button(label, kind) {
+                    dialog.dismiss()
+                    if (id == null) return@button Toast.makeText(a, R.string.chat_ai_nolocal_how, Toast.LENGTH_LONG).show()
+                    if (id == now) return@button
+                    Thread { CapriSettings.useSaved(a, id); a.runOnUiThread { showAi() } }.start()
+                }, ui.block(if (i == 0) 12 else 8))
             }
-            .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            addView(ui.button(a.getString(android.R.string.cancel), Ui.Kind.LINE) { dialog.dismiss() }.apply { alpha = 0.7f }, ui.block(14))
+        }
+        val pad = android.widget.FrameLayout(a).apply { setPadding(ui.dpi(4), ui.dpi(4), ui.dpi(10), ui.dpi(10)); addView(card) }
+        dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+        dialog.setContentView(pad)
+        dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setLayout((a.resources.displayMetrics.widthPixels * 0.9).toInt(), android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.show()
     }
 
     // ---- (1.11.8) her voice for each answer: a small line under it with how much is made, then "speaking" ----

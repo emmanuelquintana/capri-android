@@ -711,7 +711,7 @@
     <string name="account_err_other">Có lỗi xảy ra. Thử lại.</string>
     <string name="settings_shake">Lắc điện thoại</string>
     <string name="settings_shake_how">Lắc mạnh và cô ấy chóng mặt. Không khi ở chế độ game hay đang mở chat.</string>
-    <string name="skin_send">Gửi skin</string>
+    <string name="skin_send">Gửi thiết kế</string>
     <string name="skin_send_how">Bạn đã vẽ trang phục trên mẫu của Capri (PNG 240x420, trên Discord)? Gửi cho Emma: nếu được duyệt, nó sẽ có trong bản cập nhật kèm tên bạn.</string>
     <string name="skin_name_hint">Tên bạn và tên trang phục</string>
     <string name="skin_bad">Phải là PNG trên mẫu của cô ấy: 240x420 (hoặc 480x840), dưới 1,5 MB.</string>
@@ -722,4 +722,10 @@
     <string name="ears_onlyme_ready">Cô ấy đã biết giọng bạn.</string>
     <string name="ears_onlyme_forget">Quên giọng tôi</string>
     <string name="ears_onlyme_forgot">Xong: cô ấy sẽ học lại giọng bạn 3 lần gọi tới.</string>
+    <string name="skin_title">Tạo Capri của riêng bạn</string>
+    <string name="skin_how">Vẽ trang phục riêng cho cô ấy: tải mẫu (PNG 480x840 có hình dáng cô ấy), vẽ quần áo lên trên bằng bất kỳ ứng dụng nào rồi gửi.</string>
+    <string name="skin_rules">Quy tắc: chỉ quần áo (tóc, mắt, da giữ nguyên màu), không vẽ trong khung đỏ (chỗ tay còn lại), PNG nền trong suốt.</string>
+    <string name="skin_get">Tải mẫu</string>
+    <string name="skin_approval">Mỗi thiết kế đều được duyệt: chỉ có trong Capri nếu Emma và server Discord đồng ý, kèm tên bạn.</string>
+    <string name="skin_saved">Đã lưu mẫu. Vẽ lên và gửi từ đây.</string>
 </resources>

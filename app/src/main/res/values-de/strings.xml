@@ -715,7 +715,7 @@
     <string name="account_err_other">Etwas ist schiefgelaufen. Versuch es nochmal.</string>
     <string name="settings_shake">Handy schütteln</string>
     <string name="settings_shake_how">Schüttle es kräftig und ihr wird schwindlig. Nie im Gamer-Modus oder bei offenem Chat.</string>
-    <string name="skin_send">Skin senden</string>
+    <string name="skin_send">Mein Design senden</string>
     <string name="skin_send_how">Ein Outfit auf Capris Vorlage gezeichnet (PNG 240x420, aus dem Discord)? Schick es Emma: Wenn sie es annimmt, kommt es mit deinem Namen in ein Update.</string>
     <string name="skin_name_hint">Dein Name und der Name des Outfits</string>
     <string name="skin_bad">Es muss ein PNG auf ihrer Vorlage sein: 240x420 (oder 480x840), unter 1,5 MB.</string>
@@ -726,4 +726,10 @@
     <string name="ears_onlyme_ready">Sie kennt deine Stimme.</string>
     <string name="ears_onlyme_forget">Meine Stimme vergessen</string>
     <string name="ears_onlyme_forgot">Fertig: Sie lernt deine Stimme bei den nächsten 3 Rufen neu.</string>
+    <string name="skin_title">Erstelle deine eigene Capri</string>
+    <string name="skin_how">Zeichne ihr dein eigenes Outfit: Lade ihre Vorlage herunter (PNG 480x840 mit ihrer Silhouette), zeichne die Kleidung darüber in einer beliebigen App und schick es.</string>
+    <string name="skin_rules">Regeln: nur Kleidung (Haare, Augen und Haut behalten ihre Farben), nichts im roten Kasten (dort ist ihr anderer Arm), PNG mit transparentem Hintergrund.</string>
+    <string name="skin_get">Vorlage herunterladen</string>
+    <string name="skin_approval">Jedes Design wird geprüft: Es kommt nur in Capri, wenn Emma und der Discord-Server zustimmen, mit deinem Namen.</string>
+    <string name="skin_saved">Vorlage gespeichert. Zeichne darauf und schick sie von hier.</string>
 </resources>

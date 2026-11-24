@@ -711,7 +711,7 @@
     <string name="account_err_other">うまくいきませんでした。もう一度試してね。</string>
     <string name="settings_shake">スマホを振る</string>
     <string name="settings_shake_how">強く振ると目を回します。ゲーマーモード中やチャット中は反応しません。</string>
-    <string name="skin_send">スキンを送る</string>
+    <string name="skin_send">デザインを送る</string>
     <string name="skin_send_how">Capriのテンプレート（Discordの240x420のPNG）に衣装を描いた？Emmaに送ってね。承認されたら、あなたの名前と一緒にアップデートで登場します。</string>
     <string name="skin_name_hint">あなたの名前と衣装の名前</string>
     <string name="skin_bad">テンプレートに合わせたPNG（240x420か480x840、1.5MB未満）にしてね。</string>
@@ -722,4 +722,10 @@
     <string name="ears_onlyme_ready">あなたの声を覚えました。</string>
     <string name="ears_onlyme_forget">声を忘れる</string>
     <string name="ears_onlyme_forgot">OK：次の3回でまた声を覚えます。</string>
+    <string name="skin_title">自分だけのCapriを作ろう</string>
+    <string name="skin_how">オリジナル衣装を描こう：テンプレート（シルエット入り480x840のPNG）をダウンロードして、好きなお絵描きアプリで服を描いて送ってね。</string>
+    <string name="skin_rules">ルール：服だけ（髪・目・肌の色は変えない）、赤い枠の中には描かない（もう片方の腕の場所）、背景透過のPNG。</string>
+    <string name="skin_get">テンプレートをダウンロード</string>
+    <string name="skin_approval">すべてのデザインは審査されます。EmmaとDiscordサーバーが承認したものだけが、あなたの名前と一緒にCapriに登場します。</string>
+    <string name="skin_saved">テンプレートを保存しました。描いたらここから送ってね。</string>
 </resources>
