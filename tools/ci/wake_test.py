@@ -102,3 +102,37 @@ for p in phrases:
         ok += has and want; bad += has and not want
         print(f"  app [{lang} {speed}] «{p}» -> «{got}»")
 print(f"RESULT app {lang}: her name {ok}/{named}, false {bad}/{quiet}")
+
+# (1.12.0) WakeWord.kt's quiet gate: a minute of a quiet room with two requests in it, both listeners timed
+# with and without the gate, and whether her name is still heard
+import time, array, random
+def minute():
+    subprocess.run(['espeak-ng', '-v', voice, '-s', '150', '-w', '/tmp/a.wav', phrases[2]], check=True)
+    subprocess.run(['sox', '/tmp/a.wav', '-r', '16000', '-c', '1', '-b', '16', '/tmp/a16.wav'], check=True)
+    talk = array.array('h', wave.open('/tmp/a16.wav', 'rb').readframes(10 ** 7))
+    rnd = random.Random(1)
+    room = lambda n: array.array('h', (int(rnd.gauss(0, 60)) for _ in range(n)))
+    return room(16000 * 20) + talk + room(16000 * 25) + talk + room(16000 * 12)
+def run(sound, gate):
+    r = KaldiRecognizer(model, 16000); sp = KaldiRecognizer(model, 16000, SPOT); sp.SetWords(True)
+    floor, hush, before, fed, heard, t0 = 400.0, 12, [], 0, [], time.process_time()
+    for i in range(0, len(sound), 1600):
+        buf = sound[i:i + 1600]
+        peak = max(abs(v) for v in buf)
+        loud = peak > max(floor * 2.2, 400)
+        floor += (peak - floor) * (0.002 if loud else 0.05)
+        hush = 0 if loud else hush + 1
+        if gate and hush > 12:
+            before = (before + [buf])[-3:]
+            continue
+        for b in before + [buf]:
+            fed += 1
+            sp.AcceptWaveform(b.tobytes())
+            if r.AcceptWaveform(b.tobytes()): heard.append(json.loads(r.Result()).get('text', ''))
+        before = []
+    heard.append(json.loads(r.FinalResult()).get('text', ''))
+    return time.process_time() - t0, fed, len(sound) // 1600, [h for h in heard if h]
+s = minute()
+for gate in (False, True):
+    cpu, fed, total, heard = run(s, gate)
+    print(f"GATE {lang} {'on ' if gate else 'off'}: {cpu:.1f} s of CPU for {total / 10:.0f} s of sound, fed {fed}/{total}, heard {heard}")

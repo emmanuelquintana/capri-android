@@ -645,7 +645,9 @@ object CapriNeural {
             Diag.add("I", "voice $ID: low-memory mode ${if (QwenEngine.lowMemory) "on" else "off"} (${ram / 1_000_000_000} GB)")
             e = QwenEngine()
             e.setBackendPreference(QwenEngine.BACKEND_CPU)
-            val threads = store.configNumber("voiceThreads", 0.0).toInt().takeIf { it in 1..8 } ?: autoThreads()
+            // (1.12.0) a warm phone (or a modest one): fewer cores for her voice, so it doesn't heat up more
+            val calm = (CapriService.current?.thermal ?: 0) >= 3 || Perf.modest(app)
+            val threads = store.configNumber("voiceThreads", 0.0).toInt().takeIf { it in 1..8 } ?: autoThreads().let { if (calm) minOf(it, 3) else it }
             e.setCpuThreads(threads)
             for (m in v.files) require(File(models(app, v), m.local).length() == m.bytes) { "model" }
             if (!e.loadModels(models(app, v).absolutePath, v.talker.local)) {

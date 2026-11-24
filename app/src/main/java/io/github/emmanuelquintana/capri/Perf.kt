@@ -25,11 +25,12 @@ object Perf {
         else -> modest(context)
     }
 
-    /** A phone that does better with less: little memory, or Android 8. */
+    /** A phone that does better with less: little memory, Android 8, (1.12.0) a 32-bit-only phone or 4 cores or fewer. */
     fun modest(context: Context): Boolean = modest ?: run {
         val am = context.getSystemService(ActivityManager::class.java)
         val mem = ActivityManager.MemoryInfo().also { am?.getMemoryInfo(it) }
-        val low = am?.isLowRamDevice == true || (mem.totalMem in 1 until LOW_RAM) || Build.VERSION.SDK_INT < Build.VERSION_CODES.P
+        val low = am?.isLowRamDevice == true || (mem.totalMem in 1 until LOW_RAM) || Build.VERSION.SDK_INT < Build.VERSION_CODES.P ||
+            Build.SUPPORTED_64_BIT_ABIS.isEmpty() || Runtime.getRuntime().availableProcessors() <= 4
         modest = low
         low
     }

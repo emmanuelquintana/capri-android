@@ -55,9 +55,19 @@ export function saver({ cfg, lang, setConfig }) {
   });
   send('battery:now');
 
-  // drawn half as often while saving
+  // (1.12.0) the phone warm (Android's thermal state: moderate or worse): drawn half as often too, until it cools
+  let hot = false;
+  on('phone:hot', (h) => {
+    const now = Number(h?.level) >= 3;
+    if (now === hot) return;
+    hot = now;
+    window.capriHot = now;
+    document.documentElement.classList.toggle('is-hot', now);
+  });
+
+  // drawn half as often while saving or warm; a modest phone (modo ligero) a third less often
   const interval = capri.interval.bind(capri);
-  capri.interval = () => (saving ? interval() * 2 : interval());
+  capri.interval = () => interval() * (saving || hot ? 2 : window.capriLite ? 1.5 : 1);
 
   return { check, get on() { return saving; } };
 }

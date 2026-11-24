@@ -912,7 +912,10 @@ export class FxLayer {
   // (her intro: its camera moves follow the clock, its drawings still change on whole frames).
   frame(now) {
     if (now - this.last < FRAME_MS - 2 && !this.items.some((it) => it.smooth)) {
-      requestAnimationFrame((t) => this.frame(t));
+      // (1.12.0) asleep till just before the next frame, not woken at every screen refresh (60-120 Hz)
+      const wait = FRAME_MS - (now - this.last);
+      if (wait > 20) setTimeout(() => requestAnimationFrame((t) => this.frame(t)), wait - 12);
+      else requestAnimationFrame((t) => this.frame(t));
       return;
     }
     const dt = Math.min(0.08, (now - (this.last || now)) / 1000);

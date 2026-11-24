@@ -108,7 +108,24 @@ class CapriService : Service() {
     fun batteryNow() {
         lastBattery = ""
         registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.let { battery.onReceive(this, it) }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            runCatching { hot(getSystemService(android.os.PowerManager::class.java)!!.currentThermalStatus) }
     }
+
+    // (1.12.0, Emma: "me decía que mi cpu estaba al 85") the phone getting warm (Android 10+): her page draws less
+    // often (saver.js) and her passive ears listen more lightly (WakeWord.kt) until it cools down
+    @Volatile var thermal = 0
+        private set
+    private fun hot(status: Int) {
+        thermal = status
+        overlay?.emit("phone:hot", JSONObject().put("level", status).toString())
+    }
+    private val thermalListener: Any? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        android.os.PowerManager.OnThermalStatusChangedListener { st ->
+            if ((st >= android.os.PowerManager.THERMAL_STATUS_MODERATE) != (thermal >= android.os.PowerManager.THERMAL_STATUS_MODERATE))
+                Diag.add("I", "phone ${if (st >= android.os.PowerManager.THERMAL_STATUS_MODERATE) "warm ($st): she goes lighter" else "cool again ($st)"}")
+            hot(st)
+        } else null
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -167,6 +184,9 @@ class CapriService : Service() {
         val power = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) registerReceiver(battery, power, RECEIVER_NOT_EXPORTED)
         else registerReceiver(battery, power)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) runCatching {
+            getSystemService(android.os.PowerManager::class.java)!!.addThermalStatusListener(mainExecutor, thermalListener as android.os.PowerManager.OnThermalStatusChangedListener)
+        }
         // (a system broadcast: exported, or Android 14 never hands it over)
         val gone = IntentFilter(Intent.ACTION_PACKAGE_REMOVED).apply { addDataScheme("package") }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) registerReceiver(removed, gone, RECEIVER_EXPORTED)
@@ -281,6 +301,9 @@ class CapriService : Service() {
         CapriWidget.update(this)
         try { unregisterReceiver(screen) } catch (_: Exception) {}
         try { unregisterReceiver(battery) } catch (_: Exception) {}
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) runCatching {
+            getSystemService(android.os.PowerManager::class.java)!!.removeThermalStatusListener(thermalListener as android.os.PowerManager.OnThermalStatusChangedListener)
+        }
         try { unregisterReceiver(removed) } catch (_: Exception) {}
         hooks?.stop()
         ears?.destroy()

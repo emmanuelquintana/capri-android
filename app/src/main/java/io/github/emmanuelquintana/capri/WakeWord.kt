@@ -134,6 +134,11 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
             var changedAt = 0L
             var silent = 0
             var silencedSaid = false
+            // (1.12.0, Emma: "mi cpu estaba al 85") her two listeners only get sound worth hearing: while the room is
+            // quiet (under its own noise floor) they rest; the last 300 ms before a sound are handed over with it
+            var floor = 400.0
+            var hush = HANGOVER
+            val before = ArrayDeque<ShortArray>()
             while (running && mine == gen) {
                 val n = mic.read(buf, 0, buf.size)
                 if (n < 0) error("mic $n")
@@ -153,6 +158,22 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
                     silencedSaid = true
                     Diag.add("W", "ears: the mic gives only silence (another app has it, or open the app once so Android lets her service use it)")
                     Ears.status = "silenced"
+                }
+                var peak = 0
+                for (i in 0 until n) { val v = kotlin.math.abs(buf[i].toInt()); if (v > peak) peak = v }
+                val sound = peak > maxOf(floor * 2.2, MIN_PEAK)
+                floor += (peak - floor) * if (sound) 0.002 else 0.05 // (a TV left on: slowly its level too)
+                hush = if (sound) 0 else hush + 1
+                if (hush > HANGOVER && named == 0L) {
+                    // quiet: kept for a moment, in case it's the start of a word
+                    before.addLast(buf.copyOf(n))
+                    if (before.size > 3) before.removeFirst()
+                    continue
+                }
+                while (before.isNotEmpty()) {
+                    val b = before.removeFirst()
+                    spot?.let { sp -> if (sp.acceptWaveForm(b, b.size)) spotted(JSONObject(sp.result)) }
+                    rec.acceptWaveForm(b, b.size)
                 }
                 spot?.let { sp -> if (sp.acceptWaveForm(buf, n)) spotted(JSONObject(sp.result)) }
                 if (rec.acceptWaveForm(buf, n)) {
@@ -325,6 +346,8 @@ class WakeWord(private val context: Context, private val onHeard: (String) -> Un
 
     companion object {
         private const val SPOT_CONF = 0.9
+        private const val HANGOVER = 12 // reads (1.2 s) of quiet after a sound still heard: her endpoint needs them
+        private const val MIN_PEAK = 400.0
         // the name listener's words: only those its model knows (vi and ja have no "capri", they keep the first way)
         private val SPOT = mapOf(
             "es" to "[\"oye capri\", \"hey capri\", \"capri\", \"[unk]\"]",

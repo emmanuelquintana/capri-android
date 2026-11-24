@@ -62,8 +62,14 @@ class Small {
 
   loop(now) {
     if (!this.visible) return;
+    // (1.12.0) asleep till just before her next drawing, not woken at every screen refresh
+    const wait = STEP - 1 - (now - this.last);
+    if (wait > 0) {
+      if (wait > 20) setTimeout(() => requestAnimationFrame(this.loop), wait - 12);
+      else requestAnimationFrame(this.loop);
+      return;
+    }
     requestAnimationFrame(this.loop);
-    if (now - this.last < STEP - 1) return;
     this.last = now;
     const dpr = window.devicePixelRatio || 1;
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
