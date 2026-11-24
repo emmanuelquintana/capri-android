@@ -19,7 +19,7 @@ import java.util.zip.GZIPOutputStream
  * memory of you, your settings, your classes and your chat saved in the cloud, to come back on a new
  * phone or after reinstalling. Firebase through its plain web APIs (no SDK, so the app stays small and
  * email works on phones without Google too). Each account only reaches its own copy (Firestore rules:
- * users/{uid}/**). Your API keys never leave the phone: they're sealed to this phone's Keystore.
+ * users/{uid} and below). Your API keys never leave the phone: they're sealed to this phone's Keystore.
  */
 object Account {
     private const val KEY = "AIzaSyApnCohQfyYjhqDBvXxg1TE34uH7DZe4MM" // Firebase web key: an id, not a secret
