@@ -640,4 +640,10 @@
     <string name="cv_test_speakoff">La sua voce è spenta (La sua voce › Attivo).</string>
     <string name="cv_test_muted">Il volume multimediale è a 0: alzalo e riprova.</string>
     <string name="vt_open">Come le do la sua voce?</string>
+    <string name="ears_passive">Ascolto passivo («Ehi Capri»)</string>
+    <string name="ears_passive_how">Un piccolo modello sul telefono ascolta solo il suo nome: niente bip, niente microfono che si accende e si spegne. Si scarica una volta per lingua (circa 40 MB) con il Wi-Fi.</string>
+    <string name="ears_passive_ready">Pronta: ti ascolta in sottofondo.</string>
+    <string name="ears_passive_get">Scarica ora (40 MB)</string>
+    <string name="ears_passive_busy">Download… %1$d %%</string>
+    <string name="ears_passive_failed">Impossibile scaricarlo (%1$s). Riprova.</string>
 </resources>

@@ -651,4 +651,10 @@
     <string name="cv_test_speakoff">Su voz está apagada (Su voz › Activado).</string>
     <string name="cv_test_muted">Tu volumen multimedia está en 0: súbelo y prueba otra vez.</string>
     <string name="vt_open">¿Cómo le pongo su voz?</string>
+    <string name="ears_passive">Escucha pasiva («Oye Capri»)</string>
+    <string name="ears_passive_how">Un modelo pequeño en tu teléfono escucha solo su nombre: sin pitidos y sin que el micrófono se prenda y se apague. Se descarga una vez por idioma (unos 40 MB) con Wi-Fi.</string>
+    <string name="ears_passive_ready">Lista: te escucha en segundo plano.</string>
+    <string name="ears_passive_get">Descargar ahora (40 MB)</string>
+    <string name="ears_passive_busy">Descargando… %1$d %%</string>
+    <string name="ears_passive_failed">No se pudo descargar (%1$s). Vuelve a intentarlo.</string>
 </resources>

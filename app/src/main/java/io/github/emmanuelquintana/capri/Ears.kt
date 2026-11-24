@@ -72,6 +72,22 @@ class Ears(private val service: CapriService) {
     private var quiet = 0           // sessions in a row that heard nothing at all (the old way)
     private var peak = NO_RMS       // the loudest moment of what's being said (how close the voice is)
 
+    // (1.12.0) her passive ears (WakeWord.kt): a small offline model listening for her name, steady, no beeps.
+    // The phone's recognizer is now only opened for what you say right after her name.
+    private val passive = WakeWord(service) { text -> passiveHeard(text) }
+
+    private fun passiveHeard(text: String) {
+        // (it stopped working: the old way from now on)
+        if (text.isEmpty()) { if (wanted && !speaking) next(300); return }
+        if (!wanted || speaking) return
+        heard(listOf(text))
+        // her name alone: what you say next goes to the phone's recognizer (better with whole sentences)
+        if (System.currentTimeMillis() < awakeUntil) {
+            passive.stop()
+            next(350) // (once it let go of the mic)
+        }
+    }
+
     private fun knowSegmented(can: Boolean) {
         segmented = can
         service.getSharedPreferences("app", Context.MODE_PRIVATE).edit().putString(SEG_PREF, "$SEG_KEY${if (can) 1 else 0}").apply()
@@ -203,6 +219,7 @@ class Ears(private val service: CapriService) {
 
     private fun stop() {
         main.removeCallbacksAndMessages(null)
+        passive.release()
         listening = false
         recognizer?.let { runCatching { it.cancel() }; runCatching { it.destroy() } }
         recognizer = null
@@ -232,7 +249,22 @@ class Ears(private val service: CapriService) {
         val audio = service.getSystemService(AudioManager::class.java)!!
         if (audio.mode != AudioManager.MODE_NORMAL) {
             status = "busy"
+            passive.stop()
             return next(5000)
+        }
+        // (1.12.0) not right after her name: her passive ears, when their model is here (they don't take the
+        // sound from a video or a song either: they listen while it plays)
+        if (System.currentTimeMillis() >= awakeUntil) {
+            val base = language().substringBefore('-')
+            if (passive.start(base)) {
+                status = "listening"
+                return
+            }
+            // (its model downloaded on Wi-Fi, once: until then, the old way)
+            if (!passive.broken) WakeWord.Models.fetch(service, base) { if (it == null && wanted && !speaking && !listening) { passive.stop(); next(500) } }
+        } else if (passive.on) {
+            passive.stop()
+            return next(350) // (once it let go of the mic)
         }
         // a video or music playing: the recognizer takes the sound from it each time it starts (the
         // video pauses, the song stops), so she waits for it to end
@@ -695,6 +727,7 @@ class Ears(private val service: CapriService) {
             }
             if (state == "VOICE_READY" && !speaking) {
                 speaking = true
+        passive.stop() // (1.12.0: her own voice isn't heard by her passive ears)
                 recognizer?.let { runCatching { it.cancel() } }
                 listening = false
                 takeFocus()
@@ -735,6 +768,7 @@ class Ears(private val service: CapriService) {
         val player = CapriVoiceClipPlayer(lib)
         clipPlayer = player
         speaking = true
+        passive.stop() // (1.12.0: her own voice isn't heard by her passive ears)
         recognizer?.let { runCatching { it.cancel() } }
         listening = false
         takeFocus()
@@ -780,6 +814,7 @@ class Ears(private val service: CapriService) {
             tts?.setPitch(store.configNumber("voicePitch", 1.0).toFloat().coerceIn(0.5f, 2f))
             tts?.setSpeechRate(store.configNumber("voiceRate", 1.0).toFloat().coerceIn(0.5f, 2f))
             speaking = true
+        passive.stop() // (1.12.0: her own voice isn't heard by her passive ears)
             recognizer?.let { runCatching { it.cancel() } }
             listening = false
             voiceEvent(id, "VOICE_PREPARING") { put("source", "system") }
@@ -916,6 +951,9 @@ class Ears(private val service: CapriService) {
             private set
 
         // lower case, no accents: "Caprí" is "capri"
+        /** (1.12.0) Her name in that (WakeWord.kt, as its model writes it). */
+        fun namedIn(s: String) = s.isNotBlank() && NAME.containsMatchIn(plain(s))
+
         private fun plain(s: String) = java.text.Normalizer.normalize(s.lowercase(), java.text.Normalizer.Form.NFD).replace(Regex("\\p{M}+"), "")
         private const val PREF = "voice"
 

@@ -636,4 +636,10 @@
     <string name="cv_test_speakoff">Giọng cô ấy đang tắt (Giọng cô ấy › Bật).</string>
     <string name="cv_test_muted">Âm lượng phương tiện đang ở 0: tăng lên rồi thử lại.</string>
     <string name="vt_open">Làm sao để cho cô ấy giọng nói?</string>
+    <string name="ears_passive">Nghe thụ động («Này Capri»)</string>
+    <string name="ears_passive_how">Một mô hình nhỏ trên điện thoại chỉ nghe tên cô ấy: không tiếng bíp, micro không bật tắt liên tục. Tải một lần cho mỗi ngôn ngữ (khoảng 40 MB) qua Wi-Fi.</string>
+    <string name="ears_passive_ready">Sẵn sàng: cô ấy nghe bạn ở chế độ nền.</string>
+    <string name="ears_passive_get">Tải ngay (40 MB)</string>
+    <string name="ears_passive_busy">Đang tải… %1$d %%</string>
+    <string name="ears_passive_failed">Không tải được (%1$s). Hãy thử lại.</string>
 </resources>

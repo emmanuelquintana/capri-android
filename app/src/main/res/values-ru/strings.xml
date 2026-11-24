@@ -658,4 +658,10 @@
     <string name="cv_test_speakoff">Её голос выключен (Её голос › Вкл.).</string>
     <string name="cv_test_muted">Громкость мультимедиа на нуле: прибавь и попробуй ещё раз.</string>
     <string name="vt_open">Как дать ей её голос?</string>
+    <string name="ears_passive">Пассивное прослушивание («Эй, Капри»)</string>
+    <string name="ears_passive_how">Небольшая модель на телефоне слушает только её имя: без сигналов и без постоянного включения микрофона. Скачивается один раз для языка (около 40 МБ) по Wi-Fi.</string>
+    <string name="ears_passive_ready">Готово: она слушает в фоне.</string>
+    <string name="ears_passive_get">Скачать сейчас (40 МБ)</string>
+    <string name="ears_passive_busy">Скачивание… %1$d %%</string>
+    <string name="ears_passive_failed">Не удалось скачать (%1$s). Попробуй ещё раз.</string>
 </resources>

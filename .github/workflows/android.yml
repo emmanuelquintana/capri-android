@@ -102,6 +102,19 @@ jobs:
           for abi in arm64-v8a armeabi-v7a x86_64 x86; do
             unzip -l Capri-Android-*.apk | grep -q " lib/$abi/" || { echo "::error::falta lib/$abi en el APK"; exit 1; }
           done
+          # (1.12.0) her passive ears (WakeWord.kt) need libvosk on every phone
+          for abi in arm64-v8a armeabi-v7a; do
+            unzip -l Capri-Android-*.apk | grep -q " lib/$abi/libvosk.so" || { echo "::error::falta libvosk.so en lib/$abi"; exit 1; }
+          done
+
+      # (1.12.0) the small speech models her passive ears download (WakeWord.Models): each address still answers
+      - name: Check the passive ears' models are reachable
+        continue-on-error: true
+        run: |
+          for m in $(grep -o 'vosk-model-small-[a-z0-9.-]*' app/src/main/java/io/github/emmanuelquintana/capri/WakeWord.kt | sort -u); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -I -L "https://alphacephei.com/vosk/models/$m.zip")
+            [ "$code" = "200" ] && echo "ok $m" || echo "::warning::$m.zip answered $code"
+          done
 
       - uses: actions/upload-artifact@v4
         with:

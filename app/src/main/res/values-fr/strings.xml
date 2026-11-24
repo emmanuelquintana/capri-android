@@ -651,4 +651,10 @@
     <string name="cv_test_speakoff">Sa voix est coupée (Sa voix › Activé).</string>
     <string name="cv_test_muted">Ton volume multimédia est à 0 : monte-le et réessaie.</string>
     <string name="vt_open">Comment lui donner sa voix ?</string>
+    <string name="ears_passive">Écoute passive (« Dis Capri »)</string>
+    <string name="ears_passive_how">Un petit modèle sur ton téléphone n’écoute que son prénom : pas de bips, pas de micro qui s’allume et s’éteint. Il se télécharge une fois par langue (environ 40 Mo), en Wi-Fi.</string>
+    <string name="ears_passive_ready">Prête : elle t’écoute en arrière-plan.</string>
+    <string name="ears_passive_get">Télécharger maintenant (40 Mo)</string>
+    <string name="ears_passive_busy">Téléchargement… %1$d %%</string>
+    <string name="ears_passive_failed">Téléchargement impossible (%1$s). Réessaie.</string>
 </resources>

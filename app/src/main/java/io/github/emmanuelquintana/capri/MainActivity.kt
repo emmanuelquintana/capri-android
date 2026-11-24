@@ -62,6 +62,8 @@ class MainActivity : Activity() {
     private lateinit var voiceText: TextView
     private lateinit var voiceBtn: TextView
     private lateinit var voiceState: TextView
+    private lateinit var passiveState: TextView
+    private lateinit var passiveBtn: TextView
     private lateinit var lookBtn: TextView
     private val choices = mutableListOf<() -> Unit>()
 
@@ -1218,6 +1220,16 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.settings_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             voiceBtn = ui.button("", Ui.Kind.GREEN) { toggleVoice() }
             addView(voiceBtn, ui.block(12))
+            // (1.12.0) her passive ears ("Oye Capri"): their small model, downloaded once per language
+            addView(ui.text(getString(R.string.ears_passive), 14f, Hud.PAPER, ui.head), ui.block(16))
+            addView(ui.text(getString(R.string.ears_passive_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            passiveState = ui.text("", 12f, Hud.YELLOW, ui.mono)
+            addView(passiveState, ui.block(6))
+            passiveBtn = ui.button(getString(R.string.ears_passive_get), Ui.Kind.GREEN) {
+                WakeWord.Models.fetch(this@MainActivity, Lang.current(this@MainActivity), anyNetwork = true) { CapriService.current?.ears?.update(); showVoice() }
+                showVoice()
+            }
+            addView(passiveBtn, ui.block(8))
             // the noise around you, how you talk, how she sounds (Ears.kt reads these each time)
             val store = Store(this@MainActivity)
             addView(ui.text(getString(R.string.voice_filter), 14f, Hud.PAPER, ui.head), ui.block(16))
@@ -1775,6 +1787,19 @@ class MainActivity : Activity() {
             else -> getString(R.string.voice_starting)
         }
         voiceState.visibility = if (voiceState.text.isEmpty()) View.GONE else View.VISIBLE
+        if (::passiveState.isInitialized) {
+            val lang = Lang.current(this).takeIf { it in WakeWord.Models.NAMES } ?: "en"
+            val ready = WakeWord.Models.installed(this, lang)
+            val m = WakeWord.Models
+            passiveState.text = when {
+                ready -> getString(R.string.ears_passive_ready)
+                m.busy.isNotEmpty() -> getString(R.string.ears_passive_busy, maxOf(0, m.progress))
+                m.lastError.isNotEmpty() -> getString(R.string.ears_passive_failed, m.lastError)
+                else -> ""
+            }
+            passiveState.visibility = if (passiveState.text.isEmpty()) View.GONE else View.VISIBLE
+            passiveBtn.visibility = if (ready || m.busy.isNotEmpty()) View.GONE else View.VISIBLE
+        }
     }
 
 

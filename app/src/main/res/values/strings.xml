@@ -652,4 +652,10 @@
     <string name="cv_test_speakoff">Her voice is off (Her voice › On).</string>
     <string name="cv_test_muted">Your media volume is at 0: turn it up and try again.</string>
     <string name="vt_open">How do I give her her voice?</string>
+    <string name="ears_passive">Passive listening (\"Hey Capri\")</string>
+    <string name="ears_passive_how">A small model on your phone listens only for her name: no beeps, no mic switching on and off. It downloads once per language (about 40 MB), on Wi-Fi.</string>
+    <string name="ears_passive_ready">Ready: she listens in the background.</string>
+    <string name="ears_passive_get">Download now (40 MB)</string>
+    <string name="ears_passive_busy">Downloading… %1$d %%</string>
+    <string name="ears_passive_failed">Couldn\'t download it (%1$s). Try again.</string>
 </resources>

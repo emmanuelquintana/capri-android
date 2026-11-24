@@ -97,3 +97,10 @@ val copyChangelog = tasks.register<CopyChangelog>("copyChangelog") {
 androidComponents {
     onVariants { variant -> variant.sources.assets?.addGeneratedSourceDirectory(copyChangelog, CopyChangelog::out) }
 }
+
+// (1.12.0) her passive ears (WakeWord.kt): Vosk, a small offline speech model that listens for her name all the
+// time without the recognizer's beeps. Its models are downloaded by the app (one per language), not bundled.
+dependencies {
+    implementation("com.alphacephei:vosk-android:0.3.75@aar")
+    implementation("net.java.dev.jna:jna:5.18.1@aar")
+}

@@ -636,4 +636,10 @@
     <string name="cv_test_speakoff">彼女の声がオフです（彼女の声 › オン）。</string>
     <string name="cv_test_muted">メディアの音量が0です：上げてからもう一度。</string>
     <string name="vt_open">どうやって声をあげるの？</string>
+    <string name="ears_passive">パッシブリスニング(「ねえ、カプリ」)</string>
+    <string name="ears_passive_how">スマホ上の小さなモデルが彼女の名前だけを聞き取ります。ビープ音もマイクのオン・オフもありません。言語ごとに一度だけ(約40 MB)Wi-Fiでダウンロードします。</string>
+    <string name="ears_passive_ready">準備完了:バックグラウンドで聞いています。</string>
+    <string name="ears_passive_get">今すぐダウンロード(40 MB)</string>
+    <string name="ears_passive_busy">ダウンロード中… %1$d %%</string>
+    <string name="ears_passive_failed">ダウンロードできませんでした(%1$s)。もう一度試してください。</string>
 </resources>

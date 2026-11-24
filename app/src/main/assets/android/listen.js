@@ -387,8 +387,18 @@ async function handle(text, { toggleVisible, visible }) {
     await new Promise((r) => setTimeout(r, 900));
     if (!text || SHOW_ASK.test(text)) return answer(t.back, 'laugh', '');
   }
+  const dozing = Boolean(capri.dormant);
   capri.wake?.();
 
+  // (1.12.0, Emma: "añade frases para que te despierte") asleep and called by her name: she wakes up saying so,
+  // in her own recorded voice (and then listens for what you wanted)
+  if (!text && dozing) {
+    const woke = dev.voicelines?.moment('wake', pick(t.yes));
+    if (woke?.spoken) {
+      dev.hearing?.on(10000);
+      return answer(woke.line, 'look', '', false);
+    }
+  }
   // just her name: she listens for what comes next (Ears.kt keeps the mic open a few seconds)
   if (!text) {
     // shown, not said: her voice would cover what you say next (her ears stay open for it)

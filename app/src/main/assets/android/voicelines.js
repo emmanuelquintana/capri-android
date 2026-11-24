@@ -37,6 +37,8 @@ const MOMENTS = {
   gameBack: { events: ['game.return'], chance: 1, every: 10 * 60e3 },
   reminder: { events: ['reminder.original-01'], chance: 1, every: 10 * 60e3 },
   done: { events: ['task.done'], chance: 0.8, every: 5 * 60e3 },
+  // (1.12.0) called by her name while she dozed: she wakes up ("¿Ya es hora de levantarse?")
+  wake: { events: ['wake'], chance: 1, every: 60e3 },
   // (1.11.8, Emma: "añade la frase guardada de vez en cuando de tienes un mensaje o tienes una notificación")
   message: { events: ['notification.original-04'], chance: 0.4, every: 4 * 60e3 },
   notice: { events: ['notification.original-01'], chance: 0.3, every: 6 * 60e3 },

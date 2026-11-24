@@ -640,4 +640,10 @@
     <string name="cv_test_speakoff">Ihre Stimme ist aus (Ihre Stimme › An).</string>
     <string name="cv_test_muted">Deine Medienlautstärke steht auf 0: Dreh sie auf und versuch es nochmal.</string>
     <string name="vt_open">Wie gebe ich ihr ihre Stimme?</string>
+    <string name="ears_passive">Passives Zuhören („Hey Capri“)</string>
+    <string name="ears_passive_how">Ein kleines Modell auf deinem Handy hört nur auf ihren Namen: keine Pieptöne, kein Mikrofon, das ständig an- und ausgeht. Es wird einmal pro Sprache (etwa 40 MB) über WLAN geladen.</string>
+    <string name="ears_passive_ready">Bereit: Sie hört im Hintergrund zu.</string>
+    <string name="ears_passive_get">Jetzt herunterladen (40 MB)</string>
+    <string name="ears_passive_busy">Wird geladen… %1$d %%</string>
+    <string name="ears_passive_failed">Download fehlgeschlagen (%1$s). Versuch es noch einmal.</string>
 </resources>

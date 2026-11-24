@@ -651,4 +651,10 @@
     <string name="cv_test_speakoff">A voz dela está desligada (Voz dela › Ativado).</string>
     <string name="cv_test_muted">Seu volume de mídia está em 0: aumente e tente de novo.</string>
     <string name="vt_open">Como coloco a voz dela?</string>
+    <string name="ears_passive">Escuta passiva («Ei Capri»)</string>
+    <string name="ears_passive_how">Um modelo pequeno no seu celular escuta só o nome dela: sem bipes e sem o microfone ligando e desligando. Baixa uma vez por idioma (uns 40 MB), no Wi-Fi.</string>
+    <string name="ears_passive_ready">Pronta: ela te escuta em segundo plano.</string>
+    <string name="ears_passive_get">Baixar agora (40 MB)</string>
+    <string name="ears_passive_busy">Baixando… %1$d %%</string>
+    <string name="ears_passive_failed">Não deu para baixar (%1$s). Tente de novo.</string>
 </resources>
