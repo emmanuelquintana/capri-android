@@ -727,4 +727,9 @@
     <string name="account_err_other">Something went wrong. Try again.</string>
     <string name="settings_shake">Shake the phone</string>
     <string name="settings_shake_how">Shake it hard and she gets dizzy. Not while gaming or with her chat open.</string>
+    <string name="skin_send">Send a skin</string>
+    <string name="skin_send_how">Drew an outfit on Capri\'s template (240x420 PNG, from the Discord)? Send it to Emma: if she approves it, it comes in an update with your name.</string>
+    <string name="skin_name_hint">Your name and the outfit\'s name</string>
+    <string name="skin_bad">It has to be a PNG on her template: 240x420 (or 480x840), under 1.5 MB.</string>
+    <string name="skin_ok">Sent! Emma will look at it.</string>
 </resources>

@@ -726,4 +726,9 @@
     <string name="account_err_other">Algo deu errado. Tente de novo.</string>
     <string name="settings_shake">Sacudir o celular</string>
     <string name="settings_shake_how">Sacuda forte e ela fica tonta. Nunca no modo gamer nem com o chat aberto.</string>
+    <string name="skin_send">Enviar uma skin</string>
+    <string name="skin_send_how">Desenhou uma roupa no modelo da Capri (PNG 240x420, do Discord)? Mande para a Emma: se ela aprovar, vem numa atualização com seu nome.</string>
+    <string name="skin_name_hint">Seu nome e o nome da roupa</string>
+    <string name="skin_bad">Precisa ser um PNG no modelo dela: 240x420 (ou 480x840), com menos de 1,5 MB.</string>
+    <string name="skin_ok">Enviada! A Emma vai olhar.</string>
 </resources>

@@ -77,4 +77,6 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Hết tay đôi:** vài bộ đồ vẽ thêm một cánh tay đứng yên. Đã sửa.
 - **Không còn lẫn trang phục khi hoạt ảnh:** khi mặc đồ khác, cô ấy không đổi về đồ thường giữa hoạt ảnh nữa.
   Chỉ chạy hoạt ảnh được vẽ cho bộ đồ đó.
+- **Skin cộng đồng:** vẽ trang phục trên mẫu của Capri (trên Discord) và gửi từ Cài đặt › Báo lỗi › «Gửi skin». Nếu Emma
+  duyệt, nó sẽ có trong bản cập nhật kèm tên bạn.
 

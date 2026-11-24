@@ -37,8 +37,12 @@ object Report {
         return t
     }
 
+    /** (1.12.0) A community skin (a PNG on her template) for Emma to approve; [done] as for send. */
+    fun sendSkin(context: Context, png: ByteArray, about: String, done: (String) -> Unit) =
+        send(context, about, JSONObject().put("kind", "skin").put("image", android.util.Base64.encodeToString(png, android.util.Base64.NO_WRAP)), done)
+
     /** Sends it in the background; [done] gets "ok", "rate", "off", "bad" or "net", on the main thread. */
-    fun send(context: Context, text: String, done: (String) -> Unit) {
+    fun send(context: Context, text: String, extra: JSONObject? = null, done: (String) -> Unit) {
         val app = context.applicationContext
         val main = android.os.Handler(android.os.Looper.getMainLooper())
         Threads.make {
@@ -51,14 +55,15 @@ object Report {
                     .put("device", "${Build.MANUFACTURER} ${Build.MODEL}".take(80))
                     .put("lang", Lang.current(app).takeIf { it in Lang.LANGS } ?: "en")
                     .put("text", clean(app, text.trim()).take(MAX_TEXT))
-                    .put("log", log)
+                    .put("log", if (extra != null) "" else log)
                 app.getSharedPreferences("app", Context.MODE_PRIVATE).getString("statsId", null)?.let { body.put("id", it) }
                 // her last unexpected close, if there was one: shown apart in the report
                 Diag.saved().lastOrNull { " crash in " in it }?.let { body.put("stack", clean(app, it).take(1800)) }
+                extra?.keys()?.forEach { body.put(it, extra.get(it)) }
                 val conn = (URL(URL_REPORT).openConnection() as HttpURLConnection).apply {
                     requestMethod = "POST"
                     connectTimeout = 15_000
-                    readTimeout = 20_000
+                    readTimeout = if (extra != null) 60_000 else 20_000
                     doOutput = true
                     setRequestProperty("content-type", "application/json")
                 }

@@ -95,6 +95,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Sem braços duplos:** algumas roupas desenhavam um segundo braço parado. Corrigido.
 - **Sem roupa misturada nas animações:** com uma roupa, ela não troca mais para a roupa de sempre no meio da animação.
   Só faz as animações desenhadas para essa roupa.
+- **Skins da comunidade:** desenhe uma roupa no modelo da Capri (no Discord) e envie em Ajustes › Reportar › «Enviar uma
+  skin». Se a Emma aprovar, vem numa atualização com seu nome.
 
 ## 1.11.7
 

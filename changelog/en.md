@@ -105,6 +105,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **No more double arms:** some outfits drew a second, still or dislocated arm. Fixed.
 - **No more mixed clothes in her animations:** in an outfit she no longer switches to her usual clothes mid-animation.
   In an outfit she only plays the animations drawn for it.
+- **Community skins:** draw an outfit on Capri's template (on the Discord) and send it from Settings › Report › "Send a
+  skin". If Emma approves it, it comes in an update with your name.
 
 ## 1.11.7
 

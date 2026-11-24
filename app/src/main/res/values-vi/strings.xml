@@ -711,4 +711,9 @@
     <string name="account_err_other">Có lỗi xảy ra. Thử lại.</string>
     <string name="settings_shake">Lắc điện thoại</string>
     <string name="settings_shake_how">Lắc mạnh và cô ấy chóng mặt. Không khi ở chế độ game hay đang mở chat.</string>
+    <string name="skin_send">Gửi skin</string>
+    <string name="skin_send_how">Bạn đã vẽ trang phục trên mẫu của Capri (PNG 240x420, trên Discord)? Gửi cho Emma: nếu được duyệt, nó sẽ có trong bản cập nhật kèm tên bạn.</string>
+    <string name="skin_name_hint">Tên bạn và tên trang phục</string>
+    <string name="skin_bad">Phải là PNG trên mẫu của cô ấy: 240x420 (hoặc 480x840), dưới 1,5 MB.</string>
+    <string name="skin_ok">Đã gửi! Emma sẽ xem.</string>
 </resources>

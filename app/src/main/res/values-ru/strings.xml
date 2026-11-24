@@ -733,4 +733,9 @@
     <string name="account_err_other">Что-то пошло не так. Попробуй ещё раз.</string>
     <string name="settings_shake">Встряхнуть телефон</string>
     <string name="settings_shake_how">Встряхни сильно, и у неё закружится голова. Не в игровом режиме и не при открытом чате.</string>
+    <string name="skin_send">Отправить скин</string>
+    <string name="skin_send_how">Нарисовал(а) наряд на шаблоне Капри (PNG 240x420, из Discord)? Отправь Эмме: если она одобрит, он выйдет в обновлении с твоим именем.</string>
+    <string name="skin_name_hint">Твоё имя и название наряда</string>
+    <string name="skin_bad">Нужен PNG на её шаблоне: 240x420 (или 480x840), меньше 1,5 МБ.</string>
+    <string name="skin_ok">Отправлено! Эмма посмотрит.</string>
 </resources>

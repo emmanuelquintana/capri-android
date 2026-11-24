@@ -1377,6 +1377,7 @@ class MainActivity : Activity() {
             PICK_MODEL -> voiceJob { CapriNeural.importModel(this, uri, it) }
             PICK_PROFILE -> voiceJob { CapriNeural.importProfiles(this, uri, it) }
             // (1.12.0) a file for her (a PDF, a Word file, a picture, a video, a song): as if shared with her
+            PICK_SKIN -> sendSkin(uri)
             PICK_FOR_HER -> runCatching {
                 startActivity(Intent(this, ShareActivity::class.java).setAction(Intent.ACTION_SEND)
                     .setType(contentResolver.getType(uri) ?: "application/octet-stream")
@@ -1904,6 +1905,34 @@ class MainActivity : Activity() {
         }
         addView(send, ui.block(10))
         addView(state, ui.block(8))
+        // (1.12.0, community: "que tengan la base de Capri y puedan dibujar encima y me envíen sus diseños") a skin
+        // drawn on her template, to Emma's channel: she approves it, and it comes in an update
+        addView(ui.text(getString(R.string.skin_send_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(16))
+        addView(ui.button(getString(R.string.skin_send) + " ›", Ui.Kind.LINE) { pickSkin() }, ui.block(8))
+    }
+
+    private fun pickSkin() = runCatching {
+        @Suppress("DEPRECATION")
+        startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/png"), PICK_SKIN)
+    }
+
+    /** Her template's size (240x420, or twice it): anything else wouldn't sit on her. */
+    private fun sendSkin(uri: android.net.Uri) {
+        val bytes = runCatching { contentResolver.openInputStream(uri)?.use { it.readBytes() } }.getOrNull()
+        val size = bytes?.let { b -> android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }.also { android.graphics.BitmapFactory.decodeByteArray(b, 0, b.size, it) } }
+        val fits = size != null && size.outWidth > 0 && Math.abs(size.outWidth * 420 - size.outHeight * 240) <= size.outHeight * 2 && size.outWidth in 240..960
+        if (bytes == null || !fits || bytes.size > 1_500_000 || size?.outMimeType != "image/png") {
+            Toast.makeText(this, R.string.skin_bad, Toast.LENGTH_LONG).show(); return
+        }
+        val name = ui.field(getString(R.string.skin_name_hint)).apply { filters = arrayOf(android.text.InputFilter.LengthFilter(80)) }
+        val box = ui.col().apply { setPadding(ui.dpi(20), ui.dpi(8), ui.dpi(20), 0); addView(name) }
+        android.app.AlertDialog.Builder(this).setTitle(R.string.skin_send).setView(box)
+            .setPositiveButton(R.string.settings_report_send) { _, _ ->
+                Toast.makeText(this, R.string.report_sending, Toast.LENGTH_SHORT).show()
+                Report.sendSkin(this, bytes, name.text.toString().ifBlank { "skin" }) { r ->
+                    Toast.makeText(this, if (r == "ok") R.string.skin_ok else when (r) { "rate" -> R.string.report_rate; "net" -> R.string.report_net; "off" -> R.string.report_off; else -> R.string.report_bad }, Toast.LENGTH_LONG).show()
+                }
+            }.setNegativeButton(android.R.string.cancel, null).show()
     }
 
     private fun showVoice() {
@@ -2201,6 +2230,7 @@ class MainActivity : Activity() {
         private const val PICK_VOICE = 4711 // (1.11.0) a Capri Voice pack from your files
         private const val PICK_MODEL = 4712 // (V8.5) one of the neural engine's .gguf files
         private const val PICK_PROFILE = 4713 // (V8.5) the private profiles ZIP
+        private const val PICK_SKIN = 4715 // (1.12.0) a community skin, to Emma
         private const val PICK_FOR_HER = 4714 // (1.12.0) a file for her, from the Chat tab
         const val TAB_NEWS = 1
         const val TAB_COMMUNITY = 2

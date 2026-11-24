@@ -80,4 +80,6 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Niente più braccia doppie:** alcuni outfit disegnavano un secondo braccio fermo. Risolto.
 - **Niente più vestiti mischiati nelle animazioni:** con un outfit non torna più ai vestiti di sempre a metà
   animazione. Fa solo le animazioni disegnate per quell'outfit.
+- **Skin della community:** disegna un outfit sul modello di Capri (sul Discord) e invialo da Impostazioni › Segnala ›
+  «Invia una skin». Se Emma lo approva, arriva con il tuo nome.
 

@@ -726,4 +726,9 @@
     <string name="account_err_other">Un problème est survenu. Réessaie.</string>
     <string name="settings_shake">Secouer le téléphone</string>
     <string name="settings_shake_how">Secoue-le fort et elle a le tournis. Jamais en mode gamer ni chat ouvert.</string>
+    <string name="skin_send">Envoyer un skin</string>
+    <string name="skin_send_how">Tu as dessiné une tenue sur le modèle de Capri (PNG 240x420, sur le Discord) ? Envoie-la à Emma : si elle l\'approuve, elle arrive dans une mise à jour avec ton nom.</string>
+    <string name="skin_name_hint">Ton nom et le nom de la tenue</string>
+    <string name="skin_bad">Ce doit être un PNG sur son modèle : 240x420 (ou 480x840), moins de 1,5 Mo.</string>
+    <string name="skin_ok">Envoyé ! Emma va le regarder.</string>
 </resources>

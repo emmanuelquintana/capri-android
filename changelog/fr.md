@@ -100,6 +100,8 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Plus de bras en double :** certaines tenues dessinaient un second bras immobile. Corrigé.
 - **Plus de tenue mélangée dans ses animations :** avec une tenue, elle ne repasse plus à ses habits habituels en
   pleine animation. Elle ne joue que celles dessinées pour cette tenue.
+- **Skins de la communauté :** dessine une tenue sur le modèle de Capri (sur le Discord) et envoie-la depuis Réglages ›
+  Signaler › « Envoyer un skin ». Si Emma l'approuve, elle arrive avec ton nom.
 
 ## 1.11.7
 

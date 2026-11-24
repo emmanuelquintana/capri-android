@@ -107,6 +107,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Ropa sin brazos dobles:** algunos atuendos le dibujaban un segundo brazo quieto o dislocado. Arreglado.
 - **Sin mezcla de ropa en sus animaciones:** con un atuendo puesto ya no se cambia a su ropa de siempre a mitad de una
   animación (el «avatar mezclado»). Con ropa puesta solo hace las animaciones dibujadas para esa ropa.
+- **Skins de la comunidad:** dibuja ropa sobre la plantilla de Capri (en el Discord) y envíala desde Ajustes ›
+  Reportar › «Enviar una skin». Si Emma la aprueba, sale en una actualización con tu nombre.
 
 ## 1.11.7
 

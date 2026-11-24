@@ -715,4 +715,9 @@
     <string name="account_err_other">Qualcosa è andato storto. Riprova.</string>
     <string name="settings_shake">Scuotere il telefono</string>
     <string name="settings_shake_how">Scuotilo forte e le gira la testa. Mai in modalità gamer o con la chat aperta.</string>
+    <string name="skin_send">Invia una skin</string>
+    <string name="skin_send_how">Hai disegnato un outfit sul modello di Capri (PNG 240x420, dal Discord)? Mandalo a Emma: se lo approva, arriva in un aggiornamento con il tuo nome.</string>
+    <string name="skin_name_hint">Il tuo nome e il nome dell\'outfit</string>
+    <string name="skin_bad">Deve essere un PNG sul suo modello: 240x420 (o 480x840), sotto 1,5 MB.</string>
+    <string name="skin_ok">Inviata! Emma la guarderà.</string>
 </resources>
