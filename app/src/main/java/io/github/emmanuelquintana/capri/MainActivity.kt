@@ -2110,9 +2110,9 @@ class MainActivity : Activity() {
         addView(ui.text(getString(R.string.you_games_how), 14f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.18f) }, ui.block(8))
         addView(ui.button(getString(R.string.games_open), Ui.Kind.MAIN) { PageActivity.open(this@MainActivity, "games") }, ui.block(16))
         // each game, straight in
-        val games = listOf("chess" to "♞", "mines" to "✹", "cards" to "♠", "ttt" to "✕", "pong" to "◐", "rps" to "✊", "c4" to "◉", "memo" to "▣", "simon" to "◈")
+        val games = listOf("chess" to "♞", "mines" to "✹", "cards" to "♠", "ttt" to "✕", "pong" to "◐", "rps" to "✊", "c4" to "◉", "memo" to "▣", "simon" to "◈", "react" to "⚡", "guess" to "#", "hilo" to "⇅")
         val names = resources.getStringArray(R.array.game_names)
-        val fresh = setOf("c4", "memo", "simon")
+        val fresh = setOf("react", "guess", "hilo") // (1.12.0)
         var row: LinearLayout? = null
         for ((i, g) in games.withIndex()) {
             if (i % 3 == 0) row = ui.row().also { addView(it, ui.block(10)) }

@@ -444,6 +444,9 @@
         <item>Puissance 4</item>
         <item>Memory</item>
         <item>Séquence neurale</item>
+        <item>Réflexes</item>
+        <item>Devine le nombre</item>
+        <item>Plus ou moins</item>
     </string-array>
     <!-- 1.11.0: Huawei / Honor -->
     <string name="huawei_title">Ton Huawei / Honor</string>

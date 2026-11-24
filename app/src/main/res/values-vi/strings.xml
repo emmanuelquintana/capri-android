@@ -437,6 +437,9 @@
         <item>Connect 4</item>
         <item>Trí nhớ</item>
         <item>Chuỗi thần kinh</item>
+        <item>Phản xạ</item>
+        <item>Đoán số</item>
+        <item>Lớn hay nhỏ</item>
     </string-array>
     <string name="huawei_title">Huawei / Honor của bạn</string>
     <string name="huawei_how">Những điện thoại này đóng ứng dụng chạy nền và một số không có dịch vụ của Google. Ba bước để Capri hoạt động đầy đủ:</string>

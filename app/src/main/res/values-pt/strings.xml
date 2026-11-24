@@ -444,6 +444,9 @@
         <item>Lig 4</item>
         <item>Memória</item>
         <item>Sequência neural</item>
+        <item>Reflexos</item>
+        <item>Adivinhe o número</item>
+        <item>Maior ou menor</item>
     </string-array>
     <!-- 1.11.0: Huawei / Honor -->
     <string name="huawei_title">Seu Huawei / Honor</string>

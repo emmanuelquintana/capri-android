@@ -437,6 +437,9 @@
         <item>コネクトフォー</item>
         <item>神経衰弱</item>
         <item>ニューラルシーケンス</item>
+        <item>反射神経</item>
+        <item>数当て</item>
+        <item>ハイ＆ロー</item>
     </string-array>
     <string name="huawei_title">あなたのHuawei / Honor</string>
     <string name="huawei_how">これらのスマホはバックグラウンドのアプリを閉じ、Googleのサービスがない機種もあります。カプリを完全に動かす3ステップ：</string>

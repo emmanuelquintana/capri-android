@@ -553,6 +553,9 @@ const GAMES = [
   { id: 'c4', icon: '◉', how: 'c4How', run: connect4 },
   { id: 'memo', icon: '▣', how: 'memoHow', run: memory },
   { id: 'simon', icon: '◈', how: 'simonHow', run: sequence },
+  { id: 'react', icon: '⚡', how: 'reactHow', run: reflexes },
+  { id: 'guess', icon: '#', how: 'guessHow', run: guessNumber },
+  { id: 'hilo', icon: '⇅', how: 'hiloHow', run: higherLower },
 ];
 let level = (() => { try { return localStorage.getItem('capri.games.level') || 'normal'; } catch { return 'normal'; } })();
 let current = null;
@@ -1767,6 +1770,224 @@ function sequence(box) {
 }
 function fillN(s, n) { return String(s).replace('{n}', n); }
 function pickOne(list) { return Array.isArray(list) ? list[Math.floor(Math.random() * list.length)] : list; }
+
+// ---------- (1.12.0, Emma: "añade 3 minijuegos nuevos") Reflejos, Adivina el número, Mayor o menor ----------
+const W_112 = {
+  es: { react: 'Reflejos', reactHow: 'Toca sus caras antes de que se apaguen. 30 segundos.', guess: 'Adivina el número', guessHow: 'Pienso un número del 1 al 100. Te digo si es más o menos.', hilo: 'Mayor o menor', hiloHow: '¿La siguiente carta es mayor o menor? Supera mi racha.',
+    time: 'Tiempo', points: 'Puntos', goalN: 'Mi marca: {n}', tries: 'Intentos', higher: 'Mayor', lower: 'Menor', send: 'Probar', streak: 'Racha',
+    reactGo: ['¡Ya!', 'Rápido, rápido.', 'A ver esos dedos.'], reactMiss: ['Lenta… o lento.', 'Se te fue.', 'Uy, tarde.'],
+    up: ['Más alto.', 'Sube.', 'Más, {name}.'], down: ['Más bajo.', 'Baja.', 'Menos.'], hot: ['¡Caliente!', 'Ya casi.'],
+    gotIt: ['¡Ese era! Lo leíste en mi chip.', 'Correcto. ¿Cómo?'], gaveUp: ['Era el {n}. Te faltó poco… o no.'],
+    hiloRight: ['Bien.', 'Suerte de principiante.', 'Sigue.'], hiloWrong: ['Nop. Racha de {n}.', 'Fallaste. Llegaste a {n}.'] },
+  en: { react: 'Reflexes', reactHow: 'Tap her faces before they go dark. 30 seconds.', guess: 'Guess the number', guessHow: 'I think of a number from 1 to 100. I tell you higher or lower.', hilo: 'Higher or lower', hiloHow: 'Is the next card higher or lower? Beat my streak.',
+    time: 'Time', points: 'Points', goalN: 'My score: {n}', tries: 'Tries', higher: 'Higher', lower: 'Lower', send: 'Try', streak: 'Streak',
+    reactGo: ['Go!', 'Quick, quick.', 'Show me those fingers.'], reactMiss: ['Too slow.', 'Missed it.', 'Oops, late.'],
+    up: ['Higher.', 'Go up.', 'More, {name}.'], down: ['Lower.', 'Go down.', 'Less.'], hot: ['Hot!', 'Almost.'],
+    gotIt: ['That\'s it! You read my chip.', 'Correct. How?'], gaveUp: ['It was {n}. So close… or not.'],
+    hiloRight: ['Nice.', 'Beginner\'s luck.', 'Keep going.'], hiloWrong: ['Nope. Streak of {n}.', 'Wrong. You got to {n}.'] },
+  fr: { react: 'Réflexes', reactHow: 'Touche ses visages avant qu\'ils s\'éteignent. 30 secondes.', guess: 'Devine le nombre', guessHow: 'Je pense à un nombre de 1 à 100. Je te dis plus ou moins.', hilo: 'Plus ou moins', hiloHow: 'La carte suivante est plus haute ou plus basse ? Bats ma série.',
+    time: 'Temps', points: 'Points', goalN: 'Mon score : {n}', tries: 'Essais', higher: 'Plus haut', lower: 'Plus bas', send: 'Essayer', streak: 'Série',
+    reactGo: ['Go !', 'Vite, vite.', 'Montre-moi tes doigts.'], reactMiss: ['Trop lent.', 'Raté.', 'Oups, en retard.'],
+    up: ['Plus.', 'Monte.', 'Plus haut, {name}.'], down: ['Moins.', 'Descends.', 'Plus bas.'], hot: ['Chaud !', 'Presque.'],
+    gotIt: ['C\'est ça ! Tu as lu ma puce.', 'Correct. Comment ?'], gaveUp: ['C\'était {n}. Presque… ou pas.'],
+    hiloRight: ['Bien.', 'La chance du débutant.', 'Continue.'], hiloWrong: ['Non. Série de {n}.', 'Raté. Tu es arrivé à {n}.'] },
+  pt: { react: 'Reflexos', reactHow: 'Toque nos rostos dela antes que apaguem. 30 segundos.', guess: 'Adivinhe o número', guessHow: 'Penso num número de 1 a 100. Digo se é mais ou menos.', hilo: 'Maior ou menor', hiloHow: 'A próxima carta é maior ou menor? Supere minha sequência.',
+    time: 'Tempo', points: 'Pontos', goalN: 'Minha marca: {n}', tries: 'Tentativas', higher: 'Maior', lower: 'Menor', send: 'Tentar', streak: 'Sequência',
+    reactGo: ['Já!', 'Rápido, rápido.', 'Mostra esses dedos.'], reactMiss: ['Devagar demais.', 'Passou.', 'Ops, atrasado.'],
+    up: ['Mais alto.', 'Sobe.', 'Mais, {name}.'], down: ['Mais baixo.', 'Desce.', 'Menos.'], hot: ['Quente!', 'Quase.'],
+    gotIt: ['Era esse! Você leu meu chip.', 'Certo. Como?'], gaveUp: ['Era {n}. Quase… ou não.'],
+    hiloRight: ['Boa.', 'Sorte de principiante.', 'Continua.'], hiloWrong: ['Não. Sequência de {n}.', 'Errou. Chegou a {n}.'] },
+  ru: { react: 'Реакция', reactHow: 'Нажимай на её лица, пока не погасли. 30 секунд.', guess: 'Угадай число', guessHow: 'Я загадала число от 1 до 100. Скажу, больше или меньше.', hilo: 'Больше или меньше', hiloHow: 'Следующая карта больше или меньше? Побей мою серию.',
+    time: 'Время', points: 'Очки', goalN: 'Мой рекорд: {n}', tries: 'Попытки', higher: 'Больше', lower: 'Меньше', send: 'Проверить', streak: 'Серия',
+    reactGo: ['Старт!', 'Быстрее, быстрее.', 'Покажи пальцы.'], reactMiss: ['Медленно.', 'Упустил.', 'Ой, поздно.'],
+    up: ['Больше.', 'Выше.', 'Ещё, {name}.'], down: ['Меньше.', 'Ниже.', 'Поменьше.'], hot: ['Горячо!', 'Почти.'],
+    gotIt: ['Оно! Ты прочитал мой чип.', 'Верно. Как?'], gaveUp: ['Это было {n}. Почти… или нет.'],
+    hiloRight: ['Хорошо.', 'Новичкам везёт.', 'Дальше.'], hiloWrong: ['Нет. Серия {n}.', 'Ошибка. Ты дошёл до {n}.'] },
+  vi: { react: 'Phản xạ', reactHow: 'Chạm vào mặt cô ấy trước khi tắt. 30 giây.', guess: 'Đoán số', guessHow: 'Mình nghĩ một số từ 1 đến 100. Mình nói lớn hơn hay nhỏ hơn.', hilo: 'Lớn hay nhỏ', hiloHow: 'Lá bài tiếp theo lớn hơn hay nhỏ hơn? Vượt chuỗi của mình.',
+    time: 'Thời gian', points: 'Điểm', goalN: 'Điểm của mình: {n}', tries: 'Lượt', higher: 'Lớn hơn', lower: 'Nhỏ hơn', send: 'Thử', streak: 'Chuỗi',
+    reactGo: ['Bắt đầu!', 'Nhanh, nhanh.', 'Cho mình xem tay nào.'], reactMiss: ['Chậm quá.', 'Trượt rồi.', 'Ối, muộn.'],
+    up: ['Lớn hơn.', 'Lên nữa.', 'Thêm nữa, {name}.'], down: ['Nhỏ hơn.', 'Xuống.', 'Ít hơn.'], hot: ['Nóng!', 'Gần rồi.'],
+    gotIt: ['Đúng rồi! Bạn đọc được chip của mình.', 'Chính xác. Sao hay vậy?'], gaveUp: ['Là {n}. Gần lắm… hoặc không.'],
+    hiloRight: ['Tốt.', 'May mắn người mới.', 'Tiếp đi.'], hiloWrong: ['Sai. Chuỗi {n}.', 'Trượt. Bạn được {n}.'] },
+  ja: { react: '反射神経', reactHow: '消える前に彼女の顔をタップ。30秒。', guess: '数当て', guessHow: '1から100の数を考えたよ。大きいか小さいか教えるね。', hilo: 'ハイ＆ロー', hiloHow: '次のカードは大きい？小さい？私の連続記録を超えて。',
+    time: '時間', points: 'ポイント', goalN: '私の記録：{n}', tries: '回数', higher: '大きい', lower: '小さい', send: '試す', streak: '連続',
+    reactGo: ['スタート！', '早く早く。', '指の速さ見せて。'], reactMiss: ['遅い。', '逃した。', 'あ、遅れた。'],
+    up: ['もっと大きい。', '上だよ。', 'もっと、{name}。'], down: ['もっと小さい。', '下だよ。', 'もっと下。'], hot: ['近い！', 'もう少し。'],
+    gotIt: ['正解！私のチップ読んだでしょ。', '正解。どうやって？'], gaveUp: ['正解は{n}。惜しい…かも。'],
+    hiloRight: ['いいね。', 'ビギナーズラック。', '続けて。'], hiloWrong: ['ハズレ。{n}連続。', '残念。{n}まで行ったね。'] },
+  de: { react: 'Reflexe', reactHow: 'Tippe ihre Gesichter an, bevor sie erlöschen. 30 Sekunden.', guess: 'Zahl raten', guessHow: 'Ich denke an eine Zahl von 1 bis 100. Ich sage dir höher oder tiefer.', hilo: 'Höher oder tiefer', hiloHow: 'Ist die nächste Karte höher oder tiefer? Schlag meine Serie.',
+    time: 'Zeit', points: 'Punkte', goalN: 'Mein Rekord: {n}', tries: 'Versuche', higher: 'Höher', lower: 'Tiefer', send: 'Raten', streak: 'Serie',
+    reactGo: ['Los!', 'Schnell, schnell.', 'Zeig mir deine Finger.'], reactMiss: ['Zu langsam.', 'Verpasst.', 'Ups, zu spät.'],
+    up: ['Höher.', 'Rauf.', 'Mehr, {name}.'], down: ['Tiefer.', 'Runter.', 'Weniger.'], hot: ['Heiß!', 'Fast.'],
+    gotIt: ['Das war\'s! Du hast meinen Chip gelesen.', 'Richtig. Wie?'], gaveUp: ['Es war {n}. Knapp… oder nicht.'],
+    hiloRight: ['Gut.', 'Anfängerglück.', 'Weiter.'], hiloWrong: ['Nein. Serie von {n}.', 'Falsch. Du kamst auf {n}.'] },
+  it: { react: 'Riflessi', reactHow: 'Tocca i suoi volti prima che si spengano. 30 secondi.', guess: 'Indovina il numero', guessHow: 'Penso a un numero da 1 a 100. Ti dico più alto o più basso.', hilo: 'Più alto o più basso', hiloHow: 'La prossima carta è più alta o più bassa? Batti la mia serie.',
+    time: 'Tempo', points: 'Punti', goalN: 'Il mio record: {n}', tries: 'Tentativi', higher: 'Più alta', lower: 'Più bassa', send: 'Prova', streak: 'Serie',
+    reactGo: ['Via!', 'Veloce, veloce.', 'Fammi vedere le dita.'], reactMiss: ['Troppo lento.', 'Persa.', 'Ops, in ritardo.'],
+    up: ['Più alto.', 'Sali.', 'Di più, {name}.'], down: ['Più basso.', 'Scendi.', 'Di meno.'], hot: ['Fuoco!', 'Quasi.'],
+    gotIt: ['Era quello! Hai letto il mio chip.', 'Giusto. Come?'], gaveUp: ['Era {n}. Quasi… o no.'],
+    hiloRight: ['Bene.', 'Fortuna del principiante.', 'Continua.'], hiloWrong: ['No. Serie di {n}.', 'Sbagliato. Sei arrivato a {n}.'] },
+};
+Object.assign(W, W_112[lang] || W_112.es);
+
+// Reflejos: her faces light up on a 3x3 grid; tap each before it goes dark. More points than her mark wins.
+function reflexes(box) {
+  const goal = { easy: 18, normal: 26, hard: 34 }[level] || 26;
+  const life = { easy: 1300, normal: 950, hard: 700 }[level] || 950;
+  const info = el('div', 'mines__info');
+  const timeS = el('span', '', `${W.time} 30`);
+  const ptsS = el('span', '', `${W.points} 0 · ${fillN(W.goalN, goal)}`);
+  info.append(timeS, ptsS);
+  const grid = el('div', 'ttt react');
+  const FACE = ['capri-face', 'face-smug', 'face-wink', 'face-laugh', 'face-surprised', 'face-love'];
+  const cells = Array.from({ length: 9 }, (_, i) => {
+    const b = el('button', 'ttt__cell');
+    b.addEventListener('click', () => hit(i));
+    grid.append(b);
+    return b;
+  });
+  box.append(info, grid);
+  const lit = new Map();
+  let points = 0, left = 30, over = false, misses = 0;
+  const timers = [];
+  let tick = 0, spawnT = 0;
+  stopGame = () => { over = true; timers.forEach(clearTimeout); clearInterval(tick); clearTimeout(spawnT); };
+  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+  function light() {
+    if (over) return;
+    const free = cells.map((_, i) => i).filter((i) => !lit.has(i));
+    if (free.length) {
+      const i = free[Math.floor(Math.random() * free.length)];
+      const c = cells[i];
+      c.style.background = `var(--g-panel) url(../capri/assets/capri/${pick(FACE)}.png) center / 72% no-repeat`;
+      c.classList.add('is-lit');
+      lit.set(i, setTimeout(() => {
+        lit.delete(i); c.classList.remove('is-lit'); c.style.background = '';
+        misses += 1;
+        if (misses % 4 === 0) say('reactMiss', 'smug');
+      }, life));
+    }
+    spawnT = setTimeout(light, Math.max(260, 700 - (30 - left) * 12) * (0.7 + Math.random() * 0.6));
+  }
+  function hit(i) {
+    if (over || !lit.has(i)) return;
+    buzz();
+    clearTimeout(lit.get(i));
+    lit.delete(i);
+    const c = cells[i];
+    c.classList.remove('is-lit'); c.style.background = '';
+    points += 1;
+    ptsS.textContent = `${W.points} ${points} · ${fillN(W.goalN, goal)}`;
+    if (points === goal) brain.line('youGood', 'surprised', {}, 2);
+  }
+  say('reactGo', 'grin');
+  act('zone');
+  later(light, 600);
+  tick = setInterval(() => {
+    left -= 1;
+    timeS.textContent = `${W.time} ${left}`;
+    if (left > 0) return;
+    stopGame();
+    lit.forEach((t) => clearTimeout(t));
+    played('react', points > goal ? 'you' : points === goal ? 'draw' : 'her');
+  }, 1000);
+}
+
+// Adivina el número: 1 to 100, she says higher or lower; fewer tries on harder levels.
+function guessNumber(box) {
+  const max = { easy: 10, normal: 7, hard: 6 }[level] || 7;
+  const secret = 1 + Math.floor(Math.random() * 100);
+  let tries = 0, lo = 1, hi = 100, over = false;
+  const info = el('div', 'mines__info');
+  const triesS = el('span', '', `${W.tries} 0/${max}`);
+  const range = el('span', '', '1 – 100');
+  info.append(triesS, range);
+  const big = el('div', 'rps__show');
+  const shown = el('span', 'rps__hand', '?');
+  big.append(shown);
+  const row = el('div', 'guess');
+  const input = el('input', 'guess__in');
+  Object.assign(input, { type: 'number', inputMode: 'numeric', min: 1, max: 100, placeholder: '1–100' });
+  const go = el('button', 'pill pill--big', W.send);
+  row.append(input, go);
+  box.append(info, big, row);
+  function tryIt() {
+    if (over) return;
+    const n = Math.round(Number(input.value));
+    if (!(n >= 1 && n <= 100)) return;
+    buzz();
+    tries += 1;
+    triesS.textContent = `${W.tries} ${tries}/${max}`;
+    shown.textContent = String(n);
+    shown.classList.remove('is-pop'); void shown.offsetWidth; shown.classList.add('is-pop');
+    input.value = '';
+    if (n === secret) {
+      over = true;
+      say('gotIt', 'surprised');
+      return played('guess', 'you');
+    }
+    if (n < secret) lo = Math.max(lo, n + 1); else hi = Math.min(hi, n - 1);
+    range.textContent = `${lo} – ${hi}`;
+    if (tries >= max) {
+      over = true;
+      shown.textContent = String(secret);
+      say(fillN(pickOne(W.gaveUp), secret), 'smug');
+      return played('guess', 'her');
+    }
+    say(Math.abs(n - secret) <= 3 ? 'hot' : n < secret ? 'up' : 'down', Math.abs(n - secret) <= 3 ? 'surprised' : 'smug');
+    act(Math.abs(n - secret) <= 3 ? 'shock' : 'smug', 1800);
+  }
+  go.addEventListener('click', tryIt);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryIt(); });
+  say(W.guessHow, 'grin');
+}
+
+// Mayor o menor: one card up; is the next one higher or lower? (equal counts as yours) Beat her streak.
+function higherLower(box) {
+  const goal = { easy: 4, normal: 6, hard: 9 }[level] || 6;
+  const SUITS = [['♠', false], ['♥', true], ['♦', true], ['♣', false]];
+  const NAMES = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const draw = () => ({ v: 1 + Math.floor(Math.random() * 13), s: SUITS[Math.floor(Math.random() * 4)] });
+  const info = el('div', 'mines__info');
+  const streakS = el('span', '', `${W.streak} 0`);
+  info.append(streakS, el('span', '', fillN(W.goalN, goal)));
+  const row = el('div', 'cards__row hilo');
+  const acts = el('div', 'cards__acts');
+  const up = el('button', 'pill pill--big', `▲ ${W.higher}`);
+  const down = el('button', 'pill pill--big', `▼ ${W.lower}`);
+  acts.append(up, down);
+  box.append(info, row, acts);
+  let card = draw(), streak = 0, over = false;
+  const show = (c) => {
+    const d = el('div', `card${c.s[1] ? ' is-red' : ''}`);
+    d.append(el('b', '', NAMES[c.v - 1]), el('i', '', c.s[0]));
+    row.innerHTML = '';
+    row.append(d);
+  };
+  show(card);
+  function choose(higher) {
+    if (over) return;
+    buzz();
+    const next = draw();
+    const right = next.v === card.v || (higher ? next.v > card.v : next.v < card.v);
+    card = next;
+    show(card);
+    if (right) {
+      streak += 1;
+      streakS.textContent = `${W.streak} ${streak}`;
+      if (streak === goal) { over = true; brain.line('youGood', 'surprised', {}, 2); return played('hilo', 'you'); }
+      if (Math.random() < 0.45) say('hiloRight', 'look');
+      return;
+    }
+    over = true;
+    up.disabled = down.disabled = true;
+    say(fillN(pickOne(W.hiloWrong), streak), 'smug');
+    played('hilo', 'her');
+  }
+  up.addEventListener('click', () => choose(true));
+  down.addEventListener('click', () => choose(false));
+  say(W.hiloHow, 'grin');
+}
 
 // (1.11.0) opened from the app's Juegos tab: straight into that game
 const asked = GAMES.find((g) => g.id === info.game);

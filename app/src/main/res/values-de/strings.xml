@@ -438,6 +438,9 @@
         <item>Vier gewinnt</item>
         <item>Memory</item>
         <item>Neuronale Sequenz</item>
+        <item>Reflexe</item>
+        <item>Zahl raten</item>
+        <item>Höher oder tiefer</item>
     </string-array>
     <string name="huawei_title">Dein Huawei / Honor</string>
     <string name="huawei_how">Diese Handys schließen Apps im Hintergrund, und manche haben keine Google-Dienste. Drei Schritte, damit Capri voll funktioniert:</string>

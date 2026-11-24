@@ -445,6 +445,9 @@
         <item>Четыре в ряд</item>
         <item>Мемори</item>
         <item>Нейропоследовательность</item>
+        <item>Реакция</item>
+        <item>Угадай число</item>
+        <item>Больше или меньше</item>
     </string-array>
     <!-- 1.11.0: Huawei / Honor -->
     <string name="huawei_title">Твой Huawei / Honor</string>

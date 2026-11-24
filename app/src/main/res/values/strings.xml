@@ -445,6 +445,9 @@
         <item>Connect 4</item>
         <item>Memory</item>
         <item>Neural sequence</item>
+        <item>Reflexes</item>
+        <item>Guess the number</item>
+        <item>Higher or lower</item>
     </string-array>
     <!-- 1.11.0: Huawei / Honor -->
     <string name="huawei_title">Your Huawei / Honor</string>
