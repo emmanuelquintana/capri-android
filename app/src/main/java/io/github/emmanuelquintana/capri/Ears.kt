@@ -896,10 +896,20 @@ class Ears(private val service: CapriService) {
             recognizer?.let { runCatching { it.cancel() } }
             listening = false
             voiceEvent(id, "VOICE_PREPARING") { put("source", "system") }
-            tts?.speak(text.take(600), TextToSpeech.QUEUE_FLUSH, null, id)
-            // never deaf for good if the voice engine forgets to say it's done
+            // (1.12.0, community: "el sonido se corta a la mitad") the whole answer: it was cut at 600 characters. In
+            // pieces of whole sentences, one after another; only the last one carries the answer's id (its end)
+            val whole = text.take(4000)
+            val pieces = CapriNeural.split(whole, shortFirst = false).fold(mutableListOf<String>()) { acc, p ->
+                if (acc.isNotEmpty() && acc.last().length + p.length < 480) acc[acc.lastIndex] = acc.last() + " " + p else acc += p
+                acc
+            }.ifEmpty { listOf(whole) }
+            pieces.forEachIndexed { i, p ->
+                val last = i == pieces.lastIndex
+                tts?.speak(p, if (i == 0) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD, null, if (last) id else "$id#$i")
+            }
+            // never deaf for good if the voice engine forgets to say it's done (longer for a longer answer)
             main.removeCallbacks(unstuck)
-            main.postDelayed(unstuck, 30_000)
+            main.postDelayed(unstuck, 30_000L + whole.length * 90L)
             Unit
         }
         if (tts != null && ttsReady) {
@@ -916,12 +926,14 @@ class Ears(private val service: CapriService) {
             }.apply {
                 setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                     override fun onStart(utteranceId: String?) = main.post {
-                        voiceEvent(utteranceId.orEmpty(), "VOICE_STARTED") { put("source", "system") }
+                        val u = utteranceId.orEmpty()
+                        if (u.substringAfterLast('#', "").let { it.isNotEmpty() && it != "0" }) return@post // (a later piece of the same answer)
+                        voiceEvent(u.substringBefore('#'), "VOICE_STARTED") { put("source", "system") }
                     }.let {}
-                    override fun onDone(utteranceId: String?) = main.post { ttsEnded(utteranceId.orEmpty(), "VOICE_FINISHED") }.let {}
+                    override fun onDone(utteranceId: String?) = main.post { if ('#' !in utteranceId.orEmpty()) ttsEnded(utteranceId.orEmpty(), "VOICE_FINISHED") }.let {}
                     @Deprecated("Deprecated in Java")
-                    override fun onError(utteranceId: String?) = main.post { ttsEnded(utteranceId.orEmpty(), "VOICE_ERROR") }.let {}
-                    override fun onStop(utteranceId: String?, interrupted: Boolean) = main.post { ttsEnded(utteranceId.orEmpty(), "VOICE_CANCELLED") }.let {}
+                    override fun onError(utteranceId: String?) = main.post { ttsEnded(utteranceId.orEmpty().substringBefore('#'), "VOICE_ERROR") }.let {}
+                    override fun onStop(utteranceId: String?, interrupted: Boolean) = main.post { ttsEnded(utteranceId.orEmpty().substringBefore('#'), "VOICE_CANCELLED") }.let {}
                 })
             }
         }
