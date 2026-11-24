@@ -169,6 +169,7 @@ class MainActivity : Activity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
+        tour?.let { it.skip(); return }
         if (closeSub()) return
         @Suppress("DEPRECATION")
         super.onBackPressed()
@@ -1876,7 +1877,7 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.tour_ask_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.2f) }, ui.block(6))
             addView(ui.button(getString(R.string.tour_yes), Ui.Kind.MAIN) {
                 dialog.dismiss()
-                Tour(this@MainActivity, ui, shell, steps, ::tourTarget) { show(TAB_CHAT); shell.postDelayed({ after() }, 400) }.start()
+                tour = Tour(this@MainActivity, ui, shell, steps, ::tourTarget) { tour = null; show(TAB_CHAT); shell.postDelayed({ after() }, 400) }.also { it.start() }
             }, ui.block(12))
             addView(ui.button(getString(R.string.community_later), Ui.Kind.LINE) { dialog.dismiss(); after() }, ui.block(8))
         }
@@ -1894,10 +1895,12 @@ class MainActivity : Activity() {
     // tutorial: the same guided view as the tour, its steps in assets/android/tour-voz.json, from Ajustes de voz,
     // Novedades and the offer to get her voice
     private val voiceSpots = HashMap<String, View>()
+    private var tour: Tour? = null // (1.12.1) the guided view on screen, so Back closes it first
 
     private fun voiceTutorial() {
         val (_, steps) = Tour.load(this, "android/tour-voz.json") ?: return
-        Tour(this, ui, shell, steps, ::tourTarget) { if (sub !== voice) openSub(voice) }.start()
+        if (tour != null) return
+        tour = Tour(this, ui, shell, steps, ::tourTarget) { tour = null; if (sub !== voice) openSub(voice) }.also { it.start() }
     }
 
     /** What a tour step lights up (its "target" in tour.json), with its tab on screen first. */

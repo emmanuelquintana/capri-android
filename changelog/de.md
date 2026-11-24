@@ -2,6 +2,13 @@
 
 Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt es, wenn sie auf Deutsch ist.
 
+## 1.12.1
+
+- **🛠️ Behobene Fehler**
+- **Ihre Stimme herunterladen:** ihre Sätze und ihr Profil laden wieder (vorher kam «No se pudo: size»).
+- **Abgeschnittene Sätze:** ihre aufgenommenen Sätze verlieren nicht mehr den Anfang, und die, die falsch klangen, wurden neu aufgenommen.
+- **Stimm-Tutorial:** die Karte ragt nicht mehr aus dem Bildschirm und verdeckt nicht mehr, was sie zeigt, und Zurück schließt es.
+
 ## 1.12.0
 
 - **✨ Neu**

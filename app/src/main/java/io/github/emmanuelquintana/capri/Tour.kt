@@ -66,13 +66,17 @@ class Tour(
         next()
     }
 
+    private var over = false
     private fun end() {
+        if (over) return
+        over = true
         host.removeView(shade)
         host.removeView(card)
         done()
     }
 
     private fun next() {
+        if (over) return
         at++
         if (at >= steps.size) { end(); return }
         val step = steps[at]
@@ -81,34 +85,76 @@ class Tour(
         shade.invalidate()
         // what the step needs on screen first (its tab), then where it is once laid out
         val target = find(step.target)
-        host.postDelayed({ place(step, target) }, 380)
+        host.postDelayed({ if (!over) place(step, target) }, 380)
+    }
+
+    /** Where the lit view is now, in the host's coordinates. */
+    private fun measure(target: View) {
+        val t = IntArray(2); val h = IntArray(2)
+        target.getLocationInWindow(t); host.getLocationInWindow(h)
+        val pad = ui.dp(6f)
+        hole.set(t[0] - h[0] - pad, t[1] - h[1] - pad, t[0] - h[0] + target.width + pad, t[1] - h[1] + target.height + pad)
+    }
+
+    /** The part of the host the card may use: below the status bar, above the navigation bar. */
+    private fun safeTop(): Float {
+        val h = IntArray(2).also { host.getLocationInWindow(it) }
+        @Suppress("DEPRECATION") val inset = host.rootWindowInsets?.systemWindowInsetTop ?: 0
+        return maxOf(0, inset - h[1]) + ui.dp(12f)
+    }
+    private fun safeBottom(): Float {
+        @Suppress("DEPRECATION") val inset = host.rootWindowInsets?.systemWindowInsetBottom ?: 0
+        return host.height - inset - ui.dp(12f)
+    }
+
+    private fun scrollerOf(v: View): android.widget.ScrollView? {
+        var p = v.parent
+        while (p is View) { if (p is android.widget.ScrollView) return p; p = p.parent }
+        return null
     }
 
     private fun place(step: Step, target: View?) {
-        if (target != null && target.isShown) {
-            target.requestRectangleOnScreen(Rect(0, 0, target.width, target.height), true)
-            val t = IntArray(2); val h = IntArray(2)
-            target.getLocationInWindow(t); host.getLocationInWindow(h)
-            val pad = ui.dp(6f)
-            hole.set(t[0] - h[0] - pad, t[1] - h[1] - pad, t[0] - h[0] + target.width + pad, t[1] - h[1] + target.height + pad)
-        } else hole.setEmpty()
-        shade.invalidate()
         fill(step)
-        // the card next to what's lit, on the side with room (in the middle when nothing is lit)
         card.measure(View.MeasureSpec.makeMeasureSpec(host.width - ui.dpi(36), View.MeasureSpec.EXACTLY), View.MeasureSpec.UNSPECIFIED)
+        val cardH = card.measuredHeight
         val gap = ui.dp(18f)
+        val top = safeTop()
+        val bottom = safeBottom()
+        val lit = target != null && target.isShown
+        if (lit) {
+            target!!.requestRectangleOnScreen(Rect(0, 0, target.width, target.height), true)
+            measure(target)
+            // (1.12.1, in Portuguese the card ran off the screen and covered what was lit) no room for the card
+            // above or below: its top goes up so the card fits under it
+            val fits = hole.bottom + gap + cardH <= bottom || hole.top - gap - cardH >= top
+            if (!fits) scrollerOf(target)?.let { sv ->
+                sv.scrollBy(0, (hole.top - top).toInt())
+                measure(target)
+            }
+        } else hole.setEmpty()
+        // the card next to what's lit, on the side with room (in the middle when nothing is lit); when it fits
+        // on neither side it sits at the bottom, fully readable, and the light stops above it
+        cardParams.gravity = Gravity.TOP
         when {
             hole.isEmpty -> { cardParams.gravity = Gravity.CENTER_VERTICAL; cardParams.topMargin = 0 }
-            hole.centerY() > host.height / 2f -> {
-                cardParams.gravity = Gravity.TOP
-                cardParams.topMargin = maxOf(ui.dpi(40), (hole.top - gap - card.measuredHeight).toInt())
+            hole.bottom + gap + cardH <= bottom -> cardParams.topMargin = (hole.bottom + gap).toInt()
+            hole.top - gap - cardH >= top -> cardParams.topMargin = (hole.top - gap - cardH).toInt()
+            else -> {
+                val y = maxOf(top, bottom - cardH)
+                cardParams.topMargin = y.toInt()
+                hole.bottom = minOf(hole.bottom, y - gap)
+                if (hole.bottom - hole.top < ui.dp(24f)) hole.setEmpty()
             }
-            else -> { cardParams.gravity = Gravity.TOP; cardParams.topMargin = (hole.bottom + gap).toInt() }
         }
+        if (!hole.isEmpty) { hole.top = maxOf(hole.top, top - ui.dp(6f)); hole.bottom = minOf(hole.bottom, bottom) }
+        shade.invalidate()
         card.layoutParams = cardParams
         card.visibility = View.VISIBLE
         ui.slideIn(card)
     }
+
+    /** (1.12.1) Back during the tour closes the tour, not the screen under it (it left the light on the wrong spot). */
+    fun skip() = end()
 
     private fun fill(step: Step) {
         card.removeAllViews()

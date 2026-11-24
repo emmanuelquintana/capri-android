@@ -3,6 +3,13 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.12.1
+
+- **🛠️ Errores corregidos**
+- **Bajar su voz:** ya se descargan sus frases y su perfil (antes salía «No se pudo: size»).
+- **Frases cortadas:** sus frases grabadas ya no pierden el principio, y las que se oían mal se grabaron otra vez.
+- **Tutorial de su voz:** la tarjeta ya no se sale de la pantalla ni tapa lo que te enseña, y el botón Atrás lo cierra.
+
 ## 1.12.0
 
 - **✨ Novedades**

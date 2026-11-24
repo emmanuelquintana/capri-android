@@ -2,6 +2,13 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.12.1
+
+- **🛠️ Bugs fixed**
+- **Download her voice:** her phrases and profile download again (it used to say «No se pudo: size»).
+- **Cut-off phrases:** her recorded phrases no longer lose their start, and the ones that sounded wrong were recorded again.
+- **Voice tutorial:** the card no longer runs off the screen or covers what it shows you, and Back closes it.
+
 ## 1.12.0
 
 - **✨ What's new**

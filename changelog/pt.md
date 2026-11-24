@@ -2,6 +2,13 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.12.1
+
+- **🛠️ Erros corrigidos**
+- **Baixar a voz dela:** as frases e o perfil dela voltam a ser baixados (antes aparecia «No se pudo: size»).
+- **Frases cortadas:** as frases gravadas dela não perdem mais o começo, e as que soavam mal foram gravadas de novo.
+- **Tutorial da voz dela:** o cartão não sai mais da tela nem cobre o que mostra, e o botão Voltar fecha o tutorial.
+
 ## 1.12.0
 
 - **✨ Novidades**

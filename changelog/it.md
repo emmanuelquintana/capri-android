@@ -2,6 +2,13 @@
 
 Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mostra quando è in italiano.
 
+## 1.12.1
+
+- **🛠️ Bug corretti**
+- **Scarica la sua voce:** le sue frasi e il suo profilo si scaricano di nuovo (prima compariva «No se pudo: size»).
+- **Frasi tagliate:** le sue frasi registrate non perdono più l’inizio, e quelle che si sentivano male sono state registrate di nuovo.
+- **Tutorial della sua voce:** la scheda non esce più dallo schermo né copre quello che ti mostra, e il tasto Indietro lo chiude.
+
 ## 1.12.0
 
 - **✨ Novità**

@@ -201,7 +201,9 @@ object CapriVoice {
     fun download(context: Context, lang: String, done: (String?) -> Unit) = job(context, "download", done) { app ->
         require(CHANNEL.startsWith("https://")) { "nochannel" }
         val pack = PACKS.first { it.lang == lang }
-        val part = File(app.cacheDir, "${pack.file}.part")
+        // (1.12.1) the part is tied to this exact pack: a half download of an older recording never gets mixed in
+        File(app.cacheDir, "${pack.file}.part").delete()
+        val part = File(app.cacheDir, "${pack.file}.${pack.sha.take(12)}.part")
         cancel.set(false)
         // (1.12.0) a cut connection goes on from where it was, a few times, before it gives up
         var tries = 0

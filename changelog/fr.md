@@ -2,6 +2,13 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.12.1
+
+- **🛠️ Bugs corrigés**
+- **Télécharger sa voix :** ses phrases et son profil se téléchargent à nouveau (avant, ça affichait « No se pudo: size »).
+- **Phrases coupées :** ses phrases enregistrées ne perdent plus leur début, et celles qui sonnaient mal ont été réenregistrées.
+- **Tutoriel de sa voix :** la carte ne sort plus de l’écran et ne cache plus ce qu’elle montre, et le bouton Retour le ferme.
+
 ## 1.12.0
 
 - **✨ Nouveautés**
