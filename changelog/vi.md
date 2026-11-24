@@ -2,6 +2,13 @@
 
 Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt: ứng dụng hiển thị nó khi đang ở tiếng Việt.
 
+## 1.12.1
+
+- **🛠️ Lỗi đã sửa**
+- **Tải giọng cô ấy:** các câu nói và hồ sơ giọng đã tải được trở lại (trước đây hiện «No se pudo: size»).
+- **Câu bị cắt:** các câu đã ghi âm không còn mất phần đầu, và những câu nghe chưa đúng đã được ghi lại.
+- **Hướng dẫn giọng nói:** thẻ không còn tràn khỏi màn hình hay che thứ nó chỉ cho bạn, và nút Quay lại sẽ đóng nó.
+
 ## 1.12.0
 
 - **✨ Có gì mới**

@@ -39,14 +39,17 @@ object CapriVoice {
     // names, sizes and fingerprints only, no audio
     val PACKS = listOf(
         // (1.12.0, Emma: "pregraba las frases con la voz nueva") 9.0.0: the same phrases and ids, in her Fish Audio voice
-        Pack("es-MX", "capri-clips-es-MX-private-production", "capri-clips-es-MX.zip", 1_494_683,
-            "c665260e5a5187c976a28d6e20e53035b54f9c018051387c79a2247b82eefa27", 100, "9.0.0"),
-        Pack("en-US", "capri-clips-en-US-private-production", "capri-clips-en-US.zip", 1_391_608,
-            "cb4ea4c0755df6a43b16ff9d05dce81117625d8533c5fa46d2a3e492434fbf4f", 102, "9.0.0"),
+        // (1.12.1, "No se pudo: size": the 9.0.0 files were recorded again after 1.12.0 and no longer matched)
+        // 9.0.1, its own channel that never changes: a short breath before each phrase (some phones ate the
+        // first syllable) and the 13 that sounded wrong recorded again, checked word by word
+        Pack("es-MX", "capri-clips-es-MX-private-production", "capri-clips-es-MX.zip", 1_538_884,
+            "9f38643cac6041ba7161677f1615dd2193e41749fe5451821bfaf679ba3f184c", 100, "9.0.1"),
+        Pack("en-US", "capri-clips-en-US-private-production", "capri-clips-en-US.zip", 1_445_132,
+            "37d37b54e9445cb7be3caebac0873103de6d1a2a79536d9cbeb4c76c0b65683a", 102, "9.0.1"),
     )
 
     /** Where her packs and profiles are downloaded from (`<CHANNEL>/<file>`): a public GitHub pre-release. */
-    const val CHANNEL = "https://github.com/emmanuelquintana/capri-android/releases/download/capri-voz-9.0.0"
+    const val CHANNEL = "https://github.com/emmanuelquintana/capri-android/releases/download/capri-voz-9.0.1"
 
     private val main = Handler(Looper.getMainLooper())
     private val worker = Executors.newSingleThreadExecutor(Threads.factory)
@@ -201,7 +204,9 @@ object CapriVoice {
     fun download(context: Context, lang: String, done: (String?) -> Unit) = job(context, "download", done) { app ->
         require(CHANNEL.startsWith("https://")) { "nochannel" }
         val pack = PACKS.first { it.lang == lang }
-        val part = File(app.cacheDir, "${pack.file}.part")
+        // (1.12.1) the part is tied to this exact pack: a half download of an older recording never gets mixed in
+        File(app.cacheDir, "${pack.file}.part").delete()
+        val part = File(app.cacheDir, "${pack.file}.${pack.sha.take(12)}.part")
         cancel.set(false)
         // (1.12.0) a cut connection goes on from where it was, a few times, before it gives up
         var tries = 0
