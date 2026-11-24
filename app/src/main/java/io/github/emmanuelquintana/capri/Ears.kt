@@ -863,6 +863,12 @@ class Ears(private val service: CapriService) {
         // (1.12.0) her cloud voice couldn't (no internet, your key, its credit): her voice on the phone says it
         if (why.startsWith("fish:")) {
             Diag.add("I", "voice: her cloud voice couldn't ($why), her other voice this time")
+            // (the Fish test button: say why, not just another voice)
+            if (id == "fish-test") return android.widget.Toast.makeText(service, when (why) {
+                "fish:key" -> service.getString(R.string.fish_key_bad)
+                "fish:credit" -> service.getString(R.string.fish_key_credit)
+                else -> service.getString(R.string.fish_key_err, FishVoice.lastError.ifEmpty { why.removePrefix("fish:") })
+            }, android.widget.Toast.LENGTH_LONG).show()
             val next = CapriVoice.answerEngine(service, lang)
             voiceEvent(id, "VOICE_REQUESTED") { put("kind", "answer").put("fallback", next) }
             return if (next == CapriNeural.ID) neuralVoice(id, text, lang) else systemVoice(id, text, lang)

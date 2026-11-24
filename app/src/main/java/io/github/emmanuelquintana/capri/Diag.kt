@@ -62,4 +62,39 @@ object Diag {
 
     @Synchronized
     fun clear() = lines.clear()
+
+    /**
+     * (1.12.0, Emma: "en las actualizaciones beta … tenga acceso al registro del teléfono para enviártelo y detectar
+     * fallos") Everything about this phone for a bug hunt, for her beta phones only (MainActivity's beta box): the
+     * versions, her voice settings, her own log, and Android's log of this app (logcat only shows an app its own
+     * lines, so nothing of other apps). Keys, e-mails and your name are cleaned out, as in a report.
+     */
+    fun phoneLog(context: Context, compact: Boolean = false): String {
+        val app = context.applicationContext
+        val store = Store(app)
+        val lang = Lang.current(app)
+        val tag = CapriVoice.voiceLang(lang)
+        val head = buildString {
+            appendLine("Capri ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) · ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}")
+            appendLine("Android ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT}) · WebView ${Perf.webView()} · ${android.os.Build.SUPPORTED_ABIS.joinToString()}")
+            val mem = android.app.ActivityManager.MemoryInfo().also { app.getSystemService(android.app.ActivityManager::class.java)?.getMemoryInfo(it) }
+            appendLine("RAM ${mem.totalMem / 1_048_576} MB, free ${mem.availMem / 1_048_576} MB · lang $lang · service ${if (CapriService.running) "on" else "off"}")
+            appendLine("voice: mode ${store.configString("voiceMode") ?: "automatic"}, picked ${CapriVoice.engine(app)}, answers with ${CapriVoice.answerEngine(app, lang)}")
+            appendLine("cloud voice (Fish): ${FishVoice.whyNot(app, lang)}, custom voice ${FishVoice.customVoice(app).ifEmpty { "no" }}, last error ${FishVoice.lastError.ifEmpty { "none" }}")
+            appendLine("her neural voice: ${tag?.let { CapriNeural.status(app, it) } ?: "no $lang"} · phrases ${CapriVoice.installed(tag ?: "es-MX")?.version ?: "none"}")
+        }
+        val logcat = runCatching {
+            val p = ProcessBuilder("logcat", "-d", "-v", "threadtime", "-t", "3000").redirectErrorStream(true).start()
+            val out = p.inputStream.bufferedReader().use { it.readText() }
+            p.waitFor()
+            out
+        }.getOrElse { "(logcat: $it)" }
+        // compact (a report has room for 12 000 characters): her log's end, then only Android's warnings and errors
+        val mine = saved().joinToString("\n").let { if (compact) it.takeLast(6_000) else it }
+        val warned = Regex("""^\S+ \S+\s+\d+\s+\d+ [WEF] """)
+        val sys = if (!compact) logcat else logcat.lines().filter { warned.containsMatchIn(it) }
+            .joinToString("\n").takeLast((11_500 - head.length - mine.length).coerceAtLeast(500))
+        val text = head + "\n--- Capri ---\n" + mine + "\n\n--- Android (logcat) ---\n" + sys
+        return Report.clean(app, text)
+    }
 }

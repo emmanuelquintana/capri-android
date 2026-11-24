@@ -39,15 +39,15 @@ object Report {
 
     /** (1.12.0) A community skin (a PNG on her template) for Emma to approve; [done] as for send. */
     fun sendSkin(context: Context, png: ByteArray, about: String, done: (String) -> Unit) =
-        send(context, about, JSONObject().put("kind", "skin").put("image", android.util.Base64.encodeToString(png, android.util.Base64.NO_WRAP)), done)
+        send(context, about, JSONObject().put("kind", "skin").put("image", android.util.Base64.encodeToString(png, android.util.Base64.NO_WRAP)), done = done)
 
     /** Sends it in the background; [done] gets "ok", "rate", "off", "bad" or "net", on the main thread. */
-    fun send(context: Context, text: String, extra: JSONObject? = null, done: (String) -> Unit) {
+    fun send(context: Context, text: String, extra: JSONObject? = null, fullLog: String? = null, done: (String) -> Unit) {
         val app = context.applicationContext
         val main = android.os.Handler(android.os.Looper.getMainLooper())
         Threads.make {
             val result = runCatching {
-                val log = clean(app, Diag.saved().joinToString("\n")).takeLast(MAX_LOG)
+                val log = (fullLog ?: clean(app, Diag.saved().joinToString("\n"))).takeLast(MAX_LOG)
                 val body = JSONObject()
                     .put("app", "android")
                     .put("v", Beta.base)

@@ -92,13 +92,29 @@ object CapriVoice {
         val mode = Store(context).configString("voiceMode") ?: "automatic"
         // (1.12.0) her voice in the cloud (Fish Audio, your key): first whenever it's set up and online, except in
         // "light" (the phone's) or a custom pick of another engine
-        if (mode != "light" && (mode != "custom" || engine(context) == FishVoice.ID) && FishVoice.usable(context, lang)) return FishVoice.ID
-        return when (mode) {
-            "custom" -> engine(context).let { if (it == FishVoice.ID) (if (neural) CapriNeural.ID else "system") else it }
+        // (Emma, beta: "puse mi clave de fish y no pareciera que tomara la clave") Custom with her own neural voice
+        // picked is still her voice: the cloud one comes first there too; only the phone's voice or writing, picked
+        // on purpose, keep it out
+        val picked = engine(context)
+        val fishOk = mode != "light" && !(mode == "custom" && (picked == "system" || picked == "text"))
+        if (fishOk && FishVoice.usable(context, lang)) return FishVoice.ID.also { said(it, "") }
+        val eng = when (mode) {
+            "custom" -> picked.let { if (it == FishVoice.ID) (if (neural) CapriNeural.ID else "system") else it }
             "light" -> "system"
             "fidelity" -> if (neural) CapriNeural.ID else "text"
             else -> if (neural) CapriNeural.ID else "system"
         }
+        said(eng, if (!FishVoice.hasKey(context)) "" else if (!fishOk) "mode $mode/$picked" else FishVoice.whyNot(context, lang))
+        return eng
+    }
+
+    // (1.12.0) in her log, which voice answers and, if your cloud voice is set up, why it isn't that one (once per change)
+    @Volatile private var lastSaid = ""
+    private fun said(engine: String, whyNotFish: String) {
+        val line = if (whyNotFish.isEmpty()) engine else "$engine (cloud voice: $whyNotFish)"
+        if (line == lastSaid) return
+        lastSaid = line
+        Diag.add("I", "voice: answers with $line")
     }
     val ENGINES = setOf("system", "text", CapriNeural.ID, FishVoice.ID)
 

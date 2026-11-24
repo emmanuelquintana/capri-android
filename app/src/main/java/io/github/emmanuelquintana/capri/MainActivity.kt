@@ -467,6 +467,10 @@ class MainActivity : Activity() {
                 visibility = View.GONE
                 addView(betaText)
                 addView(betaBtn, ui.block(8))
+                // (1.12.0, Emma: "en las actualizaciones beta … tenga acceso al registro del teléfono para enviártelo
+                // y detectar fallos") only where the beta code was sent
+                addView(ui.button("Guardar registro del teléfono", Ui.Kind.GREEN) { saveLog() }, ui.block(8))
+                addView(ui.button("Enviar registro a Discord", Ui.Kind.LINE) { sendLog() }, ui.block(6))
                 addView(ui.button("Olvidar código en este teléfono", Ui.Kind.LINE) {
                     Beta.forget(this@MainActivity)
                     release = null
@@ -1437,7 +1441,7 @@ class MainActivity : Activity() {
                 { FishVoice.on(this@MainActivity) }, { a, b -> a == b }) { FishVoice.setOn(this@MainActivity, it); draw() }, ui.block(4))
             buttons.addView(ui.button(getString(R.string.fish_test) + " ▶", Ui.Kind.GREEN) {
                 val ears = CapriService.current?.ears ?: return@button Toast.makeText(this@MainActivity, R.string.fish_test_off, Toast.LENGTH_LONG).show()
-                ears.say(getString(R.string.voice_phone_sample), Lang.current(this@MainActivity), org.json.JSONObject().put("id", "fish-test").put("kind", "answer"))
+                ears.say(getString(R.string.voice_phone_sample), Lang.current(this@MainActivity), org.json.JSONObject().put("id", "fish-test").put("kind", "test").put("engine", FishVoice.ID))
             }, ui.block(8))
             buttons.addView(ui.button(getString(R.string.fish_voice) + " ›", Ui.Kind.LINE) { fishVoiceDialog { draw() } }, ui.block(8))
             buttons.addView(ui.button(getString(R.string.fish_forget), Ui.Kind.LINE) { FishVoice.forget(this@MainActivity); draw() }, ui.block(8))
@@ -1546,6 +1550,11 @@ class MainActivity : Activity() {
             PICK_PROFILE -> voiceJob { CapriNeural.importProfiles(this, uri, it) }
             // (1.12.0) a file for her (a PDF, a Word file, a picture, a video, a song): as if shared with her
             PICK_SKIN -> sendSkin(uri)
+            SAVE_LOG -> {
+                val ok = runCatching { contentResolver.openOutputStream(uri)?.use { it.write(logText.toByteArray(Charsets.UTF_8)) } != null }.getOrDefault(false)
+                logText = ""
+                Toast.makeText(this, if (ok) "Registro guardado" else "No se pudo guardar", Toast.LENGTH_LONG).show()
+            }
             SAVE_TEMPLATE -> {
                 val ok = runCatching {
                     contentResolver.openOutputStream(uri)?.use { out -> assets.open("capri/assets/capri/skin/plantilla-capri.png").use { it.copyTo(out) } } != null
@@ -2081,6 +2090,33 @@ class MainActivity : Activity() {
         addView(state, ui.block(8))
     }
 
+    // (1.12.0) her beta phones: the whole log in a file you choose (to send it as it is), or its end to Emma's Discord
+    private var logText = ""
+    private fun saveLog() {
+        Toast.makeText(this, R.string.account_working, Toast.LENGTH_SHORT).show()
+        Threads.make {
+            logText = Diag.phoneLog(this)
+            runOnUiThread {
+                val stamp = java.text.SimpleDateFormat("yyyyMMdd-HHmm", java.util.Locale.US).format(java.util.Date())
+                runCatching {
+                    @Suppress("DEPRECATION")
+                    startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("text/plain")
+                        .putExtra(Intent.EXTRA_TITLE, "capri-registro-$stamp.txt"), SAVE_LOG)
+                }
+            }
+        }.start()
+    }
+
+    private fun sendLog() {
+        Toast.makeText(this, R.string.account_working, Toast.LENGTH_SHORT).show()
+        Threads.make {
+            val log = Diag.phoneLog(this, compact = true)
+            Report.send(this, "Registro de la beta", fullLog = log) { r ->
+                Toast.makeText(this, if (r == "ok") "Registro enviado a Discord" else "No se pudo enviar ($r)", Toast.LENGTH_LONG).show()
+            }
+        }.start()
+    }
+
     private fun saveTemplate() = runCatching {
         @Suppress("DEPRECATION")
         startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/png")
@@ -2406,6 +2442,7 @@ class MainActivity : Activity() {
         private const val PICK_VOICE = 4711 // (1.11.0) a Capri Voice pack from your files
         private const val PICK_MODEL = 4712 // (V8.5) one of the neural engine's .gguf files
         private const val PICK_PROFILE = 4713 // (V8.5) the private profiles ZIP
+        private const val SAVE_LOG = 4717 // (1.12.0) her beta phones' log, saved where you choose
         private const val SAVE_TEMPLATE = 4716 // (1.12.0) her skin template, saved where you choose
         private const val PICK_SKIN = 4715 // (1.12.0) a community skin, to Emma
         private const val PICK_FOR_HER = 4714 // (1.12.0) a file for her, from the Chat tab

@@ -64,6 +64,16 @@ object FishVoice {
 
     /** After a failure her other voice answers a while: 10 minutes for a key or credit problem, 1 for the network. */
     @Volatile private var restUntil = 0L
+
+    /** Why [usable] is false now, for her log. */
+    fun whyNot(c: Context, lang: String): String = when {
+        !hasKey(c) -> "no key"
+        !on(c) -> "off"
+        voiceFor(c, lang).isEmpty() -> "no voice for $lang"
+        android.os.SystemClock.elapsedRealtime() < restUntil -> "resting after ${lastError.ifEmpty { "an error" }}"
+        !online(c) -> "offline"
+        else -> "ok"
+    }
     fun rest(why: String) {
         restUntil = android.os.SystemClock.elapsedRealtime() + if (why == "fish:key" || why == "fish:credit") 600_000L else 60_000L
     }
@@ -84,9 +94,10 @@ object FishVoice {
         val code = runCatching {
             val h = open(k, JSONObject().put("text", "Hola.").put("format", "pcm").put("sample_rate", RATE))
             try { h.responseCode.also { if (it == 200) h.inputStream.use { s -> s.read(ByteArray(256)) } } } finally { h.disconnect() }
-        }.getOrElse { return it.message ?: "offline" }
+        }.getOrElse { Diag.add("W", "voice $ID: key check: $it"); return it.message ?: "offline" }
+        if (code != 200) Diag.add("W", "voice $ID: key check HTTP $code")
         return when (code) {
-            200 -> { prefs(c).edit().putString("key", Store(c).seal(k)).putBoolean("on", true).apply(); restUntil = 0L; null }
+            200 -> { prefs(c).edit().putString("key", Store(c).seal(k)).putBoolean("on", true).apply(); restUntil = 0L; Diag.add("I", "voice $ID: key saved"); null }
             401, 403 -> "badkey"
             402 -> "credit"
             else -> "HTTP $code"
