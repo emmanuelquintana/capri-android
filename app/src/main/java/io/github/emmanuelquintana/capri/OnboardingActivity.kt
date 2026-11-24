@@ -264,6 +264,9 @@ class OnboardingActivity : Activity() {
             options.addView(aiOption("pollinations", R.string.ai_free_title, R.string.ai_free_how, ::draw))
             options.addView(aiOption("keyed", R.string.ai_key_title, R.string.ai_key_how, ::draw), ui.block(10))
             options.addView(aiOption("ollama", R.string.ai_pc_title, R.string.ai_pc_how, ::draw), ui.block(10))
+            // (1.12.0, Emma: "dependiendo de qué modelos tengan claves fueran cuadrados debajo de Ollama, como
+            // configuraciones individuales") one card for each AI with a key saved: which of its models she uses
+            for (p in CapriSettings.KEYED) if (CapriSettings.hasKey(this, p.id)) options.addView(modelCard(p, ::draw), ui.block(10))
             options.addView(aiStatus, ui.block(12))
         }
         draw()
@@ -314,12 +317,6 @@ class OnboardingActivity : Activity() {
                     CapriSettings.forgetKeys(this, aiKeyed.id)
                     redraw()
                 }, ui.block(6))
-                // (1.12.0, Emma) under each AI's key: which of its models she talks with
-                val picked = CapriSettings.model(this, aiKeyed.id)
-                val provider = aiKeyed
-                card.addView(ui.button(getString(R.string.ai_model, picked.removePrefix("models/").ifEmpty { getString(R.string.ai_model_auto) }), Ui.Kind.LINE) {
-                    pickModel(provider, redraw)
-                }, ui.block(6))
             }
             val f = ui.field(getString(if (saved) R.string.ai_key_saved_hint else R.string.ai_key_hint), secret = true)
             keyField?.text?.let { if (it.isNotEmpty()) f.setText(it) }
@@ -347,31 +344,58 @@ class OnboardingActivity : Activity() {
         return card
     }
 
-    /** Its models, asked of the service with your saved key, to pick one (or let her choose). */
-    private fun pickModel(p: CapriSettings.Provider, redraw: () -> Unit) {
-        android.widget.Toast.makeText(this, R.string.ai_model_loading, android.widget.Toast.LENGTH_SHORT).show()
-        Threads.make {
-            val list = CapriSettings.models(this, p.id)
-            runOnUiThread {
-                if (isFinishing) return@runOnUiThread
-                if (list.isNullOrEmpty()) {
-                    android.widget.Toast.makeText(this, R.string.ai_model_none, android.widget.Toast.LENGTH_LONG).show()
-                    return@runOnUiThread
+    private val modelsOpen = HashSet<String>()
+    private val modelsGot = HashMap<String, List<String>>()
+
+    /** An AI with a key saved: its card, closed it says which model; open, its models to pick from. */
+    private fun modelCard(p: CapriSettings.Provider, redraw: () -> Unit): View {
+        val picked = CapriSettings.model(this, p.id)
+        val open = p.id in modelsOpen
+        val card = ui.card(if (open) Hud.CYAN else Hud.LINE_STRONG, if (open) Hud.MANE else 0)
+        val head = ui.row().apply { gravity = Gravity.CENTER_VERTICAL }
+        head.addView(ui.text(if (open) "▾" else "▸", 16f, if (open) Hud.CYAN else Hud.PAPER_3, ui.mono).apply { setPadding(0, 0, ui.dpi(10), 0) })
+        head.addView(ui.text(getString(R.string.ai_model_title, p.name), 17f, Hud.PAPER, ui.head), LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+        card.addView(head)
+        card.addView(ui.text(picked.removePrefix("models/").ifEmpty { getString(R.string.ai_model_auto) }, 13f, if (picked.isEmpty()) Hud.PAPER_2 else Hud.GREEN, ui.mono), ui.block(4))
+        card.isClickable = true
+        card.setOnClickListener {
+            if (!modelsOpen.remove(p.id)) modelsOpen.add(p.id)
+            redraw()
+        }
+        if (!open) return card
+        val list = modelsGot[p.id]
+        if (list == null) {
+            card.addView(ui.text(getString(R.string.ai_model_loading), 13f, Hud.PAPER_3, ui.mono), ui.block(10))
+            Threads.make {
+                val got = CapriSettings.models(this, p.id)
+                runOnUiThread {
+                    if (isFinishing) return@runOnUiThread
+                    if (got.isNullOrEmpty()) {
+                        modelsOpen.remove(p.id)
+                        android.widget.Toast.makeText(this, R.string.ai_model_none, android.widget.Toast.LENGTH_LONG).show()
+                    } else modelsGot[p.id] = got
+                    redraw()
                 }
-                val now = CapriSettings.model(this, p.id)
-                val names = listOf(getString(R.string.ai_model_auto)) + list.map { it.removePrefix("models/") }
-                val at = if (now.isEmpty()) 0 else list.indexOf(now) + 1
-                android.app.AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
-                    .setTitle(getString(R.string.ai_model_title, p.name))
-                    .setSingleChoiceItems(names.toTypedArray(), at.coerceAtLeast(0)) { d, i ->
-                        CapriSettings.setModel(this, p.id, if (i == 0) "" else list[i - 1])
-                        d.dismiss()
-                        redraw()
-                    }
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show()
-            }
-        }.start()
+            }.start()
+            return card
+        }
+        fun row(label: String, value: String) {
+            val on = value == picked
+            card.addView(ui.row().apply {
+                gravity = Gravity.CENTER_VERTICAL
+                setPadding(0, ui.dpi(9), 0, ui.dpi(9))
+                addView(ui.text(if (on) "◆" else "◇", 14f, if (on) Hud.YELLOW else Hud.PAPER_3, ui.mono).apply { setPadding(0, 0, ui.dpi(10), 0) })
+                addView(ui.text(label, 14f, if (on) Hud.YELLOW else Hud.PAPER, if (value.isEmpty()) ui.head else ui.mono), LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+                isClickable = true
+                setOnClickListener {
+                    CapriSettings.setModel(this@OnboardingActivity, p.id, value)
+                    redraw()
+                }
+            }, ui.block(2))
+        }
+        row(getString(R.string.ai_model_auto), "")
+        for (m in list) row(m.removePrefix("models/"), m)
+        return card
     }
 
     private fun useAi() {

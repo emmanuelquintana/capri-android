@@ -19,7 +19,7 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Hồ sơ của bạn:** ảnh hoặc biểu tượng và tên bạn ở đầu Cài đặt, lưu trong tài khoản.
 - **Tài khoản của bạn:** đăng nhập bằng Google hoặc email, trí nhớ của cô ấy, cài đặt, lớp học và chat tự lưu lên đám mây. Khóa của bạn không bao giờ rời điện thoại.
 - **Bốn ngôn ngữ mới:** tiếng Việt, Nhật, Đức và Ý.
-- **Tạo Capri của riêng bạn:** tải mẫu của cô ấy (giờ rõ ràng, có hướng dẫn), vẽ quần áo và gửi từ Tùy chỉnh.
-- **Thêm:** hai widget mới, ba trò chơi nhỏ, lắc điện thoại là cô ấy chóng mặt, theo dõi TikTok từ Tin mới.
+- **Tạo Capri của riêng bạn:** tải bản thiết kế chất lượng cao của cô ấy, vẽ trang phục và gửi PNG từ Tùy chỉnh.
+- **Thêm:** hai widget mới, ba trò chơi nhỏ, lắc điện thoại là cô ấy chóng mặt, theo dõi Emma trên TikTok và X từ Tin mới.
 - **Lại chạy được trên điện thoại 32-bit.**
 - **Sửa lỗi:** trang phục không còn tay đôi hay lẫn lộn, màn hình toàn phần bố trí đúng và nhiều chi tiết khác.

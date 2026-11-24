@@ -20,8 +20,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Tu perfil:** foto o ícono y tu nombre arriba de Ajustes, guardados en tu cuenta.
 - **Tu cuenta:** entra con Google o correo y su memoria, tus ajustes, clases y chat se guardan solos en la nube. Tus claves nunca salen del teléfono.
 - **Cuatro idiomas nuevos:** vietnamita, japonés, alemán e italiano.
-- **Crea tu propia Capri:** baja su plantilla (ahora clara y con guías), dibújale ropa y envíala desde Personalizar.
-- **Más:** dos widgets nuevos, tres minijuegos, agítala y se marea, sigue en TikTok desde Novedades.
+- **Crea tu propia Capri:** baja su diseño en buena calidad, dibújale un traje y envía el PNG desde Personalizar.
+- **Más:** dos widgets nuevos, tres minijuegos, agítala y se marea, sigue a Emma en TikTok y X desde Novedades.
 - **Otra vez en teléfonos de 32 bits.**
 - **Arreglos:** ropa sin brazos dobles ni mezclada, pantallas completas bien acomodadas y muchos detalles más.
 

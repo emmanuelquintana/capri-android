@@ -19,7 +19,7 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Il tuo profilo:** foto o icona e il tuo nome in cima alle Impostazioni, salvati nel tuo account.
 - **Il tuo account:** entra con Google o email e la sua memoria, le tue impostazioni, lezioni e chat si salvano da soli nel cloud. Le tue chiavi non lasciano mai il telefono.
 - **Quattro nuove lingue:** vietnamita, giapponese, tedesco e italiano.
-- **Crea la tua Capri:** scarica il suo modello (ora chiaro e con guide), disegnale i vestiti e inviali da Personalizza.
-- **Inoltre:** due nuovi widget, tre minigiochi, scuotila e le gira la testa, segui su TikTok da Novità.
+- **Crea la tua Capri:** scarica il suo design in buona qualità, disegnale un vestito e invia il PNG da Personalizza.
+- **Inoltre:** due nuovi widget, tre minigiochi, scuotila e le gira la testa, segui Emma su TikTok e X da Novità.
 - **Di nuovo sui telefoni a 32 bit.**
 - **Correzioni:** vestiti senza braccia doppie o mescolate, schermate intere ben sistemate e tanti altri dettagli.

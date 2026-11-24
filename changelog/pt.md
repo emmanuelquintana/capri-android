@@ -19,8 +19,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Seu perfil:** foto ou ícone e seu nome no topo dos Ajustes, salvos na sua conta.
 - **Sua conta:** entre com Google ou e-mail e a memória dela, seus ajustes, aulas e chat são salvos sozinhos na nuvem. Suas chaves nunca saem do celular.
 - **Quatro idiomas novos:** vietnamita, japonês, alemão e italiano.
-- **Crie sua própria Capri:** baixe o modelo dela (agora claro e com guias), desenhe roupas e envie em Personalizar.
-- **Mais:** dois widgets novos, três minijogos, chacoalhe e ela fica tonta, siga no TikTok pelas Novidades.
+- **Crie sua própria Capri:** baixe o design dela em boa qualidade, desenhe uma roupa e envie o PNG em Personalizar.
+- **Mais:** dois widgets novos, três minijogos, chacoalhe e ela fica tonta, siga a Emma no TikTok e no X pelas Novidades.
 - **De volta aos celulares de 32 bits.**
 - **Correções:** roupas sem braços duplos ou misturados, telas cheias bem ajustadas e muitos outros detalhes.
 

@@ -67,7 +67,7 @@ object CapriSettings {
         }
     }
 
-    private val NOT_CHAT = Regex("whisper|tts|speech|audio|transcri|guard|embed|moderation|image|imagen|dall|search|orpheus|playai|safeguard|rerank|reward|retriever|nvclip|parse|detector|calibration|riva|translate|deplot|diffusion|clip|ocr", RegexOption.IGNORE_CASE)
+    private val NOT_CHAT = Regex("whisper|tts|speech|audio|transcri|guard|embed|moderation|image|imagen|dall|search|orpheus|playai|safeguard|rerank|reward|retriever|nvclip|parse|detector|calibration|riva|translate|deplot|diffusion|clip|ocr|\\baqa\\b|antigravity|computer-use|native-audio|-live|robotics|learnlm", RegexOption.IGNORE_CASE)
 
     /** The service's models to chat with, asked with your first saved key. Null if it couldn't tell. Network. */
     fun models(context: Context, provider: String): List<String>? = runCatching {

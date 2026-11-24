@@ -737,9 +737,9 @@
     <string name="settings_shake">Встряхнуть телефон</string>
     <string name="settings_shake_how">Встряхни сильно, и у неё закружится голова. Не в игровом режиме и не при открытом чате.</string>
     <string name="skin_send">Отправить мой дизайн</string>
-    <string name="skin_send_how">Нарисовал(а) наряд на шаблоне Капри (PNG 240x420, из Discord)? Отправь Эмме: если она одобрит, он выйдет в обновлении с твоим именем.</string>
+    <string name="skin_send_how">Нарисовал наряд на её дизайне? Отправь PNG Эмме: она доработает его, и если его одобрят, он появится в обновлении с твоим именем.</string>
     <string name="skin_name_hint">Твоё имя и название наряда</string>
-    <string name="skin_bad">Нужен PNG на её шаблоне: 240x420 (или 480x840), меньше 1,5 МБ.</string>
+    <string name="skin_bad">Это должна быть картинка PNG.</string>
     <string name="skin_ok">Отправлено! Эмма посмотрит.</string>
     <string name="ears_onlyme">Только мой голос</string>
     <string name="ears_onlyme_how">Она запоминает твой голос первые 3 раза, когда ты её зовёшь, а потом не реагирует на своё имя чужими голосами (телевизор, люди рядом). Работает с пассивным слухом; один раз скачивает модель на 13 МБ. Всё остаётся на телефоне.</string>
@@ -748,8 +748,8 @@
     <string name="ears_onlyme_forget">Забыть мой голос</string>
     <string name="ears_onlyme_forgot">Готово: она снова запомнит твой голос в следующие 3 раза.</string>
     <string name="skin_title">Создай свою Капри</string>
-    <string name="skin_how">Нарисуй ей свой наряд: скачай шаблон (PNG 480x840 с её силуэтом), нарисуй одежду поверх в любом приложении и отправь.</string>
-    <string name="skin_rules">Правила: только одежда (волосы, глаза и кожа не меняют цвет), ничего в полосатой рамке (там её вторая рука). Рисуй на новом слое поверх шаблона и отправь только свой слой, PNG с прозрачным фоном.</string>
+    <string name="skin_how">Придумай ей наряд: скачай её дизайн в хорошем качестве, нарисуй наряд поверх и отправь PNG.</string>
+    <string name="skin_rules">1. Скачай её дизайн (PNG в хорошем качестве).\n2. Нарисуй на ней свой наряд в любой программе для рисования. Только одежда: волосы, глаза и кожа остаются как есть.\n3. Отправь PNG своего наряда кнопкой «Отправить мой дизайн».\n\nЭмма доработает его и сделает для приложения. Если его одобрят, он появится в обновлении с твоим именем.</string>
     <string name="skin_get">Скачать шаблон</string>
     <string name="skin_approval">Каждый дизайн проверяется: он попадёт в Капри, только если его одобрят Эмма и сервер Discord, с твоим именем.</string>
     <string name="skin_saved">Шаблон сохранён. Рисуй поверх и отправляй отсюда.</string>
@@ -826,8 +826,9 @@
     <string name="g_modes_only">Режимы</string>
     <string name="g_modes_only_how">Игровой режим, её советы в игре и режим стрима.</string>
     <string name="ai_model">Модель: %1$s</string>
-    <string name="ai_model_auto">выбирает она</string>
+    <string name="ai_model_auto">Автоматически (она выберет лучшую)</string>
     <string name="ai_model_loading">Запрашиваю модели…</string>
     <string name="ai_model_none">Не удалось получить модели. Проверь интернет и попробуй ещё раз.</string>
     <string name="ai_model_title">Модели %1$s</string>
+    <string name="community_x">Подписаться в X (Twitter)</string>
 </resources>

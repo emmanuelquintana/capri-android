@@ -19,8 +19,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Your profile:** photo or icon and your name at the top of Settings, saved to your account.
 - **Your account:** sign in with Google or email and her memory, your settings, classes and chat are saved to the cloud on their own. Your keys never leave the phone.
 - **Four new languages:** Vietnamese, Japanese, German and Italian.
-- **Create your own Capri:** download her template (now clear, with guides), draw her clothes and send them from Customize.
-- **More:** two new widgets, three minigames, shake her and she gets dizzy, follow on TikTok from News.
+- **Create your own Capri:** download her design in good quality, draw her an outfit and send the PNG from Customize.
+- **More:** two new widgets, three minigames, shake her and she gets dizzy, follow Emma on TikTok and X from News.
 - **Back on 32-bit phones.**
 - **Fixes:** outfits without double or mixed-up arms, full screens laid out properly and many more details.
 

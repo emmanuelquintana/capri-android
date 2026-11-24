@@ -715,9 +715,9 @@
     <string name="settings_shake">スマホを振る</string>
     <string name="settings_shake_how">強く振ると目を回します。ゲーマーモード中やチャット中は反応しません。</string>
     <string name="skin_send">デザインを送る</string>
-    <string name="skin_send_how">Capriのテンプレート（Discordの240x420のPNG）に衣装を描いた？Emmaに送ってね。承認されたら、あなたの名前と一緒にアップデートで登場します。</string>
+    <string name="skin_send_how">彼女のデザインに衣装を描いた? PNG を Emma に送ってね。仕上げて、採用されたらあなたの名前入りでアップデートに登場します。</string>
     <string name="skin_name_hint">あなたの名前と衣装の名前</string>
-    <string name="skin_bad">テンプレートに合わせたPNG（240x420か480x840、1.5MB未満）にしてね。</string>
+    <string name="skin_bad">PNG 画像にしてね。</string>
     <string name="skin_ok">送ったよ！Emmaが見てくれます。</string>
     <string name="ears_onlyme">自分の声だけ</string>
     <string name="ears_onlyme_how">最初の3回呼ぶとあなたの声を覚え、その後は他の声（テレビや周りの人）で呼ばれても反応しません。パッシブリスニングで動作し、13MBの小さなモデルを一度だけダウンロードします。データはスマホの中だけ。</string>
@@ -726,8 +726,8 @@
     <string name="ears_onlyme_forget">声を忘れる</string>
     <string name="ears_onlyme_forgot">OK：次の3回でまた声を覚えます。</string>
     <string name="skin_title">自分だけのCapriを作ろう</string>
-    <string name="skin_how">オリジナル衣装を描こう：テンプレート（シルエット入り480x840のPNG）をダウンロードして、好きなお絵描きアプリで服を描いて送ってね。</string>
-    <string name="skin_rules">ルール: 服だけ(髪・目・肌の色はそのまま)、しま模様の枠の中には何も描かない(もう片方の腕が来る場所)。テンプレートの上に新しいレイヤーを作って描き、そのレイヤーだけを背景透過の PNG で送ってね。</string>
+    <string name="skin_how">彼女の衣装をデザインしよう: 高画質のデザインをダウンロードして、その上に衣装を描いて PNG を送ってね。</string>
+    <string name="skin_rules">1. 彼女のデザイン(高画質の PNG)をダウンロード。\n2. 好きなお絵かきアプリで彼女に衣装を描く。服だけ: 髪・目・肌はそのまま。\n3. 「デザインを送る」から衣装の PNG を送る。\n\nEmma が仕上げてアプリ用に作ります。採用されたら、あなたの名前入りでアップデートに登場します。</string>
     <string name="skin_get">テンプレートをダウンロード</string>
     <string name="skin_approval">すべてのデザインは審査されます。EmmaとDiscordサーバーが承認したものだけが、あなたの名前と一緒にCapriに登場します。</string>
     <string name="skin_saved">テンプレートを保存しました。描いたらここから送ってね。</string>
@@ -804,8 +804,9 @@
     <string name="g_modes_only">モード</string>
     <string name="g_modes_only_how">ゲーマーモード、プレイ中のヒント、配信モード。</string>
     <string name="ai_model">モデル: %1$s</string>
-    <string name="ai_model_auto">おまかせ</string>
+    <string name="ai_model_auto">自動(いちばん良いものを選ぶ)</string>
     <string name="ai_model_loading">モデルを取得中…</string>
     <string name="ai_model_none">モデルを取得できませんでした。ネットを確認してもう一度試してね。</string>
     <string name="ai_model_title">%1$s のモデル</string>
+    <string name="community_x">X(Twitter)でフォロー</string>
 </resources>

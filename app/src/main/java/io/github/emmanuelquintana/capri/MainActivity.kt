@@ -476,6 +476,8 @@ class MainActivity : Activity() {
         addView(ui.button("♥ " + getString(R.string.main_donate), Ui.Kind.GREEN) { showSupport(asked = true) }, ui.block(8))
         // (1.12.0, Emma: "añade lo de seguir al tiktok al inicio abajo de donar")
         addView(ui.button(getString(R.string.community_tiktok) + " ↗", Ui.Kind.LINE) { openLink(TIKTOK) }, ui.block(8))
+        // (1.12.0, Emma: "añade también mi Twitter")
+        addView(ui.button(getString(R.string.community_x) + " ↗", Ui.Kind.LINE) { openLink(X) }, ui.block(8))
 
         // updates
         updateText = ui.text("", 13f, Hud.PAPER_2, ui.mono).apply { letterSpacing = 0.02f; setLineSpacing(0f, 1.15f) }
@@ -625,9 +627,24 @@ class MainActivity : Activity() {
         var n = 0
         for (item in resources.getStringArray(R.array.cmds)) {
             if (item.startsWith("#")) {
-                card = ui.card(colors[n++ % colors.size])
-                card.addView(ui.label(item.removePrefix("#")))
-                addView(card, ui.block(if (n == 1) 18 else 12))
+                // (1.12.0, Emma: "que sean colapsables para que se vean mejor organizados") a tap on its title opens it
+                val shell = ui.card(colors[n++ % colors.size])
+                val body = ui.col().apply { visibility = View.GONE }
+                val arrow = ui.text("▸", 16f, Hud.YELLOW, ui.mono)
+                shell.addView(ui.row().apply {
+                    gravity = Gravity.CENTER_VERTICAL
+                    addView(ui.label(item.removePrefix("#")), LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+                    addView(arrow)
+                    isClickable = true
+                    setOnClickListener {
+                        val open = body.visibility != View.VISIBLE
+                        body.visibility = if (open) View.VISIBLE else View.GONE
+                        arrow.text = if (open) "▾" else "▸"
+                    }
+                })
+                shell.addView(body, ui.block(4))
+                card = body
+                addView(shell, ui.block(if (n == 1) 18 else 12))
             } else {
                 val quoted = item.startsWith("«") || item.startsWith("“")
                 card?.addView(ui.text(item, if (quoted) 15f else 14f, if (quoted) Hud.PAPER else Hud.PAPER_2, if (quoted) ui.head else ui.body).apply {
@@ -1050,8 +1067,7 @@ class MainActivity : Activity() {
         addView(ui.card(Hud.MANE, Hud.CYAN).apply {
             addView(ui.label(getString(R.string.skin_title), Hud.MANE))
             addView(ui.text(getString(R.string.skin_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(ui.text(getString(R.string.skin_rules), 12f, Hud.PAPER_3, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
-            addView(ui.button(getString(R.string.skin_get) + " ›", Ui.Kind.GREEN) { saveTemplate() }, ui.block(10))
+            addView(ui.button(getString(R.string.skin_get) + " ›", Ui.Kind.GREEN) { skinSteps() }, ui.block(10))
             addView(ui.button(getString(R.string.skin_send) + " ›", Ui.Kind.LINE) { pickSkin() }, ui.block(8))
             addView(ui.text(getString(R.string.skin_approval), 12f, Hud.YELLOW, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
         }, ui.block(16))
@@ -2295,6 +2311,23 @@ class MainActivity : Activity() {
         }.start()
     }
 
+    /** (1.12.0, Emma) before her design downloads: how it works, in a popup. */
+    private fun skinSteps() {
+        val dialog = android.app.Dialog(this)
+        val card = ui.card(Hud.MANE, Hud.CYAN).apply {
+            addView(ui.label(getString(R.string.skin_title), Hud.MANE))
+            addView(ui.text(getString(R.string.skin_rules), 14f, Hud.PAPER, ui.body).apply { setLineSpacing(0f, 1.25f) }, ui.block(8))
+            addView(ui.button(getString(R.string.skin_get) + " ›", Ui.Kind.GREEN) { dialog.dismiss(); saveTemplate() }, ui.block(14))
+            addView(ui.button(getString(R.string.community_later), Ui.Kind.LINE) { dialog.dismiss() }, ui.block(8))
+        }
+        val pad = FrameLayout(this).apply { setPadding(ui.dpi(4), ui.dpi(4), ui.dpi(10), ui.dpi(10)); addView(card) }
+        dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+        dialog.setContentView(pad)
+        dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setLayout((resources.displayMetrics.widthPixels * 0.9).toInt(), WRAP_CONTENT)
+        dialog.show()
+    }
+
     private fun saveTemplate() = runCatching {
         @Suppress("DEPRECATION")
         startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/png")
@@ -2306,14 +2339,26 @@ class MainActivity : Activity() {
         startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/png"), PICK_SKIN)
     }
 
-    /** Her template's size (240x420, or twice it): anything else wouldn't sit on her. */
+    /** (1.12.0, Emma: "que me envíen el PNG de su traje para refinarlo") any PNG of the outfit; a big one is made
+     *  smaller (same look) until it fits what the website takes (1.5 MB). */
     private fun sendSkin(uri: android.net.Uri) {
-        val bytes = runCatching { contentResolver.openInputStream(uri)?.use { it.readBytes() } }.getOrNull()
+        var bytes = runCatching { contentResolver.openInputStream(uri)?.use { it.readBytes() } }.getOrNull()
         val size = bytes?.let { b -> android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }.also { android.graphics.BitmapFactory.decodeByteArray(b, 0, b.size, it) } }
-        val fits = size != null && size.outWidth > 0 && Math.abs(size.outWidth * 420 - size.outHeight * 240) <= size.outHeight * 2 && size.outWidth in 240..960
-        if (bytes == null || !fits || bytes.size > 1_500_000 || size?.outMimeType != "image/png") {
+        if (bytes == null || size == null || size.outWidth <= 0 || size.outMimeType != "image/png" || bytes.size > 40_000_000) {
             Toast.makeText(this, R.string.skin_bad, Toast.LENGTH_LONG).show(); return
         }
+        if (bytes.size > 1_500_000) bytes = runCatching {
+            var bmp = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
+            var out: ByteArray
+            do {
+                val w = (bmp.width * 0.8f).toInt().coerceAtLeast(1)
+                val h = (bmp.height * 0.8f).toInt().coerceAtLeast(1)
+                bmp = android.graphics.Bitmap.createScaledBitmap(bmp, w, h, true)
+                out = java.io.ByteArrayOutputStream().also { bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }.toByteArray()
+            } while (out.size > 1_500_000 && bmp.width > 200)
+            out
+        }.getOrNull()
+        if (bytes == null || bytes.size > 1_500_000) { Toast.makeText(this, R.string.skin_bad, Toast.LENGTH_LONG).show(); return }
         val name = ui.field(getString(R.string.skin_name_hint)).apply { filters = arrayOf(android.text.InputFilter.LengthFilter(80)) }
         val box = ui.col().apply { setPadding(ui.dpi(20), ui.dpi(8), ui.dpi(20), 0); addView(name) }
         android.app.AlertDialog.Builder(this).setTitle(R.string.skin_send).setView(box)
@@ -2514,6 +2559,7 @@ class MainActivity : Activity() {
         addView(ui.text(getString(R.string.community_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
         addView(ui.button(getString(R.string.community_discord) + " ↗", Ui.Kind.MAIN) { onOpen(); openLink(DISCORD) }, ui.block(10))
         addView(ui.button(getString(R.string.community_tiktok) + " ↗", Ui.Kind.LINE) { onOpen(); openLink(TIKTOK) }, ui.block(8))
+        addView(ui.button(getString(R.string.community_x) + " ↗", Ui.Kind.LINE) { onOpen(); openLink(X) }, ui.block(8))
     }
 
     private fun openLink(url: String) {
@@ -2641,6 +2687,7 @@ class MainActivity : Activity() {
         private const val TABS = 7
         const val EXTRA_SUB = "sub"
         private const val TIKTOK = "https://www.tiktok.com/@emma180516_"
+        private const val X = "https://x.com/kiritor23"
         private const val DISCORD = "https://discord.gg/hmh783tfn"
         private const val PAYPAL = "https://paypal.me/Joseemmanuelq"
     }

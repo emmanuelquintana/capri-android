@@ -730,9 +730,9 @@
     <string name="settings_shake">Sacudir o celular</string>
     <string name="settings_shake_how">Sacuda forte e ela fica tonta. Nunca no modo gamer nem com o chat aberto.</string>
     <string name="skin_send">Enviar meu design</string>
-    <string name="skin_send_how">Desenhou uma roupa no modelo da Capri (PNG 240x420, do Discord)? Mande para a Emma: se ela aprovar, vem numa atualização com seu nome.</string>
+    <string name="skin_send_how">Desenhou uma roupa sobre o design dela? Envie o PNG para a Emma: ela refina e, se for aprovada, chega numa atualização com seu nome.</string>
     <string name="skin_name_hint">Seu nome e o nome da roupa</string>
-    <string name="skin_bad">Precisa ser um PNG no modelo dela: 240x420 (ou 480x840), com menos de 1,5 MB.</string>
+    <string name="skin_bad">Tem que ser uma imagem PNG.</string>
     <string name="skin_ok">Enviada! A Emma vai olhar.</string>
     <string name="ears_onlyme">Só minha voz</string>
     <string name="ears_onlyme_how">Ela aprende sua voz nas 3 primeiras vezes que você a chama e depois ignora o nome dela em outras vozes (a TV, gente por perto). Funciona com os ouvidos passivos; baixa uma vez um modelo pequeno de 13 MB. Fica no seu celular.</string>
@@ -741,8 +741,8 @@
     <string name="ears_onlyme_forget">Esquecer minha voz</string>
     <string name="ears_onlyme_forgot">Pronto: ela vai aprender sua voz de novo nas próximas 3 vezes.</string>
     <string name="skin_title">Crie sua própria Capri</string>
-    <string name="skin_how">Desenhe uma roupa para ela: baixe o modelo (PNG 480x840 com a silhueta), desenhe a roupa por cima em qualquer app de desenho e envie.</string>
-    <string name="skin_rules">Regras: só roupa (cabelo, olhos e pele dela não mudam de cor), nada no quadro listrado (ali fica o outro braço dela). Desenhe numa camada nova sobre o modelo e envie só a sua camada, em PNG com fundo transparente.</string>
+    <string name="skin_how">Crie uma roupa para ela: baixe o design dela em boa qualidade, desenhe sua roupa sobre ela e envie o PNG.</string>
+    <string name="skin_rules">1. Baixe o design dela (um PNG em boa qualidade).\n2. Desenhe sua roupa sobre ela em qualquer app de desenho. Só roupa: cabelo, olhos e pele ficam como estão.\n3. Envie o PNG da sua roupa em «Enviar meu design».\n\nA Emma refina e faz para o app. Se for aprovada, chega numa atualização com seu nome.</string>
     <string name="skin_get">Baixar o modelo</string>
     <string name="skin_approval">Cada design é revisado: só chega à Capri se a Emma e o servidor do Discord aprovarem, com seu nome.</string>
     <string name="skin_saved">Modelo salvo. Desenhe por cima e envie daqui.</string>
@@ -819,8 +819,9 @@
     <string name="g_modes_only">Modos</string>
     <string name="g_modes_only_how">Modo gamer, as dicas dela enquanto você joga e o modo streaming.</string>
     <string name="ai_model">Modelo: %1$s</string>
-    <string name="ai_model_auto">ela escolhe</string>
+    <string name="ai_model_auto">Automático (ela escolhe o melhor)</string>
     <string name="ai_model_loading">Pedindo os modelos…</string>
     <string name="ai_model_none">Não deu para trazer os modelos. Confira sua internet e tente de novo.</string>
     <string name="ai_model_title">Modelos de %1$s</string>
+    <string name="community_x">Seguir no X (Twitter)</string>
 </resources>

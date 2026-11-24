@@ -19,7 +19,7 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Dein Profil:** Foto oder Symbol und dein Name oben in den Einstellungen, in deinem Konto gespeichert.
 - **Dein Konto:** Melde dich mit Google oder E-Mail an, dann werden ihr Gedächtnis, deine Einstellungen, Kurse und Chat von selbst in der Cloud gesichert. Deine Schlüssel verlassen nie das Handy.
 - **Vier neue Sprachen:** Vietnamesisch, Japanisch, Deutsch und Italienisch.
-- **Erstelle deine eigene Capri:** Lade ihre Vorlage herunter (jetzt klar, mit Hilfslinien), zeichne ihr Kleidung und schick sie über Anpassen.
-- **Außerdem:** zwei neue Widgets, drei Minispiele, schüttel sie und ihr wird schwindlig, TikTok folgen über Neuigkeiten.
+- **Erstelle deine eigene Capri:** Lade ihr Design in guter Qualität herunter, zeichne ihr ein Outfit und schick das PNG über Anpassen.
+- **Außerdem:** zwei neue Widgets, drei Minispiele, schüttel sie und ihr wird schwindlig, Emma auf TikTok und X folgen über Neuigkeiten.
 - **Wieder auf 32-Bit-Handys.**
 - **Fehlerbehebungen:** Outfits ohne doppelte oder vertauschte Arme, Vollbildseiten richtig angeordnet und vieles mehr.
