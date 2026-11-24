@@ -1,20 +1,40 @@
 name: Voz de Fish para videos
 
+# Solo en esta rama: genera frases con la voz de Fish de Capri (tools/fishvid/lines.json) y toma capturas de una
+# corrida de «Capturas de la app» (tools/fishvid/shots.txt: id de la corrida). Lo deja en la rama (fishvid-out/).
 on:
   push:
     branches: [claude/project-thread-lyrxca]
     paths: ['tools/fishvid/**', '.github/workflows/fish-video.yml']
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   voz:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - run: sudo apt-get update -q && sudo apt-get install -yq ffmpeg webp
       - env:
           FISH_API_KEY: ${{ secrets.FISH_API_KEY }}
         run: python3 tools/fishvid/say.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: voz-fish-video
-          path: out
+      - name: Capturas
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p fishvid-out/shots
+          if [ -s tools/fishvid/shots.txt ]; then
+            gh run download "$(cat tools/fishvid/shots.txt)" -R "$GITHUB_REPOSITORY" -n capturas -D shots
+            for f in shots/*.png; do case "$f" in *.small.png) continue;; esac
+              cwebp -quiet -q 82 -resize 432 0 "$f" -o "fishvid-out/shots/$(basename "${f%.png}").webp"; done
+          fi
+      - name: Guardar en la rama
+        run: |
+          mkdir -p fishvid-out/voz
+          for f in out/*.wav; do ffmpeg -v error -y -i "$f" -c:a flac "fishvid-out/voz/$(basename "${f%.wav}").flac"; done
+          git config user.name emmanuelquintana
+          git config user.email 106701046+emmanuelquintana@users.noreply.github.com
+          git add fishvid-out && git commit -qm "fishvid-out [skip ci]" && git push
