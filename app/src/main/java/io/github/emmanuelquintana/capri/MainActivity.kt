@@ -623,6 +623,8 @@ class MainActivity : Activity() {
             addView(ui.button(getString(R.string.settings_save), Ui.Kind.GREEN) { saveName() }, ui.block(12))
         }, ui.block(16))
 
+        // (1.12.0) your account: her memory of you and your settings saved in the cloud (Account.kt)
+        addView(accountCard(), ui.block(16))
         // (1.10.0) your chat history (PageActivity); the games have their own tab since 1.11.0
         addView(ui.card(Hud.GREEN).apply {
             addView(ui.label(getString(R.string.you_chatlog_title), Hud.GREEN))
@@ -767,6 +769,113 @@ class MainActivity : Activity() {
         draw()
     }
     private var sleepDraw: () -> Unit = {}
+
+    // ---------- (1.12.0) your account (Account.kt) ----------
+
+    private fun accountCard() = ui.card(Hud.CYAN).apply {
+        addView(ui.label(getString(R.string.account_title), Hud.CYAN))
+        addView(ui.text(getString(R.string.account_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        val status = ui.text("", 14f, Hud.PAPER, ui.body)
+        addView(status, ui.block(8))
+        val google = ui.button(getString(R.string.account_google) + " ›", Ui.Kind.GREEN) {
+            say(R.string.account_working)
+            Account.withGoogle(this@MainActivity) { why -> if (why == null) afterSignIn() else if (why != 0) say(why) }
+        }
+        val mail = ui.button(getString(R.string.account_email), Ui.Kind.LINE) { emailDialog() }
+        val save = ui.button(getString(R.string.account_save), Ui.Kind.GREEN) {
+            say(R.string.account_working)
+            inBackground({ Account.upload(this@MainActivity) }) { say(R.string.account_ok); accountDraw() }
+        }
+        val bring = ui.button(getString(R.string.account_bring), Ui.Kind.LINE) { offerCopy(askFirst = true) }
+        val out = ui.button(getString(R.string.account_out), Ui.Kind.LINE) {
+            android.app.AlertDialog.Builder(this@MainActivity).setMessage(R.string.account_out_sure)
+                .setPositiveButton(R.string.account_out) { _, _ -> Account.signOut(this@MainActivity); accountDraw() }
+                .setNegativeButton(android.R.string.cancel, null).show()
+        }
+        listOf(google, mail, save, bring, out).forEach { addView(it, ui.block(8)) }
+        accountDraw = {
+            val inside = Account.signedIn(this@MainActivity)
+            val at = Account.lastSaved(this@MainActivity)
+            status.text = if (!inside) getString(R.string.account_none) else getString(R.string.account_as, Account.email(this@MainActivity).ifEmpty { "Google" }) + "\n" +
+                (if (at > 0) getString(R.string.account_saved, android.text.format.DateUtils.getRelativeTimeSpanString(at)) else getString(R.string.account_never))
+            google.visibility = if (inside) View.GONE else View.VISIBLE
+            mail.visibility = google.visibility
+            listOf(save, bring, out).forEach { it.visibility = if (inside) View.VISIBLE else View.GONE }
+        }
+        accountDraw()
+        choices.add { accountDraw() }
+    }
+    private var accountDraw: () -> Unit = {}
+
+    private fun say(what: Int) = Toast.makeText(this, what, Toast.LENGTH_LONG).show()
+
+    /** Runs [work] off the main thread; an Account.Failed shows its reason, anything else "no connection". */
+    private fun inBackground(work: () -> Unit, then: () -> Unit) {
+        Threads.make {
+            val why = try { work(); null } catch (f: Account.Failed) { f.why } catch (_: Exception) { R.string.account_err_other }
+            runOnUiThread { if (isFinishing) return@runOnUiThread; if (why == null) then() else say(why); accountDraw() }
+        }.start()
+    }
+
+    private fun emailDialog() {
+        val box = ui.col().apply { setPadding(ui.dpi(20), ui.dpi(8), ui.dpi(20), 0) }
+        val email = ui.field(getString(R.string.account_mail_hint)).apply { inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS }
+        val pass = ui.field(getString(R.string.account_pass_hint), secret = true)
+        box.addView(email, ui.block(4))
+        box.addView(pass, ui.block(8))
+        val go = { create: Boolean ->
+            say(R.string.account_working)
+            inBackground({ Account.withEmail(this, email.text.toString(), pass.text.toString(), create) }) { afterSignIn() }
+        }
+        android.app.AlertDialog.Builder(this).setTitle(R.string.account_email).setView(box)
+            .setPositiveButton(R.string.account_enter) { _, _ -> go(false) }
+            .setNeutralButton(R.string.account_create) { _, _ -> go(true) }
+            .setNegativeButton(R.string.account_forgot) { _, _ ->
+                inBackground({ Account.resetPassword(email.text.toString()) }) { say(R.string.account_reset_sent) }
+            }.show()
+    }
+
+    /** Just signed in: a copy in the account is offered to this phone; with none, this phone's is saved. */
+    private fun afterSignIn() {
+        accountDraw()
+        offerCopy(askFirst = true)
+    }
+
+    private fun offerCopy(askFirst: Boolean) {
+        say(R.string.account_working)
+        var found: Triple<Long, String, org.json.JSONObject>? = null
+        inBackground({
+            found = Account.download(this)
+            if (found == null) Account.upload(this)
+        }) {
+            val copy = found
+            if (copy == null) { say(R.string.account_empty); accountDraw(); return@inBackground }
+            val day = java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.MEDIUM, java.text.DateFormat.SHORT).format(java.util.Date(copy.first))
+            val bring = { restoreCopy(copy.third) }
+            if (!askFirst) bring() else android.app.AlertDialog.Builder(this)
+                .setMessage(getString(R.string.account_found, day, copy.second.ifEmpty { "?" }))
+                .setPositiveButton(R.string.account_found_yes) { _, _ -> bring() }
+                .setNegativeButton(R.string.account_found_no) { _, _ -> inBackground({ Account.upload(this) }) { say(R.string.account_ok) } }
+                .show()
+        }
+    }
+
+    /** Her page keeps its own copy of her memory and saves it over the files: she rests while it comes back. */
+    private fun restoreCopy(snap: org.json.JSONObject) {
+        val wasOn = CapriService.running
+        if (wasOn) CapriService.send(this, CapriService.ACTION_QUIT)
+        inBackground({
+            var waited = 0
+            while (CapriService.running && waited < 8000) { Thread.sleep(200); waited += 200 }
+            Thread.sleep(400)
+            Account.restore(this, snap)
+        }) {
+            say(R.string.account_restored)
+            nameField.setText(CapriSettings.name(this))
+            choices.forEach { it() }
+            if (wasOn && Settings.canDrawOverlays(this)) CapriService.start(this)
+        }
+    }
     private var neuroDraw: () -> Unit = {}
 
     private fun birthdayCard() = ui.card(Hud.RED).apply {

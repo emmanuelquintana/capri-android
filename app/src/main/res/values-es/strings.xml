@@ -687,4 +687,41 @@
         <item>Te estoy mirando. Con cariño.</item>
     </string-array>
     <string name="chat_attach">Darle un archivo (PDF, Word, imagen, video, canción)</string>
+    <!-- (1.12.0) your account (Account.kt) -->
+    <string name="account_title">Tu cuenta</string>
+    <string name="account_how">Entra y su memoria de ti, tus ajustes, tus clases y tu chat se guardan en la nube: en un teléfono nuevo o al reinstalar, te sigue recordando. Tus claves de IA nunca salen de este teléfono.</string>
+    <string name="account_google">Entrar con Google</string>
+    <string name="account_email">Entrar con correo</string>
+    <string name="account_out">Salir</string>
+    <string name="account_save">Guardar ahora</string>
+    <string name="account_bring">Traer mi copia</string>
+    <string name="account_none">Sin cuenta</string>
+    <string name="account_as">Conectada como %1$s</string>
+    <string name="account_saved">Guardado %1$s</string>
+    <string name="account_never">Aún sin guardar</string>
+    <string name="account_mail_hint">Tu correo</string>
+    <string name="account_pass_hint">Contraseña (6 caracteres o más)</string>
+    <string name="account_enter">Entrar</string>
+    <string name="account_create">Crear cuenta</string>
+    <string name="account_forgot">La olvidé</string>
+    <string name="account_reset_sent">Revisa tu correo: te llegó un enlace para poner una contraseña nueva.</string>
+    <string name="account_ok">Listo, quedó guardado en tu cuenta.</string>
+    <string name="account_found">Hay una copia en tu cuenta del %1$s (%2$s). ¿La traigo a este teléfono? Reemplaza su memoria y tus ajustes de aquí.</string>
+    <string name="account_found_yes">Traerla</string>
+    <string name="account_found_no">Dejar los de este teléfono</string>
+    <string name="account_restored">¡Volví! Te sigo recordando.</string>
+    <string name="account_empty">Tu cuenta aún no tiene copia: guardo la de este teléfono.</string>
+    <string name="account_working">Un momento…</string>
+    <string name="account_out_sure">¿Salir? Tu copia se queda en tu cuenta.</string>
+    <string name="account_err_google">Entrar con Google no está disponible en este teléfono. Usa tu correo.</string>
+    <string name="account_err_net">Sin conexión. Inténtalo en un momento.</string>
+    <string name="account_err_exists">Ese correo ya tiene cuenta: mejor entra.</string>
+    <string name="account_err_weak">La contraseña necesita al menos 6 caracteres.</string>
+    <string name="account_err_email">Ese correo no se ve bien.</string>
+    <string name="account_err_many">Demasiados intentos. Espera unos minutos.</string>
+    <string name="account_err_wrong">Correo o contraseña incorrectos.</string>
+    <string name="account_err_again">Tu sesión terminó: vuelve a entrar.</string>
+    <string name="account_err_none">Tu cuenta aún no tiene copia.</string>
+    <string name="account_err_big">Su memoria es demasiado grande para la nube.</string>
+    <string name="account_err_other">Algo falló. Inténtalo de nuevo.</string>
 </resources>

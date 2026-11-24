@@ -672,4 +672,41 @@
         <item>Mình đang nhìn đấy. Dịu dàng thôi.</item>
     </string-array>
     <string name="chat_attach">Gửi cô ấy một tệp (PDF, Word, ảnh, video, bài hát)</string>
+    <!-- (1.12.0) your account (Account.kt) -->
+    <string name="account_title">Tài khoản của bạn</string>
+    <string name="account_how">Đăng nhập để ký ức của cô ấy về bạn, cài đặt, lịch học và cuộc trò chuyện được lưu trên đám mây: trên điện thoại mới hoặc khi cài lại, cô ấy vẫn nhớ bạn. Khóa API của bạn không bao giờ rời khỏi điện thoại này.</string>
+    <string name="account_google">Đăng nhập bằng Google</string>
+    <string name="account_email">Đăng nhập bằng email</string>
+    <string name="account_out">Đăng xuất</string>
+    <string name="account_save">Lưu ngay</string>
+    <string name="account_bring">Lấy lại bản sao</string>
+    <string name="account_none">Chưa đăng nhập</string>
+    <string name="account_as">Đã đăng nhập: %1$s</string>
+    <string name="account_saved">Đã lưu %1$s</string>
+    <string name="account_never">Chưa lưu</string>
+    <string name="account_mail_hint">Email của bạn</string>
+    <string name="account_pass_hint">Mật khẩu (từ 6 ký tự)</string>
+    <string name="account_enter">Đăng nhập</string>
+    <string name="account_create">Tạo tài khoản</string>
+    <string name="account_forgot">Quên mật khẩu</string>
+    <string name="account_reset_sent">Kiểm tra email: có liên kết để đặt mật khẩu mới.</string>
+    <string name="account_ok">Xong, đã lưu vào tài khoản.</string>
+    <string name="account_found">Tài khoản có bản sao từ %1$s (%2$s). Đưa về điện thoại này? Nó thay ký ức và cài đặt ở đây.</string>
+    <string name="account_found_yes">Đưa về</string>
+    <string name="account_found_no">Giữ của máy này</string>
+    <string name="account_restored">Mình về rồi! Mình vẫn nhớ bạn.</string>
+    <string name="account_empty">Tài khoản chưa có bản sao: lưu bản của điện thoại này.</string>
+    <string name="account_working">Chờ chút…</string>
+    <string name="account_out_sure">Đăng xuất? Bản sao vẫn ở trong tài khoản.</string>
+    <string name="account_err_google">Điện thoại này không hỗ trợ đăng nhập Google. Hãy dùng email.</string>
+    <string name="account_err_net">Không có kết nối. Thử lại sau.</string>
+    <string name="account_err_exists">Email này đã có tài khoản: hãy đăng nhập.</string>
+    <string name="account_err_weak">Mật khẩu cần ít nhất 6 ký tự.</string>
+    <string name="account_err_email">Email có vẻ không đúng.</string>
+    <string name="account_err_many">Thử quá nhiều lần. Đợi vài phút.</string>
+    <string name="account_err_wrong">Sai email hoặc mật khẩu.</string>
+    <string name="account_err_again">Phiên đã hết: đăng nhập lại.</string>
+    <string name="account_err_none">Tài khoản chưa có bản sao.</string>
+    <string name="account_err_big">Ký ức quá lớn để lưu lên đám mây.</string>
+    <string name="account_err_other">Có lỗi xảy ra. Thử lại.</string>
 </resources>

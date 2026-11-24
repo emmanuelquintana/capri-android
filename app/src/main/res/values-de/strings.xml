@@ -676,4 +676,41 @@
         <item>Ich schau zu. Lieb gemeint.</item>
     </string-array>
     <string name="chat_attach">Ihr eine Datei geben (PDF, Word, Bild, Video, Lied)</string>
+    <!-- (1.12.0) your account (Account.kt) -->
+    <string name="account_title">Dein Konto</string>
+    <string name="account_how">Melde dich an, und ihre Erinnerungen an dich, deine Einstellungen, Kurse und dein Chat werden in der Cloud gespeichert: auf einem neuen Handy oder nach einer Neuinstallation erinnert sie sich an dich. Deine API-Schlüssel verlassen dieses Handy nie.</string>
+    <string name="account_google">Mit Google anmelden</string>
+    <string name="account_email">Mit E-Mail anmelden</string>
+    <string name="account_out">Abmelden</string>
+    <string name="account_save">Jetzt speichern</string>
+    <string name="account_bring">Meine Kopie holen</string>
+    <string name="account_none">Nicht angemeldet</string>
+    <string name="account_as">Angemeldet als %1$s</string>
+    <string name="account_saved">Gespeichert %1$s</string>
+    <string name="account_never">Noch nicht gespeichert</string>
+    <string name="account_mail_hint">Deine E-Mail</string>
+    <string name="account_pass_hint">Passwort (mind. 6 Zeichen)</string>
+    <string name="account_enter">Anmelden</string>
+    <string name="account_create">Konto erstellen</string>
+    <string name="account_forgot">Vergessen</string>
+    <string name="account_reset_sent">Schau in deine E-Mails: Dort ist ein Link für ein neues Passwort.</string>
+    <string name="account_ok">Fertig, in deinem Konto gespeichert.</string>
+    <string name="account_found">In deinem Konto ist eine Kopie vom %1$s (%2$s). Auf dieses Handy holen? Sie ersetzt ihre Erinnerungen und Einstellungen hier.</string>
+    <string name="account_found_yes">Holen</string>
+    <string name="account_found_no">Die von hier behalten</string>
+    <string name="account_restored">Ich bin zurück! Ich erinnere mich an dich.</string>
+    <string name="account_empty">Dein Konto hat noch keine Kopie: ich speichere die von diesem Handy.</string>
+    <string name="account_working">Einen Moment…</string>
+    <string name="account_out_sure">Abmelden? Deine Kopie bleibt im Konto.</string>
+    <string name="account_err_google">Google-Anmeldung ist auf diesem Handy nicht verfügbar. Nutze deine E-Mail.</string>
+    <string name="account_err_net">Keine Verbindung. Versuch es gleich nochmal.</string>
+    <string name="account_err_exists">Diese E-Mail hat schon ein Konto: melde dich an.</string>
+    <string name="account_err_weak">Das Passwort braucht mindestens 6 Zeichen.</string>
+    <string name="account_err_email">Diese E-Mail sieht nicht richtig aus.</string>
+    <string name="account_err_many">Zu viele Versuche. Warte ein paar Minuten.</string>
+    <string name="account_err_wrong">E-Mail oder Passwort falsch.</string>
+    <string name="account_err_again">Deine Sitzung ist abgelaufen: melde dich neu an.</string>
+    <string name="account_err_none">Dein Konto hat noch keine Kopie.</string>
+    <string name="account_err_big">Ihre Erinnerungen sind zu groß für die Cloud.</string>
+    <string name="account_err_other">Etwas ist schiefgelaufen. Versuch es nochmal.</string>
 </resources>

@@ -52,6 +52,8 @@ class Store(private val context: Context) {
         tmp.writeText(text)
         tmp.renameTo(File(dir, name))
         if (name == CONFIG) synchronized(CACHE) { cached = null }
+        // (1.12.0) with an account, it's saved to the cloud a little later too (Account.kt)
+        if (name == CONFIG || name == MEMORY) Account.changed(context)
     }
 
     /**

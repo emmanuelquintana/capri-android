@@ -688,4 +688,41 @@
         <item>I\'m watching. Kindly.</item>
     </string-array>
     <string name="chat_attach">Give her a file (PDF, Word, picture, video, song)</string>
+    <!-- (1.12.0) your account (Account.kt) -->
+    <string name="account_title">Your account</string>
+    <string name="account_how">Sign in and her memory of you, your settings, your classes and your chat are saved in the cloud: on a new phone or after reinstalling, she remembers you. Your API keys never leave this phone.</string>
+    <string name="account_google">Sign in with Google</string>
+    <string name="account_email">Sign in with email</string>
+    <string name="account_out">Sign out</string>
+    <string name="account_save">Save now</string>
+    <string name="account_bring">Bring back my copy</string>
+    <string name="account_none">Not signed in</string>
+    <string name="account_as">Signed in as %1$s</string>
+    <string name="account_saved">Saved %1$s</string>
+    <string name="account_never">Not saved yet</string>
+    <string name="account_mail_hint">Your email</string>
+    <string name="account_pass_hint">Password (6+ characters)</string>
+    <string name="account_enter">Sign in</string>
+    <string name="account_create">Create account</string>
+    <string name="account_forgot">I forgot it</string>
+    <string name="account_reset_sent">Check your email: there\'s a link to set a new password.</string>
+    <string name="account_ok">Done, it\'s saved in your account.</string>
+    <string name="account_found">There\'s a copy in your account from %1$s (%2$s). Bring it to this phone? It replaces her memory and your settings here.</string>
+    <string name="account_found_yes">Bring it</string>
+    <string name="account_found_no">Keep this phone\'s</string>
+    <string name="account_restored">Back! She remembers you.</string>
+    <string name="account_empty">Your account has no copy yet: saving this phone\'s.</string>
+    <string name="account_working">One moment…</string>
+    <string name="account_out_sure">Sign out? Your copy stays in your account.</string>
+    <string name="account_err_google">Google sign-in isn\'t available on this phone. Use your email.</string>
+    <string name="account_err_net">No connection. Try again in a moment.</string>
+    <string name="account_err_exists">That email already has an account: sign in instead.</string>
+    <string name="account_err_weak">The password needs at least 6 characters.</string>
+    <string name="account_err_email">That email doesn\'t look right.</string>
+    <string name="account_err_many">Too many tries. Wait a few minutes.</string>
+    <string name="account_err_wrong">Wrong email or password.</string>
+    <string name="account_err_again">Your session ended: sign in again.</string>
+    <string name="account_err_none">Your account has no copy yet.</string>
+    <string name="account_err_big">Her memory is too big to save in the cloud.</string>
+    <string name="account_err_other">Something went wrong. Try again.</string>
 </resources>

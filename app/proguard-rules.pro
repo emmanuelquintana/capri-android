@@ -18,3 +18,8 @@
 -keep class org.vosk.** { *; }
 -dontwarn java.awt.**
 -dontwarn com.sun.jna.**
+
+# (1.12.0) "Entrar con Google" (Account.kt): Credential Manager finds its Play services provider by name
+-if class androidx.credentials.CredentialManager
+-keep class androidx.credentials.playservices.** { *; }
+-keep class com.google.android.libraries.identity.googleid.** { *; }

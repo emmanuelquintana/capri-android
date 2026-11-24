@@ -672,4 +672,41 @@
         <item>見てるよ。やさしくね。</item>
     </string-array>
     <string name="chat_attach">ファイルを渡す（PDF、Word、画像、動画、曲）</string>
+    <!-- (1.12.0) your account (Account.kt) -->
+    <string name="account_title">あなたのアカウント</string>
+    <string name="account_how">ログインすると、あなたについての記憶、設定、授業、チャットがクラウドに保存されます。新しいスマホや再インストール後も覚えています。APIキーはこのスマホから出ません。</string>
+    <string name="account_google">Googleでログイン</string>
+    <string name="account_email">メールでログイン</string>
+    <string name="account_out">ログアウト</string>
+    <string name="account_save">今すぐ保存</string>
+    <string name="account_bring">コピーを戻す</string>
+    <string name="account_none">未ログイン</string>
+    <string name="account_as">%1$s でログイン中</string>
+    <string name="account_saved">保存: %1$s</string>
+    <string name="account_never">まだ保存していません</string>
+    <string name="account_mail_hint">メールアドレス</string>
+    <string name="account_pass_hint">パスワード（6文字以上）</string>
+    <string name="account_enter">ログイン</string>
+    <string name="account_create">アカウント作成</string>
+    <string name="account_forgot">忘れた</string>
+    <string name="account_reset_sent">メールを確認してね。新しいパスワードのリンクが届いています。</string>
+    <string name="account_ok">アカウントに保存しました。</string>
+    <string name="account_found">%1$s のコピーがあります（%2$s）。このスマホに戻しますか？ここの記憶と設定が置き換わります。</string>
+    <string name="account_found_yes">戻す</string>
+    <string name="account_found_no">このスマホのまま</string>
+    <string name="account_restored">ただいま！ちゃんと覚えてるよ。</string>
+    <string name="account_empty">まだコピーがないので、このスマホの分を保存します。</string>
+    <string name="account_working">ちょっと待ってね…</string>
+    <string name="account_out_sure">ログアウトしますか？コピーはアカウントに残ります。</string>
+    <string name="account_err_google">このスマホではGoogleログインが使えません。メールを使ってね。</string>
+    <string name="account_err_net">接続がありません。少しして試してね。</string>
+    <string name="account_err_exists">このメールはもう登録済み。ログインしてね。</string>
+    <string name="account_err_weak">パスワードは6文字以上必要です。</string>
+    <string name="account_err_email">メールアドレスが正しくないみたい。</string>
+    <string name="account_err_many">試行が多すぎます。数分待ってね。</string>
+    <string name="account_err_wrong">メールかパスワードが違います。</string>
+    <string name="account_err_again">セッションが切れました。もう一度ログインしてね。</string>
+    <string name="account_err_none">まだコピーがありません。</string>
+    <string name="account_err_big">記憶が大きすぎてクラウドに保存できません。</string>
+    <string name="account_err_other">うまくいきませんでした。もう一度試してね。</string>
 </resources>

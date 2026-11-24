@@ -687,4 +687,41 @@
         <item>Je te regarde. Gentiment.</item>
     </string-array>
     <string name="chat_attach">Lui donner un fichier (PDF, Word, image, vidéo, chanson)</string>
+    <!-- (1.12.0) your account (Account.kt) -->
+    <string name="account_title">Ton compte</string>
+    <string name="account_how">Connecte-toi et sa mémoire de toi, tes réglages, tes cours et ton chat sont gardés dans le cloud : sur un nouveau téléphone ou après réinstallation, elle se souvient de toi. Tes clés d\'API ne quittent jamais ce téléphone.</string>
+    <string name="account_google">Se connecter avec Google</string>
+    <string name="account_email">Se connecter par e-mail</string>
+    <string name="account_out">Se déconnecter</string>
+    <string name="account_save">Sauvegarder</string>
+    <string name="account_bring">Récupérer ma copie</string>
+    <string name="account_none">Pas connecté</string>
+    <string name="account_as">Connecté : %1$s</string>
+    <string name="account_saved">Sauvegardé %1$s</string>
+    <string name="account_never">Pas encore sauvegardé</string>
+    <string name="account_mail_hint">Ton e-mail</string>
+    <string name="account_pass_hint">Mot de passe (6 caractères min.)</string>
+    <string name="account_enter">Se connecter</string>
+    <string name="account_create">Créer un compte</string>
+    <string name="account_forgot">Oublié</string>
+    <string name="account_reset_sent">Regarde tes e-mails : un lien t\'attend pour choisir un nouveau mot de passe.</string>
+    <string name="account_ok">C\'est fait, c\'est gardé dans ton compte.</string>
+    <string name="account_found">Ton compte a une copie du %1$s (%2$s). La ramener sur ce téléphone ? Elle remplace sa mémoire et tes réglages ici.</string>
+    <string name="account_found_yes">La ramener</string>
+    <string name="account_found_no">Garder ceux d\'ici</string>
+    <string name="account_restored">Me revoilà ! Je me souviens de toi.</string>
+    <string name="account_empty">Ton compte n\'a pas encore de copie : je garde celle de ce téléphone.</string>
+    <string name="account_working">Un instant…</string>
+    <string name="account_out_sure">Se déconnecter ? Ta copie reste dans ton compte.</string>
+    <string name="account_err_google">Google n\'est pas disponible sur ce téléphone. Utilise ton e-mail.</string>
+    <string name="account_err_net">Pas de connexion. Réessaie dans un moment.</string>
+    <string name="account_err_exists">Cet e-mail a déjà un compte : connecte-toi.</string>
+    <string name="account_err_weak">Le mot de passe doit avoir au moins 6 caractères.</string>
+    <string name="account_err_email">Cet e-mail n\'a pas l\'air correct.</string>
+    <string name="account_err_many">Trop d\'essais. Attends quelques minutes.</string>
+    <string name="account_err_wrong">E-mail ou mot de passe incorrect.</string>
+    <string name="account_err_again">Ta session a expiré : reconnecte-toi.</string>
+    <string name="account_err_none">Ton compte n\'a pas encore de copie.</string>
+    <string name="account_err_big">Sa mémoire est trop grande pour le cloud.</string>
+    <string name="account_err_other">Un problème est survenu. Réessaie.</string>
 </resources>

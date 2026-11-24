@@ -676,4 +676,41 @@
         <item>Ti guardo. Con affetto.</item>
     </string-array>
     <string name="chat_attach">Darle un file (PDF, Word, immagine, video, canzone)</string>
+    <!-- (1.12.0) your account (Account.kt) -->
+    <string name="account_title">Il tuo account</string>
+    <string name="account_how">Accedi e la sua memoria di te, le tue impostazioni, le lezioni e la chat vengono salvate nel cloud: su un telefono nuovo o dopo una reinstallazione si ricorda di te. Le tue chiavi API non lasciano mai questo telefono.</string>
+    <string name="account_google">Accedi con Google</string>
+    <string name="account_email">Accedi con email</string>
+    <string name="account_out">Esci</string>
+    <string name="account_save">Salva ora</string>
+    <string name="account_bring">Riprendi la mia copia</string>
+    <string name="account_none">Non hai effettuato l\'accesso</string>
+    <string name="account_as">Accesso come %1$s</string>
+    <string name="account_saved">Salvato %1$s</string>
+    <string name="account_never">Non ancora salvato</string>
+    <string name="account_mail_hint">La tua email</string>
+    <string name="account_pass_hint">Password (almeno 6 caratteri)</string>
+    <string name="account_enter">Accedi</string>
+    <string name="account_create">Crea account</string>
+    <string name="account_forgot">L\'ho dimenticata</string>
+    <string name="account_reset_sent">Controlla la tua email: c\'è un link per una nuova password.</string>
+    <string name="account_ok">Fatto, è salvato nel tuo account.</string>
+    <string name="account_found">Nel tuo account c\'è una copia del %1$s (%2$s). Portarla su questo telefono? Sostituisce la sua memoria e le impostazioni qui.</string>
+    <string name="account_found_yes">Portala</string>
+    <string name="account_found_no">Tieni quelle di qui</string>
+    <string name="account_restored">Sono tornata! Mi ricordo di te.</string>
+    <string name="account_empty">Il tuo account non ha ancora una copia: salvo quella di questo telefono.</string>
+    <string name="account_working">Un momento…</string>
+    <string name="account_out_sure">Uscire? La tua copia resta nell\'account.</string>
+    <string name="account_err_google">L\'accesso con Google non è disponibile su questo telefono. Usa l\'email.</string>
+    <string name="account_err_net">Nessuna connessione. Riprova tra poco.</string>
+    <string name="account_err_exists">Questa email ha già un account: accedi.</string>
+    <string name="account_err_weak">La password deve avere almeno 6 caratteri.</string>
+    <string name="account_err_email">Questa email non sembra corretta.</string>
+    <string name="account_err_many">Troppi tentativi. Aspetta qualche minuto.</string>
+    <string name="account_err_wrong">Email o password errate.</string>
+    <string name="account_err_again">La sessione è scaduta: accedi di nuovo.</string>
+    <string name="account_err_none">Il tuo account non ha ancora una copia.</string>
+    <string name="account_err_big">La sua memoria è troppo grande per il cloud.</string>
+    <string name="account_err_other">Qualcosa è andato storto. Riprova.</string>
 </resources>

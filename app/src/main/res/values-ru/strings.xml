@@ -694,4 +694,41 @@
         <item>Я наблюдаю. По-доброму.</item>
     </string-array>
     <string name="chat_attach">Дать ей файл (PDF, Word, картинка, видео, песня)</string>
+    <!-- (1.12.0) your account (Account.kt) -->
+    <string name="account_title">Твой аккаунт</string>
+    <string name="account_how">Войди, и её память о тебе, настройки, занятия и чат сохранятся в облаке: на новом телефоне или после переустановки она тебя помнит. Твои API-ключи никогда не покидают этот телефон.</string>
+    <string name="account_google">Войти через Google</string>
+    <string name="account_email">Войти по почте</string>
+    <string name="account_out">Выйти</string>
+    <string name="account_save">Сохранить сейчас</string>
+    <string name="account_bring">Вернуть мою копию</string>
+    <string name="account_none">Не вошёл</string>
+    <string name="account_as">Вход: %1$s</string>
+    <string name="account_saved">Сохранено %1$s</string>
+    <string name="account_never">Ещё не сохранено</string>
+    <string name="account_mail_hint">Твоя почта</string>
+    <string name="account_pass_hint">Пароль (от 6 символов)</string>
+    <string name="account_enter">Войти</string>
+    <string name="account_create">Создать аккаунт</string>
+    <string name="account_forgot">Забыл пароль</string>
+    <string name="account_reset_sent">Проверь почту: там ссылка для нового пароля.</string>
+    <string name="account_ok">Готово, сохранено в аккаунте.</string>
+    <string name="account_found">В аккаунте есть копия от %1$s (%2$s). Перенести на этот телефон? Она заменит её память и настройки здесь.</string>
+    <string name="account_found_yes">Перенести</string>
+    <string name="account_found_no">Оставить эти</string>
+    <string name="account_restored">Я вернулась! Я тебя помню.</string>
+    <string name="account_empty">В аккаунте ещё нет копии: сохраняю с этого телефона.</string>
+    <string name="account_working">Секунду…</string>
+    <string name="account_out_sure">Выйти? Копия останется в аккаунте.</string>
+    <string name="account_err_google">Вход через Google недоступен на этом телефоне. Используй почту.</string>
+    <string name="account_err_net">Нет связи. Попробуй чуть позже.</string>
+    <string name="account_err_exists">У этой почты уже есть аккаунт: просто войди.</string>
+    <string name="account_err_weak">Пароль должен быть не короче 6 символов.</string>
+    <string name="account_err_email">Почта выглядит неверно.</string>
+    <string name="account_err_many">Слишком много попыток. Подожди несколько минут.</string>
+    <string name="account_err_wrong">Неверная почта или пароль.</string>
+    <string name="account_err_again">Сессия закончилась: войди снова.</string>
+    <string name="account_err_none">В аккаунте ещё нет копии.</string>
+    <string name="account_err_big">Её память слишком большая для облака.</string>
+    <string name="account_err_other">Что-то пошло не так. Попробуй ещё раз.</string>
 </resources>

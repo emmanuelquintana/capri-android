@@ -687,4 +687,41 @@
         <item>Tô de olho. Com carinho.</item>
     </string-array>
     <string name="chat_attach">Mandar um arquivo (PDF, Word, imagem, vídeo, música)</string>
+    <!-- (1.12.0) your account (Account.kt) -->
+    <string name="account_title">Sua conta</string>
+    <string name="account_how">Entre e a memória dela sobre você, seus ajustes, suas aulas e seu chat ficam salvos na nuvem: num celular novo ou ao reinstalar, ela continua lembrando de você. Suas chaves de API nunca saem deste celular.</string>
+    <string name="account_google">Entrar com Google</string>
+    <string name="account_email">Entrar com e-mail</string>
+    <string name="account_out">Sair</string>
+    <string name="account_save">Salvar agora</string>
+    <string name="account_bring">Trazer minha cópia</string>
+    <string name="account_none">Sem conta</string>
+    <string name="account_as">Conectada como %1$s</string>
+    <string name="account_saved">Salvo %1$s</string>
+    <string name="account_never">Ainda não salvo</string>
+    <string name="account_mail_hint">Seu e-mail</string>
+    <string name="account_pass_hint">Senha (6 caracteres ou mais)</string>
+    <string name="account_enter">Entrar</string>
+    <string name="account_create">Criar conta</string>
+    <string name="account_forgot">Esqueci</string>
+    <string name="account_reset_sent">Veja seu e-mail: chegou um link para criar uma senha nova.</string>
+    <string name="account_ok">Pronto, ficou salvo na sua conta.</string>
+    <string name="account_found">Tem uma cópia na sua conta de %1$s (%2$s). Trazer para este celular? Ela substitui a memória dela e seus ajustes aqui.</string>
+    <string name="account_found_yes">Trazer</string>
+    <string name="account_found_no">Manter os deste celular</string>
+    <string name="account_restored">Voltei! Continuo lembrando de você.</string>
+    <string name="account_empty">Sua conta ainda não tem cópia: salvo a deste celular.</string>
+    <string name="account_working">Um momento…</string>
+    <string name="account_out_sure">Sair? Sua cópia fica na sua conta.</string>
+    <string name="account_err_google">Entrar com Google não está disponível neste celular. Use seu e-mail.</string>
+    <string name="account_err_net">Sem conexão. Tente de novo daqui a pouco.</string>
+    <string name="account_err_exists">Esse e-mail já tem conta: é só entrar.</string>
+    <string name="account_err_weak">A senha precisa de pelo menos 6 caracteres.</string>
+    <string name="account_err_email">Esse e-mail não parece certo.</string>
+    <string name="account_err_many">Tentativas demais. Espere alguns minutos.</string>
+    <string name="account_err_wrong">E-mail ou senha incorretos.</string>
+    <string name="account_err_again">Sua sessão acabou: entre de novo.</string>
+    <string name="account_err_none">Sua conta ainda não tem cópia.</string>
+    <string name="account_err_big">A memória dela é grande demais para a nuvem.</string>
+    <string name="account_err_other">Algo deu errado. Tente de novo.</string>
 </resources>
