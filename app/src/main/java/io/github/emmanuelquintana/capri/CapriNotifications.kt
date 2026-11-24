@@ -138,6 +138,35 @@ class CapriNotifications : NotificationListenerService() {
         CapriService.current?.overlay?.emit("note:removed", JSONObject().put("key", sbn.key).toString())
     }
 
+    /**
+     * (1.12.0, community: "que pueda mandar un mensaje por WhatsApp sin entrar a la app, si tú se lo dices") "Capri,
+     * contesta a Ana que ya voy": the reply box of that chat's notification (WhatsApp, Telegram, Messenger… any app
+     * that has one), filled and sent, as if you'd answered from the shade. Only to a chat whose message is still
+     * in your notifications. [who] blank: the newest one. Returns who it went to, or null.
+     */
+    fun reply(who: String, text: String): String? {
+        if (text.isBlank()) return null
+        val plain = { t: CharSequence? -> java.text.Normalizer.normalize(t?.toString().orEmpty().lowercase(), java.text.Normalizer.Form.NFD).replace(Regex("\\p{M}+"), "") }
+        val want = plain(who).trim()
+        for (sbn in posted.values.reversed()) {
+            val n = sbn.notification
+            val title = n.extras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE) ?: n.extras.getCharSequence(Notification.EXTRA_TITLE)
+            if (want.isNotEmpty() && !plain(title).contains(want)) continue
+            val action = n.actions?.firstOrNull { a -> a.remoteInputs?.any { it.allowFreeFormInput } == true } ?: continue
+            val inputs = action.remoteInputs ?: continue
+            return runCatching {
+                val intent = android.content.Intent()
+                val results = android.os.Bundle()
+                for (input in inputs) results.putCharSequence(input.resultKey, text)
+                android.app.RemoteInput.addResultsToIntent(inputs, intent, results)
+                action.actionIntent.send(this, 0, intent)
+                Diag.add("I", "reply: sent to ${label(sbn.packageName)}")
+                title?.toString() ?: label(sbn.packageName)
+            }.onFailure { Diag.add("W", "reply: ${it.message}") }.getOrNull()
+        }
+        return null
+    }
+
     /** A notice tapped on her card: what tapping it in the shade would do. */
     fun open(key: String): Boolean {
         val sbn = posted[key] ?: return false

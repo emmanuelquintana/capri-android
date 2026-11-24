@@ -67,6 +67,9 @@ jobs:
             echo "CAPRI_KEY_PASSWORD=$PASSPHRASE"
             echo "CAPRI_KEY_ALIAS=capri"
           } >> "$GITHUB_ENV"
+          # public fingerprints of the release key, for Firebase (Google sign-in): safe to show
+          keytool -list -v -storetype PKCS12 -keystore "$KS" -storepass:env PASSPHRASE -alias capri \
+            | grep -E "SHA1:|SHA256:" | sed 's/^[[:space:]]*/    /' | tee -a "$GITHUB_STEP_SUMMARY" || true
 
       - name: Compilar
         if: steps.code.outputs.ok == 'true'

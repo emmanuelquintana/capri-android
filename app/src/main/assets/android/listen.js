@@ -6,6 +6,19 @@
 
 import { extraAsk } from './asks.js';
 import { NEWS_ASK, newsLine } from './news.js';
+// (1.12.0) answering a chat from its notification, without opening the app
+const REPLY_ASK = /^(?:resp[oó]nde(?:le)?|contesta(?:le)?|reply|answer|r[ée]ponds|responda|responde|ответь|trả lời|返信して|antworte|rispondi)\s+(?:a |à |to |para |an |ae? )?(.{1,40}?)\s*(?:que |that |qu['’]|:|,)\s*(.+)$/iu;
+const REPLIED = {
+  es: { ok: 'Listo, le contesté a {who}.', no: 'No encontré ese chat en tus notificaciones. Necesito que su mensaje siga ahí (y el acceso a notificaciones).' },
+  en: { ok: 'Done, I replied to {who}.', no: 'I couldn’t find that chat in your notifications. Its message has to still be there (and I need notification access).' },
+  fr: { ok: 'C’est fait, j’ai répondu à {who}.', no: 'Je n’ai pas trouvé ce chat dans tes notifications. Son message doit encore y être.' },
+  pt: { ok: 'Pronto, respondi {who}.', no: 'Não achei essa conversa nas notificações. A mensagem precisa ainda estar lá.' },
+  ru: { ok: 'Готово, ответила {who}.', no: 'Не нашла этот чат в уведомлениях. Его сообщение должно быть ещё там.' },
+  vi: { ok: 'Xong, mình đã trả lời {who}.', no: 'Mình không thấy cuộc trò chuyện đó trong thông báo. Tin nhắn phải còn ở đó.' },
+  ja: { ok: '{who}に返信したよ。', no: '通知にそのチャットが見つからない。メッセージが通知に残っている必要があるよ。' },
+  de: { ok: 'Erledigt, ich hab {who} geantwortet.', no: 'Ich finde den Chat nicht in deinen Benachrichtigungen. Die Nachricht muss noch da sein.' },
+  it: { ok: 'Fatto, ho risposto a {who}.', no: 'Non trovo quella chat nelle notifiche. Il messaggio deve essere ancora lì.' },
+};
 // (1.12.0) a song playing near you
 const SONG_ASK = /qu[ée] canci[oó]n (?:es|suena)|c[oó]mo se llama (?:esta|la) canci[oó]n|what song is (?:this|that|playing)|name (?:this|that) song|quelle (?:est cette )?chanson|que m[uú]sica [ée] essa|qual [ée] essa m[uú]sica|что (?:это )?за песня|bài (?:hát )?gì đây|この曲(?:は)?何|was ist das für ein (?:lied|song)|welches lied|che canzone [èe]/iu;
 import { on, send, call } from './native.js';
@@ -478,6 +491,14 @@ async function handle(text, { toggleVisible, visible }) {
   if (PLAY_SOMETHING.test(text)) {
     const ok = await window.host.media('play').catch(() => false);
     return answer(ok ? t.play : t.cant, ok ? 'laugh' : 'aside');
+  }
+  // (1.12.0) "contesta a Ana que ya voy": the reply box of that chat's notification, sent (CapriNotifications.kt)
+  const replying = REPLY_ASK.exec(text);
+  if (replying) {
+    const who = (replying[1] || '').trim();
+    const said = (replying[2] || '').trim();
+    const to = await call('note:reply', { who, text: said }).catch(() => null);
+    return answer(to ? fill(REPLIED[lang].ok, { who: to }) : REPLIED[lang].no, to ? 'smug' : 'aside');
   }
   // (1.12.0) "¿qué canción es esta?": she listens for a few seconds and tells you (share.js, with Gemini)
   if (SONG_ASK.test(text) && words <= 10 && dev.share?.song) return dev.share.song(text);
