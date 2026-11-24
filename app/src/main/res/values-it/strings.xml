@@ -817,4 +817,5 @@
     <string name="fish_model_free">Gratis</string>
     <string name="fish_model_pro">Pro (usa il tuo credito)</string>
     <string name="voice_silenced">Il microfono le arriva muto: un\'altra app lo sta usando, o apri l\'app una volta perché Android la lasci ascoltare.</string>
+    <string name="account_newer">Il tuo %1$s ha salvato qualcosa di più recente nel tuo account (%2$s): chat, memoria e impostazioni. Lo porto su questo telefono? Le tue chat qui restano.</string>
 </resources>

@@ -18,7 +18,7 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Nuevo:** modo lectura sin spoilers, archivos para ella (PDF, Word, audio), «¿qué canción es esta?», responder tus mensajes, noticias del día y buscar en tu chat.
 - **Reordenada:** abre en Novedades; pestaña nueva **Funciones** (modo sueño, tus clases y lo que te cuida); los ajustes ahora son menús cortos con pantallas; Pantalla y Modos por separado.
 - **Tu perfil:** foto o ícono y tu nombre arriba de Ajustes, guardados en tu cuenta.
-- **Tu cuenta:** entra con Google o correo y su memoria, tus ajustes, clases y chat se guardan solos en la nube. Tus claves nunca salen del teléfono.
+- **Tu cuenta:** entra con Google o correo y su memoria, tus ajustes, clases y chat se guardan solos en la nube. Tus claves nunca salen del teléfono. Si otro teléfono tuyo guardó algo más nuevo, al abrir la app te ofrece traerlo, sin perder los chats de aquí.
 - **Cuatro idiomas nuevos:** vietnamita, japonés, alemán e italiano.
 - **Crea tu propia Capri:** baja su diseño en buena calidad, dibújale un traje y envía el PNG desde Personalizar.
 - **Más:** dos widgets nuevos, tres minijuegos, agítala y se marea, sigue a Emma en TikTok y X desde Novedades.

@@ -31,9 +31,28 @@ object ChatLog {
         val tmp = File(f.parentFile, "$FILE.tmp")
         tmp.writeText(keep.toString())
         tmp.renameTo(f)
+        Account.changed(context) // (1.12.0) with an account, your chat goes to the cloud too, a little later
     }
 
-    fun clear(context: Context) = synchronized(lock) { file(context).delete() }
+    fun clear(context: Context) = synchronized(lock) { file(context).delete(); Account.changed(context) }
+
+    /** (1.12.0) Your chat from another phone joined with this one's (none lost, none twice), the last [MAX] kept. */
+    fun merge(context: Context, other: JSONArray) = synchronized(lock) {
+        val seen = HashSet<String>()
+        val all = ArrayList<JSONObject>()
+        val mine = all(context)
+        for (list in listOf(mine, other)) for (i in 0 until list.length()) {
+            val o = list.optJSONObject(i) ?: continue
+            if (seen.add("${o.optLong("at")}|${o.optString("q").take(80)}")) all.add(o)
+        }
+        all.sortBy { it.optLong("at") }
+        val keep = JSONArray()
+        for (o in all.takeLast(MAX)) keep.put(o)
+        val f = file(context)
+        val tmp = File(f.parentFile, "$FILE.tmp")
+        tmp.writeText(keep.toString())
+        tmp.renameTo(f)
+    }
 
     fun size(context: Context): Int = all(context).length()
 }

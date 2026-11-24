@@ -17,7 +17,7 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **Novità:** modalità lettura senza spoiler, file per lei (PDF, Word, audio), «che canzone è?», rispondere ai tuoi messaggi, notizie del giorno e ricerca nella chat.
 - **Riordinata:** si apre su Novità; nuova scheda **Funzioni** (modalità sonno, le tue lezioni e la sua cura per te); le impostazioni ora sono menu brevi con schermate; Schermo e Modalità separati.
 - **Il tuo profilo:** foto o icona e il tuo nome in cima alle Impostazioni, salvati nel tuo account.
-- **Il tuo account:** entra con Google o email e la sua memoria, le tue impostazioni, lezioni e chat si salvano da soli nel cloud. Le tue chiavi non lasciano mai il telefono.
+- **Il tuo account:** entra con Google o email e la sua memoria, le tue impostazioni, lezioni e chat si salvano da soli nel cloud. Le tue chiavi non lasciano mai il telefono. Se un altro tuo telefono ha salvato qualcosa di più recente, all'apertura l'app ti propone di portarlo qui, senza perdere le chat di qui.
 - **Quattro nuove lingue:** vietnamita, giapponese, tedesco e italiano.
 - **Crea la tua Capri:** scarica il suo design in buona qualità, disegnale un vestito e invia il PNG da Personalizza.
 - **Inoltre:** due nuovi widget, tre minigiochi, scuotila e le gira la testa, segui Emma su TikTok e X da Novità.

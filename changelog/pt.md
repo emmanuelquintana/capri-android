@@ -17,7 +17,7 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **Novo:** modo leitura sem spoilers, arquivos para ela (PDF, Word, áudio), «que música é essa?», responder suas mensagens, notícias do dia e busca no seu chat.
 - **Reorganizado:** abre em Novidades; nova aba **Funções** (modo sono, suas aulas e o que cuida de você); os ajustes agora são menus curtos com telas; Tela e Modos separados.
 - **Seu perfil:** foto ou ícone e seu nome no topo dos Ajustes, salvos na sua conta.
-- **Sua conta:** entre com Google ou e-mail e a memória dela, seus ajustes, aulas e chat são salvos sozinhos na nuvem. Suas chaves nunca saem do celular.
+- **Sua conta:** entre com Google ou e-mail e a memória dela, seus ajustes, aulas e chat são salvos sozinhos na nuvem. Suas chaves nunca saem do celular. Se outro celular seu salvou algo mais novo, ao abrir o app ele oferece trazer, sem perder os chats daqui.
 - **Quatro idiomas novos:** vietnamita, japonês, alemão e italiano.
 - **Crie sua própria Capri:** baixe o design dela em boa qualidade, desenhe uma roupa e envie o PNG em Personalizar.
 - **Mais:** dois widgets novos, três minijogos, chacoalhe e ela fica tonta, siga a Emma no TikTok e no X pelas Novidades.

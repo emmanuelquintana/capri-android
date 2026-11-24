@@ -35,7 +35,7 @@ object Neuro {
         if (!bd.has("at")) bd.put("at", System.currentTimeMillis())
         val out = JSONArray().put(bd)
         for (i in 0 until minOf(list.length(), MAX - 1)) out.put(list.get(i))
-        prefs(c).edit().putString("list", out.toString()).apply()
+        prefs(c).edit().putString("list", out.toString()).apply(); Account.changed(c)
         notify(c, bd.optString("title"))
         return true
     }
@@ -51,7 +51,7 @@ object Neuro {
             if (rating in 1..3) bd.put("rating", rating)
             title = bd.optString("title")
         }
-        prefs(c).edit().putString("list", list.toString()).apply()
+        prefs(c).edit().putString("list", list.toString()).apply(); Account.changed(c)
         c.getSystemService(NotificationManager::class.java)?.cancel(NOTIFICATION_ID)
         if (rating in 1..3) CapriService.current?.takeIf { it.pageReady }?.overlay
             ?.emit("neuro:rated", JSONObject().put("title", title).put("rating", rating).toString())

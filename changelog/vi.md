@@ -17,7 +17,7 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Mới:** chế độ đọc không spoiler, tệp cho cô ấy (PDF, Word, âm thanh), «bài này là bài gì?», trả lời tin nhắn, tin tức trong ngày và tìm trong chat.
 - **Sắp xếp lại:** mở vào Tin mới; thẻ mới **Chức năng** (chế độ ngủ, lớp học và chăm sóc bạn); cài đặt giờ là các menu ngắn có màn hình riêng; Màn hình và Chế độ tách riêng.
 - **Hồ sơ của bạn:** ảnh hoặc biểu tượng và tên bạn ở đầu Cài đặt, lưu trong tài khoản.
-- **Tài khoản của bạn:** đăng nhập bằng Google hoặc email, trí nhớ của cô ấy, cài đặt, lớp học và chat tự lưu lên đám mây. Khóa của bạn không bao giờ rời điện thoại.
+- **Tài khoản của bạn:** đăng nhập bằng Google hoặc email, trí nhớ của cô ấy, cài đặt, lớp học và chat tự lưu lên đám mây. Khóa của bạn không bao giờ rời điện thoại. Nếu điện thoại khác của bạn lưu dữ liệu mới hơn, app sẽ đề nghị mang về khi mở, không mất chat ở đây.
 - **Bốn ngôn ngữ mới:** tiếng Việt, Nhật, Đức và Ý.
 - **Tạo Capri của riêng bạn:** tải bản thiết kế chất lượng cao của cô ấy, vẽ trang phục và gửi PNG từ Tùy chỉnh.
 - **Thêm:** hai widget mới, ba trò chơi nhỏ, lắc điện thoại là cô ấy chóng mặt, theo dõi Emma trên TikTok và X từ Tin mới.

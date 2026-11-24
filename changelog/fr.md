@@ -17,7 +17,7 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Nouveau :** mode lecture sans spoilers, fichiers pour elle (PDF, Word, audio), « c'est quelle chanson ? », répondre à tes messages, infos du jour et recherche dans ton chat.
 - **Réorganisée :** s'ouvre sur Nouveautés ; nouvel onglet **Fonctions** (mode sommeil, tes cours et ce qui prend soin de toi) ; les réglages sont des menus courts avec des écrans ; Écran et Modes séparés.
 - **Ton profil :** photo ou icône et ton nom en haut des Réglages, enregistrés dans ton compte.
-- **Ton compte :** connecte-toi avec Google ou un e-mail et sa mémoire, tes réglages, tes cours et ton chat sont sauvegardés seuls dans le cloud. Tes clés ne quittent jamais le téléphone.
+- **Ton compte :** connecte-toi avec Google ou un e-mail et sa mémoire, tes réglages, tes cours et ton chat sont sauvegardés seuls dans le cloud. Tes clés ne quittent jamais le téléphone. Si un autre de tes téléphones a enregistré plus récent, l'app te propose de le récupérer à l'ouverture, sans perdre les chats d'ici.
 - **Quatre nouvelles langues :** vietnamien, japonais, allemand et italien.
 - **Crée ta propre Capri :** télécharge son design en bonne qualité, dessine-lui une tenue et envoie le PNG depuis Personnaliser.
 - **En plus :** deux nouveaux widgets, trois mini-jeux, secoue-la et elle a le tournis, suis Emma sur TikTok et X depuis Nouveautés.

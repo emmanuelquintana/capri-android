@@ -28,7 +28,7 @@ object Account {
     private const val PREFS = "account"
     private const val AUTH = "https://identitytoolkit.googleapis.com/v1/accounts"
     private const val DOC = "https://firestore.googleapis.com/v1/projects/$PROJECT/databases/(default)/documents/users"
-    private const val CHATLOG_MAX = 300_000
+    private const val CHATLOG_MAX = 1_500_000 // (gzipped it's a few hundred KB: a cloud copy holds up to 1 MB)
     private const val QUIET_MS = 90_000L
 
     private val worker = Executors.newSingleThreadExecutor(Threads.factory)
@@ -144,8 +144,21 @@ object Account {
             }
         }
         store.memory()?.let { out.put("memory", it) }
-        store.read("chatlog.json")?.takeIf { it.length < CHATLOG_MAX }?.let { runCatching { out.put("chatlog", JSONArray(it)) } }
-        for (name in listOf("agenda", "games", "sleep")) {
+        // (1.12.0, community: "guardar todas sus conversaciones") all of it; a very long one keeps its newest part
+        runCatching {
+            val all = ChatLog.all(c)
+            var from = all.length()
+            var size = 0
+            while (from > 0) {
+                val one = all.opt(from - 1)?.toString()?.length ?: 0
+                if (size + one > CHATLOG_MAX) break
+                size += one
+                from--
+            }
+            out.put("chatlog", JSONArray().apply { for (i in from until all.length()) put(all.get(i)) })
+        }
+        // her neurodanzas too (1.12.0)
+        for (name in listOf("agenda", "games", "sleep", "neuro")) {
             val all = c.getSharedPreferences(name, Context.MODE_PRIVATE).all
             if (all.isEmpty()) continue
             val o = JSONObject()
@@ -168,7 +181,8 @@ object Account {
             store.write(Store.CONFIG, local.toString())
         }
         snap.optJSONObject("memory")?.let { store.write(Store.MEMORY, it.toString()) }
-        snap.optJSONArray("chatlog")?.let { store.write("chatlog.json", it.toString()) }
+        // (1.12.0) joined with this phone's chat, not over it: nothing you said here is lost
+        snap.optJSONArray("chatlog")?.let { ChatLog.merge(c, it) }
         snap.keys().forEach { k ->
             if (!k.startsWith("prefs.")) return@forEach
             val o = snap.optJSONObject(k) ?: return@forEach
@@ -185,6 +199,7 @@ object Account {
         }
         snap.optJSONObject("profile")?.let { Profile.import(c, it) }
         runCatching { Agenda.plan(c) }
+        prefs(c).edit().putLong("up", maxOf(lastSaved(c), snap.optLong("at"))).apply() // (not offered again)
         Diag.add("I", "account: restored from ${snap.optString("app")}")
     }
 

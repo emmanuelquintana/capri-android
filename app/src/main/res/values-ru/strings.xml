@@ -835,4 +835,5 @@
     <string name="fish_model_free">Бесплатная</string>
     <string name="fish_model_pro">Pro (тратит баланс)</string>
     <string name="voice_silenced">Микрофон приходит к ней в тишине: его занимает другое приложение, или открой приложение один раз, чтобы Android разрешил ей слушать.</string>
+    <string name="account_newer">Твой %1$s сохранил в аккаунт что-то новее (%2$s): чаты, память и настройки. Перенести на этот телефон? Твои чаты здесь сохранятся.</string>
 </resources>

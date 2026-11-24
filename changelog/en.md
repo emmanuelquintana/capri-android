@@ -17,7 +17,7 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **New:** spoiler-free reading mode, files for her (PDF, Word, audio), "what song is this?", replying to your messages, today's news and searching your chat.
 - **Reorganized:** opens on News; new **Features** tab (sleep mode, your classes and her care); settings are now short menus with screens; Screen and Modes are separate.
 - **Your profile:** photo or icon and your name at the top of Settings, saved to your account.
-- **Your account:** sign in with Google or email and her memory, your settings, classes and chat are saved to the cloud on their own. Your keys never leave the phone.
+- **Your account:** sign in with Google or email and her memory, your settings, classes and chat are saved to the cloud on their own. Your keys never leave the phone. If another phone of yours saved something newer, the app offers to bring it when you open it, keeping the chats here.
 - **Four new languages:** Vietnamese, Japanese, German and Italian.
 - **Create your own Capri:** download her design in good quality, draw her an outfit and send the PNG from Customize.
 - **More:** two new widgets, three minigames, shake her and she gets dizzy, follow Emma on TikTok and X from News.

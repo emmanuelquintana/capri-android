@@ -357,11 +357,36 @@ class MainActivity : Activity() {
         checkUpdate()
         Stats.maybePing(this)
         ticker.post(tick)
+        cloudNewer()
     }
 
     override fun onPause() {
         super.onPause()
         ticker.removeCallbacks(tick)
+        // (1.12.0) your classes, games, sleep… saved to your account too (only what changed goes up, a little later)
+        if (Account.signedIn(this)) Account.changed(this)
+    }
+
+    // (1.12.0, community: "sincronizar sus conversaciones en diferentes dispositivos") your other phone saved
+    // something newer to your account: offered here when you open the app (your chats here stay, joined with those)
+    private var cloudCheckedAt = 0L
+    private fun cloudNewer() {
+        if (!Account.signedIn(this) || System.currentTimeMillis() - cloudCheckedAt < 20 * 60_000L) return
+        cloudCheckedAt = System.currentTimeMillis()
+        Threads.make {
+            val copy = runCatching { Account.download(this) }.getOrNull() ?: return@make
+            val here = android.os.Build.MODEL.take(40)
+            if (copy.first <= Account.lastSaved(this) + 60_000L || copy.second == here) return@make
+            runOnUiThread {
+                if (isFinishing) return@runOnUiThread
+                val day = java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.MEDIUM, java.text.DateFormat.SHORT).format(java.util.Date(copy.first))
+                android.app.AlertDialog.Builder(this)
+                    .setMessage(getString(R.string.account_newer, copy.second.ifEmpty { "?" }, day))
+                    .setPositiveButton(R.string.account_found_yes) { _, _ -> restoreCopy(copy.third) }
+                    .setNegativeButton(R.string.account_found_no) { _, _ -> inBackground({ Account.upload(this) }) { say(R.string.account_ok) } }
+                    .show()
+            }
+        }.start()
     }
 
     override fun onDestroy() {

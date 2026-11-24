@@ -813,4 +813,5 @@
     <string name="fish_model_free">無料</string>
     <string name="fish_model_pro">Pro(残高を使用)</string>
     <string name="voice_silenced">マイクの音が届いていません。ほかのアプリが使っているか、アプリを一度開くと Android が聞くのを許可します。</string>
+    <string name="account_newer">%1$s がもっと新しいデータをアカウントに保存しました(%2$s):チャット、記憶、設定。この電話に持ってくる?ここのチャットは残ります。</string>
 </resources>
