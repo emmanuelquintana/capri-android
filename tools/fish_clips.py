@@ -22,7 +22,7 @@ import zipfile
 API = "https://api.fish.audio/v1/tts"
 VOICES = {"es-MX": "0a56e85c27c6490caf07bf61d2a229f0", "en-US": "92028b1fbc0348d09ad2d1f4132638b5"}
 VERSION = "9.0.0"
-MODEL = os.environ.get("FISH_MODEL", "s2.1-pro")
+MODEL = os.environ.get("FISH_MODEL", "s2.1-pro-free")
 KEY = os.environ.get("FISH_API_KEY", "").strip()
 
 
