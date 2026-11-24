@@ -117,6 +117,8 @@ O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostr
 - **A voz dela na nuvem (Fish Audio):** em Ajustes de voz, coloque sua própria chave da Fish Audio e ela fala com a voz
   dela em tempo real em cada resposta, começando em meio segundo enquanto a IA ainda escreve. Sua chave fica no seu
   celular. Sem internet ou sem saldo, ela volta sozinha para a voz do celular.
+- **As frases dela com a voz nova:** as 202 frases gravadas (espanhol e inglês) agora soam com a voz dela da Fish
+  Audio. Continuam tocando na hora e sem internet. Se você já tinha a voz dela, as novas baixam sozinhas.
 
 ## 1.11.7
 

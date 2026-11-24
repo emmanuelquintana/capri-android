@@ -128,6 +128,8 @@ The same as CHANGELOG.md (Spanish, the original), in English: the app shows it w
 - **Her voice in the cloud (Fish Audio):** in Voice settings, add your own Fish Audio key and she speaks in her voice in
   real time on every answer, starting in half a second while her AI is still writing. Your key stays on your phone.
   Without internet or credit, she goes back to her phone voice on her own.
+- **Her phrases in her new voice:** her 202 recorded phrases (Spanish and English) now sound in her Fish Audio voice.
+  They still play instantly and offline. If you already had her voice, the new ones download on their own.
 
 ## 1.11.7
 

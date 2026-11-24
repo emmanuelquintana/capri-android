@@ -102,3 +102,5 @@ Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mos
 - **La sua voce nel cloud (Fish Audio):** in Impostazioni voce inserisci la tua chiave Fish Audio e lei parla con la sua
   voce in tempo reale a ogni risposta, dopo mezzo secondo, mentre la sua IA scrive ancora. La chiave resta sul tuo
   telefono. Senza internet o senza credito, torna da sola alla voce del telefono.
+- **Le sue frasi con la nuova voce:** le sue 202 frasi registrate (spagnolo e inglese) ora hanno la sua voce Fish
+  Audio. Partono sempre subito e senza internet. Se avevi già la sua voce, le nuove si scaricano da sole.

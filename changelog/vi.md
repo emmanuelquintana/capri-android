@@ -97,3 +97,5 @@ Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt:
 - **Giọng cô ấy trên đám mây (Fish Audio):** trong Cài đặt giọng, thêm khóa Fish Audio của bạn và cô ấy nói bằng giọng
   của mình theo thời gian thực ở mỗi câu trả lời, bắt đầu sau nửa giây khi AI vẫn đang viết. Khóa chỉ ở trên điện thoại
   của bạn. Không có mạng hoặc hết tiền, cô ấy tự quay về giọng điện thoại.
+- **Câu nói của cô ấy bằng giọng mới:** 202 câu đã ghi âm (tiếng Tây Ban Nha và tiếng Anh) giờ dùng giọng Fish Audio
+  của cô ấy. Vẫn phát ngay và không cần mạng. Nếu bạn đã có giọng cô ấy, bản mới sẽ tự tải về.

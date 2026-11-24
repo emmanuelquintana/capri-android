@@ -109,3 +109,5 @@ Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt e
 - **Ihre Stimme in der Cloud (Fish Audio):** in den Stimmeinstellungen gibst du deinen eigenen Fish-Audio-Schlüssel ein,
   und sie spricht bei jeder Antwort in Echtzeit mit ihrer Stimme, nach einer halben Sekunde, während ihre KI noch schreibt.
   Dein Schlüssel bleibt auf deinem Handy. Ohne Internet oder Guthaben nimmt sie von selbst wieder die Stimme des Handys.
+- **Ihre Sätze mit ihrer neuen Stimme:** ihre 202 aufgenommenen Sätze (Spanisch und Englisch) klingen jetzt mit ihrer
+  Fish-Audio-Stimme. Sie spielen weiter sofort und ohne Internet. Hattest du ihre Stimme schon, laden die neuen von selbst.

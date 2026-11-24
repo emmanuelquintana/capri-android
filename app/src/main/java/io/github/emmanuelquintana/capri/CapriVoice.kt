@@ -38,14 +38,15 @@ object CapriVoice {
     // clip-pack-catalog.json of Capri Voice V8 8.0.0 (capri-voice-packs 207cc6747e40ff007c2b3ef70b2f1ea3661eb5e1):
     // names, sizes and fingerprints only, no audio
     val PACKS = listOf(
-        Pack("es-MX", "capri-clips-es-MX-private-production", "capri-clips-es-MX.zip", 2_792_445,
-            "9d30e7f06cf9432e4bf6bfb5174874661e73e9e00eafb39e870415c1ae90bf7a", 100, "8.0.0"),
-        Pack("en-US", "capri-clips-en-US-private-production", "capri-clips-en-US.zip", 2_406_080,
-            "72a382be2a249878a4efa12c818b508e36f73ee0c5df81a587fa740751994f7a", 102, "8.0.0"),
+        // (1.12.0, Emma: "pregraba las frases con la voz nueva") 9.0.0: the same phrases and ids, in her Fish Audio voice
+        Pack("es-MX", "capri-clips-es-MX-private-production", "capri-clips-es-MX.zip", 1_494_683,
+            "c665260e5a5187c976a28d6e20e53035b54f9c018051387c79a2247b82eefa27", 100, "9.0.0"),
+        Pack("en-US", "capri-clips-en-US-private-production", "capri-clips-en-US.zip", 1_391_608,
+            "cb4ea4c0755df6a43b16ff9d05dce81117625d8533c5fa46d2a3e492434fbf4f", 102, "9.0.0"),
     )
 
     /** Where her packs and profiles are downloaded from (`<CHANNEL>/<file>`): a public GitHub pre-release. */
-    const val CHANNEL = "https://github.com/emmanuelquintana/capri-android/releases/download/capri-voz-8.0.0"
+    const val CHANNEL = "https://github.com/emmanuelquintana/capri-android/releases/download/capri-voz-9.0.0"
 
     private val main = Handler(Looper.getMainLooper())
     private val worker = Executors.newSingleThreadExecutor(Threads.factory)
@@ -59,6 +60,7 @@ object CapriVoice {
     @Volatile var lastError = ""
         private set
     private val cancel = AtomicBoolean(false)
+    private val upgraded = java.util.Collections.synchronizedSet(HashSet<String>()) // (once per run: offline isn't a loop)
 
     fun root(context: Context) = File(context.filesDir, "capri-v8")
     private fun archives(context: Context) = File(root(context), "archives")
@@ -138,6 +140,9 @@ object CapriVoice {
                     .onFailure { lastError = "$id: ${it.message}"; Diag.add("W", "voice pack $id: ${it.message}") }
             }
             libs = map
+            // (1.12.0) her phrases from an older recording (8.0.0): the new ones come on their own, a pack at a time
+            for (pack in PACKS) if (map[pack.lang]?.version.let { it != null && it != pack.version } && busy.isEmpty() && upgraded.add(pack.lang))
+                main.post { download(app, pack.lang) { err -> Diag.add("I", "voice: her ${pack.lang} phrases ${err ?: "updated to ${pack.version}"}") } }
             byText = map.mapValues { (_, lib) -> lib.listClips().groupBy { plain(it.text) }.mapValues { it.value.first() } }
             loaded = true
             CapriService.current?.overlay?.emit("voice:packs", catalog(app).toString())

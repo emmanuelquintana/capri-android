@@ -38,6 +38,7 @@ class VoiceClipLibrary(directory: File, allowPrivate: Boolean = false) {
     val language = manifest.getString("language")
     val scope = manifest.getString("scope")
     val id = manifest.getString("id")
+    val version: String = manifest.optString("version")
     private val clips: List<VoiceClip>
 
     init {

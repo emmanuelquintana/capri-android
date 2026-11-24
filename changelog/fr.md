@@ -122,6 +122,9 @@ Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli 
 - **Sa voix dans le cloud (Fish Audio) :** dans Réglages de la voix, ajoute ta propre clé Fish Audio et elle parle avec
   sa voix en temps réel à chaque réponse, dès une demi-seconde, pendant que son IA écrit encore. Ta clé reste sur ton
   téléphone. Sans internet ou sans crédit, elle reprend toute seule sa voix du téléphone.
+- **Ses phrases avec sa nouvelle voix :** ses 202 phrases enregistrées (espagnol et anglais) ont maintenant sa voix
+  Fish Audio. Elles jouent toujours tout de suite et sans internet. Si tu avais déjà sa voix, les nouvelles se
+  téléchargent toutes seules.
 
 ## 1.11.7
 

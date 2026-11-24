@@ -131,6 +131,8 @@ Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se
 - **Su voz en la nube (Fish Audio):** en Ajustes de voz pones tu propia clave de Fish Audio y habla con su voz en
   tiempo real en cada respuesta, empezando en medio segundo mientras su IA todavía escribe. Tu clave se queda solo en tu
   teléfono. Sin internet o sin saldo, vuelve sola a su voz del teléfono.
+- **Sus frases con su voz nueva:** sus 202 frases grabadas (español e inglés) ahora suenan con su voz de Fish Audio.
+  Se siguen reproduciendo al instante y sin internet. Si ya tenías su voz, las nuevas se bajan solas.
 
 ## 1.11.7
 
