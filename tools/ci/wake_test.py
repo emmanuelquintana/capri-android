@@ -13,9 +13,28 @@ phrases = {
     'es': ['Oye Capri', 'Capri', 'Oye Capri, ¿qué hora es?', 'Capri, ¿cómo estás?', '¿Qué hora es?', 'Capri, pon música', 'Capri, abre WhatsApp'],
     'en': ['Hey Capri', 'Capri, what time is it?', 'Capri, how are you?'],
 }[lang]
+# said without her name: she must stay quiet on these
+others = {
+    'es': ['¿Qué hora es?', 'Compré pan y leche', 'La cabra come pasto', 'Oye, pásame la sal', 'Vamos al cine el viernes', 'Ya casi es hora de comer'],
+    'en': ['What time is it?', 'Hey, pass me the salt', 'The cab is here', 'I bought some bread'],
+}[lang]
+phrases = phrases + [o for o in others if o not in phrases]
 voice = {'es': 'es-419', 'en': 'en-us'}[lang]
 model = Model(model_dir)
-hits = 0; named = 0
+# (1.12.0) the spotter: a second listener that only knows her name (a grammar), fed the same sound
+SPOT = json.dumps({'es': ['oye capri', 'capri', '[unk]'], 'en': ['hey capri', 'capri', '[unk]']}[lang])
+def spot(path):
+    w = wave.open(path, 'rb')
+    r = KaldiRecognizer(model, 16000, SPOT)
+    seen = []
+    while True:
+        d = w.readframes(1600)
+        if not d: break
+        if r.AcceptWaveform(d): seen.append(json.loads(r.Result()).get('text', ''))
+        else: seen.append(json.loads(r.PartialResult()).get('partial', ''))
+    seen.append(json.loads(r.FinalResult()).get('text', ''))
+    return 'capri' in ' '.join(seen)
+hits = 0; named = 0; shits = 0; false = 0; sfalse = 0; quiet = 0
 for p in phrases:
     for speed in (130, 175):
         subprocess.run(['espeak-ng', '-v', voice, '-s', str(speed), '-w', '/tmp/p.wav', p], check=True)
@@ -31,6 +50,8 @@ for p in phrases:
         text = ' '.join(t for t in out if t).strip()
         has = bool(NAME.search(plain(text)))
         want = 'capri' in p.lower()
-        named += want; hits += (has and want)
-        print(f"[{lang} {speed}] «{p}» -> «{text}» name={'yes' if has else 'NO'}")
-print(f"RESULT {lang}: her name found {hits}/{named}")
+        sp = spot('/tmp/p16.wav')
+        named += want; hits += (has and want); shits += (sp and want)
+        quiet += (not want); false += (has and not want); sfalse += (sp and not want)
+        print(f"[{lang} {speed}] «{p}» -> «{text}» name={'yes' if has else 'NO'} spotter={'yes' if sp else 'NO'}")
+print(f"RESULT {lang}: her name found {hits}/{named} (false {false}/{quiet}); spotter {shits}/{named} (false {sfalse}/{quiet})")
