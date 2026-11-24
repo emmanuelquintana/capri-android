@@ -1,5 +1,7 @@
 [
  {"id": "pt-1", "lang": "pt", "voice": "ef34c7a806b943a8bca49860c4549b4e", "text": "Oi, eu sou a Capri. Vamos criar sua chave do Fish Audio e ativar minha voz no Windows e no Android."},
  {"id": "pt-2", "lang": "pt", "voice": "ef34c7a806b943a8bca49860c4549b4e", "text": "A Capri tem vírus? Veja como verificamos o nosso instalador para Android."},
- {"id": "es-1", "lang": "es", "voice": "0a56e85c27c6490caf07bf61d2a229f0", "text": "¡Hey! Soy Capri. Te enseño a crear tu clave de Fish Audio y activar mi voz en Windows y Android."}
+ {"id": "web-es", "lang": "es", "voice": "0a56e85c27c6490caf07bf61d2a229f0", "text": "¡Hola! Soy Capri. Ahora te hablo con mi voz de verdad, mientras todavía escribo mi respuesta. Dime «Oye Capri» y aquí estoy."},
+ {"id": "web-en", "lang": "en", "voice": "92028b1fbc0348d09ad2d1f4132638b5", "text": "Hi! I'm Capri. Now I talk to you in my real voice, while I'm still writing my answer. Just say \"Hey Capri\" and I'm here."},
+ {"id": "web-pt", "lang": "pt", "voice": "ef34c7a806b943a8bca49860c4549b4e", "text": "Oi! Eu sou a Capri. Agora falo com você com a minha voz de verdade, enquanto ainda escrevo a resposta. É só dizer «Ei Capri» e eu apareço."}
 ]
