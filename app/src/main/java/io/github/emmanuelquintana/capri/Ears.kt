@@ -1091,7 +1091,7 @@ class Ears(private val service: CapriService) {
 
         /** What her ears are doing, for the app's Settings: "", listening, heard, other, busy, media, nomic, screenoff, error:N */
         @Volatile var status = ""
-            private set
+            internal set // (1.12.0: her passive ears say "silenced" too, WakeWord.kt)
         @Volatile var heardLast = ""
             private set
 
