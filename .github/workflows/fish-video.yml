@@ -1,0 +1,20 @@
+name: Voz de Fish para videos
+
+on:
+  push:
+    branches: [claude/project-thread-lyrxca]
+    paths: ['tools/fishvid/**', '.github/workflows/fish-video.yml']
+
+jobs:
+  voz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - env:
+          FISH_API_KEY: ${{ secrets.FISH_API_KEY }}
+        run: python3 tools/fishvid/say.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: voz-fish-video
+          path: out
