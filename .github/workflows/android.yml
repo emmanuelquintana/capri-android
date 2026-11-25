@@ -123,6 +123,16 @@ jobs:
             unzip -l Capri-Android-*.apk | grep -q " lib/$abi/libvosk.so" || { echo "::error::falta libvosk.so en lib/$abi"; exit 1; }
           done
 
+      # (1.12.4) "el paquete parece no ser válido": the APK whole, its libraries compressed (as every phone's
+      # installer knows them) and its size, so a jump like 1.12.0's (42 → 87 MB) is seen
+      - name: Check the APK is whole and light
+        run: |
+          unzip -tq Capri-Android-*.apk
+          if unzip -v Capri-Android-*.apk | grep -E " lib/.*\.so$" | grep -q " Stored "; then
+            echo "::error::hay librerías sin comprimir en el APK"; exit 1
+          fi
+          echo "Tamaño del APK: $(( $(stat -c%s Capri-Android-*.apk) / 1048576 )) MB"
+
       # (1.12.0) the small speech models her passive ears download (WakeWord.Models): each address still answers
       - name: Check the passive ears' models are reachable
         continue-on-error: true

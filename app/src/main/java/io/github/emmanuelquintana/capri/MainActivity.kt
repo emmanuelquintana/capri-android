@@ -2752,7 +2752,7 @@ class MainActivity : Activity() {
     /** Download it and hand it to Android's installer (after letting Capri install apps, once). */
     private fun update() {
         val r = release ?: return
-        if (downloading) return
+        if (downloading || Updater.downloading) return
         if (!packageManager.canRequestPackageInstalls()) {
             Toast.makeText(this, R.string.update_allow, Toast.LENGTH_LONG).show()
             startActivity(Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:$packageName")))
