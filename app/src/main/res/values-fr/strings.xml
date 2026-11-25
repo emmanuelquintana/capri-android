@@ -841,4 +841,7 @@
     <string name="voice_src_local">Locale</string>
     <string name="voice_src_clip">Phrase enregistrée</string>
     <string name="voice_src_system">Voix du téléphone</string>
+    <string name="account_delete">Supprimer le compte</string>
+    <string name="account_delete_sure">Supprimer ton compte et tout ce qui y est enregistré (mémoire, réglages, cours, chat) ? C’est définitif. Ce qui est sur ce téléphone reste.</string>
+    <string name="account_deleted">Compte supprimé.</string>
 </resources>

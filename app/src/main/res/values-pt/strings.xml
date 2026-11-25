@@ -841,4 +841,7 @@
     <string name="voice_src_local">Local</string>
     <string name="voice_src_clip">Frase gravada</string>
     <string name="voice_src_system">Voz do celular</string>
+    <string name="account_delete">Excluir conta</string>
+    <string name="account_delete_sure">Excluir sua conta e tudo o que está salvo nela (memória, ajustes, aulas, chat)? Não dá para desfazer. O que está neste celular fica.</string>
+    <string name="account_deleted">Conta excluída.</string>
 </resources>

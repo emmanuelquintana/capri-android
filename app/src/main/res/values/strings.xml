@@ -842,4 +842,7 @@
     <string name="voice_src_local">Local</string>
     <string name="voice_src_clip">Recorded phrase</string>
     <string name="voice_src_system">Phone voice</string>
+    <string name="account_delete">Delete account</string>
+    <string name="account_delete_sure">Delete your account and everything saved in it (memory, settings, classes, chat)? This can’t be undone. What’s on this phone stays.</string>
+    <string name="account_deleted">Account deleted.</string>
 </resources>

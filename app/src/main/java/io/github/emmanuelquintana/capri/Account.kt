@@ -102,6 +102,27 @@ object Account {
         prefs(c).edit().clear().apply()
     }
 
+    /** (Google Play: an account made in the app can be deleted from the app) Erases the cloud copy and the
+     *  account itself, then signs out. Blocking. Google may ask to sign in again first (account_err_again). */
+    fun delete(c: Context) {
+        val id = token(c)
+        val conn = URL(docUrl(c)).openConnection() as HttpURLConnection
+        conn.setRequestProperty("Authorization", "Bearer $id")
+        try {
+            send(conn, "DELETE", null, null)
+        } catch (f: Failed) {
+            if (f.why != R.string.account_err_none) throw f
+        }
+        try {
+            post("$AUTH:delete?key=$KEY", JSONObject().put("idToken", id))
+        } catch (f: Failed) {
+            // (Firebase wants a recent sign-in to delete: the copy is already gone, sign in again to finish)
+            signOut(c); throw f
+        }
+        signOut(c)
+        Diag.add("I", "account: deleted")
+    }
+
     private fun keep(c: Context, r: JSONObject) {
         val uid = r.optString("localId").ifEmpty { throw Failed(R.string.account_err_other) }
         prefs(c).edit()
@@ -301,7 +322,7 @@ object Account {
                 msg.startsWith("INVALID_EMAIL") || msg.startsWith("MISSING_EMAIL") -> R.string.account_err_email
                 msg.startsWith("TOO_MANY") -> R.string.account_err_many
                 msg.startsWith("EMAIL_NOT_FOUND") || msg.startsWith("INVALID_PASSWORD") || msg.startsWith("INVALID_LOGIN") || msg.startsWith("MISSING_PASSWORD") -> R.string.account_err_wrong
-                msg.startsWith("TOKEN_EXPIRED") || msg.startsWith("USER_") || msg.startsWith("INVALID_REFRESH") || code == 401 || code == 403 -> R.string.account_err_again
+                msg.startsWith("TOKEN_EXPIRED") || msg.startsWith("CREDENTIAL_TOO_OLD") || msg.startsWith("USER_") || msg.startsWith("INVALID_REFRESH") || code == 401 || code == 403 -> R.string.account_err_again
                 else -> R.string.account_err_other
             })
         } catch (f: Failed) {

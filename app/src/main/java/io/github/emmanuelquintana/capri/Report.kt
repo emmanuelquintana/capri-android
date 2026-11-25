@@ -42,12 +42,12 @@ object Report {
         send(context, about, JSONObject().put("kind", "skin").put("image", android.util.Base64.encodeToString(png, android.util.Base64.NO_WRAP)), done = done)
 
     /** Sends it in the background; [done] gets "ok", "rate", "off", "bad" or "net", on the main thread. */
-    fun send(context: Context, text: String, extra: JSONObject? = null, fullLog: String? = null, done: (String) -> Unit) {
+    fun send(context: Context, text: String, extra: JSONObject? = null, fullLog: String? = null, withLog: Boolean = true, done: (String) -> Unit) {
         val app = context.applicationContext
         val main = android.os.Handler(android.os.Looper.getMainLooper())
         Threads.make {
             val result = runCatching {
-                val log = (fullLog ?: clean(app, Diag.saved().joinToString("\n"))).takeLast(MAX_LOG)
+                val log = if (!withLog) "" else (fullLog ?: clean(app, Diag.saved().joinToString("\n"))).takeLast(MAX_LOG)
                 val body = JSONObject()
                     .put("app", "android")
                     .put("v", Beta.base)
@@ -58,7 +58,7 @@ object Report {
                     .put("log", if (extra != null) "" else log)
                 app.getSharedPreferences("app", Context.MODE_PRIVATE).getString("statsId", null)?.let { body.put("id", it) }
                 // her last unexpected close, if there was one: shown apart in the report
-                Diag.saved().lastOrNull { " crash in " in it }?.let { body.put("stack", clean(app, it).take(1800)) }
+                if (withLog) Diag.saved().lastOrNull { " crash in " in it }?.let { body.put("stack", clean(app, it).take(1800)) }
                 extra?.keys()?.forEach { body.put(it, extra.get(it)) }
                 val conn = (URL(URL_REPORT).openConnection() as HttpURLConnection).apply {
                     requestMethod = "POST"
