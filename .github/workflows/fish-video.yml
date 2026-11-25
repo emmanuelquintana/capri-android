@@ -4,7 +4,7 @@ name: Voz de Fish para videos
 # corrida de «Capturas de la app» (tools/fishvid/shots.txt: id de la corrida). Lo deja en la rama (fishvid-out/).
 on:
   push:
-    branches: [claude/project-thread-lyrxca, claude/project-thread-9yal52]
+    branches: [claude/project-thread-rg8mnj]
     paths: ['tools/fishvid/**', '.github/workflows/fish-video.yml']
 
 permissions:
