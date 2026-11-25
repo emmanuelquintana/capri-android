@@ -2,6 +2,12 @@
 
 Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt: ứng dụng hiển thị nó khi đang ở tiếng Việt.
 
+## 1.12.4
+
+- **🛠️ Lỗi đã sửa**
+- **Cài được trên nhiều điện thoại hơn:** đã sửa thông báo «Chưa cài đặt ứng dụng vì gói có vẻ không hợp lệ». Tệp của Capri giờ chỉ khoảng 55 MB thay vì 87, nên tải nhanh hơn và khó bị đứt giữa chừng hơn.
+- **Cập nhật từ ứng dụng:** nếu mạng bị ngắt giữa chừng, việc tải sẽ tiếp tục từ chỗ đã dừng, và Capri kiểm tra tệp đã đầy đủ trước khi mở trình cài đặt. Không còn tải hai lần cùng lúc.
+
 ## 1.12.3
 
 - **✨ Có gì mới**

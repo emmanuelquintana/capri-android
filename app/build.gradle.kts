@@ -13,8 +13,8 @@ android {
         targetSdk = 35
         // Capri Android's own numbering (MAJOR.MINOR.PATCH), not the desktop's;
         // versionCode = MAJOR*10000 + MINOR*100 + PATCH, always above the old 5xx builds
-        versionCode = 11203
-        versionName = "1.12.3"
+        versionCode = 11204
+        versionName = "1.12.4"
         // Emma's beta channel (.github/workflows/beta.yml, Beta.kt): -PcapriBeta=N makes "<version>-beta.N",
         // same versionCode, so the release of that version later installs over it
         (project.findProperty("capriBeta") as String?)?.let { versionName += "-beta.$it" }
@@ -71,6 +71,9 @@ android {
     packaging {
         // (1.12.2) JNA's libraries for chips no Android 8+ phone has: 400 KB less to install
         jniLibs.excludes += listOf("lib/armeabi/**", "lib/mips/**", "lib/mips64/**")
+        // (1.12.4) "el paquete parece no ser válido" on many phones: her libraries compressed again, as every
+        // installer knows them (the APK goes from 87 to about 55 MB, less to download and less to cut short)
+        jniLibs.useLegacyPackaging = true
     }
 
     androidResources {

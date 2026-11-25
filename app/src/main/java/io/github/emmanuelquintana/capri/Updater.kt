@@ -114,46 +114,103 @@ object Updater {
         return Regex("\\d+").findAll(base).map { it.value.toLong() }.toList() to (m?.groupValues?.get(2)?.toLongOrNull() ?: Long.MAX_VALUE)
     }
 
-    /** The APK into the app's cache, with how far along it is (0..1). */
+    private val busy = java.util.concurrent.atomic.AtomicBoolean(false)
+
+    /** (1.12.4) An update is downloading right now (one at a time, whichever screen asked). */
+    val downloading: Boolean get() = busy.get()
+
+    /**
+     * The APK into the app's cache, with how far along it is (0..1).
+     *
+     * (1.12.4) "No se instaló: el paquete parece no ser válido": a download cut short by the phone's
+     * connection used to reach the installer as if it were whole, and a second download could write
+     * over the file the installer was still reading. Now: one download at a time, picked up where it
+     * was cut (up to [TRIES] times), its size checked against the release's, opened to check it really
+     * is Capri, and only then put where the installer reads it (a rename, never half-written).
+     */
     fun download(context: Context, release: Release, progress: (Float) -> Unit): File {
-        val dir = File(context.cacheDir, "updates").apply { mkdirs() }
-        dir.listFiles()?.forEach { it.delete() }
-        val file = File(dir, "capri.apk")
-        // a beta arrives sealed: into its own file first, opened (and checked) into capri.apk at the end
-        val target = if (release.beta) File(dir, "sealed.bin") else file
-        var conn = URL(release.apk).openConnection() as HttpURLConnection
-        conn.setRequestProperty("User-Agent", "Capri-Android")
-        conn.instanceFollowRedirects = true
-        conn.connectTimeout = 15000
-        conn.readTimeout = 30000
-        // GitHub sends the file from another host: follow it by hand if Java doesn't (https to https is fine)
-        var hops = 0
-        while (conn.responseCode in 300..399 && hops++ < 5) {
-            val next = conn.getHeaderField("Location") ?: break
-            conn.disconnect()
-            conn = URL(next).openConnection() as HttpURLConnection
-            conn.setRequestProperty("User-Agent", "Capri-Android")
-        }
-        if (conn.responseCode != 200) throw IllegalStateException("HTTP ${conn.responseCode}")
-        val total = conn.contentLengthLong.takeIf { it > 0 } ?: release.size
-        conn.inputStream.use { input ->
-            target.outputStream().use { out ->
-                val buf = ByteArray(64 * 1024)
-                var done = 0L
-                while (true) {
-                    val n = input.read(buf)
-                    if (n < 0) break
-                    out.write(buf, 0, n)
-                    done += n
-                    if (total > 0) progress(done.toFloat() / total)
+        if (!busy.compareAndSet(false, true)) throw IllegalStateException("already downloading")
+        try {
+            val dir = File(context.cacheDir, "updates").apply { mkdirs() }
+            dir.listFiles()?.forEach { it.delete() }
+            val file = File(dir, "capri.apk")
+            val part = File(dir, "capri.part")
+            var expected = release.size
+            var last: Exception? = null
+            for (attempt in 1..TRIES) {
+                try {
+                    val have = part.length()
+                    val conn = open(release.apk, have)
+                    val append = have > 0 && conn.responseCode == 206
+                    if (conn.responseCode == 416 && have > 0 && have == expected) { conn.disconnect(); break }
+                    if (conn.responseCode != 200 && conn.responseCode != 206) throw IllegalStateException("HTTP ${conn.responseCode}")
+                    val length = conn.contentLengthLong
+                    val whole = if (append) have + length else length
+                    if (expected <= 0 && length > 0) expected = whole
+                    conn.inputStream.use { input ->
+                        java.io.FileOutputStream(part, append).use { out ->
+                            val buf = ByteArray(64 * 1024)
+                            var done = if (append) have else 0L
+                            while (true) {
+                                val n = input.read(buf)
+                                if (n < 0) break
+                                out.write(buf, 0, n)
+                                done += n
+                                if (expected > 0) progress((done.toFloat() / expected).coerceAtMost(1f))
+                            }
+                            out.fd.sync()
+                        }
+                    }
+                    if (expected <= 0 || part.length() == expected) break
+                    last = java.io.IOException("cut at ${part.length()} of $expected")
+                } catch (e: Exception) {
+                    last = e
                 }
+                if (part.length() > expected && expected > 0) part.delete() // not this file: start over
+                Diag.add("W", "update download, try $attempt: ${last?.message}")
+                if (attempt < TRIES) Thread.sleep(2000L * attempt)
             }
+            if (expected > 0 && part.length() != expected) throw last ?: java.io.IOException("incomplete download")
+            val ready = File(dir, "capri.tmp")
+            // a beta arrives sealed: opened (and checked) into the APK
+            if (release.beta) Beta.unseal(context, part, ready) else if (!part.renameTo(ready)) throw java.io.IOException("rename")
+            part.delete()
+            check(context, ready)
+            if (!ready.renameTo(file)) throw java.io.IOException("rename")
+            return file
+        } finally {
+            busy.set(false)
         }
-        if (release.beta) {
-            Beta.unseal(context, target, file)
-            target.delete()
+    }
+
+    private const val TRIES = 4
+
+    /** GitHub sends the file from another host: each hop by hand, so the resume range and the timeouts go along. */
+    private fun open(url: String, from: Long): HttpURLConnection {
+        var next = url
+        var hops = 0
+        while (true) {
+            val conn = URL(next).openConnection() as HttpURLConnection
+            conn.setRequestProperty("User-Agent", "Capri-Android")
+            conn.instanceFollowRedirects = false
+            conn.connectTimeout = 15000
+            conn.readTimeout = 30000
+            if (from > 0) conn.setRequestProperty("Range", "bytes=$from-")
+            if (conn.responseCode !in 300..399 || hops++ >= 5) return conn
+            next = conn.getHeaderField("Location") ?: return conn
+            conn.disconnect()
         }
-        return file
+    }
+
+    /** The downloaded file really is an APK of this app, whole, before the installer sees it. */
+    private fun check(context: Context, apk: File) {
+        // a zip whose index (at its very end) reads: a cut file fails here
+        java.util.zip.ZipFile(apk).use { zip ->
+            if (zip.getEntry("AndroidManifest.xml") == null) throw java.io.IOException("not an APK")
+        }
+        @Suppress("DEPRECATION")
+        val info = context.packageManager.getPackageArchiveInfo(apk.path, 0) ?: throw java.io.IOException("APK unreadable")
+        if (info.packageName != context.packageName) throw java.io.IOException("another app: ${info.packageName}")
     }
 
     /**

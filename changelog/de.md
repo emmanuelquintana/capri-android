@@ -2,6 +2,12 @@
 
 Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt es, wenn sie auf Deutsch ist.
 
+## 1.12.4
+
+- **🛠️ Behobene Fehler**
+- **Lässt sich auf mehr Handys installieren:** die Meldung „App nicht installiert, da das Paket ungültig zu sein scheint“ ist behoben. Capris Datei ist jetzt etwa 55 MB statt 87 groß, lädt also schneller und kommt seltener abgeschnitten an.
+- **Aktualisieren in der App:** bricht das Internet mittendrin ab, lädt der Download dort weiter, wo er aufgehört hat, und Capri prüft vor dem Öffnen des Installers, ob die Datei vollständig ist. Es wird nicht mehr doppelt gleichzeitig geladen.
+
 ## 1.12.3
 
 - **✨ Neu**

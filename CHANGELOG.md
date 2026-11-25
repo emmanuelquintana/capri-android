@@ -3,6 +3,12 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.12.4
+
+- **🛠️ Errores corregidos**
+- **Se instala en más teléfonos:** arreglado el aviso «No se instaló la app porque el paquete parece no ser válido». El archivo de Capri ahora pesa unos 55 MB en vez de 87, así que se descarga más rápido y es más difícil que llegue cortado.
+- **Actualizar desde la app:** si el internet se corta a medio camino, la descarga sigue donde se quedó, y Capri revisa que el archivo esté completo antes de abrir el instalador. Ya no se descarga dos veces a la vez.
+
 ## 1.12.3
 
 - **✨ Novedades**

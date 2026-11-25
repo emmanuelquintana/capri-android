@@ -2,6 +2,12 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.12.4
+
+- **🛠️ Bugs fixed**
+- **Installs on more phones:** fixed the “App not installed as package appears to be invalid” message. Capri’s file is now about 55 MB instead of 87, so it downloads faster and is less likely to arrive cut short.
+- **Updating from the app:** if the internet drops halfway, the download picks up where it left off, and Capri checks the file is complete before opening the installer. It no longer downloads twice at once.
+
 ## 1.12.3
 
 - **✨ What's new**
