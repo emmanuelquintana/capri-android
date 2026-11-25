@@ -68,6 +68,7 @@
     <string name="ai_key_hint">Pega tu clave (o varias, separadas por comas)</string>
     <string name="ai_paste">Pegar clave</string>
     <string name="ai_paste_none">No hay nada copiado.</string>
+    <string name="paste">Pegar</string>
     <string name="ai_get_key">Conseguir clave</string>
     <string name="ai_ip_hint">IP del PC, ej. 192.168.1.20</string>
     <string name="ai_use">Usar esta</string>

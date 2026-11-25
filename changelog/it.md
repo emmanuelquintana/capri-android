@@ -2,6 +2,11 @@
 
 Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mostra quando è in italiano.
 
+## 1.12.3
+
+- **✨ Novità**
+- **Pulsante «Incolla»:** dove inserisci una chiave (la tua IA, Fish Audio) o l’ID di una voce ora c’è un pulsante «Incolla» accanto che mette ciò che hai copiato con un tocco.
+
 ## 1.12.2
 
 - **🛠️ Bug corretti**

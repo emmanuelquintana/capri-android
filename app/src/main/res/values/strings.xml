@@ -70,6 +70,7 @@
     <string name="ai_key_hint">Paste your key (or several, separated by commas)</string>
     <string name="ai_paste">Paste key</string>
     <string name="ai_paste_none">Nothing copied.</string>
+    <string name="paste">Paste</string>
     <string name="ai_get_key">Get a key</string>
     <string name="ai_ip_hint">PC’s IP, e.g. 192.168.1.20</string>
     <string name="ai_use">Use this one</string>

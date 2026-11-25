@@ -250,6 +250,12 @@ adb shell pm grant $PKG android.permission.RECORD_AUDIO
 adb shell am start -n $PKG/.MainActivity --ei tab 6 --es sub voice # straight to Ajustes › Ajustes de voz
 sleep 4
 shot 23v-voice-screen 2
+# 1.12.3: Fish Audio's key box, with «Pegar» beside the line
+tapdown "poner mi clave" 8
+shot 23v2-fish-key 2
+adb shell input keyevent KEYCODE_BACK; sleep 1
+adb shell am start -n $PKG/.MainActivity --ei tab 6 --es sub voice
+sleep 3
 adb shell input swipe 500 1800 500 700 300
 shot 23w-voice-engines 2
 adb shell input swipe 500 1800 500 700 300

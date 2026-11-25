@@ -2,6 +2,11 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.12.3
+
+- **✨ Novidades**
+- **Botão “Colar”:** onde você coloca uma chave (sua IA, Fish Audio) ou o ID de uma voz agora há um botão “Colar” ao lado que põe o que você copiou com um toque.
+
 ## 1.12.2
 
 - **🛠️ Erros corrigidos**

@@ -3,6 +3,11 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.12.3
+
+- **✨ Novedades**
+- **Botón «Pegar»:** donde pones una clave (tu IA, Fish Audio) o el ID de una voz ahora hay un botón «Pegar» al lado que mete lo que copiaste de un toque.
+
 ## 1.12.2
 
 - **🛠️ Errores corregidos**

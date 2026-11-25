@@ -1615,7 +1615,7 @@ class MainActivity : Activity() {
     private fun fishKeyDialog(done: () -> Unit) {
         val box = ui.col().apply { setPadding(ui.dpi(20), ui.dpi(8), ui.dpi(20), 0) }
         val key = ui.field(getString(R.string.fish_key_hint), secret = true)
-        box.addView(key, ui.block(4))
+        box.addView(ui.withPaste(key), ui.block(4))
         android.app.AlertDialog.Builder(this).setTitle(R.string.fish_key).setView(box)
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 Toast.makeText(this, R.string.account_working, Toast.LENGTH_SHORT).show()
@@ -1641,7 +1641,7 @@ class MainActivity : Activity() {
         val box = ui.col().apply { setPadding(ui.dpi(20), ui.dpi(8), ui.dpi(20), 0) }
         box.addView(ui.text(getString(R.string.fish_voice_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         val id = ui.field(getString(R.string.fish_voice_hint)).apply { setText(FishVoice.customVoice(this@MainActivity)) }
-        box.addView(id, ui.block(8))
+        box.addView(ui.withPaste(id), ui.block(8))
         android.app.AlertDialog.Builder(this).setTitle(R.string.fish_voice).setView(box)
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 // (a link to the voice works too: its id is the last part)

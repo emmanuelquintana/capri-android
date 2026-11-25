@@ -122,6 +122,28 @@ class Ui(private val a: Activity) {
         setPadding(dpi(4), dpi(10), dpi(4), dpi(12))
     }
 
+    /**
+     * (1.12.3, Emma: "que en todos los lados donde ingrese keys o id de modelos tenga el botón de pegar")
+     * the line and a «Pegar» beside it: what you copied goes straight in (some keyboards make a long
+     * key hard to paste). Spaces and line breaks a copy drags along are dropped: keys and ids have none.
+     */
+    fun withPaste(field: EditText): View = row().apply {
+        addView(field, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+        addView(button(a.getString(R.string.paste), Kind.LINE) {
+            val text = clipboard().replace(Regex("\\s+"), "")
+            if (text.isEmpty()) android.widget.Toast.makeText(a, R.string.ai_paste_none, android.widget.Toast.LENGTH_SHORT).show()
+            else {
+                field.setText(text)
+                field.setSelection(text.length)
+            }
+        }, LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply { leftMargin = dpi(8) })
+    }
+
+    private fun clipboard(): String = runCatching {
+        val clip = a.getSystemService(android.content.ClipboardManager::class.java)?.primaryClip
+        clip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(a)?.toString()
+    }.getOrNull().orEmpty()
+
     private inner class Underline : Drawable() {
         private val p = Paint().apply { color = Hud.YELLOW }
         override fun draw(c: Canvas) {

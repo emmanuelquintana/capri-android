@@ -68,6 +68,7 @@
     <string name="ai_key_hint">キーを貼り付け(複数ならカンマ区切り)</string>
     <string name="ai_paste">キーを貼り付け</string>
     <string name="ai_paste_none">何もコピーされていません。</string>
+    <string name="paste">貼り付け</string>
     <string name="ai_get_key">キーを取得</string>
     <string name="ai_ip_hint">PCのIP、例：192.168.1.20</string>
     <string name="ai_use">これを使う</string>
