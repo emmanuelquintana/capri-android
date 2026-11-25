@@ -848,4 +848,7 @@
     <string name="voice_src_local">Локальный</string>
     <string name="voice_src_clip">Записанная фраза</string>
     <string name="voice_src_system">Голос телефона</string>
+    <string name="account_delete">Удалить аккаунт</string>
+    <string name="account_delete_sure">Удалить аккаунт и всё, что в нём сохранено (память, настройки, занятия, чат)? Это нельзя отменить. То, что на этом телефоне, останется.</string>
+    <string name="account_deleted">Аккаунт удалён.</string>
 </resources>

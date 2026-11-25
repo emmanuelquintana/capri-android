@@ -841,4 +841,7 @@
     <string name="voice_src_local">Local</string>
     <string name="voice_src_clip">Frase grabada</string>
     <string name="voice_src_system">Voz del teléfono</string>
+    <string name="account_delete">Eliminar cuenta</string>
+    <string name="account_delete_sure">¿Eliminar tu cuenta y todo lo guardado en ella (memoria, ajustes, clases, chat)? No se puede deshacer. Lo que hay en este teléfono se queda.</string>
+    <string name="account_deleted">Cuenta eliminada.</string>
 </resources>

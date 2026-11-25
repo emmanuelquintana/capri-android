@@ -826,4 +826,7 @@
     <string name="voice_src_local">Cục bộ</string>
     <string name="voice_src_clip">Câu thu sẵn</string>
     <string name="voice_src_system">Giọng điện thoại</string>
+    <string name="account_delete">Xóa tài khoản</string>
+    <string name="account_delete_sure">Xóa tài khoản và mọi thứ đã lưu trong đó (ký ức, cài đặt, lớp học, chat)? Không thể hoàn tác. Dữ liệu trên điện thoại này vẫn giữ nguyên.</string>
+    <string name="account_deleted">Đã xóa tài khoản.</string>
 </resources>

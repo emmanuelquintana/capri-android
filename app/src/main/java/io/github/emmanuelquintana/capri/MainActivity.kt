@@ -894,7 +894,16 @@ class MainActivity : Activity() {
                 .setPositiveButton(R.string.account_out) { _, _ -> Account.signOut(this@MainActivity); accountDraw() }
                 .setNegativeButton(android.R.string.cancel, null).show()
         }
-        listOf(google, mail, save, bring, out).forEach { addView(it, ui.block(8)) }
+        // (Google Play: the account can be deleted from the app, with everything saved in it)
+        val erase = ui.button(getString(R.string.account_delete), Ui.Kind.LINE) {
+            android.app.AlertDialog.Builder(this@MainActivity).setMessage(R.string.account_delete_sure)
+                .setPositiveButton(R.string.account_delete) { _, _ ->
+                    say(R.string.account_working)
+                    inBackground({ Account.delete(this@MainActivity) }) { say(R.string.account_deleted); accountDraw() }
+                }
+                .setNegativeButton(android.R.string.cancel, null).show()
+        }
+        listOf(google, mail, save, bring, out, erase).forEach { addView(it, ui.block(8)) }
         accountDraw = {
             val inside = Account.signedIn(this@MainActivity)
             val at = Account.lastSaved(this@MainActivity)
@@ -902,7 +911,7 @@ class MainActivity : Activity() {
                 (if (at > 0) getString(R.string.account_saved, android.text.format.DateUtils.getRelativeTimeSpanString(at)) else getString(R.string.account_never))
             google.visibility = if (inside) View.GONE else View.VISIBLE
             mail.visibility = google.visibility
-            listOf(save, bring, out).forEach { it.visibility = if (inside) View.VISIBLE else View.GONE }
+            listOf(save, bring, out, erase).forEach { it.visibility = if (inside) View.VISIBLE else View.GONE }
         }
         accountDraw()
         choices.add { accountDraw() }

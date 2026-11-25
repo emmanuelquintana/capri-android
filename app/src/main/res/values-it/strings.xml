@@ -830,4 +830,7 @@
     <string name="voice_src_local">Locale</string>
     <string name="voice_src_clip">Frase registrata</string>
     <string name="voice_src_system">Voce del telefono</string>
+    <string name="account_delete">Elimina account</string>
+    <string name="account_delete_sure">Eliminare il tuo account e tutto ciò che vi è salvato (memoria, impostazioni, lezioni, chat)? Non si può annullare. Quello che c’è su questo telefono resta.</string>
+    <string name="account_deleted">Account eliminato.</string>
 </resources>

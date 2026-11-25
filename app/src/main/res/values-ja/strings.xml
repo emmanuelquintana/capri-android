@@ -826,4 +826,7 @@
     <string name="voice_src_local">ローカル</string>
     <string name="voice_src_clip">録音フレーズ</string>
     <string name="voice_src_system">端末の声</string>
+    <string name="account_delete">アカウントを削除</string>
+    <string name="account_delete_sure">アカウントと保存されたすべて（記憶、設定、授業、チャット）を削除しますか？元に戻せません。このスマホにあるものは残ります。</string>
+    <string name="account_deleted">アカウントを削除しました。</string>
 </resources>

@@ -830,4 +830,7 @@
     <string name="voice_src_local">Lokal</string>
     <string name="voice_src_clip">Aufgenommener Satz</string>
     <string name="voice_src_system">Handystimme</string>
+    <string name="account_delete">Konto löschen</string>
+    <string name="account_delete_sure">Dein Konto und alles darin Gespeicherte (Erinnerungen, Einstellungen, Kurse, Chat) löschen? Das kann nicht rückgängig gemacht werden. Was auf diesem Handy ist, bleibt.</string>
+    <string name="account_deleted">Konto gelöscht.</string>
 </resources>
