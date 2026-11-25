@@ -68,6 +68,7 @@
     <string name="ai_key_hint">Dán khóa của bạn (hoặc nhiều khóa, cách nhau bằng dấu phẩy)</string>
     <string name="ai_paste">Dán khóa</string>
     <string name="ai_paste_none">Chưa sao chép gì.</string>
+    <string name="paste">Dán</string>
     <string name="ai_get_key">Lấy khóa</string>
     <string name="ai_ip_hint">IP của PC, ví dụ 192.168.1.20</string>
     <string name="ai_use">Dùng cái này</string>

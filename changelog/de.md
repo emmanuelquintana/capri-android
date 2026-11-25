@@ -2,6 +2,11 @@
 
 Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt es, wenn sie auf Deutsch ist.
 
+## 1.12.3
+
+- **✨ Neu**
+- **„Einfügen“-Knopf:** Überall, wo du einen Schlüssel (deine KI, Fish Audio) oder eine Stimmen-ID eingibst, gibt es jetzt daneben einen „Einfügen“-Knopf, der das Kopierte mit einem Tipp einsetzt.
+
 ## 1.12.2
 
 - **🛠️ Behobene Fehler**

@@ -68,6 +68,7 @@
     <string name="ai_key_hint">Colle ta clé (ou plusieurs, séparées par des virgules)</string>
     <string name="ai_paste">Coller la clé</string>
     <string name="ai_paste_none">Rien de copié.</string>
+    <string name="paste">Coller</string>
     <string name="ai_get_key">Obtenir une clé</string>
     <string name="ai_ip_hint">IP du PC, ex. 192.168.1.20</string>
     <string name="ai_use">Utiliser celle-ci</string>

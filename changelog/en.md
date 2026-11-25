@@ -2,6 +2,11 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.12.3
+
+- **✨ What's new**
+- **“Paste” button:** wherever you enter a key (your AI, Fish Audio) or a voice ID there is now a “Paste” button beside it that puts in what you copied with one tap.
+
 ## 1.12.2
 
 - **🛠️ Bugs fixed**

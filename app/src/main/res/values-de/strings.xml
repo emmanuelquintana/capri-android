@@ -68,6 +68,7 @@
     <string name="ai_key_hint">Schlüssel einfügen (oder mehrere, durch Kommas getrennt)</string>
     <string name="ai_paste">Schlüssel einfügen</string>
     <string name="ai_paste_none">Nichts kopiert.</string>
+    <string name="paste">Einfügen</string>
     <string name="ai_get_key">Schlüssel holen</string>
     <string name="ai_ip_hint">IP des PCs, z. B. 192.168.1.20</string>
     <string name="ai_use">Diese benutzen</string>

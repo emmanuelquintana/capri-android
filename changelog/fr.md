@@ -2,6 +2,11 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.12.3
+
+- **✨ Nouveautés**
+- **Bouton « Coller » :** partout où tu entres une clé (ton IA, Fish Audio) ou l’ID d’une voix, un bouton « Coller » juste à côté met ce que tu as copié en un toucher.
+
 ## 1.12.2
 
 - **🛠️ Bugs corrigés**

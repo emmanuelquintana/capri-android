@@ -2,6 +2,11 @@
 
 Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt: ứng dụng hiển thị nó khi đang ở tiếng Việt.
 
+## 1.12.3
+
+- **✨ Có gì mới**
+- **Nút “Dán”:** ở mọi chỗ bạn nhập khóa (AI của bạn, Fish Audio) hay ID giọng, giờ có nút “Dán” bên cạnh để dán thứ bạn đã sao chép chỉ với một chạm.
+
 ## 1.12.2
 
 - **🛠️ Lỗi đã sửa**
