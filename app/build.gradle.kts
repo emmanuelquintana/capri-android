@@ -25,19 +25,21 @@ android {
     buildFeatures { buildConfig = true }
 
     // dos versiones: «github» (la de siempre: APK, se actualiza sola desde GitHub Releases) y «play»
-    // (Google Play: AAB, sin autoactualizador ni instalar APKs, sin accesibilidad ni Termux, API 36)
+    // (Google Play: AAB, sin autoactualizador ni instalar APKs, sin accesibilidad ni Termux, sin donar por PayPal, API 36)
     flavorDimensions += "store"
     productFlavors {
         create("github") {
             dimension = "store"
             buildConfigField("boolean", "SELF_UPDATE", "true")
             buildConfigField("boolean", "PEEK", "true")
+            buildConfigField("boolean", "DONATE", "true")
         }
         create("play") {
             dimension = "store"
             targetSdk = 36
             buildConfigField("boolean", "SELF_UPDATE", "false")
             buildConfigField("boolean", "PEEK", "false")
+            buildConfigField("boolean", "DONATE", "false")
         }
     }
 

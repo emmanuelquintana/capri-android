@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- La versión de Google Play: lo que la tienda no permite queda fuera de su manifiesto.
      Se actualiza desde Play (sin instalar APKs ni el aviso de versiones de GitHub), sin el servicio de
-     accesibilidad (asomarse al panel) y sin Termux. Apunta a Android 16 (API 36, en build.gradle.kts):
+     accesibilidad (asomarse al panel, usar el celular por ti) y sin Termux. Apunta a Android 16 (API 36, en build.gradle.kts):
      el botón atrás sigue funcionando como antes (onBackPressed). -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
@@ -16,5 +16,7 @@
     <application android:enableOnBackInvokedCallback="false">
         <receiver android:name=".Updater$InstallResult" tools:node="remove" />
         <service android:name=".PeekService" tools:node="remove" />
+        <service android:name=".ControlService" tools:node="remove" />
+        <provider android:name=".ApkProvider" tools:node="remove" />
     </application>
 </manifest>

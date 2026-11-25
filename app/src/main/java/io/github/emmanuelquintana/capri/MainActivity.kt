@@ -505,7 +505,8 @@ class MainActivity : Activity() {
         // Comunidad tab went here) and DONAR (1.11.0, Emma: "debajo del botón de iniciar Capri y Discord que
         // diga DONAR y abra el popup con el link de donar")
         addView(ui.button(getString(R.string.community_discord) + " ↗", Ui.Kind.LINE) { openLink(DISCORD) }, ui.block(10))
-        addView(ui.button("♥ " + getString(R.string.main_donate), Ui.Kind.GREEN) { showSupport(asked = true) }, ui.block(8))
+        // (no en la versión de Play: Google pide su propio sistema de pagos para donaciones)
+        if (BuildConfig.DONATE) addView(ui.button("♥ " + getString(R.string.main_donate), Ui.Kind.GREEN) { showSupport(asked = true) }, ui.block(8))
         // (1.12.0, Emma: "añade lo de seguir al tiktok al inicio abajo de donar")
         addView(ui.button(getString(R.string.community_tiktok) + " ↗", Ui.Kind.LINE) { openLink(TIKTOK) }, ui.block(8))
         // (1.12.0, Emma: "añade también mi Twitter")
@@ -1187,8 +1188,9 @@ class MainActivity : Activity() {
         }, ui.block(16))
 
         // (1.10.0) she uses your phone for you (ControlService.kt): only with Android's Accessibility,
-        // off unless you turn it on there; never in bank apps
-        addView(ui.card(Hud.GREEN).apply {
+        // off unless you turn it on there; never in bank apps (not in the Play version: its rules don't let an
+        // app use Accessibility to act on its own)
+        if (BuildConfig.PEEK) addView(ui.card(Hud.GREEN).apply {
             addView(ui.label(getString(R.string.control_title), Hud.GREEN))
             addView(ui.text(getString(R.string.control_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(6))
             addView(ui.text(getString(R.string.control_bank), 13f, Hud.YELLOW, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
@@ -2632,6 +2634,7 @@ class MainActivity : Activity() {
     // mostrar otra vez» y que no sea molesto"): never on the first days, at most once every two weeks, never
     // on top of an update, and gone for good with one tap (or once you've opened PayPal).
     private fun supportMaybe() {
+        if (!BuildConfig.DONATE) return
         val prefs = getSharedPreferences("app", MODE_PRIVATE)
         if (prefs.getBoolean("supportNever", false)) return
         val now = System.currentTimeMillis()
@@ -2671,7 +2674,7 @@ class MainActivity : Activity() {
 
     private fun showBeta() {
         if (!::betaBox.isInitialized) return
-        val unlocked = Beta.unlocked(this)
+        val unlocked = Updater.ENABLED && Beta.unlocked(this) // (Play: updates only from the store)
         betaBox.visibility = if (unlocked) View.VISIBLE else View.GONE
         if (!unlocked) return
         val on = Beta.on(this)

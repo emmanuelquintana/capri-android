@@ -98,7 +98,7 @@ jobs:
         run: |
           m=$(find app/build/intermediates -path '*playRelease*' -name AndroidManifest.xml | grep -i merged | head -1)
           echo "$m"; grep -E 'uses-permission|targetSdk' "$m"
-          if grep -E 'REQUEST_INSTALL_PACKAGES|com\.termux|PeekService|InstallResult' "$m"; then
+          if grep -E 'REQUEST_INSTALL_PACKAGES|com\.termux|PeekService|ControlService|ApkProvider|InstallResult' "$m"; then
             echo "::error::La versión de Play todavía trae algo que Google Play no acepta"; exit 1
           fi
 
