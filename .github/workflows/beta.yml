@@ -73,13 +73,13 @@ jobs:
 
       - name: Compilar
         if: steps.code.outputs.ok == 'true'
-        run: ./gradlew --no-daemon assembleRelease -PcapriBeta=${{ github.run_number }}
+        run: ./gradlew --no-daemon assembleGithubRelease -PcapriBeta=${{ github.run_number }}
 
       # signed with the release key, or it would never install over her Capri
       - name: Comprobar la firma
         if: steps.code.outputs.ok == 'true'
         run: |
-          APK=app/build/outputs/apk/release/app-release.apk
+          APK=app/build/outputs/apk/github/release/app-github-release.apk
           SIGNER=$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)apksigner
           "$SIGNER" verify --print-certs "$APK" | tee "$RUNNER_TEMP/certs.txt"
           grep -qi "SHA-256 digest: c37cc7ba099d709d278f644631bf001ca0b9c45d0f76dc8d9dfff134d17c7a51" "$RUNNER_TEMP/certs.txt" \
@@ -96,7 +96,7 @@ jobs:
           code=$(grep -o 'versionCode = [0-9]*' app/build.gradle.kts | grep -o '[0-9]*')
           OUT="$RUNNER_TEMP/beta"
           mkdir -p "$OUT"
-          python3 tools/beta/seal.py app/build/outputs/apk/release/app-release.apk "$OUT/a.bin"
+          python3 tools/beta/seal.py app/build/outputs/apk/github/release/app-github-release.apk "$OUT/a.bin"
           python3 - "$base" "$code" "$RUN" "$OUT" <<'PY'
           import json, os, re, subprocess, sys
           base, code, run, out = sys.argv[1:]
@@ -119,7 +119,7 @@ jobs:
           PY
           python3 tools/beta/seal.py "$OUT/m.json" "$OUT/m.bin"
           # check both open again with the same code before they go up
-          python3 tools/beta/seal.py --open "$OUT/a.bin" "$OUT/check.apk" && cmp "$OUT/check.apk" app/build/outputs/apk/release/app-release.apk
+          python3 tools/beta/seal.py --open "$OUT/a.bin" "$OUT/check.apk" && cmp "$OUT/check.apk" app/build/outputs/apk/github/release/app-github-release.apk
           rm -f "$OUT/m.json" "$OUT/check.apk"
           if ! gh release view beta >/dev/null 2>&1; then
             gh release create beta --prerelease --latest=false --title "beta" --target "$GITHUB_SHA" \
