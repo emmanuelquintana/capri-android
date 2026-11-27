@@ -133,6 +133,15 @@ jobs:
           fi
           echo "Tamaño del APK: $(( $(stat -c%s Capri-Android-*.apk) / 1048576 )) MB"
 
+      # (1.12.5) "paquete no válido" otra vez: the signature as a phone checks it (v1 for Huawei's installer, v2/v3
+      # for Android 8+) and the zip alignment, before anything is published
+      - name: Check the signature like a phone does
+        run: |
+          bt=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -1)
+          "$bt/apksigner" verify --verbose --min-sdk-version 24 Capri-Android-*.apk | grep -E "Verifies|v1 scheme|v2 scheme|v3 scheme"
+          "$bt/apksigner" verify --min-sdk-version 24 Capri-Android-*.apk
+          "$bt/zipalign" -c -P 16 4 Capri-Android-*.apk
+
       # (1.12.0) the small speech models her passive ears download (WakeWord.Models): each address still answers
       - name: Check the passive ears' models are reachable
         continue-on-error: true
