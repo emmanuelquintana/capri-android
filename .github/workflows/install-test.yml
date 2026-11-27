@@ -1,0 +1,76 @@
+name: Prueba de instalación
+
+# ¿Se instala el APK publicado? Lo baja como lo baja la web (enlace de GitHub Releases), revisa la firma con
+# apksigner y lo instala en emuladores de varias versiones de Android: limpio, encima de 1.11.7 y en 32 bits.
+
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['.github/workflows/install-test.yml', 'tools/ci/install-test.sh']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Versión publicada que se prueba (vacío = la última)'
+        default: ''
+
+jobs:
+  firma:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bajar y revisar el APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          set -x
+          tag=${TAG:-$(gh release view -R ${{ github.repository }} --json tagName -q .tagName)}
+          url=$(gh release view "$tag" -R ${{ github.repository }} --json assets -q '.assets[] | select(.name|endswith(".apk")) | .url')
+          curl -sSL -D headers.txt -o capri.apk "$url"; cat headers.txt | grep -i -E "^HTTP|content-type|content-length|location" || true
+          ls -l capri.apk; sha256sum capri.apk
+          bt=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -1)
+          "$bt/apksigner" verify --verbose --print-certs --min-sdk-version 26 capri.apk
+          "$bt/zipalign" -c -P 16 -v 4 capri.apk | tail -3
+          "$bt/aapt2" dump badging capri.apk | head -12
+
+  instalar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { api: 26, arch: x86, target: default }
+          - { api: 28, arch: x86, target: default }
+          - { api: 29, arch: x86_64, target: default }
+          - { api: 30, arch: x86_64, target: google_apis }
+          - { api: 33, arch: x86_64, target: google_apis }
+          - { api: 34, arch: x86_64, target: google_apis }
+          - { api: 35, arch: x86_64, target: google_apis }
+          - { api: 36, arch: x86_64, target: google_apis }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bajar los APK (el último y 1.11.7)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          tag=${TAG:-$(gh release view -R ${{ github.repository }} --json tagName -q .tagName)}
+          url=$(gh release view "$tag" -R ${{ github.repository }} --json assets -q '.assets[] | select(.name|endswith(".apk")) | .url')
+          curl -sSL -o capri.apk "$url"
+          curl -sSL -o old.apk "https://github.com/${{ github.repository }}/releases/download/v1.11.7/Capri-Android-1.11.7.apk"
+          ls -l *.apk
+      - name: KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
+          ram-size: 3072M
+          disk-size: 4096M
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: bash tools/ci/install-test.sh
