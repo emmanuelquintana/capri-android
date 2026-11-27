@@ -905,3 +905,10 @@ body.is-dressing .fx { z-index: 41; }
   background: var(--vc, #929188);
   transition: width 0.3s ease-out;
 }
+
+/* (1.13.0) a community skin: who drew it and how */
+.wardrobe__credit {
+  color: var(--paper-3);
+  font: 400 9.5px/1.2 var(--font-mono);
+  overflow-wrap: anywhere;
+}

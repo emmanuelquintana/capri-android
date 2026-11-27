@@ -2,6 +2,11 @@
 
 O mesmo que o CHANGELOG.md (em espanhol, o original), em português: o app mostra este quando está em português.
 
+## 1.13.0
+
+- **✨ Novidades**
+- **Loja de skins da comunidade:** no Guarda-roupa dela, um botão novo abre skins feitas pela comunidade. Cada uma mostra quem desenhou e se foi feita com IA ou à mão, e você pode dar seu coração. Ordene por mais votadas ou mais recentes. Só aparece uma prévia leve: a skin completa é baixada quando você a adiciona, e aí fica nas roupas dela para vestir quando quiser.
+
 ## 1.12.4
 
 - **🛠️ Erros corrigidos**

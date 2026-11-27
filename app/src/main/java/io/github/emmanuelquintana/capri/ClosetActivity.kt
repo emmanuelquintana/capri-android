@@ -41,7 +41,8 @@ class ClosetActivity : Activity() {
             webViewClient = object : WebViewClient() {
                 override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
                     if (request.url.host != HOST) return null
-                    return serve(request.url.path ?: "/")
+                    val path = request.url.path ?: "/"
+                    return Skins.serve(this@ClosetActivity, path) ?: serve(path)
                 }
 
                 // nothing but her own page here
@@ -71,7 +72,18 @@ class ClosetActivity : Activity() {
         view.loadUrl("https://$HOST/android/closet.html")
     }
 
-    override fun onDestroy() {
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val w = web ?: return super.onBackPressed()
+        w.evaluateJavascript("window.__closetBack ? window.__closetBack() : false") { closed ->
+            if (closed != "true" && !isFinishing) {
+                @Suppress("DEPRECATION")
+                super.onBackPressed()
+            }
+        }
+    }
+
+        override fun onDestroy() {
         web?.destroy()
         web = null
         super.onDestroy()
@@ -137,6 +149,36 @@ class ClosetActivity : Activity() {
 
         @JavascriptInterface
         fun done() = runOnUiThread { finish() }
+
+        // ---- (1.13.0) the community store (store.js, Skins.kt) ----
+
+        /** The community skins on this phone, with their credits. */
+        @JavascriptInterface
+        fun skins(): String = Skins.list(this@ClosetActivity).toString()
+
+        /** Downloads one the store listed; answers window.__capriSkinDone(id, error). */
+        @JavascriptInterface
+        fun skinAdd(entry: String) {
+            val meta = runCatching { JSONObject(entry) }.getOrNull() ?: return
+            val id = meta.optString("id")
+            Threads.make {
+                val error = runCatching { Skins.add(this@ClosetActivity, meta) }.getOrElse { "error" }
+                runOnUiThread {
+                    web?.evaluateJavascript("window.__capriSkinDone && window.__capriSkinDone(${JSONObject.quote(id)}, ${if (error == null) "null" else JSONObject.quote(error)})", null)
+                }
+            }.start()
+        }
+
+        @JavascriptInterface
+        fun skinDrop(id: String) = Skins.drop(this@ClosetActivity, id)
+
+        /** The installation's id for the hearts (not the phone's). */
+        @JavascriptInterface
+        fun device(): String = Skins.device(this@ClosetActivity)
+
+        /** A beta: the store also shows its test skins. */
+        @JavascriptInterface
+        fun test(): Boolean = Beta.running || Beta.unlocked(this@ClosetActivity)
     }
 
     companion object {

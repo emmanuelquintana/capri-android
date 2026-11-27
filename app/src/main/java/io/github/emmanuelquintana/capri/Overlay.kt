@@ -413,6 +413,7 @@ class Overlay(private val context: Context, private val bridge: HostBridge) {
     // ---------- her files ----------
 
     private fun serve(path: String): WebResourceResponse {
+        Skins.serve(context, path)?.let { return it } // (1.13.0) her community skins
         return try {
             val stream = if (path.startsWith("/usersounds/")) {
                 val name = File(path.removePrefix("/usersounds/")).name // no way out of her folder

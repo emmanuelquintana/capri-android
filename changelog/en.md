@@ -2,6 +2,11 @@
 
 The same as CHANGELOG.md (Spanish, the original), in English: the app shows it when it's in English.
 
+## 1.13.0
+
+- **✨ What's new**
+- **Community skin store:** in her Wardrobe, a new button opens skins made by the community. Each one shows who designed it and whether it was made with AI or drawn by hand, and you can give it your heart. Sort them by most loved or newest. Only a light preview is shown: the full skin is downloaded when you add it, and then it stays in her outfits to put on whenever you like.
+
 ## 1.12.4
 
 - **🛠️ Bugs fixed**

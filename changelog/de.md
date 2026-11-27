@@ -2,6 +2,11 @@
 
 Dasselbe wie CHANGELOG.md (Spanisch, das Original), auf Deutsch: Die App zeigt es, wenn sie auf Deutsch ist.
 
+## 1.13.0
+
+- **✨ Neu**
+- **Community-Shop für Skins:** in ihrem Kleiderschrank öffnet ein neuer Knopf Skins aus der Community. Bei jedem steht, wer ihn entworfen hat und ob mit KI oder von Hand gezeichnet, und du kannst ihm dein Herz geben. Sortiere nach beliebtesten oder neuesten. Gezeigt wird nur eine leichte Vorschau: Der ganze Skin wird erst geladen, wenn du ihn hinzufügst, und bleibt dann bei ihren Outfits.
+
 ## 1.12.4
 
 - **🛠️ Behobene Fehler**

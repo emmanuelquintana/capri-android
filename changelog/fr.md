@@ -2,6 +2,11 @@
 
 Le même que CHANGELOG.md (en espagnol, l’original), en français : l’appli l’affiche quand elle est en français.
 
+## 1.13.0
+
+- **✨ Nouveautés**
+- **Boutique communautaire de skins:** dans sa Garde-robe, un nouveau bouton ouvre des skins faites par la communauté. Chacune indique qui l’a créée et si elle a été faite avec l’IA ou dessinée à la main, et tu peux lui donner ton cœur. Trie-les par les plus aimées ou les plus récentes. Seul un aperçu léger s’affiche : la skin complète se télécharge quand tu l’ajoutes, puis elle reste dans ses tenues pour la lui mettre quand tu veux.
+
 ## 1.12.4
 
 - **🛠️ Bugs corrigés**

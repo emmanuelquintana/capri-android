@@ -2,6 +2,11 @@
 
 Giống CHANGELOG.md (tiếng Tây Ban Nha, bản gốc), bằng tiếng Việt: ứng dụng hiển thị nó khi đang ở tiếng Việt.
 
+## 1.13.0
+
+- **✨ Tính năng mới**
+- **Cửa hàng skin cộng đồng:** trong Tủ đồ của cô ấy, một nút mới mở các skin do cộng đồng làm. Mỗi skin ghi ai thiết kế và làm bằng AI hay vẽ tay, và bạn có thể thả tim. Sắp xếp theo được yêu thích nhất hoặc mới nhất. Chỉ hiện ảnh xem trước nhẹ: skin đầy đủ chỉ được tải khi bạn thêm, rồi nằm trong trang phục của cô ấy để mặc bất cứ lúc nào.
+
 ## 1.12.4
 
 - **🛠️ Lỗi đã sửa**

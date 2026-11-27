@@ -2,6 +2,11 @@
 
 Lo stesso di CHANGELOG.md (spagnolo, l’originale), in italiano: l’app lo mostra quando è in italiano.
 
+## 1.13.0
+
+- **✨ Novità**
+- **Negozio di skin della community:** nel suo Guardaroba un nuovo pulsante apre le skin fatte dalla community. Ognuna dice chi l’ha disegnata e se è fatta con l’IA o a mano, e puoi darle il tuo cuore. Ordinale per più votate o più recenti. Si vede solo un’anteprima leggera: la skin completa si scarica quando la aggiungi, e poi resta tra i suoi outfit da mettere quando vuoi.
+
 ## 1.12.4
 
 - **🛠️ Bug corretti**

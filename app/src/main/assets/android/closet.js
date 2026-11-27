@@ -6,7 +6,8 @@ import { bothArms } from './arms.js';
 // and if she's on right now she changes there too.
 //
 // Kotlin (ClosetActivity) gives `window.CapriCloset`: config() her saved settings plus the app's
-// language, save(look) what you picked, onScreen() her wardrobe over your screen instead, done().
+// language, save(look) what you picked, onScreen() her wardrobe over your screen instead, done(),
+// and (1.13.0) what the community store needs (store.js).
 const bridge = window.CapriCloset;
 // anything that goes wrong here, in the app's log (ClosetActivity)
 const report = (what) => { try { bridge?.log(String(what)); } catch {} };
@@ -97,5 +98,16 @@ const done = document.getElementById('done');
 done.textContent = w.done;
 done.addEventListener('click', () => bridge?.done());
 
+// (1.13.0) the community store of her skins (store.js), opened from the top of the bar
+const { store } = await import('./store.js');
+const shop = store({ bridge, closet, lang });
+const top = document.createElement('div');
+top.className = 'bar bar--store';
+top.append(shop.opener);
+bar.before(top);
+// Android's back button closes the store first (ClosetActivity asks)
+window.__closetBack = () => (shop.isOpen ? (shop.close(), true) : false);
+
 // test hook (tools/preview): what she's wearing
 window.__closet = closet;
+window.__store = shop;

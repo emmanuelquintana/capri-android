@@ -3,6 +3,11 @@
 Cada versión, lo nuevo primero. El apartado de cada versión es el texto que se ve en su página de
 *Releases* y en el aviso de actualización de la app.
 
+## 1.13.0
+
+- **✨ Novedades**
+- **Tienda comunitaria de skins:** en su Vestuario, un botón nuevo abre skins hechas por la comunidad. Cada una dice quién la diseñó y si se hizo con IA o se dibujó a mano, y puedes darle tu corazón. Ordénalas por más votadas o más recientes. Solo se ve una vista previa ligera: la skin completa se descarga cuando la añades, y entonces queda en sus conjuntos para ponérsela cuando quieras.
+
 ## 1.12.4
 
 - **🛠️ Errores corregidos**

@@ -15,6 +15,23 @@ import { FACES } from '../capri/src/renderer/js/panel.js';
 import { bothArms } from './arms.js';
 
 const WARDROBE = new URL('../capri/assets/capri/wardrobe/', import.meta.url).href; // (from her page and from the app's closet.html)
+// (1.13.0) her community skins: the ones you added from the community store (store.js), kept by the app
+// (Skins.kt on Android) and served by her pages as /skins/index.json (their credits) and /skins/<id>.png.
+// In her wardrobe they're outfits like hers, with the id "c-<id>".
+const SKINS = new URL('../skins/', import.meta.url).href;
+const COMMUNITY_WORDS = {
+  es: { title: 'De la comunidad', by: 'por', ia: 'IA', mano: 'a mano' },
+  en: { title: 'From the community', by: 'by', ia: 'AI', mano: 'hand-drawn' },
+  fr: { title: 'De la communauté', by: 'par', ia: 'IA', mano: 'à la main' },
+  pt: { title: 'Da comunidade', by: 'por', ia: 'IA', mano: 'à mão' },
+  ru: { title: 'От сообщества', by: 'автор', ia: 'ИИ', mano: 'от руки' },
+  vi: { title: 'Từ cộng đồng', by: 'bởi', ia: 'AI', mano: 'vẽ tay' },
+  ja: { title: 'コミュニティから', by: '作:', ia: 'AI', mano: '手描き' },
+  de: { title: 'Aus der Community', by: 'von', ia: 'KI', mano: 'handgezeichnet' },
+  it: { title: 'Dalla community', by: 'di', ia: 'IA', mano: 'a mano' },
+};
+// a text of the store: one string, or one per language
+export const textIn = (t, lang) => (t == null ? '' : typeof t === 'string' ? t : t[lang] || t.es || t.en || Object.values(t)[0] || '');
 
 // ---------- what there is ----------
 
@@ -329,7 +346,7 @@ function loadImage(src) {
   });
 }
 
-export function wardrobe({ cfg, setConfig, onToggle }) {
+export function wardrobe({ cfg, setConfig, onToggle, community: host = null }) {
   const dev = window.dev;
   const capri = dev?.capri;
   if (!capri?.sprite) return null;
@@ -339,8 +356,27 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
   // animations, was too much memory for some phones, whose WebView then kept restarting her page).
   const listed = new Set();
   const have = {}; // drawings loaded so far: { 'outfit-jinete': Image, 'acc-crown': Image }
-  const need = (keys) => Promise.all(keys.filter((k) => listed.has(k) && !have[k]).map((k) =>
-    loadImage(`${WARDROBE}${k}.png`).then((img) => { if (img) have[k] = img; else listed.delete(k); })));
+  // (a host can give its own community skins: { list() → Promise<[...]>, picture(id) → Promise<URL|null> }, as the PC app does)
+  const src = async (k) => (!k.startsWith('outfit-c-') ? `${WARDROBE}${k}.png`
+    : host?.picture ? await host.picture(k.slice(9)) : `${SKINS}${k.slice(9)}.png`);
+  const need = async (keys) => {
+    // a community skin added since (from the store, while she was on): its list again
+    if (keys.some((k) => k.startsWith('outfit-c-') && !listed.has(k))) await community.load();
+    await Promise.all(keys.filter((k) => listed.has(k) && !have[k]).map((k) =>
+      src(k).then((u) => (u ? loadImage(u) : null)).catch(() => null).then((img) => { if (img) have[k] = img; else listed.delete(k); })));
+  };
+  // (1.13.0) her community skins on this phone: [{id, name, author, method, …}]
+  const community = {
+    list: [],
+    load: () => (host?.list ? Promise.resolve().then(() => host.list())
+      : fetch(`${SKINS}index.json`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : []))).catch(() => [])
+      .then((arr) => {
+        for (const k of [...listed]) if (k.startsWith('outfit-c-')) listed.delete(k);
+        community.list = (Array.isArray(arr) ? arr : []).filter((e) => e && /^[a-z0-9][a-z0-9-]{1,40}$/.test(e.id));
+        for (const e of community.list) listed.add(`outfit-c-${e.id}`);
+        for (const k of Object.keys(have)) if (k.startsWith('outfit-c-') && !listed.has(k)) delete have[k];
+      }),
+  };
   const worn = (l = look()) => [`outfit-${l.outfit}`, ...l.things.map((id) => `acc-${id}`)];
   const lang = () => (WORDS[dev.brain?.lang] ? dev.brain.lang : 'en');
   const t = () => WORDS[lang()];
@@ -349,7 +385,8 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
 
   // which drawings are in (once)
   const probing = fetch(`${WARDROBE}index.json`).then((r) => (r.ok ? r.json() : [])).catch(() => [])
-    .then((names) => { (Array.isArray(names) ? names : []).forEach((n) => listed.add(String(n))); });
+    .then((names) => { (Array.isArray(names) ? names : []).forEach((n) => listed.add(String(n))); })
+    .then(() => community.load());
 
   // her picture with all of it, sent to her shader
   let composing = Promise.resolve();
@@ -622,6 +659,25 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
           click: () => { set({ outfit: id }); render(); },
         }));
       }
+      // (1.13.0) the ones you added from the community store, with who drew them and how
+      if (community.list.length) {
+        const cw = COMMUNITY_WORDS[lang()] || COMMUNITY_WORDS.en;
+        g = grid(cw.title);
+        for (const e of community.list) {
+          const id = `c-${e.id}`;
+          const b = tile({
+            label: textIn(e.name, lang()) || e.id,
+            on: l.outfit === id,
+            paint: thumb(have[`outfit-${id}`] ? fitted(have[`outfit-${id}`]) : original),
+            click: () => { set({ outfit: id }); render(); },
+          });
+          const credit = document.createElement('span');
+          credit.className = 'wardrobe__credit';
+          credit.textContent = `${cw.by} ${e.author || '?'} · ${e.method === 'mano' ? cw.mano : cw.ia}`;
+          b.append(credit);
+          g.append(b);
+        }
+      }
     } else if (tab === 'things') {
       const hint = document.createElement('p');
       hint.className = 'wardrobe__hint';
@@ -732,8 +788,19 @@ export function wardrobe({ cfg, setConfig, onToggle }) {
     available: () => OUTFITS.filter(([id, , , , , , secret]) => (id === 'default' || listed.has(`outfit-${id}`)) && (secret !== 'secret' || unlocked().has(id))).map(([id]) => id),
     outfitName: (id) => {
       const row = OUTFITS.find(([o]) => o === id);
+      if (!row && id.startsWith('c-')) return textIn(community.list.find((e) => `c-${e.id}` === id)?.name, lang()) || id;
       return row ? nameIn(row, 1, lang()) : id;
     },
+    // (1.13.0) the community skins on this phone changed (store.js): their list again, and her in what she wears
+    async refreshCommunity() {
+      await community.load();
+      const l = look();
+      if (l.outfit.startsWith('c-') && !listed.has(`outfit-${l.outfit}`)) set({ outfit: 'default' });
+      else apply();
+      if (el && !el.hidden) { await need([...listed].filter((k) => k.startsWith('outfit-c-'))); render(); }
+    },
+    get refresh() { return this.refreshCommunity; },
+    community: () => community.list,
     has: (id) => listed.has(id),
     // a drawing of her (poses.js) as she is: her colors are her own
     paint: () => null,
