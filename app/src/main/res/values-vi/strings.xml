@@ -175,7 +175,7 @@
         <item>#Điện thoại của bạn</item>
         <item>“Capri, quay lại”, “về màn hình chính”, “cuộn xuống”</item>
         <item>“Capri, chạm vào Cài đặt”, “gõ vào đây xin chào”</item>
-        <item>Bật trước: Tùy chỉnh → Cô ấy dùng điện thoại giúp bạn</item>
+        <item>Bật trước: Cài đặt → Capri trên màn hình → Cô ấy dùng điện thoại giúp bạn</item>
         <item>“Capri, tách ra” (hoặc dang hai ngón tay trên cô ấy) · “nhập lại”</item>
         <item>#Mọi thứ khác</item>
         <item>Mọi thứ khác đến AI của cô ấy và cô ấy trả lời thành tiếng: “Capri, kể chuyện cười đi”, “Capri, con mèo tiếng Nhật nói thế nào?”</item>
@@ -307,7 +307,7 @@
     <string name="tab_you">Bạn</string>
     <string name="tab_style">Tùy chỉnh</string>
     <string name="you_intro">Những gì Capri biết về bạn: cô ấy gọi bạn là gì, sinh nhật của bạn, những gì cô ấy nhớ và cách cô ấy chăm sóc bạn.</string>
-    <string name="style_intro">Capri của bạn trông, cư xử và nghe như thế nào.</string>
+    <string name="style_intro">Quần áo của cô ấy: tủ đồ, cửa hàng cộng đồng và skin của riêng bạn.</string>
     <string name="settings_intro">Những thứ chung: quyền của cô ấy, ngôn ngữ, AI, đôi tai, các chế độ và cách ứng dụng chạy.</string>
     <string name="settings_modes">Các chế độ của cô ấy</string>
     <string name="settings_her_voice">Giọng của cô ấy</string>
@@ -829,4 +829,8 @@
     <string name="account_delete">Xóa tài khoản</string>
     <string name="account_delete_sure">Xóa tài khoản và mọi thứ đã lưu trong đó (ký ức, cài đặt, lớp học, chat)? Không thể hoàn tác. Dữ liệu trên điện thoại này vẫn giữ nguyên.</string>
     <string name="account_deleted">Đã xóa tài khoản.</string>
+    <string name="g_her_how">Kích thước, cách cô ấy di chuyển, chế độ bóng ma, ghé xem thông báo và dùng điện thoại giúp bạn.</string>
+    <string name="store_title">Cửa hàng cộng đồng</string>
+    <string name="store_how">Skin do cộng đồng làm, ghi tên người vẽ. Chỉ tải skin bạn thêm.</string>
+    <string name="store_open">Mở cửa hàng</string>
 </resources>

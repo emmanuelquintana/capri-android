@@ -106,7 +106,9 @@ top.className = 'bar bar--store';
 top.append(shop.opener);
 bar.before(top);
 // Android's back button closes the store first (ClosetActivity asks)
-window.__closetBack = () => (shop.isOpen ? (shop.close(), true) : false);
+window.__closetBack = () => shop.back();
+// (1.13.0) opened from Personalizar › Tienda comunitaria: straight into the store
+if (new URLSearchParams(location.search).has('store')) shop.open();
 
 // test hook (tools/preview): what she's wearing
 window.__closet = closet;

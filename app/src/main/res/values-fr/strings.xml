@@ -175,7 +175,7 @@
         <item>#Ton téléphone</item>
         <item>« Capri, retour », « écran d’accueil », « descends »</item>
         <item>« Capri, touche Paramètres », « écris ici salut »</item>
-        <item>Active-le d’abord : Personnaliser → Elle utilise ton téléphone pour toi</item>
+        <item>Active-le d’abord : Réglages → Capri sur ton écran → Elle utilise ton téléphone pour toi</item>
         <item>« Capri, divise-toi » (ou écarte deux doigts sur elle) · « fusionnez »</item>
         <item>#Tout le reste</item>
         <item>Tout le reste va à son IA et elle répond à voix haute : « Capri, raconte-moi une blague », « Capri, comment on dit chat en japonais ? »</item>
@@ -310,7 +310,7 @@
     <string name="tab_you">Toi</string>
     <string name="tab_style">Personnaliser</string>
     <string name="you_intro">Ce que Capri sait de toi : comment elle t’appelle, ton anniversaire, ce dont elle se souvient et comment elle prend soin de toi.</string>
-    <string name="style_intro">L’apparence, le comportement et la voix de ta Capri.</string>
+    <string name="style_intro">Ses vêtements : la garde-robe, la boutique communautaire et ta propre skin.</string>
     <string name="settings_intro">Le général : ses autorisations, la langue, son IA, son ouïe, ses modes et le fonctionnement de l’app.</string>
     <string name="settings_modes">Ses modes</string>
     <string name="settings_her_voice">Sa voix</string>
@@ -844,4 +844,8 @@
     <string name="account_delete">Supprimer le compte</string>
     <string name="account_delete_sure">Supprimer ton compte et tout ce qui y est enregistré (mémoire, réglages, cours, chat) ? C’est définitif. Ce qui est sur ce téléphone reste.</string>
     <string name="account_deleted">Compte supprimé.</string>
+    <string name="g_her_how">Sa taille, sa façon de bouger, le mode fantôme, quand elle jette un œil à tes notifications et quand elle utilise ton téléphone pour toi.</string>
+    <string name="store_title">Boutique communautaire</string>
+    <string name="store_how">Des skins faites par la communauté, avec le nom de leur auteur. Seule celle que tu ajoutes est téléchargée.</string>
+    <string name="store_open">Ouvrir la boutique</string>
 </resources>

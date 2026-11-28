@@ -175,7 +175,7 @@
         <item>#スマホ</item>
         <item>「カプリ、戻って」「ホームへ」「下にスクロール」</item>
         <item>「カプリ、設定をタップ」「ここにこんにちはって入力」</item>
-        <item>先にオンに：カスタマイズ → 彼女がスマホを操作</item>
+        <item>先にオンに：設定 → 画面のカプリ → 彼女がスマホを操作</item>
         <item>「カプリ、分身して」（または2本指で広げる）·「元に戻って」</item>
         <item>#その他</item>
         <item>それ以外はAIに届いて、声で答えます：「カプリ、ジョーク言って」「カプリ、猫ってスペイン語で何？」</item>
@@ -307,7 +307,7 @@
     <string name="tab_you">あなた</string>
     <string name="tab_style">カスタマイズ</string>
     <string name="you_intro">カプリがあなたについて知っていること：呼び名、誕生日、覚えていること、気づかい方。</string>
-    <string name="style_intro">あなたのカプリの見た目、ふるまい、声。</string>
+    <string name="style_intro">彼女の服：ワードローブ、コミュニティストア、あなたのスキン。</string>
     <string name="settings_intro">全般：権限、言語、AI、耳、モード、アプリの動作。</string>
     <string name="settings_modes">モード</string>
     <string name="settings_her_voice">彼女の声</string>
@@ -829,4 +829,8 @@
     <string name="account_delete">アカウントを削除</string>
     <string name="account_delete_sure">アカウントと保存されたすべて（記憶、設定、授業、チャット）を削除しますか？元に戻せません。このスマホにあるものは残ります。</string>
     <string name="account_deleted">アカウントを削除しました。</string>
+    <string name="g_her_how">大きさ、動き方、ゴーストモード、通知をのぞくこと、スマホの代理操作。</string>
+    <string name="store_title">コミュニティストア</string>
+    <string name="store_how">コミュニティが作ったスキン（作者名つき）。追加したものだけダウンロードされます。</string>
+    <string name="store_open">ストアを開く</string>
 </resources>

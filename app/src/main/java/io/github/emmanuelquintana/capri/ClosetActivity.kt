@@ -69,7 +69,7 @@ class ClosetActivity : Activity() {
         }
         web = view
         setContentView(Hud.clearOfBars(this, view))
-        view.loadUrl("https://$HOST/android/closet.html")
+        view.loadUrl("https://$HOST/android/closet.html" + if (intent.getBooleanExtra(EXTRA_STORE, false)) "?store=1" else "")
     }
 
     @Deprecated("Deprecated in Java")
@@ -183,5 +183,6 @@ class ClosetActivity : Activity() {
 
     companion object {
         private const val HOST = "appassets.androidplatform.net"
+        const val EXTRA_STORE = "store"
     }
 }

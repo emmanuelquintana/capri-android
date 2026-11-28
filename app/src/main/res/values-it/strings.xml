@@ -175,7 +175,7 @@
         <item>#Il tuo telefono</item>
         <item>“Capri, torna indietro”, “vai alla home”, “scorri giù”</item>
         <item>“Capri, tocca Impostazioni”, “scrivi qui ciao”</item>
-        <item>Attivalo prima: Personalizza → Usa il telefono al posto tuo</item>
+        <item>Attivalo prima: Impostazioni → Capri sul tuo schermo → Usa il telefono al posto tuo</item>
         <item>“Capri, sdoppiati” (o allarga due dita su di lei) · “tornate insieme”</item>
         <item>#Tutto il resto</item>
         <item>Tutto il resto va alla sua IA e risponde ad alta voce: “Capri, raccontami una barzelletta”, “Capri, come si dice gatto in giapponese?”</item>
@@ -308,7 +308,7 @@
     <string name="tab_you">Tu</string>
     <string name="tab_style">Personalizza</string>
     <string name="you_intro">Cosa sa Capri di te: come ti chiama, il tuo compleanno, cosa ricorda e come si prende cura di te.</string>
-    <string name="style_intro">Come appare, si comporta e suona la tua Capri.</string>
+    <string name="style_intro">I suoi vestiti: il guardaroba, il negozio della community e la tua skin.</string>
     <string name="settings_intro">Le cose generali: i suoi permessi, la lingua, la sua IA, le sue orecchie, le sue modalità e come funziona l’app.</string>
     <string name="settings_modes">Le sue modalità</string>
     <string name="settings_her_voice">La sua voce</string>
@@ -833,4 +833,8 @@
     <string name="account_delete">Elimina account</string>
     <string name="account_delete_sure">Eliminare il tuo account e tutto ciò che vi è salvato (memoria, impostazioni, lezioni, chat)? Non si può annullare. Quello che c’è su questo telefono resta.</string>
     <string name="account_deleted">Account eliminato.</string>
+    <string name="g_her_how">La sua taglia, come si muove, la modalità fantasma, quando sbircia le notifiche e quando usa il telefono al posto tuo.</string>
+    <string name="store_title">Negozio della community</string>
+    <string name="store_how">Skin fatte dalla community, con il nome di chi le ha disegnate. Si scarica solo quella che aggiungi.</string>
+    <string name="store_open">Apri il negozio</string>
 </resources>

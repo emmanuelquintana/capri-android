@@ -175,7 +175,7 @@
         <item>#Dein Handy</item>
         <item>„Capri, geh zurück“, „geh zum Startbildschirm“, „scroll runter“</item>
         <item>„Capri, tipp auf Einstellungen“, „schreib hier hallo“</item>
-        <item>Schalte es zuerst ein: Anpassen → Sie bedient dein Handy für dich</item>
+        <item>Schalte es zuerst ein: Einstellungen → Capri auf deinem Bildschirm → Sie bedient dein Handy für dich</item>
         <item>„Capri, teil dich“ (oder spreiz zwei Finger auf ihr) · „kommt wieder zusammen“</item>
         <item>#Alles andere</item>
         <item>Alles andere geht an ihre KI und sie antwortet laut: „Capri, erzähl mir einen Witz“, „Capri, was heißt Katze auf Japanisch?“</item>
@@ -308,7 +308,7 @@
     <string name="tab_you">Du</string>
     <string name="tab_style">Anpassen</string>
     <string name="you_intro">Was Capri über dich weiß: wie sie dich nennt, dein Geburtstag, woran sie sich erinnert und wie sie auf dich aufpasst.</string>
-    <string name="style_intro">Wie deine Capri aussieht, sich verhält und klingt.</string>
+    <string name="style_intro">Ihre Kleidung: der Kleiderschrank, der Community-Shop und dein eigener Skin.</string>
     <string name="settings_intro">Das Allgemeine: ihre Berechtigungen, die Sprache, ihre KI, ihre Ohren, ihre Modi und wie die App läuft.</string>
     <string name="settings_modes">Ihre Modi</string>
     <string name="settings_her_voice">Ihre Stimme</string>
@@ -833,4 +833,8 @@
     <string name="account_delete">Konto löschen</string>
     <string name="account_delete_sure">Dein Konto und alles darin Gespeicherte (Erinnerungen, Einstellungen, Kurse, Chat) löschen? Das kann nicht rückgängig gemacht werden. Was auf diesem Handy ist, bleibt.</string>
     <string name="account_deleted">Konto gelöscht.</string>
+    <string name="g_her_how">Ihre Größe, wie sie sich bewegt, der Geistermodus, das Hineinschauen in deine Benachrichtigungen und das Bedienen deines Handys.</string>
+    <string name="store_title">Community-Shop</string>
+    <string name="store_how">Skins aus der Community, mit dem Namen der Zeichner. Nur der, den du hinzufügst, wird geladen.</string>
+    <string name="store_open">Shop öffnen</string>
 </resources>

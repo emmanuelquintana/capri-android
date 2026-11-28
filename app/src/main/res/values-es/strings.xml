@@ -175,7 +175,7 @@
         <item>#Tu celular</item>
         <item>«Capri, ve atrás», «ve al inicio», «baja»</item>
         <item>«Capri, toca Ajustes», «escribe aquí hola»</item>
-        <item>Actívalo primero: Personalizar → Usa tu celular por ti</item>
+        <item>Actívalo primero: Ajustes → Capri en tu pantalla → Usa tu celular por ti</item>
         <item>«Capri, divídete» (o abre dos dedos sobre ella) · «júntense»</item>
         <item>#Lo demás</item>
         <item>Cualquier otra cosa se la pregunta a su IA y te contesta en voz alta: «Capri, cuéntame un chiste», «Capri, ¿cómo se dice gato en japonés?»</item>
@@ -310,7 +310,7 @@
     <string name="tab_you">Tú</string>
     <string name="tab_style">Personalizar</string>
     <string name="you_intro">Lo que Capri sabe de ti: cómo te llama, tu cumpleaños, lo que recuerda y cómo te cuida.</string>
-    <string name="style_intro">Cómo se ve, cómo se comporta y cómo suena tu Capri.</string>
+    <string name="style_intro">Su ropa: el vestuario, la tienda comunitaria y tu propia skin.</string>
     <string name="settings_intro">Lo general: sus permisos, el idioma, su IA, su oído, sus modos y cómo funciona la app.</string>
     <string name="settings_modes">Sus modos</string>
     <string name="settings_her_voice">Su voz</string>
@@ -844,4 +844,8 @@
     <string name="account_delete">Eliminar cuenta</string>
     <string name="account_delete_sure">¿Eliminar tu cuenta y todo lo guardado en ella (memoria, ajustes, clases, chat)? No se puede deshacer. Lo que hay en este teléfono se queda.</string>
     <string name="account_deleted">Cuenta eliminada.</string>
+    <string name="g_her_how">Su tamaño, cómo se mueve, el modo fantasma, cuando se asoma en tus notificaciones y cuando usa tu celular por ti.</string>
+    <string name="store_title">Tienda comunitaria</string>
+    <string name="store_how">Skins hechas por la comunidad, con el nombre de quien las dibujó. Solo se descarga la que añades.</string>
+    <string name="store_open">Abrir la tienda</string>
 </resources>

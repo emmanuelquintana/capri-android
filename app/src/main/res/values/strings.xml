@@ -177,7 +177,7 @@
         <item>#Your phone</item>
         <item>“Capri, go back”, “go home”, “scroll down”</item>
         <item>“Capri, tap Settings”, “type here hello”</item>
-        <item>Turn it on first: Customize → She uses your phone for you</item>
+        <item>Turn it on first: Settings → Capri on your screen → She uses your phone for you</item>
         <item>“Capri, split” (or spread two fingers on her) · “come back together”</item>
         <item>#Anything else</item>
         <item>Anything else goes to her AI and she answers out loud: “Capri, tell me a joke”, “Capri, how do you say cat in Japanese?”</item>
@@ -311,7 +311,7 @@
     <string name="tab_you">You</string>
     <string name="tab_style">Customize</string>
     <string name="you_intro">What Capri knows about you: what she calls you, your birthday, what she remembers and how she looks after you.</string>
-    <string name="style_intro">How your Capri looks, behaves and sounds.</string>
+    <string name="style_intro">Her clothes: the wardrobe, the community store and your own skin.</string>
     <string name="settings_intro">What’s general: her permissions, the language, her AI, her ears, her modes and how the app runs.</string>
     <string name="settings_modes">Her modes</string>
     <string name="settings_her_voice">Her voice</string>
@@ -845,4 +845,8 @@
     <string name="account_delete">Delete account</string>
     <string name="account_delete_sure">Delete your account and everything saved in it (memory, settings, classes, chat)? This can’t be undone. What’s on this phone stays.</string>
     <string name="account_deleted">Account deleted.</string>
+    <string name="g_her_how">Her size, how she moves, see-through mode, peeking in your notifications and using your phone for you.</string>
+    <string name="store_title">Community store</string>
+    <string name="store_how">Skins made by the community, with who drew them. Only the one you add is downloaded.</string>
+    <string name="store_open">Open the store</string>
 </resources>

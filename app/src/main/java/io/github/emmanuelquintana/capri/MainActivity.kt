@@ -237,6 +237,7 @@ class MainActivity : Activity() {
         groups += Group("voice", "mic", Hud.MANE, R.string.settings_voice_screen, R.string.settings_voice_screen_how, voice)
         groups += Group("perms", "shield", Hud.GREEN, R.string.g_perms, R.string.g_perms_how, permsPage())
         groups += Group("ai", "globe", Hud.CYAN, R.string.g_ai, R.string.g_ai_how, aiLangPage())
+        groups += Group("her", "spark", Hud.MANE, R.string.settings_her, R.string.g_her_how, herPage())
         groups += Group("screen", "eye", Hud.GREEN, R.string.g_screen, R.string.g_screen_how, screenPage())
         groups += Group("modes", "pad", Hud.GREEN, R.string.g_modes_only, R.string.g_modes_only_how, modesPage())
         groups += Group("phone", "phone", Hud.YELLOW, R.string.g_phone, R.string.g_phone_how, phonePage())
@@ -1110,6 +1111,8 @@ class MainActivity : Activity() {
         addView(ui.text(getString(R.string.style_intro), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // new in 1.8: her wardrobe, shown off first
         addView(wardrobeCard(), ui.block(16))
+        // (1.13.0) the community store of her skins (store.js in the Vestuario screen)
+        addView(storeCard(), ui.block(16))
         // (1.12.0, community + Emma: "otra pantalla que diga crea tu propia Capri") her template to draw on, and your
         // drawing sent to Emma's channel: it only comes to the app if Emma and the Discord server approve it
         addView(ui.card(Hud.MANE, Hud.CYAN).apply {
@@ -1119,9 +1122,30 @@ class MainActivity : Activity() {
             addView(ui.button(getString(R.string.skin_send) + " ›", Ui.Kind.LINE) { pickSkin() }, ui.block(8))
             addView(ui.text(getString(R.string.skin_approval), 12f, Hud.YELLOW, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(8))
         }, ui.block(16))
+        // (1.10.0) she dresses herself now and then (autodress.js): her clothes, so it stays here
+        addView(ui.card(Hud.YELLOW).apply {
+            addView(ui.label(getString(R.string.settings_autodress)))
+            // (1.10.0) she dresses herself now and then (autodress.js): off, or every 6 h, 12 h, a day
+            addView(ui.text(getString(R.string.settings_autodress_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+            addView(choiceText(listOf(getString(R.string.off) to 0.0, "6 h" to 6.0, "12 h" to 12.0, getString(R.string.autodress_day) to 24.0),
+                {
+                    val store = Store(this@MainActivity)
+                    if (!store.configFlag("autoDress", false)) 0.0 else store.configNumber("autoDressHours", 12.0)
+                }, { a, b -> Math.abs(a - b) < 0.5 }) {
+                if (it > 0) CapriSettings.set(this@MainActivity, "autoDressHours", it.toInt())
+                CapriSettings.set(this@MainActivity, "autoDress", it > 0)
+            }, ui.block(6))
+        }, ui.block(16))
+    }
+
+    // (1.13.0, Emma: "todo lo que no es lo de las skins no debe ir ahí si no en ajustes… Capri en tu pantalla, se asoma en
+    // tus notificaciones, usa tu celular por ti: esos son ajustes") her behavior on your screen, as a screen of Ajustes
+    private fun herPage() = page {
+        addView(backRow())
+        addView(ui.label(getString(R.string.settings_her)))
+        addView(ui.text(getString(R.string.g_her_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
         // her on your screen: size, how lively, ghost mode
         addView(ui.card(Hud.YELLOW).apply {
-            addView(ui.label(getString(R.string.settings_her)))
             addView(ui.text(getString(R.string.settings_size), 14f, Hud.PAPER, ui.head), ui.block(10))
             addView(choice(listOf(R.string.size_xs to 0.35, R.string.size_s to 0.45, R.string.size_m to 0.6, R.string.size_l to 0.8, R.string.size_xl to 1.0),
                 { Store(this@MainActivity).configNumber("scale", 0.6) }, { a, b -> Math.abs(a - b) < 0.02 }) { CapriSettings.set(this@MainActivity, "scale", it) }, ui.block(6))
@@ -1142,17 +1166,6 @@ class MainActivity : Activity() {
             addView(ui.text(getString(R.string.settings_float_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
             addView(choice(listOf(R.string.off to false, R.string.on to true),
                 { Store(this@MainActivity).configFlag("float", false) }, { a, b -> a == b }) { CapriSettings.set(this@MainActivity, "float", it) }, ui.block(6))
-            // (1.10.0) she dresses herself now and then (autodress.js): off, or every 6 h, 12 h, a day
-            addView(ui.text(getString(R.string.settings_autodress), 14f, Hud.PAPER, ui.head), ui.block(14))
-            addView(ui.text(getString(R.string.settings_autodress_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
-            addView(choiceText(listOf(getString(R.string.off) to 0.0, "6 h" to 6.0, "12 h" to 12.0, getString(R.string.autodress_day) to 24.0),
-                {
-                    val store = Store(this@MainActivity)
-                    if (!store.configFlag("autoDress", false)) 0.0 else store.configNumber("autoDressHours", 12.0)
-                }, { a, b -> Math.abs(a - b) < 0.5 }) {
-                if (it > 0) CapriSettings.set(this@MainActivity, "autoDressHours", it.toInt())
-                CapriSettings.set(this@MainActivity, "autoDress", it > 0)
-            }, ui.block(6))
             // (1.10.0) "quería decirle que abra una canción y la abra en Spotify": where a song you ask for plays
             addView(ui.text(getString(R.string.settings_musicapp), 14f, Hud.PAPER, ui.head), ui.block(14))
             addView(ui.text(getString(R.string.settings_musicapp_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
@@ -1219,6 +1232,15 @@ class MainActivity : Activity() {
             choices.add(show)
         }, ui.block(16))
 
+    }
+
+    // (1.13.0) the community store's door in Personalizar: straight into the store of her Vestuario screen
+    private fun storeCard() = ui.card(Hud.CYAN, Hud.MANE).apply {
+        addView(ui.label(getString(R.string.store_title), Hud.CYAN))
+        addView(ui.text(getString(R.string.store_how), 13f, Hud.PAPER_2, ui.body).apply { setLineSpacing(0f, 1.15f) }, ui.block(4))
+        addView(ui.button(getString(R.string.store_open) + " ›", Ui.Kind.GREEN) {
+            startActivity(android.content.Intent(this@MainActivity, ClosetActivity::class.java).putExtra(ClosetActivity.EXTRA_STORE, true))
+        }, ui.block(10))
     }
 
 

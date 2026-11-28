@@ -175,7 +175,7 @@
         <item>#Seu celular</item>
         <item>“Capri, volta”, “vai pro início”, “desce”</item>
         <item>“Capri, toca em Configurações”, “escreve aqui oi”</item>
-        <item>Ative antes: Personalizar → Ela usa seu celular por você</item>
+        <item>Ative antes: Ajustes → Capri na sua tela → Ela usa seu celular por você</item>
         <item>“Capri, se divide” (ou abra dois dedos sobre ela) · “juntem-se”</item>
         <item>#Todo o resto</item>
         <item>Todo o resto vai para a IA dela e ela responde em voz alta: “Capri, me conta uma piada”, “Capri, como se diz gato em japonês?”</item>
@@ -310,7 +310,7 @@
     <string name="tab_you">Você</string>
     <string name="tab_style">Personalizar</string>
     <string name="you_intro">O que a Capri sabe de você: como te chama, seu aniversário, o que ela lembra e como cuida de você.</string>
-    <string name="style_intro">Como sua Capri aparece, se comporta e soa.</string>
+    <string name="style_intro">As roupas dela: o guarda-roupa, a loja da comunidade e a sua própria skin.</string>
     <string name="settings_intro">O geral: as permissões, o idioma, a IA, a audição, os modos e como o app funciona.</string>
     <string name="settings_modes">Os modos dela</string>
     <string name="settings_her_voice">A voz dela</string>
@@ -844,4 +844,8 @@
     <string name="account_delete">Excluir conta</string>
     <string name="account_delete_sure">Excluir sua conta e tudo o que está salvo nela (memória, ajustes, aulas, chat)? Não dá para desfazer. O que está neste celular fica.</string>
     <string name="account_deleted">Conta excluída.</string>
+    <string name="g_her_how">O tamanho dela, como se mexe, o modo fantasma, quando espia suas notificações e quando usa seu celular por você.</string>
+    <string name="store_title">Loja da comunidade</string>
+    <string name="store_how">Skins feitas pela comunidade, com o nome de quem desenhou. Só a que você adiciona é baixada.</string>
+    <string name="store_open">Abrir a loja</string>
 </resources>
