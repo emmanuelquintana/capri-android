@@ -58,7 +58,7 @@ object Skins {
         if (!ID.matches(id)) return "id"
         val image = meta.optString("image")
         val url = runCatching { URL(image) }.getOrNull() ?: return "url"
-        if (url.protocol != "https" || url.host != HOST) return "url"
+        if (url.protocol != "https" || !(url.host == HOST || url.host.endsWith(".r2.dev"))) return "url" // (the website, or its Cloudflare R2 bucket)
         val want = meta.optString("sha256").lowercase()
         val size = meta.optInt("bytes", 0)
         if (want.length != 64 || size <= 0 || size > MAX_BYTES) return "meta"
